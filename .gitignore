@@ -1,7 +1,7 @@
 private/
 /dist/
 /.vscode/
-src/generated/
+generated/
 jobs/export/
 *.old
 
