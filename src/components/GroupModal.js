@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 
 import {
   Button,
@@ -74,9 +74,9 @@ const GroupModal = ({ cubeID, canEdit, children, ...props }) => {
   });
 
   const handleChange = useCallback((event) => {
-    const target = event.target;
+    const { target } = event;
     const value = ['checkbox', 'radio'].includes(target.type) ? target.checked : target.value;
-    const name = target.name;
+    const { name } = target;
     const extra = {};
     if (name === 'addTags') {
       extra.deleteTags = false;

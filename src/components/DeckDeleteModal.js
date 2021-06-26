@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types';
 
-import React from 'react';
-
 import { csrfFetch } from 'utils/CSRF';
 
 import ConfirmDeleteModal from 'components/ConfirmDeleteModal';

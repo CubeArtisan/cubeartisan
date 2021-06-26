@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import {
@@ -15,10 +15,10 @@ import {
   Row,
 } from 'reactstrap';
 
+import TagContext, { getTagColorClass, TAG_COLORS } from 'contexts/TagContext';
 import { arrayMove } from '../utils/Util';
 
 import LoadingButton from './LoadingButton';
-import TagContext, { getTagColorClass, TAG_COLORS } from 'contexts/TagContext';
 
 const SortableItem = SortableElement(({ value }) => <div className="sortable-item">{value}</div>);
 
@@ -71,13 +71,12 @@ class TagColorsModalRaw extends Component {
         this.props.setTagColors(this.state.tagColors),
         this.props.setShowTagColors(this.state.showTagColors),
       ]).then(() => this.props.toggle());
-    } else {
-      return this.props.setShowTagColors(this.state.showTagColors).then(() => this.props.toggle());
     }
+    return this.props.setShowTagColors(this.state.showTagColors).then(() => this.props.toggle());
   }
 
   handleChangeColor(event) {
-    const target = event.target;
+    const { target } = event;
     const name = target.getAttribute('name');
     if (!name.startsWith('tagcolor-')) {
       return;
@@ -100,7 +99,7 @@ class TagColorsModalRaw extends Component {
   }
 
   handleChangeShowTagColors(event) {
-    const target = event.target;
+    const { target } = event;
     this.setState({
       showTagColors: target.checked,
     });

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import {
   Button,
@@ -141,7 +141,7 @@ const AdvancedFilterModal = ({ isOpen, toggle, apply, values, onChange, ...props
         <TextField
           name="type"
           humanName="Type Line"
-          placeholder={'Choose any card type, supertype, or subtypes to match'}
+          placeholder="Choose any card type, supertype, or subtypes to match"
           value={values.type}
           onChange={onChange}
         />
@@ -339,8 +339,8 @@ class FilterCollapse extends Component {
       advancedOpen: false,
       filterInput: this.props.defaultFilterText || '',
       ...fromEntries(allFields.map((n) => [n, ''])),
-      ...fromEntries(numFields.map((n) => [n + 'Op', '='])),
-      ...fromEntries(colorFields.map((n) => [n + 'Op', '='])),
+      ...fromEntries(numFields.map((n) => [`${n}Op`, '='])),
+      ...fromEntries(colorFields.map((n) => [`${n}Op`, '='])),
       ...fromEntries(colorFields.map((n) => [...'WUBRG'].map((c) => [n + c, false])).flat()),
       typeQuick: '',
       cmcQuick: '',
@@ -383,7 +383,7 @@ class FilterCollapse extends Component {
     const tokens = [];
     for (const name of allFields) {
       if (this.state[name]) {
-        const op = numFields.includes(name) ? this.state[name + 'Op'] || '=' : ':';
+        const op = numFields.includes(name) ? this.state[`${name}Op`] || '=' : ':';
         let value = this.state[name].replace('"', '\\"');
         if (value.indexOf(' ') > -1) {
           value = `"${value}"`;
@@ -393,7 +393,7 @@ class FilterCollapse extends Component {
     }
     for (const name of colorFields) {
       const colors = [];
-      const op = this.state[name + 'Op'] || '=';
+      const op = this.state[`${name}Op`] || '=';
       for (const color of [...'WUBRG']) {
         if (this.state[name + color]) {
           colors.push(color);
@@ -468,9 +468,9 @@ class FilterCollapse extends Component {
   }
 
   handleChange(event) {
-    const target = event.target;
+    const { target } = event;
     const value = ['checkbox', 'radio'].includes(target.type) ? target.checked : target.value;
-    const name = target.name;
+    const { name } = target;
 
     this.setState({
       [name]: value,
@@ -502,11 +502,9 @@ class FilterCollapse extends Component {
     if (err) {
       console.warn('Error parsing', err);
     }
-    const appliedText =
-      'Filters applied' +
-      (typeof numCards !== 'undefined' ? `: ${numCards} cards` : '') +
-      (typeof numShown !== 'undefined' ? `, ${numShown} shown` : '') +
-      '.';
+    const appliedText = `Filters applied${typeof numCards !== 'undefined' ? `: ${numCards} cards` : ''}${
+      typeof numShown !== 'undefined' ? `, ${numShown} shown` : ''
+    }.`;
     return (
       <Collapse className="px-3" {...props}>
         <Row>
@@ -565,7 +563,7 @@ class FilterCollapse extends Component {
                 >
                   <option>{'>'}</option>
                   <option>{'>='}</option>
-                  <option>{'='}</option>
+                  <option>=</option>
                   <option>{'<='}</option>
                   <option>{'<'}</option>
                 </CustomInput>

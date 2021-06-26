@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { Row, Col, Container } from 'reactstrap';
 
 import Copyright from 'components/Copyright';

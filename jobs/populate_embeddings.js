@@ -6,9 +6,9 @@ require('dotenv').config();
 
 const mongoose = require('mongoose');
 
+const fetch = require('node-fetch');
 const carddb = require('../serverjs/cards.js');
 const CardRating = require('../models/cardrating');
-const fetch = require('node-fetch');
 
 const BATCH_SIZE = 1000;
 

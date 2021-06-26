@@ -1,5 +1,5 @@
-var stopAutocard = false;
-var autocardTimeout = null;
+const stopAutocard = false;
+let autocardTimeout = null;
 
 window.globalTagColors = window.globalTagColors || [];
 window.globalShowTagColors = window.globalShowTagColors !== false;
@@ -8,9 +8,8 @@ function getTagColorClass(tag) {
   const tagColor = window.globalTagColors.find((tagColor) => tag === tagColor.tag);
   if (window.globalShowTagColors && tagColor && tagColor.color) {
     return `tag-color tag-${tagColor.color}`;
-  } else {
-    return 'tag-no-color';
   }
+  return 'tag-no-color';
 }
 
 const autocardEnterListeners = new Map();
@@ -28,10 +27,10 @@ function autocard_init(classname) {
       element,
       element.addEventListener('mouseenter', (event) => {
         if (!stopAutocard) {
-          const target = event.target;
-          let tagsStr = target.getAttribute('card_tags');
-          let tags = tagsStr ? tagsStr.split(',') : null;
-          let foil = target.getAttribute('data-foil') === 'true';
+          const { target } = event;
+          const tagsStr = target.getAttribute('card_tags');
+          const tags = tagsStr ? tagsStr.split(',') : null;
+          const foil = target.getAttribute('data-foil') === 'true';
           autocard_show_card(
             target.getAttribute('card'),
             target.getAttribute('card_flip'),
@@ -57,36 +56,34 @@ function autocard_init(classname) {
 document.onmousemove = function (e) {
   popupElement = document.getElementById('autocardPopup');
 
-  var leftPixelSpace = e.clientX;
-  var rightPixelSpace = window.innerWidth - leftPixelSpace;
-  var topPixelSpace = e.clientY;
-  var bottomPixelSpace = window.innerHeight - topPixelSpace;
+  const leftPixelSpace = e.clientX;
+  const rightPixelSpace = window.innerWidth - leftPixelSpace;
+  const topPixelSpace = e.clientY;
+  const bottomPixelSpace = window.innerHeight - topPixelSpace;
 
-  var x_offset = e.clientX + self.pageXOffset;
-  var y_offset = e.clientY + self.pageYOffset;
+  const x_offset = e.clientX + self.pageXOffset;
+  const y_offset = e.clientY + self.pageYOffset;
 
   if (rightPixelSpace > leftPixelSpace) {
     // display on right
-    autocardPopup.style.left = Math.max(self.pageXOffset, 5 + x_offset) + 'px';
+    autocardPopup.style.left = `${Math.max(self.pageXOffset, 5 + x_offset)}px`;
     autocardPopup.style.right = null;
   } else {
     // display on left
-    autocardPopup.style.right = Math.max(window.innerWidth + 5 - x_offset, 0) + 'px';
+    autocardPopup.style.right = `${Math.max(window.innerWidth + 5 - x_offset, 0)}px`;
     autocardPopup.style.left = null;
   }
   if (autocardPopup.offsetHeight > window.innerHeight) {
-    autocardPopup.style.top = self.pageYOffset + 'px';
+    autocardPopup.style.top = `${self.pageYOffset}px`;
+    autocardPopup.style.bottom = null;
+  } else if (bottomPixelSpace > topPixelSpace) {
+    // display on bottom
+    autocardPopup.style.top = `${5 + y_offset}px`;
     autocardPopup.style.bottom = null;
   } else {
-    if (bottomPixelSpace > topPixelSpace) {
-      // display on bottom
-      autocardPopup.style.top = 5 + y_offset + 'px';
-      autocardPopup.style.bottom = null;
-    } else {
-      // display on top
-      autocardPopup.style.bottom = window.innerHeight + 5 - y_offset + 'px';
-      autocardPopup.style.top = null;
-    }
+    // display on top
+    autocardPopup.style.bottom = `${window.innerHeight + 5 - y_offset}px`;
+    autocardPopup.style.top = null;
   }
 };
 
@@ -132,7 +129,7 @@ function autocard_show_card(card_image, card_flip, show_art_crop, tags, foil, in
   if (tags) {
     let tagsText = '';
     tags.forEach(function (tag, index) {
-      tagsText += "<span class='tag " + getTagColorClass(tag.trim()) + "'>" + tag.trim() + '</span>';
+      tagsText += `<span class='tag ${getTagColorClass(tag.trim())}'>${tag.trim()}</span>`;
     });
     document.getElementById('autocardTags').innerHTML = tagsText;
   }

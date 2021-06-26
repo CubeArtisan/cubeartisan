@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
 import UserContext from 'contexts/UserContext';
 import { Navbar, Nav, NavItem, NavLink, Row, Col, CardBody } from 'reactstrap';

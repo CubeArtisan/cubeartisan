@@ -1,4 +1,3 @@
-import React from 'react';
 import ArticlePropType from 'proptypes/ArticlePropType';
 
 import Markdown from 'components/Markdown';

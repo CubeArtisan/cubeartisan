@@ -1,6 +1,6 @@
-import React from 'react';
+import { createContext } from 'react';
 
-const SiteCustomizationContext = React.createContext({
+const SiteCustomizationContext = createContext({
   discordUrl: 'DiscordUrl',
   siteName: 'SiteName',
   siteRoot: 'http://localhost:8080',

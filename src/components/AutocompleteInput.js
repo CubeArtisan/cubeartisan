@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback, useEffect, useMemo, useState } from 'react';
+import { forwardRef, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Input } from 'reactstrap';
 import withAutocard from 'components/WithAutocard';
@@ -19,66 +19,62 @@ function getAllMatches(names, current) {
 function getPosts(names, current) {
   if (current == '') {
     return names;
-  } else {
-    const character = current.charAt(0);
-    const sub = current.substr(1, current.length);
-
-    //please don't try to understand why this works
-    if (
-      character.toUpperCase() != character.toLowerCase() &&
-      names[character.toUpperCase()] &&
-      names[character.toLowerCase()]
-    ) {
-      if (names[character.toUpperCase()][sub.charAt(0)]) {
-        const upper = getPosts(names[character.toUpperCase()], sub);
-        if (names[character.toLowerCase()]) {
-          const lower = getPosts(names[character.toLowerCase()], sub);
-          const res = deepmerge(upper, lower);
-          return res;
-        } else {
-          return upper;
-        }
-      } else {
-        const lower = getPosts(names[character.toLowerCase()], sub);
-        if (names[character.toUpperCase()]) {
-          const upper = getPosts(names[character.toUpperCase()], sub);
-          const res = deepmerge(upper, lower);
-          return res;
-        } else {
-          return lower;
-        }
-      }
-    } else if (names[character.toUpperCase()]) {
-      return getPosts(names[character.toUpperCase()], sub);
-    } else if (names[character.toLowerCase()]) {
-      return getPosts(names[character.toLowerCase()], sub);
-    } else {
-      return {};
-    }
   }
+  const character = current.charAt(0);
+  const sub = current.substr(1, current.length);
+
+  // please don't try to understand why this works
+  if (
+    character.toUpperCase() != character.toLowerCase() &&
+    names[character.toUpperCase()] &&
+    names[character.toLowerCase()]
+  ) {
+    if (names[character.toUpperCase()][sub.charAt(0)]) {
+      const upper = getPosts(names[character.toUpperCase()], sub);
+      if (names[character.toLowerCase()]) {
+        const lower = getPosts(names[character.toLowerCase()], sub);
+        const res = deepmerge(upper, lower);
+        return res;
+      }
+      return upper;
+    }
+    const lower = getPosts(names[character.toLowerCase()], sub);
+    if (names[character.toUpperCase()]) {
+      const upper = getPosts(names[character.toUpperCase()], sub);
+      const res = deepmerge(upper, lower);
+      return res;
+    }
+    return lower;
+  }
+  if (names[character.toUpperCase()]) {
+    return getPosts(names[character.toUpperCase()], sub);
+  }
+  if (names[character.toLowerCase()]) {
+    return getPosts(names[character.toLowerCase()], sub);
+  }
+  return {};
 }
 
 function treeToWords(tree, max) {
   if (isEmpty(tree)) {
     return [];
-  } else {
-    const words = [];
-    for (const prop in tree) {
-      if (tree.hasOwnProperty(prop)) {
-        if (isEmpty(tree[prop])) {
-          words.push(prop);
-        }
-        const wordlets = treeToWords(tree[prop], max);
-        for (let i = 0; i < wordlets.length; i++) {
-          words.push(prop + wordlets[i]);
-        }
+  }
+  const words = [];
+  for (const prop in tree) {
+    if (tree.hasOwnProperty(prop)) {
+      if (isEmpty(tree[prop])) {
+        words.push(prop);
       }
-      if (words.length > max) {
-        return words;
+      const wordlets = treeToWords(tree[prop], max);
+      for (let i = 0; i < wordlets.length; i++) {
+        words.push(prop + wordlets[i]);
       }
     }
-    return words;
+    if (words.length > max) {
+      return words;
+    }
   }
+  return words;
 }
 
 function isEmpty(obj) {
@@ -90,7 +86,7 @@ function isEmpty(obj) {
   return true;
 }
 
-//Deepmerge utility
+// Deepmerge utility
 function isMergeableObject(val) {
   const nonNullObject = val && typeof val === 'object';
 
@@ -152,9 +148,8 @@ function deepmerge(target, source, optionsArgument) {
     return Array.isArray(target)
       ? arrayMerge(target, source, optionsArgument)
       : cloneIfNecessary(source, optionsArgument);
-  } else {
-    return mergeObject(target, source, optionsArgument);
   }
+  return mergeObject(target, source, optionsArgument);
 }
 
 deepmerge.all = function deepmergeAll(array, optionsArgument) {

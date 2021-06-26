@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import CubePropType from 'proptypes/CubePropType';
 
@@ -80,7 +80,7 @@ class CubeOverviewModal extends Component {
   }
 
   async loadImageDict() {
-    //load the card images
+    // load the card images
     const image_resp = await fetch('/cube/api/imagedict');
     const image_json = await image_resp.json();
     this.setState({ image_dict: image_json.dict });
@@ -104,7 +104,7 @@ class CubeOverviewModal extends Component {
   }
 
   handleDescriptionChange(e) {
-    var value = e.target.value;
+    const { value } = e.target;
     this.setState((prevState) => ({
       cube: {
         ...prevState.cube,
@@ -126,7 +126,7 @@ class CubeOverviewModal extends Component {
   }
 
   imageNameChange(e) {
-    var value = e.target.value;
+    const { value } = e.target;
     this.setState((prevState) => ({
       cube: {
         ...prevState.cube,
@@ -134,8 +134,8 @@ class CubeOverviewModal extends Component {
       },
     }));
     if (this.state.image_dict[value.toLowerCase()]) {
-      var url = this.state.image_dict[value.toLowerCase()].uri;
-      var artist = this.state.image_dict[value.toLowerCase()].artist;
+      const url = this.state.image_dict[value.toLowerCase()].uri;
+      const { artist } = this.state.image_dict[value.toLowerCase()];
       this.setState((prevState) => ({
         cube: {
           ...prevState.cube,
@@ -147,12 +147,12 @@ class CubeOverviewModal extends Component {
   }
 
   handleChange(e) {
-    const target = e.target;
+    const { target } = e;
     const value = target.type === 'checkbox' ? target.checked : target.value;
 
     if (e.target.name === 'category_prefix') {
-      var id = target.value;
-      var prefixes = this.state.cube.categoryPrefixes;
+      const id = target.value;
+      let prefixes = this.state.cube.categoryPrefixes;
 
       if (prefixes.includes(id) && !value) {
         prefixes = prefixes.filter(function (e) {
@@ -194,17 +194,15 @@ class CubeOverviewModal extends Component {
     const json = await response.json();
     if (response.ok) {
       if (this.state.urlChanged) {
-        let cubeID = getCubeId(this.state.cube);
+        const cubeID = getCubeId(this.state.cube);
         window.location.href = `/cube/overview/${encodeURIComponent(cubeID)}`;
       }
       this.props.onCubeUpdate(cube);
-    } else {
-      if (json.message) {
-        this.error(json.message);
-      } else if (json.errors) {
-        for (const error of json.errors) {
-          this.error(error);
-        }
+    } else if (json.message) {
+      this.error(json.message);
+    } else if (json.errors) {
+      for (const error of json.errors) {
+        this.error(error);
       }
     }
     this.close();
@@ -235,7 +233,7 @@ class CubeOverviewModal extends Component {
                   name="name"
                   type="text"
                   value={cube.name}
-                  required={true}
+                  required
                   onChange={this.handleChange}
                 />
                 <br />
@@ -250,7 +248,7 @@ class CubeOverviewModal extends Component {
                     checked={cube.overrideCategory}
                     onChange={this.handleChange}
                   />
-                  <label className="form-check-label" for="overrideCategory">
+                  <label className="form-check-label" htmlFor="overrideCategory">
                     Override Cube Category
                   </label>
                 </div>
@@ -271,7 +269,7 @@ class CubeOverviewModal extends Component {
                                 type="radio"
                                 name="categoryOverride"
                                 value={label}
-                                disabled={cube.overrideCategory ? false : true}
+                                disabled={!cube.overrideCategory}
                                 checked={cube.categoryOverride == label}
                                 onChange={this.handleChange}
                               />{' '}
@@ -304,9 +302,9 @@ class CubeOverviewModal extends Component {
                           type="checkbox"
                           checked={(cube.categoryPrefixes ? cube.categoryPrefixes : []).includes(label)}
                           onChange={this.handleChange}
-                          disabled={cube.overrideCategory ? false : true}
+                          disabled={!cube.overrideCategory}
                         />
-                        <label className="form-check-label" for={`categoryPrefix${label}`}>
+                        <label className="form-check-label" htmlFor={`categoryPrefix${label}`}>
                           {label}
                         </label>
                       </div>
@@ -370,7 +368,7 @@ class CubeOverviewModal extends Component {
                   type="text"
                   value={cube.shortID}
                   onChange={this.handleChange}
-                  required={true}
+                  required
                   placeholder="Give this cube an easy to remember URL."
                 />
                 <FormText>Changing the short ID may break existing links to your cube.</FormText>

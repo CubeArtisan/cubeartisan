@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback } from 'react';
+import { Fragment, useCallback } from 'react';
 
 import { Button, ButtonGroup, FormGroup, Input, InputGroupAddon, Label } from 'reactstrap';
 
@@ -41,7 +41,7 @@ export const ColorCheckButton = ({ prefix, size, color, short, value, onChange }
       } else if ([...'WUBRG'].includes(short) && !value) {
         onChange({
           target: {
-            name: prefix + 'C',
+            name: `${prefix}C`,
             value: false,
           },
         });
@@ -52,7 +52,7 @@ export const ColorCheckButton = ({ prefix, size, color, short, value, onChange }
   const symbolClassName = size ? `mana-symbol-${size}` : 'mana-symbol';
   return (
     <Button
-      className={'color-check-button' + (value ? ' active' : '')}
+      className={`color-check-button${value ? ' active' : ''}`}
       outline={!value}
       size={size}
       onClick={handleClick}
@@ -98,7 +98,7 @@ export const ColorChecksAddon = ({ addonType, colorless, prefix, size, values, o
     colors.push(['Colorless', 'C']);
   }
   return (
-    <Fragment>
+    <>
       {colors.map(([color, short]) => (
         <InputGroupAddon key={short} addonType={addonType}>
           <ColorCheckButton
@@ -111,7 +111,7 @@ export const ColorChecksAddon = ({ addonType, colorless, prefix, size, values, o
           />
         </InputGroupAddon>
       ))}
-    </Fragment>
+    </>
   );
 };
 

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import PropTypes from 'prop-types';
 import CardPropType from 'proptypes/CardPropType';
 import DraftSeatPropType from 'proptypes/DraftSeatPropType';

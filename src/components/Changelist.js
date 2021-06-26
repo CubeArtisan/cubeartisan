@@ -1,4 +1,4 @@
-﻿import React, { useCallback, useContext } from 'react';
+import { useCallback, useContext } from 'react';
 
 import { Badge, Input } from 'reactstrap';
 
@@ -42,7 +42,7 @@ const Changelist = () => {
     (event) => {
       event.preventDefault();
 
-      const target = event.target;
+      const { target } = event;
       const changeId = parseInt(target.getAttribute('data-change-id'));
       removeChange(changeId);
     },
@@ -54,11 +54,13 @@ const Changelist = () => {
   const changelistData = changes
     .map((change) => {
       if (change.add) {
-        return '+' + (change.add.details._id || change.add.cardID);
-      } else if (change.remove) {
-        return '-' + change.remove.index + '$' + getId(change.remove);
-      } else if (change.replace) {
-        return `/${change.replace[0].index + '$' + getId(change.replace[0])}>${getId(change.replace[1])}`;
+        return `+${change.add.details._id || change.add.cardID}`;
+      }
+      if (change.remove) {
+        return `-${change.remove.index}$${getId(change.remove)}`;
+      }
+      if (change.replace) {
+        return `/${`${change.replace[0].index}$${getId(change.replace[0])}`}>${getId(change.replace[1])}`;
       }
     })
     .join(';');
@@ -69,9 +71,11 @@ const Changelist = () => {
         {changes.map((change) => {
           if (change.add) {
             return <Add key={change.id} card={change.add} changeId={change.id} close={close} />;
-          } else if (change.remove) {
+          }
+          if (change.remove) {
             return <Remove key={change.id} card={change.remove} changeId={change.id} close={close} />;
-          } else if (change.replace) {
+          }
+          if (change.replace) {
             return <Replace key={change.id} cards={change.replace} changeId={change.id} close={close} />;
           }
         })}

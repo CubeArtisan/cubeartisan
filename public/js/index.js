@@ -1,5 +1,5 @@
 function toggleRecent() {
-  var x = document.getElementById('recentMore');
+  const x = document.getElementById('recentMore');
   if (x.innerHTML === 'View More...') {
     x.innerHTML = 'View Fewer...';
   } else {
@@ -8,7 +8,7 @@ function toggleRecent() {
 }
 
 function toggleDraft() {
-  var x = document.getElementById('draftMore');
+  const x = document.getElementById('draftMore');
   if (x.innerHTML === 'View More...') {
     x.innerHTML = 'Hide';
   } else {

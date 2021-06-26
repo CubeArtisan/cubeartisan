@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import { Collapse, Nav, NavItem, NavLink, Navbar, NavbarToggler } from 'reactstrap';
 
@@ -30,7 +30,7 @@ class CubeCompareNavbar extends Component {
 
   handleOpenCollapse(event) {
     event.preventDefault();
-    const target = event.target;
+    const { target } = event;
     const collapse = target.getAttribute('data-target');
     const { setOpenCollapse } = this.props;
     setOpenCollapse((openCollapse) => (openCollapse === collapse ? null : collapse));

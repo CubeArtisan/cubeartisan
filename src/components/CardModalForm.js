@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 
 import { cardsAreEquivalent, normalizeName } from 'utils/Card';
 import { csrfFetch } from 'utils/CSRF';
@@ -66,9 +66,9 @@ const CardModalForm = ({ children, ...props }) => {
   }, []);
 
   const handleChange = useCallback((event) => {
-    const target = event.target;
+    const { target } = event;
     const value = ['checkbox', 'radio'].includes(target.type) ? target.checked : target.value;
-    const name = target.name;
+    const { name } = target;
 
     setFormValues((formValues) => ({
       ...formValues,
@@ -186,7 +186,7 @@ const CardModalForm = ({ children, ...props }) => {
       finish: newCard.finish,
       cmc: newCard.cmc,
       type_line: typeLine,
-      rarity: rarity,
+      rarity,
       imgUrl: newCard.imgUrl || '',
       imgBackUrl: newCard.imgBackUrl || '',
       notes: newCard.notes || '',

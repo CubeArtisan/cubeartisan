@@ -1,4 +1,4 @@
-import React from 'react';
+import { createElement } from 'react';
 import PropTypes from 'prop-types';
 
 import ReactMarkdown from 'react-markdown';
@@ -57,8 +57,7 @@ const renderLink = (node) => {
   );
 };
 
-const renderHeading = (node) =>
-  React.createElement(`h${node.level}`, node.node?.data?.hProperties ?? {}, node.children);
+const renderHeading = (node) => createElement(`h${node.level}`, node.node?.data?.hProperties ?? {}, node.children);
 
 const renderCode = (node) => {
   const mode = getComputedStyle(document.body).getPropertyValue('--mode').trim();

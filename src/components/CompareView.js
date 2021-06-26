@@ -1,16 +1,14 @@
-import React from 'react';
-
 import { Col, ListGroup, ListGroupItem, Row } from 'reactstrap';
 
+import SortContext from 'contexts/SortContext';
 import { getLabels, sortIntoGroups } from '../utils/Sort';
 
 import AutocardListItem from './AutocardListItem';
-import SortContext from 'contexts/SortContext';
 
 const CompareGroup = ({ heading, both, onlyA, onlyB }) => {
-  let bothCmc = sortIntoGroups(both, 'Mana Value');
-  let onlyACmc = sortIntoGroups(onlyA, 'Mana Value');
-  let onlyBCmc = sortIntoGroups(onlyB, 'Mana Value');
+  const bothCmc = sortIntoGroups(both, 'Mana Value');
+  const onlyACmc = sortIntoGroups(onlyA, 'Mana Value');
+  const onlyBCmc = sortIntoGroups(onlyB, 'Mana Value');
 
   return (
     <ListGroup className="list-outline">
@@ -44,21 +42,21 @@ const CompareGroup = ({ heading, both, onlyA, onlyB }) => {
 };
 
 const CompareViewRaw = ({ cards, primary, secondary, showOther, both, onlyA, onlyB, ...props }) => {
-  let columns = sortIntoGroups(cards, primary, showOther);
-  let columnCounts = {};
-  let bothCounts = { total: 0 };
-  let onlyACounts = { total: 0 };
-  let onlyBCounts = { total: 0 };
+  const columns = sortIntoGroups(cards, primary, showOther);
+  const columnCounts = {};
+  const bothCounts = { total: 0 };
+  const onlyACounts = { total: 0 };
+  const onlyBCounts = { total: 0 };
 
-  let both_copy = both.slice(0);
-  let only_a_copy = onlyA.slice(0);
-  let only_b_copy = onlyB.slice(0);
+  const both_copy = both.slice(0);
+  const only_a_copy = onlyA.slice(0);
+  const only_b_copy = onlyB.slice(0);
 
-  for (let columnLabel of Object.keys(columns)) {
-    let onlyACount = 0,
-      onlyBCount = 0,
-      bothCount = 0;
-    for (let card of columns[columnLabel]) {
+  for (const columnLabel of Object.keys(columns)) {
+    let onlyACount = 0;
+    let onlyBCount = 0;
+    let bothCount = 0;
+    for (const card of columns[columnLabel]) {
       if (both_copy.includes(card.details.name)) {
         bothCount++;
         both_copy.splice(both_copy.indexOf(card.details.name), 1);
@@ -73,11 +71,11 @@ const CompareViewRaw = ({ cards, primary, secondary, showOther, both, onlyA, onl
 
     columnCounts[columnLabel] = columns[columnLabel].length;
     bothCounts[columnLabel] = bothCount;
-    bothCounts['total'] += bothCount;
+    bothCounts.total += bothCount;
     onlyACounts[columnLabel] = onlyACount;
-    onlyACounts['total'] += onlyACount;
+    onlyACounts.total += onlyACount;
     onlyBCounts[columnLabel] = onlyBCount;
-    onlyBCounts['total'] += onlyBCount;
+    onlyBCounts.total += onlyBCount;
     columns[columnLabel] = sortIntoGroups(columns[columnLabel], secondary, showOther);
   }
   const bothCopy = both.slice(0);
@@ -97,19 +95,19 @@ const CompareViewRaw = ({ cards, primary, secondary, showOther, both, onlyA, onl
             <Col xs="4">
               <h6 className="text-center">
                 In Both Cubes
-                <br />({bothCounts['total']})
+                <br />({bothCounts.total})
               </h6>
             </Col>
             <Col xs="4">
               <h6 className="text-center">
                 Only in Base Cube
-                <br />({onlyACounts['total']})
+                <br />({onlyACounts.total})
               </h6>
             </Col>
             <Col xs="4">
               <h6 className="text-center">
                 Only in Comparison Cube
-                <br />({onlyBCounts['total']})
+                <br />({onlyBCounts.total})
               </h6>
             </Col>
           </Row>
@@ -118,7 +116,7 @@ const CompareViewRaw = ({ cards, primary, secondary, showOther, both, onlyA, onl
       {getLabels(cards, primary, showOther)
         .filter((columnLabel) => columns[columnLabel])
         .map((columnLabel) => {
-          let column = columns[columnLabel];
+          const column = columns[columnLabel];
           return (
             <Row key={columnLabel} {...props}>
               <Col xs="12" md="10" lg="8" className="mx-auto">
@@ -152,12 +150,12 @@ const CompareViewRaw = ({ cards, primary, secondary, showOther, both, onlyA, onl
                 {getLabels(column, secondary, showOther)
                   .filter((label) => column[label])
                   .map((label) => {
-                    let group = column[label];
-                    let bothGroup = [],
-                      onlyAGroup = [],
-                      onlyBGroup = [];
+                    const group = column[label];
+                    const bothGroup = [];
+                    const onlyAGroup = [];
+                    const onlyBGroup = [];
 
-                    for (let card of group) {
+                    for (const card of group) {
                       if (bothCopy.includes(card.details.name)) {
                         bothGroup.push(card);
                         bothCopy.splice(bothCopy.indexOf(card.details.name), 1);

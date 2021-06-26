@@ -1,4 +1,3 @@
-import React from 'react';
 import VideoPropType from 'proptypes/VideoPropType';
 
 import Markdown from 'components/Markdown';

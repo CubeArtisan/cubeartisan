@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {
   Button,
   Col,
@@ -212,7 +210,7 @@ const CardModal = ({
           <span className="d-none d-sm-inline">View on Scryfall</span>
           <span className="d-sm-none">Scryfall</span>
         </Button>
-        <Button color="secondary" href={'/tool/card/' + card.cardID} target="_blank">
+        <Button color="secondary" href={`/tool/card/${card.cardID}`} target="_blank">
           <span className="d-none d-sm-inline">View card analytics</span>
           <span className="d-sm-none">Analytics</span>
         </Button>
