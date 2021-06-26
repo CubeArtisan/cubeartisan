@@ -102,7 +102,7 @@ const manaCostOperation = (op, value) => {
 
 const setElementOperation = (value) => value;
 
-module.exports = {
+export default {
   defaultOperation,
   stringOperation,
   stringContainOperation,

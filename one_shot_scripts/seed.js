@@ -1,7 +1,7 @@
 // Load Environment Variables
-require('dotenv').config();
+import seeder from 'mongoose-seed';
 
-const seeder = require('mongoose-seed');
+require('dotenv').config();
 
 const blogs = require(`../seeds/blogs.json`);
 const cardratings = require(`../seeds/cardratings.json`);

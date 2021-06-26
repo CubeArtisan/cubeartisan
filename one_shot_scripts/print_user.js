@@ -1,8 +1,8 @@
 // Load Environment Variables
-require('dotenv').config();
+import mongoose from 'mongoose';
+import User from '../models/user';
 
-const mongoose = require('mongoose');
-const User = require('../models/user');
+require('dotenv').config();
 
 const username = 'Ashok';
 

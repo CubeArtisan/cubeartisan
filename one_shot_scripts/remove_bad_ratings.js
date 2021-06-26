@@ -1,8 +1,8 @@
 // Load Environment Variables
-require('dotenv').config();
+import mongoose from 'mongoose';
+import CardRating from '../models/cardrating';
 
-const mongoose = require('mongoose');
-const CardRating = require('../models/cardrating');
+require('dotenv').config();
 
 (async () => {
   mongoose.connect(process.env.MONGODB_URL).then(async () => {

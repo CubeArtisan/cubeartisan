@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import cardSchema from './shared/cardSchema';
+import stepsSchema from './shared/stepsSchema';
 
-const cardSchema = require('./shared/cardSchema');
-const stepsSchema = require('./shared/stepsSchema');
 const CURRENT_SCHEMA_VERSION = require('./migrations/cubeMigrations').slice(-1)[0].version;
 
 // Cube schema
@@ -242,4 +242,4 @@ Cube.LAYOUT_FIELDS =
 Cube.PREVIEW_FIELDS =
   '_id shortID name card_count type overrideCategory categoryOverride categoryPrefixes image_name image_artist image_uri owner owner_name image_uri';
 
-module.exports = Cube;
+export default Cube;

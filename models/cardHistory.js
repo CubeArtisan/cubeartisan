@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const Datapoint = {
   elo: Number,
@@ -59,4 +59,4 @@ const cardHistorySchema = mongoose.Schema({
 
 const CardHistory = mongoose.model('CardHistory', cardHistorySchema);
 
-module.exports = CardHistory;
+export default CardHistory;

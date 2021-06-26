@@ -30,4 +30,4 @@ const withMigrations = (schema, migrations) => {
   return schema;
 };
 
-module.exports = { withMigrations, applyPendingMigrationsPre };
+export default { withMigrations, applyPendingMigrationsPre };

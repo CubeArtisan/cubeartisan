@@ -1,26 +1,28 @@
 // Load Environment Variables
+import express from 'express';
+import path from 'path';
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
+import session from 'express-session';
+import passport from 'passport';
+import http from 'http';
+import fileUpload from 'express-fileupload';
+import compression from 'compression';
+import MongoDBStoreFactory from 'connect-mongodb-session';
+import onFinished from 'on-finished';
+import uuid from 'uuid/v4';
+import schedule from 'node-schedule';
+import rateLimit from 'express-rate-limit';
+import winston from './serverjs/cloudwatch';
+import updatedb from './serverjs/updatecards';
+import carddb from './serverjs/cards';
+import CardRating from './models/cardrating';
+import CardHistory from './models/cardHistory';
+import render from './serverjs/render';
+
 require('dotenv').config();
 
-const express = require('express');
-const path = require('path');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const session = require('express-session');
-const passport = require('passport');
-const http = require('http');
-const fileUpload = require('express-fileupload');
-const compression = require('compression');
-const MongoDBStore = require('connect-mongodb-session')(session);
-const onFinished = require('on-finished');
-const uuid = require('uuid/v4');
-const schedule = require('node-schedule');
-const rateLimit = require('express-rate-limit');
-const { winston } = require('./serverjs/cloudwatch');
-const updatedb = require('./serverjs/updatecards');
-const carddb = require('./serverjs/cards');
-const CardRating = require('./models/cardrating');
-const CardHistory = require('./models/cardHistory');
-const { render } = require('./serverjs/render');
+const MongoDBStore = MongoDBStoreFactory(session);
 
 // Connect db
 mongoose.connect(process.env.MONGODB_URL, {

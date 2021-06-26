@@ -1,4 +1,4 @@
-const carddb = require('../../serverjs/cards');
+import carddb from '../../serverjs/cards';
 
 const COLORS = ['W', 'U', 'B', 'R', 'G'];
 const DEFAULT_FINISH = 'Non-foil';
@@ -34,7 +34,7 @@ const cardsNeedsCleaning = (collection) =>
       isInvalidTags(card.tags),
   );
 
-module.exports = {
+export default {
   cleanCards,
   cardsNeedsCleaning,
 };

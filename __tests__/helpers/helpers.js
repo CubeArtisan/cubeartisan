@@ -17,4 +17,4 @@ function expectOperator(test, operator, number) {
   }
 }
 
-module.exports = { expectOperator };
+export default { expectOperator };

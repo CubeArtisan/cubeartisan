@@ -1,11 +1,10 @@
 // Load Environment Variables
+import mongoose from 'mongoose';
+import { updatePodcast } from '../serverjs/podcast';
+import Podcast from '../models/podcast';
+import { winston } from '../serverjs/cloudwatch';
+
 require('dotenv').config();
-
-const mongoose = require('mongoose');
-
-const { updatePodcast } = require('../serverjs/podcast');
-const Podcast = require('../models/podcast');
-const { winston } = require('../serverjs/cloudwatch');
 
 const tryUpdate = async (podcast) => {
   try {

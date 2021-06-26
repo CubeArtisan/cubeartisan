@@ -14,7 +14,7 @@ plugins:
 settings:
   import/resolver:
     webpack:
-      config: webpack.dev.js
+      config: webpack.dev.cjs
 rules:
   prettier/prettier:
     - error

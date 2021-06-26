@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 // Deck schema
 const reportSchema = mongoose.Schema({
@@ -17,4 +17,4 @@ reportSchema.index({
   commentid: 1,
 });
 
-module.exports = mongoose.model('Report', reportSchema);
+export default mongoose.model('Report', reportSchema);

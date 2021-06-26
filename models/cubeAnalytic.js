@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 // Blog schema
 const cubeAnalyticSchema = mongoose.Schema({
@@ -25,4 +25,4 @@ cubeAnalyticSchema.index({
   cube: 1,
 });
 
-module.exports = mongoose.model('CubeAnalytic', cubeAnalyticSchema);
+export default mongoose.model('CubeAnalytic', cubeAnalyticSchema);

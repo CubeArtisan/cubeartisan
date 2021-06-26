@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 // User schema
 const UserSchema = mongoose.Schema({
@@ -115,4 +115,4 @@ UserSchema.index({
   patron: 1,
 });
 
-module.exports = mongoose.model('User', UserSchema);
+export default mongoose.model('User', UserSchema);

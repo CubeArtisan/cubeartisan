@@ -1,9 +1,9 @@
 // Load Environment Variables
-require('dotenv').config();
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import Deck from '../models/deck';
+import Draft from '../models/draft';
 
-const Deck = require('../models/deck');
-const Draft = require('../models/draft');
+require('dotenv').config();
 
 const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
 const BATCH_SIZE = 1024;

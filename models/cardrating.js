@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 // Cube schema
 const cardRatingSchema = mongoose.Schema({
@@ -17,4 +17,4 @@ cardRatingSchema.index({
   elo: -1,
 });
 
-module.exports = mongoose.model('CardRating', cardRatingSchema);
+export default mongoose.model('CardRating', cardRatingSchema);

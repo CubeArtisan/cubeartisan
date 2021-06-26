@@ -1,18 +1,16 @@
-require('dotenv').config();
-const express = require('express');
+import express from 'express';
+
 // eslint-disable-next-line import/no-unresolved
-const { body } = require('express-validator');
-const fetch = require('node-fetch');
-const { Canvas, Image } = require('canvas');
+import { body } from 'express-validator';
 
-Canvas.Image = Image;
+import fetch from 'node-fetch';
+import { Canvas, Image } from 'canvas';
 
-const cardutil = require('../../dist/utils/Card');
-const carddb = require('../../serverjs/cards');
-const { ensureAuth, jsonValidationErrors } = require('../middleware');
-const util = require('../../serverjs/util');
-
-const {
+import cardutil from '../../dist/utils/Card';
+import carddb from '../../serverjs/cards';
+import { ensureAuth, jsonValidationErrors } from '../middleware';
+import util from '../../serverjs/util';
+import {
   fromEntries,
   generatePack,
   setCubeType,
@@ -23,17 +21,21 @@ const {
   maybeCards,
   saveDraftAnalytics,
   addCardHtml,
-} = require('../../serverjs/cubefn');
-
-const { rotateArrayLeft, createPool } = require('./helper');
+} from '../../serverjs/cubefn';
+import { rotateArrayLeft, createPool } from './helper';
 
 // Bring in models
-const Cube = require('../../models/cube');
-const Draft = require('../../models/draft');
-const GridDraft = require('../../models/gridDraft');
-const CubeAnalytic = require('../../models/cubeAnalytic');
-const Package = require('../../models/package');
-const Blog = require('../../models/blog');
+import Cube from '../../models/cube';
+
+import Draft from '../../models/draft';
+import GridDraft from '../../models/gridDraft';
+import CubeAnalytic from '../../models/cubeAnalytic';
+import Package from '../../models/package';
+import Blog from '../../models/blog';
+
+require('dotenv').config();
+
+Canvas.Image = Image;
 
 const router = express.Router();
 
@@ -1059,4 +1061,4 @@ router.get(
   }),
 );
 
-module.exports = router;
+export default router;

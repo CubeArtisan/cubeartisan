@@ -1,11 +1,11 @@
 // Load Environment Variables
-require('dotenv').config();
+import mongoose from 'mongoose';
+import { winston } from './serverjs/cloudwatch';
+import updatedb from './serverjs/updatecards';
+import CardRating from './models/cardrating';
+import CardHistory from './models/cardHistory';
 
-const mongoose = require('mongoose');
-const { winston } = require('./serverjs/cloudwatch');
-const updatedb = require('./serverjs/updatecards');
-const CardRating = require('./models/cardrating');
-const CardHistory = require('./models/cardHistory');
+require('dotenv').config();
 
 (async () => {
   try {

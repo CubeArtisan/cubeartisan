@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   addedTmsp: Date,
   cardID: String,
   cmc: {

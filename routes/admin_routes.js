@@ -1,22 +1,21 @@
 // Load Environment Variables
+import express from 'express';
+import mailer from 'nodemailer';
+import path from 'path';
+import Email from 'email-templates';
+import parser from '../dist/markdown/parser';
+import { ensureRole, csrfProtection } from './middleware';
+import User from '../models/user';
+import Report from '../models/report';
+import Application from '../models/application';
+import Comment from '../models/comment';
+import Article from '../models/article';
+import Video from '../models/video';
+import Podcast from '../models/podcast';
+import { render } from '../serverjs/render';
+import util from '../serverjs/util';
+
 require('dotenv').config();
-
-const express = require('express');
-const mailer = require('nodemailer');
-const path = require('path');
-const Email = require('email-templates');
-const parser = require('../dist/markdown/parser');
-const { ensureRole, csrfProtection } = require('./middleware');
-
-const User = require('../models/user');
-const Report = require('../models/report');
-const Application = require('../models/application');
-const Comment = require('../models/comment');
-const Article = require('../models/article');
-const Video = require('../models/video');
-const Podcast = require('../models/podcast');
-const { render } = require('../serverjs/render');
-const util = require('../serverjs/util');
 
 const ensureAdmin = ensureRole('Admin');
 
@@ -634,4 +633,4 @@ router.get('/application/decline/:id', ensureAdmin, async (req, res) => {
   return res.redirect(`/admin/applications/0`);
 });
 
-module.exports = router;
+export default router;

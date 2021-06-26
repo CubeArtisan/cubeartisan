@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   moduleDirectories: ['src', 'node_modules'],
   testPathIgnorePatterns: ['<rootDir>/public/', '<rootDir>/__tests__/helpers/'],
   transform: {

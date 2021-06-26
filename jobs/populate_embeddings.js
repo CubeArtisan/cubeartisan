@@ -4,11 +4,10 @@
 // Load Environment Variables
 require('dotenv').config();
 
-const mongoose = require('mongoose');
-
-const fetch = require('node-fetch');
-const carddb = require('../serverjs/cards.js');
-const CardRating = require('../models/cardrating');
+import mongoose from 'mongoose';
+import fetch from 'node-fetch';
+import carddb from '../serverjs/cards.js';
+import CardRating from '../models/cardrating';
 
 const BATCH_SIZE = 1000;
 

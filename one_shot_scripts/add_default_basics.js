@@ -1,11 +1,11 @@
 // Load Environment Variables
 require('dotenv').config();
 
-const mongoose = require('mongoose');
-const Cube = require('../models/cube');
-const Draft = require('../models/draft');
-const GridDraft = require('../models/gridDraft');
-const Deck = require('../models/Deck');
+import mongoose from 'mongoose';
+import Cube from '../models/cube';
+import Draft from '../models/draft';
+import GridDraft from '../models/gridDraft';
+import Deck from '../models/Deck';
 
 const batchSize = 100;
 

@@ -11,4 +11,4 @@ const stepsSchema = [
   },
 ];
 
-module.exports = stepsSchema;
+export default stepsSchema;

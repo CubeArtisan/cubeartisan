@@ -1,7 +1,7 @@
-const { cleanCards } = require('./cleanCards');
-const Cube = require('../cube');
-const { addBasics, createPool } = require('../../routes/cube/helper');
-const { flatten, mapNonNull, toNonNullArray } = require('../../serverjs/util');
+import { cleanCards } from './cleanCards';
+import Cube from '../cube';
+import { addBasics, createPool } from '../../routes/cube/helper';
+import { flatten, mapNonNull, toNonNullArray } from '../../serverjs/util';
 
 const dedupeCardObjects = async (draft) => {
   if (!draft) return null;
@@ -75,4 +75,4 @@ const dedupeCardObjects = async (draft) => {
 
 const migrations = [{ version: 1, migration: dedupeCardObjects }];
 
-module.exports = migrations;
+export default migrations;

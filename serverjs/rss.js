@@ -1,4 +1,4 @@
-const RSSParser = require('rss-parser');
+import RSSParser from 'rss-parser';
 
 const parser = new RSSParser({
   customFields: {
@@ -52,7 +52,7 @@ const getFeedEpisodes = async (url) => {
   }));
 };
 
-module.exports = {
+export default {
   getFeedData,
   getFeedEpisodes,
 };

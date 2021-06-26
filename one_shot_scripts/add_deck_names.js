@@ -1,10 +1,10 @@
 // Load Environment Variables
-require('dotenv').config();
+import mongoose from 'mongoose';
+import Deck from '../models/deck';
+import Cube from '../models/cube';
+import User from '../models/user';
 
-const mongoose = require('mongoose');
-const Deck = require('../models/deck');
-const Cube = require('../models/cube');
-const User = require('../models/user');
+require('dotenv').config();
 
 const batchSize = 100;
 

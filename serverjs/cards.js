@@ -1,8 +1,7 @@
-const fs = require('fs');
-const winston = require('winston');
-const util = require('./util');
-
-const { SortFunctions, ORDERED_SORTS } = require('../dist/utils/Sort');
+import fs from 'fs';
+import winston from 'winston';
+import util from './util';
+import { SortFunctions, ORDERED_SORTS } from '../dist/utils/Sort';
 
 let data = {
   cardtree: {},
@@ -266,4 +265,4 @@ data = {
   fileToAttribute,
 };
 
-module.exports = data;
+export default data;

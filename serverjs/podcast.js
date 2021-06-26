@@ -1,6 +1,5 @@
-const { getFeedEpisodes } = require('./rss');
-
-const PodcastEpisode = require('../models/podcastEpisode');
+import { getFeedEpisodes } from './rss';
+import PodcastEpisode from '../models/podcastEpisode';
 
 const updatePodcast = async (podcast) => {
   const episodes = await getFeedEpisodes(podcast.rss);
@@ -36,6 +35,6 @@ const updatePodcast = async (podcast) => {
   await podcast.save();
 };
 
-module.exports = {
+export default {
   updatePodcast,
 };

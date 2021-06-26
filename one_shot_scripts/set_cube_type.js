@@ -1,11 +1,10 @@
 // Load Environment Variables
+import mongoose from 'mongoose';
+import { setCubeType } from '../serverjs/cubefn';
+import carddb from '../serverjs/cards';
+import Cube from '../models/cube';
+
 require('dotenv').config();
-
-const mongoose = require('mongoose');
-const { setCubeType } = require('../serverjs/cubefn');
-const carddb = require('../serverjs/cards');
-
-const Cube = require('../models/cube');
 
 const batchSize = 100;
 

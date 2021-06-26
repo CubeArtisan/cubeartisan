@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 // Deck schema
 const commentSchema = mongoose.Schema({
@@ -32,4 +32,4 @@ commentSchema.index({
   timePosted: -1,
 });
 
-module.exports = mongoose.model('Comment', commentSchema);
+export default mongoose.model('Comment', commentSchema);

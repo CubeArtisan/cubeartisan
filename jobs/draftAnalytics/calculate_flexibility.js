@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'fs';
 
 const averagePickPositions = JSON.parse(fs.readFileSync('jobs/export/averagePickPositions.json'));
 const mainboardPercents = JSON.parse(fs.readFileSync('jobs/export/mainboardPercent.json'));

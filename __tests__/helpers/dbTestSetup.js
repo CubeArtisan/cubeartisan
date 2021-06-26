@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const { MongoMemoryServer } = require('mongodb-memory-server');
+import mongoose from 'mongoose';
+import { MongoMemoryServer } from 'mongodb-memory-server';
 
 // Set up in-memory MongoDB.
 async function connect() {
@@ -22,7 +22,7 @@ async function close(mongoServer) {
   await mongoServer.stop();
 }
 
-module.exports = {
+export default {
   connect,
   close,
 };

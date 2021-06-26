@@ -1,15 +1,14 @@
-const fs = require('fs');
-const path = require('path'); // eslint-disable-line import/no-extraneous-dependencies
-const https = require('https'); // eslint-disable-line import/no-extraneous-dependencies
-const JSONStream = require('JSONStream');
-const es = require('event-stream');
-const fetch = require('node-fetch');
-const AWS = require('aws-sdk');
-const { winston } = require('./cloudwatch');
-const cardutil = require('../dist/utils/Card');
-
-const util = require('./util');
-const carddb = require('./cards');
+import fs from 'fs';
+import path from 'path'; // eslint-disable-line import/no-extraneous-dependencies
+import https from 'https'; // eslint-disable-line import/no-extraneous-dependencies
+import JSONStream from 'JSONStream';
+import es from 'event-stream';
+import fetch from 'node-fetch';
+import AWS from 'aws-sdk';
+import { winston } from './cloudwatch';
+import cardutil from '../dist/utils/Card';
+import util from './util';
+import carddb from './cards';
 
 const catalog = {};
 
@@ -834,7 +833,7 @@ const downloadFromScryfall = async (
   winston.info('Downloading files from scryfall...');
   try {
     // the module.exports line is necessary to correctly mock this function in unit tests
-    await module.exports.downloadDefaultCards(basePath, defaultPath, allPath);
+    await downloadDefaultCards(basePath, defaultPath, allPath);
   } catch (error) {
     winston.error('Downloading card data failed:');
     winston.error(error.message, error);
@@ -890,7 +889,7 @@ async function updateCardbase(ratings, histories, basePath = 'private', defaultP
   }
 }
 
-module.exports = {
+export default {
   initializeCatalog,
   catalog,
   addCardToCatalog,

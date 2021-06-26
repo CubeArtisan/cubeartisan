@@ -1,26 +1,26 @@
-const express = require('express');
-
-const bcrypt = require('bcryptjs');
-const passport = require('passport');
-const mailer = require('nodemailer');
-const { body } = require('express-validator');
-const Email = require('email-templates');
-const path = require('path');
-const util = require('../serverjs/util');
-const carddb = require('../serverjs/cards');
-const { render } = require('../serverjs/render');
+import express from 'express';
+import bcrypt from 'bcryptjs';
+import passport from 'passport';
+import mailer from 'nodemailer';
+import { body } from 'express-validator';
+import Email from 'email-templates';
+import path from 'path';
+import util from '../serverjs/util';
+import carddb from '../serverjs/cards';
+import { render } from '../serverjs/render';
 
 // Bring in models
-const User = require('../models/user');
-const PasswordReset = require('../models/passwordreset');
-const Cube = require('../models/cube');
-const Deck = require('../models/deck');
-const Blog = require('../models/blog');
-const Patron = require('../models/patron');
+import User from '../models/user';
+
+import PasswordReset from '../models/passwordreset';
+import Cube from '../models/cube';
+import Deck from '../models/deck';
+import Blog from '../models/blog';
+import Patron from '../models/patron';
+
+import { ensureAuth, csrfProtection, flashValidationErrors } from './middleware';
 
 const router = express.Router();
-
-const { ensureAuth, csrfProtection, flashValidationErrors } = require('./middleware');
 
 // For consistency between different forms, validate username through this function.
 const usernameValid = [
@@ -825,4 +825,4 @@ router.get('/social', ensureAuth, async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

@@ -1,10 +1,10 @@
 // Load Environment Variables
 require('dotenv').config();
 
-const mongoose = require('mongoose');
-const Blog = require('../models/blog');
-const Cube = require('../models/cube');
-const User = require('../models/user');
+import mongoose from 'mongoose';
+import Blog from '../models/blog';
+import Cube from '../models/cube';
+import User from '../models/user';
 
 const batchSize = 100;
 

@@ -2,11 +2,12 @@
 require('dotenv').config();
 
 // node one_shot_scripts/import_ratings.js ../ratings.json
-const es = require('event-stream');
-const fs = require('fs');
-const JSONStream = require('JSONStream');
-const mongoose = require('mongoose');
-const CardRating = require('../models/cardrating.js');
+import es from 'event-stream';
+
+import fs from 'fs';
+import JSONStream from 'JSONStream';
+import mongoose from 'mongoose';
+import CardRating from '../models/cardrating.js';
 
 async function saveCardRating(cardRating) {
   const existing = (await CardRating.findOne({ name: cardRating.name })) || new CardRating();

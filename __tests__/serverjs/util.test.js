@@ -1,4 +1,4 @@
-const util = require('../../serverjs/util');
+import util from '../../serverjs/util';
 
 beforeEach(() => {});
 

@@ -758,7 +758,7 @@ const exampleNonFoilCard = {
   },
 };
 
-module.exports = {
+export default {
   exampleCard,
   exampleDoubleFacedCard,
   exampleDoubleFacedPlaneswalkerCard,

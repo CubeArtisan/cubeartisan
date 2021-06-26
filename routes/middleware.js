@@ -1,6 +1,6 @@
-const csurf = require('csurf');
-const { validationResult } = require('express-validator');
-const User = require('../models/user');
+import csurf from 'csurf';
+import { validationResult } from 'express-validator';
+import User from '../models/user';
 
 const ensureAuth = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -59,7 +59,7 @@ function jsonValidationErrors(req, res, next) {
   next();
 }
 
-module.exports = {
+export default {
   ensureAuth,
   ensureRole,
   csrfProtection,

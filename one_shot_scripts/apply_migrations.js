@@ -1,17 +1,17 @@
 // Load Environment Variables
-require('dotenv').config();
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import Cube from '../models/cube';
+import Deck from '../models/deck';
+import Draft from '../models/draft';
+import GridDraft from '../models/gridDraft';
+import cubeMigrations from '../models/migrations/cubeMigrations';
+import deckMigrations from '../models/migrations/deckMigrations';
+import draftMigrations from '../models/migrations/draftMigrations';
+import gridDraftMigrations from '../models/migrations/gridDraftMigrations';
+import { applyPendingMigrationsPre } from '../models/migrations/migrationMiddleware';
+import carddb from '../serverjs/cards';
 
-const Cube = require('../models/cube');
-const Deck = require('../models/deck');
-const Draft = require('../models/draft');
-const GridDraft = require('../models/gridDraft');
-const cubeMigrations = require('../models/migrations/cubeMigrations');
-const deckMigrations = require('../models/migrations/deckMigrations');
-const draftMigrations = require('../models/migrations/draftMigrations');
-const gridDraftMigrations = require('../models/migrations/gridDraftMigrations');
-const { applyPendingMigrationsPre } = require('../models/migrations/migrationMiddleware');
-const carddb = require('../serverjs/cards');
+require('dotenv').config();
 
 const MIGRATABLE = Object.freeze([
   { name: 'GridDraft', model: GridDraft, migrate: applyPendingMigrationsPre(gridDraftMigrations) },

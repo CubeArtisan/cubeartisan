@@ -1,17 +1,14 @@
-const express = require('express');
-
-const { ensureAuth } = require('../middleware');
-const carddb = require('../../serverjs/cards');
-const util = require('../../serverjs/util');
-const { render } = require('../../serverjs/render');
-const generateMeta = require('../../serverjs/meta');
-const miscutil = require('../../dist/utils/Util');
-
-const { setCubeType, buildIdQuery, abbreviate } = require('../../serverjs/cubefn');
-
-const Cube = require('../../models/cube');
-const Blog = require('../../models/blog');
-const User = require('../../models/user');
+import express from 'express';
+import { ensureAuth } from '../middleware';
+import carddb from '../../serverjs/cards';
+import util from '../../serverjs/util';
+import { render } from '../../serverjs/render';
+import generateMeta from '../../serverjs/meta';
+import miscutil from '../../dist/utils/Util';
+import { setCubeType, buildIdQuery, abbreviate } from '../../serverjs/cubefn';
+import Cube from '../../models/cube';
+import Blog from '../../models/blog';
+import User from '../../models/user';
 
 const router = express.Router();
 
@@ -191,4 +188,4 @@ router.get('/:id/:page', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

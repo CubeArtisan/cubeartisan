@@ -1,10 +1,9 @@
-const fs = require('fs');
-const rimraf = require('rimraf');
-
-const updatecards = require('../../serverjs/updatecards');
-const carddb = require('../../serverjs/cards');
-const examplecards = require('../../fixtures/examplecards');
-const cardutil = require('../../dist/utils/Card');
+import fs from 'fs';
+import rimraf from 'rimraf';
+import updatecards from '../../serverjs/updatecards';
+import carddb from '../../serverjs/cards';
+import examplecards from '../../fixtures/examplecards';
+import cardutil from '../../dist/utils/Card';
 
 const emptyFixturePath = 'fixtures/empty.json';
 const cardsFixturePath = 'fixtures/cards_small.json';

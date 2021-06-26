@@ -1,9 +1,10 @@
 // Load Environment Variables
+import winston from 'winston';
+import uuid from 'uuid/v4';
+import WinstonCloudWatch from 'winston-cloudwatch';
+import AWS from 'aws-sdk';
+
 require('dotenv').config();
-const winston = require('winston');
-const uuid = require('uuid/v4');
-const WinstonCloudWatch = require('winston-cloudwatch');
-const AWS = require('aws-sdk');
 
 const formatInfo = ({ message }) => {
   try {
@@ -76,7 +77,4 @@ if (process.env.ENV === 'production') {
     transports: [new winston.transports.Console({ format: consoleFormat })],
   });
 }
-
-module.exports = {
-  winston,
-};
+export default winston;

@@ -1367,7 +1367,7 @@ const examplePack = {
   seed: 1569704729,
 };
 
-module.exports = {
+export default {
   exampleCube,
   examplePack,
 };

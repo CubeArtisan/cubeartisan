@@ -3,10 +3,10 @@
 // will oom without the added tag
 
 // Load Environment Variables
-require('dotenv').config();
+import mongoose from 'mongoose';
+import Cube from '../models/cube';
 
-const mongoose = require('mongoose');
-const Cube = require('../models/cube');
+require('dotenv').config();
 
 const BATCH_SIZE = 1024;
 

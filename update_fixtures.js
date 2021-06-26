@@ -1,8 +1,7 @@
-const fs = require('fs');
-const path = require('path');
-
-const carddb = require('./serverjs/cards');
-const updatecards = require('./serverjs/updatecards');
+import fs from 'fs';
+import path from 'path';
+import carddb from './serverjs/cards';
+import updatecards from './serverjs/updatecards';
 
 const dataPath = 'private';
 const fixturesPath = 'fixtures';

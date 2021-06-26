@@ -1,8 +1,8 @@
-const fs = require('fs');
-const glob = require('glob');
+import fs from 'fs';
+import glob from 'glob';
 
 // eslint-disable-next-line import/no-unresolved
-const cardToInt = require('../export/cardToInt.json');
+import cardToInt from '../export/cardToInt.json';
 
 const intToCard = Object.fromEntries(Object.entries(cardToInt).map(([key, value]) => [value, key]));
 

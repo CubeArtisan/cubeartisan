@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const patronSchema = mongoose.Schema({
   user: {
@@ -31,4 +31,4 @@ patronSchema.index({
   email: 1,
 });
 
-module.exports = mongoose.model('Patron', patronSchema);
+export default mongoose.model('Patron', patronSchema);

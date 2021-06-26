@@ -1,12 +1,12 @@
-const express = require('express');
-const util = require('../serverjs/util');
-
-const { ensureAuth, csrfProtection } = require('./middleware');
-const { render } = require('../serverjs/render');
+import express from 'express';
+import util from '../serverjs/util';
+import { ensureAuth, csrfProtection } from './middleware';
+import { render } from '../serverjs/render';
 
 // Bring in models
-const User = require('../models/user');
-const Blog = require('../models/blog');
+import User from '../models/user';
+
+import Blog from '../models/blog';
 
 const router = express.Router();
 
@@ -72,4 +72,4 @@ router.post('/blogpost', ensureAuth, async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

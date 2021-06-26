@@ -47,4 +47,4 @@ const generateMeta = (title, description, image, url, width, height) => {
   ];
 };
 
-module.exports = generateMeta;
+export default generateMeta;

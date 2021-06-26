@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import cardSchema from './shared/cardSchema';
+import stepsSchema from './shared/stepsSchema';
 
-const cardSchema = require('./shared/cardSchema');
-const stepsSchema = require('./shared/stepsSchema');
 const CURRENT_SCHEMA_VERSION = require('./migrations/draftMigrations').slice(-1)[0].version;
 
 // Details on each pack, how to draft and what's in it.
@@ -78,4 +78,4 @@ draftSchema.pre('save', () => {
 const Draft = mongoose.model('Draft', draftSchema);
 Draft.CURRENT_SCHEMA_VERSION = CURRENT_SCHEMA_VERSION;
 
-module.exports = Draft;
+export default Draft;

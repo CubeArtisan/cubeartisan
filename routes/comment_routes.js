@@ -1,21 +1,20 @@
 // Load Environment Variables
+import express from 'express';
+import { ensureAuth, csrfProtection } from './middleware';
+import util from '../serverjs/util';
+import Comment from '../models/comment';
+import User from '../models/user';
+import Report from '../models/report';
+import Deck from '../models/deck';
+import Article from '../models/article';
+import Video from '../models/video';
+import Podcast from '../models/podcast';
+import PodcastEpisode from '../models/podcastEpisode';
+import Blog from '../models/blog';
+import Package from '../models/package';
+import { render } from '../serverjs/render';
+
 require('dotenv').config();
-
-const express = require('express');
-const { ensureAuth, csrfProtection } = require('./middleware');
-
-const util = require('../serverjs/util');
-const Comment = require('../models/comment');
-const User = require('../models/user');
-const Report = require('../models/report');
-const Deck = require('../models/deck');
-const Article = require('../models/article');
-const Video = require('../models/video');
-const Podcast = require('../models/podcast');
-const PodcastEpisode = require('../models/podcastEpisode');
-const Blog = require('../models/blog');
-const Package = require('../models/package');
-const { render } = require('../serverjs/render');
 
 const router = express.Router();
 
@@ -220,4 +219,4 @@ router.get(
   }),
 );
 
-module.exports = router;
+export default router;

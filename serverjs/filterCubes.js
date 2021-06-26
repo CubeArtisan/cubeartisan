@@ -183,6 +183,6 @@ async function makeFilter(filterText, carddb) {
   return query;
 }
 
-module.exports = {
+export default {
   makeFilter,
 };

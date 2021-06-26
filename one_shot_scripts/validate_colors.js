@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const Cube = require('../models/cube');
+import mongoose from 'mongoose';
+import Cube from '../models/cube';
 
 (async () => {
   mongoose.connect(config.database).then(async (db) => {

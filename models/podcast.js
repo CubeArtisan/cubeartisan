@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 // Blog schema
 const podcastSchema = mongoose.Schema({
@@ -23,4 +23,4 @@ podcastSchema.index({
   owner: 1,
 });
 
-module.exports = mongoose.model('Podcast', podcastSchema);
+export default mongoose.model('Podcast', podcastSchema);

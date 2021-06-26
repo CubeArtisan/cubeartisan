@@ -3,14 +3,13 @@
 
 // Load Environment Variables
 require('dotenv').config();
-const fs = require('fs');
+import fs from 'fs';
 
 const path = (batch) => `jobs/export/cubes/${batch}.json`;
 
-const mongoose = require('mongoose');
-
-const Cube = require('../models/cube');
-const carddb = require('../serverjs/cards.js');
+import mongoose from 'mongoose';
+import Cube from '../models/cube';
+import carddb from '../serverjs/cards.js';
 
 const batchSize = 100;
 

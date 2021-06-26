@@ -1,11 +1,9 @@
-const express = require('express');
-
-const { render } = require('../serverjs/render');
-const { ensureAuth, ensureRole, csrfProtection } = require('./middleware');
-const carddb = require('../serverjs/cards');
-
-const Package = require('../models/package');
-const User = require('../models/user');
+import express from 'express';
+import { render } from '../serverjs/render';
+import { ensureAuth, ensureRole, csrfProtection } from './middleware';
+import carddb from '../serverjs/cards';
+import Package from '../models/package';
+import User from '../models/user';
 
 const router = express.Router();
 
@@ -227,4 +225,4 @@ router.get('/', (req, res) => {
   res.redirect('/packages/browse');
 });
 
-module.exports = router;
+export default router;

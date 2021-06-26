@@ -1,20 +1,17 @@
-const express = require('express');
-
-const util = require('../serverjs/util');
-
-const Blog = require('../models/blog');
-const Cube = require('../models/cube');
-const Deck = require('../models/deck');
-const User = require('../models/user');
-const Article = require('../models/article');
-const Video = require('../models/video');
-const PodcastEpisode = require('../models/podcastEpisode');
-
-const carddb = require('../serverjs/cards');
-const { makeFilter } = require('../serverjs/filterCubes');
-const { render } = require('../serverjs/render');
-const { csrfProtection, ensureAuth } = require('./middleware');
-const { getCubeId } = require('../serverjs/cubefn');
+import express from 'express';
+import util from '../serverjs/util';
+import Blog from '../models/blog';
+import Cube from '../models/cube';
+import Deck from '../models/deck';
+import User from '../models/user';
+import Article from '../models/article';
+import Video from '../models/video';
+import PodcastEpisode from '../models/podcastEpisode';
+import carddb from '../serverjs/cards';
+import { makeFilter } from '../serverjs/filterCubes';
+import { render } from '../serverjs/render';
+import { csrfProtection, ensureAuth } from './middleware';
+import { getCubeId } from '../serverjs/cubefn';
 
 const router = express.Router();
 
@@ -915,4 +912,4 @@ router.get('/ads.txt', (_, res) => {
   res.redirect(301, 'https://api.nitropay.com/v1/ads-860.txt');
 });
 
-module.exports = router;
+export default router;

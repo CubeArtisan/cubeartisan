@@ -1,17 +1,17 @@
 // Load Environment Variables
-require('dotenv').config();
+import express from 'express';
+import { ensureAuth, ensureRole, csrfProtection } from './middleware';
+import { render } from '../serverjs/render';
+import { getFeedData } from '../serverjs/rss';
+import { updatePodcast } from '../serverjs/podcast';
+import generateMeta from '../serverjs/meta';
+import Application from '../models/application';
+import Article from '../models/article';
+import Podcast from '../models/podcast';
+import PodcastEpisode from '../models/podcastEpisode';
+import Video from '../models/video';
 
-const express = require('express');
-const { ensureAuth, ensureRole, csrfProtection } = require('./middleware');
-const { render } = require('../serverjs/render');
-const { getFeedData } = require('../serverjs/rss');
-const { updatePodcast } = require('../serverjs/podcast');
-const generateMeta = require('../serverjs/meta');
-const Application = require('../models/application');
-const Article = require('../models/article');
-const Podcast = require('../models/podcast');
-const PodcastEpisode = require('../models/podcastEpisode');
-const Video = require('../models/video');
+require('dotenv').config();
 
 const PAGE_SIZE = 24;
 
@@ -623,4 +623,4 @@ router.get('/api/videos/:user/:page', ensureContentCreator, async (req, res) => 
   });
 });
 
-module.exports = router;
+export default router;

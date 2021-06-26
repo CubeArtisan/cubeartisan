@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import cardSchema from './shared/cardSchema';
 
-const cardSchema = require('./shared/cardSchema');
 const CURRENT_SCHEMA_VERSION = require('./migrations/deckMigrations').slice(-1)[0].version;
 
 // data for each seat, human or bot
@@ -50,4 +50,4 @@ gridDraftSchema.pre('save', () => {
 const GridDraft = mongoose.model('GridDraft', gridDraftSchema);
 GridDraft.CURRENT_SCHEMA_VERSION = CURRENT_SCHEMA_VERSION;
 
-module.exports = GridDraft;
+export default GridDraft;

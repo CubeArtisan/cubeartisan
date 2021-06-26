@@ -3,13 +3,12 @@
 // will oom without the added tag
 
 // Load Environment Variables
+import mongoose from 'mongoose';
+import AWS from 'aws-sdk';
+import Deck from '../models/deck';
+import carddb from '../serverjs/cards';
+
 require('dotenv').config();
-
-const mongoose = require('mongoose');
-
-const AWS = require('aws-sdk');
-const Deck = require('../models/deck');
-const carddb = require('../serverjs/cards');
 
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY,

@@ -1,12 +1,12 @@
 // Load Environment Variables
-require('dotenv').config();
-const mongoose = require('mongoose');
-const AWS = require('aws-sdk');
+import mongoose from 'mongoose';
+import AWS from 'aws-sdk';
+import Deck from '../models/deck';
+import Draft from '../models/draft';
+import carddb from '../serverjs/cards';
+import deckutils from '../dist/drafting/deckutil';
 
-const Deck = require('../models/deck');
-const Draft = require('../models/draft');
-const carddb = require('../serverjs/cards');
-const deckutils = require('../dist/drafting/deckutil');
+require('dotenv').config();
 
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY,

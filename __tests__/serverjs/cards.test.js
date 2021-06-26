@@ -1,5 +1,5 @@
 /* eslint no-underscore-dangle: ["error", {"allow": ["_id", "_RankleMasterofFixtures"]}] */
-const carddb = require('../../serverjs/cards');
+import carddb from '../../serverjs/cards';
 
 const fixturesPath = 'fixtures';
 const firstLetterCount = 21;

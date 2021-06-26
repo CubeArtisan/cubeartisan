@@ -1,24 +1,21 @@
 // Load Environment Variables
+import express from 'express';
+import { winston } from '../serverjs/cloudwatch';
+import carddb from '../serverjs/cards';
+import cardutil from '../dist/utils/Card';
+import { SortFunctionsOnDetails, ORDERED_SORTS } from '../dist/utils/Sort';
+import getBlankCardHistory from '../src/utils/BlankCardHistory';
+import { makeFilter, filterCardsDetails } from '../dist/filtering/FilterCards';
+import generateMeta from '../serverjs/meta';
+import util from '../serverjs/util';
+import { render } from '../serverjs/render';
+import { ensureAuth } from './middleware';
+import CardHistory from '../models/cardHistory';
+import Cube from '../models/cube';
+import Blog from '../models/blog';
+import { buildIdQuery } from '../serverjs/cubefn';
+
 require('dotenv').config();
-
-const express = require('express');
-
-const { winston } = require('../serverjs/cloudwatch');
-const carddb = require('../serverjs/cards');
-const cardutil = require('../dist/utils/Card');
-const { SortFunctionsOnDetails, ORDERED_SORTS } = require('../dist/utils/Sort');
-const getBlankCardHistory = require('../src/utils/BlankCardHistory');
-const { makeFilter, filterCardsDetails } = require('../dist/filtering/FilterCards');
-const generateMeta = require('../serverjs/meta');
-const util = require('../serverjs/util');
-const { render } = require('../serverjs/render');
-const { ensureAuth } = require('./middleware');
-
-const CardHistory = require('../models/cardHistory');
-const Cube = require('../models/cube');
-const Blog = require('../models/blog');
-
-const { buildIdQuery } = require('../serverjs/cubefn');
 
 const router = express.Router();
 
@@ -356,4 +353,4 @@ router.get('/getfeeditems/:skip', ensureAuth, async (req, res) => {
   });
 });
 
-module.exports = router;
+export default router;

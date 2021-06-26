@@ -1,4 +1,4 @@
-const carddb = require('../../serverjs/cards');
+import carddb from '../../serverjs/cards';
 
 function getBlankCardHistory(id) {
   const card = carddb.cardFromId(id);
@@ -65,4 +65,4 @@ function getBlankCardHistory(id) {
   return data;
 }
 
-module.exports = getBlankCardHistory;
+export default getBlankCardHistory;

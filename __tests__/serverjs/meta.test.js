@@ -1,4 +1,4 @@
-const generateMeta = require('../../serverjs/meta');
+import generateMeta from '../../serverjs/meta';
 
 test('generateMeta returns the expected object', () => {
   const title = 'the title';

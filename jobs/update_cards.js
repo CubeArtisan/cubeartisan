@@ -1,9 +1,10 @@
 /* eslint-disable no-await-in-loop */
 
 // Load Environment Variables
+import AWS from 'aws-sdk';
+import carddb from '../serverjs/cards';
+
 require('dotenv').config();
-const AWS = require('aws-sdk');
-const carddb = require('../serverjs/cards');
 
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY,

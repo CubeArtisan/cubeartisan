@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 // Blog schema
 const videoSchema = mongoose.Schema({
@@ -35,4 +35,4 @@ videoSchema.index({
   date: -1,
 });
 
-module.exports = mongoose.model('Video', videoSchema);
+export default mongoose.model('Video', videoSchema);

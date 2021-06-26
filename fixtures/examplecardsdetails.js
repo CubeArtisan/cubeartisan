@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   {
     _id: '1',
     tags: ['New'],

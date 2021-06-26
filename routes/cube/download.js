@@ -1,19 +1,19 @@
-const express = require('express');
+import express from 'express';
+
 // eslint-disable-next-line import/no-unresolved
-const { Canvas, Image } = require('canvas');
+import { Canvas, Image } from 'canvas';
 
-Canvas.Image = Image;
-
-const sortutil = require('../../dist/utils/Sort');
-const filterutil = require('../../dist/filtering/FilterCards');
-const carddb = require('../../serverjs/cards');
-const util = require('../../serverjs/util');
-
-const { buildIdQuery } = require('../../serverjs/cubefn');
-const { writeCard, CSV_HEADER, exportToMtgo } = require('./helper');
+import sortutil from '../../dist/utils/Sort';
+import filterutil from '../../dist/filtering/FilterCards';
+import carddb from '../../serverjs/cards';
+import util from '../../serverjs/util';
+import { buildIdQuery } from '../../serverjs/cubefn';
+import { writeCard, CSV_HEADER, exportToMtgo } from './helper';
 
 // Bring in models
-const Cube = require('../../models/cube');
+import Cube from '../../models/cube';
+
+Canvas.Image = Image;
 
 const router = express.Router();
 
@@ -179,4 +179,4 @@ router.get('/plaintext/:id', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

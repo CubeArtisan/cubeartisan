@@ -1,10 +1,10 @@
 // Load Environment Variables
-require('dotenv').config();
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+import serialize from 'serialize-javascript';
+import Cube from '../models/cube';
 
-const React = require('react');
-const ReactDOMServer = require('react-dom/server');
-const serialize = require('serialize-javascript');
-const Cube = require('../models/cube');
+require('dotenv').config();
 
 const { NODE_ENV } = process.env;
 
@@ -150,6 +150,4 @@ const render = (req, res, page, reactProps = {}, options = {}) => {
   });
 };
 
-module.exports = {
-  render,
-};
+export default render;

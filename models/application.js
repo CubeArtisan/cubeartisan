@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 // Deck schema
 const applicationSchema = mongoose.Schema({
@@ -7,4 +7,4 @@ const applicationSchema = mongoose.Schema({
   timePosted: Date,
 });
 
-module.exports = mongoose.model('Application', applicationSchema);
+export default mongoose.model('Application', applicationSchema);

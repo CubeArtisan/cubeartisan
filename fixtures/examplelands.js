@@ -231,6 +231,6 @@ const exampleBasics = {
   },
 };
 
-module.exports = {
+export default {
   exampleBasics,
 };

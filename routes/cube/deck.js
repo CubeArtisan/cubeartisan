@@ -1,30 +1,29 @@
-const express = require('express');
-const { body } = require('express-validator');
-const { Canvas, Image } = require('canvas');
+import express from 'express';
+import { body } from 'express-validator';
+import { Canvas, Image } from 'canvas';
 
-Canvas.Image = Image;
-
-const miscutil = require('../../dist/utils/Util');
-const carddb = require('../../serverjs/cards');
-const { buildDeck } = require('../../dist/drafting/deckutil');
-const { render } = require('../../serverjs/render');
-const util = require('../../serverjs/util');
-const generateMeta = require('../../serverjs/meta');
-const cardutil = require('../../dist/utils/Card');
-const frontutil = require('../../dist/utils/Util');
-const { ensureAuth } = require('../middleware');
-
-const { buildIdQuery, abbreviate, addDeckCardAnalytics, removeDeckCardAnalytics } = require('../../serverjs/cubefn');
-
-const { exportToMtgo, createPool, rotateArrayLeft } = require('./helper');
+import miscutil from '../../dist/utils/Util';
+import carddb from '../../serverjs/cards';
+import { buildDeck } from '../../dist/drafting/deckutil';
+import { render } from '../../serverjs/render';
+import util from '../../serverjs/util';
+import generateMeta from '../../serverjs/meta';
+import cardutil from '../../dist/utils/Card';
+import frontutil from '../../dist/utils/Util';
+import { ensureAuth } from '../middleware';
+import { buildIdQuery, abbreviate, addDeckCardAnalytics, removeDeckCardAnalytics } from '../../serverjs/cubefn';
+import { exportToMtgo, createPool, rotateArrayLeft } from './helper';
 
 // Bring in models
-const Cube = require('../../models/cube');
-const Deck = require('../../models/deck');
-const User = require('../../models/user');
-const CubeAnalytic = require('../../models/cubeAnalytic');
-const Draft = require('../../models/draft');
-const GridDraft = require('../../models/gridDraft');
+import Cube from '../../models/cube';
+
+import Deck from '../../models/deck';
+import User from '../../models/user';
+import CubeAnalytic from '../../models/cubeAnalytic';
+import Draft from '../../models/draft';
+import GridDraft from '../../models/gridDraft';
+
+Canvas.Image = Image;
 
 const router = express.Router();
 
@@ -999,4 +998,4 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

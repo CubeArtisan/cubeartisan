@@ -5,11 +5,10 @@
 // Load Environment Variables
 require('dotenv').config();
 
-const mongoose = require('mongoose');
-
-const AWS = require('aws-sdk');
-const Cube = require('../models/cube');
-const carddb = require('../serverjs/cards.js');
+import mongoose from 'mongoose';
+import AWS from 'aws-sdk';
+import Cube from '../models/cube';
+import carddb from '../serverjs/cards.js';
 
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY,

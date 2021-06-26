@@ -1,15 +1,16 @@
-const { Canvas, Image } = require('canvas');
+import { Canvas, Image } from 'canvas';
 
-Canvas.Image = Image;
-
-const carddb = require('../../serverjs/cards');
-const { render } = require('../../serverjs/render');
-const util = require('../../serverjs/util');
-const { setCubeType, addCardHtml, CSVtoCards } = require('../../serverjs/cubefn');
+import carddb from '../../serverjs/cards';
+import { render } from '../../serverjs/render';
+import util from '../../serverjs/util';
+import { setCubeType, addCardHtml, CSVtoCards } from '../../serverjs/cubefn';
 
 // Bring in models
-const Cube = require('../../models/cube');
-const Blog = require('../../models/blog');
+import Cube from '../../models/cube';
+
+import Blog from '../../models/blog';
+
+Canvas.Image = Image;
 
 const DEFAULT_BASICS = [
   '1d7dba1c-a702-43c0-8fca-e47bbad4a00f',
@@ -262,7 +263,7 @@ const rotateArrayRight = (arr, k) => {
 
 const rotateArrayLeft = (arr, k) => rotateArrayRight(arr, arr.length - (k % arr.length));
 
-module.exports = {
+export default {
   CARD_HEIGHT,
   CARD_WIDTH,
   CSV_HEADER,

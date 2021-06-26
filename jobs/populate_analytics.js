@@ -6,15 +6,14 @@
 // Load Environment Variables
 require('dotenv').config();
 
-const mongoose = require('mongoose');
-
-const { winston } = require('../serverjs/cloudwatch');
-const carddb = require('../serverjs/cards.js');
-const Deck = require('../models/deck');
-const Cube = require('../models/cube');
-const CardHistory = require('../models/cardHistory');
-const CardRating = require('../models/cardrating');
-const { fromEntries } = require('../serverjs/util');
+import mongoose from 'mongoose';
+import { winston } from '../serverjs/cloudwatch';
+import carddb from '../serverjs/cards.js';
+import Deck from '../models/deck';
+import Cube from '../models/cube';
+import CardHistory from '../models/cardHistory';
+import CardRating from '../models/cardrating';
+import { fromEntries } from '../serverjs/util';
 
 const basics = ['mountain', 'forest', 'plains', 'island', 'swamp'];
 const RELATED_LIMIT = 24;

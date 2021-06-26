@@ -1,15 +1,13 @@
-const NodeCache = require('node-cache');
-const Papa = require('papaparse');
-const sanitizeHtml = require('sanitize-html');
-
-const { winston } = require('./cloudwatch');
-const CardRating = require('../models/cardrating');
-const Cube = require('../models/cube');
-const CubeAnalytic = require('../models/cubeAnalytic');
-
-const util = require('./util');
-const { getDraftFormat, createDraft } = require('../dist/drafting/createdraft');
-const { getDrafterState } = require('../dist/drafting/draftutil');
+import NodeCache from 'node-cache';
+import Papa from 'papaparse';
+import sanitizeHtml from 'sanitize-html';
+import { winston } from './cloudwatch';
+import CardRating from '../models/cardrating';
+import Cube from '../models/cube';
+import CubeAnalytic from '../models/cubeAnalytic';
+import util from './util';
+import { getDraftFormat, createDraft } from '../dist/drafting/createdraft';
+import { getDrafterState } from '../dist/drafting/draftutil';
 
 const ELO_BASE = 1200;
 const ELO_SPEED = 1 / 128;
@@ -766,4 +764,4 @@ const methods = {
   CUBE_ELO_SPEED,
 };
 
-module.exports = methods;
+export default methods;

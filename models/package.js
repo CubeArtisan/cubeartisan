@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 // Blog schema
 const packageSchema = mongoose.Schema({
@@ -44,4 +44,4 @@ packageSchema.index({
   date: -1,
 });
 
-module.exports = mongoose.model('Package', packageSchema);
+export default mongoose.model('Package', packageSchema);

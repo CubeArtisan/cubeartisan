@@ -1,14 +1,10 @@
-const sinon = require('sinon');
-
-const carddb = require('../../serverjs/cards');
-const cubefn = require('../../serverjs/cubefn');
-const util = require('../../serverjs/util');
-
-const cubefixture = require('../../fixtures/examplecube');
-
-const Cube = require('../../models/cube');
-
-const { arraysEqual } = require('../../src/utils/Util');
+import sinon from 'sinon';
+import carddb from '../../serverjs/cards';
+import cubefn from '../../serverjs/cubefn';
+import util from '../../serverjs/util';
+import cubefixture from '../../fixtures/examplecube';
+import Cube from '../../models/cube';
+import { arraysEqual } from '../../src/utils/Util';
 
 const fixturesPath = 'fixtures';
 

@@ -1,23 +1,22 @@
-const express = require('express');
+import express from 'express';
+
 // eslint-disable-next-line import/no-unresolved
-const { body, param } = require('express-validator');
-const fetch = require('node-fetch');
-const cheerio = require('cheerio');
-const RSS = require('rss');
-const { Canvas, Image } = require('canvas');
+import { body, param } from 'express-validator';
 
-Canvas.Image = Image;
+import fetch from 'node-fetch';
+import cheerio from 'cheerio';
+import RSS from 'rss';
+import { Canvas, Image } from 'canvas';
 
-const createdraft = require('../../dist/drafting/createdraft');
-const filterutil = require('../../dist/filtering/FilterCards');
-const miscutil = require('../../dist/utils/Util');
-const carddb = require('../../serverjs/cards');
-const { render } = require('../../serverjs/render');
-const { ensureAuth, csrfProtection, flashValidationErrors } = require('../middleware');
-const util = require('../../serverjs/util');
-const generateMeta = require('../../serverjs/meta');
-
-const {
+import createdraft from '../../dist/drafting/createdraft';
+import filterutil from '../../dist/filtering/FilterCards';
+import miscutil from '../../dist/utils/Util';
+import carddb from '../../serverjs/cards';
+import { render } from '../../serverjs/render';
+import { ensureAuth, csrfProtection, flashValidationErrors } from '../middleware';
+import util, { fromEntries } from '../../serverjs/util';
+import generateMeta from '../../serverjs/meta';
+import {
   generatePack,
   setCubeType,
   generateShortId,
@@ -31,9 +30,8 @@ const {
   generateSamplepackImage,
   addDeckCardAnalytics,
   cachePromise,
-} = require('../../serverjs/cubefn');
-
-const {
+} from '../../serverjs/cubefn';
+import {
   CARD_HEIGHT,
   CARD_WIDTH,
   DEFAULT_BASICS,
@@ -42,17 +40,19 @@ const {
   createPool,
   shuffle,
   updateCubeAndBlog,
-} = require('./helper');
+} from './helper';
 
 // Bring in models
-const Cube = require('../../models/cube');
-const Deck = require('../../models/deck');
-const Blog = require('../../models/blog');
-const User = require('../../models/user');
-const Draft = require('../../models/draft');
-const GridDraft = require('../../models/gridDraft');
-const CubeAnalytic = require('../../models/cubeAnalytic');
-const { fromEntries } = require('../../serverjs/util');
+import Cube from '../../models/cube';
+
+import Deck from '../../models/deck';
+import Blog from '../../models/blog';
+import User from '../../models/user';
+import Draft from '../../models/draft';
+import GridDraft from '../../models/gridDraft';
+import CubeAnalytic from '../../models/cubeAnalytic';
+
+Canvas.Image = Image;
 
 const router = express.Router();
 router.use(csrfProtection);
@@ -1733,4 +1733,4 @@ router.post(
   }),
 );
 
-module.exports = router;
+export default router;

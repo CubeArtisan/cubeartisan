@@ -1,5 +1,5 @@
-const { cardsNeedsCleaning, cleanCards } = require('./cleanCards');
-const { mapNonNull } = require('../../serverjs/util');
+import { cardsNeedsCleaning, cleanCards } from './cleanCards';
+import { mapNonNull } from '../../serverjs/util';
 
 const updateCubeDraftFormats = (cube) => {
   if (!cube) return null;
@@ -54,4 +54,4 @@ const updateCubeDraftFormats = (cube) => {
 
 const migrations = [{ version: 1, migration: updateCubeDraftFormats }];
 
-module.exports = migrations;
+export default migrations;
