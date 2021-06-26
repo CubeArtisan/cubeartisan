@@ -166,9 +166,9 @@ router.get('/article/:id', async (req, res) => {
       title: article.title,
       metadata: generateMeta(
         article.title,
-        article.short || 'An article posted to Cube Cobra',
+        article.short || `An article posted to ${process.env.SITE_NAME}`,
         article.image,
-        `https://cubecobra.com/content/article/${req.params.id}`,
+        `${process.env.SITE_ROOT}/content/article/${req.params.id}`,
       ),
     },
   );
@@ -192,9 +192,9 @@ router.get('/podcast/:id', async (req, res) => {
       title: podcast.title,
       metadata: generateMeta(
         podcast.title,
-        `Listen to ${podcast.title} on Cube Cobra!`,
+        `Listen to ${podcast.title} on ${process.env.SITE_NAME}!`,
         podcast.image,
-        `https://cubecobra.com/content/podcast/${req.params.id}`,
+        `${process.env.SITE_ROOT}/content/podcast/${req.params.id}`,
       ),
     },
   );
@@ -217,9 +217,9 @@ router.get('/episode/:id', async (req, res) => {
       title: episode.title,
       metadata: generateMeta(
         episode.title,
-        `Listen to ${episode.title} on Cube Cobra!`,
+        `Listen to ${episode.title} on ${process.env.SITE_NAME}!`,
         episode.image,
-        `https://cubecobra.com/content/episode/${req.params.id}`,
+        `${process.env.SITE_ROOT}/content/episode/${req.params.id}`,
       ),
     },
   );
@@ -242,9 +242,9 @@ router.get('/video/:id', async (req, res) => {
       title: video.title,
       metadata: generateMeta(
         video.title,
-        video.short || 'A video posted to Cube Cobra',
+        video.short || `A video posted to ${process.env.SITE_NAME}`,
         video.image,
-        `https://cubecobra.com/content/video/${req.params.id}`,
+        `${process.env.SITE_ROOT}/content/video/${req.params.id}`,
       ),
     },
   );

@@ -179,10 +179,10 @@ router.get('/:id/:page', async (req, res) => {
       {
         title: `${abbreviate(cube.name)} - Blog`,
         metadata: generateMeta(
-          `Cube Cobra Blog: ${cube.name}`,
+          `${process.env.SITE_NAME} Blog: ${cube.name}`,
           miscutil.getCubeDescription(cube),
           cube.image_uri,
-          `https://cubecobra.com/cube/blog/${encodeURIComponent(req.params.id)}`,
+          `${process.env.SITE_ROOT}cube/blog/${encodeURIComponent(req.params.id)}`,
         ),
       },
     );

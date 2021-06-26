@@ -364,10 +364,10 @@ router.get('/deckbuilder/:id', async (req, res) => {
       {
         title: `${abbreviate(cube.name)} - Deckbuilder`,
         metadata: generateMeta(
-          `Cube Cobra Draft: ${cube.name}`,
+          `${process.env.SITE_NAME} Draft: ${cube.name}`,
           miscutil.getCubeDescription(cube),
           cube.image_uri,
-          `https://cubecobra.com/cube/draft/${req.params.id}`,
+          `${process.env.SITE_ROOT}/cube/draft/${req.params.id}`,
         ),
       },
     );
@@ -420,10 +420,10 @@ router.get('/decks/:cubeid/:page', async (req, res) => {
       {
         title: `${abbreviate(cube.name)} - Draft Decks`,
         metadata: generateMeta(
-          `Cube Cobra Decks: ${cube.name}`,
+          `${process.env.SITE_NAME} Decks: ${cube.name}`,
           miscutil.getCubeDescription(cube),
           cube.image_uri,
-          `https://cubecobra.com/user/decks/${encodeURIComponent(req.params.cubeid)}`,
+          `${process.env.SITE_ROOT}/user/decks/${encodeURIComponent(req.params.cubeid)}`,
         ),
       },
     );
@@ -987,10 +987,10 @@ router.get('/:id', async (req, res) => {
       {
         title: `${abbreviate(cube.name)} - ${drafter}'s deck`,
         metadata: generateMeta(
-          `Cube Cobra Deck: ${cube.name}`,
+          `${process.env.SITE_NAME} Deck: ${cube.name}`,
           miscutil.getCubeDescription(cube),
           cube.image_uri,
-          `https://cubecobra.com/cube/deck/${req.params.id}`,
+          `${process.env.SITE_ROOT}/cube/deck/${req.params.id}`,
         ),
       },
     );

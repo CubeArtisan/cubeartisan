@@ -38,33 +38,6 @@ const sortCardsByQuery = (req, cards) => {
   );
 };
 
-router.get('/cubecobra/:id', async (req, res) => {
-  try {
-    const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
-    if (!cube) {
-      req.flash('danger', `Cube ID ${req.params.id} not found/`);
-      return res.redirect('/404');
-    }
-
-    for (const card of cube.cards) {
-      const details = carddb.cardFromId(card.cardID);
-      card.details = details;
-    }
-
-    cube.cards = sortCardsByQuery(req, cube.cards);
-
-    res.setHeader('Content-disposition', `attachment; filename=${cube.name.replace(/\W/g, '')}.txt`);
-    res.setHeader('Content-type', 'text/plain');
-    res.charset = 'UTF-8';
-    for (const card of cube.cards) {
-      res.write(`${card.details.full_name}\r\n`);
-    }
-    return res.end();
-  } catch (err) {
-    return util.handleRouteError(req, res, err, '/404');
-  }
-});
-
 router.get('/csv/:id', async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();

@@ -1,10 +1,11 @@
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import AddToCubeModal from 'components/AddToCubeModal';
 import PagedList from 'components/PagedList';
 import withAutocard from 'components/WithAutocard';
 import withModal from 'components/WithModal';
+import SiteCustomizationContext from 'contexts/SiteCustomizationContext';
 import CubePropType from 'proptypes/CubePropType';
 import { encodeName } from 'utils/Card';
 import {
@@ -57,6 +58,7 @@ Suggestion.propTypes = {
 };
 
 const Suggestions = ({ adds, cuts, loadState, cube, filter }) => {
+  const { siteName } = useContext(SiteCustomizationContext);
   const [maybeOnly, toggleMaybeOnly] = useToggle(false);
 
   const filteredCuts = useMemo(() => {
@@ -79,7 +81,7 @@ const Suggestions = ({ adds, cuts, loadState, cube, filter }) => {
       <h4 className="d-lg-block d-none">Recommender</h4>
       <p>
         View recommended additions and cuts. This data is generated using a machine learning algorithm trained over all
-        cubes on Cube Cobra.
+        cubes on {siteName}.
       </p>
       {loadState === 'error' ? (
         <Card>

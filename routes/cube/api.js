@@ -743,7 +743,7 @@ router.post(
     const response = await fetch(
       `${process.env.FLASKROOT}/?cube_name=${encodeURIComponent(
         req.params.id,
-      )}&num_recs=${1000}&root=${encodeURIComponent(process.env.HOST)}`,
+      )}&num_recs=${1000}&root=${encodeURIComponent(process.env.SITE_ROOT)}`,
     );
     if (!response.ok) {
       req.logger.error({
@@ -840,7 +840,7 @@ router.post(
         ...req.body.cards.map((id) => {
           const c = util.newCard(carddb.cardFromId(id));
           c.tags = [tag];
-          c.notes = `Added from package "${tag}": ${process.env.HOST}/packages/${req.body.packid}`;
+          c.notes = `Added from package "${tag}": ${process.env.SITE_ROOT}/packages/${req.body.packid}`;
           return c;
         }),
       );

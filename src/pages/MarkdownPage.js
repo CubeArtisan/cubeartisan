@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 
 import { Card, CardHeader, Row, Col, CardBody } from 'reactstrap';
 
-import DynamicFlash from 'components/DynamicFlash';
 import Banner from 'components/Banner';
+import DynamicFlash from 'components/DynamicFlash';
+import Markdown from 'components/Markdown';
 import MainLayout from 'layouts/MainLayout';
 import RenderToRoot from 'utils/RenderToRoot';
-import Markdown from 'components/Markdown';
 
-const MarkdownPage = ({ loginCallback }) => (
+const MarkdownPage = ({ loginCallback, siteCustomizations: { siteName } }) => (
   <MainLayout loginCallback={loginCallback}>
     <Banner />
     <DynamicFlash />
@@ -19,7 +19,7 @@ const MarkdownPage = ({ loginCallback }) => (
       </CardHeader>
       <CardBody>
         <p>
-          CubeCobra supports regular Markdown as well as some extra features specific to our site. If you need any help
+          {siteName} supports regular Markdown as well as some extra features specific to our site. If you need any help
           regarding how to use markdown, please <a href="/contact">contact us</a>.
         </p>
         <h5>Contents</h5>
@@ -91,7 +91,7 @@ const MarkdownPage = ({ loginCallback }) => (
         </Row>
         <br />
         <p>
-          You can put the card in whatever case you want. It will always link to the Cube Cobra card page. If you want
+          You can put the card in whatever case you want. It will always link to the {siteName} card page. If you want
           to link to a specific version, you can supply a{' '}
           <a href="https://scryfall.com/docs/api/cards/id" target="_blank" rel="noopener noreferrer">
             Scryfall ID
@@ -711,6 +711,9 @@ const MarkdownPage = ({ loginCallback }) => (
 
 MarkdownPage.propTypes = {
   loginCallback: PropTypes.string,
+  siteCustomizations: PropTypes.shape({
+    siteName: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 MarkdownPage.defaultProps = {

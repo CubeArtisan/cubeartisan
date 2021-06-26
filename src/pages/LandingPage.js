@@ -11,12 +11,12 @@ import CardSearchBar from 'components/CardSearchBar';
 
 const LoginModalButton = withModal(Button, LoginModal);
 
-const LandingPage = ({ numusers, numcubes, numdrafts }) => {
+const LandingPage = ({ numusers, numcubes, numdrafts, siteCustomizations: { siteName } }) => {
   return (
     <div className="flex-container flex-vertical viewport">
       <Row className="m-0 p-0 flex-grow">
         <Col xs="12" sm="6" className="m-0 bg-green landing-half landing-logo-container">
-          <img src="/content/LandingLogo.png" alt="Cube Cobra" className="landing-logo" />
+          <img src="/content/LandingLogo.png" alt={siteName} className="landing-logo" />
         </Col>
         <Col xs="12" sm="6" className="m-0 bg-dark landing-half flex-container flex-vertical">
           <div className="mt-3 flex-container">
@@ -52,6 +52,11 @@ LandingPage.propTypes = {
   numusers: PropTypes.string.isRequired,
   numcubes: PropTypes.string.isRequired,
   numdrafts: PropTypes.string.isRequired,
+  siteCustomizations: PropTypes.shape({
+    discordUrl: PropTypes.string.isRequired,
+    siteName: PropTypes.string.isRequired,
+    supportEmail: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default RenderToRoot(LandingPage);

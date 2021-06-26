@@ -118,6 +118,13 @@ const render = (req, res, page, reactProps = {}, options = {}) => {
 
     reactProps.loginCallback = req.baseUrl + req.path;
     reactProps.nitroPayEnabled = process.env.NITROPAY_ENABLED === 'true';
+    reactProps.siteCustomizations = {
+      discordUrl: process.env.DISCORD_URL,
+      siteName: process.env.SITE_NAME,
+      siteRoot: process.env.SITE_ROOT,
+      sourceRepo: process.env.SOURCE_REPO,
+      supportEmail: process.env.SUPPORT_EMAIL,
+    };
 
     if (!options.metadata) {
       options.metadata = [];
@@ -137,9 +144,8 @@ const render = (req, res, page, reactProps = {}, options = {}) => {
       reactProps: serialize(reactProps),
       page,
       metadata: options.metadata,
-      title: options.title ? `${options.title} - Cube Cobra` : 'Cube Cobra',
+      title: options.title ? `${options.title} - ${process.env.SITE_NAME}` : process.env.SITE_NAME,
       colors: req.user && req.user.theme ? `/css/${req.user.theme}.css` : '/css/default.css',
-      patron: req.user && req.user.roles.includes('Patron'),
     });
   });
 };

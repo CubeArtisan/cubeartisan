@@ -173,7 +173,7 @@ router.post(
       await passwordReset.save();
 
       const smtpTransport = mailer.createTransport({
-        name: 'CubeCobra.com',
+        name: process.env.SITE_HOSTNAME,
         secure: true,
         service: 'Gmail',
         auth: {
@@ -184,7 +184,7 @@ router.post(
 
       const email = new Email({
         message: {
-          from: 'Cube Cobra Team <support@cubecobra.com>',
+          from: process.env.SUPPORT_EMAIL_FROM,
           to: passwordReset.email,
           subject: 'Password Reset',
         },
@@ -355,7 +355,7 @@ router.post(
               req.logger.error(err5);
             } else {
               const smtpTransport = mailer.createTransport({
-                name: 'CubeCobra.com',
+                name: process.env.SITE_HOSTNAME,
                 secure: true,
                 service: 'Gmail',
                 auth: {
@@ -365,7 +365,7 @@ router.post(
               });
               const confirmEmail = new Email({
                 message: {
-                  from: 'Cube Cobra Team <support@cubecobra.com>',
+                  from: process.env.SUPPORT_EMAIL_FROM,
                   to: email,
                   subject: 'Confirm Account',
                 },

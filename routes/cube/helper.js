@@ -107,7 +107,7 @@ async function bulkUpload(req, res, list, cube) {
             const potentialIds = carddb.getIdsFromName(name);
             if (potentialIds && potentialIds.length > 0) {
               const set = item.toLowerCase().substring(item.indexOf('(') + 1, item.indexOf(')'));
-              // if we've found a match, and it DOES need to be parsed with cubecobra syntax
+              // if we've found a match, and it DOES need to be parsed with our syntax
               const matching = potentialIds.find((id) => carddb.cardFromId(id).set.toUpperCase() === set);
               selected = matching || potentialIds[0];
             }

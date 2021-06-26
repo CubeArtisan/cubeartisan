@@ -9,7 +9,7 @@ import DynamicFlash from 'components/DynamicFlash';
 import MainLayout from 'layouts/MainLayout';
 import RenderToRoot from 'utils/RenderToRoot';
 
-const Notifications = ({ notifications, loginCallback }) => (
+const NotificationsPage = ({ notifications, loginCallback, siteCustomizations: { discordUrl, siteName } }) => (
   <MainLayout loginCallback={loginCallback}>
     <Banner />
     <DynamicFlash />
@@ -26,7 +26,7 @@ const Notifications = ({ notifications, loginCallback }) => (
         ) : (
           <p className="m-2">
             You don't have any notifications! Why don't you try sharing your cube on the{' '}
-            <a href="https://discord.gg/Hn39bCU">Cube Cobra Discord?</a>
+            <a href={discordUrl}>{siteName} Discord</a>?
           </p>
         )}
       </CardBody>
@@ -34,17 +34,21 @@ const Notifications = ({ notifications, loginCallback }) => (
   </MainLayout>
 );
 
-Notifications.propTypes = {
+NotificationsPage.propTypes = {
   notifications: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
-    }),
+    }).isRequired,
   ).isRequired,
   loginCallback: PropTypes.string,
+  siteCustomizations: PropTypes.shape({
+    discordUrl: PropTypes.string.isRequired,
+    siteName: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
-Notifications.defaultProps = {
+NotificationsPage.defaultProps = {
   loginCallback: '/',
 };
 
-export default RenderToRoot(Notifications);
+export default RenderToRoot(NotificationsPage);

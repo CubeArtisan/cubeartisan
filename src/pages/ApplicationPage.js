@@ -8,17 +8,17 @@ import CSRFForm from 'components/CSRFForm';
 import MainLayout from 'layouts/MainLayout';
 import RenderToRoot from 'utils/RenderToRoot';
 
-const AdminDashboardPage = ({ loginCallback }) => (
-  <MainLayout loginCallback={loginCallback}>
+const AdminDashboardPage = ({ loginCallback, siteCustomizations }) => (
+  <MainLayout loginCallback={loginCallback} siteCustomizations={siteCustomizations}>
     <DynamicFlash />
     <Card className="my-3 mx-4">
       <CSRFForm method="POST" action="/content/submitapplication" autoComplete="off">
         <CardHeader>
-          <h5>Apply to be a Cube Cobra Content Creator Partner</h5>
+          <h5>Apply to be a {siteCustomizations.siteName} Content Creator Partner</h5>
         </CardHeader>
         <CardBody>
           <p>
-            Content Creator Partners have access to post articles, videos, and podcasts on Cube Cobra. If you have more
+            Content Creator Partners have access to post articles, videos, and podcasts on {siteCustomizations.siteName}. If you have more
             questions about the program, please reach out <a href="/contact">here</a>.
           </p>
           <p>
@@ -44,6 +44,12 @@ const AdminDashboardPage = ({ loginCallback }) => (
 
 AdminDashboardPage.propTypes = {
   loginCallback: PropTypes.string,
+  siteCustomizations: PropTypes.shape({
+    discordUrl: PropTypes.string.isRequired,
+    siteName: PropTypes.string.isRequired,
+    sourceRepo: PropTypes.string.isRequired,
+    supportEmail: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 AdminDashboardPage.defaultProps = {

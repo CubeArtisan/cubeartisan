@@ -168,7 +168,7 @@ router.get('/publisharticle/:id', ensureAdmin, async (req, res) => {
   }
 
   const smtpTransport = mailer.createTransport({
-    name: 'CubeCobra.com',
+    name: process.env.SITE_HOSTNAME,
     secure: true,
     service: 'Gmail',
     auth: {
@@ -179,7 +179,7 @@ router.get('/publisharticle/:id', ensureAdmin, async (req, res) => {
 
   const email = new Email({
     message: {
-      from: 'Cube Cobra Team <support@cubecobra.com>',
+      from: process.env.SUPPORT_EMAIL_FROM,
       to: owner.email,
       subject: 'Your article has been published',
     },
@@ -195,7 +195,7 @@ router.get('/publisharticle/:id', ensureAdmin, async (req, res) => {
 
   email.send({
     template: 'content_publish',
-    locals: { title: article.title, url: `https://cubecobra.com/content/article/${article._id}`, type: 'article' },
+    locals: { title: article.title, url: `${process.env.SITE_ROOT}/content/article/${article._id}`, type: 'article' },
   });
 
   req.flash('success', `Article published: ${article.title}`);
@@ -239,7 +239,7 @@ router.get('/publishvideo/:id', ensureAdmin, async (req, res) => {
   }
 
   const smtpTransport = mailer.createTransport({
-    name: 'CubeCobra.com',
+    name: process.env.SITE_HOSTNAME,
     secure: true,
     service: 'Gmail',
     auth: {
@@ -250,7 +250,7 @@ router.get('/publishvideo/:id', ensureAdmin, async (req, res) => {
 
   const email = new Email({
     message: {
-      from: 'Cube Cobra Team <support@cubecobra.com>',
+      from: process.env.SUPPORT_EMAIL_FROM,
       to: owner.email,
       subject: 'Your video has been published',
     },
@@ -266,7 +266,7 @@ router.get('/publishvideo/:id', ensureAdmin, async (req, res) => {
 
   email.send({
     template: 'content_publish',
-    locals: { title: video.title, url: `https://cubecobra.com/content/video/${video._id}`, type: 'video' },
+    locals: { title: video.title, url: `${process.env.SITE_ROOT}/content/video/${video._id}`, type: 'video' },
   });
 
   req.flash('success', `Video published: ${video.title}`);
@@ -299,7 +299,7 @@ router.get('/publishpodcast/:id', ensureAdmin, async (req, res) => {
   }
 
   const smtpTransport = mailer.createTransport({
-    name: 'CubeCobra.com',
+    name: process.env.SITE_HOSTNAME,
     secure: true,
     service: 'Gmail',
     auth: {
@@ -310,7 +310,7 @@ router.get('/publishpodcast/:id', ensureAdmin, async (req, res) => {
 
   const email = new Email({
     message: {
-      from: 'Cube Cobra Team <support@cubecobra.com>',
+      from: process.env.SUPPORT_EMAIL_FROM,
       to: owner.email,
       subject: 'Your podcast has been approved',
     },
@@ -326,7 +326,7 @@ router.get('/publishpodcast/:id', ensureAdmin, async (req, res) => {
 
   await email.send({
     template: 'content_publish',
-    locals: { title: podcast.title, url: `https://cubecobra.com/content/podcast/${podcast._id}`, type: 'podcast' },
+    locals: { title: podcast.title, url: `${process.env.SITE_ROOT}/content/podcast/${podcast._id}`, type: 'podcast' },
   });
 
   req.flash('success', `Podcast published: ${podcast.title}`);
@@ -359,7 +359,7 @@ router.get('/removearticlereview/:id', ensureAdmin, async (req, res) => {
   }
 
   const smtpTransport = mailer.createTransport({
-    name: 'CubeCobra.com',
+    name: process.env.SITE_HOSTNAME,
     secure: true,
     service: 'Gmail',
     auth: {
@@ -370,7 +370,7 @@ router.get('/removearticlereview/:id', ensureAdmin, async (req, res) => {
 
   const email = new Email({
     message: {
-      from: 'Cube Cobra Team <support@cubecobra.com>',
+      from: process.env.SUPPORT_EMAIL_FROM,
       to: owner.email,
       subject: 'Your article was not published',
     },
@@ -386,7 +386,7 @@ router.get('/removearticlereview/:id', ensureAdmin, async (req, res) => {
 
   await email.send({
     template: 'content_decline',
-    locals: { title: article.title, url: `https://cubecobra.com/content/article/${article._id}`, type: 'article' },
+    locals: { title: article.title, url: `${process.env.SITE_ROOT}/content/article/${article._id}`, type: 'article' },
   });
 
   req.flash('success', `Article declined: ${article.title}`);
@@ -419,7 +419,7 @@ router.get('/removevideoreview/:id', ensureAdmin, async (req, res) => {
   }
 
   const smtpTransport = mailer.createTransport({
-    name: 'CubeCobra.com',
+    name: process.env.SITE_HOSTNAME,
     secure: true,
     service: 'Gmail',
     auth: {
@@ -430,7 +430,7 @@ router.get('/removevideoreview/:id', ensureAdmin, async (req, res) => {
 
   const email = new Email({
     message: {
-      from: 'Cube Cobra Team <support@cubecobra.com>',
+      from: process.env.SUPPORT_EMAIL_FROM,
       to: owner.email,
       subject: 'Your video was not published',
     },
@@ -446,7 +446,7 @@ router.get('/removevideoreview/:id', ensureAdmin, async (req, res) => {
 
   await email.send({
     template: 'content_decline',
-    locals: { title: video.title, url: `https://cubecobra.com/content/video/${video._id}`, type: 'video' },
+    locals: { title: video.title, url: `${process.env.SITE_ROOT}/content/video/${video._id}`, type: 'video' },
   });
 
   req.flash('success', `Video declined: ${video.title}`);
@@ -479,7 +479,7 @@ router.get('/removepodcastreview/:id', ensureAdmin, async (req, res) => {
   }
 
   const smtpTransport = mailer.createTransport({
-    name: 'CubeCobra.com',
+    name: process.env.SITE_HOSTNAME,
     secure: true,
     service: 'Gmail',
     auth: {
@@ -490,7 +490,7 @@ router.get('/removepodcastreview/:id', ensureAdmin, async (req, res) => {
 
   const email = new Email({
     message: {
-      from: 'Cube Cobra Team <support@cubecobra.com>',
+      from: process.env.SUPPORT_EMAIL_FROM,
       to: owner.email,
       subject: 'Your podcast was not approved',
     },
@@ -506,7 +506,7 @@ router.get('/removepodcastreview/:id', ensureAdmin, async (req, res) => {
 
   await email.send({
     template: 'content_decline',
-    locals: { title: podcast.title, url: `https://cubecobra.com/content/podcast/${podcast._id}`, type: 'podcast' },
+    locals: { title: podcast.title, url: `${process.env.SITE_ROOT}/content/podcast/${podcast._id}`, type: 'podcast' },
   });
 
   req.flash('success', `Podcast declined: ${podcast.title}`);
@@ -558,7 +558,7 @@ router.get('/application/approve/:id', ensureAdmin, async (req, res) => {
   await Application.deleteOne({ _id: application._id });
 
   const smtpTransport = mailer.createTransport({
-    name: 'CubeCobra.com',
+    name: process.env.SITE_HOSTNAME,
     secure: true,
     service: 'Gmail',
     auth: {
@@ -569,9 +569,9 @@ router.get('/application/approve/:id', ensureAdmin, async (req, res) => {
 
   const email = new Email({
     message: {
-      from: 'Cube Cobra Team <support@cubecobra.com>',
+      from: process.env.SUPPORT_EMAIL_FROM,
       to: user.email,
-      subject: 'Cube Cobra Content Creator',
+      subject: `${process.env.SITE_NAME} Content Creator`,
     },
     send: true,
     juiceResources: {
@@ -600,7 +600,7 @@ router.get('/application/decline/:id', ensureAdmin, async (req, res) => {
   const user = await User.findById(application.userid);
 
   const smtpTransport = mailer.createTransport({
-    name: 'CubeCobra.com',
+    name: process.env.SITE_HOSTNAME,
     secure: true,
     service: 'Gmail',
     auth: {
@@ -611,9 +611,9 @@ router.get('/application/decline/:id', ensureAdmin, async (req, res) => {
 
   const email = new Email({
     message: {
-      from: 'Cube Cobra Team <support@cubecobra.com>',
+      from: process.env.SUPPORT_EMAIL_FROM,
       to: user.email,
-      subject: 'Cube Cobra Content Creator',
+      subject: `${process.env.SITE_NAME} Content Creator`,
     },
     send: true,
     juiceResources: {

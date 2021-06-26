@@ -207,10 +207,10 @@ router.get('/card/:id', async (req, res) => {
       {
         title: `${card.name}`,
         metadata: generateMeta(
-          `${card.name} - Cube Cobra`,
-          `Analytics for ${card.name} on CubeCobra`,
+          `${card.name} - ${process.env.SITE_NAME}`,
+          `Analytics for ${card.name} on ${process.env.SITE_NAME}`,
           card.image_normal,
-          `https://cubecobra.com/card/${req.params.id}`,
+          `${process.env.SITE_HOST}/card/${req.params.id}`,
         ),
       },
     );

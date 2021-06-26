@@ -28,7 +28,7 @@ import AutocompleteInput from 'components/AutocompleteInput';
 import CSRFForm from 'components/CSRFForm';
 import useQueryParam from 'hooks/useQueryParam';
 
-const EditArticlePage = ({ loginCallback, article }) => {
+const EditArticlePage = ({ loginCallback, article, siteCustomizations }) => {
   const user = useContext(UserContext);
 
   const [tab, setTab] = useQueryParam('tab', '0');
@@ -64,7 +64,7 @@ const EditArticlePage = ({ loginCallback, article }) => {
     article.body !== body || article.title !== title || article.imagename !== imageName || article.short !== short;
 
   return (
-    <MainLayout loginCallback={loginCallback}>
+    <MainLayout loginCallback={loginCallback} siteCustomizations={siteCustomizations}>
       <Card>
         <CardBody>
           <Row>
@@ -188,7 +188,7 @@ const EditArticlePage = ({ loginCallback, article }) => {
                 </Row>
               </FormGroup>
               <p>
-                Write the article text here. Cube Cobra articles use a variation of markdown you can read about{' '}
+                Write the article text here. {siteCustomizations.siteName} articles use a variation of markdown you can read about{' '}
                 <a href="/markdown" target="_blank">
                   here
                 </a>
@@ -258,6 +258,12 @@ const EditArticlePage = ({ loginCallback, article }) => {
 EditArticlePage.propTypes = {
   loginCallback: PropTypes.string,
   article: ArticlePropType.isRequired,
+  siteCustomizations: PropTypes.shape({
+    discordUrl: PropTypes.string.isRequired,
+    siteName: PropTypes.string.isRequired,
+    sourceRepo: PropTypes.string.isRequired,
+    supportEmail: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 EditArticlePage.defaultProps = {

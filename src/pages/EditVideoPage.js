@@ -28,7 +28,7 @@ import AutocompleteInput from 'components/AutocompleteInput';
 import CSRFForm from 'components/CSRFForm';
 import useQueryParam from 'hooks/useQueryParam';
 
-const EditVideoPage = ({ loginCallback, video }) => {
+const EditVideoPage = ({ loginCallback, video, siteCustomizations }) => {
   const user = useContext(UserContext);
 
   const [tab, setTab] = useQueryParam('tab', '0');
@@ -64,7 +64,7 @@ const EditVideoPage = ({ loginCallback, video }) => {
   const hasChanges = video.body !== body || video.url !== url || video.title !== title || video.imagename !== imageName;
 
   return (
-    <MainLayout loginCallback={loginCallback}>
+    <MainLayout loginCallback={loginCallback} siteCustomizations={siteCustomizations}>
       <Card>
         <CardBody>
           <Row>
@@ -200,7 +200,7 @@ const EditVideoPage = ({ loginCallback, video }) => {
                 </Row>
               </FormGroup>
               <p>
-                Write any supplmental text here. Cube Cobra videos use a variation of markdown you can read about{' '}
+                Write any supplmental text here. {siteCustomizations.siteName} videos use a variation of markdown you can read about{' '}
                 <a href="/markdown" target="_blank">
                   here
                 </a>

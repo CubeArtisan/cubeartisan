@@ -399,10 +399,10 @@ router.get('/overview/:id', async (req, res) => {
       {
         title: `${abbreviate(cube.name)} - Overview`,
         metadata: generateMeta(
-          `Cube Cobra Overview: ${cube.name}`,
+          `${process.env.SITE_NAME} Overview: ${cube.name}`,
           miscutil.getCubeDescription(cube),
           cube.image_uri,
-          `https://cubecobra.com/cube/overview/${req.params.id}`,
+          `${process.env.SITE_ROOT}/cube/overview/${req.params.id}`,
         ),
       },
     );
@@ -430,8 +430,8 @@ router.get('/rss/:id', async (req, res) => {
 
     const feed = new RSS({
       title: cube.name,
-      feed_url: `https://cubecobra.com/cube/rss/${cube.id}`,
-      site_url: 'https://cubecobra.com',
+      feed_url: `${process.env.SITE_ROOT}/cube/rss/${cube.id}`,
+      site_url: '${process.env.SITE_ROOT}',
     });
 
     blogs.forEach((blog) => {
@@ -525,10 +525,10 @@ router.get('/compare/:idA/to/:idB', async (req, res) => {
       {
         title: `Comparing ${cubeA.name} to ${cubeB.name}`,
         metadata: generateMeta(
-          'Cube Cobra Compare Cubes',
+          `${process.env.SITE_NAME} Compare Cubes`,
           `Comparing "${cubeA.name}" To "${cubeB.name}"`,
           cubeA.image_uri,
-          `https://cubecobra.com/cube/compare/${idA}/to/${idB}`,
+          `${process.env.SITE_ROOT}/cube/compare/${idA}/to/${idB}`,
         ),
       },
     );
@@ -582,10 +582,10 @@ router.get('/list/:id', async (req, res) => {
       {
         title: `${abbreviate(cube.name)} - List`,
         metadata: generateMeta(
-          `Cube Cobra List: ${cube.name}`,
+          `${process.env.SITE_NAME} List: ${cube.name}`,
           miscutil.getCubeDescription(cube),
           cube.image_uri,
-          `https://cubecobra.com/cube/list/${req.params.id}`,
+          `${process.env.SITE_ROOT}/cube/list/${req.params.id}`,
         ),
       },
     );
@@ -626,10 +626,10 @@ router.get('/playtest/:id', async (req, res) => {
       {
         title: `${abbreviate(cube.name)} - Playtest`,
         metadata: generateMeta(
-          `Cube Cobra Playtest: ${cube.name}`,
+          `${process.env.SITE_NAME} Playtest: ${cube.name}`,
           miscutil.getCubeDescription(cube),
           cube.image_uri,
-          `https://cubecobra.com/cube/playtest/${req.params.id}`,
+          `${process.env.SITE_ROOT}/cube/playtest/${req.params.id}`,
         ),
       },
     );
@@ -703,10 +703,10 @@ router.get('/analysis/:id', async (req, res) => {
       },
       {
         metadata: generateMeta(
-          `Cube Cobra Analysis: ${cube.name}`,
+          `${process.env.SITE_NAME} Analysis: ${cube.name}`,
           miscutil.getCubeDescription(cube),
           cube.image_uri,
-          `https://cubecobra.com/cube/analysis/${req.params.id}`,
+          `${process.env.SITE_ROOT}/cube/analysis/${req.params.id}`,
         ),
         title: `${abbreviate(cube.name)} - Analysis`,
       },
@@ -746,10 +746,10 @@ router.get('/samplepack/:id/:seed', async (req, res) => {
       {
         title: `${abbreviate(cube.name)} - Sample Pack`,
         metadata: generateMeta(
-          'Cube Cobra Sample Pack',
+          `${process.env.SITE_NAME} Sample Pack`,
           `A sample pack from ${cube.name}`,
-          `https://cubecobra.com/cube/samplepackimage/${req.params.id}/${pack.seed}.png`,
-          `https://cubecobra.com/cube/samplepack/${req.params.id}/${pack.seed}`,
+          `${process.env.SITE_ROOT}/cube/samplepackimage/${req.params.id}/${pack.seed}.png`,
+          `${process.env.SITE_ROOT}/cube/samplepack/${req.params.id}/${pack.seed}`,
           CARD_WIDTH * width,
           CARD_HEIGHT * height,
         ),
@@ -1331,10 +1331,10 @@ router.get('/griddraft/:id', async (req, res) => {
       {
         title: `${abbreviate(cube.name)} - Grift Draft`,
         metadata: generateMeta(
-          `Cube Cobra Grid Draft: ${cube.name}`,
+          `${process.env.SITE_NAME} Grid Draft: ${cube.name}`,
           miscutil.getCubeDescription(cube),
           cube.image_uri,
-          `https://cubecobra.com/cube/griddraft/${req.params.id}`,
+          `${process.env.SITE_ROOT}/cube/griddraft/${req.params.id}`,
         ),
       },
     );
@@ -1389,10 +1389,10 @@ router.get('/draft/:id', async (req, res) => {
       {
         title: `${abbreviate(cube.name)} - Draft`,
         metadata: generateMeta(
-          `Cube Cobra Draft: ${cube.name}`,
+          `${process.env.SITE_NAME} Draft: ${cube.name}`,
           miscutil.getCubeDescription(cube),
           cube.image_uri,
-          `https://cubecobra.com/cube/draft/${encodeURIComponent(req.params.id)}`,
+          `${process.env.SITE_ROOT}/cube/draft/${encodeURIComponent(req.params.id)}`,
         ),
       },
     );

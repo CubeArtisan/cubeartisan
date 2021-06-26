@@ -7,7 +7,7 @@ import DynamicFlash from 'components/DynamicFlash';
 import MainLayout from 'layouts/MainLayout';
 import RenderToRoot from 'utils/RenderToRoot';
 
-const ErrorPage = ({ title, error, requestId, loginCallback, details }) => {
+const ErrorPage = ({ title, error, requestId, loginCallback, details, siteCustomizations: { discordUrl, siteName } }) => {
   console.log(details);
 
   return (
@@ -20,7 +20,7 @@ const ErrorPage = ({ title, error, requestId, loginCallback, details }) => {
         <CardBody>
           <p>
             If you think this was a mistake, please report this on the{' '}
-            <a href="https://discord.gg/Hn39bCU">Cube Cobra Discord</a>
+            <a href={discordUrl}>{siteName} Discord</a>
           </p>
           {error && (
             <p>
@@ -45,6 +45,10 @@ ErrorPage.propTypes = {
   error: PropTypes.string,
   details: PropTypes.shape({}),
   loginCallback: PropTypes.string,
+  siteCustomizations: PropTypes.shape({
+    discordUrl: PropTypes.string.isRequired,
+    siteName: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 ErrorPage.defaultProps = {

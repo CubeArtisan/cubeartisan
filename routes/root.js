@@ -85,7 +85,7 @@ router.get('/explore', async (req, res) => {
   });
 });
 
-router.get('/random', async (req, res) => {
+router.get('/random', async (_, res) => {
   const lastMonth = () => {
     const ret = new Date();
     ret.setMonth(ret.getMonth() - 1);
@@ -249,13 +249,13 @@ router.get('/landing', async (req, res) => {
     numusers: user.toLocaleString('en-US'),
     numcubes: cube.toLocaleString('en-US'),
     numdrafts: deck.toLocaleString('en-US'),
-    version: process.env.CUBECOBRA_VERSION,
+    version: process.env.SITE_VERSION,
   });
 });
 
 router.get('/version', async (req, res) => {
   return render(req, res, 'VersionPage', {
-    version: process.env.CUBECOBRA_VERSION,
+    version: process.env.SITE_VERSION,
     host: process.env.HOST,
   });
 });
@@ -356,11 +356,11 @@ router.get('/tos', (req, res) => {
     content: [
       {
         label: 'Introduction',
-        text: `These Website Standard Terms and Conditions written on this webpage shall manage your use of our website, Cube Cobra accessible at cubecobra.com. These Terms will be applied fully and affect to your use of this Website. By using this Website, you agreed to accept all terms and conditions written in here. You must not use this Website if you disagree with any of these Website Standard Terms and Conditions. These Terms and Conditions have been generated with the help of the Terms And Conditions Template. People below 18 years old are not allowed to use this Website. All users who are minors must have the permission of, and be directly supervised by, their parent or guardian to use this site. If you are a minor, you must have your parent or guardian read and agree to these Terms of Use prior to you using this site.`,
+        text: `These Website Standard Terms and Conditions written on this webpage shall manage your use of our website, ${process.env.SITE_NAME} accessible at ${process.env.SITE_ROOT}. These Terms will be applied fully and affect to your use of this Website. By using this Website, you agreed to accept all terms and conditions written in here. You must not use this Website if you disagree with any of these Website Standard Terms and Conditions. These Terms and Conditions have been generated with the help of the Terms And Conditions Template. People below 18 years old are not allowed to use this Website. All users who are minors must have the permission of, and be directly supervised by, their parent or guardian to use this site. If you are a minor, you must have your parent or guardian read and agree to these Terms of Use prior to you using this site.`,
       },
       {
         label: 'Intellectual Property Rights',
-        text: `Other than the content you own, under these Terms, Cube Cobra and/or its licensors own all the intellectual property rights and materials contained in this Website. You are granted limited license only for purposes of viewing the material contained on this Website.`,
+        text: `Other than the content you own, under these Terms, ${process.env.SITE_NAME} and/or its licensors own all the intellectual property rights and materials contained in this Website. You are granted limited license only for purposes of viewing the material contained on this Website.`,
       },
       {
         label: 'Restrictions',
@@ -392,36 +392,36 @@ router.get('/tos', (req, res) => {
       },
       {
         label: '',
-        text: `Certain areas of this Website are restricted from being access by you and Cube Cobra may further restrict access by you to any areas of this Website, at any time, in absolute discretion. Any user ID and password you may have for this Website are confidential and you must maintain confidentiality as well.`,
+        text: `Certain areas of this Website are restricted from being access by you and ${process.env.SITE_NAME} may further restrict access by you to any areas of this Website, at any time, in absolute discretion. Any user ID and password you may have for this Website are confidential and you must maintain confidentiality as well.`,
       },
       {
         label: 'Your Content',
         text: `
-        In these terms and conditions, "your user content" means material (including without limitation text, images, audio material, video material and audio-visual material) that you submit to this website, for whatever purpose. You grant to Cube Cobra a worldwide, irrevocable, non-exclusive, royalty-free license to use, reproduce, adapt, publish, translate and distribute your user content in any existing or future media. You also grant to Cube Cobra the right to sub-license these rights, and the right to bring an action for infringement of these rights. Your user content must not be illegal or unlawful, must not infringe any third party's legal rights, and must not be capable of giving rise to legal action whether against you or Cube Cobra or a third party (in each case under any applicable law). You must not submit any user content to the website that is or has ever been the subject of any threatened or actual legal proceedings or other similar complaint. Cube Cobra reserves the right to edit or remove any material submitted to this website, or stored on Cube Cobra's servers, or hosted or published upon this website. Notwithstanding Cube Cobra's rights under these terms and conditions in relation to user content, Cube Cobra does not undertake to monitor the submission of such content to, or the publication of such content on, this website.`,
+        In these terms and conditions, "your user content" means material (including without limitation text, images, audio material, video material and audio-visual material) that you submit to this website, for whatever purpose. You grant to ${process.env.SITE_NAME} a worldwide, irrevocable, non-exclusive, royalty-free license to use, reproduce, adapt, publish, translate and distribute your user content in any existing or future media. You also grant to ${process.env.SITE_NAME} the right to sub-license these rights, and the right to bring an action for infringement of these rights. Your user content must not be illegal or unlawful, must not infringe any third party's legal rights, and must not be capable of giving rise to legal action whether against you or ${process.env.SITE_NAME} or a third party (in each case under any applicable law). You must not submit any user content to the website that is or has ever been the subject of any threatened or actual legal proceedings or other similar complaint. ${process.env.SITE_NAME} reserves the right to edit or remove any material submitted to this website, or stored on ${process.env.SITE_NAME}'s servers, or hosted or published upon this website. Notwithstanding ${process.env.SITE_NAME}'s rights under these terms and conditions in relation to user content, ${process.env.SITE_NAME} does not undertake to monitor the submission of such content to, or the publication of such content on, this website.`,
       },
       {
         label: 'Your Privacy',
-        text: `Please read the Privacy Policy: cubecobra.com/privacy`,
+        text: `Please read the Privacy Policy: ${process.env.SITE_ROOT}/privacy`,
       },
       {
         label: 'No warranties',
-        text: `This Website is provided "as is," with all faults, and Cube Cobra express no representations or warranties, of any kind related to this Website or the materials contained on this Website.Also, nothing contained on this Website shall be interpreted as advising you.`,
+        text: `This Website is provided "as is," with all faults, and ${process.env.SITE_NAME} express no representations or warranties, of any kind related to this Website or the materials contained on this Website.Also, nothing contained on this Website shall be interpreted as advising you.`,
       },
       {
         label: 'Limitation of liability',
-        text: `In no event shall Cube Cobra, nor any of its officers, directors and employees, shall be held liable for anything arising out of or in any way connected with your use of this Website whether such liability is under contract. Cube Cobra, including its officers, directors and employees shall not be held liable for any indirect, consequential or special liability arising out of or in any way related to your use of this Website.`,
+        text: `In no event shall ${process.env.SITE_NAME}, nor any of its officers, directors and employees, shall be held liable for anything arising out of or in any way connected with your use of this Website whether such liability is under contract. ${process.env.SITE_NAME}, including its officers, directors and employees shall not be held liable for any indirect, consequential or special liability arising out of or in any way related to your use of this Website.`,
       },
       {
         label: 'Reasonableness',
-        text: `By using Cube Cobra, you agree that the exclusions and limitations of liability set out in this website disclaimer are reasonable. If you do not think they are reasonable, you must not use this website.`,
+        text: `By using ${process.env.SITE_NAME}, you agree that the exclusions and limitations of liability set out in this website disclaimer are reasonable. If you do not think they are reasonable, you must not use this website.`,
       },
       {
         label: 'Other Parties',
-        text: `You accept that, as a limited liability entity, Cube Cobra has an interest in limiting the personal liability of its officers and employees. You agree that you will not bring any claim personally against Cube Cobra's officers or employees in respect of any losses you suffer in connection with the website. You agree that the limitations of warranties and liability set out in this website disclaimer will protect Cube Cobra's officers, employees, agents, subsidiaries, successors, assigns and sub-contractors as well as Cube Cobra.`,
+        text: `You accept that, as a limited liability entity, ${process.env.SITE_NAME} has an interest in limiting the personal liability of its officers and employees. You agree that you will not bring any claim personally against ${process.env.SITE_NAME}'s officers or employees in respect of any losses you suffer in connection with the website. You agree that the limitations of warranties and liability set out in this website disclaimer will protect ${process.env.SITE_NAME}'s officers, employees, agents, subsidiaries, successors, assigns and sub-contractors as well as ${process.env.SITE_NAME}.`,
       },
       {
         label: 'Indemnification',
-        text: `You hereby indemnify to the fullest extent Cube Cobra from and against any and/or all liabilities, costs, demands, causes of action, damages and expenses arising in any way related to your breach of any of the provisions of these Terms.`,
+        text: `You hereby indemnify to the fullest extent ${process.env.SITE_NAME} from and against any and/or all liabilities, costs, demands, causes of action, damages and expenses arising in any way related to your breach of any of the provisions of these Terms.`,
       },
       {
         label: 'Severability',
@@ -429,16 +429,16 @@ router.get('/tos', (req, res) => {
       },
       {
         label: 'Variation of Terms',
-        text: `Cube Cobra is permitted to revise these Terms at any time as it sees fit, and by using this Website you are expected to review these Terms on a regular basis.`,
+        text: `${process.env.SITE_NAME} is permitted to revise these Terms at any time as it sees fit, and by using this Website you are expected to review these Terms on a regular basis.`,
       },
       {
         label: 'Assignment',
         text: `
-        The Cube Cobra is allowed to assign, transfer, and subcontract its rights and/or obligations under these Terms without any notification. However, you are not allowed to assign, transfer, or subcontract any of your rights and/or obligations under these Terms.`,
+        The ${process.env.SITE_NAME} is allowed to assign, transfer, and subcontract its rights and/or obligations under these Terms without any notification. However, you are not allowed to assign, transfer, or subcontract any of your rights and/or obligations under these Terms.`,
       },
       {
         label: 'Entire Agreement',
-        text: `These Terms constitute the entire agreement between Cube Cobra and you in relation to your use of this Website, and supersede all prior agreements and understandings.`,
+        text: `These Terms constitute the entire agreement between ${process.env.SITE_NAME} and you in relation to your use of this Website, and supersede all prior agreements and understandings.`,
       },
     ],
   });
@@ -461,11 +461,11 @@ router.get('/privacy', (req, res) => {
       },
       {
         label: '',
-        text: 'Cube Cobra ("us", "we", or "our") operates the cubecobra.com website (the "Service").',
+        text: `${process.env.SITE_NAME} ("us", "we", or "our") operates the ${process.env.SITE_ROOT} website (the "Service").`,
       },
       {
         label: '',
-        text: 'This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service and the choices you have associated with that data. Our Privacy Policy for Cube Cobra is created with the help of the Free Privacy Policy Generator. We use your data to provide and improve the Service. By using the Service, you agree to the collection and use of information in accordance with this policy. Unless otherwise defined in this Privacy Policy, terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, accessible from cubecobra.com/tos',
+        text: `This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service and the choices you have associated with that data. Our Privacy Policy for ${process.env.SITE_NAME} is created with the help of the Free Privacy Policy Generator. We use your data to provide and improve the Service. By using the Service, you agree to the collection and use of information in accordance with this policy. Unless otherwise defined in this Privacy Policy, terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, accessible from ${process.env.SITE_ROOT}/tos`,
       },
       {
         label: 'Information Collection And Use',
@@ -497,7 +497,7 @@ router.get('/privacy', (req, res) => {
       },
       {
         label: 'Use of Data',
-        text: `Cube Cobra uses the collected data for various purposes:`,
+        text: `${process.env.SITE_NAME} uses the collected data for various purposes:`,
       },
       {
         label: '',
@@ -529,11 +529,11 @@ router.get('/privacy', (req, res) => {
       },
       {
         label: 'Transfer Of Data',
-        text: `Your information, including Personal Data, may be transferred to — and maintained on — computers located outside of your state, province, country or other governmental jurisdiction where the data protection laws may differ than those from your jurisdiction. If you are located outside United States and choose to provide information to us, please note that we transfer the data, including Personal Data, to United States and process it there. Your consent to this Privacy Policy followed by your submission of such information represents your agreement to that transfer. Cube Cobra will take all steps reasonably necessary to ensure that your data is treated securely and in accordance with this Privacy Policy and no transfer of your Personal Data will take place to an organization or a country unless there are adequate controls in place including the security of your data and other personal information.`,
+        text: `Your information, including Personal Data, may be transferred to — and maintained on — computers located outside of your state, province, country or other governmental jurisdiction where the data protection laws may differ than those from your jurisdiction. If you are located outside United States and choose to provide information to us, please note that we transfer the data, including Personal Data, to United States and process it there. Your consent to this Privacy Policy followed by your submission of such information represents your agreement to that transfer. ${process.env.SITE_NAME} will take all steps reasonably necessary to ensure that your data is treated securely and in accordance with this Privacy Policy and no transfer of your Personal Data will take place to an organization or a country unless there are adequate controls in place including the security of your data and other personal information.`,
       },
       {
         label: 'Disclosure Of Data',
-        text: `Cube Cobra may disclose your Personal Data in the good faith belief that such action is necessary to:`,
+        text: `${process.env.SITE_NAME} may disclose your Personal Data in the good faith belief that such action is necessary to:`,
       },
       {
         label: '',
@@ -541,7 +541,7 @@ router.get('/privacy', (req, res) => {
       },
       {
         label: '',
-        text: `To protect and defend the rights or property of Cube Cobra`,
+        text: `To protect and defend the rights or property of ${process.env.SITE_NAME}`,
       },
       {
         label: '',
@@ -581,7 +581,7 @@ router.get('/privacy', (req, res) => {
       },
       {
         label: '',
-        text: `By email: support@cubecobra.com`,
+        text: `By email: ${process.env.SUPPORT_EMAIL}`,
       },
       {
         label: `For California Residents: CCPA Information`,
@@ -649,7 +649,7 @@ router.get('/privacy', (req, res) => {
       },
       {
         label: `Exercising Access, Data Portability, and Deletion Rights`,
-        text: `To exercise the access, data portability, and deletion rights described above, please submit a verifiable consumer request to us by emailing us at support@cubecobra.com`,
+        text: `To exercise the access, data portability, and deletion rights described above, please submit a verifiable consumer request to us by emailing us at ${process.env.SUPPORT_EMAIL}`,
       },
       {
         label: ``,
@@ -850,16 +850,12 @@ router.get('/ourstory', (req, res) => {
     title: 'Our Story',
     content: [
       {
-        label: 'About the Creator',
-        text: "My name is Gwen, and I'm the creator and Admin of Cube Cobra. Cube Cobra originated as my passion project. It started out with me being frustrated at not having tools that I enjoy for cube management, as cube design is a major hobby for me. I wanted a platform that had exactly the features that I cared about, and from talking to others in the cubing community, the current cube management tools left a lot to be desired. I launched Cube Cobra with my initial minimum feature set in June 2019, and since then I've been adding features. With my 1.3 update, I started sharing my project with the online cubing community and recieved a lot of positive encouragement and praise, which has further driven me to create a cube management tool for cube designers, by a fellow cube designer. I ended up open sourcing Cube Cobra, as I believe that is the best route for the quality and longevity of the project.",
-      },
-      {
         label: 'Project Goals',
-        text: "The main goal of Cube Cobra is to create a cube management tool that doesn't need to be supplemented with any other tool such as excel, gatherer, or another cube management app. We want to create a platform that is easy to use, that still has advanced enough features that allow users a high degree of freedom to organize and analyze their cube in a way that makes sense to them. I want to create the best possible platform for users to build, playtest, and share their cube.",
+        text: `The main goal of ${process.env.SITE_NAME} is to create a cube management tool that doesn't need to be supplemented with any other tool such as excel, gatherer, or another cube management app. We want to create a platform that is easy to use, that still has advanced enough features that allow users a high degree of freedom to organize and analyze their cube in a way that makes sense to them. I want to create the best possible platform for users to build, playtest, and share their cube.`,
       },
       {
         label: 'Moving Forward',
-        text: "Cube Cobra is an ongoing collaborative effort. We have a ton of feature requests, and passionate developers working through to constantly improve the platform. We're have several large, long-term features that are in the pipeline, that we're very excited about. Make sure to follow us on Twitter, and/or Discord to stay up to date on all Cube Cobra updates.",
+        text: `${process.env.SITE_NAME} is an ongoing collaborative effort. We have a ton of feature requests, and passionate developers working through to constantly improve the platform. We're have several large, long-term features that are in the pipeline, that we're very excited about. Make sure to follow us on Twitter, and/or Discord to stay up to date on all ${process.env.SITE_NAME} updates.`,
       },
     ],
   });
@@ -870,24 +866,24 @@ router.get('/faq', (req, res) => {
     title: 'Frequently Asked Questions',
     content: [
       {
-        label: 'What does Cube Cobra provide that other tools do not?',
+        label: `What does ${process.env.SITE_NAME} provide that other tools do not?`,
         text:
-          'Cube Cobra offers the most tools catered specifically towards cube construction. The website is powered by Scryfall,' +
-          ' which means that newly spoiled cards will be available to use up to 48 hours after being spoiled. The biggest advantage' +
-          ' Cube Cobra has right now is a more modern and maintainable technology stack compared to other tools. This means Cube' +
-          ' Cobra is updated frequently and is committed to adding features that the community asks for. ',
+          `${process.env.SITE_NAME} offers the most tools catered specifically towards cube construction. The website is powered by Scryfall,` +
+          ` which means that newly spoiled cards will be available to use up to 48 hours after being spoiled. The biggest advantage` +
+          ` ${process.env.SITE_NAME} has right now is a more modern and maintainable technology stack compared to other tools. This means Cube` +
+          ` Cobra is updated frequently and is committed to adding features that the community asks for.`,
       },
       {
-        label: 'What tech stack does Cube Cobra use?',
-        text: 'Cube Cobra uses NodeJS with MongoDB for server side, and React front end with Bootstrap for CSS.',
+        label: `What tech stack does ${process.env.SITE_NAME} use?`,
+        text: `${process.env.SITE_NAME} uses NodeJS with MongoDB for server side, and React front end with Bootstrap for CSS.`,
       },
       {
-        label: 'Is Cube Cobra Open Source?',
-        text: "Yes! Given the goals of Cube Cobra, we've felt the best way to give the community the tool that they want is to make it a collaborative project. For the community, by the community. If you're interested in contributing, feel free to reach out and we will help you get started.",
+        label: `Is ${process.env.SITE_NAME} Open Source?`,
+        text: `Yes! Given the goals of ${process.env.SITE_NAME}, we've felt the best way to give the community the tool that they want is to make it a collaborative project. For the community, by the community. If you're interested in contributing, feel free to reach out and we will help you get started.`,
       },
       {
-        label: 'I am not a developer, can I still help improve Cube Cobra?',
-        text: 'Yes! Even if you are not a developer, you can still get involved in helping Cube Cobra become a better platform for everyone! If you want to be more involved in the community, join the Discord linked under Contact. You can submit bug reports, make feature requests, and talk to the developers directly there.',
+        label: `I am not a developer, can I still help improve ${process.env.SITE_NAME}?`,
+        text: `Yes! Even if you are not a developer, you can still get involved in helping ${process.env.SITE_NAME} become a better platform for everyone! If you want to be more involved in the community, join the Discord linked under Contact. You can submit bug reports, make feature requests, and talk to the developers directly there.`,
       },
       {
         label: "I'm having trouble building my cube, where can I go for help?",
@@ -915,7 +911,7 @@ router.get('/leave', (req, res) => {
   });
 });
 
-router.get('/ads.txt', (req, res) => {
+router.get('/ads.txt', (_, res) => {
   res.redirect(301, 'https://api.nitropay.com/v1/ads-860.txt');
 });
 
