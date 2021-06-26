@@ -9,7 +9,6 @@ import BlogPost from 'components/BlogPost';
 import CSRFForm from 'components/CSRFForm';
 import MainLayout from 'layouts/MainLayout';
 import RenderToRoot from 'utils/RenderToRoot';
-import Banner from 'components/Banner';
 import DynamicFlash from 'components/DynamicFlash';
 
 const DevBlog = ({ blogs, pages, activePage, loginCallback }) => {
@@ -17,7 +16,6 @@ const DevBlog = ({ blogs, pages, activePage, loginCallback }) => {
 
   return (
     <MainLayout loginCallback={loginCallback}>
-      <Banner />
       <DynamicFlash />
       <div className="mt-3">
         <h3 className="centered">Developer Blog</h3>

@@ -17,9 +17,7 @@ import {
 import CreateCubeModal from 'components/CreateCubeModal';
 import ErrorBoundary from 'components/ErrorBoundary';
 import LoginModal from 'components/LoginModal';
-import MobileBanner from 'components/MobileBanner';
 import NotificationsNav from 'components/NotificationsNav';
-import SideBanner from 'components/SideBanner';
 import withModal from 'components/WithModal';
 import SiteCustomizationContext from 'contexts/SiteCustomizationContext';
 import ThemeContext from 'contexts/ThemeContext';
@@ -160,15 +158,6 @@ const MainLayout = ({ children, loginCallback, siteCustomizations }) => {
           <ThemeContext.Provider value={user?.theme ?? 'default'}>
             <ErrorBoundary>{children}</ErrorBoundary>
           </ThemeContext.Provider>
-          <div className="d-lg-none">
-            <MobileBanner placementId="mobile-banner" />
-          </div>
-          <div className="ad-left d-none d-lg-block">
-            <SideBanner placementId="left-rail" side="left" />
-          </div>
-          <div className="ad-right d-none d-lg-block">
-            <SideBanner placementId="right-rail" side="right" />
-          </div>
         </Container>
         <Footer />
       </div>

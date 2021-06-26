@@ -4,14 +4,12 @@ import PropTypes from 'prop-types';
 import { Card, CardHeader, CardBody } from 'reactstrap';
 
 import Notification from 'components/Notification';
-import Banner from 'components/Banner';
 import DynamicFlash from 'components/DynamicFlash';
 import MainLayout from 'layouts/MainLayout';
 import RenderToRoot from 'utils/RenderToRoot';
 
 const NotificationsPage = ({ notifications, loginCallback, siteCustomizations: { discordUrl, siteName } }) => (
   <MainLayout loginCallback={loginCallback}>
-    <Banner />
     <DynamicFlash />
     <Card className="mx-auto">
       <CardHeader>

@@ -5,14 +5,12 @@ import UserLayout from 'layouts/UserLayout';
 import BlogPost from 'components/BlogPost';
 import Paginate from 'components/Paginate';
 import DynamicFlash from 'components/DynamicFlash';
-import Banner from 'components/Banner';
 import MainLayout from 'layouts/MainLayout';
 import RenderToRoot from 'utils/RenderToRoot';
 
 const UserBlogPage = ({ followers, following, posts, owner, loginCallback, pages, activePage }) => (
   <MainLayout loginCallback={loginCallback}>
     <UserLayout user={owner} followers={followers} following={following} activeLink="blog">
-      <Banner />
       <DynamicFlash />
 
       {pages > 1 && (

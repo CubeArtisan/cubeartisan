@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import { Row, Col, Card, CardHeader, CardBody } from 'reactstrap';
 
-import Banner from 'components/Banner';
 import DynamicFlash from 'components/DynamicFlash';
 import SiteCustomizationContext from 'contexts/SiteCustomizationContext';
 import MainLayout from 'layouts/MainLayout';
@@ -13,7 +12,6 @@ const ContactPage = ({ loginCallback }) => {
   const { discordUrl, siteName, supportEmail } = useContext(SiteCustomizationContext);
   return (
     <MainLayout loginCallback={loginCallback}>
-      <Banner />
       <DynamicFlash />
       <Card className="my-3 mx-4">
         <CardHeader>

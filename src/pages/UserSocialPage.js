@@ -6,14 +6,12 @@ import { Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
 
 import CubePreview from 'components/CubePreview';
 import UserPreview from 'components/UserPreview';
-import Banner from 'components/Banner';
 import DynamicFlash from 'components/DynamicFlash';
 import MainLayout from 'layouts/MainLayout';
 import RenderToRoot from 'utils/RenderToRoot';
 
 const UserSocialPage = ({ followedCubes, followedUsers, followers, loginCallback }) => (
   <MainLayout loginCallback={loginCallback}>
-    <Banner />
     <DynamicFlash />
     <Row className="my-3">
       <Col xs={6}>

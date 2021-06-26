@@ -23,7 +23,6 @@ import UserContext from 'contexts/UserContext';
 import DynamicFlash from 'components/DynamicFlash';
 import MainLayout from 'layouts/MainLayout';
 import RenderToRoot from 'utils/RenderToRoot';
-import Banner from 'components/Banner';
 import useQueryParam from 'hooks/useQueryParam';
 import Tab from 'components/Tab';
 import CreatePackageModal from 'components/CreatePackageModal';
@@ -88,7 +87,6 @@ const BrowsePackagesPage = ({ loginCallback }) => {
 
   return (
     <MainLayout loginCallback={loginCallback}>
-      <Banner />
       <DynamicFlash />
       {alerts.map(({ color, message }, index) => (
         <UncontrolledAlert color={color} key={/* eslint-disable-line react/no-array-index-key */ index}>

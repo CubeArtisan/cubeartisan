@@ -9,13 +9,11 @@ import Paginate from 'components/Paginate';
 import PodcastEpisodePreview from 'components/PodcastEpisodePreview';
 import MainLayout from 'layouts/MainLayout';
 import RenderToRoot from 'utils/RenderToRoot';
-import Banner from 'components/Banner';
 
 const PAGE_SIZE = 24;
 
 const PodcastsPage = ({ loginCallback, podcasts, episodes, count, page }) => (
   <MainLayout loginCallback={loginCallback}>
-    <Banner />
     <DynamicFlash />
     <Card className="my-3">
       <CardHeader>

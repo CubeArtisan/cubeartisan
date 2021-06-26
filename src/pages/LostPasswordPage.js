@@ -4,14 +4,12 @@ import PropTypes from 'prop-types';
 import { Card, CardBody, FormGroup, Label, Input, Button, Col, Row, CardHeader } from 'reactstrap';
 
 import CSRFForm from 'components/CSRFForm';
-import Banner from 'components/Banner';
 import DynamicFlash from 'components/DynamicFlash';
 import MainLayout from 'layouts/MainLayout';
 import RenderToRoot from 'utils/RenderToRoot';
 
 const LostPassword = ({ loginCallback }) => (
   <MainLayout loginCallback={loginCallback}>
-    <Banner />
     <DynamicFlash />
     <Card className="my-3">
       <CardHeader>

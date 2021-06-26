@@ -8,7 +8,6 @@ import UserContext from 'contexts/UserContext';
 import CubePreview from 'components/CubePreview';
 import UserLayout from 'layouts/UserLayout';
 import DynamicFlash from 'components/DynamicFlash';
-import Banner from 'components/Banner';
 import MainLayout from 'layouts/MainLayout';
 import RenderToRoot from 'utils/RenderToRoot';
 import Markdown from 'components/Markdown';
@@ -19,7 +18,6 @@ const UserCubePage = ({ owner, followers, following, cubes, loginCallback }) => 
   return (
     <MainLayout loginCallback={loginCallback}>
       <UserLayout user={owner} followers={followers} following={following} activeLink="view">
-        <Banner />
         <DynamicFlash />
         <Card>
           <CardHeader>

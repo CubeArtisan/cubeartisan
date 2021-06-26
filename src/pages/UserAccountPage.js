@@ -27,7 +27,6 @@ import Query from 'utils/Query';
 import UserContext from 'contexts/UserContext';
 import AutocompleteInput from 'components/AutocompleteInput';
 import CSRFForm from 'components/CSRFForm';
-import Banner from 'components/Banner';
 import DynamicFlash from 'components/DynamicFlash';
 import MainLayout from 'layouts/MainLayout';
 import RenderToRoot from 'utils/RenderToRoot';
@@ -90,7 +89,6 @@ const UserAccountPage = ({ defaultNav, loginCallback, patreonClientId, patreonRe
 
   return (
     <MainLayout loginCallback={loginCallback}>
-      <Banner />
       <h2 className="mt-3">My Account </h2>
       <DynamicFlash />
       <Row className="mb-3">

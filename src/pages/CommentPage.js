@@ -9,7 +9,6 @@ import DynamicFlash from 'components/DynamicFlash';
 import CommentsSection from 'components/CommentsSection';
 import MainLayout from 'layouts/MainLayout';
 import RenderToRoot from 'utils/RenderToRoot';
-import Banner from 'components/Banner';
 
 const translateType = {
   comment: 'Comment',
@@ -40,7 +39,6 @@ const CommentPage = ({ comment, loginCallback }) => {
 
   return (
     <MainLayout loginCallback={loginCallback}>
-      <Banner />
       <DynamicFlash />
       <Card className="my-3">
         <CardHeader>

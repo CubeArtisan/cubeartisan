@@ -8,7 +8,6 @@ import UserContext from 'contexts/UserContext';
 import DynamicFlash from 'components/DynamicFlash';
 import Article from 'components/Article';
 import ButtonLink from 'components/ButtonLink';
-import Banner from 'components/Banner';
 import MainLayout from 'layouts/MainLayout';
 import RenderToRoot from 'utils/RenderToRoot';
 
@@ -17,7 +16,6 @@ const ArticlePage = ({ loginCallback, article }) => {
 
   return (
     <MainLayout loginCallback={loginCallback}>
-      <Banner />
       <DynamicFlash />
       <Card className="mb-3">
         {user && user.id === article.owner && article.status !== 'published' && (

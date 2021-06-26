@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import { Card, CardHeader, Row, Col, CardBody } from 'reactstrap';
 
-import Banner from 'components/Banner';
 import DynamicFlash from 'components/DynamicFlash';
 import Markdown from 'components/Markdown';
 import MainLayout from 'layouts/MainLayout';
@@ -11,7 +10,6 @@ import RenderToRoot from 'utils/RenderToRoot';
 
 const MarkdownPage = ({ loginCallback, siteCustomizations: { siteName } }) => (
   <MainLayout loginCallback={loginCallback}>
-    <Banner />
     <DynamicFlash />
     <Card className="my-3 mx-4">
       <CardHeader>

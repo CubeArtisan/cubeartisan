@@ -4,14 +4,12 @@ import PropTypes from 'prop-types';
 import { Card, CardHeader } from 'reactstrap';
 
 import DynamicFlash from 'components/DynamicFlash';
-import Banner from 'components/Banner';
 import Accordion from 'components/Accordion';
 import MainLayout from 'layouts/MainLayout';
 import RenderToRoot from 'utils/RenderToRoot';
 
 const ContactPage = ({ loginCallback }) => (
   <MainLayout loginCallback={loginCallback}>
-    <Banner />
     <DynamicFlash />
     <Card className="my-3 mx-4">
       <CardHeader>
