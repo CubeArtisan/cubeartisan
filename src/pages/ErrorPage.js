@@ -7,7 +7,14 @@ import DynamicFlash from 'components/DynamicFlash';
 import MainLayout from 'layouts/MainLayout';
 import RenderToRoot from 'utils/RenderToRoot';
 
-const ErrorPage = ({ title, error, requestId, loginCallback, details, siteCustomizations: { discordUrl, siteName } }) => {
+const ErrorPage = ({
+  title,
+  error,
+  requestId,
+  loginCallback,
+  details,
+  siteCustomizations: { discordUrl, siteName },
+}) => {
   console.log(details);
 
   return (
@@ -19,8 +26,7 @@ const ErrorPage = ({ title, error, requestId, loginCallback, details, siteCustom
         </CardHeader>
         <CardBody>
           <p>
-            If you think this was a mistake, please report this on the{' '}
-            <a href={discordUrl}>{siteName} Discord</a>
+            If you think this was a mistake, please report this on the <a href={discordUrl}>{siteName} Discord</a>
           </p>
           {error && (
             <p>

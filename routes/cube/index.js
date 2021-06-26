@@ -8,14 +8,14 @@ const { Canvas, Image } = require('canvas');
 
 Canvas.Image = Image;
 
-const createdraft = require('../../dist/drafting/createdraft.js');
-const filterutil = require('../../dist/filtering/FilterCards.js');
-const miscutil = require('../../dist/utils/Util.js');
-const carddb = require('../../serverjs/cards.js');
+const createdraft = require('../../dist/drafting/createdraft');
+const filterutil = require('../../dist/filtering/FilterCards');
+const miscutil = require('../../dist/utils/Util');
+const carddb = require('../../serverjs/cards');
 const { render } = require('../../serverjs/render');
 const { ensureAuth, csrfProtection, flashValidationErrors } = require('../middleware');
-const util = require('../../serverjs/util.js');
-const generateMeta = require('../../serverjs/meta.js');
+const util = require('../../serverjs/util');
+const generateMeta = require('../../serverjs/meta');
 
 const {
   generatePack,
@@ -31,7 +31,7 @@ const {
   generateSamplepackImage,
   addDeckCardAnalytics,
   cachePromise,
-} = require('../../serverjs/cubefn.js');
+} = require('../../serverjs/cubefn');
 
 const {
   CARD_HEIGHT,
@@ -42,7 +42,7 @@ const {
   createPool,
   shuffle,
   updateCubeAndBlog,
-} = require('./helper.js');
+} = require('./helper');
 
 // Bring in models
 const Cube = require('../../models/cube');
@@ -52,15 +52,15 @@ const User = require('../../models/user');
 const Draft = require('../../models/draft');
 const GridDraft = require('../../models/gridDraft');
 const CubeAnalytic = require('../../models/cubeAnalytic');
-const { fromEntries } = require('../../serverjs/util.js');
+const { fromEntries } = require('../../serverjs/util');
 
 const router = express.Router();
 router.use(csrfProtection);
 
-router.use('/blog', require('./blog.js'));
-router.use('/deck', require('./deck.js'));
-router.use('/api', require('./api.js'));
-router.use('/download', require('./download.js'));
+router.use('/blog', require('./blog'));
+router.use('/deck', require('./deck'));
+router.use('/api', require('./api'));
+router.use('/download', require('./download'));
 
 router.post('/add', ensureAuth, async (req, res) => {
   try {
@@ -431,7 +431,7 @@ router.get('/rss/:id', async (req, res) => {
     const feed = new RSS({
       title: cube.name,
       feed_url: `${process.env.SITE_ROOT}/cube/rss/${cube.id}`,
-      site_url: '${process.env.SITE_ROOT}',
+      site_url: process.env.SITE_ROOT,
     });
 
     blogs.forEach((blog) => {
@@ -1152,7 +1152,7 @@ router.post(
       deck.seats.push({
         userid: user._id,
         username: user.username,
-        pickorder: cardsArray.map((item, index) => index),
+        pickorder: cardsArray.map((_, index) => index),
         name: `Sealed from ${cube.name}`,
         description: '',
         deck: pool,

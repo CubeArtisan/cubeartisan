@@ -4,13 +4,13 @@ const { Canvas, Image } = require('canvas');
 
 Canvas.Image = Image;
 
-const sortutil = require('../../dist/utils/Sort.js');
-const filterutil = require('../../dist/filtering/FilterCards.js');
-const carddb = require('../../serverjs/cards.js');
-const util = require('../../serverjs/util.js');
+const sortutil = require('../../dist/utils/Sort');
+const filterutil = require('../../dist/filtering/FilterCards');
+const carddb = require('../../serverjs/cards');
+const util = require('../../serverjs/util');
 
-const { buildIdQuery } = require('../../serverjs/cubefn.js');
-const { writeCard, CSV_HEADER, exportToMtgo } = require('./helper.js');
+const { buildIdQuery } = require('../../serverjs/cubefn');
+const { writeCard, CSV_HEADER, exportToMtgo } = require('./helper');
 
 // Bring in models
 const Cube = require('../../models/cube');

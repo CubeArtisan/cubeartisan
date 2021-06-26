@@ -331,7 +331,7 @@ const MarkdownPage = ({ loginCallback, siteCustomizations: { siteName } }) => (
             <Card>
               <CardHeader>Result</CardHeader>
               <CardBody>
-                <Markdown markdown={'{e}{T}{q}{s}{X}{Y}{15}'} />
+                <Markdown markdown="{e}{T}{q}{s}{X}{Y}{15}" />
               </CardBody>
             </Card>
           </Col>
@@ -483,7 +483,7 @@ const MarkdownPage = ({ loginCallback, siteCustomizations: { siteName } }) => (
             <Card>
               <CardHeader>Result</CardHeader>
               <CardBody>
-                <Markdown markdown={`>>> This text is centered <<<`} />
+                <Markdown markdown=">>> This text is centered <<<" />
               </CardBody>
             </Card>
           </Col>
@@ -508,7 +508,7 @@ const MarkdownPage = ({ loginCallback, siteCustomizations: { siteName } }) => (
             <Card>
               <CardHeader>Result</CardHeader>
               <CardBody>
-                <Markdown markdown={`>>> Centered Card: [[!Hexdrinker]] <<<`} />
+                <Markdown markdown=">>> Centered Card: [[!Hexdrinker]] <<<" />
               </CardBody>
             </Card>
           </Col>

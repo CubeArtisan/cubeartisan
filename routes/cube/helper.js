@@ -2,10 +2,10 @@ const { Canvas, Image } = require('canvas');
 
 Canvas.Image = Image;
 
-const carddb = require('../../serverjs/cards.js');
+const carddb = require('../../serverjs/cards');
 const { render } = require('../../serverjs/render');
-const util = require('../../serverjs/util.js');
-const { setCubeType, addCardHtml, CSVtoCards } = require('../../serverjs/cubefn.js');
+const util = require('../../serverjs/util');
+const { setCubeType, addCardHtml, CSVtoCards } = require('../../serverjs/cubefn');
 
 // Bring in models
 const Cube = require('../../models/cube');

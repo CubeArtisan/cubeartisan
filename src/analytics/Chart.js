@@ -9,29 +9,25 @@ import CardPropType from 'proptypes/CardPropType';
 import CubePropType from 'proptypes/CubePropType';
 import { sortIntoGroups, SORTS } from 'utils/Sort';
 
+const colorMap = {
+  White: '#D8CEAB',
+  Blue: '#67A6D3',
+  Black: '#8C7A91',
+  Red: '#D85F69',
+  Green: '#6AB572',
+  Colorless: '#ADADAD',
+  Multicolored: '#DBC467',
+};
+const colors = [...Object.values(colorMap), '#000000'];
+const getColor = (label, index) => {
+  return colorMap[label] ?? colors[index % colors.length];
+};
+
 const Chart = ({ cards, characteristics, setAsfans, cube, defaultFormatId }) => {
   const [sort, setSort] = useQueryParam('sort', 'Color Identity');
   const [characteristic, setcharacteristic] = useQueryParam('field', 'Mana Value');
 
   const groups = sortIntoGroups(cards, sort);
-
-  const colorMap = {
-    White: '#D8CEAB',
-    Blue: '#67A6D3',
-    Black: '#8C7A91',
-    Red: '#D85F69',
-    Green: '#6AB572',
-    Colorless: '#ADADAD',
-    Multicolored: '#DBC467',
-  };
-  const colors = [...Object.values(colorMap), '#000000'];
-
-  const getColor = useMemo(
-    () => (label, index) => {
-      return colorMap[label] ?? colors[index % colors.length];
-    },
-    [colorMap, colors],
-  );
 
   const options = {
     responsive: true,
@@ -84,7 +80,7 @@ const Chart = ({ cards, characteristics, setAsfans, cube, defaultFormatId }) => 
         borderColor: getColor(key, index),
       })),
     }),
-    [labels, characteristic, characteristics, getColor, groups],
+    [labels, characteristic, characteristics, groups],
   );
 
   return (

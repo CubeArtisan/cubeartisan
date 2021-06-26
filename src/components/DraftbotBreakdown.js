@@ -19,13 +19,16 @@ const CARD_TRAIT = Object.freeze({
   tooltip: 'The card the bot is considering',
   compute: ({ card }) => card,
   heading: true,
-  renderFn: (card) => (
-    <AutocardItem key={card.index} card={card} data-in-modal index={card.index}>
-      <a href={`/tool/card/${encodeName(card.cardID)}`} target="_blank" rel="noopener noreferrer">
-        {cardName(card)}
-      </a>
-    </AutocardItem>
-  ),
+  renderFn: (card) => {
+    const { index, cardID } = card;
+    return (
+      <AutocardItem key={index} card={card} data-in-modal index={index}>
+        <a href={`/tool/card/${encodeName(cardID)}`} target="_blank" rel="noopener noreferrer">
+          {cardName(card)}
+        </a>
+      </AutocardItem>
+    );
+  },
 });
 const TRAITS = Object.freeze([
   {

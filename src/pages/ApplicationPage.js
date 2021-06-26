@@ -18,8 +18,8 @@ const AdminDashboardPage = ({ loginCallback, siteCustomizations }) => (
         </CardHeader>
         <CardBody>
           <p>
-            Content Creator Partners have access to post articles, videos, and podcasts on {siteCustomizations.siteName}. If you have more
-            questions about the program, please reach out <a href="/contact">here</a>.
+            Content Creator Partners have access to post articles, videos, and podcasts on {siteCustomizations.siteName}
+            . If you have more questions about the program, please reach out <a href="/contact">here</a>.
           </p>
           <p>
             Please explain why you want to become a content creator partner. Links to existing content are appreciated.

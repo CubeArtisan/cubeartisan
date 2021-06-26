@@ -6,7 +6,7 @@ const DraftSeatPropType = PropTypes.shape({
   sideboard: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number).isRequired).isRequired).isRequired,
   username: PropTypes.string.isRequired,
   userid: PropTypes.string,
-  bot: PropTypes.array,
+  bot: PropTypes.arrayOf(PropTypes.string),
   name: PropTypes.string.isRequired,
 });
 

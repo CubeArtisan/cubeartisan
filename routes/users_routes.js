@@ -6,8 +6,8 @@ const mailer = require('nodemailer');
 const { body } = require('express-validator');
 const Email = require('email-templates');
 const path = require('path');
-const util = require('../serverjs/util.js');
-const carddb = require('../serverjs/cards.js');
+const util = require('../serverjs/util');
+const carddb = require('../serverjs/cards');
 const { render } = require('../serverjs/render');
 
 // Bring in models

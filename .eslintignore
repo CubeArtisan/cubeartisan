@@ -31,8 +31,10 @@ src/components/CubeOverviewModal.js
 src/components/DraggableCard.js
 src/components/ErrorBoundary.js
 src/components/FilterCollapse.js
+src/components/FoilOverlay.js
 src/components/GroupModal.js
 src/components/TagColorsModal.js
+src/components/WithModal.js
 src/components/WithAutocard.js
 
 .git

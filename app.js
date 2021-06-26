@@ -16,8 +16,8 @@ const uuid = require('uuid/v4');
 const schedule = require('node-schedule');
 const rateLimit = require('express-rate-limit');
 const { winston } = require('./serverjs/cloudwatch');
-const updatedb = require('./serverjs/updatecards.js');
-const carddb = require('./serverjs/cards.js');
+const updatedb = require('./serverjs/updatecards');
+const carddb = require('./serverjs/cards');
 const CardRating = require('./models/cardrating');
 const CardHistory = require('./models/cardHistory');
 const { render } = require('./serverjs/render');
@@ -185,7 +185,6 @@ if (process.env.DOWNTIME_ACTIVE === 'true') {
 }
 
 // Route files; they manage their own CSRF protection
-app.use('/patreon', require('./routes/patreon_routes'));
 app.use('/dev', require('./routes/dev_routes'));
 app.use('/cube', require('./routes/cube/index'));
 app.use('/user', require('./routes/users_routes'));

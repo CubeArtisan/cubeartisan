@@ -7,10 +7,10 @@ const { Canvas, Image } = require('canvas');
 
 Canvas.Image = Image;
 
-const cardutil = require('../../dist/utils/Card.js');
-const carddb = require('../../serverjs/cards.js');
+const cardutil = require('../../dist/utils/Card');
+const carddb = require('../../serverjs/cards');
 const { ensureAuth, jsonValidationErrors } = require('../middleware');
-const util = require('../../serverjs/util.js');
+const util = require('../../serverjs/util');
 
 const {
   fromEntries,
@@ -23,7 +23,7 @@ const {
   maybeCards,
   saveDraftAnalytics,
   addCardHtml,
-} = require('../../serverjs/cubefn.js');
+} = require('../../serverjs/cubefn');
 
 const { rotateArrayLeft, createPool } = require('./helper');
 

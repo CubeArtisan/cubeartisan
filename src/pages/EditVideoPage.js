@@ -17,19 +17,21 @@ import {
   Button,
 } from 'reactstrap';
 
-import UserContext from 'contexts/UserContext';
-import DynamicFlash from 'components/DynamicFlash';
-import VideoPreview from 'components/VideoPreview';
-import Tab from 'components/Tab';
-import Video from 'components/Video';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
 import AutocompleteInput from 'components/AutocompleteInput';
 import CSRFForm from 'components/CSRFForm';
+import DynamicFlash from 'components/DynamicFlash';
+import Tab from 'components/Tab';
+import Video from 'components/Video';
+import VideoPreview from 'components/VideoPreview';
+import SiteCustomizationContext from 'contexts/SiteCustomizationContext';
+import UserContext from 'contexts/UserContext';
 import useQueryParam from 'hooks/useQueryParam';
+import MainLayout from 'layouts/MainLayout';
+import RenderToRoot from 'utils/RenderToRoot';
 
-const EditVideoPage = ({ loginCallback, video, siteCustomizations }) => {
+const EditVideoPage = ({ loginCallback, video }) => {
   const user = useContext(UserContext);
+  const { siteName } = useContext(SiteCustomizationContext);
 
   const [tab, setTab] = useQueryParam('tab', '0');
   const [body, setBody] = useState(video.body);
@@ -64,7 +66,7 @@ const EditVideoPage = ({ loginCallback, video, siteCustomizations }) => {
   const hasChanges = video.body !== body || video.url !== url || video.title !== title || video.imagename !== imageName;
 
   return (
-    <MainLayout loginCallback={loginCallback} siteCustomizations={siteCustomizations}>
+    <MainLayout loginCallback={loginCallback}>
       <Card>
         <CardBody>
           <Row>
@@ -200,7 +202,7 @@ const EditVideoPage = ({ loginCallback, video, siteCustomizations }) => {
                 </Row>
               </FormGroup>
               <p>
-                Write any supplmental text here. {siteCustomizations.siteName} videos use a variation of markdown you can read about{' '}
+                Write any supplmental text here. {siteName} videos use a variation of markdown you can read about{' '}
                 <a href="/markdown" target="_blank">
                   here
                 </a>

@@ -16,7 +16,7 @@ const Article = require('../models/article');
 const Video = require('../models/video');
 const Podcast = require('../models/podcast');
 const { render } = require('../serverjs/render');
-const util = require('../serverjs/util.js');
+const util = require('../serverjs/util');
 
 const ensureAdmin = ensureRole('Admin');
 

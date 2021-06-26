@@ -19,7 +19,7 @@ import {
   UncontrolledCollapse,
 } from 'reactstrap';
 
-import { LinkExternalIcon, QuestionIcon, ShareAndroidIcon } from '@primer/octicons-react';
+import { LinkExternalIcon, QuestionIcon } from '@primer/octicons-react';
 
 import { csrfFetch } from 'utils/CSRF';
 import { getCubeId, getCubeDescription } from 'utils/Util';
@@ -34,11 +34,9 @@ import DeleteCubeModal from 'components/DeleteCubeModal';
 import DynamicFlash from 'components/DynamicFlash';
 import FollowersModal from 'components/FollowersModal';
 import Markdown from 'components/Markdown';
-import QRCodeModal from 'components/QRCodeModal';
 import TextBadge from 'components/TextBadge';
 import Tooltip from 'components/Tooltip';
 import withModal from 'components/WithModal';
-import SiteCustomizationContext from 'contexts/SiteCustomizationContext';
 import UserContext from 'contexts/UserContext';
 import CubeLayout from 'layouts/CubeLayout';
 import MainLayout from 'layouts/MainLayout';
@@ -49,11 +47,9 @@ const CubeSettingsModalLink = withModal(NavLink, CubeSettingsModal);
 const DeleteCubeModalLink = withModal(NavLink, DeleteCubeModal);
 const CustomizeBasicsModalLink = withModal(NavLink, CustomizeBasicsModal);
 const CubeIdModalLink = withModal('span', CubeIdModal);
-const QRCodeModalLink = withModal('a', QRCodeModal);
 
 const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followers, loginCallback }) => {
   const user = useContext(UserContext);
-  const { siteRoot } = useContext(SiteCustomizationContext);
 
   const [alerts, setAlerts] = useState([]);
   const [cubeState, setCubeState] = useState(cube);
@@ -158,14 +154,6 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
                   <Col>
                     <h3>{cubeState.name}</h3>
                   </Col>
-                  <div className="float-right" style={{ paddingTop: 3, marginRight: '0.25rem' }}>
-                    <QRCodeModalLink
-                      href="#"
-                      modalProps={{ link: `${siteRoot}/c/${cube._id}`, title: `Link to ${cube.name}` }}
-                    >
-                      QR Code <ShareAndroidIcon size={16} />
-                    </QRCodeModalLink>
-                  </div>
                 </Row>
                 <Row>
                   <Col>

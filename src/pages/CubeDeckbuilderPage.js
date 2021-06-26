@@ -33,13 +33,12 @@ const CubeDeckbuilderPage = ({ cube, initialDeck, loginCallback }) => {
     initialDeck.seats[0].sideboard.map((row) => row.map((col) => col.map((cardIndex) => initialDeck.cards[cardIndex]))),
   );
 
-  const locationMap = {
-    [DraftLocation.DECK]: [deck, setDeck],
-    [DraftLocation.SIDEBOARD]: [sideboard, setSideboard],
-  };
-
   const handleMoveCard = useCallback(
     (source, target) => {
+      const locationMap = {
+        [DraftLocation.DECK]: [deck, setDeck],
+        [DraftLocation.SIDEBOARD]: [sideboard, setSideboard],
+      };
       if (source.equals(target)) {
         return;
       }
@@ -57,7 +56,7 @@ const CubeDeckbuilderPage = ({ cube, initialDeck, loginCallback }) => {
         setTarget(moveOrAddCard(targetCards, target.data, card));
       }
     },
-    [locationMap],
+    [deck, sideboard],
   );
 
   const handleClickCard = useCallback(

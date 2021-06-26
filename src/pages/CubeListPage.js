@@ -172,13 +172,13 @@ const CubeListPage = ({
 
 CubeListPage.propTypes = {
   cube: PropTypes.shape({
-    cards: PropTypes.arrayOf(PropTypes.object).isRequired,
+    cards: PropTypes.arrayOf(PropTypes.shape({ cardID: PropTypes.string.isRequired })).isRequired,
     tag_colors: PropTypes.shape({
       tag: PropTypes.string.isRequired,
       color: PropTypes.oneOf(TAG_COLORS.map(([, c]) => c)),
     }),
     default_sorts: PropTypes.arrayOf(PropTypes.string).isRequired,
-    maybe: PropTypes.object.isRequired,
+    maybe: PropTypes.arrayOf(PropTypes.shape({ cardID: PropTypes.string.isRequired })).isRequired,
     _id: PropTypes.string.isRequired,
     owner: PropTypes.string.isRequired,
   }).isRequired,

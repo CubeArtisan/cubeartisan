@@ -188,7 +188,8 @@ const EditArticlePage = ({ loginCallback, article, siteCustomizations }) => {
                 </Row>
               </FormGroup>
               <p>
-                Write the article text here. {siteCustomizations.siteName} articles use a variation of markdown you can read about{' '}
+                Write the article text here. {siteCustomizations.siteName} articles use a variation of markdown you can
+                read about{' '}
                 <a href="/markdown" target="_blank">
                   here
                 </a>
