@@ -1,7 +1,7 @@
-import { cleanCards } from './cleanCards';
-import Cube from '../cube';
-import { addBasics, createPool } from '../../routes/cube/helper';
-import { flatten, mapNonNull, toNonNullArray } from '../../serverjs/util';
+import { cleanCards } from '@hypercube/server/models/migrations/cleanCards';
+import Cube from '@hypercube/server/models/cube';
+import { addBasics, createPool } from '@hypercube/server/routes/cube/helper';
+import { flatten, mapNonNull, toNonNullArray } from '@hypercube/server/serverjs/util';
 
 const dedupeCardObjects = async (draft) => {
   if (!draft) return null;

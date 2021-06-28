@@ -11,6 +11,11 @@ plugins:
   - prettier
   - react-hooks
   - babel
+settings:
+  import/resolver:
+    node: {}
+    webpack:
+      config: ./webpack.dev.cjs
 rules:
   prettier/prettier:
     - error
@@ -45,23 +50,21 @@ rules:
   react-hooks/exhaustive-deps: error
   react/jsx-uses-react: off
   react/react-in-jsx-scope: off
+  no-restricted-imports:
+    - error
+    - patterns: ['./*', '../*']
 overrides:
-  - files: ['src/**']
-    rules:
-      no-restricted-imports:
-        - error
-        - patterns: ['./*', '../*']
-  - files: ['routes/**', 'serverjs/**', 'models/**']
+  - files: ['server/**']
     rules:
       no-console: error
-  - files: ['src/markdown/**/micromark-*']
+  - files: ['client/markdown/**/micromark-*']
     rules: 
       no-use-before-define: ['error', 'nofunc']
-  - files: ['models/**']
+  - files: ['server/models/**']
     rules:
       no-underscore-dangle:
         - error
         - allowAfterThis: true
-  - files: ['one_shot_scripts/**']
+  - files: ['server/one_shot_scripts/**', 'server/jobs/**']
     rules:
       no-await-in-loop: 0

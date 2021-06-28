@@ -1,7 +1,7 @@
 const path = require('path');
 const merge = require('webpack-merge');
 
-const common = require('./webpack.common.cjs');
+const { clientConfig: common } = require('./webpack.common.cjs');
 
 const config = {
   mode: 'development',
@@ -11,7 +11,7 @@ const config = {
   },
 };
 
-const clientConfig = merge(common.clientConfig, config, {
+const clientConfig = merge(common, config, {
   devServer: {
     compress: true,
     contentBase: path.join(__dirname, 'dist'),
@@ -25,4 +25,4 @@ const clientConfig = merge(common.clientConfig, config, {
   },
 });
 
-module.exports = clientConfig;
+module.exports = [clientConfig];

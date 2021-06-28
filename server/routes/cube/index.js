@@ -8,14 +8,14 @@ import cheerio from 'cheerio';
 import RSS from 'rss';
 import { Canvas, Image } from 'canvas';
 
-import createdraft from '../../dist/drafting/createdraft';
-import filterutil from '../../dist/filtering/FilterCards';
-import miscutil from '../../dist/utils/Util';
-import carddb from '../../serverjs/cards';
-import { render } from '../../serverjs/render';
-import { ensureAuth, csrfProtection, flashValidationErrors } from '../middleware';
-import util, { fromEntries } from '../../serverjs/util';
-import generateMeta from '../../serverjs/meta';
+import createdraft from '@hypercube/client/drafting/createdraft';
+import filterutil from '@hypercube/client/filtering/FilterCards';
+import miscutil from '@hypercube/client/utils/Util';
+import carddb from '@hypercube/server/serverjs/cards';
+import { render } from '@hypercube/server/serverjs/render';
+import { ensureAuth, csrfProtection, flashValidationErrors } from '@hypercube/server/routes/middleware';
+import util, { fromEntries } from '@hypercube/server/serverjs/util';
+import generateMeta from '@hypercube/server/serverjs/meta';
 import {
   generatePack,
   setCubeType,
@@ -30,7 +30,7 @@ import {
   generateSamplepackImage,
   addDeckCardAnalytics,
   cachePromise,
-} from '../../serverjs/cubefn';
+} from '@hypercube/server/serverjs/cubefn';
 import {
   CARD_HEIGHT,
   CARD_WIDTH,
@@ -40,17 +40,17 @@ import {
   createPool,
   shuffle,
   updateCubeAndBlog,
-} from './helper';
+} from '@hypercube/server/routes/cube/helper';
 
 // Bring in models
-import Cube from '../../models/cube';
+import Cube from '@hypercube/server/models/cube';
 
-import Deck from '../../models/deck';
-import Blog from '../../models/blog';
-import User from '../../models/user';
-import Draft from '../../models/draft';
-import GridDraft from '../../models/gridDraft';
-import CubeAnalytic from '../../models/cubeAnalytic';
+import Deck from '@hypercube/server/models/deck';
+import Blog from '@hypercube/server/models/blog';
+import User from '@hypercube/server/models/user';
+import Draft from '@hypercube/server/models/draft';
+import GridDraft from '@hypercube/server/models/gridDraft';
+import CubeAnalytic from '@hypercube/server/models/cubeAnalytic';
 
 Canvas.Image = Image;
 

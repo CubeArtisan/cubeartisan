@@ -1,8 +1,9 @@
 import fs from 'fs';
 import winston from 'winston';
-import util from './util';
-import { SortFunctions, ORDERED_SORTS } from '../dist/utils/Sort';
+import util from '@hypercube/server/serverjs/util';
+import { SortFunctions, ORDERED_SORTS } from '@hypercube/client/utils/Sort';
 
+// eslint-disable-next-line
 let data = {
   cardtree: {},
   imagedict: {},
@@ -112,7 +113,7 @@ function registerFileWatcher(filename, attribute) {
   });
 }
 
-function initializeCardDb(dataRoot, skipWatchers) {
+async function initializeCardDb(dataRoot, skipWatchers) {
   winston.info('Loading carddb...');
   if (dataRoot === undefined) {
     dataRoot = 'private';
@@ -125,12 +126,10 @@ function initializeCardDb(dataRoot, skipWatchers) {
       registerFileWatcher(filepath, attribute);
     }
   }
-  return Promise.all(promises)
-    .then(() => {
-      // cache cards used in card filters
-      data.printedCardList = Object.values(data._carddict).filter((card) => !card.digital && !card.isToken);
-    })
-    .then(() => winston.info('Finished loading carddb.'));
+  await Promise.all(promises);
+  // cache cards used in card filters
+  data.printedCardList = Object.values(data._carddict).filter((card) => !card.digital && !card.isToken);
+  return winston.info('Finished loading carddb.');
 }
 
 function unloadCardDb() {

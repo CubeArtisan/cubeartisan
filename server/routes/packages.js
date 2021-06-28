@@ -1,9 +1,9 @@
 import express from 'express';
-import { render } from '../serverjs/render';
-import { ensureAuth, ensureRole, csrfProtection } from './middleware';
-import carddb from '../serverjs/cards';
-import Package from '../models/package';
-import User from '../models/user';
+import { render } from '@hypercube/server/serverjs/render';
+import { ensureAuth, ensureRole, csrfProtection } from '@hypercube/server/routes/middleware';
+import carddb from '@hypercube/server/serverjs/cards';
+import Package from '@hypercube/server/models/package';
+import User from '@hypercube/server/models/user';
 
 const router = express.Router();
 

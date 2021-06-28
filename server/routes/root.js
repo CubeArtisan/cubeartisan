@@ -1,17 +1,17 @@
 import express from 'express';
-import util from '../serverjs/util';
-import Blog from '../models/blog';
-import Cube from '../models/cube';
-import Deck from '../models/deck';
-import User from '../models/user';
-import Article from '../models/article';
-import Video from '../models/video';
-import PodcastEpisode from '../models/podcastEpisode';
-import carddb from '../serverjs/cards';
-import { makeFilter } from '../serverjs/filterCubes';
-import { render } from '../serverjs/render';
-import { csrfProtection, ensureAuth } from './middleware';
-import { getCubeId } from '../serverjs/cubefn';
+import util from '@hypercube/server/serverjs/util';
+import Blog from '@hypercube/server/models/blog';
+import Cube from '@hypercube/server/models/cube';
+import Deck from '@hypercube/server/models/deck';
+import User from '@hypercube/server/models/user';
+import Article from '@hypercube/server/models/article';
+import Video from '@hypercube/server/models/video';
+import PodcastEpisode from '@hypercube/server/models/podcastEpisode';
+import carddb from '@hypercube/server/serverjs/cards';
+import { makeFilter } from '@hypercube/server/serverjs/filterCubes';
+import { render } from '@hypercube/server/serverjs/render';
+import { csrfProtection, ensureAuth } from '@hypercube/server/routes/middleware';
+import { getCubeId } from '@hypercube/server/serverjs/cubefn';
 
 const router = express.Router();
 

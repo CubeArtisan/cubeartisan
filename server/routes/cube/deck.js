@@ -2,26 +2,30 @@ import express from 'express';
 import { body } from 'express-validator';
 import { Canvas, Image } from 'canvas';
 
-import miscutil from '../../dist/utils/Util';
-import carddb from '../../serverjs/cards';
-import { buildDeck } from '../../dist/drafting/deckutil';
-import { render } from '../../serverjs/render';
-import util from '../../serverjs/util';
-import generateMeta from '../../serverjs/meta';
-import cardutil from '../../dist/utils/Card';
-import frontutil from '../../dist/utils/Util';
-import { ensureAuth } from '../middleware';
-import { buildIdQuery, abbreviate, addDeckCardAnalytics, removeDeckCardAnalytics } from '../../serverjs/cubefn';
-import { exportToMtgo, createPool, rotateArrayLeft } from './helper';
+import Util from '@hypercube/client/utils/Util';
+import carddb from '@hypercube/server/serverjs/cards';
+import { buildDeck } from '@hypercube/client/drafting/deckutil';
+import { render } from '@hypercube/server/serverjs/render';
+import util from '@hypercube/server/serverjs/util';
+import generateMeta from '@hypercube/server/serverjs/meta';
+import cardutil from '@hypercube/client/utils/Card';
+import { ensureAuth } from '@hypercube/server/routes/middleware';
+import {
+  buildIdQuery,
+  abbreviate,
+  addDeckCardAnalytics,
+  removeDeckCardAnalytics,
+} from '@hypercube/server/serverjs/cubefn';
+import { exportToMtgo, createPool, rotateArrayLeft } from '@hypercube/server/routes/cube/helper';
 
 // Bring in models
-import Cube from '../../models/cube';
+import Cube from '@hypercube/server/models/cube';
 
-import Deck from '../../models/deck';
-import User from '../../models/user';
-import CubeAnalytic from '../../models/cubeAnalytic';
-import Draft from '../../models/draft';
-import GridDraft from '../../models/gridDraft';
+import Deck from '@hypercube/server/models/deck';
+import User from '@hypercube/server/models/user';
+import CubeAnalytic from '@hypercube/server/models/cubeAnalytic';
+import Draft from '@hypercube/server/models/draft';
+import GridDraft from '@hypercube/server/models/gridDraft';
 
 Canvas.Image = Image;
 
@@ -364,7 +368,7 @@ router.get('/deckbuilder/:id', async (req, res) => {
         title: `${abbreviate(cube.name)} - Deckbuilder`,
         metadata: generateMeta(
           `${process.env.SITE_NAME} Draft: ${cube.name}`,
-          miscutil.getCubeDescription(cube),
+          Util.getCubeDescription(cube),
           cube.image_uri,
           `${process.env.SITE_ROOT}/cube/draft/${req.params.id}`,
         ),
@@ -420,7 +424,7 @@ router.get('/decks/:cubeid/:page', async (req, res) => {
         title: `${abbreviate(cube.name)} - Draft Decks`,
         metadata: generateMeta(
           `${process.env.SITE_NAME} Decks: ${cube.name}`,
-          miscutil.getCubeDescription(cube),
+          Util.getCubeDescription(cube),
           cube.image_uri,
           `${process.env.SITE_ROOT}/user/decks/${encodeURIComponent(req.params.cubeid)}`,
         ),
@@ -561,7 +565,7 @@ router.post('/editdeck/:id', ensureAuth, async (req, res) => {
     const colorString =
       colors.length === 0
         ? 'C'
-        : cardutil.COLOR_COMBINATIONS.find((comb) => frontutil.arraysAreEqualSets(comb, colors)).join('');
+        : cardutil.COLOR_COMBINATIONS.find((comb) => Util.arraysAreEqualSets(comb, colors)).join('');
 
     deck.seats[0].deck = newdeck.playerdeck;
     deck.seats[0].sideboard = newdeck.playersideboard;
@@ -618,7 +622,7 @@ router.post('/submitdeck/:id', body('skipDeckbuilder').toBoolean(), async (req, 
       const colorString =
         colors.length === 0
           ? 'C'
-          : cardutil.COLOR_COMBINATIONS.find((comb) => frontutil.arraysAreEqualSets(comb, colors)).join('');
+          : cardutil.COLOR_COMBINATIONS.find((comb) => Util.arraysAreEqualSets(comb, colors)).join('');
       if (seat.bot) {
         deck.seats.push({
           bot: seat.bot,
@@ -712,7 +716,7 @@ router.post('/submitgriddeck/:id', body('skipDeckbuilder').toBoolean(), async (r
       const colorString =
         colors.length > 0
           ? 'C'
-          : cardutil.COLOR_COMBINATIONS.find((comb) => frontutil.arraysAreEqualSets(comb, colors)).join('');
+          : cardutil.COLOR_COMBINATIONS.find((comb) => Util.arraysAreEqualSets(comb, colors)).join('');
       if (seat.bot) {
         deck.seats.push({
           bot: seat.bot,
@@ -987,7 +991,7 @@ router.get('/:id', async (req, res) => {
         title: `${abbreviate(cube.name)} - ${drafter}'s deck`,
         metadata: generateMeta(
           `${process.env.SITE_NAME} Deck: ${cube.name}`,
-          miscutil.getCubeDescription(cube),
+          Util.getCubeDescription(cube),
           cube.image_uri,
           `${process.env.SITE_ROOT}/cube/deck/${req.params.id}`,
         ),

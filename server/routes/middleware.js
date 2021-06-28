@@ -1,6 +1,6 @@
 import csurf from 'csurf';
 import { validationResult } from 'express-validator';
-import User from '../models/user';
+import User from '@hypercube/server/models/user';
 
 const ensureAuth = (req, res, next) => {
   if (req.isAuthenticated()) {

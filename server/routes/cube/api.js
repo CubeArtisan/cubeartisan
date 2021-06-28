@@ -6,10 +6,10 @@ import { body } from 'express-validator';
 import fetch from 'node-fetch';
 import { Canvas, Image } from 'canvas';
 
-import cardutil from '../../dist/utils/Card';
-import carddb from '../../serverjs/cards';
-import { ensureAuth, jsonValidationErrors } from '../middleware';
-import util from '../../serverjs/util';
+import cardutil from '@hypercube/client/utils/Card';
+import carddb from '@hypercube/server/serverjs/cards';
+import { ensureAuth, jsonValidationErrors } from '@hypercube/server/routes/middleware';
+import util from '@hypercube/server/serverjs/util';
 import {
   fromEntries,
   generatePack,
@@ -21,17 +21,17 @@ import {
   maybeCards,
   saveDraftAnalytics,
   addCardHtml,
-} from '../../serverjs/cubefn';
-import { rotateArrayLeft, createPool } from './helper';
+} from '@hypercube/server/serverjs/cubefn';
+import { rotateArrayLeft, createPool } from '@hypercube/server/routes/cube/helper';
 
 // Bring in models
-import Cube from '../../models/cube';
+import Cube from '@hypercube/server/models/cube';
 
-import Draft from '../../models/draft';
-import GridDraft from '../../models/gridDraft';
-import CubeAnalytic from '../../models/cubeAnalytic';
-import Package from '../../models/package';
-import Blog from '../../models/blog';
+import Draft from '@hypercube/server/models/draft';
+import GridDraft from '@hypercube/server/models/gridDraft';
+import CubeAnalytic from '@hypercube/server/models/cubeAnalytic';
+import Package from '@hypercube/server/models/package';
+import Blog from '@hypercube/server/models/blog';
 
 require('dotenv').config();
 

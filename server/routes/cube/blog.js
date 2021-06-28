@@ -1,14 +1,15 @@
 import express from 'express';
-import { ensureAuth } from '../middleware';
-import carddb from '../../serverjs/cards';
-import util from '../../serverjs/util';
-import { render } from '../../serverjs/render';
-import generateMeta from '../../serverjs/meta';
-import miscutil from '../../dist/utils/Util';
-import { setCubeType, buildIdQuery, abbreviate } from '../../serverjs/cubefn';
-import Cube from '../../models/cube';
-import Blog from '../../models/blog';
-import User from '../../models/user';
+
+import { ensureAuth } from '@hypercube/server/routes/middleware';
+import carddb from '@hypercube/server/serverjs/cards';
+import util from '@hypercube/server/serverjs/util';
+import { render } from '@hypercube/server/serverjs/render';
+import generateMeta from '@hypercube/server/serverjs/meta';
+import miscutil from '@hypercube/client/utils/Util';
+import { setCubeType, buildIdQuery, abbreviate } from '@hypercube/server/serverjs/cubefn';
+import Cube from '@hypercube/server/models/cube';
+import Blog from '@hypercube/server/models/blog';
+import User from '@hypercube/server/models/user';
 
 const router = express.Router();
 

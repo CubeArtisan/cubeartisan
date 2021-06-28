@@ -1,10 +1,11 @@
-const shuffleSeed = require('shuffle-seed');
-const { winston } = require('./cloudwatch');
+import Filter from 'bad-words';
+import shuffleSeed from 'shuffle-seed';
+
+import winston from '@hypercube/server/serverjs/winstonConfig';
 
 function hasProfanity(text) {
   if (!text) return false;
 
-  const Filter = require('bad-words');
   const filter = new Filter();
   const removeWords = ['hell', 'sadist', 'God'];
   filter.removeWords(...removeWords);

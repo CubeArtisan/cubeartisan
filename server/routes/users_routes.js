@@ -5,20 +5,20 @@ import mailer from 'nodemailer';
 import { body } from 'express-validator';
 import Email from 'email-templates';
 import path from 'path';
-import util from '../serverjs/util';
-import carddb from '../serverjs/cards';
-import { render } from '../serverjs/render';
+import util from '@hypercube/server/serverjs/util';
+import carddb from '@hypercube/server/serverjs/cards';
+import { render } from '@hypercube/server/serverjs/render';
 
 // Bring in models
-import User from '../models/user';
+import User from '@hypercube/server/models/user';
 
-import PasswordReset from '../models/passwordreset';
-import Cube from '../models/cube';
-import Deck from '../models/deck';
-import Blog from '../models/blog';
-import Patron from '../models/patron';
+import PasswordReset from '@hypercube/server/models/passwordreset';
+import Cube from '@hypercube/server/models/cube';
+import Deck from '@hypercube/server/models/deck';
+import Blog from '@hypercube/server/models/blog';
+import Patron from '@hypercube/server/models/patron';
 
-import { ensureAuth, csrfProtection, flashValidationErrors } from './middleware';
+import { ensureAuth, csrfProtection, flashValidationErrors } from '@hypercube/server/routes/middleware';
 
 const router = express.Router();
 
@@ -216,7 +216,7 @@ router.post(
 
 router.get('/passwordreset/:id', (req, res) => {
   // create a password reset page and return it here
-  PasswordReset.findById(req.params.id, (err, passwordreset) => {
+  PasswordReset.findById(req.params.id, (_err, passwordreset) => {
     if (!passwordreset || Date.now() > passwordreset.expires) {
       req.flash('danger', 'Password recovery link expired');
       return res.redirect('/');
@@ -343,7 +343,7 @@ router.post(
       confirm: 'false',
     });
 
-    return bcrypt.genSalt(10, (err3, salt) => {
+    return bcrypt.genSalt(10, (_err3, salt) => {
       bcrypt.hash(newUser.password, salt, (err4, hash) => {
         if (err4) {
           req.logger.error(err4);
@@ -434,7 +434,7 @@ router.post('/login', (req, res, next) => {
     [req.body.username.includes('@') ? 'email' : 'username_lower']: req.body.username.toLowerCase(),
   };
   // find by email
-  User.findOne(query, (err, user) => {
+  User.findOne(query, (_err, user) => {
     if (!user) {
       req.flash('danger', 'Incorrect username or email address.');
       res.redirect('/user/login');
@@ -663,9 +663,9 @@ router.post(
         res.redirect('/user/account');
       });
     } else {
-      User.findById(req.user._id, (err, user) => {
+      User.findById(req.user._id, (_err, user) => {
         if (user) {
-          bcrypt.compare(req.body.password, user.password, (err2, isMatch) => {
+          bcrypt.compare(req.body.password, user.password, (_err2, isMatch) => {
             if (!isMatch) {
               req.flash('danger', 'Password is incorrect');
               return res.redirect('/user/account?nav=password');
@@ -674,7 +674,7 @@ router.post(
               req.flash('danger', "New passwords don't match");
               return res.redirect('/user/account?nav=password');
             }
-            return bcrypt.genSalt(10, (err3, salt) => {
+            return bcrypt.genSalt(10, (_err3, salt) => {
               bcrypt.hash(req.body.password2, salt, (err4, hash) => {
                 if (err4) {
                   req.logger.error(err4);
@@ -752,7 +752,7 @@ router.post('/updateemail', ensureAuth, (req, res) => {
     {
       email: req.body.email.toLowerCase(),
     },
-    (err, user) => {
+    (_err, user) => {
       if (user) {
         req.flash('danger', 'Email already associated with an existing account.');
         res.redirect('/user/account?nav=email');

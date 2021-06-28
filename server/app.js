@@ -1,5 +1,6 @@
 // Load Environment Variables
 import express from 'express';
+import dotenv from 'dotenv';
 import path from 'path';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
@@ -13,14 +14,14 @@ import onFinished from 'on-finished';
 import uuid from 'uuid/v4';
 import schedule from 'node-schedule';
 import rateLimit from 'express-rate-limit';
-import winston from './serverjs/cloudwatch';
-import updatedb from './serverjs/updatecards';
-import carddb from './serverjs/cards';
-import CardRating from './models/cardrating';
-import CardHistory from './models/cardHistory';
-import render from './serverjs/render';
+import winston from '@hypercube/server/serverjs/winstonConfig';
+import updatedb from '@hypercube/server/serverjs/updatecards';
+import carddb from '@hypercube/server/serverjs/cards';
+import CardRating from '@hypercube/server/models/cardrating';
+import CardHistory from '@hypercube/server/models/cardHistory';
+import render from '@hypercube/server/serverjs/render';
 
-require('dotenv').config();
+dotenv.config();
 
 const MongoDBStore = MongoDBStoreFactory(session);
 
@@ -187,16 +188,16 @@ if (process.env.DOWNTIME_ACTIVE === 'true') {
 }
 
 // Route files; they manage their own CSRF protection
-app.use('/dev', require('./routes/dev_routes'));
-app.use('/cube', require('./routes/cube/index'));
-app.use('/user', require('./routes/users_routes'));
-app.use('/tool', require('./routes/tools_routes'));
-app.use('/comment', require('./routes/comment_routes'));
-app.use('/admin', require('./routes/admin_routes'));
-app.use('/content', require('./routes/content_routes'));
-app.use('/packages', require('./routes/packages'));
+app.use('/dev', import('@hypercube/server/routes/dev_routes'));
+app.use('/cube', import('@hypercube/server/routes/cube/index'));
+app.use('/user', import('@hypercube/server/routes/users_routes'));
+app.use('/tool', import('@hypercube/server/routes/tools_routes'));
+app.use('/comment', import('@hypercube/server/routes/comment_routes'));
+app.use('/admin', import('@hypercube/server/routes/admin_routes'));
+app.use('/content', import('@hypercube/server/routes/content_routes'));
+app.use('/packages', import('@hypercube/server/routes/packages'));
 
-app.use('', require('./routes/root'));
+app.use('', import('@hypercube/server/routes/root'));
 
 app.use((req, res) => {
   return render(req, res, 'ErrorPage', {

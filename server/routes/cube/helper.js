@@ -1,18 +1,18 @@
 import { Canvas, Image } from 'canvas';
 
-import carddb from '../../serverjs/cards';
-import { render } from '../../serverjs/render';
-import util from '../../serverjs/util';
-import { setCubeType, addCardHtml, CSVtoCards } from '../../serverjs/cubefn';
+import carddb from '@hypercube/server/serverjs/cards';
+import { render } from '@hypercube/server/serverjs/render';
+import util from '@hypercube/server/serverjs/util';
+import { setCubeType, addCardHtml, CSVtoCards } from '@hypercube/server/serverjs/cubefn';
 
 // Bring in models
-import Cube from '../../models/cube';
+import Cube from '@hypercube/server/models/cube';
 
-import Blog from '../../models/blog';
+import Blog from '@hypercube/server/models/blog';
 
 Canvas.Image = Image;
 
-const DEFAULT_BASICS = [
+export const DEFAULT_BASICS = [
   '1d7dba1c-a702-43c0-8fca-e47bbad4a00f',
   '42232ea6-e31d-46a6-9f94-b2ad2416d79b',
   '19e71532-3f79-4fec-974f-b0e85c7fe701',
@@ -20,12 +20,12 @@ const DEFAULT_BASICS = [
   '0c4eaecf-dd4c-45ab-9b50-2abe987d35d4',
 ];
 
-const CARD_HEIGHT = 680;
-const CARD_WIDTH = 488;
-const CSV_HEADER =
+export const CARD_HEIGHT = 680;
+export const CARD_WIDTH = 488;
+export const CSV_HEADER =
   'Name,CMC,Type,Color,Set,Collector Number,Rarity,Color Category,Status,Finish,Maybeboard,Image URL,Image Back URL,Tags,Notes,MTGO ID';
 
-async function updateCubeAndBlog(req, res, cube, changelog, added, missing) {
+export const updateCubeAndBlog = async (req, res, cube, changelog, added, missing) => {
   try {
     const blogpost = new Blog();
     blogpost.title = 'Cube Bulk Import - Automatic Post';
@@ -72,9 +72,9 @@ async function updateCubeAndBlog(req, res, cube, changelog, added, missing) {
   } catch (err) {
     return util.handleRouteError(req, res, err, `/cube/list/${encodeURIComponent(req.params.id)}`);
   }
-}
+};
 
-async function bulkUpload(req, res, list, cube) {
+export const bulkUpload = async (req, res, list, cube) => {
   const cards = list.match(/[^\r\n]+/g);
   let missing = '';
   const added = [];
@@ -132,9 +132,9 @@ async function bulkUpload(req, res, list, cube) {
     }
   }
   await updateCubeAndBlog(req, res, cube, changelog, added, missing);
-}
+};
 
-function writeCard(res, card, maybe) {
+export const writeCard = (res, card, maybe) => {
   if (!card.type_line) {
     card.type_line = carddb.cardFromId(card.cardID).type;
   }
@@ -172,9 +172,9 @@ function writeCard(res, card, maybe) {
   res.write(`","${card.notes || ''}",`);
   res.write(`${carddb.cardFromId(card.cardID).mtgo_id || ''}`);
   res.write('\r\n');
-}
+};
 
-const exportToMtgo = (res, fileName, mainCards, sideCards, cards) => {
+export const exportToMtgo = (res, fileName, mainCards, sideCards, cards) => {
   res.setHeader('Content-disposition', `attachment; filename=${fileName.replace(/\W/g, '')}.txt`);
   res.setHeader('Content-type', 'text/plain');
   res.charset = 'UTF-8';
@@ -210,7 +210,7 @@ const exportToMtgo = (res, fileName, mainCards, sideCards, cards) => {
   return res.end();
 };
 
-const shuffle = (a) => {
+export const shuffle = (a) => {
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [a[i], a[j]] = [a[j], a[i]];
@@ -218,7 +218,7 @@ const shuffle = (a) => {
   return a;
 };
 
-const addBasics = (cardsArray, basics, collection = null) => {
+export const addBasics = (cardsArray, basics, collection = null) => {
   const populatedBasics = basics.map((cardID) => {
     const details = carddb.cardFromId(cardID);
     const populatedCard = {
@@ -233,7 +233,7 @@ const addBasics = (cardsArray, basics, collection = null) => {
   if (collection) collection.basics = populatedBasics.map(({ index }) => index);
 };
 
-const createPool = () => {
+export const createPool = () => {
   const pool = [];
   for (let i = 0; i < 2; i++) {
     pool.push([]);
@@ -244,7 +244,7 @@ const createPool = () => {
   return pool;
 };
 
-const reverseArray = (arr, start, end) => {
+export const reverseArray = (arr, start, end) => {
   while (start < end) {
     [arr[start], arr[end]] = [arr[end], arr[start]];
     start += 1;
@@ -252,7 +252,7 @@ const reverseArray = (arr, start, end) => {
   }
 };
 
-const rotateArrayRight = (arr, k) => {
+export const rotateArrayRight = (arr, k) => {
   k %= arr.length;
   reverseArray(arr, 0, arr.length - 1);
   reverseArray(arr, 0, k - 1);
@@ -261,7 +261,7 @@ const rotateArrayRight = (arr, k) => {
   return arr;
 };
 
-const rotateArrayLeft = (arr, k) => rotateArrayRight(arr, arr.length - (k % arr.length));
+export const rotateArrayLeft = (arr, k) => rotateArrayRight(arr, arr.length - (k % arr.length));
 
 export default {
   CARD_HEIGHT,

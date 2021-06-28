@@ -5,10 +5,10 @@ import JSONStream from 'JSONStream';
 import es from 'event-stream';
 import fetch from 'node-fetch';
 import AWS from 'aws-sdk';
-import { winston } from './cloudwatch';
-import cardutil from '../dist/utils/Card';
-import util from './util';
-import carddb from './cards';
+import winston from '@hypercube/server/serverjs/winstonConfig';
+import cardutil from '@hypercube/client/utils/Card';
+import util from '@hypercube/server/serverjs/util';
+import carddb from '@hypercube/server/serverjs/cards';
 
 const catalog = {};
 

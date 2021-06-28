@@ -1,5 +1,5 @@
-import { getFeedEpisodes } from './rss';
-import PodcastEpisode from '../models/podcastEpisode';
+import { getFeedEpisodes } from '@hypercube/server/serverjs/rss';
+import PodcastEpisode from '@hypercube/server/models/podcastEpisode';
 
 const updatePodcast = async (podcast) => {
   const episodes = await getFeedEpisodes(podcast.rss);

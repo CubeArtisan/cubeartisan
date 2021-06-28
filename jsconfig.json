@@ -4,20 +4,9 @@
         "target": "es6",
         "baseUrl": "./",
         "paths": {
-            "analytics/*": ["./src/analytics/*"],
-            "components/*": ["./src/components/*"],
-            "contexts/*": ["./src/contexts/*"],
-            "drafting/*": ["./src/drafting/*"],
-            "filtering/*": ["./src/filtering/*"],
-            "generated/*": ["./src/generated/*"],
-            "hooks/*": ["./src/hooks/*"],
-            "layouts/*": ["./src/layouts/*"],
-            "markdown/*": ["./src/markdown/*"],
-            "pages/*": ["./src/pages/*"],
-            "proptypes/*": ["./src/proptypes/*"],
-            "res/*": ["./src/res/*"],
-            "utils/*": ["./src/utils/*"]
+            "@hypercube/server/**": ["./server/**"],
+            "@hypercube/client/**": ["./client/**"]
         }
     },
-    "include": ["src/**/*", "app.js", "serverjs/*", "routes/*"]
+    "include": ["server/**/*", "client/**/*"]
 }

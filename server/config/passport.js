@@ -1,13 +1,13 @@
 const LocalStrategy = require('passport-local').Strategy;
-const User = require('../models/user');
 const bcrypt = require('bcryptjs');
+const User = require('../models/user');
 
 module.exports = function (passport) {
-  //Local Strategy
+  // Local Strategy
   passport.use(
     new LocalStrategy(function (username, password, done) {
-      //Match username
-      let query = {
+      // Match username
+      const query = {
         username_lower: username.toLowerCase(),
       };
       User.findOne(query, function (err, user) {
@@ -18,16 +18,15 @@ module.exports = function (passport) {
           });
         }
 
-        //Match password
+        // Match password
         bcrypt.compare(password, user.password, function (err, isMatch) {
           if (err) throw err;
           if (isMatch) {
             return done(null, user);
-          } else {
-            return done(null, false, {
-              message: 'Incorrect password',
-            });
           }
+          return done(null, false, {
+            message: 'Incorrect password',
+          });
         });
       });
     }),
