@@ -1,23 +1,23 @@
 import { useCallback, useContext, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from 'proptypes/CardPropType';
+import CardPropType from '@hypercube/client/proptypes/CardPropType';
 
 import { Button, Col, Form, ListGroupItem, Row, Spinner } from 'reactstrap';
 
-import { csrfFetch } from 'utils/CSRF';
+import { csrfFetch } from '@hypercube/client/utils/CSRF';
 
-import AutocompleteInput from 'components/AutocompleteInput';
-import CardModalContext from 'contexts/CardModalContext';
-import CardModalForm from 'components/CardModalForm';
-import ChangelistContext from 'contexts/ChangelistContext';
-import CubeContext from 'contexts/CubeContext';
-import DisplayContext from 'contexts/DisplayContext';
-import { getCard } from 'components/EditCollapse';
-import LoadingButton from 'components/LoadingButton';
-import MaybeboardContext from 'contexts/MaybeboardContext';
-import TableView from 'components/TableView';
-import { getCardColorClass } from 'contexts/TagContext';
-import withAutocard from 'components/WithAutocard';
+import AutocompleteInput from '@hypercube/client/components/AutocompleteInput';
+import CardModalContext from '@hypercube/client/contexts/CardModalContext';
+import CardModalForm from '@hypercube/client/components/CardModalForm';
+import ChangelistContext from '@hypercube/client/contexts/ChangelistContext';
+import CubeContext from '@hypercube/client/contexts/CubeContext';
+import DisplayContext from '@hypercube/client/contexts/DisplayContext';
+import { getCard } from '@hypercube/client/components/EditCollapse';
+import LoadingButton from '@hypercube/client/components/LoadingButton';
+import MaybeboardContext from '@hypercube/client/contexts/MaybeboardContext';
+import TableView from '@hypercube/client/components/TableView';
+import { getCardColorClass } from '@hypercube/client/contexts/TagContext';
+import withAutocard from '@hypercube/client/components/WithAutocard';
 
 const AutocardItem = withAutocard(ListGroupItem);
 

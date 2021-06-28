@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import cardSchema from './shared/cardSchema';
+import cardSchema from '@hypercube/server/models/shared/cardSchema';
 
 const CURRENT_SCHEMA_VERSION = require('./migrations/deckMigrations').slice(-1)[0].version;
 

@@ -1,18 +1,18 @@
 import express from 'express';
-import util from '../serverjs/util';
-import { ensureAuth, csrfProtection } from './middleware';
-import { render } from '../serverjs/render';
+import util from '@hypercube/server/serverjs/util';
+import { ensureAuth, csrfProtection } from '@hypercube/server/routes/middleware';
+import { render } from '@hypercube/server/serverjs/render';
 
 // Bring in models
-import User from '../models/user';
+import User from '@hypercube/server/models/user';
 
-import Blog from '../models/blog';
+import Blog from '@hypercube/server/models/blog';
 
 const router = express.Router();
 
 router.use(csrfProtection);
 
-router.get('/blog', (req, res) => {
+router.get('/blog', (_req, res) => {
   res.redirect('/dev/blog/0');
 });
 

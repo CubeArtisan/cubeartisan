@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import CardPropType from 'proptypes/CardPropType';
+import CardPropType from '@hypercube/client/proptypes/CardPropType';
 
 import { Button, Form, Input } from 'reactstrap';
 
-import { tcgMassEntryUrl } from 'utils/Affiliate';
+import { tcgMassEntryUrl } from '@hypercube/client/utils/Affiliate';
 
 const exclude = ['Copy'];
 

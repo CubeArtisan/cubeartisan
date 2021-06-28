@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import PatronPropType from 'proptypes/PatronPropType';
+import PatronPropType from '@hypercube/client/proptypes/PatronPropType';
 
 import {
   Button,
@@ -22,16 +22,16 @@ import {
   CustomInput,
 } from 'reactstrap';
 
-import Query from 'utils/Query';
+import Query from '@hypercube/client/utils/Query';
 
-import UserContext from 'contexts/UserContext';
-import AutocompleteInput from 'components/AutocompleteInput';
-import CSRFForm from 'components/CSRFForm';
-import DynamicFlash from 'components/DynamicFlash';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
-import TextEntry from 'components/TextEntry';
-import useQueryParam from 'hooks/useQueryParam';
+import UserContext from '@hypercube/client/contexts/UserContext';
+import AutocompleteInput from '@hypercube/client/components/AutocompleteInput';
+import CSRFForm from '@hypercube/client/components/CSRFForm';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import TextEntry from '@hypercube/client/components/TextEntry';
+import useQueryParam from '@hypercube/client/hooks/useQueryParam';
 
 const UserAccountPage = ({ defaultNav, loginCallback, patreonClientId, patreonRedirectUri, patron }) => {
   const user = useContext(UserContext);

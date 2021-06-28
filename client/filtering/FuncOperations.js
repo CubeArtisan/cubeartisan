@@ -1,5 +1,5 @@
-import { arrayIsSubset, arraysAreEqualSets } from 'utils/Util';
-import { cardDevotion } from 'utils/Card';
+import { arrayIsSubset, arraysAreEqualSets } from '@hypercube/client/utils/Util';
+import { cardDevotion } from '@hypercube/client/utils/Card';
 
 export const defaultOperation = (op, value) => {
   switch (op.toString()) {

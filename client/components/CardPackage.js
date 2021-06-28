@@ -2,18 +2,18 @@ import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import TimeAgo from 'react-timeago';
 
-import UserContext from 'contexts/UserContext';
-import CardPackagePropType from 'proptypes/CardPackagePropType';
-import withAutocard from 'components/WithAutocard';
-import AddGroupToCubeModal from 'components/AddGroupToCubeModal';
-import withModal from 'components/WithModal';
-import TextBadge from 'components/TextBadge';
-import Tooltip from 'components/Tooltip';
-import CommentsSection from 'components/CommentsSection';
+import UserContext from '@hypercube/client/contexts/UserContext';
+import CardPackagePropType from '@hypercube/client/proptypes/CardPackagePropType';
+import withAutocard from '@hypercube/client/components/WithAutocard';
+import AddGroupToCubeModal from '@hypercube/client/components/AddGroupToCubeModal';
+import withModal from '@hypercube/client/components/WithModal';
+import TextBadge from '@hypercube/client/components/TextBadge';
+import Tooltip from '@hypercube/client/components/Tooltip';
+import CommentsSection from '@hypercube/client/components/CommentsSection';
 
 import { CardHeader, Card, CardBody, Row, Col, Button } from 'reactstrap';
 
-import { csrfFetch } from 'utils/CSRF';
+import { csrfFetch } from '@hypercube/client/utils/CSRF';
 
 const AddGroupToCubeModalLink = withModal(Button, AddGroupToCubeModal);
 const AutocardA = withAutocard('a');

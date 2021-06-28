@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 
-import ButtonLink from 'components/ButtonLink';
+import ButtonLink from '@hypercube/client/components/ButtonLink';
 
 const AddToCubeModal = ({ link, isOpen, toggle }) => {
   return (

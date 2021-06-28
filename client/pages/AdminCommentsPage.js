@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
-import CommentPropType from 'proptypes/CommentPropType';
+import CommentPropType from '@hypercube/client/proptypes/CommentPropType';
 
 import { Card, CardHeader } from 'reactstrap';
 
-import DynamicFlash from 'components/DynamicFlash';
-import Paginate from 'components/Paginate';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
-import Comment from 'components/Comment';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import Paginate from '@hypercube/client/components/Paginate';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import Comment from '@hypercube/client/components/Comment';
 
 const PAGE_SIZE = 24;
 

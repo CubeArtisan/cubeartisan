@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
-import CardPropType from 'proptypes/CardPropType';
-import DraftSeatPropType from 'proptypes/DraftSeatPropType';
-import DeckPropType from 'proptypes/DeckPropType';
+import CardPropType from '@hypercube/client/proptypes/CardPropType';
+import DraftSeatPropType from '@hypercube/client/proptypes/DraftSeatPropType';
+import DeckPropType from '@hypercube/client/proptypes/DeckPropType';
 
-import CommentsSection from 'components/CommentsSection';
-import DecksPickBreakdown from 'components/DecksPickBreakdown';
-import DraftbotBreakdown from 'components/DraftbotBreakdown';
-import FoilCardImage from 'components/FoilCardImage';
-import Markdown from 'components/Markdown';
-import { makeSubtitle } from 'utils/Card';
+import CommentsSection from '@hypercube/client/components/CommentsSection';
+import DecksPickBreakdown from '@hypercube/client/components/DecksPickBreakdown';
+import DraftbotBreakdown from '@hypercube/client/components/DraftbotBreakdown';
+import FoilCardImage from '@hypercube/client/components/FoilCardImage';
+import Markdown from '@hypercube/client/components/Markdown';
+import { makeSubtitle } from '@hypercube/client/utils/Card';
 
 import { Card, CardBody, CardHeader, CardTitle, Col, Row } from 'reactstrap';
 

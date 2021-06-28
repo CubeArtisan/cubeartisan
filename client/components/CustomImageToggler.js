@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import { NavItem, NavLink } from 'reactstrap';
 
-import DisplayContext from 'contexts/DisplayContext';
+import DisplayContext from '@hypercube/client/contexts/DisplayContext';
 
 const CustomImageToggler = () => {
   const { showCustomImages, toggleShowCustomImages } = useContext(DisplayContext);

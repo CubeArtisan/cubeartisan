@@ -1,14 +1,14 @@
 import { useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from 'proptypes/CardPropType';
+import CardPropType from '@hypercube/client/proptypes/CardPropType';
 
 import { ListGroup, ListGroupItem } from 'reactstrap';
 
-import { sortDeep } from 'utils/Sort';
+import { sortDeep } from '@hypercube/client/utils/Sort';
 
-import AutocardListItem from 'components/AutocardListItem';
-import CubeContext from 'contexts/CubeContext';
-import GroupModalContext from 'contexts/GroupModalContext';
+import AutocardListItem from '@hypercube/client/components/AutocardListItem';
+import CubeContext from '@hypercube/client/contexts/CubeContext';
+import GroupModalContext from '@hypercube/client/contexts/GroupModalContext';
 
 const AutocardListGroup = ({ cards, heading, sort, orderedSort, showOther, rowTag, noGroupModal }) => {
   const RowTag = rowTag;

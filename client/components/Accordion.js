@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 import { Card, CardHeader, Collapse, CardBody } from 'reactstrap';
 
-import useToggle from 'hooks/UseToggle';
+import useToggle from '@hypercube/client/hooks/UseToggle';
 
 const Accordion = ({ defaultExpand, children, title }) => {
   const [expanded, toggle] = useToggle(defaultExpand);

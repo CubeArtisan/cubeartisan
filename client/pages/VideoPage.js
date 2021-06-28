@@ -1,15 +1,15 @@
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
-import VideoPropType from 'proptypes/VideoPropType';
+import VideoPropType from '@hypercube/client/proptypes/VideoPropType';
 
 import { CardHeader, Card } from 'reactstrap';
 
-import UserContext from 'contexts/UserContext';
-import DynamicFlash from 'components/DynamicFlash';
-import Video from 'components/Video';
-import ButtonLink from 'components/ButtonLink';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
+import UserContext from '@hypercube/client/contexts/UserContext';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import Video from '@hypercube/client/components/Video';
+import ButtonLink from '@hypercube/client/components/ButtonLink';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
 
 const VideoPage = ({ loginCallback, video }) => {
   const user = useContext(UserContext);

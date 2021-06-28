@@ -1,7 +1,7 @@
-import ArticlePropType from 'proptypes/ArticlePropType';
+import ArticlePropType from '@hypercube/client/proptypes/ArticlePropType';
 
-import Markdown from 'components/Markdown';
-import CommentsSection from 'components/CommentsSection';
+import Markdown from '@hypercube/client/components/Markdown';
+import CommentsSection from '@hypercube/client/components/CommentsSection';
 import TimeAgo from 'react-timeago';
 
 import { CardBody, CardHeader } from 'reactstrap';

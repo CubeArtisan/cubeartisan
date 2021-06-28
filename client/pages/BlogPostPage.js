@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 
-import BlogPost from 'components/BlogPost';
-import DynamicFlash from 'components/DynamicFlash';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
-import BlogPostPropType from 'proptypes/BlogPostPropType';
+import BlogPost from '@hypercube/client/components/BlogPost';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import BlogPostPropType from '@hypercube/client/proptypes/BlogPostPropType';
 
 const BlogPostPage = ({ post, loginCallback }) => (
   <MainLayout loginCallback={loginCallback}>

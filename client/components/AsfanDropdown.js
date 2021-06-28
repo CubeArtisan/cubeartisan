@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import { useCallback, useEffect, useMemo } from 'react';
 import { Col, DropdownItem, DropdownMenu, DropdownToggle, Form, Label, Row, UncontrolledDropdown } from 'reactstrap';
 
-import useQueryParam from 'hooks/useQueryParam';
-import { calculateAsfans } from 'drafting/createdraft';
-import { fromEntries } from 'utils/Util';
+import useQueryParam from '@hypercube/client/hooks/useQueryParam';
+import { calculateAsfans } from '@hypercube/client/drafting/createdraft';
+import { fromEntries } from '@hypercube/client/utils/Util';
 
 const AsfanDropdown = ({ cube, defaultFormatId, setAsfans }) => {
   const [draftFormat, setDraftFormat] = useQueryParam('formatId', null);

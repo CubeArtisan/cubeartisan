@@ -1,7 +1,7 @@
 import { createContext, useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import Query from 'utils/Query';
+import Query from '@hypercube/client/utils/Query';
 
 const ChangelistContext = createContext({});
 

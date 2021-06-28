@@ -13,17 +13,17 @@ import {
   Row,
 } from 'reactstrap';
 
-import Affiliate from 'utils/Affiliate';
-import { getLabels, cardGetLabels } from 'utils/Sort';
-import { cardPrice, cardFoilPrice, cardPriceEur, cardTix, cardElo } from 'utils/Card';
+import Affiliate from '@hypercube/client/utils/Affiliate';
+import { getLabels, cardGetLabels } from '@hypercube/client/utils/Sort';
+import { cardPrice, cardFoilPrice, cardPriceEur, cardTix, cardElo } from '@hypercube/client/utils/Card';
 
-import { ColorChecksAddon } from 'components/ColorCheck';
-import LoadingButton from 'components/LoadingButton';
-import FoilCardImage from 'components/FoilCardImage';
-import TagInput from 'components/TagInput';
-import TextBadge from 'components/TextBadge';
-import Tooltip from 'components/Tooltip';
-import withLoading from 'components/WithLoading';
+import { ColorChecksAddon } from '@hypercube/client/components/ColorCheck';
+import LoadingButton from '@hypercube/client/components/LoadingButton';
+import FoilCardImage from '@hypercube/client/components/FoilCardImage';
+import TagInput from '@hypercube/client/components/TagInput';
+import TextBadge from '@hypercube/client/components/TextBadge';
+import Tooltip from '@hypercube/client/components/Tooltip';
+import withLoading from '@hypercube/client/components/WithLoading';
 
 const LoadingCustomInput = withLoading(CustomInput, []);
 

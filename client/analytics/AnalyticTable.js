@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 
 import { Col, Row, InputGroup, InputGroupAddon, InputGroupText, CustomInput } from 'reactstrap';
 
-import AsfanDropdown from 'components/AsfanDropdown';
-import ErrorBoundary from 'components/ErrorBoundary';
-import { SortableTable, compareStrings, valueRenderer } from 'components/SortableTable';
-import useQueryParam from 'hooks/useQueryParam';
-import CardPropType from 'proptypes/CardPropType';
-import CubePropType from 'proptypes/CubePropType';
-import { SORTS, cardCanBeSorted, sortGroupsOrdered } from 'utils/Sort';
-import { fromEntries } from 'utils/Util';
+import AsfanDropdown from '@hypercube/client/components/AsfanDropdown';
+import ErrorBoundary from '@hypercube/client/components/ErrorBoundary';
+import { SortableTable, compareStrings, valueRenderer } from '@hypercube/client/components/SortableTable';
+import useQueryParam from '@hypercube/client/hooks/useQueryParam';
+import CardPropType from '@hypercube/client/proptypes/CardPropType';
+import CubePropType from '@hypercube/client/proptypes/CubePropType';
+import { SORTS, cardCanBeSorted, sortGroupsOrdered } from '@hypercube/client/utils/Sort';
+import { fromEntries } from '@hypercube/client/utils/Util';
 
 const sortWithTotal = (pool, sort) =>
   [...sortGroupsOrdered(pool, sort), ['Total', pool]].map(([label, cards]) => [

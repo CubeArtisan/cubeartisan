@@ -1,13 +1,13 @@
 import { useCallback, useMemo, useState, useContext } from 'react';
 
 import PropTypes from 'prop-types';
-import DeckPropType from 'proptypes/DeckPropType';
+import DeckPropType from '@hypercube/client/proptypes/DeckPropType';
 
 import TimeAgo from 'react-timeago';
 
-import UserContext from 'contexts/UserContext';
-import useKeyHandlers from 'hooks/UseKeyHandlers';
-import DeckDeleteModal from 'components/DeckDeleteModal';
+import UserContext from '@hypercube/client/contexts/UserContext';
+import useKeyHandlers from '@hypercube/client/hooks/UseKeyHandlers';
+import DeckDeleteModal from '@hypercube/client/components/DeckDeleteModal';
 
 /** 2020-11-17 struesdell:
  *  Pulled constants out of component render so that they are defined only once

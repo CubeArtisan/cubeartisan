@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 
 import { Row, Col } from 'reactstrap';
 
-import DynamicFlash from 'components/DynamicFlash';
-import ArticlePreview from 'components/ArticlePreview';
-import VideoPreview from 'components/VideoPreview';
-import PodcastEpisodePreview from 'components/PodcastEpisodePreview';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import ArticlePreview from '@hypercube/client/components/ArticlePreview';
+import VideoPreview from '@hypercube/client/components/VideoPreview';
+import PodcastEpisodePreview from '@hypercube/client/components/PodcastEpisodePreview';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
 
 const BrowseContentPage = ({ loginCallback, content }) => {
   return (

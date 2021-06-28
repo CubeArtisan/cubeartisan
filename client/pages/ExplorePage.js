@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
-import CubePropType from 'proptypes/CubePropType';
+import CubePropType from '@hypercube/client/proptypes/CubePropType';
 
 import { Col, Row } from 'reactstrap';
-import CubesCard from 'components/CubesCard';
-import CubeSearchNavBar from 'components/CubeSearchNavBar';
-import DynamicFlash from 'components/DynamicFlash';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
+import CubesCard from '@hypercube/client/components/CubesCard';
+import CubeSearchNavBar from '@hypercube/client/components/CubeSearchNavBar';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
 
 const ExplorePage = ({ recents, featured, drafted, recentlyDrafted, loginCallback }) => {
   return (

@@ -7,13 +7,13 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 import { a11yLight, a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import { LinkIcon } from '@primer/octicons-react';
 
-import { LIMITED_PLUGINS, ALL_PLUGINS } from 'markdown/parser';
+import { LIMITED_PLUGINS, ALL_PLUGINS } from '@hypercube/client/markdown/parser';
 
-import withAutocard from 'components/WithAutocard';
-import withModal from 'components/WithModal';
-import LinkModal from 'components/LinkModal';
-import FoilCardImage from 'components/FoilCardImage';
-import { isInternalURL, isSamePageURL } from 'utils/Util';
+import withAutocard from '@hypercube/client/components/WithAutocard';
+import withModal from '@hypercube/client/components/WithModal';
+import LinkModal from '@hypercube/client/components/LinkModal';
+import FoilCardImage from '@hypercube/client/components/FoilCardImage';
+import { isInternalURL, isSamePageURL } from '@hypercube/client/utils/Util';
 
 import { Col, Row, Card, CardBody } from 'reactstrap';
 

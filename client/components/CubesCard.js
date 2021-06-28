@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import CubePropType from 'proptypes/CubePropType';
-import CubePreview from 'components/CubePreview';
+import CubePropType from '@hypercube/client/proptypes/CubePropType';
+import CubePreview from '@hypercube/client/components/CubePreview';
 import { Col, Row, Card, CardHeader, CardBody, Button, Collapse } from 'reactstrap';
 
 const CubesCard = ({ cubes, title, header, lean, ...props }) => {

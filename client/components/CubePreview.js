@@ -1,12 +1,12 @@
 import { useCallback, useState } from 'react';
 
-import CubePropType from 'proptypes/CubePropType';
+import CubePropType from '@hypercube/client/proptypes/CubePropType';
 
 import { Card } from 'reactstrap';
 
-import AspectRatioBox from 'components/AspectRatioBox';
+import AspectRatioBox from '@hypercube/client/components/AspectRatioBox';
 
-import { getCubeDescription, getCubeId } from 'utils/Util';
+import { getCubeDescription, getCubeId } from '@hypercube/client/utils/Util';
 
 const CubePreview = ({ cube }) => {
   const [hover, setHover] = useState(false);

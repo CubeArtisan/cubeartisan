@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
-import CubePropType from 'proptypes/CubePropType';
-import DeckPropType from 'proptypes/DeckPropType';
+import CubePropType from '@hypercube/client/proptypes/CubePropType';
+import DeckPropType from '@hypercube/client/proptypes/DeckPropType';
 
 import { Card, CardBody, CardHeader } from 'reactstrap';
 
-import DeckPreview from 'components/DeckPreview';
-import Paginate from 'components/Paginate';
-import CubeLayout from 'layouts/CubeLayout';
-import DynamicFlash from 'components/DynamicFlash';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
+import DeckPreview from '@hypercube/client/components/DeckPreview';
+import Paginate from '@hypercube/client/components/Paginate';
+import CubeLayout from '@hypercube/client/layouts/CubeLayout';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
 
 const CubeDecksPage = ({ cube, decks, pages, activePage, loginCallback }) => (
   <MainLayout loginCallback={loginCallback}>

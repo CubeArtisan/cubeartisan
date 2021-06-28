@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 
-import { csrfFetch } from 'utils/CSRF';
+import { csrfFetch } from '@hypercube/client/utils/CSRF';
 
-import ConfirmDeleteModal from 'components/ConfirmDeleteModal';
+import ConfirmDeleteModal from '@hypercube/client/components/ConfirmDeleteModal';
 
 const DeckDeleteModal = ({ deckID, cubeID, nextURL, isOpen, toggle }) => {
   const confirm = async () => {

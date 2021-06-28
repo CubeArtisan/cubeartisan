@@ -19,7 +19,7 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import useToggle from 'hooks/UseToggle';
+import useToggle from '@hypercube/client/hooks/UseToggle';
 import { ChevronDownIcon, ChevronUpIcon } from '@primer/octicons-react';
 
 const DEFAULT_STEP = Object.freeze([

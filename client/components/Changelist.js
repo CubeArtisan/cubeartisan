@@ -2,7 +2,7 @@ import { useCallback, useContext } from 'react';
 
 import { Badge, Input } from 'reactstrap';
 
-import ChangelistContext from 'contexts/ChangelistContext';
+import ChangelistContext from '@hypercube/client/contexts/ChangelistContext';
 import withAutocard from './WithAutocard';
 
 const TextAutocard = withAutocard('span');

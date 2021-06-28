@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
-import VideoPropType from 'proptypes/VideoPropType';
+import VideoPropType from '@hypercube/client/proptypes/VideoPropType';
 
 import { Card, CardHeader, CardBody, Row, Col } from 'reactstrap';
 
-import DynamicFlash from 'components/DynamicFlash';
-import Paginate from 'components/Paginate';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
-import ButtonLink from 'components/ButtonLink';
-import VideoPreview from 'components/VideoPreview';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import Paginate from '@hypercube/client/components/Paginate';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import ButtonLink from '@hypercube/client/components/ButtonLink';
+import VideoPreview from '@hypercube/client/components/VideoPreview';
 
 const PAGE_SIZE = 24;
 

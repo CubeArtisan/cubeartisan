@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 import { Card, CardHeader, CardBody, Col, Row } from 'reactstrap';
 
-import { getLabels, sortDeep } from 'utils/Sort';
-import { fromEntries } from 'utils/Util';
+import { getLabels, sortDeep } from '@hypercube/client/utils/Sort';
+import { fromEntries } from '@hypercube/client/utils/Util';
 
-import AutocardListGroup from 'components/AutocardListGroup';
-import SortContext from 'contexts/SortContext';
+import AutocardListGroup from '@hypercube/client/components/AutocardListGroup';
+import SortContext from '@hypercube/client/contexts/SortContext';
 
 const cmc2Labels = getLabels(null, 'Mana Value 2');
 

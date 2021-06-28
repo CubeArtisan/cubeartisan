@@ -1,4 +1,4 @@
-import { arraysEqual } from 'utils/Util';
+import { arraysEqual } from '@hypercube/client/utils/Util';
 
 class DraftLocation {
   constructor(type, data) {

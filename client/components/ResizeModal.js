@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import useToggle from 'hooks/UseToggle';
-import CSRFForm from 'components/CSRFForm';
-import FilterCollapse from 'components/FilterCollapse';
-import TextField from 'components/TextField';
+import useToggle from '@hypercube/client/hooks/UseToggle';
+import CSRFForm from '@hypercube/client/components/CSRFForm';
+import FilterCollapse from '@hypercube/client/components/FilterCollapse';
+import TextField from '@hypercube/client/components/TextField';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Card, Input } from 'reactstrap';
 
 const ResizeModal = ({ cubeID }) => {

@@ -1,4 +1,4 @@
-import util from '../../serverjs/util';
+import util from '@hypercube/server/serverjs/util';
 
 beforeEach(() => {});
 

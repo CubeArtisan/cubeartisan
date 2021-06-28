@@ -1,6 +1,6 @@
 import { useContext, forwardRef } from 'react';
 
-import DisplayContext from 'contexts/DisplayContext';
+import DisplayContext from '@hypercube/client/contexts/DisplayContext';
 
 /* HOC to add autocard to another element */
 

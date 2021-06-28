@@ -1,15 +1,15 @@
 // Load Environment Variables
 import express from 'express';
-import { ensureAuth, ensureRole, csrfProtection } from './middleware';
-import { render } from '../serverjs/render';
-import { getFeedData } from '../serverjs/rss';
-import { updatePodcast } from '../serverjs/podcast';
-import generateMeta from '../serverjs/meta';
-import Application from '../models/application';
-import Article from '../models/article';
-import Podcast from '../models/podcast';
-import PodcastEpisode from '../models/podcastEpisode';
-import Video from '../models/video';
+import { ensureAuth, ensureRole, csrfProtection } from '@hypercube/server/routes/middleware';
+import { render } from '@hypercube/server/serverjs/render';
+import { getFeedData } from '@hypercube/server/serverjs/rss';
+import { updatePodcast } from '@hypercube/server/serverjs/podcast';
+import generateMeta from '@hypercube/server/serverjs/meta';
+import Application from '@hypercube/server/models/application';
+import Article from '@hypercube/server/models/article';
+import Podcast from '@hypercube/server/models/podcast';
+import PodcastEpisode from '@hypercube/server/models/podcastEpisode';
+import Video from '@hypercube/server/models/video';
 
 require('dotenv').config();
 
@@ -102,7 +102,7 @@ router.get('/browse', async (req, res) => {
   });
 });
 
-router.get('/articles', async (req, res) => {
+router.get('/articles', async (_req, res) => {
   return res.redirect('/content/articles/0');
 });
 
@@ -117,7 +117,7 @@ router.get('/articles/:page', async (req, res) => {
   return render(req, res, 'ArticlesPage', { articles, count, page: Math.max(req.params.page, 0) });
 });
 
-router.get('/podcasts', async (req, res) => {
+router.get('/podcasts', async (_req, res) => {
   return res.redirect('/content/podcasts/0');
 });
 
@@ -134,7 +134,7 @@ router.get('/podcasts/:page', async (req, res) => {
   return render(req, res, 'PodcastsPage', { podcasts, count, episodes, page: Math.max(req.params.page, 0) });
 });
 
-router.get('/videos', async (req, res) => {
+router.get('/videos', async (_req, res) => {
   return res.redirect('/content/videos/0');
 });
 

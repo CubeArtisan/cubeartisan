@@ -1,20 +1,20 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from 'proptypes/CardPropType';
-import CubePropType from 'proptypes/CubePropType';
+import CardPropType from '@hypercube/client/proptypes/CardPropType';
+import CubePropType from '@hypercube/client/proptypes/CubePropType';
 
-import Query from 'utils/Query';
+import Query from '@hypercube/client/utils/Query';
 
-import CardModalForm from 'components/CardModalForm';
-import CompareView from 'components/CompareView';
-import CubeCompareNavbar from 'components/CubeCompareNavbar';
-import { DisplayContextProvider } from 'contexts/DisplayContext';
-import DynamicFlash from 'components/DynamicFlash';
-import ErrorBoundary from 'components/ErrorBoundary';
-import { SortContextProvider } from 'contexts/SortContext';
-import { TAG_COLORS, TagContextProvider } from 'contexts/TagContext';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
+import CardModalForm from '@hypercube/client/components/CardModalForm';
+import CompareView from '@hypercube/client/components/CompareView';
+import CubeCompareNavbar from '@hypercube/client/components/CubeCompareNavbar';
+import { DisplayContextProvider } from '@hypercube/client/contexts/DisplayContext';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import ErrorBoundary from '@hypercube/client/components/ErrorBoundary';
+import { SortContextProvider } from '@hypercube/client/contexts/SortContext';
+import { TAG_COLORS, TagContextProvider } from '@hypercube/client/contexts/TagContext';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
 
 const deduplicateTags = (tagColors) => {
   const used = new Set();

@@ -1,24 +1,24 @@
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
-import CubePropType from 'proptypes/CubePropType';
-import DeckPropType from 'proptypes/DeckPropType';
-import BlogPostPropType from 'proptypes/BlogPostPropType';
+import CubePropType from '@hypercube/client/proptypes/CubePropType';
+import DeckPropType from '@hypercube/client/proptypes/DeckPropType';
+import BlogPostPropType from '@hypercube/client/proptypes/BlogPostPropType';
 
-import UserContext from 'contexts/UserContext';
-import CubePreview from 'components/CubePreview';
-import ArticlePreview from 'components/ArticlePreview';
-import DeckPreview from 'components/DeckPreview';
-import VideoPreview from 'components/VideoPreview';
-import PodcastEpisodePreview from 'components/PodcastEpisodePreview';
-import DynamicFlash from 'components/DynamicFlash';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
-import withModal from 'components/WithModal';
-import CreateCubeModal from 'components/CreateCubeModal';
-import Feed from 'components/Feed';
+import UserContext from '@hypercube/client/contexts/UserContext';
+import CubePreview from '@hypercube/client/components/CubePreview';
+import ArticlePreview from '@hypercube/client/components/ArticlePreview';
+import DeckPreview from '@hypercube/client/components/DeckPreview';
+import VideoPreview from '@hypercube/client/components/VideoPreview';
+import PodcastEpisodePreview from '@hypercube/client/components/PodcastEpisodePreview';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import withModal from '@hypercube/client/components/WithModal';
+import CreateCubeModal from '@hypercube/client/components/CreateCubeModal';
+import Feed from '@hypercube/client/components/Feed';
 
 import { Button, Card, Col, Row, CardHeader, CardBody, CardFooter } from 'reactstrap';
-import CubesCard from 'components/CubesCard';
+import CubesCard from '@hypercube/client/components/CubesCard';
 
 const CreateCubeModalButton = withModal(Button, CreateCubeModal);
 

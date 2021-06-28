@@ -1,7 +1,7 @@
 import { forwardRef, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Input } from 'reactstrap';
-import withAutocard from 'components/WithAutocard';
+import withAutocard from '@hypercube/client/components/WithAutocard';
 
 const AutocardLi = withAutocard('li');
 

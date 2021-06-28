@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Spinner } from 'reactstrap';
-import { fromEntries } from 'utils/Util';
+import { fromEntries } from '@hypercube/client/utils/Util';
 
 const withLoading = (Tag, handlers) => {
   const LoadingWrapped = ({ loading, spinnerSize, opacity, ...props }) => {

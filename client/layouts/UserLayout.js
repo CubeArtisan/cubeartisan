@@ -1,12 +1,12 @@
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
 
-import UserContext from 'contexts/UserContext';
+import UserContext from '@hypercube/client/contexts/UserContext';
 
-import ErrorBoundary from 'components/ErrorBoundary';
-import FollowersModal from 'components/FollowersModal';
-import withModal from 'components/WithModal';
-import CreateCubeModal from 'components/CreateCubeModal';
+import ErrorBoundary from '@hypercube/client/components/ErrorBoundary';
+import FollowersModal from '@hypercube/client/components/FollowersModal';
+import withModal from '@hypercube/client/components/WithModal';
+import CreateCubeModal from '@hypercube/client/components/CreateCubeModal';
 
 import { Button, Nav, Navbar, NavItem, NavLink, Row } from 'reactstrap';
 

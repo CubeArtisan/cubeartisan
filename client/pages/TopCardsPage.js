@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import CardDetailsPropType from 'proptypes/CardDetailsPropType';
+import CardDetailsPropType from '@hypercube/client/proptypes/CardDetailsPropType';
 
-import DynamicFlash from 'components/DynamicFlash';
-import FilterCollapse from 'components/FilterCollapse';
-import TopCardsTable from 'components/TopCardsTable';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import FilterCollapse from '@hypercube/client/components/FilterCollapse';
+import TopCardsTable from '@hypercube/client/components/TopCardsTable';
 import { Row, Col } from 'reactstrap';
-import ButtonLink from 'components/ButtonLink';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
-import useQueryParam from 'hooks/useQueryParam';
+import ButtonLink from '@hypercube/client/components/ButtonLink';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import useQueryParam from '@hypercube/client/hooks/useQueryParam';
 
 const TopCardsPage = ({ data, numResults, loginCallback }) => {
   const [filter, setFilter] = useQueryParam('f', '');

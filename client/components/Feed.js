@@ -2,11 +2,11 @@ import { useState } from 'react';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import BlogPost from 'components/BlogPost';
-import { csrfFetch } from 'utils/CSRF';
+import BlogPost from '@hypercube/client/components/BlogPost';
+import { csrfFetch } from '@hypercube/client/utils/CSRF';
 
 import { Spinner } from 'reactstrap';
-import BlogPostPropType from 'proptypes/BlogPostPropType';
+import BlogPostPropType from '@hypercube/client/proptypes/BlogPostPropType';
 
 const wait = async (ms) => {
   return new Promise((resolve) => {

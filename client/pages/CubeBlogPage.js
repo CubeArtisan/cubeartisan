@@ -1,6 +1,6 @@
 import { useContext, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import CubePropType from 'proptypes/CubePropType';
+import CubePropType from '@hypercube/client/proptypes/CubePropType';
 
 import {
   Button,
@@ -17,16 +17,16 @@ import {
   NavLink,
 } from 'reactstrap';
 
-import BlogPost from 'components/BlogPost';
-import CSRFForm from 'components/CSRFForm';
-import CubeContext from 'contexts/CubeContext';
-import DynamicFlash from 'components/DynamicFlash';
-import Paginate from 'components/Paginate';
-import TextEntry from 'components/TextEntry';
-import CubeLayout from 'layouts/CubeLayout';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
-import { findUserLinks } from 'markdown/parser';
+import BlogPost from '@hypercube/client/components/BlogPost';
+import CSRFForm from '@hypercube/client/components/CSRFForm';
+import CubeContext from '@hypercube/client/contexts/CubeContext';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import Paginate from '@hypercube/client/components/Paginate';
+import TextEntry from '@hypercube/client/components/TextEntry';
+import CubeLayout from '@hypercube/client/layouts/CubeLayout';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import { findUserLinks } from '@hypercube/client/markdown/parser';
 
 const EditBlogModal = ({ isOpen, toggle, markdown, setMarkdown, post }) => {
   const { cubeID } = useContext(CubeContext);

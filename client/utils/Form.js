@@ -1,4 +1,4 @@
-import { fromEntries } from 'utils/Util';
+import { fromEntries } from '@hypercube/client/utils/Util';
 
 export const formDataObject = (formElement) => {
   const inputs = [...formElement.querySelectorAll('[name]')];

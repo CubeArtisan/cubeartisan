@@ -3,26 +3,26 @@ import PropTypes from 'prop-types';
 
 import { Col, Nav, NavLink, Row, Card, CardBody } from 'reactstrap';
 
-import Averages from 'analytics/Averages';
-import Chart from 'analytics/Chart';
-import DynamicFlash from 'components/DynamicFlash';
-import ErrorBoundary from 'components/ErrorBoundary';
-import Tokens from 'analytics/Tokens';
-import Playtest from 'analytics/PlaytestData';
-import PivotTable from 'analytics/PivotTable';
-import AnalyticTable from 'analytics/AnalyticTable';
-import Cloud from 'analytics/Cloud';
-import HyperGeom from 'analytics/HyperGeom';
-import Suggestions from 'analytics/Suggestions';
-import Asfans from 'analytics/Asfans';
-import FilterCollapse from 'components/FilterCollapse';
-import { TagContextProvider } from 'contexts/TagContext';
-import useQueryParam from 'hooks/useQueryParam';
-import useToggle from 'hooks/UseToggle';
-import CubeLayout from 'layouts/CubeLayout';
-import MainLayout from 'layouts/MainLayout';
-import CubePropType from 'proptypes/CubePropType';
-import CubeAnalyticPropType from 'proptypes/CubeAnalyticPropType';
+import Averages from '@hypercube/client/analytics/Averages';
+import Chart from '@hypercube/client/analytics/Chart';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import ErrorBoundary from '@hypercube/client/components/ErrorBoundary';
+import Tokens from '@hypercube/client/analytics/Tokens';
+import Playtest from '@hypercube/client/analytics/PlaytestData';
+import PivotTable from '@hypercube/client/analytics/PivotTable';
+import AnalyticTable from '@hypercube/client/analytics/AnalyticTable';
+import Cloud from '@hypercube/client/analytics/Cloud';
+import HyperGeom from '@hypercube/client/analytics/HyperGeom';
+import Suggestions from '@hypercube/client/analytics/Suggestions';
+import Asfans from '@hypercube/client/analytics/Asfans';
+import FilterCollapse from '@hypercube/client/components/FilterCollapse';
+import { TagContextProvider } from '@hypercube/client/contexts/TagContext';
+import useQueryParam from '@hypercube/client/hooks/useQueryParam';
+import useToggle from '@hypercube/client/hooks/UseToggle';
+import CubeLayout from '@hypercube/client/layouts/CubeLayout';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import CubePropType from '@hypercube/client/proptypes/CubePropType';
+import CubeAnalyticPropType from '@hypercube/client/proptypes/CubeAnalyticPropType';
 import {
   cardCmc,
   cardDevotion,
@@ -35,11 +35,11 @@ import {
   cardTix,
   mainboardRate,
   pickRate,
-} from 'utils/Card';
-import { csrfFetch } from 'utils/CSRF';
-import RenderToRoot from 'utils/RenderToRoot';
-import { fromEntries } from 'utils/Util';
-import { getLabels, cardIsLabel } from 'utils/Sort';
+} from '@hypercube/client/utils/Card';
+import { csrfFetch } from '@hypercube/client/utils/CSRF';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import { fromEntries } from '@hypercube/client/utils/Util';
+import { getLabels, cardIsLabel } from '@hypercube/client/utils/Sort';
 
 const CubeAnalysisPage = ({
   cube,

@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 
 import { Card, CardHeader, CardBody, Row, Col } from 'reactstrap';
 
-import DynamicFlash from 'components/DynamicFlash';
-import Paginate from 'components/Paginate';
-import ButtonLink from 'components/ButtonLink';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import Paginate from '@hypercube/client/components/Paginate';
+import ButtonLink from '@hypercube/client/components/ButtonLink';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
 import TimeAgo from 'react-timeago';
 
 const PAGE_SIZE = 24;

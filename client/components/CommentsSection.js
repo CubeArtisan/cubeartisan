@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 import { Collapse, Spinner } from 'reactstrap';
 
-import UserContext from 'contexts/UserContext';
-import CommentList from 'components/PagedCommentList';
-import LinkButton from 'components/LinkButton';
-import CommentEntry from 'components/CommentEntry';
-import useToggle from 'hooks/UseToggle';
-import useComments from 'hooks/UseComments';
+import UserContext from '@hypercube/client/contexts/UserContext';
+import CommentList from '@hypercube/client/components/PagedCommentList';
+import LinkButton from '@hypercube/client/components/LinkButton';
+import CommentEntry from '@hypercube/client/components/CommentEntry';
+import useToggle from '@hypercube/client/hooks/UseToggle';
+import useComments from '@hypercube/client/hooks/UseComments';
 
 const CommentsSection = ({ parent, parentType, collapse }) => {
   const user = useContext(UserContext);

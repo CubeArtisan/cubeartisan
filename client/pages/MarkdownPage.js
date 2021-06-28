@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 
 import { Card, CardHeader, Row, Col, CardBody } from 'reactstrap';
 
-import DynamicFlash from 'components/DynamicFlash';
-import Markdown from 'components/Markdown';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import Markdown from '@hypercube/client/components/Markdown';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
 
 const MarkdownPage = ({ loginCallback, siteCustomizations: { siteName } }) => (
   <MainLayout loginCallback={loginCallback}>

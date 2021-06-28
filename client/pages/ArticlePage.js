@@ -1,15 +1,15 @@
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
-import ArticlePropType from 'proptypes/ArticlePropType';
+import ArticlePropType from '@hypercube/client/proptypes/ArticlePropType';
 
 import { CardHeader, Card } from 'reactstrap';
 
-import UserContext from 'contexts/UserContext';
-import DynamicFlash from 'components/DynamicFlash';
-import Article from 'components/Article';
-import ButtonLink from 'components/ButtonLink';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
+import UserContext from '@hypercube/client/contexts/UserContext';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import Article from '@hypercube/client/components/Article';
+import ButtonLink from '@hypercube/client/components/ButtonLink';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
 
 const ArticlePage = ({ loginCallback, article }) => {
   const user = useContext(UserContext);

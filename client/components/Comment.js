@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import CommentPropType from 'proptypes/CommentPropType';
+import CommentPropType from '@hypercube/client/proptypes/CommentPropType';
 import TimeAgo from 'react-timeago';
 
 import {
@@ -17,14 +17,14 @@ import {
   Input,
 } from 'reactstrap';
 
-import UserContext from 'contexts/UserContext';
-import LinkButton from 'components/LinkButton';
-import CommentContextMenu from 'components/CommentContextMenu';
-import CSRFForm from 'components/CSRFForm';
-import useComments from 'hooks/UseComments';
-import useToggle from 'hooks/UseToggle';
-import CommentEntry from 'components/CommentEntry';
-import Markdown from 'components/Markdown';
+import UserContext from '@hypercube/client/contexts/UserContext';
+import LinkButton from '@hypercube/client/components/LinkButton';
+import CommentContextMenu from '@hypercube/client/components/CommentContextMenu';
+import CSRFForm from '@hypercube/client/components/CSRFForm';
+import useComments from '@hypercube/client/hooks/UseComments';
+import useToggle from '@hypercube/client/hooks/UseToggle';
+import CommentEntry from '@hypercube/client/components/CommentEntry';
+import Markdown from '@hypercube/client/components/Markdown';
 
 const maxDepth = 4;
 

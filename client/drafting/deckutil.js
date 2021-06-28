@@ -1,6 +1,19 @@
-import { evaluateCardsOrPool, getSynergy, MAX_SCORE, ORACLES_BY_NAME, FETCH_LANDS } from 'drafting/draftbots';
-import { COLOR_COMBINATIONS, cardCmc, cardColorIdentity, cardIsSpecialZoneType, cardName, cardType } from 'utils/Card';
-import { arraysAreEqualSets } from 'utils/Util';
+import {
+  evaluateCardsOrPool,
+  getSynergy,
+  MAX_SCORE,
+  ORACLES_BY_NAME,
+  FETCH_LANDS,
+} from '@hypercube/client/drafting/draftbots';
+import {
+  COLOR_COMBINATIONS,
+  cardCmc,
+  cardColorIdentity,
+  cardIsSpecialZoneType,
+  cardName,
+  cardType,
+} from '@hypercube/client/utils/Card';
+import { arraysAreEqualSets } from '@hypercube/client/utils/Util';
 
 const getSortFn = (draftCards) => (a, b) => draftCards[b].rating - draftCards[a].rating;
 

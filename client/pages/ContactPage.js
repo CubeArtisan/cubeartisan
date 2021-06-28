@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import { Row, Col, Card, CardHeader, CardBody } from 'reactstrap';
 
-import DynamicFlash from 'components/DynamicFlash';
-import SiteCustomizationContext from 'contexts/SiteCustomizationContext';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import SiteCustomizationContext from '@hypercube/client/contexts/SiteCustomizationContext';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
 
 const ContactPage = ({ loginCallback }) => {
   const { discordUrl, siteName, supportEmail } = useContext(SiteCustomizationContext);

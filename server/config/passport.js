@@ -1,16 +1,16 @@
-const LocalStrategy = require('passport-local').Strategy;
-const bcrypt = require('bcryptjs');
-const User = require('../models/user');
+import { Strategy as LocalStrategy } from 'passport-local';
+import { compare } from 'bcryptjs';
+import { findOne, findById } from '@hypercube/server/models/user';
 
-module.exports = function (passport) {
+export default function (passport) {
   // Local Strategy
   passport.use(
-    new LocalStrategy(function (username, password, done) {
+    new LocalStrategy((username, password, done) => {
       // Match username
       const query = {
         username_lower: username.toLowerCase(),
       };
-      User.findOne(query, function (err, user) {
+      findOne(query, (err, user) => {
         if (err) throw err;
         if (!user) {
           return done(null, false, {
@@ -19,8 +19,8 @@ module.exports = function (passport) {
         }
 
         // Match password
-        bcrypt.compare(password, user.password, function (err, isMatch) {
-          if (err) throw err;
+        return compare(password, user.password, (err2, isMatch) => {
+          if (err2) throw err2;
           if (isMatch) {
             return done(null, user);
           }
@@ -32,13 +32,13 @@ module.exports = function (passport) {
     }),
   );
 
-  passport.serializeUser(function (user, done) {
+  passport.serializeUser((user, done) => {
     done(null, user.id);
   });
 
-  passport.deserializeUser(function (id, done) {
-    User.findById(id, function (err, user) {
+  passport.deserializeUser((id, done) => {
+    findById(id, (err, user) => {
       done(err, user);
     });
   });
-};
+}

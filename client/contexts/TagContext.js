@@ -1,7 +1,7 @@
 import { createContext, Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { csrfFetch } from 'utils/CSRF';
+import { csrfFetch } from '@hypercube/client/utils/CSRF';
 
 export const getCardColorClass = (card) => {
   const type = card.type_line || card.details.type;

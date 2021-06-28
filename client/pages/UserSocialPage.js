@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
-import CubePropType from 'proptypes/CubePropType';
+import CubePropType from '@hypercube/client/proptypes/CubePropType';
 
 import { Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
 
-import CubePreview from 'components/CubePreview';
-import UserPreview from 'components/UserPreview';
-import DynamicFlash from 'components/DynamicFlash';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
+import CubePreview from '@hypercube/client/components/CubePreview';
+import UserPreview from '@hypercube/client/components/UserPreview';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
 
 const UserSocialPage = ({ followedCubes, followedUsers, followers, loginCallback }) => (
   <MainLayout loginCallback={loginCallback}>

@@ -1,9 +1,9 @@
 import { Component } from 'react';
 
-import FoilCardImage from 'components/FoilCardImage';
-import CardGrid from 'components/CardGrid';
+import FoilCardImage from '@hypercube/client/components/FoilCardImage';
+import CardGrid from '@hypercube/client/components/CardGrid';
 import PropTypes from 'prop-types';
-import { arrayShuffle } from 'utils/Util';
+import { arrayShuffle } from '@hypercube/client/utils/Util';
 
 import { Modal, ModalBody, ModalFooter, ModalHeader, Button, NavLink } from 'reactstrap';
 

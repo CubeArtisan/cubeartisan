@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import { Card, CardHeader, Input, Nav, TabPane, TabContent, CardBody } from 'reactstrap';
 
-import Tab from 'components/Tab';
-import Markdown from 'components/Markdown';
-import ErrorBoundary from 'components/ErrorBoundary';
+import Tab from '@hypercube/client/components/Tab';
+import Markdown from '@hypercube/client/components/Markdown';
+import ErrorBoundary from '@hypercube/client/components/ErrorBoundary';
 
 const TextEntry = ({ name, value, onChange, maxLength }) => {
   const [tab, setTab] = useState('0');

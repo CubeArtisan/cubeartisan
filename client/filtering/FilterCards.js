@@ -1,6 +1,6 @@
 import { Grammar, Parser } from 'nearley';
 
-import filterCardGrammar from 'generated/filtering/cardFilters';
+import filterCardGrammar from '@hypercube/client/generated/filtering/cardFilters';
 
 const compiledGrammar = Grammar.fromCompiled(filterCardGrammar);
 

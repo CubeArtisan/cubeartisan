@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 
 import { Card, CardHeader, CardBody, Button, CardFooter } from 'reactstrap';
-import DynamicFlash from 'components/DynamicFlash';
-import MainLayout from 'layouts/MainLayout';
-import ButtonLink from 'components/ButtonLink';
-import RenderToRoot from 'utils/RenderToRoot';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import ButtonLink from '@hypercube/client/components/ButtonLink';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
 
 const back = () => (window.history.length > 1 ? window.history.back() : window.close());
 

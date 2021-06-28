@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { csrfFetch } from 'utils/CSRF';
-import { findUserLinks } from 'markdown/parser';
+import { csrfFetch } from '@hypercube/client/utils/CSRF';
+import { findUserLinks } from '@hypercube/client/markdown/parser';
 
 const useToggle = (type, parent) => {
   const [comments, setComments] = useState([]);

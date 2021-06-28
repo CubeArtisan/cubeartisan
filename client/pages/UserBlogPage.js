@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 
-import UserLayout from 'layouts/UserLayout';
-import BlogPost from 'components/BlogPost';
-import Paginate from 'components/Paginate';
-import DynamicFlash from 'components/DynamicFlash';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
+import UserLayout from '@hypercube/client/layouts/UserLayout';
+import BlogPost from '@hypercube/client/components/BlogPost';
+import Paginate from '@hypercube/client/components/Paginate';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
 
 const UserBlogPage = ({ followers, following, posts, owner, loginCallback, pages, activePage }) => (
   <MainLayout loginCallback={loginCallback}>

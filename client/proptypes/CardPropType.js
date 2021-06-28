@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import CardDetailsPropType from 'proptypes/CardDetailsPropType';
+import CardDetailsPropType from '@hypercube/client/proptypes/CardDetailsPropType';
 
 const CardPropType = PropTypes.shape({
   _id: PropTypes.string,

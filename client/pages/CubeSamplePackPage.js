@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
-import CardPropType from 'proptypes/CardPropType';
-import CubePropType from 'proptypes/CubePropType';
+import CardPropType from '@hypercube/client/proptypes/CardPropType';
+import CubePropType from '@hypercube/client/proptypes/CubePropType';
 
 import { Row, Col } from 'reactstrap';
 
-import CardGrid from 'components/CardGrid';
-import CardImage from 'components/CardImage';
-import CubeLayout from 'layouts/CubeLayout';
-import DynamicFlash from 'components/DynamicFlash';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
+import CardGrid from '@hypercube/client/components/CardGrid';
+import CardImage from '@hypercube/client/components/CardImage';
+import CubeLayout from '@hypercube/client/layouts/CubeLayout';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
 
 const SamplePackPage = ({ seed, pack, cube, loginCallback }) => {
   return (

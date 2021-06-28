@@ -1,18 +1,18 @@
 // Load Environment Variables
 import express from 'express';
-import { ensureAuth, csrfProtection } from './middleware';
-import util from '../serverjs/util';
-import Comment from '../models/comment';
-import User from '../models/user';
-import Report from '../models/report';
-import Deck from '../models/deck';
-import Article from '../models/article';
-import Video from '../models/video';
-import Podcast from '../models/podcast';
-import PodcastEpisode from '../models/podcastEpisode';
-import Blog from '../models/blog';
-import Package from '../models/package';
-import { render } from '../serverjs/render';
+import util from '@hypercube/server/serverjs/util';
+import Comment from '@hypercube/server/models/comment';
+import User from '@hypercube/server/models/user';
+import Report from '@hypercube/server/models/report';
+import Deck from '@hypercube/server/models/deck';
+import Article from '@hypercube/server/models/article';
+import Video from '@hypercube/server/models/video';
+import Podcast from '@hypercube/server/models/podcast';
+import PodcastEpisode from '@hypercube/server/models/podcastEpisode';
+import Blog from '@hypercube/server/models/blog';
+import Package from '@hypercube/server/models/package';
+import { render } from '@hypercube/server/serverjs/render';
+import { ensureAuth, csrfProtection } from '@hypercube/server/routes/middleware';
 
 require('dotenv').config();
 

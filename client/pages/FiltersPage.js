@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 
 import { Card, CardHeader } from 'reactstrap';
 
-import DynamicFlash from 'components/DynamicFlash';
-import Accordion from 'components/Accordion';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import Accordion from '@hypercube/client/components/Accordion';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
 
 const ContactPage = ({ loginCallback }) => (
   <MainLayout loginCallback={loginCallback}>

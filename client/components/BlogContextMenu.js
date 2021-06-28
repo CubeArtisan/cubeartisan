@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
-import BlogDeleteModal from 'components/BlogDeleteModal';
+import BlogDeleteModal from '@hypercube/client/components/BlogDeleteModal';
 
 class BlogContextMenu extends Component {
   constructor(props) {

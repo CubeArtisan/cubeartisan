@@ -19,21 +19,21 @@ import {
   // Spinner,
 } from 'reactstrap';
 
-// import CSRFForm from 'components/CSRFForm';
-import CustomImageToggler from 'components/CustomImageToggler';
-import DeckCard from 'components/DeckCard';
-import DynamicFlash from 'components/DynamicFlash';
-import SampleHandModal from 'components/SampleHandModal';
-import { DisplayContextProvider } from 'contexts/DisplayContext';
-import useQueryParam from 'hooks/useQueryParam';
-import CubeLayout from 'layouts/CubeLayout';
-import MainLayout from 'layouts/MainLayout';
-import CubePropType from 'proptypes/CubePropType';
-import DeckPropType from 'proptypes/DeckPropType';
+// import CSRFForm from '@hypercube/client/components/CSRFForm';
+import CustomImageToggler from '@hypercube/client/components/CustomImageToggler';
+import DeckCard from '@hypercube/client/components/DeckCard';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import SampleHandModal from '@hypercube/client/components/SampleHandModal';
+import { DisplayContextProvider } from '@hypercube/client/contexts/DisplayContext';
+import useQueryParam from '@hypercube/client/hooks/useQueryParam';
+import CubeLayout from '@hypercube/client/layouts/CubeLayout';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import CubePropType from '@hypercube/client/proptypes/CubePropType';
+import DeckPropType from '@hypercube/client/proptypes/DeckPropType';
 
-import UserContext from 'contexts/UserContext';
-import RenderToRoot from 'utils/RenderToRoot';
-import { DraftPropType } from 'proptypes/DraftbotPropTypes';
+import UserContext from '@hypercube/client/contexts/UserContext';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import { DraftPropType } from '@hypercube/client/proptypes/DraftbotPropTypes';
 
 const CubeDeckPage = ({ cube, deck, draft, loginCallback }) => {
   const user = useContext(UserContext);

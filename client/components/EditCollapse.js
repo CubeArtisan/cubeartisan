@@ -17,17 +17,17 @@ import {
   InputGroupText,
 } from 'reactstrap';
 
-import { encodeName } from 'utils/Card';
-import { findUserLinks } from 'markdown/parser';
+import { encodeName } from '@hypercube/client/utils/Card';
+import { findUserLinks } from '@hypercube/client/markdown/parser';
 
-import AutocompleteInput from 'components/AutocompleteInput';
-import Changelist from 'components/Changelist';
-import ChangelistContext from 'contexts/ChangelistContext';
-import CubeContext from 'contexts/CubeContext';
-import CSRFForm from 'components/CSRFForm';
-import DisplayContext from 'contexts/DisplayContext';
-import ResizeModal from 'components/ResizeModal';
-import TextEntry from 'components/TextEntry';
+import AutocompleteInput from '@hypercube/client/components/AutocompleteInput';
+import Changelist from '@hypercube/client/components/Changelist';
+import ChangelistContext from '@hypercube/client/contexts/ChangelistContext';
+import CubeContext from '@hypercube/client/contexts/CubeContext';
+import CSRFForm from '@hypercube/client/components/CSRFForm';
+import DisplayContext from '@hypercube/client/contexts/DisplayContext';
+import ResizeModal from '@hypercube/client/components/ResizeModal';
+import TextEntry from '@hypercube/client/components/TextEntry';
 
 export const getCard = async (cubeID, name, setAlerts) => {
   if (name && name.length > 0) {

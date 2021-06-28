@@ -1,4 +1,5 @@
-import carddb from '../../serverjs/cards';
+// eslint-disable-next-line
+import carddb from '@hypercube/server/serverjs/cards';
 
 function getBlankCardHistory(id) {
   const card = carddb.cardFromId(id);

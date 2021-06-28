@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import ChartComponent from 'react-chartjs-2';
 import { Col, Row, InputGroup, InputGroupAddon, CustomInput, InputGroupText } from 'reactstrap';
 
-import AsfanDropdown from 'components/AsfanDropdown';
-import useQueryParam from 'hooks/useQueryParam';
-import CardPropType from 'proptypes/CardPropType';
-import CubePropType from 'proptypes/CubePropType';
-import { sortIntoGroups, SORTS } from 'utils/Sort';
+import AsfanDropdown from '@hypercube/client/components/AsfanDropdown';
+import useQueryParam from '@hypercube/client/hooks/useQueryParam';
+import CardPropType from '@hypercube/client/proptypes/CardPropType';
+import CubePropType from '@hypercube/client/proptypes/CubePropType';
+import { sortIntoGroups, SORTS } from '@hypercube/client/utils/Sort';
 
 const colorMap = {
   White: '#D8CEAB',

@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 import { Button, CustomInput, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
-import { postJson } from 'utils/CSRF';
-import { formDataObject } from 'utils/Form';
+import { postJson } from '@hypercube/client/utils/CSRF';
+import { formDataObject } from '@hypercube/client/utils/Form';
 
-import CSRFForm from 'components/CSRFForm';
-import CubeContext from 'contexts/CubeContext';
-import LoadingButton from 'components/LoadingButton';
+import CSRFForm from '@hypercube/client/components/CSRFForm';
+import CubeContext from '@hypercube/client/contexts/CubeContext';
+import LoadingButton from '@hypercube/client/components/LoadingButton';
 
 const CubeSettingsModal = ({ addAlert, onCubeUpdate, isOpen, toggle }) => {
   const { cube, cubeID, setCube } = useContext(CubeContext);

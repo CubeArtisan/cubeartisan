@@ -1,30 +1,30 @@
 import { useContext, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import LocalStorage from 'utils/LocalStorage';
-import Query from 'utils/Query';
+import LocalStorage from '@hypercube/client/utils/LocalStorage';
+import Query from '@hypercube/client/utils/Query';
 
-import CardModalForm from 'components/CardModalForm';
-import { ChangelistContextProvider } from 'contexts/ChangelistContext';
-import ClientOnly from 'components/ClientOnly';
-import CubeContext from 'contexts/CubeContext';
-import CubeListNavbar from 'components/CubeListNavbar';
-import CurveView from 'components/CurveView';
-import DisplayContext, { DisplayContextProvider } from 'contexts/DisplayContext';
-import DynamicFlash from 'components/DynamicFlash';
-import ErrorBoundary from 'components/ErrorBoundary';
-import GroupModal from 'components/GroupModal';
-import ListView from 'components/ListView';
-import Maybeboard from 'components/Maybeboard';
-import { MaybeboardContextProvider } from 'contexts/MaybeboardContext';
-import { SortContextProvider } from 'contexts/SortContext';
-import TableView from 'components/TableView';
-import { TAG_COLORS, TagContextProvider } from 'contexts/TagContext';
-import VisualSpoiler from 'components/VisualSpoiler';
-import CubeLayout from 'layouts/CubeLayout';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
-import useQueryParam from 'hooks/useQueryParam';
+import CardModalForm from '@hypercube/client/components/CardModalForm';
+import { ChangelistContextProvider } from '@hypercube/client/contexts/ChangelistContext';
+import ClientOnly from '@hypercube/client/components/ClientOnly';
+import CubeContext from '@hypercube/client/contexts/CubeContext';
+import CubeListNavbar from '@hypercube/client/components/CubeListNavbar';
+import CurveView from '@hypercube/client/components/CurveView';
+import DisplayContext, { DisplayContextProvider } from '@hypercube/client/contexts/DisplayContext';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import ErrorBoundary from '@hypercube/client/components/ErrorBoundary';
+import GroupModal from '@hypercube/client/components/GroupModal';
+import ListView from '@hypercube/client/components/ListView';
+import Maybeboard from '@hypercube/client/components/Maybeboard';
+import { MaybeboardContextProvider } from '@hypercube/client/contexts/MaybeboardContext';
+import { SortContextProvider } from '@hypercube/client/contexts/SortContext';
+import TableView from '@hypercube/client/components/TableView';
+import { TAG_COLORS, TagContextProvider } from '@hypercube/client/contexts/TagContext';
+import VisualSpoiler from '@hypercube/client/components/VisualSpoiler';
+import CubeLayout from '@hypercube/client/layouts/CubeLayout';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import useQueryParam from '@hypercube/client/hooks/useQueryParam';
 
 const CubeListPageRaw = ({
   defaultFilterText,

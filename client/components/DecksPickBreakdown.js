@@ -2,14 +2,14 @@ import { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
 
-import FoilCardImage from 'components/FoilCardImage';
-import withAutocard from 'components/WithAutocard';
-import { getCardColorClass } from 'contexts/TagContext';
-import useQueryParam from 'hooks/useQueryParam';
-import { DraftPropType } from 'proptypes/DraftbotPropTypes';
-import { cardName, encodeName } from 'utils/Card';
-import { getDrafterState } from 'drafting/draftutil';
-import { toNullableInt } from 'utils/Util';
+import FoilCardImage from '@hypercube/client/components/FoilCardImage';
+import withAutocard from '@hypercube/client/components/WithAutocard';
+import { getCardColorClass } from '@hypercube/client/contexts/TagContext';
+import useQueryParam from '@hypercube/client/hooks/useQueryParam';
+import { DraftPropType } from '@hypercube/client/proptypes/DraftbotPropTypes';
+import { cardName, encodeName } from '@hypercube/client/utils/Card';
+import { getDrafterState } from '@hypercube/client/drafting/draftutil';
+import { toNullableInt } from '@hypercube/client/utils/Util';
 
 const AutocardItem = withAutocard(ListGroupItem);
 

@@ -15,7 +15,7 @@ import {
   Row,
 } from 'reactstrap';
 
-import TagContext, { getTagColorClass, TAG_COLORS } from 'contexts/TagContext';
+import TagContext, { getTagColorClass, TAG_COLORS } from '@hypercube/client/contexts/TagContext';
 import { arrayMove } from '../utils/Util';
 
 import LoadingButton from './LoadingButton';

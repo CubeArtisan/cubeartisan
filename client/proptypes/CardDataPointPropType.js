@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import CardPricePropType from 'proptypes/CardPricePropType';
+import CardPricePropType from '@hypercube/client/proptypes/CardPricePropType';
 
 const CardDataPointPropType = PropTypes.shape({
   prices: PropTypes.arrayOf(CardPricePropType).isRequired,

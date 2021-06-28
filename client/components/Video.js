@@ -1,7 +1,7 @@
-import VideoPropType from 'proptypes/VideoPropType';
+import VideoPropType from '@hypercube/client/proptypes/VideoPropType';
 
-import Markdown from 'components/Markdown';
-import CommentsSection from 'components/CommentsSection';
+import Markdown from '@hypercube/client/components/Markdown';
+import CommentsSection from '@hypercube/client/components/CommentsSection';
 import TimeAgo from 'react-timeago';
 
 import ReactPlayer from 'react-player';

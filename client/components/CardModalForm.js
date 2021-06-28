@@ -1,15 +1,15 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 
-import { cardsAreEquivalent, normalizeName } from 'utils/Card';
-import { csrfFetch } from 'utils/CSRF';
-import { arrayMove } from 'utils/Util';
+import { cardsAreEquivalent, normalizeName } from '@hypercube/client/utils/Card';
+import { csrfFetch } from '@hypercube/client/utils/CSRF';
+import { arrayMove } from '@hypercube/client/utils/Util';
 
-import CardModal from 'components/CardModal';
-import CardModalContext from 'contexts/CardModalContext';
-import ChangelistContext from 'contexts/ChangelistContext';
-import CubeContext from 'contexts/CubeContext';
-import MaybeboardContext from 'contexts/MaybeboardContext';
-import { cardGetLabels } from 'utils/Sort';
+import CardModal from '@hypercube/client/components/CardModal';
+import CardModalContext from '@hypercube/client/contexts/CardModalContext';
+import ChangelistContext from '@hypercube/client/contexts/ChangelistContext';
+import CubeContext from '@hypercube/client/contexts/CubeContext';
+import MaybeboardContext from '@hypercube/client/contexts/MaybeboardContext';
+import { cardGetLabels } from '@hypercube/client/utils/Sort';
 
 const CardModalForm = ({ children, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);

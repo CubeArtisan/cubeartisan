@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import CardPropType from 'proptypes/CardPropType';
+import CardPropType from '@hypercube/client/proptypes/CardPropType';
 
 import { Row, Col } from 'reactstrap';
 

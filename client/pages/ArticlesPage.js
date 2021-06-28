@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
-import ArticlePropType from 'proptypes/ArticlePropType';
+import ArticlePropType from '@hypercube/client/proptypes/ArticlePropType';
 
 import { Row, Col } from 'reactstrap';
 
-import DynamicFlash from 'components/DynamicFlash';
-import ArticlePreview from 'components/ArticlePreview';
-import Paginate from 'components/Paginate';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import ArticlePreview from '@hypercube/client/components/ArticlePreview';
+import Paginate from '@hypercube/client/components/Paginate';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
 
 const PAGE_SIZE = 24;
 

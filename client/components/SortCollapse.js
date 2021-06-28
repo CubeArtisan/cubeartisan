@@ -2,13 +2,13 @@ import { useCallback, useContext, useState, useRef, useEffect } from 'react';
 import { Button, Col, Collapse, Container, Input, Row, UncontrolledAlert } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import { csrfFetch } from 'utils/CSRF';
-import { SORTS, ORDERED_SORTS } from 'utils/Sort';
+import { csrfFetch } from '@hypercube/client/utils/CSRF';
+import { SORTS, ORDERED_SORTS } from '@hypercube/client/utils/Sort';
 
-import CubeContext from 'contexts/CubeContext';
-import SortContext from 'contexts/SortContext';
-import Query from 'utils/Query';
-import Tooltip from 'components/Tooltip';
+import CubeContext from '@hypercube/client/contexts/CubeContext';
+import SortContext from '@hypercube/client/contexts/SortContext';
+import Query from '@hypercube/client/utils/Query';
+import Tooltip from '@hypercube/client/components/Tooltip';
 
 const SortCollapse = ({
   defaultPrimarySort,

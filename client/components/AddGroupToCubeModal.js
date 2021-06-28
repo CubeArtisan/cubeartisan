@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import CubePropType from 'proptypes/CubePropType';
-import { csrfFetch } from 'utils/CSRF';
-import withAutocard from 'components/WithAutocard';
-import { getCardColorClass } from 'contexts/TagContext';
+import CubePropType from '@hypercube/client/proptypes/CubePropType';
+import { csrfFetch } from '@hypercube/client/utils/CSRF';
+import withAutocard from '@hypercube/client/components/WithAutocard';
+import { getCardColorClass } from '@hypercube/client/contexts/TagContext';
 import {
   Modal,
   ModalHeader,

@@ -1,5 +1,5 @@
 /* eslint no-underscore-dangle: ["error", {"allow": ["_id", "_RankleMasterofFixtures"]}] */
-import carddb from '../../serverjs/cards';
+import carddb from '@hypercube/server/serverjs/cards';
 
 const fixturesPath = 'fixtures';
 const firstLetterCount = 21;

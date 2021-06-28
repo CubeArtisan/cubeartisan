@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-import cardSchema from './shared/cardSchema';
-import stepsSchema from './shared/stepsSchema';
+import cardSchema from '@hypercube/server/models/shared/cardSchema';
+import stepsSchema from '@hypercube/server/models/shared/stepsSchema';
 
 const CURRENT_SCHEMA_VERSION = require('./migrations/cubeMigrations').slice(-1)[0].version;
 

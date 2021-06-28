@@ -15,16 +15,16 @@ import {
   CustomInput,
 } from 'reactstrap';
 
-import Query from 'utils/Query';
-import Paginate from 'components/Paginate';
-import DynamicFlash from 'components/DynamicFlash';
-import ButtonLink from 'components/ButtonLink';
-import CardGrid from 'components/CardGrid';
-import CardImage from 'components/CardImage';
-import FilterCollapse from 'components/FilterCollapse';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
-import { ORDERED_SORTS } from 'utils/Sort';
+import Query from '@hypercube/client/utils/Query';
+import Paginate from '@hypercube/client/components/Paginate';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import ButtonLink from '@hypercube/client/components/ButtonLink';
+import CardGrid from '@hypercube/client/components/CardGrid';
+import CardImage from '@hypercube/client/components/CardImage';
+import FilterCollapse from '@hypercube/client/components/FilterCollapse';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import { ORDERED_SORTS } from '@hypercube/client/utils/Sort';
 
 const CardSearchPage = ({ loginCallback }) => {
   const [page, setPage] = useState(parseInt(Query.get('p'), 0) || 0);

@@ -1,4 +1,4 @@
-import { alphaCompare, arrayIsSubset, fromEntries } from 'utils/Util';
+import { alphaCompare, arrayIsSubset, fromEntries } from '@hypercube/client/utils/Util';
 import {
   cardColorIdentity,
   cardDevotion,
@@ -14,7 +14,7 @@ import {
   COLOR_COMBINATIONS,
   cardRarity,
   cardPopularity,
-} from 'utils/Card';
+} from '@hypercube/client/utils/Card';
 
 const COLOR_MAP = {
   W: 'White',

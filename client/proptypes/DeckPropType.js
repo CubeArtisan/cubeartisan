@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import DraftSeatPropType from 'proptypes/DraftSeatPropType';
+import DraftSeatPropType from '@hypercube/client/proptypes/DraftSeatPropType';
 
 const DeckPropType = PropTypes.shape({
   _id: PropTypes.string,

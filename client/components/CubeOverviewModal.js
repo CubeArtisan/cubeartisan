@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import CubePropType from 'proptypes/CubePropType';
+import CubePropType from '@hypercube/client/proptypes/CubePropType';
 
 import {
   Modal,
@@ -19,14 +19,14 @@ import {
   FormText,
 } from 'reactstrap';
 
-import { csrfFetch } from 'utils/CSRF';
-import { getCubeDescription, getCubeId } from 'utils/Util';
+import { csrfFetch } from '@hypercube/client/utils/CSRF';
+import { getCubeDescription, getCubeId } from '@hypercube/client/utils/Util';
 
-import AutocompleteInput from 'components/AutocompleteInput';
-import LoadingButton from 'components/LoadingButton';
-import TagInput from 'components/TagInput';
-import { TagContextProvider } from 'contexts/TagContext';
-import TextEntry from 'components/TextEntry';
+import AutocompleteInput from '@hypercube/client/components/AutocompleteInput';
+import LoadingButton from '@hypercube/client/components/LoadingButton';
+import TagInput from '@hypercube/client/components/TagInput';
+import { TagContextProvider } from '@hypercube/client/contexts/TagContext';
+import TextEntry from '@hypercube/client/components/TextEntry';
 
 /**
  * A utility for safely picking the current working description from a Cube.

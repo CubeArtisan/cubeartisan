@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import ArticlePropType from 'proptypes/ArticlePropType';
+import ArticlePropType from '@hypercube/client/proptypes/ArticlePropType';
 
 import {
   Spinner,
@@ -17,16 +17,16 @@ import {
   Button,
 } from 'reactstrap';
 
-import UserContext from 'contexts/UserContext';
-import DynamicFlash from 'components/DynamicFlash';
-import ArticlePreview from 'components/ArticlePreview';
-import Tab from 'components/Tab';
-import Article from 'components/Article';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
-import AutocompleteInput from 'components/AutocompleteInput';
-import CSRFForm from 'components/CSRFForm';
-import useQueryParam from 'hooks/useQueryParam';
+import UserContext from '@hypercube/client/contexts/UserContext';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import ArticlePreview from '@hypercube/client/components/ArticlePreview';
+import Tab from '@hypercube/client/components/Tab';
+import Article from '@hypercube/client/components/Article';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import AutocompleteInput from '@hypercube/client/components/AutocompleteInput';
+import CSRFForm from '@hypercube/client/components/CSRFForm';
+import useQueryParam from '@hypercube/client/hooks/useQueryParam';
 
 const EditArticlePage = ({ loginCallback, article, siteCustomizations }) => {
   const user = useContext(UserContext);

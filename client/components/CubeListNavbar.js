@@ -1,6 +1,6 @@
 import { useCallback, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from 'proptypes/CardPropType';
+import CardPropType from '@hypercube/client/proptypes/CardPropType';
 
 import {
   Button,
@@ -31,19 +31,19 @@ import {
   FormGroup,
 } from 'reactstrap';
 
-import CardModalContext from 'contexts/CardModalContext';
-import CSRFForm from 'components/CSRFForm';
-import CubeContext from 'contexts/CubeContext';
-import DisplayContext from 'contexts/DisplayContext';
-import EditCollapse from 'components/EditCollapse';
-import FilterCollapse from 'components/FilterCollapse';
-import GroupModalContext from 'contexts/GroupModalContext';
-import SortCollapse from 'components/SortCollapse';
-import SortContext from 'contexts/SortContext';
-import TagColorsModal from 'components/TagColorsModal';
-import withModal from 'components/WithModal';
+import CardModalContext from '@hypercube/client/contexts/CardModalContext';
+import CSRFForm from '@hypercube/client/components/CSRFForm';
+import CubeContext from '@hypercube/client/contexts/CubeContext';
+import DisplayContext from '@hypercube/client/contexts/DisplayContext';
+import EditCollapse from '@hypercube/client/components/EditCollapse';
+import FilterCollapse from '@hypercube/client/components/FilterCollapse';
+import GroupModalContext from '@hypercube/client/contexts/GroupModalContext';
+import SortCollapse from '@hypercube/client/components/SortCollapse';
+import SortContext from '@hypercube/client/contexts/SortContext';
+import TagColorsModal from '@hypercube/client/components/TagColorsModal';
+import withModal from '@hypercube/client/components/WithModal';
 import { QuestionIcon } from '@primer/octicons-react';
-import Tooltip from 'components/Tooltip';
+import Tooltip from '@hypercube/client/components/Tooltip';
 
 const PasteBulkModal = ({ isOpen, toggle }) => {
   const { cubeID } = useContext(CubeContext);

@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import PodcastPropType from 'proptypes/PodcastPropType';
+import PodcastPropType from '@hypercube/client/proptypes/PodcastPropType';
 
-import CommentsSection from 'components/CommentsSection';
-import PodcastEpisodePreview from 'components/PodcastEpisodePreview';
-import AspectRatioBox from 'components/AspectRatioBox';
+import CommentsSection from '@hypercube/client/components/CommentsSection';
+import PodcastEpisodePreview from '@hypercube/client/components/PodcastEpisodePreview';
+import AspectRatioBox from '@hypercube/client/components/AspectRatioBox';
 
 import { CardBody, CardHeader, Row, Col } from 'reactstrap';
 

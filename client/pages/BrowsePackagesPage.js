@@ -17,18 +17,18 @@ import {
   Input,
 } from 'reactstrap';
 
-import { csrfFetch } from 'utils/CSRF';
+import { csrfFetch } from '@hypercube/client/utils/CSRF';
 
-import UserContext from 'contexts/UserContext';
-import DynamicFlash from 'components/DynamicFlash';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
-import useQueryParam from 'hooks/useQueryParam';
-import Tab from 'components/Tab';
-import CreatePackageModal from 'components/CreatePackageModal';
-import withModal from 'components/WithModal';
-import CardPackage from 'components/CardPackage';
-import Paginate from 'components/Paginate';
+import UserContext from '@hypercube/client/contexts/UserContext';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import useQueryParam from '@hypercube/client/hooks/useQueryParam';
+import Tab from '@hypercube/client/components/Tab';
+import CreatePackageModal from '@hypercube/client/components/CreatePackageModal';
+import withModal from '@hypercube/client/components/WithModal';
+import CardPackage from '@hypercube/client/components/CardPackage';
+import Paginate from '@hypercube/client/components/Paginate';
 
 const CreatePackageModalLink = withModal(Button, CreatePackageModal);
 

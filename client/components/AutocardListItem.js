@@ -1,11 +1,11 @@
 import { useCallback, useContext, useMemo } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import CardPropType from 'proptypes/CardPropType';
+import CardPropType from '@hypercube/client/proptypes/CardPropType';
 
-import CardModalContext from 'contexts/CardModalContext';
-import TagContext from 'contexts/TagContext';
-import withAutocard from 'components/WithAutocard';
+import CardModalContext from '@hypercube/client/contexts/CardModalContext';
+import TagContext from '@hypercube/client/contexts/TagContext';
+import withAutocard from '@hypercube/client/components/WithAutocard';
 
 const AutocardDiv = withAutocard('li');
 

@@ -14,16 +14,16 @@ import {
   DropdownMenu,
 } from 'reactstrap';
 
-import CreateCubeModal from 'components/CreateCubeModal';
-import ErrorBoundary from 'components/ErrorBoundary';
-import LoginModal from 'components/LoginModal';
-import NotificationsNav from 'components/NotificationsNav';
-import withModal from 'components/WithModal';
-import SiteCustomizationContext from 'contexts/SiteCustomizationContext';
-import ThemeContext from 'contexts/ThemeContext';
-import UserContext from 'contexts/UserContext';
-import useToggle from 'hooks/UseToggle';
-import Footer from 'layouts/Footer';
+import CreateCubeModal from '@hypercube/client/components/CreateCubeModal';
+import ErrorBoundary from '@hypercube/client/components/ErrorBoundary';
+import LoginModal from '@hypercube/client/components/LoginModal';
+import NotificationsNav from '@hypercube/client/components/NotificationsNav';
+import withModal from '@hypercube/client/components/WithModal';
+import SiteCustomizationContext from '@hypercube/client/contexts/SiteCustomizationContext';
+import ThemeContext from '@hypercube/client/contexts/ThemeContext';
+import UserContext from '@hypercube/client/contexts/UserContext';
+import useToggle from '@hypercube/client/hooks/UseToggle';
+import Footer from '@hypercube/client/layouts/Footer';
 
 const LoginModalLink = withModal(NavLink, LoginModal);
 const CreateCubeModalLink = withModal(DropdownItem, CreateCubeModal);

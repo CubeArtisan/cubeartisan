@@ -4,12 +4,12 @@ import gfm from 'remark-gfm';
 import math from 'remark-math';
 import slug from 'remark-slug';
 import headings from 'remark-autolink-headings';
-import cardlink from 'markdown/cardlink';
-import cardrow from 'markdown/cardrow';
-import centering from 'markdown/centering';
+import cardlink from '@hypercube/client/markdown/cardlink';
+import cardrow from '@hypercube/client/markdown/cardrow';
+import centering from '@hypercube/client/markdown/centering';
 import breaks from 'remark-breaks';
-import symbols from 'markdown/symbols';
-import userlink from 'markdown/userlink';
+import symbols from '@hypercube/client/markdown/symbols';
+import userlink from '@hypercube/client/markdown/userlink';
 
 const VALID_SYMBOLS = 'wubrgcmtsqepxyz/-0123456789';
 

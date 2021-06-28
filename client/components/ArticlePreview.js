@@ -1,8 +1,8 @@
 import { useState, useCallback } from 'react';
-import ArticlePropType from 'proptypes/ArticlePropType';
+import ArticlePropType from '@hypercube/client/proptypes/ArticlePropType';
 
 import { Card } from 'reactstrap';
-import AspectRatioBox from 'components/AspectRatioBox';
+import AspectRatioBox from '@hypercube/client/components/AspectRatioBox';
 import TimeAgo from 'react-timeago';
 
 const ArticlePreview = ({ article }) => {

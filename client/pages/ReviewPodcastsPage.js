@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
-import PodcastPropType from 'proptypes/PodcastPropType';
+import PodcastPropType from '@hypercube/client/proptypes/PodcastPropType';
 
 import { Card, CardHeader, CardBody, Row, Col } from 'reactstrap';
 
-import DynamicFlash from 'components/DynamicFlash';
-import Paginate from 'components/Paginate';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
-import ButtonLink from 'components/ButtonLink';
-import PodcastPreview from 'components/PodcastPreview';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import Paginate from '@hypercube/client/components/Paginate';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import ButtonLink from '@hypercube/client/components/ButtonLink';
+import PodcastPreview from '@hypercube/client/components/PodcastPreview';
 
 const PAGE_SIZE = 24;
 

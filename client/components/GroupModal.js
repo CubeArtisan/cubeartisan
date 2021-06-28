@@ -21,20 +21,20 @@ import {
   UncontrolledAlert,
 } from 'reactstrap';
 
-import { csrfFetch } from 'utils/CSRF';
-import { fromEntries } from 'utils/Util';
-import { cardPrice, cardFoilPrice, cardPriceEur, cardTix } from 'utils/Card';
+import { csrfFetch } from '@hypercube/client/utils/CSRF';
+import { fromEntries } from '@hypercube/client/utils/Util';
+import { cardPrice, cardFoilPrice, cardPriceEur, cardTix } from '@hypercube/client/utils/Card';
 
-import AutocardListItem from 'components/AutocardListItem';
-import ChangelistContext from 'contexts/ChangelistContext';
-import { ColorChecksAddon } from 'components/ColorCheck';
-import CubeContext from 'contexts/CubeContext';
-import GroupModalContext from 'contexts/GroupModalContext';
-import LoadingButton from 'components/LoadingButton';
-import MassBuyButton from 'components/MassBuyButton';
-import TagInput from 'components/TagInput';
-import TextBadge from 'components/TextBadge';
-import Tooltip from 'components/Tooltip';
+import AutocardListItem from '@hypercube/client/components/AutocardListItem';
+import ChangelistContext from '@hypercube/client/contexts/ChangelistContext';
+import { ColorChecksAddon } from '@hypercube/client/components/ColorCheck';
+import CubeContext from '@hypercube/client/contexts/CubeContext';
+import GroupModalContext from '@hypercube/client/contexts/GroupModalContext';
+import LoadingButton from '@hypercube/client/components/LoadingButton';
+import MassBuyButton from '@hypercube/client/components/MassBuyButton';
+import TagInput from '@hypercube/client/components/TagInput';
+import TextBadge from '@hypercube/client/components/TextBadge';
+import Tooltip from '@hypercube/client/components/Tooltip';
 
 const DEFAULT_FORM_VALUES = {
   status: '',

@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 
 import { Card, CardHeader, CardBody } from 'reactstrap';
 
-import DynamicFlash from 'components/DynamicFlash';
-import ButtonLink from 'components/ButtonLink';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import ButtonLink from '@hypercube/client/components/ButtonLink';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
 
 const AdminDashboardPage = ({
   loginCallback,

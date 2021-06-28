@@ -1,9 +1,10 @@
 import fs from 'fs';
 import rimraf from 'rimraf';
-import updatecards from '../../serverjs/updatecards';
-import carddb from '../../serverjs/cards';
+import updatecards from '@hypercube/server/serverjs/updatecards';
+import carddb from '@hypercube/server/serverjs/cards';
+import cardutil from '@hypercube/client/utils/Card';
+// eslint-disable-next-line no-restricted-imports
 import examplecards from '../../fixtures/examplecards';
-import cardutil from '../../dist/utils/Card';
 
 const emptyFixturePath = 'fixtures/empty.json';
 const cardsFixturePath = 'fixtures/cards_small.json';

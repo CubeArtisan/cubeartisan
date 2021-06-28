@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import CommentPropType from 'proptypes/CommentPropType';
+import CommentPropType from '@hypercube/client/proptypes/CommentPropType';
 
-import Comment from 'components/Comment';
-import PagedList from 'components/PagedList';
+import Comment from '@hypercube/client/components/Comment';
+import PagedList from '@hypercube/client/components/PagedList';
 
 const CommentList = ({ comments, startIndex, editComment }) => (
   <PagedList

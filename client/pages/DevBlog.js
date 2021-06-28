@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 
 import { Card, CardBody, FormGroup, Label, Input, Button } from 'reactstrap';
 
-import UserContext from 'contexts/UserContext';
-import Paginate from 'components/Paginate';
-import BlogPost from 'components/BlogPost';
-import CSRFForm from 'components/CSRFForm';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
-import DynamicFlash from 'components/DynamicFlash';
+import UserContext from '@hypercube/client/contexts/UserContext';
+import Paginate from '@hypercube/client/components/Paginate';
+import BlogPost from '@hypercube/client/components/BlogPost';
+import CSRFForm from '@hypercube/client/components/CSRFForm';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
 
 const DevBlog = ({ blogs, pages, activePage, loginCallback }) => {
   const user = useContext(UserContext);

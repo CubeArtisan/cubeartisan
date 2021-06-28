@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import CardPricePropType from 'proptypes/CardPricePropType';
-import CardDataPointPropType from 'proptypes/CardDataPointPropType';
+import CardPricePropType from '@hypercube/client/proptypes/CardPricePropType';
+import CardDataPointPropType from '@hypercube/client/proptypes/CardDataPointPropType';
 
 import {
   Card,
@@ -24,27 +24,40 @@ import {
 
 import ChartComponent from 'react-chartjs-2';
 
-import CardImage from 'components/CardImage';
-import CardGrid from 'components/CardGrid';
-import ImageFallback from 'components/ImageFallback';
-import PagedList from 'components/PagedList';
-import withAutocard from 'components/WithAutocard';
-import Markdown from 'components/Markdown';
-import ButtonLink from 'components/ButtonLink';
-import CountTableRow from 'components/CountTableRow';
-import Tooltip from 'components/Tooltip';
-import TextBadge from 'components/TextBadge';
-import AddToCubeModal from 'components/AddToCubeModal';
-import CommentsSection from 'components/CommentsSection';
-import withModal from 'components/WithModal';
-import DynamicFlash from 'components/DynamicFlash';
-import useQueryParam from 'hooks/useQueryParam';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
-import Tab from 'components/Tab';
+import CardImage from '@hypercube/client/components/CardImage';
+import CardGrid from '@hypercube/client/components/CardGrid';
+import ImageFallback from '@hypercube/client/components/ImageFallback';
+import PagedList from '@hypercube/client/components/PagedList';
+import withAutocard from '@hypercube/client/components/WithAutocard';
+import Markdown from '@hypercube/client/components/Markdown';
+import ButtonLink from '@hypercube/client/components/ButtonLink';
+import CountTableRow from '@hypercube/client/components/CountTableRow';
+import Tooltip from '@hypercube/client/components/Tooltip';
+import TextBadge from '@hypercube/client/components/TextBadge';
+import AddToCubeModal from '@hypercube/client/components/AddToCubeModal';
+import CommentsSection from '@hypercube/client/components/CommentsSection';
+import withModal from '@hypercube/client/components/WithModal';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import useQueryParam from '@hypercube/client/hooks/useQueryParam';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import Tab from '@hypercube/client/components/Tab';
 
-import { cardPrice, cardFoilPrice, cardPriceEur, cardTix, cardElo, cardPopularity, cardCubeCount } from 'utils/Card';
-import { getTCGLink, getCardMarketLink, getCardHoarderLink, getCardKingdomLink } from 'utils/Affiliate';
+import {
+  cardPrice,
+  cardFoilPrice,
+  cardPriceEur,
+  cardTix,
+  cardElo,
+  cardPopularity,
+  cardCubeCount,
+} from '@hypercube/client/utils/Card';
+import {
+  getTCGLink,
+  getCardMarketLink,
+  getCardHoarderLink,
+  getCardKingdomLink,
+} from '@hypercube/client/utils/Affiliate';
 import { ArrowSwitchIcon, CheckIcon, ClippyIcon } from '@primer/octicons-react';
 
 const AutocardA = withAutocard('a');

@@ -1,8 +1,8 @@
 import { useState, useCallback } from 'react';
-import VideoPropType from 'proptypes/VideoPropType';
+import VideoPropType from '@hypercube/client/proptypes/VideoPropType';
 
 import { Card } from 'reactstrap';
-import AspectRatioBox from 'components/AspectRatioBox';
+import AspectRatioBox from '@hypercube/client/components/AspectRatioBox';
 import TimeAgo from 'react-timeago';
 
 const VideoPreview = ({ video }) => {

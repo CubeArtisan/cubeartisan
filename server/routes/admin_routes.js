@@ -3,17 +3,17 @@ import express from 'express';
 import mailer from 'nodemailer';
 import path from 'path';
 import Email from 'email-templates';
-import parser from '../dist/markdown/parser';
-import { ensureRole, csrfProtection } from './middleware';
-import User from '../models/user';
-import Report from '../models/report';
-import Application from '../models/application';
-import Comment from '../models/comment';
-import Article from '../models/article';
-import Video from '../models/video';
-import Podcast from '../models/podcast';
-import { render } from '../serverjs/render';
-import util from '../serverjs/util';
+import parser from '@hypercube/client/markdown/parser';
+import { ensureRole, csrfProtection } from '@hypercube/server/routes/middleware';
+import User from '@hypercube/server/models/user';
+import Report from '@hypercube/server/models/report';
+import Application from '@hypercube/server/models/application';
+import Comment from '@hypercube/server/models/comment';
+import Article from '@hypercube/server/models/article';
+import Video from '@hypercube/server/models/video';
+import Podcast from '@hypercube/server/models/podcast';
+import { render } from '@hypercube/server/serverjs/render';
+import util from '@hypercube/server/serverjs/util';
 
 require('dotenv').config();
 
@@ -41,7 +41,7 @@ router.get('/dashboard', ensureAdmin, async (req, res) => {
 
 const PAGE_SIZE = 24;
 
-router.get('/comments', async (req, res) => {
+router.get('/comments', async (_req, res) => {
   return res.redirect('/admin/comments/0');
 });
 
@@ -56,15 +56,15 @@ router.get('/comments/:page', ensureAdmin, async (req, res) => {
   return render(req, res, 'AdminCommentsPage', { comments, count, page: Math.max(req.params.page, 0) });
 });
 
-router.get('/reviewarticles', async (req, res) => {
+router.get('/reviewarticles', async (_req, res) => {
   res.redirect('/admin/reviewarticles/0');
 });
 
-router.get('/reviewvideos', async (req, res) => {
+router.get('/reviewvideos', async (_req, res) => {
   res.redirect('/admin/reviewvideos/0');
 });
 
-router.get('/reviewpodcasts', async (req, res) => {
+router.get('/reviewpodcasts', async (_req, res) => {
   res.redirect('/admin/reviewpodcasts/0');
 });
 
@@ -101,7 +101,7 @@ router.get('/reviewpodcasts/:page', ensureAdmin, async (req, res) => {
   return render(req, res, 'ReviewPodcastsPage', { podcasts, count, page: Math.max(req.params.page, 0) });
 });
 
-router.get('/commentreports', async (req, res) => {
+router.get('/commentreports', async (_req, res) => {
   return res.redirect('/admin/commentreports/0');
 });
 
@@ -116,7 +116,7 @@ router.get('/commentreports/:page', ensureAdmin, async (req, res) => {
   return render(req, res, 'CommentReportsPage', { reports, count, page: Math.max(req.params.page, 0) });
 });
 
-router.get('/applications', async (req, res) => {
+router.get('/applications', async (_req, res) => {
   return res.redirect('/admin/applications/0');
 });
 

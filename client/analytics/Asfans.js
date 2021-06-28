@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 import { Col, Row, InputGroup, InputGroupAddon, InputGroupText, CustomInput } from 'reactstrap';
 
-import ErrorBoundary from 'components/ErrorBoundary';
-import { compareStrings, SortableTable } from 'components/SortableTable';
-import useQueryParam from 'hooks/useQueryParam';
-import { calculateAsfans } from 'drafting/createdraft';
-import { SORTS, sortIntoGroups } from 'utils/Sort';
-import { fromEntries } from 'utils/Util';
+import ErrorBoundary from '@hypercube/client/components/ErrorBoundary';
+import { compareStrings, SortableTable } from '@hypercube/client/components/SortableTable';
+import useQueryParam from '@hypercube/client/hooks/useQueryParam';
+import { calculateAsfans } from '@hypercube/client/drafting/createdraft';
+import { SORTS, sortIntoGroups } from '@hypercube/client/utils/Sort';
+import { fromEntries } from '@hypercube/client/utils/Util';
 
 const Asfans = ({ cards: cardsNoAsfan, cube }) => {
   const [sort, setSort] = useQueryParam('sort', 'Color');

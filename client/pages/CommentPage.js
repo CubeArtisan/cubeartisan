@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import CommentPropType from 'proptypes/CommentPropType';
+import CommentPropType from '@hypercube/client/proptypes/CommentPropType';
 
 import { Card, CardHeader } from 'reactstrap';
 
-import Comment from 'components/Comment';
-import DynamicFlash from 'components/DynamicFlash';
-import CommentsSection from 'components/CommentsSection';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
+import Comment from '@hypercube/client/components/Comment';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import CommentsSection from '@hypercube/client/components/CommentsSection';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
 
 const translateType = {
   comment: 'Comment',

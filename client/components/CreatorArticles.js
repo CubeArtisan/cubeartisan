@@ -2,12 +2,12 @@ import { useState, useEffect, useContext } from 'react';
 
 import { Navbar, Nav, NavItem, NavLink, Row, Col, CardBody } from 'reactstrap';
 
-import Loading from 'pages/Loading';
-import UserContext from 'contexts/UserContext';
-import ArticlePreview from 'components/ArticlePreview';
-import Paginate from 'components/Paginate';
-import { csrfFetch } from 'utils/CSRF';
-import useQueryParam from 'hooks/useQueryParam';
+import Loading from '@hypercube/client/pages/Loading';
+import UserContext from '@hypercube/client/contexts/UserContext';
+import ArticlePreview from '@hypercube/client/components/ArticlePreview';
+import Paginate from '@hypercube/client/components/Paginate';
+import { csrfFetch } from '@hypercube/client/utils/CSRF';
+import useQueryParam from '@hypercube/client/hooks/useQueryParam';
 
 const PAGE_SIZE = 24;
 

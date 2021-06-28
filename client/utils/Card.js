@@ -1,5 +1,5 @@
-import { arraysEqual, fromEntries, arrayIsSubset } from 'utils/Util';
-import LandCategories from 'res/LandCategories.json';
+import { arraysEqual, fromEntries, arrayIsSubset } from '@hypercube/client/utils/Util';
+import LandCategories from '@hypercube/client/res/LandCategories.json';
 
 export const COLOR_COMBINATIONS = [
   [],

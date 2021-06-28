@@ -1,12 +1,12 @@
 import { useContext } from 'react';
 
 import PropTypes from 'prop-types';
-import CubePropType from 'proptypes/CubePropType';
+import CubePropType from '@hypercube/client/proptypes/CubePropType';
 
-import UserContext from 'contexts/UserContext';
-import CubeContext, { CubeContextProvider } from 'contexts/CubeContext';
-import ErrorBoundary from 'components/ErrorBoundary';
-import { getCubeDescription, getCubeId } from 'utils/Util';
+import UserContext from '@hypercube/client/contexts/UserContext';
+import CubeContext, { CubeContextProvider } from '@hypercube/client/contexts/CubeContext';
+import ErrorBoundary from '@hypercube/client/components/ErrorBoundary';
+import { getCubeDescription, getCubeId } from '@hypercube/client/utils/Util';
 
 import { NavItem, NavLink } from 'reactstrap';
 

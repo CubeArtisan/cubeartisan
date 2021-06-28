@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
-import PodcastPropType from 'proptypes/PodcastPropType';
+import PodcastPropType from '@hypercube/client/proptypes/PodcastPropType';
 
 import { CardHeader, Card, Row, Col, CardBody } from 'reactstrap';
 
-import DynamicFlash from 'components/DynamicFlash';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
-import AspectRatioBox from 'components/AspectRatioBox';
-import CommentsSection from 'components/CommentsSection';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import AspectRatioBox from '@hypercube/client/components/AspectRatioBox';
+import CommentsSection from '@hypercube/client/components/CommentsSection';
 import ReactAudioPlayer from 'react-audio-player';
 import TimeAgo from 'react-timeago';
 

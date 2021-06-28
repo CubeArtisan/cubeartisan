@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 
 import { Button, Col, Form, Input, Label, Row, Card, CardBody, CardHeader } from 'reactstrap';
 
-import AutocompleteInput from 'components/AutocompleteInput';
-import CSRFForm from 'components/CSRFForm';
-import Changelist from 'components/Changelist';
-import ChangelistContext, { ChangelistContextProvider } from 'contexts/ChangelistContext';
-import { getCard } from 'components/EditCollapse';
-import LoadingButton from 'components/LoadingButton';
-import CubeLayout from 'layouts/CubeLayout';
-import DynamicFlash from 'components/DynamicFlash';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
+import AutocompleteInput from '@hypercube/client/components/AutocompleteInput';
+import CSRFForm from '@hypercube/client/components/CSRFForm';
+import Changelist from '@hypercube/client/components/Changelist';
+import ChangelistContext, { ChangelistContextProvider } from '@hypercube/client/contexts/ChangelistContext';
+import { getCard } from '@hypercube/client/components/EditCollapse';
+import LoadingButton from '@hypercube/client/components/LoadingButton';
+import CubeLayout from '@hypercube/client/layouts/CubeLayout';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
 
 const BulkUploadPageRaw = ({ cubeID, missing, blogpost, cube }) => {
   const [addValue, setAddValue] = useState('');

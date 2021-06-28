@@ -1,5 +1,5 @@
-import CardImage from 'components/CardImage';
-import FoilOverlay from 'components/FoilOverlay';
+import CardImage from '@hypercube/client/components/CardImage';
+import FoilOverlay from '@hypercube/client/components/FoilOverlay';
 
 const FoilCardImage = FoilOverlay(CardImage);
 

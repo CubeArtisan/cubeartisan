@@ -1,4 +1,4 @@
-import generateMeta from '../../serverjs/meta';
+import generateMeta from '@hypercube/server/serverjs/meta';
 
 test('generateMeta returns the expected object', () => {
   const title = 'the title';

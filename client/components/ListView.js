@@ -1,22 +1,22 @@
 import { useCallback, useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from 'proptypes/CardPropType';
+import CardPropType from '@hypercube/client/proptypes/CardPropType';
 
 import { Form, Input } from 'reactstrap';
 
-import { cardsAreEquivalent, normalizeName } from 'utils/Card';
-import { csrfFetch } from 'utils/CSRF';
-import { getLabels, sortDeep } from 'utils/Sort';
+import { cardsAreEquivalent, normalizeName } from '@hypercube/client/utils/Card';
+import { csrfFetch } from '@hypercube/client/utils/CSRF';
+import { getLabels, sortDeep } from '@hypercube/client/utils/Sort';
 
-import CubeContext from 'contexts/CubeContext';
-import GroupModalContext from 'contexts/GroupModalContext';
-import PagedTable from 'components/PagedTable';
-import SortContext from 'contexts/SortContext';
-import TagContext from 'contexts/TagContext';
-import TagInput from 'components/TagInput';
-import withAutocard from 'components/WithAutocard';
-import withLoading from 'components/WithLoading';
-import useAlerts, { Alerts } from 'hooks/UseAlerts';
+import CubeContext from '@hypercube/client/contexts/CubeContext';
+import GroupModalContext from '@hypercube/client/contexts/GroupModalContext';
+import PagedTable from '@hypercube/client/components/PagedTable';
+import SortContext from '@hypercube/client/contexts/SortContext';
+import TagContext from '@hypercube/client/contexts/TagContext';
+import TagInput from '@hypercube/client/components/TagInput';
+import withAutocard from '@hypercube/client/components/WithAutocard';
+import withLoading from '@hypercube/client/components/WithLoading';
+import useAlerts, { Alerts } from '@hypercube/client/hooks/UseAlerts';
 
 const colorCombos = [
   'C',

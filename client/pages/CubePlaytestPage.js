@@ -1,6 +1,6 @@
 import { useContext, useCallback, useMemo, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import DeckPropType from 'proptypes/DeckPropType';
+import DeckPropType from '@hypercube/client/proptypes/DeckPropType';
 
 import {
   Button,
@@ -26,21 +26,21 @@ import {
   UncontrolledCollapse,
 } from 'reactstrap';
 
-import CSRFForm from 'components/CSRFForm';
-import CubeContext from 'contexts/CubeContext';
-import UserContext from 'contexts/UserContext';
-import CustomDraftFormatModal from 'components/CustomDraftFormatModal';
-import DynamicFlash from 'components/DynamicFlash';
-import DeckPreview from 'components/DeckPreview';
-import Markdown from 'components/Markdown';
-import withModal from 'components/WithModal';
-import useAlerts, { Alerts } from 'hooks/UseAlerts';
-import useToggle from 'hooks/UseToggle';
-import CubeLayout from 'layouts/CubeLayout';
-import { csrfFetch } from 'utils/CSRF';
-import { allBotsDraft } from 'drafting/draftutil';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
+import CSRFForm from '@hypercube/client/components/CSRFForm';
+import CubeContext from '@hypercube/client/contexts/CubeContext';
+import UserContext from '@hypercube/client/contexts/UserContext';
+import CustomDraftFormatModal from '@hypercube/client/components/CustomDraftFormatModal';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import DeckPreview from '@hypercube/client/components/DeckPreview';
+import Markdown from '@hypercube/client/components/Markdown';
+import withModal from '@hypercube/client/components/WithModal';
+import useAlerts, { Alerts } from '@hypercube/client/hooks/UseAlerts';
+import useToggle from '@hypercube/client/hooks/UseToggle';
+import CubeLayout from '@hypercube/client/layouts/CubeLayout';
+import { csrfFetch } from '@hypercube/client/utils/CSRF';
+import { allBotsDraft } from '@hypercube/client/drafting/draftutil';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
 
 const range = (lo, hi) => Array.from(Array(hi - lo).keys()).map((n) => n + lo);
 const rangeOptions = (lo, hi) => range(lo, hi).map((n) => <option key={n}>{n}</option>);

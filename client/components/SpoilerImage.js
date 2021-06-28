@@ -1,8 +1,8 @@
 import { useCallback, useContext } from 'react';
 
-import CardModalContext from 'contexts/CardModalContext';
-import FoilCardImage from 'components/FoilCardImage';
-import CardPropType from 'proptypes/CardPropType';
+import CardModalContext from '@hypercube/client/contexts/CardModalContext';
+import FoilCardImage from '@hypercube/client/components/FoilCardImage';
+import CardPropType from '@hypercube/client/proptypes/CardPropType';
 
 const SpoilerImage = ({ card }) => {
   const openCardModal = useContext(CardModalContext);

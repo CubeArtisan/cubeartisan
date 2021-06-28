@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import { CardBody, CardHeader, CardTitle, Row } from 'reactstrap';
 
-import CardStack from 'components/CardStack';
-import DraggableCard from 'components/DraggableCard';
-import CardPropType from 'proptypes/CardPropType';
-import Location from 'drafting/DraftLocation';
+import CardStack from '@hypercube/client/components/CardStack';
+import DraggableCard from '@hypercube/client/components/DraggableCard';
+import CardPropType from '@hypercube/client/proptypes/CardPropType';
+import Location from '@hypercube/client/drafting/DraftLocation';
 
 const DeckStacks = ({ cards, title, subtitle, locationType, canDrop, onMoveCard, onClickCard, ...props }) => (
   <>

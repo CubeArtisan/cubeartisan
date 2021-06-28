@@ -1,13 +1,13 @@
 import { useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
-import AddToCubeModal from 'components/AddToCubeModal';
-import PagedList from 'components/PagedList';
-import withAutocard from 'components/WithAutocard';
-import withModal from 'components/WithModal';
-import SiteCustomizationContext from 'contexts/SiteCustomizationContext';
-import CubePropType from 'proptypes/CubePropType';
-import { encodeName } from 'utils/Card';
+import AddToCubeModal from '@hypercube/client/components/AddToCubeModal';
+import PagedList from '@hypercube/client/components/PagedList';
+import withAutocard from '@hypercube/client/components/WithAutocard';
+import withModal from '@hypercube/client/components/WithModal';
+import SiteCustomizationContext from '@hypercube/client/contexts/SiteCustomizationContext';
+import CubePropType from '@hypercube/client/proptypes/CubePropType';
+import { encodeName } from '@hypercube/client/utils/Card';
 import {
   Card,
   CardBody,
@@ -20,7 +20,7 @@ import {
   Row,
   Spinner,
 } from 'reactstrap';
-import useToggle from 'hooks/UseToggle';
+import useToggle from '@hypercube/client/hooks/UseToggle';
 
 const AutocardA = withAutocard('a');
 const AddModal = withModal(AutocardA, AddToCubeModal);

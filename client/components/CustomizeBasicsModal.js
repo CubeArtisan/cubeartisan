@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import CubePropType from 'proptypes/CubePropType';
+import CubePropType from '@hypercube/client/proptypes/CubePropType';
 
 import { Modal, ModalBody, ModalHeader, Button, ModalFooter, Row, Col, Card } from 'reactstrap';
 
-import { csrfFetch } from 'utils/CSRF';
-import LoadingButton from 'components/LoadingButton';
-import AutocompleteInput from 'components/AutocompleteInput';
+import { csrfFetch } from '@hypercube/client/utils/CSRF';
+import LoadingButton from '@hypercube/client/components/LoadingButton';
+import AutocompleteInput from '@hypercube/client/components/AutocompleteInput';
 
 const CustomizeBasicsModal = ({ isOpen, toggle, cube, updateBasics, onError }) => {
   const [basics, setBasics] = useState(cube.basics.slice());

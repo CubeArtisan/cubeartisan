@@ -31,9 +31,9 @@ import {
   cardIsSpecialZoneType,
   cardName,
   cardType,
-} from 'utils/Card';
-import { arraysAreEqualSets, fromEntries } from 'utils/Util';
-import probTableBase64 from 'res/probTable.b64';
+} from '@hypercube/client/utils/Card';
+import { arraysAreEqualSets, fromEntries } from '@hypercube/client/utils/Util';
+import probTableBase64 from '@hypercube/client/res/probTable.b64';
 
 const probTable = (() => {
   const isBrowser = typeof window !== 'undefined' && typeof window.atob === 'function';

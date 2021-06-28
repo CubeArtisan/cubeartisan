@@ -2,14 +2,14 @@ import PropTypes from 'prop-types';
 
 import { Nav, CardHeader, Card, TabContent, TabPane } from 'reactstrap';
 
-import DynamicFlash from 'components/DynamicFlash';
-import Tab from 'components/Tab';
-import CreatorArticles from 'components/CreatorArticles';
-import CreatorVideos from 'components/CreatorVideos';
-import CreatorPodcasts from 'components/CreatorPodcasts';
-import useQueryParam from 'hooks/useQueryParam';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import Tab from '@hypercube/client/components/Tab';
+import CreatorArticles from '@hypercube/client/components/CreatorArticles';
+import CreatorVideos from '@hypercube/client/components/CreatorVideos';
+import CreatorPodcasts from '@hypercube/client/components/CreatorPodcasts';
+import useQueryParam from '@hypercube/client/hooks/useQueryParam';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
 
 const CreatorsPage = ({ loginCallback }) => {
   const [tab, setTab] = useQueryParam('tab', '0');

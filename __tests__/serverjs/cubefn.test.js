@@ -1,10 +1,11 @@
 import sinon from 'sinon';
-import carddb from '../../serverjs/cards';
-import cubefn from '../../serverjs/cubefn';
-import util from '../../serverjs/util';
+import carddb from '@hypercube/server/serverjs/cards';
+import cubefn from '@hypercube/server/serverjs/cubefn';
+import util from '@hypercube/server/serverjs/util';
+import Cube from '@hypercube/server/models/cube';
+import { arraysEqual } from '@hypercube/client/utils/Util';
+// eslint-disable-next-line no-restricted-imports
 import cubefixture from '../../fixtures/examplecube';
-import Cube from '../../models/cube';
-import { arraysEqual } from '../../src/utils/Util';
 
 const fixturesPath = 'fixtures';
 

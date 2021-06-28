@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 
 import { Col, Row, InputGroup, InputGroupAddon, InputGroupText, CustomInput } from 'reactstrap';
 
-import AsfanDropdown from 'components/AsfanDropdown';
-import ErrorBoundary from 'components/ErrorBoundary';
-import { compareStrings, SortableTable } from 'components/SortableTable';
-import useQueryParam from 'hooks/useQueryParam';
-import { cardType } from 'utils/Card';
-import { weightedAverage, weightedMedian, weightedStdDev } from 'drafting/createdraft';
-import { sortIntoGroups, SORTS } from 'utils/Sort';
+import AsfanDropdown from '@hypercube/client/components/AsfanDropdown';
+import ErrorBoundary from '@hypercube/client/components/ErrorBoundary';
+import { compareStrings, SortableTable } from '@hypercube/client/components/SortableTable';
+import useQueryParam from '@hypercube/client/hooks/useQueryParam';
+import { cardType } from '@hypercube/client/utils/Card';
+import { weightedAverage, weightedMedian, weightedStdDev } from '@hypercube/client/drafting/createdraft';
+import { sortIntoGroups, SORTS } from '@hypercube/client/utils/Sort';
 
 const Averages = ({ cards, characteristics, defaultFormatId, cube, setAsfans }) => {
   const [sort, setSort] = useQueryParam('sort', 'Color');

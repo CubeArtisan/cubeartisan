@@ -16,9 +16,9 @@ import {
   Input,
 } from 'reactstrap';
 
-import { csrfFetch } from 'utils/CSRF';
-import LoadingButton from 'components/LoadingButton';
-import AutocompleteInput from 'components/AutocompleteInput';
+import { csrfFetch } from '@hypercube/client/utils/CSRF';
+import LoadingButton from '@hypercube/client/components/LoadingButton';
+import AutocompleteInput from '@hypercube/client/components/AutocompleteInput';
 
 const CreatePackageModal = ({ isOpen, toggle, onError, onSuccess }) => {
   const [cards, setCards] = useState([]);

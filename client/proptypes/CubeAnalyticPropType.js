@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import CardPropType from 'proptypes/CardPropType';
+import CardPropType from '@hypercube/client/proptypes/CardPropType';
 
 const CubePropType = PropTypes.shape({
   _id: PropTypes.string.isRequired,

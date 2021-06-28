@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from 'proptypes/CardPropType';
+import CardPropType from '@hypercube/client/proptypes/CardPropType';
 
-import DisplayContext from 'contexts/DisplayContext';
-import ImageFallback from 'components/ImageFallback';
-import withAutocard from 'components/WithAutocard';
+import DisplayContext from '@hypercube/client/contexts/DisplayContext';
+import ImageFallback from '@hypercube/client/components/ImageFallback';
+import withAutocard from '@hypercube/client/components/WithAutocard';
 
 const ImageAutocard = withAutocard(ImageFallback);
 

@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import VideoPropType from 'proptypes/VideoPropType';
+import VideoPropType from '@hypercube/client/proptypes/VideoPropType';
 
 import {
   Spinner,
@@ -17,17 +17,17 @@ import {
   Button,
 } from 'reactstrap';
 
-import AutocompleteInput from 'components/AutocompleteInput';
-import CSRFForm from 'components/CSRFForm';
-import DynamicFlash from 'components/DynamicFlash';
-import Tab from 'components/Tab';
-import Video from 'components/Video';
-import VideoPreview from 'components/VideoPreview';
-import SiteCustomizationContext from 'contexts/SiteCustomizationContext';
-import UserContext from 'contexts/UserContext';
-import useQueryParam from 'hooks/useQueryParam';
-import MainLayout from 'layouts/MainLayout';
-import RenderToRoot from 'utils/RenderToRoot';
+import AutocompleteInput from '@hypercube/client/components/AutocompleteInput';
+import CSRFForm from '@hypercube/client/components/CSRFForm';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import Tab from '@hypercube/client/components/Tab';
+import Video from '@hypercube/client/components/Video';
+import VideoPreview from '@hypercube/client/components/VideoPreview';
+import SiteCustomizationContext from '@hypercube/client/contexts/SiteCustomizationContext';
+import UserContext from '@hypercube/client/contexts/UserContext';
+import useQueryParam from '@hypercube/client/hooks/useQueryParam';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
 
 const EditVideoPage = ({ loginCallback, video }) => {
   const user = useContext(UserContext);

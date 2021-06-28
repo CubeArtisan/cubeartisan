@@ -2,20 +2,20 @@ import { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardHeader, CardBody, Row, Col, CardTitle } from 'reactstrap';
 
-import DeckbuilderNavbar from 'components/DeckbuilderNavbar';
-import DeckStacks from 'components/DeckStacks';
-import { DisplayContextProvider } from 'contexts/DisplayContext';
-import DndProvider from 'components/DndProvider';
-import DynamicFlash from 'components/DynamicFlash';
-import ErrorBoundary from 'components/ErrorBoundary';
-import TextEntry from 'components/TextEntry';
-import DraftLocation, { moveOrAddCard, removeCard } from 'drafting/DraftLocation';
-import CubeLayout from 'layouts/CubeLayout';
-import MainLayout from 'layouts/MainLayout';
-import CubePropType from 'proptypes/CubePropType';
-import DeckPropType from 'proptypes/DeckPropType';
-import { makeSubtitle } from 'utils/Card';
-import RenderToRoot from 'utils/RenderToRoot';
+import DeckbuilderNavbar from '@hypercube/client/components/DeckbuilderNavbar';
+import DeckStacks from '@hypercube/client/components/DeckStacks';
+import { DisplayContextProvider } from '@hypercube/client/contexts/DisplayContext';
+import DndProvider from '@hypercube/client/components/DndProvider';
+import DynamicFlash from '@hypercube/client/components/DynamicFlash';
+import ErrorBoundary from '@hypercube/client/components/ErrorBoundary';
+import TextEntry from '@hypercube/client/components/TextEntry';
+import DraftLocation, { moveOrAddCard, removeCard } from '@hypercube/client/drafting/DraftLocation';
+import CubeLayout from '@hypercube/client/layouts/CubeLayout';
+import MainLayout from '@hypercube/client/layouts/MainLayout';
+import CubePropType from '@hypercube/client/proptypes/CubePropType';
+import DeckPropType from '@hypercube/client/proptypes/DeckPropType';
+import { makeSubtitle } from '@hypercube/client/utils/Card';
+import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
 
 const canDrop = () => true;
 

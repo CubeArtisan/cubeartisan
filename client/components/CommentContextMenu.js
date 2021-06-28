@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
-import useToggle from 'hooks/UseToggle';
+import useToggle from '@hypercube/client/hooks/UseToggle';
 
 const CommentContextMenu = ({ edit, remove, children }) => {
   const [open, toggle] = useToggle(false);
