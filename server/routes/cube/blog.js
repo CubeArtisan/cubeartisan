@@ -2,7 +2,7 @@ import express from 'express';
 
 import { ensureAuth } from '@hypercube/server/routes/middleware';
 import carddb from '@hypercube/server/serverjs/cards';
-import util from '@hypercube/server/serverjs/util';
+import { addMultipleNotifications, handleRouteError } from '@hypercube/server/serverjs/util';
 import { render } from '@hypercube/server/serverjs/render';
 import generateMeta from '@hypercube/server/serverjs/meta';
 import miscutil from '@hypercube/client/utils/Util';
@@ -13,39 +13,44 @@ import User from '@hypercube/server/models/user';
 
 const router = express.Router();
 
-router.post('/post/:id', ensureAuth, async (req, res) => {
+const updateBlogPost = async (req, res) => {
+  // update an existing blog post
+  const blog = await Blog.findById(req.parms.postid);
+  const { user } = req;
+
+  if (req.body.title.length < 5 || req.body.title.length > 100) {
+    req.flash('danger', 'Blog title length must be between 5 and 100 characters.');
+    return res.redirect(303, `/cube/${encodeURIComponent(req.params.id)}/blog`);
+  }
+  if (!user._id.equals(blog.owner)) {
+    req.flash('danger', 'Unable to update this blog post: Unauthorized.');
+    return res.redirect(303, `/cube/${encodeURIComponent(req.params.id)}/blog`);
+  }
+
+  blog.markdown = req.body.markdown.substring(0, 10000);
+  blog.title = req.body.title;
+
+  await blog.save();
+
+  req.flash('success', 'Blog update successful');
+  return res.redirect(303, `/cube/${encodeURIComponent(req.params.id)}/blog`);
+};
+
+const postToBlog = async (req, res) => {
   try {
     if (req.body.title.length < 5 || req.body.title.length > 100) {
       req.flash('danger', 'Blog title length must be between 5 and 100 characters.');
-      return res.redirect(`/cube/blog/${encodeURIComponent(req.params.id)}`);
+      return res.redirect(303, `/cube/${encodeURIComponent(req.params.id)}/blog`);
     }
 
     const { user } = req;
-
-    if (req.body.id && req.body.id.length > 0) {
-      // update an existing blog post
-      const blog = await Blog.findById(req.body.id);
-
-      if (!user._id.equals(blog.owner)) {
-        req.flash('danger', 'Unable to update this blog post: Unauthorized.');
-        return res.redirect(`/cube/blog/${encodeURIComponent(req.params.id)}`);
-      }
-
-      blog.markdown = req.body.markdown.substring(0, 10000);
-      blog.title = req.body.title;
-
-      await blog.save();
-
-      req.flash('success', 'Blog update successful');
-      return res.redirect(`/cube/blog/${encodeURIComponent(req.params.id)}`);
-    }
 
     let cube = await Cube.findOne(buildIdQuery(req.params.id));
 
     // post new blog
     if (!user._id.equals(cube.owner)) {
       req.flash('danger', 'Unable to post this blog post: Unauthorized.');
-      return res.redirect(`/cube/blog/${encodeURIComponent(req.params.id)}`);
+      return res.redirect(303, `/cube/${encodeURIComponent(req.params.id)}/blog`);
     }
 
     cube.date_updated = Date.now();
@@ -73,7 +78,7 @@ router.post('/post/:id', ensureAuth, async (req, res) => {
       const mentions = req.body.mentions.split(';');
       // mentions is either a string (if just one is found) or an array (if multiple are found)
       const query = User.find({ username_lower: mentions });
-      await util.addMultipleNotifications(
+      await addMultipleNotifications(
         query,
         owner,
         `/cube/blog/blogpost/${blogpost._id}`,
@@ -82,37 +87,33 @@ router.post('/post/:id', ensureAuth, async (req, res) => {
     }
 
     req.flash('success', 'Blog post successful');
-    return res.redirect(`/cube/blog/${encodeURIComponent(req.params.id)}`);
+    return res.redirect(`/cube/${encodeURIComponent(req.params.id)}/blog`);
   } catch (err) {
-    return util.handleRouteError(req, res, err, `/cube/blog/${encodeURIComponent(req.params.id)}`);
+    return handleRouteError(req, res, err, `/cube/${encodeURIComponent(req.params.id)}/blog`);
   }
-});
+};
 
-router.get('/blogpost/:id', async (req, res) => {
+const getBlogPost = async (req, res) => {
   try {
-    const post = await Blog.findById(req.params.id);
+    const post = await Blog.findById(req.params.postid);
 
     return render(req, res, 'BlogPostPage', {
       post,
     });
   } catch (err) {
-    return util.handleRouteError(req, res, err, '/404');
+    return handleRouteError(req, res, err, '/404');
   }
-});
+};
 
-router.delete('/remove/:id', ensureAuth, async (req, res) => {
+const deleteBlogPost = async (req, res) => {
   try {
-    const query = {
-      _id: req.params.id,
-    };
-
-    const blog = await Blog.findById(req.params.id);
+    const blog = await Blog.findById(req.params.postid);
 
     if (!req.user._id.equals(blog.owner)) {
       req.flash('danger', 'Unauthorized');
       return res.redirect('/404');
     }
-    await Blog.deleteOne(query);
+    await Blog.deleteOne({ _id: req.params.postid });
 
     req.flash('success', 'Post Removed');
     return res.send('Success');
@@ -122,26 +123,9 @@ router.delete('/remove/:id', ensureAuth, async (req, res) => {
       message: 'Error deleting post.',
     });
   }
-});
+};
 
-router.get(
-  '/src/:id',
-  util.wrapAsyncApi(async (req, res) => {
-    const blog = await Blog.findById(req.params.id);
-    res.status(200).send({
-      success: 'true',
-      src: blog.html,
-      title: blog.title,
-      body: blog.body,
-    });
-  }),
-);
-
-router.get('/:id', (req, res) => {
-  res.redirect(`/cube/blog/${encodeURIComponent(req.params.id)}/0`);
-});
-
-router.get('/:id/:page', async (req, res) => {
+const getBlogPage = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id), Cube.LAYOUT_FIELDS).lean();
 
@@ -185,8 +169,17 @@ router.get('/:id/:page', async (req, res) => {
       },
     );
   } catch (err) {
-    return util.handleRouteError(req, res, err, `/cube/overview/${encodeURIComponent(req.params.id)}`);
+    return handleRouteError(req, res, err, `/cube/overview/${encodeURIComponent(req.params.id)}`);
   }
-});
+};
+
+const redirectToFirstPage = (req, res) => res.redirect(`/cube/${encodeURIComponent(req.params.id)}/blog/page/0`);
+
+router.get('/', redirectToFirstPage);
+router.get('/page/:page', getBlogPage);
+router.post('/post', ensureAuth, postToBlog);
+router.get('/post/:postid', getBlogPost);
+router.put('/post/:postid', updateBlogPost);
+router.delete('/post/:postid', ensureAuth, deleteBlogPost);
 
 export default router;

@@ -7,11 +7,9 @@ const blogSchema = mongoose.Schema({
   owner: String,
   date: Date,
   cube: String,
-  html: String,
   markdown: String,
   dev: String,
   date_formatted: String,
-  changelist: String,
   username: {
     type: String,
     default: 'User',

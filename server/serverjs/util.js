@@ -3,7 +3,7 @@ import shuffleSeed from 'shuffle-seed';
 
 import winston from '@hypercube/server/serverjs/winstonConfig';
 
-function hasProfanity(text) {
+export const hasProfanity = (text) => {
   if (!text) return false;
 
   const filter = new Filter();
@@ -11,23 +11,24 @@ function hasProfanity(text) {
   filter.removeWords(...removeWords);
 
   return filter.isProfane(text.toLowerCase());
-}
+};
 
-function generateEditToken() {
+export const generateEditToken = () => {
   // Not sure if this function is actually used anywhere.
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-}
+};
 
-function toBase36(num) {
+export const toBase36 = (num) => {
+  // noinspection JSCheckFunctionSignatures
   return num.toString(36);
-}
+};
 
-function fromBase36(str) {
+export const fromBase36 = (str) => {
   if (!str) return 0;
   return parseInt(str, 36);
-}
+};
 
-function addWordToTree(obj, word) {
+export const addWordToTree = (obj, word) => {
   if (word.length <= 0) {
     return;
   }
@@ -47,9 +48,11 @@ function addWordToTree(obj, word) {
     }
     addWordToTree(obj[character], word);
   }
-}
+};
 
-function binaryInsert(value, array, startVal, endVal) {
+export const redirect = (dest) => (_req, res) => res.redirect(dest);
+
+export const binaryInsert = (value, array, startVal, endVal) => {
   const { length } = array;
   const start = typeof startVal !== 'undefined' ? startVal : 0;
   const end = typeof endVal !== 'undefined' ? endVal : length - 1; //! ! endVal could be 0 don't use || syntax
@@ -82,9 +85,9 @@ function binaryInsert(value, array, startVal, endVal) {
   if (value > array[m]) {
     binaryInsert(value, array, m + 1, end);
   }
-}
+};
 
-function newCard(cardDetails, tags, defaultStatus = 'Owned') {
+export const newCard = (cardDetails, tags, defaultStatus = 'Owned') => {
   return {
     tags: Array.isArray(tags) ? tags : [],
     status: defaultStatus,
@@ -95,9 +98,9 @@ function newCard(cardDetails, tags, defaultStatus = 'Owned') {
     addedTmsp: new Date(),
     finish: 'Non-foil',
   };
-}
+};
 
-function addCardToCube(cube, cardDetails, tags) {
+export const addCardToCube = (cube, cardDetails, tags) => {
   if (cardDetails.error) {
     winston.error('Attempted to add invalid card to cube.');
     return;
@@ -105,17 +108,17 @@ function addCardToCube(cube, cardDetails, tags) {
 
   const card = newCard(cardDetails, tags, cube.defaultStatus || 'Owned');
   cube.cards.push(card);
-}
+};
 
-function fromEntries(entries) {
+export const fromEntries = (entries) => {
   const obj = {};
   for (const [k, v] of entries) {
     obj[k] = v;
   }
   return obj;
-}
+};
 
-async function addNotification(user, from, url, text) {
+export const addNotification = async (user, from, url, text) => {
   if (user.username === from.username) {
     return; // we don't need to give notifications to ourselves
   }
@@ -138,15 +141,15 @@ async function addNotification(user, from, url, text) {
     user.old_notifications = user.old_notifications.slice(1);
   }
   await user.save();
-}
+};
 
-async function addMultipleNotifications(users, from, url, text) {
+export const addMultipleNotifications = async (users, from, url, text) => {
   for await (const user of users) {
     await addNotification(user, from, url, text);
   }
-}
+};
 
-function wrapAsyncApi(route) {
+export const wrapAsyncApi = (route) => {
   return (req, res, next) => {
     try {
       return route(req, res, next);
@@ -158,69 +161,44 @@ function wrapAsyncApi(route) {
       });
     }
   };
-}
+};
 
-function handleRouteError(req, res, err, reroute) {
+export const handleRouteError = (req, res, err, reroute) => {
   req.flash('danger', err.message);
   res.redirect(reroute);
   req.logger.error(err);
-}
+};
 
-function toNonNullArray(arr) {
+export const toNonNullArray = (arr) => {
   if (!arr) return [];
   if (!Array.isArray(arr)) return typeof arr === 'object' ? Object.values(arr) : [];
   return arr;
-}
+};
 
-function mapNonNull(arr, f) {
+export const mapNonNull = (arr, f) => {
   return toNonNullArray(arr).map(f);
-}
+};
 
-function flatten(arr, n) {
+export const flatten = (arr, n) => {
   if (n <= 1) return toNonNullArray(arr);
   return toNonNullArray([].concat(...mapNonNull(arr, (a) => flatten(a, n - 1))));
-}
+};
 
-module.exports = {
-  shuffle(array, seed) {
-    if (!seed) {
-      seed = Date.now();
-    }
-    return shuffleSeed.shuffle(array, seed);
-  },
-  turnToTree(arr) {
-    const res = {};
-    arr.forEach((item) => {
-      addWordToTree(res, item);
-    });
-    return res;
-  },
-  binaryInsert,
-  newCard,
-  addCardToCube,
-  arraysEqual(a, b) {
-    if (a === b) return true;
-    if (a == null || b == null) return false;
-    if (a.length !== b.length) return false;
+export const shuffle = (array, seed) => {
+  if (!seed) {
+    seed = Date.now();
+  }
+  return shuffleSeed.shuffle(array, seed);
+};
 
-    for (let i = 0; i < a.length; ++i) {
-      if (a[i] !== b[i]) return false;
-    }
-    return true;
-  },
-  generateEditToken,
-  toBase36,
-  fromBase36,
-  hasProfanity,
-  fromEntries,
-  isAdmin(user) {
-    return user && user.roles.includes('Admin');
-  },
-  addNotification,
-  addMultipleNotifications,
-  wrapAsyncApi,
-  handleRouteError,
-  toNonNullArray,
-  flatten,
-  mapNonNull,
+export const turnToTree = (arr) => {
+  const res = {};
+  arr.forEach((item) => {
+    addWordToTree(res, item);
+  });
+  return res;
+};
+
+export const isAdmin = (user) => {
+  return user && user.roles.includes('Admin');
 };

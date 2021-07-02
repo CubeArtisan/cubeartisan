@@ -8,8 +8,8 @@ const useToggle = (type, parent) => {
 
   const addComment = async (comment) => {
     const mentions = findUserLinks(comment).join(';');
-    const response = await csrfFetch(`/comment/${type}/${parent}`, {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    const response = await csrfFetch(`/comment`, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -26,8 +26,8 @@ const useToggle = (type, parent) => {
   };
 
   const editComment = async (comment) => {
-    await csrfFetch(`/comment/edit`, {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    await csrfFetch(`/comment`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },

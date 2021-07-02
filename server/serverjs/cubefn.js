@@ -1,31 +1,32 @@
 import NodeCache from 'node-cache';
 import Papa from 'papaparse';
 import sanitizeHtml from 'sanitize-html';
-import { winston } from '@hypercube/server/serverjs/winstonConfig';
+import winston from '@hypercube/server/serverjs/winstonConfig';
 import CardRating from '@hypercube/server/models/cardrating';
 import Cube from '@hypercube/server/models/cube';
 import CubeAnalytic from '@hypercube/server/models/cubeAnalytic';
-import util from '@hypercube/server/serverjs/util';
 import { getDraftFormat, createDraft } from '@hypercube/client/drafting/createdraft';
 import { getDrafterState } from '@hypercube/client/drafting/draftutil';
+import { hasProfanity, toBase36 } from "@hypercube/server/serverjs/util";
+import { arraysEqual } from "@hypercube/client/utils/Util";
 
 const ELO_BASE = 1200;
 const ELO_SPEED = 1 / 128;
 const CUBE_ELO_SPEED = 4;
 
-function getCubeId(cube) {
+export const getCubeId = (cube) => {
   if (cube.shortID) return cube.shortID;
   return cube._id;
-}
+};
 
-function buildIdQuery(id) {
+export const buildIdQuery = (id) => {
   if (!id || id.match(/^[0-9a-fA-F]{24}$/)) {
     return { _id: id };
   }
   return { shortID: id.toLowerCase() };
-}
+};
 
-async function generateShortId() {
+export const generateShortId = async () => {
   const cubes = await Cube.find({}, ['shortID']);
   const shortIds = cubes.map((cube) => cube.shortID);
   const space = shortIds.length * 2;
@@ -34,29 +35,29 @@ async function generateShortId() {
   let isGoodId = false;
   while (!isGoodId) {
     const rand = Math.floor(Math.random() * space);
-    newId = util.toBase36(rand);
-    isGoodId = !util.hasProfanity(newId) && !shortIds.includes(newId);
+    newId = toBase36(rand);
+    isGoodId = !hasProfanity(newId) && !shortIds.includes(newId);
   }
 
   return newId;
-}
+};
 
 const FORMATS = ['Vintage', 'Legacy', 'Modern', 'Pioneer', 'Standard'];
 
-function intToLegality(val) {
+export const intToLegality = (val) => {
   return FORMATS[val];
-}
+};
 
-function legalityToInt(legality) {
+export const legalityToInt = (legality) => {
   let res;
   FORMATS.forEach((format, index) => {
     if (legality === format) res = index;
   });
 
   return res;
-}
+};
 
-function cardsAreEquivalent(card, details) {
+export const cardsAreEquivalent = (card, details) => {
   if (card.cardID !== details.cardID) {
     return false;
   }
@@ -69,24 +70,24 @@ function cardsAreEquivalent(card, details) {
   if (card.type_line && details.type_line && card.type_line !== details.type_line) {
     return false;
   }
-  if (!util.arraysEqual(card.tags, details.tags)) {
+  if (!arraysEqual(card.tags, details.tags)) {
     return false;
   }
-  if (!util.arraysEqual(card.colors, details.colors)) {
+  if (!arraysEqual(card.colors, details.colors)) {
     return false;
   }
+  // noinspection RedundantIfStatementJS
   if (card.finish && details.finish && card.finish !== details.finish) {
     return false;
   }
-
   return true;
-}
+};
 
-function cardIsLegal(card, legality) {
+export const cardIsLegal = (card, legality) => {
   return card.legalities[legality] === 'legal' || card.legalities[legality] === 'banned';
-}
+};
 
-function setCubeType(cube, carddb) {
+export const setCubeType = (cube, carddb) => {
   let pauper = true;
   let peasant = false;
   let type = FORMATS.length - 1;
@@ -138,38 +139,38 @@ function setCubeType(cube, carddb) {
   cube.card_count = cube.cards.length;
 
   return cube;
-}
+};
 
-function cardHtml(card) {
+export const cardHtml = (card) => {
   if (card.image_flip) {
     return `<a class="dynamic-autocard" card="${card.image_normal}" card_flip="${card.image_flip}">${card.name}</a>`;
   }
   return `<a class="dynamic-autocard" card="${card.image_normal}">${card.name}</a>`;
-}
+};
 
-function addCardHtml(card) {
+export const addCardHtml = (card) => {
   return `<span style="font-family: &quot;Lucida Console&quot;, Monaco, monospace;" class="badge badge-success">+</span> ${cardHtml(
     card,
   )}<br/>`;
-}
+};
 
-function removeCardHtml(card) {
+export const removeCardHtml = (card) => {
   return `<span style="font-family: &quot;Lucida Console&quot;, Monaco, monospace;" class="badge badge-danger">-</span> ${cardHtml(
     card,
   )}<br/>`;
-}
+};
 
-function replaceCardHtml(oldCard, newCard) {
+export const replaceCardHtml = (oldCard, newCard) => {
   return `<span style="font-family: &quot;Lucida Console&quot;, Monaco, monospace;" class="badge badge-primary">→</span> ${cardHtml(
     oldCard,
   )} &gt; ${cardHtml(newCard)}<br/>`;
-}
+};
 
-function abbreviate(name) {
+export const abbreviate = (name) => {
   return name.length < 20 ? name : `${name.slice(0, 20)}…`;
-}
+};
 
-function buildTagColors(cube) {
+export const buildTagColors = (cube) => {
   let { tag_colors: tagColor } = cube;
   const tags = tagColor.map((item) => item.tag);
   const notFound = tagColor.map((item) => item.tag);
@@ -195,9 +196,9 @@ function buildTagColors(cube) {
   tagColor = tmp;
 
   return tagColor;
-}
+};
 
-function cubeCardTags(cube) {
+export const cubeCardTags = (cube) => {
   const tags = [];
   for (const card of cube.cards) {
     for (let tag of card.tags) {
@@ -208,14 +209,14 @@ function cubeCardTags(cube) {
     }
   }
   return tags;
-}
+};
 
-function maybeCards(cube, carddb) {
+export const maybeCards = (cube, carddb) => {
   const maybe = (cube.maybe || []).filter((card) => card.cardID);
   return maybe.map((card) => ({ ...card, details: carddb.cardFromId(card.cardID) }));
-}
+};
 
-async function getCardElo(cardname, round) {
+export const getCardElo = async (cardname, round) => {
   const rating = await CardRating.findOne({ name: { $regex: new RegExp(cardname, 'i') } }).lean();
 
   if (!rating || Number.isNaN(rating.elo)) {
@@ -223,9 +224,9 @@ async function getCardElo(cardname, round) {
   }
 
   return round ? Math.round(rating.elo) : rating.elo;
-}
+};
 
-function CSVtoCards(csvString, carddb) {
+export const CSVtoCards = (csvString, carddb) => {
   let { data } = Papa.parse(csvString.trim(), { header: true });
   data = data.map((row) => Object.fromEntries(Object.entries(row).map(([key, value]) => [key.toLowerCase(), value])));
   let missing = '';
@@ -291,9 +292,9 @@ function CSVtoCards(csvString, carddb) {
     }
   }
   return { newCards, newMaybe, missing };
-}
+};
 
-async function compareCubes(cardsA, cardsB) {
+export const compareCubes = async (cardsA, cardsB) => {
   const inBoth = [];
   const onlyA = cardsA.slice(0);
   const onlyB = cardsB.slice(0);
@@ -320,7 +321,7 @@ async function compareCubes(cardsA, cardsB) {
     bNames,
     allCards,
   };
-}
+};
 
 const getEloAdjustment = (winner, loser, speed) => {
   const diff = loser - winner;
@@ -682,7 +683,7 @@ const promiseCache = new NodeCache({ stdTTL: 60 * 5, useClones: false });
 
 // / Caches the result of the given callback in `promiseCache` with the given
 // / key.
-function cachePromise(key, callback) {
+export const cachePromise = (key, callback) => {
   const existingPromise = promiseCache.get(key);
   if (existingPromise) return existingPromise;
 
@@ -692,7 +693,7 @@ function cachePromise(key, callback) {
   });
   promiseCache.set(key, newPromise);
   return newPromise;
-}
+};
 
 const methods = {
   setCubeType,

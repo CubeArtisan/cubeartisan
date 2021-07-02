@@ -1,17 +1,14 @@
 import express from 'express';
-import { render } from '@hypercube/server/serverjs/render';
+import render from '@hypercube/server/serverjs/render';
 import { ensureAuth, ensureRole, csrfProtection } from '@hypercube/server/routes/middleware';
+import { redirect, wrapAsyncApi } from '@hypercube/server/serverjs/util';
 import carddb from '@hypercube/server/serverjs/cards';
 import Package from '@hypercube/server/models/package';
 import User from '@hypercube/server/models/user';
 
-const router = express.Router();
-
-router.use(csrfProtection);
-
 const PAGE_SIZE = 20;
 
-const getPackages = async (req, res, filter) => {
+export const getPackages = async (req, res, filter) => {
   try {
     if (!['votes', 'date'].includes(req.params.sort)) {
       return res.status(400).send({
@@ -61,25 +58,7 @@ const getPackages = async (req, res, filter) => {
   }
 };
 
-router.get('/approved/:page/:sort/:direction/:filter', async (req, res) => getPackages(req, res, { approved: true }));
-
-router.get('/pending/:page/:sort/:direction/:filter', async (req, res) => getPackages(req, res, { approved: false }));
-
-router.get('/yourpackages/:page/:sort/:direction/:filter', async (req, res) =>
-  getPackages(req, res, { userid: req.user.id }),
-);
-
-router.get('/approved/:page/:sort/:direction', async (req, res) => getPackages(req, res, { approved: true }));
-
-router.get('/pending/:page/:sort/:direction', async (req, res) => getPackages(req, res, { approved: false }));
-
-router.get('/yourpackages/:page/:sort/:direction', async (req, res) => getPackages(req, res, { userid: req.user.id }));
-
-router.get('/browse', async (req, res) => {
-  return render(req, res, 'BrowsePackagesPage', {});
-});
-
-router.post('/submit', ensureAuth, async (req, res) => {
+const submitPackage = async (req, res) => {
   const { cards, packageName } = req.body;
 
   if (typeof packageName !== 'string' || packageName.length === 0) {
@@ -147,9 +126,9 @@ router.post('/submit', ensureAuth, async (req, res) => {
   return res.status(200).send({
     success: 'true',
   });
-});
+};
 
-router.get('/upvote/:id', ensureAuth, async (req, res) => {
+const upvotePackage = async (req, res) => {
   const pack = await Package.findById(req.params.id);
   const user = await User.findById(req.user.id);
 
@@ -163,9 +142,9 @@ router.get('/upvote/:id', ensureAuth, async (req, res) => {
     success: 'true',
     votes: pack.votes,
   });
-});
+};
 
-router.get('/downvote/:id', ensureAuth, async (req, res) => {
+const downvotePackage = async (req, res) => {
   const pack = await Package.findById(req.params.id);
   const user = await User.findById(req.user.id);
 
@@ -179,9 +158,9 @@ router.get('/downvote/:id', ensureAuth, async (req, res) => {
     success: 'true',
     votes: pack.votes,
   });
-});
+};
 
-router.get('/approve/:id', ensureRole('Admin'), async (req, res) => {
+const approvePackage = async (req, res) => {
   const pack = await Package.findById(req.params.id);
 
   pack.approved = true;
@@ -191,9 +170,9 @@ router.get('/approve/:id', ensureRole('Admin'), async (req, res) => {
   return res.status(200).send({
     success: 'true',
   });
-});
+};
 
-router.get('/unapprove/:id', ensureRole('Admin'), async (req, res) => {
+const unapprovePackage = async (req, res) => {
   const pack = await Package.findById(req.params.id);
 
   pack.approved = false;
@@ -203,26 +182,40 @@ router.get('/unapprove/:id', ensureRole('Admin'), async (req, res) => {
   return res.status(200).send({
     success: 'true',
   });
-});
+};
 
-router.get('/remove/:id', ensureRole('Admin'), async (req, res) => {
+const deletePackage = async (req, res) => {
   await Package.deleteOne({ _id: req.params.id });
 
   return res.status(200).send({
     success: 'true',
   });
-});
+};
 
-router.get('/:id', async (req, res) => {
+const viewPackage = async (req, res) => {
   const pack = await Package.findById(req.params.id);
 
   return render(req, res, 'PackagePage', {
     pack,
   });
-});
+};
 
-router.get('/', (req, res) => {
-  res.redirect('/packages/browse');
-});
-
+const router = express.Router();
+router.use(csrfProtection);
+router.get('/packages/approved/:page/:sort/:direction/:filter', async (req, res) =>
+  getPackages(req, res, { approved: true }),
+);
+router.get('/packages/pending/:page/:sort/:direction/:filter', async (req, res) =>
+  getPackages(req, res, { approved: false }),
+);
+router.get('/packages/approved/:page/:sort/:direction', async (req, res) => getPackages(req, res, { approved: true }));
+router.get('/packages/pending/:page/:sort/:direction', async (req, res) => getPackages(req, res, { approved: false }));
+router.post('/package/', ensureAuth, wrapAsyncApi(submitPackage));
+router.get('/package/', redirect('/packages'));
+router.post('/package/:id/vote', ensureAuth, wrapAsyncApi(upvotePackage));
+router.delete('/package/:id/vote', ensureAuth, wrapAsyncApi(downvotePackage));
+router.post('/package/:id/approve', ensureRole('Admin'), wrapAsyncApi(approvePackage));
+router.delete('/package/:id/approve', ensureRole('Admin'), wrapAsyncApi(unapprovePackage));
+router.delete('/package/:id', ensureRole('Admin'), wrapAsyncApi(deletePackage));
+router.get('/package/:id', wrapAsyncApi(viewPackage));
 export default router;

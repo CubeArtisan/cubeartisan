@@ -14,8 +14,9 @@ import Video from '@hypercube/server/models/video';
 import Podcast from '@hypercube/server/models/podcast';
 import { render } from '@hypercube/server/serverjs/render';
 import util from '@hypercube/server/serverjs/util';
+import dotenv from 'dotenv';
 
-require('dotenv').config();
+dotenv.config();
 
 const ensureAdmin = ensureRole('Admin');
 

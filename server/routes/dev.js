@@ -1,5 +1,5 @@
 import express from 'express';
-import util from '@hypercube/server/serverjs/util';
+import { isAdmin, redirect, wrapAsyncApi } from '@hypercube/server/serverjs/util';
 import { ensureAuth, csrfProtection } from '@hypercube/server/routes/middleware';
 import { render } from '@hypercube/server/serverjs/render';
 
@@ -8,17 +8,9 @@ import User from '@hypercube/server/models/user';
 
 import Blog from '@hypercube/server/models/blog';
 
-const router = express.Router();
-
-router.use(csrfProtection);
-
-router.get('/blog', (_req, res) => {
-  res.redirect('/dev/blog/0');
-});
-
 const PAGESIZE = 10;
 
-router.get('/blog/:id', async (req, res) => {
+const browseBlog = async (req, res) => {
   const blogs = await Blog.find({
     dev: 'true',
   })
@@ -39,13 +31,13 @@ router.get('/blog/:id', async (req, res) => {
     pages: Math.ceil(count / PAGESIZE),
     activePage: req.params.id,
   });
-});
+};
 
-router.post('/blogpost', ensureAuth, async (req, res) => {
+const postToBlog = async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
 
-    if (user && util.isAdmin(user)) {
+    if (user && isAdmin(user)) {
       const blogpost = new Blog();
       blogpost.title = req.body.title;
       if (req.body.html && req.body.html.length > 0) {
@@ -70,6 +62,11 @@ router.post('/blogpost', ensureAuth, async (req, res) => {
     });
     req.logger.error(err);
   }
-});
+};
 
+const router = express.Router();
+router.use(csrfProtection);
+router.get('/blog', redirect('/dev/blog/0'));
+router.get('/blog/:id', wrapAsyncApi(browseBlog));
+router.post('/blog', ensureAuth, wrapAsyncApi(postToBlog));
 export default router;
