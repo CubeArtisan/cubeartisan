@@ -5,18 +5,18 @@ import cheerio from 'cheerio';
 import RSS from 'rss';
 import { Canvas, Image } from 'canvas';
 
-import createdraft from '@hypercube/client/drafting/createdraft';
-import filterutil from '@hypercube/client/filtering/FilterCards';
-import { decodeName, normalizeName } from '@hypercube/client/utils/Card';
-import miscutil from '@hypercube/client/utils/Util';
-import carddb from '@hypercube/server/serverjs/cards';
-import { render } from '@hypercube/server/serverjs/render';
+import createdraft from '@cubeartisan/client/drafting/createdraft';
+import filterutil from '@cubeartisan/client/filtering/FilterCards';
+import { decodeName, normalizeName } from '@cubeartisan/client/utils/Card';
+import miscutil from '@cubeartisan/client/utils/Util';
+import carddb from '@cubeartisan/server/serverjs/cards';
+import { render } from '@cubeartisan/server/serverjs/render';
 import {
   ensureAuth,
   csrfProtection,
   flashValidationErrors,
   jsonValidationErrors,
-} from '@hypercube/server/routes/middleware';
+} from '@cubeartisan/server/routes/middleware';
 import util, {
   addCardToCube,
   addMultipleNotifications,
@@ -29,8 +29,8 @@ import util, {
   newCard,
   turnToTree,
   wrapAsyncApi,
-} from '@hypercube/server/serverjs/util';
-import generateMeta from '@hypercube/server/serverjs/meta';
+} from '@cubeartisan/server/serverjs/util';
+import generateMeta from '@cubeartisan/server/serverjs/meta';
 import {
   CSVtoCards,
   abbreviate,
@@ -48,7 +48,7 @@ import {
   removeCardHtml,
   replaceCardHtml,
   setCubeType,
-} from '@hypercube/server/serverjs/cubefn';
+} from '@cubeartisan/server/serverjs/cubefn';
 import {
   CARD_HEIGHT,
   CARD_WIDTH,
@@ -58,20 +58,20 @@ import {
   createPool,
   shuffle,
   updateCubeAndBlog,
-} from '@hypercube/server/routes/cube/helper';
+} from '@cubeartisan/server/routes/cube/helper';
 
 // Bring in models
-import Cube from '@hypercube/server/models/cube';
+import Cube from '@cubeartisan/server/models/cube';
 
-import Deck from '@hypercube/server/models/deck';
-import Blog from '@hypercube/server/models/blog';
-import User from '@hypercube/server/models/user';
-import Draft from '@hypercube/server/models/draft';
-import Package from '@hypercube/server/models/package';
-import GridDraft from '@hypercube/server/models/gridDraft';
-import CubeAnalytic from '@hypercube/server/models/cubeAnalytic';
-import CubeExportRoutes from '@hypercube/server/routes/cube/export';
-import CubeBlogRoutes from '@hypercube/server/routes/cube/blog';
+import Deck from '@cubeartisan/server/models/deck';
+import Blog from '@cubeartisan/server/models/blog';
+import User from '@cubeartisan/server/models/user';
+import Draft from '@cubeartisan/server/models/draft';
+import Package from '@cubeartisan/server/models/package';
+import GridDraft from '@cubeartisan/server/models/gridDraft';
+import CubeAnalytic from '@cubeartisan/server/models/cubeAnalytic';
+import CubeExportRoutes from '@cubeartisan/server/routes/cube/export';
+import CubeBlogRoutes from '@cubeartisan/server/routes/cube/blog';
 
 Canvas.Image = Image;
 

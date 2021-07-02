@@ -20,10 +20,10 @@ import PropTypes from 'prop-types';
 
 import { Card, CardHeader, CardBody } from 'reactstrap';
 
-import Notification from '@hypercube/client/components/Notification';
-import DynamicFlash from '@hypercube/client/components/DynamicFlash';
-import MainLayout from '@hypercube/client/layouts/MainLayout';
-import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import Notification from '@cubeartisan/client/components/Notification';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
 
 const NotificationsPage = ({ notifications, loginCallback, siteCustomizations: { discordUrl, siteName } }) => (
   <MainLayout loginCallback={loginCallback}>

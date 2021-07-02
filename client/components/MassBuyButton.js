@@ -17,11 +17,11 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import CardPropType from '@hypercube/client/proptypes/CardPropType';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
 
 import { Button, Form, Input } from 'reactstrap';
 
-import { tcgMassEntryUrl } from '@hypercube/client/utils/Affiliate';
+import { tcgMassEntryUrl } from '@cubeartisan/client/utils/Affiliate';
 
 const exclude = ['Copy'];
 

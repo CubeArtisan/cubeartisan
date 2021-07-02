@@ -20,7 +20,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Collapse } from 'reactstrap';
 
-import LinkButton from '@hypercube/client/components/LinkButton';
+import LinkButton from '@cubeartisan/client/components/LinkButton';
 
 const CommentEntry = ({ submit, expanded, toggle, defaultValue }) => {
   const [text, setText] = useState(defaultValue);

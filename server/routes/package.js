@@ -17,12 +17,12 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import express from 'express';
-import render from '@hypercube/server/serverjs/render';
-import { ensureAuth, ensureRole, csrfProtection } from '@hypercube/server/routes/middleware';
-import { redirect, wrapAsyncApi } from '@hypercube/server/serverjs/util';
-import carddb from '@hypercube/server/serverjs/cards';
-import Package from '@hypercube/server/models/package';
-import User from '@hypercube/server/models/user';
+import render from '@cubeartisan/server/serverjs/render';
+import { ensureAuth, ensureRole, csrfProtection } from '@cubeartisan/server/routes/middleware';
+import { redirect, wrapAsyncApi } from '@cubeartisan/server/serverjs/util';
+import carddb from '@cubeartisan/server/serverjs/cards';
+import Package from '@cubeartisan/server/models/package';
+import User from '@cubeartisan/server/models/user';
 
 const PAGE_SIZE = 20;
 

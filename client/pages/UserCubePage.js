@@ -18,17 +18,17 @@
  */
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
-import CubePropType from '@hypercube/client/proptypes/CubePropType';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
 
 import { Button, Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
 
-import UserContext from '@hypercube/client/contexts/UserContext';
-import CubePreview from '@hypercube/client/components/CubePreview';
-import UserLayout from '@hypercube/client/layouts/UserLayout';
-import DynamicFlash from '@hypercube/client/components/DynamicFlash';
-import MainLayout from '@hypercube/client/layouts/MainLayout';
-import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
-import Markdown from '@hypercube/client/components/Markdown';
+import UserContext from '@cubeartisan/client/contexts/UserContext';
+import CubePreview from '@cubeartisan/client/components/CubePreview';
+import UserLayout from '@cubeartisan/client/layouts/UserLayout';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import Markdown from '@cubeartisan/client/components/Markdown';
 
 const UserCubePage = ({ owner, followers, following, cubes, loginCallback }) => {
   const user = useContext(UserContext);

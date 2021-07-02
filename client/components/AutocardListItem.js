@@ -19,11 +19,11 @@
 import { useCallback, useContext, useMemo } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import CardPropType from '@hypercube/client/proptypes/CardPropType';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
 
-import CardModalContext from '@hypercube/client/contexts/CardModalContext';
-import TagContext from '@hypercube/client/contexts/TagContext';
-import withAutocard from '@hypercube/client/components/WithAutocard';
+import CardModalContext from '@cubeartisan/client/contexts/CardModalContext';
+import TagContext from '@cubeartisan/client/contexts/TagContext';
+import withAutocard from '@cubeartisan/client/components/WithAutocard';
 
 const AutocardDiv = withAutocard('li');
 

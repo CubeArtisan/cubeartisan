@@ -19,13 +19,13 @@
 import { useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
-import AddToCubeModal from '@hypercube/client/components/AddToCubeModal';
-import PagedList from '@hypercube/client/components/PagedList';
-import withAutocard from '@hypercube/client/components/WithAutocard';
-import withModal from '@hypercube/client/components/WithModal';
-import SiteCustomizationContext from '@hypercube/client/contexts/SiteCustomizationContext';
-import CubePropType from '@hypercube/client/proptypes/CubePropType';
-import { encodeName } from '@hypercube/client/utils/Card';
+import AddToCubeModal from '@cubeartisan/client/components/AddToCubeModal';
+import PagedList from '@cubeartisan/client/components/PagedList';
+import withAutocard from '@cubeartisan/client/components/WithAutocard';
+import withModal from '@cubeartisan/client/components/WithModal';
+import SiteCustomizationContext from '@cubeartisan/client/contexts/SiteCustomizationContext';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
+import { encodeName } from '@cubeartisan/client/utils/Card';
 import {
   Card,
   CardBody,
@@ -38,7 +38,7 @@ import {
   Row,
   Spinner,
 } from 'reactstrap';
-import useToggle from '@hypercube/client/hooks/UseToggle';
+import useToggle from '@cubeartisan/client/hooks/UseToggle';
 
 const AutocardA = withAutocard('a');
 const AddModal = withModal(AutocardA, AddToCubeModal);

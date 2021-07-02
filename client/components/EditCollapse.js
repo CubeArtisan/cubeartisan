@@ -35,17 +35,17 @@ import {
   InputGroupText,
 } from 'reactstrap';
 
-import { encodeName } from '@hypercube/client/utils/Card';
-import { findUserLinks } from '@hypercube/client/markdown/parser';
+import { encodeName } from '@cubeartisan/client/utils/Card';
+import { findUserLinks } from '@cubeartisan/client/markdown/parser';
 
-import AutocompleteInput from '@hypercube/client/components/AutocompleteInput';
-import Changelist from '@hypercube/client/components/Changelist';
-import ChangelistContext from '@hypercube/client/contexts/ChangelistContext';
-import CubeContext from '@hypercube/client/contexts/CubeContext';
-import CSRFForm from '@hypercube/client/components/CSRFForm';
-import DisplayContext from '@hypercube/client/contexts/DisplayContext';
-import ResizeModal from '@hypercube/client/components/ResizeModal';
-import TextEntry from '@hypercube/client/components/TextEntry';
+import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput';
+import Changelist from '@cubeartisan/client/components/Changelist';
+import ChangelistContext from '@cubeartisan/client/contexts/ChangelistContext';
+import CubeContext from '@cubeartisan/client/contexts/CubeContext';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm';
+import DisplayContext from '@cubeartisan/client/contexts/DisplayContext';
+import ResizeModal from '@cubeartisan/client/components/ResizeModal';
+import TextEntry from '@cubeartisan/client/components/TextEntry';
 
 export const getCard = async (cubeID, name, setAlerts) => {
   if (name && name.length > 0) {

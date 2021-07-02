@@ -20,7 +20,7 @@ import PropTypes from 'prop-types';
 
 import { Col, Modal, ModalBody, ModalHeader, Row, FormGroup, Label, Input, Button, ModalFooter } from 'reactstrap';
 
-import CSRFForm from '@hypercube/client/components/CSRFForm';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm';
 
 const CreateCubeModal = ({ isOpen, toggle }) => (
   <Modal size="lg" isOpen={isOpen} toggle={toggle}>

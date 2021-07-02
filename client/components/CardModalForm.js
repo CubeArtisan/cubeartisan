@@ -18,16 +18,16 @@
  */
 import { useCallback, useContext, useEffect, useState } from 'react';
 
-import { cardsAreEquivalent, normalizeName } from '@hypercube/client/utils/Card';
-import { csrfFetch } from '@hypercube/client/utils/CSRF';
-import { arrayMove } from '@hypercube/client/utils/Util';
+import { cardsAreEquivalent, normalizeName } from '@cubeartisan/client/utils/Card';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
+import { arrayMove } from '@cubeartisan/client/utils/Util';
 
-import CardModal from '@hypercube/client/components/CardModal';
-import CardModalContext from '@hypercube/client/contexts/CardModalContext';
-import ChangelistContext from '@hypercube/client/contexts/ChangelistContext';
-import CubeContext from '@hypercube/client/contexts/CubeContext';
-import MaybeboardContext from '@hypercube/client/contexts/MaybeboardContext';
-import { cardGetLabels } from '@hypercube/client/utils/Sort';
+import CardModal from '@cubeartisan/client/components/CardModal';
+import CardModalContext from '@cubeartisan/client/contexts/CardModalContext';
+import ChangelistContext from '@cubeartisan/client/contexts/ChangelistContext';
+import CubeContext from '@cubeartisan/client/contexts/CubeContext';
+import MaybeboardContext from '@cubeartisan/client/contexts/MaybeboardContext';
+import { cardGetLabels } from '@cubeartisan/client/utils/Sort';
 
 const CardModalForm = ({ children, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);

@@ -19,8 +19,8 @@
 import seedrandom from 'seedrandom';
 import shuffleSeed from 'shuffle-seed';
 
-import { filterToString, makeFilter, operatorsRegex } from '@hypercube/client/filtering/FilterCards';
-import { fromEntries } from '@hypercube/client/utils/Util';
+import { filterToString, makeFilter, operatorsRegex } from '@cubeartisan/client/filtering/FilterCards';
+import { fromEntries } from '@cubeartisan/client/utils/Util';
 
 export const matchingCards = (cards, filter) => {
   if (filter) {

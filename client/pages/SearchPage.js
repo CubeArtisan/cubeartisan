@@ -17,16 +17,16 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import CubePropType from '@hypercube/client/proptypes/CubePropType';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
 
 import { Card, CardHeader, Row, Col, CardBody } from 'reactstrap';
 
-import CubeSearchNavBar from '@hypercube/client/components/CubeSearchNavBar';
-import CubePreview from '@hypercube/client/components/CubePreview';
-import Paginate from '@hypercube/client/components/Paginate';
-import DynamicFlash from '@hypercube/client/components/DynamicFlash';
-import MainLayout from '@hypercube/client/layouts/MainLayout';
-import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import CubeSearchNavBar from '@cubeartisan/client/components/CubeSearchNavBar';
+import CubePreview from '@cubeartisan/client/components/CubePreview';
+import Paginate from '@cubeartisan/client/components/Paginate';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
 
 const SearchPage = ({ cubes, query, count, perPage, page, order, loginCallback }) => {
   const pages = Math.ceil(count / perPage);

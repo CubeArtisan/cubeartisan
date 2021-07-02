@@ -18,7 +18,7 @@
  */
 import { useCallback, useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import PatronPropType from '@hypercube/client/proptypes/PatronPropType';
+import PatronPropType from '@cubeartisan/client/proptypes/PatronPropType';
 
 import {
   Button,
@@ -40,16 +40,16 @@ import {
   CustomInput,
 } from 'reactstrap';
 
-import Query from '@hypercube/client/utils/Query';
+import Query from '@cubeartisan/client/utils/Query';
 
-import UserContext from '@hypercube/client/contexts/UserContext';
-import AutocompleteInput from '@hypercube/client/components/AutocompleteInput';
-import CSRFForm from '@hypercube/client/components/CSRFForm';
-import DynamicFlash from '@hypercube/client/components/DynamicFlash';
-import MainLayout from '@hypercube/client/layouts/MainLayout';
-import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
-import TextEntry from '@hypercube/client/components/TextEntry';
-import useQueryParam from '@hypercube/client/hooks/useQueryParam';
+import UserContext from '@cubeartisan/client/contexts/UserContext';
+import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import TextEntry from '@cubeartisan/client/components/TextEntry';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
 
 const UserAccountPage = ({ defaultNav, loginCallback, patreonClientId, patreonRedirectUri, patron }) => {
   const user = useContext(UserContext);

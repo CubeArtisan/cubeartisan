@@ -18,21 +18,21 @@
  */
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from '@hypercube/client/proptypes/CardPropType';
-import CubePropType from '@hypercube/client/proptypes/CubePropType';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
 
-import Query from '@hypercube/client/utils/Query';
+import Query from '@cubeartisan/client/utils/Query';
 
-import CardModalForm from '@hypercube/client/components/CardModalForm';
-import CompareView from '@hypercube/client/components/CompareView';
-import CubeCompareNavbar from '@hypercube/client/components/CubeCompareNavbar';
-import { DisplayContextProvider } from '@hypercube/client/contexts/DisplayContext';
-import DynamicFlash from '@hypercube/client/components/DynamicFlash';
-import ErrorBoundary from '@hypercube/client/components/ErrorBoundary';
-import { SortContextProvider } from '@hypercube/client/contexts/SortContext';
-import { TAG_COLORS, TagContextProvider } from '@hypercube/client/contexts/TagContext';
-import MainLayout from '@hypercube/client/layouts/MainLayout';
-import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import CardModalForm from '@cubeartisan/client/components/CardModalForm';
+import CompareView from '@cubeartisan/client/components/CompareView';
+import CubeCompareNavbar from '@cubeartisan/client/components/CubeCompareNavbar';
+import { DisplayContextProvider } from '@cubeartisan/client/contexts/DisplayContext';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
+import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
+import { SortContextProvider } from '@cubeartisan/client/contexts/SortContext';
+import { TAG_COLORS, TagContextProvider } from '@cubeartisan/client/contexts/TagContext';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
 
 const deduplicateTags = (tagColors) => {
   const used = new Set();

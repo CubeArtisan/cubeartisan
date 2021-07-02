@@ -17,11 +17,11 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import sinon from 'sinon';
-import carddb from '@hypercube/server/serverjs/cards';
-import cubefn from '@hypercube/server/serverjs/cubefn';
-import util from '@hypercube/server/serverjs/util';
-import Cube from '@hypercube/server/models/cube';
-import { arraysEqual } from '@hypercube/client/utils/Util';
+import carddb from '@cubeartisan/server/serverjs/cards';
+import cubefn from '@cubeartisan/server/serverjs/cubefn';
+import util from '@cubeartisan/server/serverjs/util';
+import Cube from '@cubeartisan/server/models/cube';
+import { arraysEqual } from '@cubeartisan/client/utils/Util';
 // eslint-disable-next-line no-restricted-imports
 import cubefixture from '../../fixtures/examplecube';
 

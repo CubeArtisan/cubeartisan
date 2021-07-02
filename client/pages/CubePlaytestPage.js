@@ -18,7 +18,7 @@
  */
 import { useContext, useCallback, useMemo, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import DeckPropType from '@hypercube/client/proptypes/DeckPropType';
+import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType';
 
 import {
   Button,
@@ -44,21 +44,21 @@ import {
   UncontrolledCollapse,
 } from 'reactstrap';
 
-import CSRFForm from '@hypercube/client/components/CSRFForm';
-import CubeContext from '@hypercube/client/contexts/CubeContext';
-import UserContext from '@hypercube/client/contexts/UserContext';
-import CustomDraftFormatModal from '@hypercube/client/components/CustomDraftFormatModal';
-import DynamicFlash from '@hypercube/client/components/DynamicFlash';
-import DeckPreview from '@hypercube/client/components/DeckPreview';
-import Markdown from '@hypercube/client/components/Markdown';
-import withModal from '@hypercube/client/components/WithModal';
-import useAlerts, { Alerts } from '@hypercube/client/hooks/UseAlerts';
-import useToggle from '@hypercube/client/hooks/UseToggle';
-import CubeLayout from '@hypercube/client/layouts/CubeLayout';
-import { csrfFetch } from '@hypercube/client/utils/CSRF';
-import { allBotsDraft } from '@hypercube/client/drafting/draftutil';
-import MainLayout from '@hypercube/client/layouts/MainLayout';
-import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm';
+import CubeContext from '@cubeartisan/client/contexts/CubeContext';
+import UserContext from '@cubeartisan/client/contexts/UserContext';
+import CustomDraftFormatModal from '@cubeartisan/client/components/CustomDraftFormatModal';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
+import DeckPreview from '@cubeartisan/client/components/DeckPreview';
+import Markdown from '@cubeartisan/client/components/Markdown';
+import withModal from '@cubeartisan/client/components/WithModal';
+import useAlerts, { Alerts } from '@cubeartisan/client/hooks/UseAlerts';
+import useToggle from '@cubeartisan/client/hooks/UseToggle';
+import CubeLayout from '@cubeartisan/client/layouts/CubeLayout';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
+import { allBotsDraft } from '@cubeartisan/client/drafting/draftutil';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
 
 const range = (lo, hi) => Array.from(Array(hi - lo).keys()).map((n) => n + lo);
 const rangeOptions = (lo, hi) => range(lo, hi).map((n) => <option key={n}>{n}</option>);

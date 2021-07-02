@@ -20,15 +20,15 @@ import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
 
-import { usePickListAndDrafterState, ACTION_LABELS } from '@hypercube/client/components/DecksPickBreakdown';
-import { SortableTable, compareStrings } from '@hypercube/client/components/SortableTable';
-import Tooltip from '@hypercube/client/components/Tooltip';
-import withAutocard from '@hypercube/client/components/WithAutocard';
-import { getCardColorClass } from '@hypercube/client/contexts/TagContext';
-import { DrafterStatePropType, DraftPropType } from '@hypercube/client/proptypes/DraftbotPropTypes';
-import { COLOR_COMBINATIONS, cardName, encodeName } from '@hypercube/client/utils/Card';
-import { evaluateCardsOrPool, ORACLES_BY_NAME } from '@hypercube/client/drafting/draftbots';
-import { fromEntries } from '@hypercube/client/utils/Util';
+import { usePickListAndDrafterState, ACTION_LABELS } from '@cubeartisan/client/components/DecksPickBreakdown';
+import { SortableTable, compareStrings } from '@cubeartisan/client/components/SortableTable';
+import Tooltip from '@cubeartisan/client/components/Tooltip';
+import withAutocard from '@cubeartisan/client/components/WithAutocard';
+import { getCardColorClass } from '@cubeartisan/client/contexts/TagContext';
+import { DrafterStatePropType, DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes';
+import { COLOR_COMBINATIONS, cardName, encodeName } from '@cubeartisan/client/utils/Card';
+import { evaluateCardsOrPool, ORACLES_BY_NAME } from '@cubeartisan/client/drafting/draftbots';
+import { fromEntries } from '@cubeartisan/client/utils/Util';
 
 const AutocardItem = withAutocard(ListGroupItem);
 

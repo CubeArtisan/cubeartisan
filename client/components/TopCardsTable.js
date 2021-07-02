@@ -21,10 +21,10 @@ import PropTypes from 'prop-types';
 
 import { Spinner, Table } from 'reactstrap';
 
-import Query from '@hypercube/client/utils/Query';
-import withAutocard from '@hypercube/client/components/WithAutocard';
-import Paginate from '@hypercube/client/components/Paginate';
-import HeaderCell from '@hypercube/client/components/HeaderCell';
+import Query from '@cubeartisan/client/utils/Query';
+import withAutocard from '@cubeartisan/client/components/WithAutocard';
+import Paginate from '@cubeartisan/client/components/Paginate';
+import HeaderCell from '@cubeartisan/client/components/HeaderCell';
 
 const AutocardA = withAutocard('a');
 

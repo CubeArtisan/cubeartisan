@@ -33,26 +33,26 @@ import {
   Badge,
 } from 'reactstrap';
 
-import CSRFForm from '@hypercube/client/components/CSRFForm';
-import CustomImageToggler from '@hypercube/client/components/CustomImageToggler';
-import DeckStacks from '@hypercube/client/components/DeckStacks';
-import DndProvider from '@hypercube/client/components/DndProvider';
-import DynamicFlash from '@hypercube/client/components/DynamicFlash';
-import ErrorBoundary from '@hypercube/client/components/ErrorBoundary';
-import FoilCardImage from '@hypercube/client/components/FoilCardImage';
-import { DisplayContextProvider } from '@hypercube/client/contexts/DisplayContext';
-import CubeLayout from '@hypercube/client/layouts/CubeLayout';
-import MainLayout from '@hypercube/client/layouts/MainLayout';
-import CardPropType from '@hypercube/client/proptypes/CardPropType';
-import CubePropType from '@hypercube/client/proptypes/CubePropType';
-import { makeSubtitle } from '@hypercube/client/utils/Card';
-import { csrfFetch } from '@hypercube/client/utils/CSRF';
-import Location, { moveOrAddCard } from '@hypercube/client/drafting/DraftLocation';
-import { calculateBotPickFromOptions } from '@hypercube/client/drafting/draftbots';
-import { getDefaultPosition } from '@hypercube/client/drafting/draftutil';
-import { getGridDrafterState } from '@hypercube/client/drafting/griddraftutils';
-import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
-import { fromEntries, toNullableInt } from '@hypercube/client/utils/Util';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm';
+import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler';
+import DeckStacks from '@cubeartisan/client/components/DeckStacks';
+import DndProvider from '@cubeartisan/client/components/DndProvider';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
+import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
+import FoilCardImage from '@cubeartisan/client/components/FoilCardImage';
+import { DisplayContextProvider } from '@cubeartisan/client/contexts/DisplayContext';
+import CubeLayout from '@cubeartisan/client/layouts/CubeLayout';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
+import { makeSubtitle } from '@cubeartisan/client/utils/Card';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
+import Location, { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation';
+import { calculateBotPickFromOptions } from '@cubeartisan/client/drafting/draftbots';
+import { getDefaultPosition } from '@cubeartisan/client/drafting/draftutil';
+import { getGridDrafterState } from '@cubeartisan/client/drafting/griddraftutils';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import { fromEntries, toNullableInt } from '@cubeartisan/client/utils/Util';
 
 const GRID_DRAFT_OPTIONS = [0, 1, 2]
   .map((ind) => [[0, 1, 2].map((offset) => 3 * ind + offset), [0, 1, 2].map((offset) => ind + 3 * offset)])

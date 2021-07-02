@@ -18,23 +18,23 @@
  */
 import { useCallback, useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from '@hypercube/client/proptypes/CardPropType';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
 
 import { Form, Input } from 'reactstrap';
 
-import { cardsAreEquivalent, normalizeName } from '@hypercube/client/utils/Card';
-import { csrfFetch } from '@hypercube/client/utils/CSRF';
-import { getLabels, sortDeep } from '@hypercube/client/utils/Sort';
+import { cardsAreEquivalent, normalizeName } from '@cubeartisan/client/utils/Card';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
+import { getLabels, sortDeep } from '@cubeartisan/client/utils/Sort';
 
-import CubeContext from '@hypercube/client/contexts/CubeContext';
-import GroupModalContext from '@hypercube/client/contexts/GroupModalContext';
-import PagedTable from '@hypercube/client/components/PagedTable';
-import SortContext from '@hypercube/client/contexts/SortContext';
-import TagContext from '@hypercube/client/contexts/TagContext';
-import TagInput from '@hypercube/client/components/TagInput';
-import withAutocard from '@hypercube/client/components/WithAutocard';
-import withLoading from '@hypercube/client/components/WithLoading';
-import useAlerts, { Alerts } from '@hypercube/client/hooks/UseAlerts';
+import CubeContext from '@cubeartisan/client/contexts/CubeContext';
+import GroupModalContext from '@cubeartisan/client/contexts/GroupModalContext';
+import PagedTable from '@cubeartisan/client/components/PagedTable';
+import SortContext from '@cubeartisan/client/contexts/SortContext';
+import TagContext from '@cubeartisan/client/contexts/TagContext';
+import TagInput from '@cubeartisan/client/components/TagInput';
+import withAutocard from '@cubeartisan/client/components/WithAutocard';
+import withLoading from '@cubeartisan/client/components/WithLoading';
+import useAlerts, { Alerts } from '@cubeartisan/client/hooks/UseAlerts';
 
 const colorCombos = [
   'C',

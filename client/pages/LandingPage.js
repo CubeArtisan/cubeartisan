@@ -20,11 +20,11 @@ import PropTypes from 'prop-types';
 
 import { Row, Col, Button } from 'reactstrap';
 
-import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
-import Footer from '@hypercube/client/layouts/Footer';
-import LoginModal from '@hypercube/client/components/LoginModal';
-import withModal from '@hypercube/client/components/WithModal';
-import CardSearchBar from '@hypercube/client/components/CardSearchBar';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import Footer from '@cubeartisan/client/layouts/Footer';
+import LoginModal from '@cubeartisan/client/components/LoginModal';
+import withModal from '@cubeartisan/client/components/WithModal';
+import CardSearchBar from '@cubeartisan/client/components/CardSearchBar';
 
 const LoginModalButton = withModal(Button, LoginModal);
 

@@ -1,4 +1,4 @@
-import carddb from '@hypercube/server/serverjs/cards';
+import carddb from '@cubeartisan/server/serverjs/cards';
 
 const COLORS = ['W', 'U', 'B', 'R', 'G'];
 const DEFAULT_FINISH = 'Non-foil';

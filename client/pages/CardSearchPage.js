@@ -33,16 +33,16 @@ import {
   CustomInput,
 } from 'reactstrap';
 
-import Query from '@hypercube/client/utils/Query';
-import Paginate from '@hypercube/client/components/Paginate';
-import DynamicFlash from '@hypercube/client/components/DynamicFlash';
-import ButtonLink from '@hypercube/client/components/ButtonLink';
-import CardGrid from '@hypercube/client/components/CardGrid';
-import CardImage from '@hypercube/client/components/CardImage';
-import FilterCollapse from '@hypercube/client/components/FilterCollapse';
-import MainLayout from '@hypercube/client/layouts/MainLayout';
-import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
-import { ORDERED_SORTS } from '@hypercube/client/utils/Sort';
+import Query from '@cubeartisan/client/utils/Query';
+import Paginate from '@cubeartisan/client/components/Paginate';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
+import ButtonLink from '@cubeartisan/client/components/ButtonLink';
+import CardGrid from '@cubeartisan/client/components/CardGrid';
+import CardImage from '@cubeartisan/client/components/CardImage';
+import FilterCollapse from '@cubeartisan/client/components/FilterCollapse';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import { ORDERED_SORTS } from '@cubeartisan/client/utils/Sort';
 
 const CardSearchPage = ({ loginCallback }) => {
   const [page, setPage] = useState(parseInt(Query.get('p'), 0) || 0);

@@ -21,11 +21,11 @@ import PropTypes from 'prop-types';
 
 import { Card, CardHeader, CardBody, Col, Row } from 'reactstrap';
 
-import { getLabels, sortDeep } from '@hypercube/client/utils/Sort';
-import { fromEntries } from '@hypercube/client/utils/Util';
+import { getLabels, sortDeep } from '@cubeartisan/client/utils/Sort';
+import { fromEntries } from '@cubeartisan/client/utils/Util';
 
-import AutocardListGroup from '@hypercube/client/components/AutocardListGroup';
-import SortContext from '@hypercube/client/contexts/SortContext';
+import AutocardListGroup from '@cubeartisan/client/components/AutocardListGroup';
+import SortContext from '@cubeartisan/client/contexts/SortContext';
 
 const cmc2Labels = getLabels(null, 'Mana Value 2');
 

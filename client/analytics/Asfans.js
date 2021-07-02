@@ -21,12 +21,12 @@ import PropTypes from 'prop-types';
 
 import { Col, Row, InputGroup, InputGroupAddon, InputGroupText, CustomInput } from 'reactstrap';
 
-import ErrorBoundary from '@hypercube/client/components/ErrorBoundary';
-import { compareStrings, SortableTable } from '@hypercube/client/components/SortableTable';
-import useQueryParam from '@hypercube/client/hooks/useQueryParam';
-import { calculateAsfans } from '@hypercube/client/drafting/createdraft';
-import { SORTS, sortIntoGroups } from '@hypercube/client/utils/Sort';
-import { fromEntries } from '@hypercube/client/utils/Util';
+import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
+import { compareStrings, SortableTable } from '@cubeartisan/client/components/SortableTable';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
+import { calculateAsfans } from '@cubeartisan/client/drafting/createdraft';
+import { SORTS, sortIntoGroups } from '@cubeartisan/client/utils/Sort';
+import { fromEntries } from '@cubeartisan/client/utils/Util';
 
 const Asfans = ({ cards: cardsNoAsfan, cube }) => {
   const [sort, setSort] = useQueryParam('sort', 'Color');

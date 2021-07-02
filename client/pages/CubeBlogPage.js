@@ -18,7 +18,7 @@
  */
 import { useContext, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import CubePropType from '@hypercube/client/proptypes/CubePropType';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
 
 import {
   Button,
@@ -35,16 +35,16 @@ import {
   NavLink,
 } from 'reactstrap';
 
-import BlogPost from '@hypercube/client/components/BlogPost';
-import CSRFForm from '@hypercube/client/components/CSRFForm';
-import CubeContext from '@hypercube/client/contexts/CubeContext';
-import DynamicFlash from '@hypercube/client/components/DynamicFlash';
-import Paginate from '@hypercube/client/components/Paginate';
-import TextEntry from '@hypercube/client/components/TextEntry';
-import CubeLayout from '@hypercube/client/layouts/CubeLayout';
-import MainLayout from '@hypercube/client/layouts/MainLayout';
-import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
-import { findUserLinks } from '@hypercube/client/markdown/parser';
+import BlogPost from '@cubeartisan/client/components/BlogPost';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm';
+import CubeContext from '@cubeartisan/client/contexts/CubeContext';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
+import Paginate from '@cubeartisan/client/components/Paginate';
+import TextEntry from '@cubeartisan/client/components/TextEntry';
+import CubeLayout from '@cubeartisan/client/layouts/CubeLayout';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import { findUserLinks } from '@cubeartisan/client/markdown/parser';
 
 const EditBlogModal = ({ isOpen, toggle, markdown, setMarkdown, post }) => {
   const { cubeID } = useContext(CubeContext);

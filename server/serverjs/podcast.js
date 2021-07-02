@@ -16,8 +16,8 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { getFeedEpisodes } from '@hypercube/server/serverjs/rss';
-import PodcastEpisode from '@hypercube/server/models/podcastEpisode';
+import { getFeedEpisodes } from '@cubeartisan/server/serverjs/rss';
+import PodcastEpisode from '@cubeartisan/server/models/podcastEpisode';
 
 const updatePodcast = async (podcast) => {
   const episodes = await getFeedEpisodes(podcast.rss);

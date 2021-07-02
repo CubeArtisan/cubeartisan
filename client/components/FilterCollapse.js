@@ -35,17 +35,17 @@ import {
   ModalHeader,
 } from 'reactstrap';
 
-import { makeFilter } from '@hypercube/client/filtering/FilterCards';
-import Query from '@hypercube/client/utils/Query';
-import { fromEntries } from '@hypercube/client/utils/Util';
+import { makeFilter } from '@cubeartisan/client/filtering/FilterCards';
+import Query from '@cubeartisan/client/utils/Query';
+import { fromEntries } from '@cubeartisan/client/utils/Util';
 
-import { ColorChecksAddon, ColorChecksControl } from '@hypercube/client/components/ColorCheck';
-import LoadingButton from '@hypercube/client/components/LoadingButton';
+import { ColorChecksAddon, ColorChecksControl } from '@cubeartisan/client/components/ColorCheck';
+import LoadingButton from '@cubeartisan/client/components/LoadingButton';
 
-import TextField from '@hypercube/client/components/TextField';
-import NumericField from '@hypercube/client/components/NumericField';
-import AutocompleteInput from '@hypercube/client/components/AutocompleteInput';
-import CubeContext from '@hypercube/client/contexts/CubeContext';
+import TextField from '@cubeartisan/client/components/TextField';
+import NumericField from '@cubeartisan/client/components/NumericField';
+import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput';
+import CubeContext from '@cubeartisan/client/contexts/CubeContext';
 
 const allFields = [
   'name',

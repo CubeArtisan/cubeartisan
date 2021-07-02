@@ -18,8 +18,8 @@
  */
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import CardPricePropType from '@hypercube/client/proptypes/CardPricePropType';
-import CardDataPointPropType from '@hypercube/client/proptypes/CardDataPointPropType';
+import CardPricePropType from '@cubeartisan/client/proptypes/CardPricePropType';
+import CardDataPointPropType from '@cubeartisan/client/proptypes/CardDataPointPropType';
 
 import {
   Card,
@@ -42,24 +42,24 @@ import {
 
 import ChartComponent from 'react-chartjs-2';
 
-import CardImage from '@hypercube/client/components/CardImage';
-import CardGrid from '@hypercube/client/components/CardGrid';
-import ImageFallback from '@hypercube/client/components/ImageFallback';
-import PagedList from '@hypercube/client/components/PagedList';
-import withAutocard from '@hypercube/client/components/WithAutocard';
-import Markdown from '@hypercube/client/components/Markdown';
-import ButtonLink from '@hypercube/client/components/ButtonLink';
-import CountTableRow from '@hypercube/client/components/CountTableRow';
-import Tooltip from '@hypercube/client/components/Tooltip';
-import TextBadge from '@hypercube/client/components/TextBadge';
-import AddToCubeModal from '@hypercube/client/components/AddToCubeModal';
-import CommentsSection from '@hypercube/client/components/CommentsSection';
-import withModal from '@hypercube/client/components/WithModal';
-import DynamicFlash from '@hypercube/client/components/DynamicFlash';
-import useQueryParam from '@hypercube/client/hooks/useQueryParam';
-import MainLayout from '@hypercube/client/layouts/MainLayout';
-import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
-import Tab from '@hypercube/client/components/Tab';
+import CardImage from '@cubeartisan/client/components/CardImage';
+import CardGrid from '@cubeartisan/client/components/CardGrid';
+import ImageFallback from '@cubeartisan/client/components/ImageFallback';
+import PagedList from '@cubeartisan/client/components/PagedList';
+import withAutocard from '@cubeartisan/client/components/WithAutocard';
+import Markdown from '@cubeartisan/client/components/Markdown';
+import ButtonLink from '@cubeartisan/client/components/ButtonLink';
+import CountTableRow from '@cubeartisan/client/components/CountTableRow';
+import Tooltip from '@cubeartisan/client/components/Tooltip';
+import TextBadge from '@cubeartisan/client/components/TextBadge';
+import AddToCubeModal from '@cubeartisan/client/components/AddToCubeModal';
+import CommentsSection from '@cubeartisan/client/components/CommentsSection';
+import withModal from '@cubeartisan/client/components/WithModal';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import Tab from '@cubeartisan/client/components/Tab';
 
 import {
   cardPrice,
@@ -69,13 +69,13 @@ import {
   cardElo,
   cardPopularity,
   cardCubeCount,
-} from '@hypercube/client/utils/Card';
+} from '@cubeartisan/client/utils/Card';
 import {
   getTCGLink,
   getCardMarketLink,
   getCardHoarderLink,
   getCardKingdomLink,
-} from '@hypercube/client/utils/Affiliate';
+} from '@cubeartisan/client/utils/Affiliate';
 import { ArrowSwitchIcon, CheckIcon, ClippyIcon } from '@primer/octicons-react';
 
 const AutocardA = withAutocard('a');

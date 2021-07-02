@@ -18,14 +18,14 @@
  */
 import { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from '@hypercube/client/proptypes/CardPropType';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
 
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
-import { sortDeep } from '@hypercube/client/utils/Sort';
+import { sortDeep } from '@cubeartisan/client/utils/Sort';
 
-import SortContext from '@hypercube/client/contexts/SortContext';
-import SpoilerImage from '@hypercube/client/components/SpoilerImage';
-import CardGrid from '@hypercube/client/components/CardGrid';
+import SortContext from '@cubeartisan/client/contexts/SortContext';
+import SpoilerImage from '@cubeartisan/client/components/SpoilerImage';
+import CardGrid from '@cubeartisan/client/components/CardGrid';
 
 const VisualSpoiler = ({ cards }) => {
   const [scale, setScale] = useState('medium');

@@ -18,7 +18,7 @@
  */
 import { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import ArticlePropType from '@hypercube/client/proptypes/ArticlePropType';
+import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType';
 
 import {
   Spinner,
@@ -35,16 +35,16 @@ import {
   Button,
 } from 'reactstrap';
 
-import UserContext from '@hypercube/client/contexts/UserContext';
-import DynamicFlash from '@hypercube/client/components/DynamicFlash';
-import ArticlePreview from '@hypercube/client/components/ArticlePreview';
-import Tab from '@hypercube/client/components/Tab';
-import Article from '@hypercube/client/components/Article';
-import MainLayout from '@hypercube/client/layouts/MainLayout';
-import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
-import AutocompleteInput from '@hypercube/client/components/AutocompleteInput';
-import CSRFForm from '@hypercube/client/components/CSRFForm';
-import useQueryParam from '@hypercube/client/hooks/useQueryParam';
+import UserContext from '@cubeartisan/client/contexts/UserContext';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
+import ArticlePreview from '@cubeartisan/client/components/ArticlePreview';
+import Tab from '@cubeartisan/client/components/Tab';
+import Article from '@cubeartisan/client/components/Article';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
 
 const EditArticlePage = ({ loginCallback, article, siteCustomizations }) => {
   const user = useContext(UserContext);

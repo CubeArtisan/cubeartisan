@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { alphaCompare, arrayIsSubset, fromEntries } from '@hypercube/client/utils/Util';
+import { alphaCompare, arrayIsSubset, fromEntries } from '@cubeartisan/client/utils/Util';
 import {
   cardColorIdentity,
   cardDevotion,
@@ -32,7 +32,7 @@ import {
   COLOR_COMBINATIONS,
   cardRarity,
   cardPopularity,
-} from '@hypercube/client/utils/Card';
+} from '@cubeartisan/client/utils/Card';
 
 const COLOR_MAP = {
   W: 'White',

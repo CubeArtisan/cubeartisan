@@ -19,7 +19,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import PivotTableUI from 'react-pivottable/PivotTableUI';
-import { fromEntries } from '@hypercube/client/utils/Util';
+import { fromEntries } from '@cubeartisan/client/utils/Util';
 
 const PivotTable = ({ cards, characteristics }) => {
   const data = cards.map((card) =>

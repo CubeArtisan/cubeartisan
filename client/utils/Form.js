@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { fromEntries } from '@hypercube/client/utils/Util';
+import { fromEntries } from '@cubeartisan/client/utils/Util';
 
 export const formDataObject = (formElement) => {
   const inputs = [...formElement.querySelectorAll('[name]')];

@@ -18,10 +18,10 @@
  */
 import { Component } from 'react';
 
-import FoilCardImage from '@hypercube/client/components/FoilCardImage';
-import CardGrid from '@hypercube/client/components/CardGrid';
+import FoilCardImage from '@cubeartisan/client/components/FoilCardImage';
+import CardGrid from '@cubeartisan/client/components/CardGrid';
 import PropTypes from 'prop-types';
-import { arrayShuffle } from '@hypercube/client/utils/Util';
+import { arrayShuffle } from '@cubeartisan/client/utils/Util';
 
 import { Modal, ModalBody, ModalFooter, ModalHeader, Button, NavLink } from 'reactstrap';
 

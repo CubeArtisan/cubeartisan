@@ -20,30 +20,30 @@ import express from 'express';
 import { body } from 'express-validator';
 import { Canvas, Image } from 'canvas';
 
-import Util from '@hypercube/client/utils/Util';
-import carddb from '@hypercube/server/serverjs/cards';
-import { buildDeck } from '@hypercube/client/drafting/deckutil';
-import { render } from '@hypercube/server/serverjs/render';
-import util from '@hypercube/server/serverjs/util';
-import generateMeta from '@hypercube/server/serverjs/meta';
-import cardutil from '@hypercube/client/utils/Card';
-import { ensureAuth } from '@hypercube/server/routes/middleware';
+import Util from '@cubeartisan/client/utils/Util';
+import carddb from '@cubeartisan/server/serverjs/cards';
+import { buildDeck } from '@cubeartisan/client/drafting/deckutil';
+import { render } from '@cubeartisan/server/serverjs/render';
+import util from '@cubeartisan/server/serverjs/util';
+import generateMeta from '@cubeartisan/server/serverjs/meta';
+import cardutil from '@cubeartisan/client/utils/Card';
+import { ensureAuth } from '@cubeartisan/server/routes/middleware';
 import {
   buildIdQuery,
   abbreviate,
   addDeckCardAnalytics,
   removeDeckCardAnalytics,
-} from '@hypercube/server/serverjs/cubefn';
-import { exportToMtgo, createPool, rotateArrayLeft } from '@hypercube/server/routes/cube/helper';
+} from '@cubeartisan/server/serverjs/cubefn';
+import { exportToMtgo, createPool, rotateArrayLeft } from '@cubeartisan/server/routes/cube/helper';
 
 // Bring in models
-import Cube from '@hypercube/server/models/cube';
+import Cube from '@cubeartisan/server/models/cube';
 
-import Deck from '@hypercube/server/models/deck';
-import User from '@hypercube/server/models/user';
-import CubeAnalytic from '@hypercube/server/models/cubeAnalytic';
-import Draft from '@hypercube/server/models/draft';
-import GridDraft from '@hypercube/server/models/gridDraft';
+import Deck from '@cubeartisan/server/models/deck';
+import User from '@cubeartisan/server/models/user';
+import CubeAnalytic from '@cubeartisan/server/models/cubeAnalytic';
+import Draft from '@cubeartisan/server/models/draft';
+import GridDraft from '@cubeartisan/server/models/gridDraft';
 
 Canvas.Image = Image;
 

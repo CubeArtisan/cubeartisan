@@ -17,15 +17,15 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import PodcastPropType from '@hypercube/client/proptypes/PodcastPropType';
+import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType';
 
 import { CardHeader, Card, Row, Col, CardBody } from 'reactstrap';
 
-import DynamicFlash from '@hypercube/client/components/DynamicFlash';
-import MainLayout from '@hypercube/client/layouts/MainLayout';
-import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
-import AspectRatioBox from '@hypercube/client/components/AspectRatioBox';
-import CommentsSection from '@hypercube/client/components/CommentsSection';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox';
+import CommentsSection from '@cubeartisan/client/components/CommentsSection';
 import ReactAudioPlayer from 'react-audio-player';
 import TimeAgo from 'react-timeago';
 

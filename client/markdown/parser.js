@@ -22,12 +22,12 @@ import gfm from 'remark-gfm';
 import math from 'remark-math';
 import slug from 'remark-slug';
 import headings from 'remark-autolink-headings';
-import cardlink from '@hypercube/client/markdown/cardlink';
-import cardrow from '@hypercube/client/markdown/cardrow';
-import centering from '@hypercube/client/markdown/centering';
+import cardlink from '@cubeartisan/client/markdown/cardlink';
+import cardrow from '@cubeartisan/client/markdown/cardrow';
+import centering from '@cubeartisan/client/markdown/centering';
 import breaks from 'remark-breaks';
-import symbols from '@hypercube/client/markdown/symbols';
-import userlink from '@hypercube/client/markdown/userlink';
+import symbols from '@cubeartisan/client/markdown/symbols';
+import userlink from '@cubeartisan/client/markdown/userlink';
 
 const VALID_SYMBOLS = 'wubrgcmtsqepxyz/-0123456789';
 

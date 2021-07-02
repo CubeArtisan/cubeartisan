@@ -18,10 +18,10 @@
  */
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import CubePropType from '@hypercube/client/proptypes/CubePropType';
-import { csrfFetch } from '@hypercube/client/utils/CSRF';
-import withAutocard from '@hypercube/client/components/WithAutocard';
-import { getCardColorClass } from '@hypercube/client/contexts/TagContext';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
+import withAutocard from '@cubeartisan/client/components/WithAutocard';
+import { getCardColorClass } from '@cubeartisan/client/contexts/TagContext';
 import {
   Modal,
   ModalHeader,

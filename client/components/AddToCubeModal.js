@@ -19,9 +19,9 @@
 import { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 
-import UserContext from '@hypercube/client/contexts/UserContext';
-import ImageFallback from '@hypercube/client/components/ImageFallback';
-import { csrfFetch } from '@hypercube/client/utils/CSRF';
+import UserContext from '@cubeartisan/client/contexts/UserContext';
+import ImageFallback from '@cubeartisan/client/components/ImageFallback';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
 
 import {
   Modal,

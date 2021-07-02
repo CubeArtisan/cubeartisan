@@ -21,12 +21,12 @@ import { TagCloud } from 'react-tagcloud';
 import { InputGroup, InputGroupAddon, InputGroupText, UncontrolledTooltip } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import AsfanDropdown from '@hypercube/client/components/AsfanDropdown';
-import ThemeContext from '@hypercube/client/contexts/ThemeContext';
-import useQueryParam from '@hypercube/client/hooks/useQueryParam';
-import CubePropTypes from '@hypercube/client/proptypes/CubePropType';
-import TagInput from '@hypercube/client/components/TagInput';
-import { arrayMove, isTouchDevice } from '@hypercube/client/utils/Util';
+import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown';
+import ThemeContext from '@cubeartisan/client/contexts/ThemeContext';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
+import CubePropTypes from '@cubeartisan/client/proptypes/CubePropType';
+import TagInput from '@cubeartisan/client/components/TagInput';
+import { arrayMove, isTouchDevice } from '@cubeartisan/client/utils/Util';
 
 const trigger = isTouchDevice() ? 'click' : 'hover';
 

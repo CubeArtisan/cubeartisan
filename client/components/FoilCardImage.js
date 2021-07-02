@@ -16,8 +16,8 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import CardImage from '@hypercube/client/components/CardImage';
-import FoilOverlay from '@hypercube/client/components/FoilOverlay';
+import CardImage from '@cubeartisan/client/components/CardImage';
+import FoilOverlay from '@cubeartisan/client/components/FoilOverlay';
 
 const FoilCardImage = FoilOverlay(CardImage);
 

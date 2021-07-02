@@ -17,10 +17,10 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import { useState, useCallback } from 'react';
-import VideoPropType from '@hypercube/client/proptypes/VideoPropType';
+import VideoPropType from '@cubeartisan/client/proptypes/VideoPropType';
 
 import { Card } from 'reactstrap';
-import AspectRatioBox from '@hypercube/client/components/AspectRatioBox';
+import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox';
 import TimeAgo from 'react-timeago';
 
 const VideoPreview = ({ video }) => {

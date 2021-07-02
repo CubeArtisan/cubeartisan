@@ -18,12 +18,12 @@
  */
 import { useState, useContext } from 'react';
 
-import UserContext from '@hypercube/client/contexts/UserContext';
+import UserContext from '@cubeartisan/client/contexts/UserContext';
 
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu, Badge, CardHeader, CardFooter } from 'reactstrap';
 
-import { csrfFetch } from '@hypercube/client/utils/CSRF';
-import LinkButton from '@hypercube/client/components/LinkButton';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
+import LinkButton from '@cubeartisan/client/components/LinkButton';
 
 const NotificationsNav = () => {
   const user = useContext(UserContext);

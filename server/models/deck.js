@@ -17,8 +17,8 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import mongoose from 'mongoose';
-import cardSchema from '@hypercube/server/models/shared/cardSchema';
-import migrations from '@hypercube/server/models/migrations/deckMigrations';
+import cardSchema from '@cubeartisan/server/models/shared/cardSchema';
+import migrations from '@cubeartisan/server/models/migrations/deckMigrations';
 
 const CURRENT_SCHEMA_VERSION = migrations.slice(-1)[0].version;
 

@@ -17,16 +17,16 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import CardPropType from '@hypercube/client/proptypes/CardPropType';
-import DraftSeatPropType from '@hypercube/client/proptypes/DraftSeatPropType';
-import DeckPropType from '@hypercube/client/proptypes/DeckPropType';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
+import DraftSeatPropType from '@cubeartisan/client/proptypes/DraftSeatPropType';
+import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType';
 
-import CommentsSection from '@hypercube/client/components/CommentsSection';
-import DecksPickBreakdown from '@hypercube/client/components/DecksPickBreakdown';
-import DraftbotBreakdown from '@hypercube/client/components/DraftbotBreakdown';
-import FoilCardImage from '@hypercube/client/components/FoilCardImage';
-import Markdown from '@hypercube/client/components/Markdown';
-import { makeSubtitle } from '@hypercube/client/utils/Card';
+import CommentsSection from '@cubeartisan/client/components/CommentsSection';
+import DecksPickBreakdown from '@cubeartisan/client/components/DecksPickBreakdown';
+import DraftbotBreakdown from '@cubeartisan/client/components/DraftbotBreakdown';
+import FoilCardImage from '@cubeartisan/client/components/FoilCardImage';
+import Markdown from '@cubeartisan/client/components/Markdown';
+import { makeSubtitle } from '@cubeartisan/client/utils/Card';
 
 import { Card, CardBody, CardHeader, CardTitle, Col, Row } from 'reactstrap';
 

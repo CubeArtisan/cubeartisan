@@ -20,9 +20,9 @@ import PropTypes from 'prop-types';
 import { Table } from 'reactstrap';
 import { CSVLink } from 'react-csv';
 
-import HeaderCell from '@hypercube/client/components/HeaderCell';
-import useSortableData from '@hypercube/client/hooks/UseSortableData';
-import { fromEntries } from '@hypercube/client/utils/Util';
+import HeaderCell from '@cubeartisan/client/components/HeaderCell';
+import useSortableData from '@cubeartisan/client/hooks/UseSortableData';
+import { fromEntries } from '@cubeartisan/client/utils/Util';
 
 export const valueRenderer = (value) => {
   if (!Number.isFinite(value) || Number.isInteger(value)) {

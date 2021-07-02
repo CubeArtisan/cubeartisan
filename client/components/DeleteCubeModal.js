@@ -21,7 +21,7 @@ import PropTypes from 'prop-types';
 
 import { Modal, ModalBody, ModalHeader, Input, Button, ModalFooter } from 'reactstrap';
 
-import CSRFForm from '@hypercube/client/components/CSRFForm';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm';
 
 const DeleteCubeModal = ({ isOpen, toggle, cubeid }) => {
   const [deleteText, setDeleteText] = useState('');

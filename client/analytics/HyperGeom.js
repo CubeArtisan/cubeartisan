@@ -33,8 +33,8 @@ import {
   Form,
 } from 'reactstrap';
 
-import useQueryParam from '@hypercube/client/hooks/useQueryParam';
-import calculate from '@hypercube/client/utils/CalculateHyperGeom';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
+import calculate from '@cubeartisan/client/utils/CalculateHyperGeom';
 
 const TextField = ({ name, humanName, placeholder, value, onChange, ...props }) => (
   <InputGroup className="mb-3" {...props}>

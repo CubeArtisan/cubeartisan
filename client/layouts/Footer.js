@@ -19,8 +19,8 @@
 import { useContext } from 'react';
 import { Row, Col, Container } from 'reactstrap';
 
-import Copyright from '@hypercube/client/components/Copyright';
-import SiteCustomizationContext from '@hypercube/client/contexts/SiteCustomizationContext';
+import Copyright from '@cubeartisan/client/components/Copyright';
+import SiteCustomizationContext from '@cubeartisan/client/contexts/SiteCustomizationContext';
 
 const Footer = () => {
   const { discordUrl, siteName, sourceRepo } = useContext(SiteCustomizationContext);

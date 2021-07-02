@@ -18,12 +18,12 @@
  */
 import { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from '@hypercube/client/proptypes/CardPropType';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
 
 import { Button, Row, Col, Modal, ModalBody, ModalFooter, ModalHeader, Input, Card } from 'reactstrap';
 
-import { buildDeck } from '@hypercube/client/drafting/deckutil';
-import { fromEntries } from '@hypercube/client/utils/Util';
+import { buildDeck } from '@cubeartisan/client/drafting/deckutil';
+import { fromEntries } from '@cubeartisan/client/utils/Util';
 
 const MAX_BASICS = 21;
 

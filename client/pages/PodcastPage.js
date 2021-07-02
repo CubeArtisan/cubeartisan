@@ -18,16 +18,16 @@
  */
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
-import PodcastPropType from '@hypercube/client/proptypes/PodcastPropType';
+import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType';
 
 import { CardHeader, Card } from 'reactstrap';
 
-import UserContext from '@hypercube/client/contexts/UserContext';
-import DynamicFlash from '@hypercube/client/components/DynamicFlash';
-import Podcast from '@hypercube/client/components/Podcast';
-import ButtonLink from '@hypercube/client/components/ButtonLink';
-import MainLayout from '@hypercube/client/layouts/MainLayout';
-import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import UserContext from '@cubeartisan/client/contexts/UserContext';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
+import Podcast from '@cubeartisan/client/components/Podcast';
+import ButtonLink from '@cubeartisan/client/components/ButtonLink';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
 
 const PodcastPage = ({ loginCallback, podcast, episodes }) => {
   const user = useContext(UserContext);

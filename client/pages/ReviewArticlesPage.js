@@ -17,16 +17,16 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import ArticlePropType from '@hypercube/client/proptypes/ArticlePropType';
+import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType';
 
 import { Card, CardHeader, CardBody, Row, Col } from 'reactstrap';
 
-import DynamicFlash from '@hypercube/client/components/DynamicFlash';
-import Paginate from '@hypercube/client/components/Paginate';
-import MainLayout from '@hypercube/client/layouts/MainLayout';
-import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
-import ButtonLink from '@hypercube/client/components/ButtonLink';
-import ArticlePreview from '@hypercube/client/components/ArticlePreview';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
+import Paginate from '@cubeartisan/client/components/Paginate';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import ButtonLink from '@cubeartisan/client/components/ButtonLink';
+import ArticlePreview from '@cubeartisan/client/components/ArticlePreview';
 
 const PAGE_SIZE = 24;
 

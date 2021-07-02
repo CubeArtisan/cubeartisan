@@ -18,8 +18,8 @@
  */
 import PropTypes from 'prop-types';
 
-import CardPropType from '@hypercube/client/proptypes/CardPropType';
-import { COLORS } from '@hypercube/client/drafting/draftbots';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
+import { COLORS } from '@cubeartisan/client/drafting/draftbots';
 
 export const StepPropType = PropTypes.shape({
   action: PropTypes.oneOf(['pass', 'pick', 'pickrandom', 'trash', 'trashrandom']).isRequired,

@@ -18,7 +18,7 @@
  */
 import { Col, ListGroup, ListGroupItem, Row } from 'reactstrap';
 
-import SortContext from '@hypercube/client/contexts/SortContext';
+import SortContext from '@cubeartisan/client/contexts/SortContext';
 import { getLabels, sortIntoGroups } from '../utils/Sort';
 
 import AutocardListItem from './AutocardListItem';

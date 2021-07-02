@@ -46,8 +46,8 @@ const config = {
   resolve: {
     test: /\.jsx?$/,
     alias: {
-      '@hypercube/client': path.resolve(__dirname, 'client'),
-      '@hypercube/server': path.resolve(__dirname, 'server'),
+      '@cubeartisan/client': path.resolve(__dirname, 'client'),
+      '@cubeartisan/server': path.resolve(__dirname, 'server'),
     },
   },
 };

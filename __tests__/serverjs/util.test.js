@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import util from '@hypercube/server/serverjs/util';
+import util from '@cubeartisan/server/serverjs/util';
 
 beforeEach(() => {});
 

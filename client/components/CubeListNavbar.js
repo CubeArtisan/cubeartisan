@@ -18,7 +18,7 @@
  */
 import { useCallback, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from '@hypercube/client/proptypes/CardPropType';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
 
 import {
   Button,
@@ -49,19 +49,19 @@ import {
   FormGroup,
 } from 'reactstrap';
 
-import CardModalContext from '@hypercube/client/contexts/CardModalContext';
-import CSRFForm from '@hypercube/client/components/CSRFForm';
-import CubeContext from '@hypercube/client/contexts/CubeContext';
-import DisplayContext from '@hypercube/client/contexts/DisplayContext';
-import EditCollapse from '@hypercube/client/components/EditCollapse';
-import FilterCollapse from '@hypercube/client/components/FilterCollapse';
-import GroupModalContext from '@hypercube/client/contexts/GroupModalContext';
-import SortCollapse from '@hypercube/client/components/SortCollapse';
-import SortContext from '@hypercube/client/contexts/SortContext';
-import TagColorsModal from '@hypercube/client/components/TagColorsModal';
-import withModal from '@hypercube/client/components/WithModal';
+import CardModalContext from '@cubeartisan/client/contexts/CardModalContext';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm';
+import CubeContext from '@cubeartisan/client/contexts/CubeContext';
+import DisplayContext from '@cubeartisan/client/contexts/DisplayContext';
+import EditCollapse from '@cubeartisan/client/components/EditCollapse';
+import FilterCollapse from '@cubeartisan/client/components/FilterCollapse';
+import GroupModalContext from '@cubeartisan/client/contexts/GroupModalContext';
+import SortCollapse from '@cubeartisan/client/components/SortCollapse';
+import SortContext from '@cubeartisan/client/contexts/SortContext';
+import TagColorsModal from '@cubeartisan/client/components/TagColorsModal';
+import withModal from '@cubeartisan/client/components/WithModal';
 import { QuestionIcon } from '@primer/octicons-react';
-import Tooltip from '@hypercube/client/components/Tooltip';
+import Tooltip from '@cubeartisan/client/components/Tooltip';
 
 const PasteBulkModal = ({ isOpen, toggle }) => {
   const { cubeID } = useContext(CubeContext);

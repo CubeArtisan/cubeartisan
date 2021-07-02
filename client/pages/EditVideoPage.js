@@ -18,7 +18,7 @@
  */
 import { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import VideoPropType from '@hypercube/client/proptypes/VideoPropType';
+import VideoPropType from '@cubeartisan/client/proptypes/VideoPropType';
 
 import {
   Spinner,
@@ -35,17 +35,17 @@ import {
   Button,
 } from 'reactstrap';
 
-import AutocompleteInput from '@hypercube/client/components/AutocompleteInput';
-import CSRFForm from '@hypercube/client/components/CSRFForm';
-import DynamicFlash from '@hypercube/client/components/DynamicFlash';
-import Tab from '@hypercube/client/components/Tab';
-import Video from '@hypercube/client/components/Video';
-import VideoPreview from '@hypercube/client/components/VideoPreview';
-import SiteCustomizationContext from '@hypercube/client/contexts/SiteCustomizationContext';
-import UserContext from '@hypercube/client/contexts/UserContext';
-import useQueryParam from '@hypercube/client/hooks/useQueryParam';
-import MainLayout from '@hypercube/client/layouts/MainLayout';
-import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
+import Tab from '@cubeartisan/client/components/Tab';
+import Video from '@cubeartisan/client/components/Video';
+import VideoPreview from '@cubeartisan/client/components/VideoPreview';
+import SiteCustomizationContext from '@cubeartisan/client/contexts/SiteCustomizationContext';
+import UserContext from '@cubeartisan/client/contexts/UserContext';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
 
 const EditVideoPage = ({ loginCallback, video }) => {
   const user = useContext(UserContext);

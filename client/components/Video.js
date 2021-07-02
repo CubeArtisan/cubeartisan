@@ -16,10 +16,10 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import VideoPropType from '@hypercube/client/proptypes/VideoPropType';
+import VideoPropType from '@cubeartisan/client/proptypes/VideoPropType';
 
-import Markdown from '@hypercube/client/components/Markdown';
-import CommentsSection from '@hypercube/client/components/CommentsSection';
+import Markdown from '@cubeartisan/client/components/Markdown';
+import CommentsSection from '@cubeartisan/client/components/CommentsSection';
 import TimeAgo from 'react-timeago';
 
 import ReactPlayer from 'react-player';

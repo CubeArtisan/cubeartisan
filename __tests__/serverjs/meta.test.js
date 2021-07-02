@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import generateMeta from '@hypercube/server/serverjs/meta';
+import generateMeta from '@cubeartisan/server/serverjs/meta';
 
 test('generateMeta returns the expected object', () => {
   const title = 'the title';

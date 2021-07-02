@@ -19,16 +19,16 @@
 import { useContext } from 'react';
 
 import PropTypes from 'prop-types';
-import BlogPostPropType from '@hypercube/client/proptypes/BlogPostPropType';
+import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType';
 
 import TimeAgo from 'react-timeago';
 
 import { Card, CardHeader, Row, Col, CardBody, CardText } from 'reactstrap';
 
-import UserContext from '@hypercube/client/contexts/UserContext';
-import BlogContextMenu from '@hypercube/client/components/BlogContextMenu';
-import CommentsSection from '@hypercube/client/components/CommentsSection';
-import Markdown from '@hypercube/client/components/Markdown';
+import UserContext from '@cubeartisan/client/contexts/UserContext';
+import BlogContextMenu from '@cubeartisan/client/components/BlogContextMenu';
+import CommentsSection from '@cubeartisan/client/components/CommentsSection';
+import Markdown from '@cubeartisan/client/components/Markdown';
 
 const BlogPost = ({ post, onEdit, noScroll }) => {
   const user = useContext(UserContext);

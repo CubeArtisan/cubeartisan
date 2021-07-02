@@ -18,9 +18,9 @@
  */
 import ReactDOM from 'react-dom';
 
-import ErrorBoundary from '@hypercube/client/components/ErrorBoundary';
-import SiteCustomizationContext from '@hypercube/client/contexts/SiteCustomizationContext';
-import UserContext from '@hypercube/client/contexts/UserContext';
+import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
+import SiteCustomizationContext from '@cubeartisan/client/contexts/SiteCustomizationContext';
+import UserContext from '@cubeartisan/client/contexts/UserContext';
 
 const RenderToRoot = (Element) => {
   const reactProps = typeof window !== 'undefined' ? window.reactProps : {};

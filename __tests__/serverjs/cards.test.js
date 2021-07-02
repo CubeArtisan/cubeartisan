@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 /* eslint no-underscore-dangle: ["error", {"allow": ["_id", "_RankleMasterofFixtures"]}] */
-import carddb from '@hypercube/server/serverjs/cards';
+import carddb from '@cubeartisan/server/serverjs/cards';
 
 const fixturesPath = 'fixtures';
 const firstLetterCount = 21;

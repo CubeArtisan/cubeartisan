@@ -18,24 +18,24 @@
  */
 import { useCallback, useContext, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from '@hypercube/client/proptypes/CardPropType';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
 
 import { Button, Col, Form, ListGroupItem, Row, Spinner } from 'reactstrap';
 
-import { csrfFetch } from '@hypercube/client/utils/CSRF';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
 
-import AutocompleteInput from '@hypercube/client/components/AutocompleteInput';
-import CardModalContext from '@hypercube/client/contexts/CardModalContext';
-import CardModalForm from '@hypercube/client/components/CardModalForm';
-import ChangelistContext from '@hypercube/client/contexts/ChangelistContext';
-import CubeContext from '@hypercube/client/contexts/CubeContext';
-import DisplayContext from '@hypercube/client/contexts/DisplayContext';
-import { getCard } from '@hypercube/client/components/EditCollapse';
-import LoadingButton from '@hypercube/client/components/LoadingButton';
-import MaybeboardContext from '@hypercube/client/contexts/MaybeboardContext';
-import TableView from '@hypercube/client/components/TableView';
-import { getCardColorClass } from '@hypercube/client/contexts/TagContext';
-import withAutocard from '@hypercube/client/components/WithAutocard';
+import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput';
+import CardModalContext from '@cubeartisan/client/contexts/CardModalContext';
+import CardModalForm from '@cubeartisan/client/components/CardModalForm';
+import ChangelistContext from '@cubeartisan/client/contexts/ChangelistContext';
+import CubeContext from '@cubeartisan/client/contexts/CubeContext';
+import DisplayContext from '@cubeartisan/client/contexts/DisplayContext';
+import { getCard } from '@cubeartisan/client/components/EditCollapse';
+import LoadingButton from '@cubeartisan/client/components/LoadingButton';
+import MaybeboardContext from '@cubeartisan/client/contexts/MaybeboardContext';
+import TableView from '@cubeartisan/client/components/TableView';
+import { getCardColorClass } from '@cubeartisan/client/contexts/TagContext';
+import withAutocard from '@cubeartisan/client/components/WithAutocard';
 
 const AutocardItem = withAutocard(ListGroupItem);
 

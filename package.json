@@ -1,5 +1,5 @@
 {
-  "name": "hypercube",
+  "name": "cubeartisan",
   "version": "0.1.0",
   "description": "",
   "private": true,
@@ -35,8 +35,8 @@
     "run-constantly-jobs": "sh jobs/definition/constantly.sh"
   },
   "dependencies": {
-    "@hypercube/client": "^0.1.0",
-    "@hypercube/server": "^0.1.0",
+    "@cubeartisan/client": "^0.1.0",
+    "@cubeartisan/server": "^0.1.0",
     "mongodb-memory-server": "^6.9.6",
     "terser-webpack-plugin": "^3.1.0",
     "webpack": "^5.40.0",

@@ -18,16 +18,16 @@
  */
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from '@hypercube/client/proptypes/CardPropType';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
 
 import { Row, Col } from 'reactstrap';
 
-import { countGroup, sortDeep } from '@hypercube/client/utils/Sort';
+import { countGroup, sortDeep } from '@cubeartisan/client/utils/Sort';
 
-import AutocardListGroup from '@hypercube/client/components/AutocardListGroup';
-import AutocardListItem from '@hypercube/client/components/AutocardListItem';
-import DisplayContext from '@hypercube/client/contexts/DisplayContext';
-import SortContext from '@hypercube/client/contexts/SortContext';
+import AutocardListGroup from '@cubeartisan/client/components/AutocardListGroup';
+import AutocardListItem from '@cubeartisan/client/components/AutocardListItem';
+import DisplayContext from '@cubeartisan/client/contexts/DisplayContext';
+import SortContext from '@cubeartisan/client/contexts/SortContext';
 
 const TableView = ({ cards, rowTag, noGroupModal, className, ...props }) => {
   const { primary, secondary, tertiary, quaternary, showOther } = useContext(SortContext);

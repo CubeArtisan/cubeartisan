@@ -18,7 +18,7 @@
  */
 import { Strategy as LocalStrategy } from 'passport-local';
 import { compare } from 'bcryptjs';
-import { findOne, findById } from '@hypercube/server/models/user';
+import { findOne, findById } from '@cubeartisan/server/models/user';
 
 export default function (passport) {
   // Local Strategy

@@ -18,15 +18,15 @@
  */
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import CommentPropType from '@hypercube/client/proptypes/CommentPropType';
+import CommentPropType from '@cubeartisan/client/proptypes/CommentPropType';
 
 import { Card, CardHeader } from 'reactstrap';
 
-import Comment from '@hypercube/client/components/Comment';
-import DynamicFlash from '@hypercube/client/components/DynamicFlash';
-import CommentsSection from '@hypercube/client/components/CommentsSection';
-import MainLayout from '@hypercube/client/layouts/MainLayout';
-import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import Comment from '@cubeartisan/client/components/Comment';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
+import CommentsSection from '@cubeartisan/client/components/CommentsSection';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
 
 const translateType = {
   comment: 'Comment',

@@ -20,12 +20,12 @@ import PropTypes from 'prop-types';
 
 import { Row, Col } from 'reactstrap';
 
-import DynamicFlash from '@hypercube/client/components/DynamicFlash';
-import ArticlePreview from '@hypercube/client/components/ArticlePreview';
-import VideoPreview from '@hypercube/client/components/VideoPreview';
-import PodcastEpisodePreview from '@hypercube/client/components/PodcastEpisodePreview';
-import MainLayout from '@hypercube/client/layouts/MainLayout';
-import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
+import ArticlePreview from '@cubeartisan/client/components/ArticlePreview';
+import VideoPreview from '@cubeartisan/client/components/VideoPreview';
+import PodcastEpisodePreview from '@cubeartisan/client/components/PodcastEpisodePreview';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
 
 const BrowseContentPage = ({ loginCallback, content }) => {
   return (

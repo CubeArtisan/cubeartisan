@@ -17,13 +17,13 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import DeckPropType from '@hypercube/client/proptypes/DeckPropType';
+import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType';
 
-import DeckPreview from '@hypercube/client/components/DeckPreview';
-import Paginate from '@hypercube/client/components/Paginate';
-import DynamicFlash from '@hypercube/client/components/DynamicFlash';
-import MainLayout from '@hypercube/client/layouts/MainLayout';
-import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import DeckPreview from '@cubeartisan/client/components/DeckPreview';
+import Paginate from '@cubeartisan/client/components/Paginate';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
 
 import { Card, Col, Row, CardHeader, CardBody, CardFooter } from 'reactstrap';
 

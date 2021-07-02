@@ -20,10 +20,10 @@ import PropTypes from 'prop-types';
 
 import { Card, CardHeader, CardBody, Input, Button } from 'reactstrap';
 
-import DynamicFlash from '@hypercube/client/components/DynamicFlash';
-import CSRFForm from '@hypercube/client/components/CSRFForm';
-import MainLayout from '@hypercube/client/layouts/MainLayout';
-import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
 
 const AdminDashboardPage = ({ loginCallback, siteCustomizations }) => (
   <MainLayout loginCallback={loginCallback} siteCustomizations={siteCustomizations}>

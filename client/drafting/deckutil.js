@@ -22,7 +22,7 @@ import {
   MAX_SCORE,
   ORACLES_BY_NAME,
   FETCH_LANDS,
-} from '@hypercube/client/drafting/draftbots';
+} from '@cubeartisan/client/drafting/draftbots';
 import {
   COLOR_COMBINATIONS,
   cardCmc,
@@ -30,8 +30,8 @@ import {
   cardIsSpecialZoneType,
   cardName,
   cardType,
-} from '@hypercube/client/utils/Card';
-import { arraysAreEqualSets } from '@hypercube/client/utils/Util';
+} from '@cubeartisan/client/utils/Card';
+import { arraysAreEqualSets } from '@cubeartisan/client/utils/Util';
 
 const getSortFn = (draftCards) => (a, b) => draftCards[b].rating - draftCards[a].rating;
 

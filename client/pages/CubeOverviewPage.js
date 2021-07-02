@@ -18,7 +18,7 @@
  */
 import { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import CubePropType from '@hypercube/client/proptypes/CubePropType';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
 
 import {
   Button,
@@ -39,26 +39,26 @@ import {
 
 import { LinkExternalIcon, QuestionIcon } from '@primer/octicons-react';
 
-import { csrfFetch } from '@hypercube/client/utils/CSRF';
-import { getCubeId, getCubeDescription } from '@hypercube/client/utils/Util';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
+import { getCubeId, getCubeDescription } from '@cubeartisan/client/utils/Util';
 
-import BlogPost from '@hypercube/client/components/BlogPost';
-import CSRFForm from '@hypercube/client/components/CSRFForm';
-import CubeIdModal from '@hypercube/client/components/CubeIdModal';
-import CubeOverviewModal from '@hypercube/client/components/CubeOverviewModal';
-import CubeSettingsModal from '@hypercube/client/components/CubeSettingsModal';
-import CustomizeBasicsModal from '@hypercube/client/components/CustomizeBasicsModal';
-import DeleteCubeModal from '@hypercube/client/components/DeleteCubeModal';
-import DynamicFlash from '@hypercube/client/components/DynamicFlash';
-import FollowersModal from '@hypercube/client/components/FollowersModal';
-import Markdown from '@hypercube/client/components/Markdown';
-import TextBadge from '@hypercube/client/components/TextBadge';
-import Tooltip from '@hypercube/client/components/Tooltip';
-import withModal from '@hypercube/client/components/WithModal';
-import UserContext from '@hypercube/client/contexts/UserContext';
-import CubeLayout from '@hypercube/client/layouts/CubeLayout';
-import MainLayout from '@hypercube/client/layouts/MainLayout';
-import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import BlogPost from '@cubeartisan/client/components/BlogPost';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm';
+import CubeIdModal from '@cubeartisan/client/components/CubeIdModal';
+import CubeOverviewModal from '@cubeartisan/client/components/CubeOverviewModal';
+import CubeSettingsModal from '@cubeartisan/client/components/CubeSettingsModal';
+import CustomizeBasicsModal from '@cubeartisan/client/components/CustomizeBasicsModal';
+import DeleteCubeModal from '@cubeartisan/client/components/DeleteCubeModal';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
+import FollowersModal from '@cubeartisan/client/components/FollowersModal';
+import Markdown from '@cubeartisan/client/components/Markdown';
+import TextBadge from '@cubeartisan/client/components/TextBadge';
+import Tooltip from '@cubeartisan/client/components/Tooltip';
+import withModal from '@cubeartisan/client/components/WithModal';
+import UserContext from '@cubeartisan/client/contexts/UserContext';
+import CubeLayout from '@cubeartisan/client/layouts/CubeLayout';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
 
 const FollowersModalLink = withModal('a', FollowersModal);
 const CubeSettingsModalLink = withModal(NavLink, CubeSettingsModal);

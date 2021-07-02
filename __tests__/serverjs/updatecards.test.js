@@ -18,9 +18,9 @@
  */
 import fs from 'fs';
 import rimraf from 'rimraf';
-import updatecards from '@hypercube/server/serverjs/updatecards';
-import carddb from '@hypercube/server/serverjs/cards';
-import cardutil from '@hypercube/client/utils/Card';
+import updatecards from '@cubeartisan/server/serverjs/updatecards';
+import carddb from '@cubeartisan/server/serverjs/cards';
+import cardutil from '@cubeartisan/client/utils/Card';
 // eslint-disable-next-line no-restricted-imports
 import examplecards from '../../fixtures/examplecards';
 

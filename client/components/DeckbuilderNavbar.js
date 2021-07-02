@@ -19,16 +19,16 @@
 import { useCallback, useRef, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
-import DeckDeleteModal from '@hypercube/client/components/DeckDeleteModal';
-import CardPropType from '@hypercube/client/proptypes/CardPropType';
+import DeckDeleteModal from '@cubeartisan/client/components/DeckDeleteModal';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
 
 import { Collapse, Nav, Navbar, NavbarToggler, NavItem, NavLink, Input } from 'reactstrap';
 
-import CSRFForm from '@hypercube/client/components/CSRFForm';
-import CustomImageToggler from '@hypercube/client/components/CustomImageToggler';
-import { buildDeck } from '@hypercube/client/drafting/deckutil';
-import BasicsModal from '@hypercube/client/components/BasicsModal';
-import withModal from '@hypercube/client/components/WithModal';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm';
+import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler';
+import { buildDeck } from '@cubeartisan/client/drafting/deckutil';
+import BasicsModal from '@cubeartisan/client/components/BasicsModal';
+import withModal from '@cubeartisan/client/components/WithModal';
 
 const DeleteDeckModalLink = withModal(NavLink, DeckDeleteModal);
 const BasicsModalLink = withModal(NavLink, BasicsModal);

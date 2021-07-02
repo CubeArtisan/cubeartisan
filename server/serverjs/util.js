@@ -19,7 +19,7 @@
 import Filter from 'bad-words';
 import shuffleSeed from 'shuffle-seed';
 
-import winston from '@hypercube/server/serverjs/winstonConfig';
+import winston from '@cubeartisan/server/serverjs/winstonConfig';
 
 export const hasProfanity = (text) => {
   if (!text) return false;

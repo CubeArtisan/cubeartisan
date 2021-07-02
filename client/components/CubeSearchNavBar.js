@@ -21,9 +21,9 @@ import PropTypes from 'prop-types';
 
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader, Navbar, Input, CardBody } from 'reactstrap';
 
-import TextField from '@hypercube/client/components/TextField';
-import NumericField from '@hypercube/client/components/NumericField';
-import SelectField from '@hypercube/client/components/SelectField';
+import TextField from '@cubeartisan/client/components/TextField';
+import NumericField from '@cubeartisan/client/components/NumericField';
+import SelectField from '@cubeartisan/client/components/SelectField';
 
 const AdvancedSearchModal = ({ isOpen, toggle }) => {
   const [keyword, setKeyword] = useState('');

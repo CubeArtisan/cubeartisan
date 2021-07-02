@@ -39,20 +39,20 @@ import {
   UncontrolledAlert,
 } from 'reactstrap';
 
-import { csrfFetch } from '@hypercube/client/utils/CSRF';
-import { fromEntries } from '@hypercube/client/utils/Util';
-import { cardPrice, cardFoilPrice, cardPriceEur, cardTix } from '@hypercube/client/utils/Card';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
+import { fromEntries } from '@cubeartisan/client/utils/Util';
+import { cardPrice, cardFoilPrice, cardPriceEur, cardTix } from '@cubeartisan/client/utils/Card';
 
-import AutocardListItem from '@hypercube/client/components/AutocardListItem';
-import ChangelistContext from '@hypercube/client/contexts/ChangelistContext';
-import { ColorChecksAddon } from '@hypercube/client/components/ColorCheck';
-import CubeContext from '@hypercube/client/contexts/CubeContext';
-import GroupModalContext from '@hypercube/client/contexts/GroupModalContext';
-import LoadingButton from '@hypercube/client/components/LoadingButton';
-import MassBuyButton from '@hypercube/client/components/MassBuyButton';
-import TagInput from '@hypercube/client/components/TagInput';
-import TextBadge from '@hypercube/client/components/TextBadge';
-import Tooltip from '@hypercube/client/components/Tooltip';
+import AutocardListItem from '@cubeartisan/client/components/AutocardListItem';
+import ChangelistContext from '@cubeartisan/client/contexts/ChangelistContext';
+import { ColorChecksAddon } from '@cubeartisan/client/components/ColorCheck';
+import CubeContext from '@cubeartisan/client/contexts/CubeContext';
+import GroupModalContext from '@cubeartisan/client/contexts/GroupModalContext';
+import LoadingButton from '@cubeartisan/client/components/LoadingButton';
+import MassBuyButton from '@cubeartisan/client/components/MassBuyButton';
+import TagInput from '@cubeartisan/client/components/TagInput';
+import TextBadge from '@cubeartisan/client/components/TextBadge';
+import Tooltip from '@cubeartisan/client/components/Tooltip';
 
 const DEFAULT_FORM_VALUES = {
   status: '',

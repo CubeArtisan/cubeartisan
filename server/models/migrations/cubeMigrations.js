@@ -1,5 +1,5 @@
-import { cardsNeedsCleaning, cleanCards } from '@hypercube/server/models/migrations/cleanCards';
-import { mapNonNull } from '@hypercube/server/serverjs/util';
+import { cardsNeedsCleaning, cleanCards } from '@cubeartisan/server/models/migrations/cleanCards';
+import { mapNonNull } from '@cubeartisan/server/serverjs/util';
 
 const updateCubeDraftFormats = (cube) => {
   if (!cube) return null;

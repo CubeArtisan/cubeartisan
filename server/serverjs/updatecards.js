@@ -23,10 +23,10 @@ import JSONStream from 'JSONStream';
 import es from 'event-stream';
 import fetch from 'node-fetch';
 import AWS from 'aws-sdk';
-import winston from '@hypercube/server/serverjs/winstonConfig';
-import cardutil from '@hypercube/client/utils/Card';
-import util from '@hypercube/server/serverjs/util';
-import carddb from '@hypercube/server/serverjs/cards';
+import winston from '@cubeartisan/server/serverjs/winstonConfig';
+import cardutil from '@cubeartisan/client/utils/Card';
+import util from '@cubeartisan/server/serverjs/util';
+import carddb from '@cubeartisan/server/serverjs/cards';
 
 const catalog = {};
 

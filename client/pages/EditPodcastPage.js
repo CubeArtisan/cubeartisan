@@ -18,18 +18,18 @@
  */
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import PodcastPropType from '@hypercube/client/proptypes/PodcastPropType';
+import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType';
 
 import { Nav, CardBody, Card, TabContent, TabPane, Input, FormGroup, Row, Col, Label, Button } from 'reactstrap';
 
-import DynamicFlash from '@hypercube/client/components/DynamicFlash';
-import PodcastPreview from '@hypercube/client/components/PodcastPreview';
-import Tab from '@hypercube/client/components/Tab';
-import Podcast from '@hypercube/client/components/Podcast';
-import useQueryParam from '@hypercube/client/hooks/useQueryParam';
-import MainLayout from '@hypercube/client/layouts/MainLayout';
-import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
-import CSRFForm from '@hypercube/client/components/CSRFForm';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
+import PodcastPreview from '@cubeartisan/client/components/PodcastPreview';
+import Tab from '@cubeartisan/client/components/Tab';
+import Podcast from '@cubeartisan/client/components/Podcast';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm';
 
 const EditPodcastPage = ({ loginCallback, podcast }) => {
   const [tab, setTab] = useQueryParam('tab', '0');

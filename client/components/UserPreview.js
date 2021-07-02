@@ -21,7 +21,7 @@ import PropTypes from 'prop-types';
 
 import { Card } from 'reactstrap';
 
-import AspectRatioBox from '@hypercube/client/components/AspectRatioBox';
+import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox';
 
 const UserPreview = ({ user }) => {
   const [hover, setHover] = useState(false);

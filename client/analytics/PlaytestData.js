@@ -20,15 +20,15 @@ import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { ListGroupItem } from 'reactstrap';
 
-import CardPropType from '@hypercube/client/proptypes/CardPropType';
-import CubeAnalyticPropType from '@hypercube/client/proptypes/CubeAnalyticPropType';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
+import CubeAnalyticPropType from '@cubeartisan/client/proptypes/CubeAnalyticPropType';
 
-import { compareStrings, SortableTable } from '@hypercube/client/components/SortableTable';
-import { fromEntries } from '@hypercube/client/utils/Util';
-import ErrorBoundary from '@hypercube/client/components/ErrorBoundary';
-import { mainboardRate, pickRate, encodeName } from '@hypercube/client/utils/Card';
+import { compareStrings, SortableTable } from '@cubeartisan/client/components/SortableTable';
+import { fromEntries } from '@cubeartisan/client/utils/Util';
+import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
+import { mainboardRate, pickRate, encodeName } from '@cubeartisan/client/utils/Card';
 
-import withAutocard from '@hypercube/client/components/WithAutocard';
+import withAutocard from '@cubeartisan/client/components/WithAutocard';
 
 const AutocardItem = withAutocard(ListGroupItem);
 

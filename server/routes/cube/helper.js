@@ -1,14 +1,14 @@
 import { Canvas, Image } from 'canvas';
 
-import carddb from '@hypercube/server/serverjs/cards';
-import { render } from '@hypercube/server/serverjs/render';
-import util from '@hypercube/server/serverjs/util';
-import { setCubeType, addCardHtml, CSVtoCards } from '@hypercube/server/serverjs/cubefn';
+import carddb from '@cubeartisan/server/serverjs/cards';
+import { render } from '@cubeartisan/server/serverjs/render';
+import util from '@cubeartisan/server/serverjs/util';
+import { setCubeType, addCardHtml, CSVtoCards } from '@cubeartisan/server/serverjs/cubefn';
 
 // Bring in models
-import Cube from '@hypercube/server/models/cube';
+import Cube from '@cubeartisan/server/models/cube';
 
-import Blog from '@hypercube/server/models/blog';
+import Blog from '@cubeartisan/server/models/blog';
 
 Canvas.Image = Image;
 

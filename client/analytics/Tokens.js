@@ -19,10 +19,10 @@
 import { Row, Col, Card, CardBody } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import { getTCGLink } from '@hypercube/client/utils/Affiliate';
+import { getTCGLink } from '@cubeartisan/client/utils/Affiliate';
 
-import Markdown from '@hypercube/client/components/Markdown';
-import MassBuyButton from '@hypercube/client/components/MassBuyButton';
+import Markdown from '@cubeartisan/client/components/Markdown';
+import MassBuyButton from '@cubeartisan/client/components/MassBuyButton';
 
 const compareCards = (x, y) => x.details.name.localeCompare(y.details.name);
 const sortCards = (cards) => [...cards].sort(compareCards);

@@ -18,9 +18,9 @@
  */
 import PropTypes from 'prop-types';
 
-import { csrfFetch } from '@hypercube/client/utils/CSRF';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
 
-import ConfirmDeleteModal from '@hypercube/client/components/ConfirmDeleteModal';
+import ConfirmDeleteModal from '@cubeartisan/client/components/ConfirmDeleteModal';
 
 const BlogDeleteModal = ({ isOpen, toggle, postID }) => {
   const confirm = async () => {

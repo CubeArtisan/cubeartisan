@@ -19,10 +19,10 @@
 /* eslint-disable no-loop-func */
 import seedrandom from 'seedrandom';
 
-import { moveOrAddCard } from '@hypercube/client/drafting/DraftLocation';
-import { calculateBotPick } from '@hypercube/client/drafting/draftbots';
-import { cardType } from '@hypercube/client/utils/Card';
-import { cmcColumn, toNullableInt } from '@hypercube/client/utils/Util';
+import { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation';
+import { calculateBotPick } from '@cubeartisan/client/drafting/draftbots';
+import { cardType } from '@cubeartisan/client/utils/Card';
+import { cmcColumn, toNullableInt } from '@cubeartisan/client/utils/Util';
 
 export const defaultStepsForLength = (length) =>
   new Array(length)

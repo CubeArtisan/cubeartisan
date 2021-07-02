@@ -20,7 +20,7 @@ import { useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { NavLink } from 'reactstrap';
-import Tooltip from '@hypercube/client/components/Tooltip';
+import Tooltip from '@cubeartisan/client/components/Tooltip';
 
 const HeaderCell = ({ label, fieldName, sortConfig, requestSort, tooltip, ...props }) => {
   const active = sortConfig && sortConfig.key === fieldName;

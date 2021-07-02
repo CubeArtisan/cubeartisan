@@ -18,7 +18,7 @@
  */
 import { createContext, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from '@hypercube/client/proptypes/CardPropType';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
 
 const MaybeboardContext = createContext({
   maybeboard: [],

@@ -17,10 +17,10 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import { useState, useCallback } from 'react';
-import ArticlePropType from '@hypercube/client/proptypes/ArticlePropType';
+import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType';
 
 import { Card } from 'reactstrap';
-import AspectRatioBox from '@hypercube/client/components/AspectRatioBox';
+import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox';
 import TimeAgo from 'react-timeago';
 
 const ArticlePreview = ({ article }) => {

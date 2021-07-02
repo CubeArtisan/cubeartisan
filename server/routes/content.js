@@ -18,17 +18,17 @@
  */
 // Load Environment Variables
 import express from 'express';
-import { ensureAuth, ensureRole, csrfProtection } from '@hypercube/server/routes/middleware';
-import { render } from '@hypercube/server/serverjs/render';
-import { getFeedData } from '@hypercube/server/serverjs/rss';
-import { updatePodcast } from '@hypercube/server/serverjs/podcast';
-import generateMeta from '@hypercube/server/serverjs/meta';
-import Application from '@hypercube/server/models/application';
-import Article from '@hypercube/server/models/article';
-import Podcast from '@hypercube/server/models/podcast';
-import PodcastEpisode from '@hypercube/server/models/podcastEpisode';
-import Video from '@hypercube/server/models/video';
-import { redirect, wrapAsyncApi } from '@hypercube/server/serverjs/util';
+import { ensureAuth, ensureRole, csrfProtection } from '@cubeartisan/server/routes/middleware';
+import { render } from '@cubeartisan/server/serverjs/render';
+import { getFeedData } from '@cubeartisan/server/serverjs/rss';
+import { updatePodcast } from '@cubeartisan/server/serverjs/podcast';
+import generateMeta from '@cubeartisan/server/serverjs/meta';
+import Application from '@cubeartisan/server/models/application';
+import Article from '@cubeartisan/server/models/article';
+import Podcast from '@cubeartisan/server/models/podcast';
+import PodcastEpisode from '@cubeartisan/server/models/podcastEpisode';
+import Video from '@cubeartisan/server/models/video';
+import { redirect, wrapAsyncApi } from '@cubeartisan/server/serverjs/util';
 
 import dotenv from 'dotenv';
 

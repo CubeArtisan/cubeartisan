@@ -4,8 +4,8 @@
         "target": "es6",
         "baseUrl": "./",
         "paths": {
-            "@hypercube/server/*": ["./server/*"],
-            "@hypercube/client/*": ["./client/*"]
+            "@cubeartisan/server/*": ["./server/*"],
+            "@cubeartisan/client/*": ["./client/*"]
         }
     },
     "include": ["server/**/*", "client/**/*"]

@@ -18,8 +18,8 @@
  */
 import fs from 'fs';
 import winston from 'winston';
-import util from '@hypercube/server/serverjs/util';
-import { SortFunctions, ORDERED_SORTS } from '@hypercube/client/utils/Sort';
+import util from '@cubeartisan/server/serverjs/util';
+import { SortFunctions, ORDERED_SORTS } from '@cubeartisan/client/utils/Sort';
 
 // eslint-disable-next-line
 let data = {

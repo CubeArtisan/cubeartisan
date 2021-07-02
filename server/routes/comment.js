@@ -18,19 +18,19 @@
  */
 // Load Environment Variables
 import express from 'express';
-import { addMultipleNotifications, addNotification, wrapAsyncApi } from '@hypercube/server/serverjs/util';
-import Comment from '@hypercube/server/models/comment';
-import User from '@hypercube/server/models/user';
-import Report from '@hypercube/server/models/report';
-import Deck from '@hypercube/server/models/deck';
-import Article from '@hypercube/server/models/article';
-import Video from '@hypercube/server/models/video';
-import Podcast from '@hypercube/server/models/podcast';
-import PodcastEpisode from '@hypercube/server/models/podcastEpisode';
-import Blog from '@hypercube/server/models/blog';
-import Package from '@hypercube/server/models/package';
-import { render } from '@hypercube/server/serverjs/render';
-import { ensureAuth, csrfProtection } from '@hypercube/server/routes/middleware';
+import { addMultipleNotifications, addNotification, wrapAsyncApi } from '@cubeartisan/server/serverjs/util';
+import Comment from '@cubeartisan/server/models/comment';
+import User from '@cubeartisan/server/models/user';
+import Report from '@cubeartisan/server/models/report';
+import Deck from '@cubeartisan/server/models/deck';
+import Article from '@cubeartisan/server/models/article';
+import Video from '@cubeartisan/server/models/video';
+import Podcast from '@cubeartisan/server/models/podcast';
+import PodcastEpisode from '@cubeartisan/server/models/podcastEpisode';
+import Blog from '@cubeartisan/server/models/blog';
+import Package from '@cubeartisan/server/models/package';
+import { render } from '@cubeartisan/server/serverjs/render';
+import { ensureAuth, csrfProtection } from '@cubeartisan/server/routes/middleware';
 
 import dotenv from 'dotenv';
 

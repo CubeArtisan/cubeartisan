@@ -20,12 +20,12 @@ import PropTypes from 'prop-types';
 
 import { CardHeader, Card, Row, Col } from 'reactstrap';
 
-import DynamicFlash from '@hypercube/client/components/DynamicFlash';
-import PodcastPreview from '@hypercube/client/components/PodcastPreview';
-import Paginate from '@hypercube/client/components/Paginate';
-import PodcastEpisodePreview from '@hypercube/client/components/PodcastEpisodePreview';
-import MainLayout from '@hypercube/client/layouts/MainLayout';
-import RenderToRoot from '@hypercube/client/utils/RenderToRoot';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
+import PodcastPreview from '@cubeartisan/client/components/PodcastPreview';
+import Paginate from '@cubeartisan/client/components/Paginate';
+import PodcastEpisodePreview from '@cubeartisan/client/components/PodcastEpisodePreview';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
 
 const PAGE_SIZE = 24;
 

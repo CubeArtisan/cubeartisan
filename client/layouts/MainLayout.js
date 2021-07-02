@@ -32,16 +32,16 @@ import {
   DropdownMenu,
 } from 'reactstrap';
 
-import CreateCubeModal from '@hypercube/client/components/CreateCubeModal';
-import ErrorBoundary from '@hypercube/client/components/ErrorBoundary';
-import LoginModal from '@hypercube/client/components/LoginModal';
-import NotificationsNav from '@hypercube/client/components/NotificationsNav';
-import withModal from '@hypercube/client/components/WithModal';
-import SiteCustomizationContext from '@hypercube/client/contexts/SiteCustomizationContext';
-import ThemeContext from '@hypercube/client/contexts/ThemeContext';
-import UserContext from '@hypercube/client/contexts/UserContext';
-import useToggle from '@hypercube/client/hooks/UseToggle';
-import Footer from '@hypercube/client/layouts/Footer';
+import CreateCubeModal from '@cubeartisan/client/components/CreateCubeModal';
+import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
+import LoginModal from '@cubeartisan/client/components/LoginModal';
+import NotificationsNav from '@cubeartisan/client/components/NotificationsNav';
+import withModal from '@cubeartisan/client/components/WithModal';
+import SiteCustomizationContext from '@cubeartisan/client/contexts/SiteCustomizationContext';
+import ThemeContext from '@cubeartisan/client/contexts/ThemeContext';
+import UserContext from '@cubeartisan/client/contexts/UserContext';
+import useToggle from '@cubeartisan/client/hooks/UseToggle';
+import Footer from '@cubeartisan/client/layouts/Footer';
 
 const LoginModalLink = withModal(NavLink, LoginModal);
 const CreateCubeModalLink = withModal(DropdownItem, CreateCubeModal);

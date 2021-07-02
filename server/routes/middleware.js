@@ -21,8 +21,8 @@ import { validationResult } from 'express-validator';
 import onFinished from 'on-finished';
 import uuid from 'uuid/v4';
 
-import User from '@hypercube/server/models/user';
-import winston from '@hypercube/server/serverjs/winstonConfig';
+import User from '@cubeartisan/server/models/user';
+import winston from '@cubeartisan/server/serverjs/winstonConfig';
 
 export const setCorsUnrestricted = (_req, res, next) => {
   res.set('Access-Control-Allow-Origin', '*');

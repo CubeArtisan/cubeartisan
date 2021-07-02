@@ -19,14 +19,14 @@
 import NodeCache from 'node-cache';
 import Papa from 'papaparse';
 import sanitizeHtml from 'sanitize-html';
-import winston from '@hypercube/server/serverjs/winstonConfig';
-import CardRating from '@hypercube/server/models/cardrating';
-import Cube from '@hypercube/server/models/cube';
-import CubeAnalytic from '@hypercube/server/models/cubeAnalytic';
-import { getDraftFormat, createDraft } from '@hypercube/client/drafting/createdraft';
-import { getDrafterState } from '@hypercube/client/drafting/draftutil';
-import { hasProfanity, toBase36 } from '@hypercube/server/serverjs/util';
-import { arraysEqual } from '@hypercube/client/utils/Util';
+import winston from '@cubeartisan/server/serverjs/winstonConfig';
+import CardRating from '@cubeartisan/server/models/cardrating';
+import Cube from '@cubeartisan/server/models/cube';
+import CubeAnalytic from '@cubeartisan/server/models/cubeAnalytic';
+import { getDraftFormat, createDraft } from '@cubeartisan/client/drafting/createdraft';
+import { getDrafterState } from '@cubeartisan/client/drafting/draftutil';
+import { hasProfanity, toBase36 } from '@cubeartisan/server/serverjs/util';
+import { arraysEqual } from '@cubeartisan/client/utils/Util';
 
 const ELO_BASE = 1200;
 const ELO_SPEED = 1 / 128;

@@ -22,25 +22,25 @@ import mailer from 'nodemailer';
 import { body } from 'express-validator';
 import Email from 'email-templates';
 import path from 'path';
-import { addNotification, handleRouteError, hasProfanity, wrapAsyncApi } from '@hypercube/server/serverjs/util';
-import carddb from '@hypercube/server/serverjs/cards';
-import render from '@hypercube/server/serverjs/render';
+import { addNotification, handleRouteError, hasProfanity, wrapAsyncApi } from '@cubeartisan/server/serverjs/util';
+import carddb from '@cubeartisan/server/serverjs/cards';
+import render from '@cubeartisan/server/serverjs/render';
 
 // Bring in models
-import User from '@hypercube/server/models/user';
+import User from '@cubeartisan/server/models/user';
 
-import PasswordReset from '@hypercube/server/models/passwordreset';
-import Cube from '@hypercube/server/models/cube';
-import Deck from '@hypercube/server/models/deck';
-import Blog from '@hypercube/server/models/blog';
+import PasswordReset from '@cubeartisan/server/models/passwordreset';
+import Cube from '@cubeartisan/server/models/cube';
+import Deck from '@cubeartisan/server/models/deck';
+import Blog from '@cubeartisan/server/models/blog';
 
 import {
   ensureAuth,
   csrfProtection,
   flashValidationErrors,
   jsonValidationErrors,
-} from '@hypercube/server/routes/middleware';
-import { getPackages } from '@hypercube/server/routes/package';
+} from '@cubeartisan/server/routes/middleware';
+import { getPackages } from '@cubeartisan/server/routes/package';
 
 const getFeedItems = async (req, res) => {
   const items = await Blog.find({
