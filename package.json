@@ -11,7 +11,7 @@
   "sideEffects": "false",
   "browserslist": "> 0.5%, Firefox ESR, not dead, not IE > 0, not IE_Mob > 0, not safari < 7, not kaios > 0",
   "scripts": {
-    "list-files": "bash -c 'shopt -s nullglob\n echo {__tests__,fixtures}/{**/*,*}.js server/{**/*,*}.js client/{**/*,*}.js *.cjs'",
+    "list-files": "bash -c './scripts/list-files.sh'",
     "prettier-base": "prettier `yarn run --silent list-files`",
     "prettier": "yarn run prettier-base -- --check",
     "prettier:fix": "yarn run prettier-base -- --write",
