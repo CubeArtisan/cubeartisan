@@ -55,6 +55,9 @@ rules:
     - error
     - patterns: ['./*', '../*']
 overrides:
+  - files: ['**/*.cjs']
+    rules:
+      import/no-commonjs: off
   - files: ['server/**']
     rules:
       no-console: error

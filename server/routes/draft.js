@@ -16,7 +16,20 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-router.get('/:id', async (req, res) => {
+import express from 'express';
+import { handleRouteError } from '@hypercube/server/serverjs/util';
+import { abbreviate, buildIdQuery, saveDraftAnalytics } from '@hypercube/server/serverjs/cubefn';
+import generateMeta from '@hypercube/server/serverjs/meta';
+import { fromEntries, getCubeDescription } from '@hypercube/client/utils/Util';
+import carddb from '@hypercube/server/serverjs/cards';
+import Draft from '@hypercube/server/models/draft';
+import Cube from '@hypercube/server/models/cube';
+import CubeAnalytic from '@hypercube/server/models/cubeAnalytic';
+import User from '@hypercube/server/models/user';
+import render from '@hypercube/server/serverjs/render';
+import { createPool, rotateArrayLeft } from '@hypercube/server/routes/cube/helper';
+
+const getDraftPage = async (req, res) => {
   try {
     const draft = await Draft.findById(req.params.id).lean();
     if (!draft) {
@@ -40,7 +53,7 @@ router.get('/:id', async (req, res) => {
     let eloOverrideDict = {};
     if (cube.useCubeElo) {
       const analytic = await CubeAnalytic.findOne({ cube: cube._id });
-      eloOverrideDict = fromEntries(analytic.cards.map((c) => [c.cardName, c.elo]));
+      eloOverrideDict = Object.fromEntries(analytic.cards.map((c) => [c.cardName, c.elo]));
     }
 
     // insert card details everywhere that needs them
@@ -63,18 +76,18 @@ router.get('/:id', async (req, res) => {
         title: `${abbreviate(cube.name)} - Draft`,
         metadata: generateMeta(
           `${process.env.SITE_NAME} Draft: ${cube.name}`,
-          miscutil.getCubeDescription(cube),
+          getCubeDescription(cube),
           cube.image_uri,
           `${process.env.SITE_ROOT}/cube/draft/${encodeURIComponent(req.params.id)}`,
         ),
       },
     );
   } catch (err) {
-    return util.handleRouteError(req, res, err, '/404');
+    return handleRouteError(req, res, err, '/404');
   }
-});
+};
 
-router.post('/:id/:seat/redraft', async (req, res) => {
+const redraftDraft = async (req, res) => {
   try {
     // TODO: Handle gridDraft here.
     const srcDraft = await Draft.findById(req.params.id).lean();
@@ -135,11 +148,11 @@ router.post('/:id/:seat/redraft', async (req, res) => {
       draft,
     });
   } catch (err) {
-    return util.handleRouteError(req, res, err, `/cube/playtest/${encodeURIComponent(req.params.id)}`);
+    return handleRouteError(req, res, err, `/cube/playtest/${encodeURIComponent(req.params.id)}`);
   }
-});
+};
 
-router.post('/:id', async (req, res) => {
+const submitDraft = async (req, res) => {
   const draft = await Draft.findOne({
     _id: req.body._id,
   });
@@ -151,4 +164,10 @@ router.post('/:id', async (req, res) => {
   return res.status(200).send({
     success: 'true',
   });
-});
+};
+
+const router = express.Router();
+router.get('/:id', getDraftPage);
+router.post('/:id', submitDraft);
+router.post('/:id/:seat/redraft', redraftDraft);
+export default router;

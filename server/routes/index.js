@@ -30,6 +30,7 @@ import fileUpload from 'express-fileupload';
 import compression from 'compression';
 import MongoDBStoreFactory from 'connect-mongodb-session';
 import schedule from 'node-schedule';
+import dotenv from 'dotenv';
 
 import winston from '@hypercube/server/serverjs/winstonConfig';
 import updatedb from '@hypercube/server/serverjs/updatecards';
@@ -58,8 +59,6 @@ import PodcastEpisode from '@hypercube/server/models/podcastEpisode';
 import { makeFilter } from '@hypercube/server/serverjs/filterCubes';
 import { ensureAuth, requestLogging, timeoutMiddleware } from '@hypercube/server/routes/middleware';
 import { getCubeId } from '@hypercube/server/serverjs/cubefn';
-
-import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -609,7 +608,7 @@ app.get('/fullnames', getFullNames);
 app.get('/login', (req, res) => render(req, res, 'LoginPage'));
 app.post('/login', loginUser);
 app.post('/logout', logoutUser);
-app.use(showErrorPage);
+app.get('/404', showErrorPage);
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, _next) => {
   req.logger.error(err);
@@ -622,6 +621,7 @@ app.use((err, req, res, _next) => {
     title: 'Oops! Something went wrong.',
   });
 });
+app.use((_req, res) => res.redirect(303, '/404'));
 
 // Start server after carddb is initialized.
 carddb.initializeCardDb().then(() => {

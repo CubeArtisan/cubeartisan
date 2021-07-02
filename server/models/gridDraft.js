@@ -18,8 +18,9 @@
  */
 import mongoose from 'mongoose';
 import cardSchema from '@hypercube/server/models/shared/cardSchema';
+import migrations from '@hypercube/server/models/migrations/gridDraftMigrations';
 
-const CURRENT_SCHEMA_VERSION = require('./migrations/deckMigrations').slice(-1)[0].version;
+const CURRENT_SCHEMA_VERSION = migrations.slice(-1)[0].version;
 
 // data for each seat, human or bot
 const Seat = {

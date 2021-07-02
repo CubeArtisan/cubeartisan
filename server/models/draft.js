@@ -19,8 +19,9 @@
 import mongoose from 'mongoose';
 import cardSchema from '@hypercube/server/models/shared/cardSchema';
 import stepsSchema from '@hypercube/server/models/shared/stepsSchema';
+import migrations from '@hypercube/server/models/migrations/draftMigrations';
 
-const CURRENT_SCHEMA_VERSION = require('./migrations/draftMigrations').slice(-1)[0].version;
+const CURRENT_SCHEMA_VERSION = migrations.slice(-1)[0].version;
 
 // Details on each pack, how to draft and what's in it.
 const Pack = {

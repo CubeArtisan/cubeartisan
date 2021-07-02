@@ -18,8 +18,9 @@
  */
 // Load Environment Variables
 import winston from 'winston';
+import dotenv from 'dotenv';
 
-require('dotenv').config();
+dotenv.config();
 
 const linearFormat = winston.format((info) => {
   if (info.message) {
