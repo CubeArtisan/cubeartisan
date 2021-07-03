@@ -40,8 +40,11 @@ const config = {
     minimize: true,
     minimizer: [
       new TerserPlugin({
+        test: /\.jsx?$/,
         parallel: true,
-        sourceMap: true,
+        terserOptions: {
+          compress: {},
+        },
       }),
     ],
     usedExports: true,

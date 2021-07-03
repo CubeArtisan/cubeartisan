@@ -4,7 +4,7 @@ import markdownLineEnding from 'micromark/dist/character/markdown-line-ending';
 import spaceFactory from 'micromark/dist/tokenize/factory-space';
 import types from 'micromark/lib/constant/types';
 import codes from 'micromark/lib/character/codes';
-import { shallowEqual } from 'markdown/utils';
+import { shallowEqual } from '@cubeartisan/client/markdown/utils';
 
 function centering() {
   let shouldEnd = false;

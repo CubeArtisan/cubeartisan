@@ -1,7 +1,6 @@
 @include "./filterBase.ne"
 
 @{%
-import { CARD_CATEGORY_DETECTORS } from 'utils/Card';
 import {
   defaultOperation,
   stringOperation,
@@ -16,8 +15,9 @@ import {
   setElementOperation,
   setCountOperation,
   devotionOperation,
-} from 'filtering/FuncOperations';
+} from '@cubeartisan/client/filtering/FuncOperations';
 import {
+  CARD_CATEGORY_DETECTORS,
   cardCmc,
   cardColors,
   cardColorIdentity,
@@ -47,7 +47,7 @@ import {
   cardLayout,
   cardDevotion,
   cardLegalIn
-} from 'utils/Card';
+} from '@cubeartisan/client/utils/Card';
 %} # %}
 
 @{%

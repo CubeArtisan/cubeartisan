@@ -1,6 +1,6 @@
-import syntax from 'markdown/centering/micromark-centering';
-import { fromMarkdown } from 'markdown/centering/mdast-centering';
-import { add } from 'markdown/utils';
+import syntax from '@cubeartisan/client/markdown/centering/micromark-centering';
+import { fromMarkdown } from '@cubeartisan/client/markdown/centering/mdast-centering';
+import { add } from '@cubeartisan/client/markdown/utils';
 
 function centering() {
   const data = this.data();
