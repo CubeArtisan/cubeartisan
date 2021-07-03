@@ -266,11 +266,47 @@ const getFlipImageById = async (req, res) => {
   }
 };
 
+const getDetailsForCards = async (req, res) => {
+  return res.status(200).send({
+    success: 'true',
+    details: req.body.cards.map(getCardFromId),
+  });
+};
+
+const listCardNames = (_, res) => {
+  return res.status(200).send({
+    success: 'true',
+    cardnames: carddb.cardtree,
+  });
+};
+
+// Get the full card images including image_normal and image_flip
+const getCardImageUrls = (_, res) => {
+  return res.status(200).send({
+    success: 'true',
+    cardimages: carddb.cardimages,
+  });
+};
+
+const getImageDict = (_, res) => {
+  return res.status(200).send({
+    success: 'true',
+    dict: carddb.imagedict,
+  });
+};
+
+const getFullNames = (_, res) => {
+  return res.status(200).send({
+    success: 'true',
+    cardnames: carddb.full_names,
+  });
+};
+
 const router = express.Router();
-router.get('/card/:id', getCardObj);
+router.get('/card/:id/details', getCardObj);
 router.get('/card/:id/image', getImageForId);
 router.get('/card/:id/image/redirect', getImageRedirectForId);
-router.get('/card/:id/info', getInfoForId);
+router.get('/card/:id', getInfoForId);
 router.get('/card/:id/flip/image', getFlipImageById);
 router.get('/card/:id/versions', wrapAsyncApi(getAllVersionsForId));
 router.post(
@@ -285,4 +321,9 @@ router.post(
 router.get('/cards/search', (req, res) => render(req, res, 'CardSearchPage', {}, { title: 'Search Cards' }));
 router.get('/cards/search/query', doCardSearch);
 router.get('/cards/random', redirectToRandomCard);
+router.post('/cards/details', getDetailsForCards);
+router.get('/cards/names', listCardNames);
+router.get('/cards/images', getCardImageUrls);
+router.get('/cards/images/dict', getImageDict);
+router.get('/cards/names/full', getFullNames);
 export default router;

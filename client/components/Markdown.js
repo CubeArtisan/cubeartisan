@@ -101,7 +101,7 @@ const renderInlineMath = (node) => <Latex trusted={false}>{`$ ${node.value} $`}<
 const renderUserlink = (node) => {
   const name = node.value;
   return (
-    <a href={`/user/view/${name}`} target="_blank" rel="noopener noreferrer">
+    <a href={`/user/${name}`} target="_blank" rel="noopener noreferrer">
       @{name}
     </a>
   );
@@ -114,8 +114,8 @@ const renderSymbol = (node) => {
 
 const renderCardlink = ({ name, id, dfc }) => {
   const idURL = encodeURIComponent(id);
-  const details = { image_normal: `/tool/cardimage/${idURL}` };
-  if (dfc) details.image_flip = `/tool/cardimageflip/${idURL}`;
+  const details = { image_normal: `/card/${idURL}/image/redirect` };
+  if (dfc) details.image_flip = `/card/${idURL}/flip/image`;
 
   return (
     <AutocardLink href={`/tool/card/${idURL}`} card={{ details }} target="_blank" rel="noopener noreferrer">
@@ -126,12 +126,12 @@ const renderCardlink = ({ name, id, dfc }) => {
 
 const renderCardImage = (node) => {
   const idURL = encodeURIComponent(node.id);
-  const details = { image_normal: `/tool/cardimage/${idURL}` };
-  if (node.dfc) details.image_flip = `/tool/cardimageflip/${idURL}`;
+  const details = { image_normal: `/card/${idURL}image/redirect` };
+  if (node.dfc) details.image_flip = `/card/${idURL}/flip/image`;
 
   return (
     <Col className="card-image" xs="6" md="4" lg="3">
-      <a href={`/tool/card/${idURL}`} target="_blank" rel="noopener noreferrer">
+      <a href={`/card/${idURL}`} target="_blank" rel="noopener noreferrer">
         <FoilCardImage autocard card={{ details }} className="clickable" />
       </a>
     </Col>

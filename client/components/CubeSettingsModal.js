@@ -21,7 +21,7 @@ import PropTypes from 'prop-types';
 
 import { Button, CustomInput, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
-import { postJson } from '@cubeartisan/client/utils/CSRF';
+import { putJson } from '@cubeartisan/client/utils/CSRF';
 import { formDataObject } from '@cubeartisan/client/utils/Form';
 
 import CSRFForm from '@cubeartisan/client/components/CSRFForm';
@@ -34,7 +34,7 @@ const CubeSettingsModal = ({ addAlert, onCubeUpdate, isOpen, toggle }) => {
 
   const handleSave = useCallback(async () => {
     const formObject = formDataObject(formRef.current);
-    const response = await postJson(`/cube/api/settings/${cubeID}`, formObject);
+    const response = await putJson(`/cube/${cubeID}/settings`, formObject);
     const json = await response.json();
     // eslint-disable-next-line no-underscore-dangle
     delete formObject._csrf;

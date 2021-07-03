@@ -67,7 +67,12 @@ class BlogContextMenu extends Component {
             <DropdownItem onClick={this.openDeleteModal}>Delete</DropdownItem>
           </DropdownMenu>
         </Dropdown>
-        <BlogDeleteModal toggle={this.toggleDeleteModal} isOpen={deleteModalOpen} postID={post._id} />
+        <BlogDeleteModal
+          toggle={this.toggleDeleteModal}
+          isOpen={deleteModalOpen}
+          postID={post._id}
+          cubeID={post.cube}
+        />
       </>
     );
   }
@@ -76,6 +81,7 @@ class BlogContextMenu extends Component {
 BlogContextMenu.propTypes = {
   post: PropTypes.shape({
     _id: PropTypes.string.isRequired,
+    cube: PropTypes.string.isRequired,
   }).isRequired,
   value: PropTypes.string.isRequired,
   onEdit: PropTypes.func.isRequired,

@@ -25,7 +25,7 @@ import CSRFForm from '@cubeartisan/client/components/CSRFForm';
 const CreateCubeModal = ({ isOpen, toggle }) => (
   <Modal size="lg" isOpen={isOpen} toggle={toggle}>
     <ModalHeader toggle={toggle}>Create New Cube</ModalHeader>
-    <CSRFForm method="POST" action="/cube/add">
+    <CSRFForm method="POST" action="/cube">
       <ModalBody>
         <FormGroup>
           <Row>

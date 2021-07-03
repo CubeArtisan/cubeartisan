@@ -74,8 +74,8 @@ const MaybeboardListItem = ({ card, className }) => {
       }
 
       setLoading(true);
-      const response = await csrfFetch(`/cube/api/maybe/${cubeID}`, {
-        method: 'POST',
+      const response = await csrfFetch(`/cube/${cubeID}/maybe`, {
+        method: 'PUT',
         body: JSON.stringify({
           remove: [index],
         }),
@@ -162,8 +162,8 @@ const Maybeboard = ({ filter, ...props }) => {
           return;
         }
 
-        const response = await csrfFetch(`/cube/api/maybe/${cubeID}`, {
-          method: 'POST',
+        const response = await csrfFetch(`/cube/${cubeID}/maybe`, {
+          method: 'PUT',
           body: JSON.stringify({
             add: [{ details: card }],
           }),
@@ -213,7 +213,7 @@ const Maybeboard = ({ filter, ...props }) => {
           <Row noGutters>
             <Col xs="9" sm="auto" className="pr-2">
               <AutocompleteInput
-                treeUrl="/cube/api/cardnames"
+                treeUrl="/card/names"
                 treePath="cardnames"
                 type="text"
                 className="w-100"

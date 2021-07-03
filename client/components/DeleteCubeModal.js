@@ -28,7 +28,7 @@ const DeleteCubeModal = ({ isOpen, toggle, cubeid }) => {
   return (
     <Modal size="lg" isOpen={isOpen} toggle={toggle}>
       <ModalHeader toggle={toggle}>Confirm Cube Delete</ModalHeader>
-      <CSRFForm method="POST" action={`/cube/remove/${cubeid}`}>
+      <CSRFForm method="DELETE" action={`/cube/${cubeid}`}>
         <ModalBody>
           <p>Are you sure you wish to delete this cube? This action cannot be undone.</p>
           <p>Please type 'Delete' in order to confirm</p>

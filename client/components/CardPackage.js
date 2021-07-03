@@ -44,7 +44,7 @@ const CardPackage = ({ cardPackage, refresh }) => {
   const toggleVote = async () => {
     if (voted) {
       // downvote
-      const response = await csrfFetch(`/packages/downvote/${cardPackage._id}`);
+      const response = await csrfFetch(`/package/${cardPackage._id}/vote`, { method: 'DELETE' });
       if (response.ok) {
         const json = await response.json();
         if (json.success === 'true') {
@@ -53,7 +53,7 @@ const CardPackage = ({ cardPackage, refresh }) => {
       }
     } else {
       // upvote
-      const response = await csrfFetch(`/packages/upvote/${cardPackage._id}`);
+      const response = await csrfFetch(`/package/${cardPackage._id}/vote`, { method: 'POST' });
       if (response.ok) {
         const json = await response.json();
         if (json.success === 'true') {
@@ -64,21 +64,21 @@ const CardPackage = ({ cardPackage, refresh }) => {
   };
 
   const approve = async () => {
-    const response = await csrfFetch(`/packages/approve/${cardPackage._id}`);
+    const response = await csrfFetch(`/package/${cardPackage._id}/approve`, { method: 'POST' });
     if (response.ok) {
       refresh();
     }
   };
 
   const unapprove = async () => {
-    const response = await csrfFetch(`/packages/unapprove/${cardPackage._id}`);
+    const response = await csrfFetch(`/package/${cardPackage._id}/approve`, { method: 'DELETE' });
     if (response.ok) {
       refresh();
     }
   };
 
   const remove = async () => {
-    const response = await csrfFetch(`/packages/remove/${cardPackage._id}`);
+    const response = await csrfFetch(`/package/${cardPackage._id}`, { method: 'DELETE' });
     if (response.ok) {
       refresh();
     }
@@ -90,10 +90,10 @@ const CardPackage = ({ cardPackage, refresh }) => {
         <Row>
           <Col xs="12" sm="6">
             <h5 className="card-title">
-              <a href={`/packages/${cardPackage._id}`}>{cardPackage.title}</a>
+              <a href={`/package/${cardPackage._id}`}>{cardPackage.title}</a>
             </h5>
             <h6 className="card-subtitle mb-2 text-muted">
-              <a href={`/user/view/${cardPackage.userid}`}>{cardPackage.username}</a>
+              <a href={`/user/${cardPackage.userid}`}>{cardPackage.username}</a>
               {' submitted '}
               <TimeAgo date={cardPackage.date} />
             </h6>
@@ -158,8 +158,8 @@ const CardPackage = ({ cardPackage, refresh }) => {
           {cardPackage.cards.map((cardId) => (
             <Col key={`${cardPackage._id}-${cardId}`} className="col-6 col-md-2-4 col-lg-2-4 col-xl-2-4">
               <Card className="mb-3">
-                <AutocardA href={`/tool/card/${cardId}`} front={`/tool/cardimage/${cardId}`} target="_blank">
-                  <img className="w-100" src={`/tool/cardimage/${cardId}`} alt={cardId} />
+                <AutocardA href={`/card/${cardId}`} front={`/card/${cardId}/image`} target="_blank">
+                  <img className="w-100" src={`/card/${cardId}/image`} alt={cardId} />
                 </AutocardA>
               </Card>
             </Col>

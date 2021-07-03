@@ -38,7 +38,7 @@ const CreatorVideos = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await csrfFetch(`/content/api/videos/${user.id}/${page}`);
+      const response = await csrfFetch(`/videos/${user.id}/${page}`);
       if (!response.ok) {
         console.log(response);
       }
@@ -56,12 +56,13 @@ const CreatorVideos = () => {
     setPage(index);
   };
 
+  // TODO: Make video creation a POST request.
   return (
     <>
       <Navbar light expand className="usercontrols mb-3">
         <Nav navbar>
           <NavItem>
-            <NavLink href="/content/newvideo" className="clickable">
+            <NavLink href="/video" className="clickable">
               Create New Video
             </NavLink>
           </NavItem>

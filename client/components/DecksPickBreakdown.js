@@ -127,7 +127,7 @@ const DecksPickBreakdownInternal = ({ draft, seatIndex, defaultIndex }) => {
         <Row noGutters>
           {cardsInPack.map((cardIndex) => (
             <Col key={/* eslint-disable-line react/no-array-index-key */ cardIndex} xs={4} sm={2}>
-              <a href={`/tool/card/${encodeName(cards[cardIndex].details.name)}`}>
+              <a href={`/card/${encodeName(cards[cardIndex].details.name)}`}>
                 <FoilCardImage autocard data-in-modal card={cards[cardIndex]} className="clickable" />
               </a>
             </Col>

@@ -50,7 +50,7 @@ import TextEntry from '@cubeartisan/client/components/TextEntry';
 export const getCard = async (cubeID, name, setAlerts) => {
   if (name && name.length > 0) {
     const normalized = encodeName(name);
-    const response = await fetch(`/cube/api/getcardforcube/${cubeID}/${normalized}`);
+    const response = await fetch(`/cube/${cubeID}/card/${normalized}`);
     if (!response.ok) {
       const message = `Couldn't get card: ${response.status}.`;
       if (setAlerts) {
@@ -192,7 +192,7 @@ const EditCollapse = ({ ...props }) => {
           <Form inline className="mb-2 mr-2" onSubmit={handleAdd}>
             <InputGroup className="flex-nowrap">
               <AutocompleteInput
-                treeUrl={specifyEdition ? '/cube/api/fullnames' : '/cube/api/cardnames'}
+                treeUrl={specifyEdition ? '/cards/names/full' : '/cards/names'}
                 treePath="cardnames"
                 type="text"
                 innerRef={addInputRef}
@@ -216,7 +216,7 @@ const EditCollapse = ({ ...props }) => {
             <InputGroup className="flex-nowrap">
               <AutocompleteInput
                 cubeId={cube._id}
-                treeUrl={`/cube/api/cubecardnames/${cubeID}`}
+                treeUrl={`/cube/${cubeID}/cards/names`}
                 treePath="cardnames"
                 type="text"
                 innerRef={removeInputRef}
@@ -259,7 +259,7 @@ const EditCollapse = ({ ...props }) => {
         </Button>
       </Row>
       <Collapse isOpen={changes.length > 0} className="pt-1">
-        <CSRFForm method="POST" action={`/cube/edit/${cubeID}`} onSubmit={handleMentions}>
+        <CSRFForm method="PUT" action={`/cube/${cubeID}`} onSubmit={handleMentions}>
           <Row>
             <Col>
               <h6>Changelist</h6>

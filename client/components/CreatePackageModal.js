@@ -45,7 +45,7 @@ const CreatePackageModal = ({ isOpen, toggle, onError, onSuccess }) => {
   const [imageDict, setImageDict] = useState({});
 
   useEffect(() => {
-    fetch('/cube/api/imagedict')
+    fetch('/cards/images/dict')
       .then((response) => response.json())
       .then((json) => {
         setImageDict(json.dict);
@@ -63,7 +63,7 @@ const CreatePackageModal = ({ isOpen, toggle, onError, onSuccess }) => {
   };
 
   const save = async () => {
-    const response = await csrfFetch(`/packages/submit/`, {
+    const response = await csrfFetch(`/package`, {
       method: 'POST',
       body: JSON.stringify({ cards, packageName }),
       headers: {
@@ -107,7 +107,7 @@ const CreatePackageModal = ({ isOpen, toggle, onError, onSuccess }) => {
         <Row className="pb-3">
           <Col xs="12" md="8">
             <AutocompleteInput
-              treeUrl="/cube/api/fullnames"
+              treeUrl="/cards/names/full"
               treePath="cardnames"
               type="text"
               className="mr-2"
@@ -135,7 +135,7 @@ const CreatePackageModal = ({ isOpen, toggle, onError, onSuccess }) => {
           {cards.map((cardId, index) => (
             <Col key={cardId} className="col-6 col-md-2-4 col-lg-2-4 col-xl-2-4">
               <Card className="mb-3">
-                <img className="w-100" src={`/tool/cardimage/${cardId}`} alt={cardId} />
+                <img className="w-100" src={`/card/${cardId}/image/redirect`} alt={cardId} />
                 <Button
                   className="mt-1"
                   color="danger"

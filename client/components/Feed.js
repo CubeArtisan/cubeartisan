@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -25,6 +25,7 @@ import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
 
 import { Spinner } from 'reactstrap';
 import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType';
+import UserContext from '@cubeartisan/client/contexts/UserContext';
 
 const wait = async (ms) => {
   return new Promise((resolve) => {
@@ -34,12 +35,13 @@ const wait = async (ms) => {
 
 const Feed = ({ items }) => {
   const [feedItems, setFeedItems] = useState(items);
+  const { _id: userID } = useContext(UserContext);
 
   const fetchMoreData = async () => {
     // intentionally wait to avoid too many DB queries
     await wait(2000);
 
-    const response = await csrfFetch(`/tool/getfeeditems/${feedItems.length}`, {
+    const response = await csrfFetch(`/user/${userID}/feeditems/${feedItems.length}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

@@ -178,7 +178,7 @@ const AdvancedFilterModal = ({ isOpen, toggle, apply, values, onChange, ...props
                   <InputGroupText>Tag</InputGroupText>
                 </InputGroupAddon>
                 <AutocompleteInput
-                  treeUrl={`/cube/api/cubecardtags/${cubeID}`}
+                  treeUrl={`/cube/${cubeID}/cards/tags`}
                   treePath="tags"
                   type="text"
                   name="tag"

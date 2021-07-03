@@ -3,8 +3,8 @@ import { FetchMock } from '@react-mock/fetch';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
-import CubeListPage from 'pages/CubeListPage';
-import { fromEntries } from 'utils/Util';
+import CubeListPage from '@cubeartisan/client/pages/CubeListPage';
+import { fromEntries } from '@cubeartisan/client/utils/Util';
 import exampleCube from '../../../fixtures/examplecube';
 import exampleCardsFull from '../../../fixtures/examplecardsdetails';
 
@@ -22,10 +22,10 @@ const cube = {
 const element = () => (
   <FetchMock
     mocks={[
-      { matcher: '/cube/api/cardnames', response: { success: 'true' } },
-      { matcher: '/cube/api/cubecardnames/1', response: { success: 'true' } },
+      { matcher: '/cards/names', response: { success: 'true' } },
+      { matcher: '/cube/1/cards/names', response: { success: 'true' } },
       {
-        matcher: '/cube/api/getversions',
+        matcher: '/cards/versions',
         response: {
           success: 'true',
           dict: fromEntries(

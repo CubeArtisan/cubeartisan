@@ -99,7 +99,7 @@ class CubeOverviewModal extends Component {
 
   async loadImageDict() {
     // load the card images
-    const image_resp = await fetch('/cube/api/imagedict');
+    const image_resp = await fetch('/cards/images/dict');
     const image_json = await image_resp.json();
     this.setState({ image_dict: image_json.dict });
   }
@@ -202,8 +202,8 @@ class CubeOverviewModal extends Component {
     const cube = { ...this.state.cube };
     cube.tags = this.state.tags.map((tag) => tag.text);
     cube.description = cube.raw_desc;
-    const response = await csrfFetch('/cube/api/editoverview', {
-      method: 'POST',
+    const response = await csrfFetch(`/cube/${cube._id}/overview`, {
+      method: 'PUT',
       body: JSON.stringify(cube),
       headers: {
         'Content-Type': 'application/json',
@@ -213,7 +213,7 @@ class CubeOverviewModal extends Component {
     if (response.ok) {
       if (this.state.urlChanged) {
         const cubeID = getCubeId(this.state.cube);
-        window.location.href = `/cube/overview/${encodeURIComponent(cubeID)}`;
+        window.location.href = `/cube/${encodeURIComponent(cubeID)}`;
       }
       this.props.onCubeUpdate(cube);
     } else if (json.message) {
@@ -228,6 +228,7 @@ class CubeOverviewModal extends Component {
 
   render() {
     const { cube, cubeID, tags, isOpen } = this.state;
+    const { userID } = this.props;
     return (
       <>
         <a className="nav-link" href="#" onClick={this.open}>
@@ -239,11 +240,12 @@ class CubeOverviewModal extends Component {
           defaultTagColors={cube.tag_colors}
           defaultShowTagColors={false}
           defaultTags={[]}
+          userID={userID}
         >
           <Modal size="lg" isOpen={isOpen} toggle={this.close}>
             <ModalHeader toggle={this.close}>Edit Overview</ModalHeader>
 
-            <form method="POST" action={`/cube/editoverview/${cubeID}`} autoComplete="off">
+            <form method="PUT" action={`/cube/${cubeID}/overview`} autoComplete="off">
               <ModalBody>
                 <h6>Cube Name</h6>
                 <input
@@ -344,7 +346,7 @@ class CubeOverviewModal extends Component {
                 </Row>
                 <br />
                 <AutocompleteInput
-                  treeUrl="/cube/api/fullnames"
+                  treeUrl="/cards/names/full"
                   treePath="cardnames"
                   type="text"
                   className="mr-2"
@@ -411,7 +413,6 @@ CubeOverviewModal.propTypes = {
   cube: CubePropType.isRequired,
   onError: PropTypes.func.isRequired,
   onCubeUpdate: PropTypes.func.isRequired,
+  userID: PropTypes.string.isRequired,
 };
-CubeOverviewModal.defaultProps = {};
-
 export default CubeOverviewModal;

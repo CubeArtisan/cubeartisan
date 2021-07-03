@@ -43,18 +43,18 @@ const BlogPost = ({ post, onEdit, noScroll }) => {
     <Card className="shadowed rounded-0 mb-3">
       <CardHeader className="pl-4 pr-0 pt-2 pb-0">
         <h5 className="card-title">
-          <a href={`/cube/blog/blogpost/${post._id}`}>{post.title}</a>
+          <a href={`/cube/${post.cube}/blog/post/${post._id}`}>{post.title}</a>
           <div className="float-sm-right">
             {canEdit && <BlogContextMenu className="float-sm-right" post={post} value="..." onEdit={onEdit} />}
           </div>
         </h5>
         <h6 className="card-subtitle mb-2 text-muted">
-          <a href={`/user/view/${post.owner}`}>{post.dev === 'true' ? 'Dekkaru' : post.username}</a>
+          <a href={`/user/${post.owner}`}>{post.dev === 'true' ? 'Dekkaru' : post.username}</a>
           {' posted to '}
           {post.dev === 'true' ? (
             <a href="/dev/blog/0">Developer Blog</a>
           ) : (
-            <a href={`/cube/overview/${post.cube}`}>{post.cubename}</a>
+            <a href={`/cube/${post.cube}`}>{post.cubename}</a>
           )}
           {' - '}
           <TimeAgo date={post.date} />

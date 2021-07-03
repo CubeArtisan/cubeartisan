@@ -111,8 +111,8 @@ const ListViewRow = ({ card, versions, versionsLoading, checked, onCheck, addAle
       }
 
       try {
-        const response = await csrfFetch(`/cube/api/updatecard/${cubeID}`, {
-          method: 'POST',
+        const response = await csrfFetch(`/cube/${cubeID}/card/${card.index}`, {
+          method: 'PUT',
           body: JSON.stringify({
             src: card,
             updated,
@@ -133,7 +133,7 @@ const ListViewRow = ({ card, versions, versionsLoading, checked, onCheck, addAle
           updateCubeCard(card.index, newCard);
           if (updated.cardID !== oldCardID) {
             // changed version
-            const getResponse = await fetch(`/cube/api/getcardfromid/${updated.cardID}`);
+            const getResponse = await fetch(`/card/${updated.cardID}/details`);
             const getJson = await getResponse.json();
             updateCubeCard(card.index, { ...newCard, details: { ...newCard.details, ...getJson.card } });
           }
@@ -364,7 +364,7 @@ const ListView = ({ cards }) => {
   useEffect(() => {
     const wrapper = async () => {
       setVersionsLoading(true);
-      const response = await csrfFetch('/cube/api/getversions', {
+      const response = await csrfFetch('/cards/versions', {
         method: 'POST',
         body: JSON.stringify(cube.cards.map(({ cardID }) => cardID)),
         headers: {

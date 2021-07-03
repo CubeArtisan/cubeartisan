@@ -30,7 +30,7 @@ const Article = ({ article }) => {
       <CardHeader>
         <h1>{article.title}</h1>
         <h6>
-          By <a href={`/user/view/${article.owner}`}>{article.username}</a>
+          By <a href={`/user/${article.owner}`}>{article.username}</a>
           {' | '}
           <TimeAgo date={article.date} />
         </h6>

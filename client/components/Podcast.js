@@ -31,7 +31,7 @@ const Podcast = ({ podcast, episodes }) => {
       <CardHeader>
         <h1>{podcast.title}</h1>
         <h6>
-          By <a href={`/user/view/${podcast.owner}`}>{podcast.username}</a>
+          By <a href={`/user/${podcast.owner}`}>{podcast.username}</a>
         </h6>
       </CardHeader>
       <Row>

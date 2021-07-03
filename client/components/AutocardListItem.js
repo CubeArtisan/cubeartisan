@@ -57,7 +57,7 @@ const AutocardListItem = ({ card, noCardModal, inModal, className, children }) =
   );
 
   const openCardToolWindow = useCallback(() => {
-    window.open(`/tool/card/${cardId}`);
+    window.open(`/card/${cardId}`);
   }, [cardId]);
 
   const handleClick = useCallback(

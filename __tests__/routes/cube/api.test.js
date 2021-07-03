@@ -1,18 +1,16 @@
-const router = require('../../../routes/cube/api');
-const request = require('supertest');
-const express = require('express');
-const app = express();
-const dbSetup = require('../../helpers/dbTestSetup');
-
-const Cube = require('../../../models/cube');
-const cubefixture = require('../../../fixtures/examplecube');
-const { buildIdQuery } = require('../../../serverjs/cubefn');
-const carddb = require('../../../serverjs/cards');
+import router from '@hypercube/server/routes/cube';
+import request from 'supertest';
+import express from 'express';
+import dbSetup from '../../helpers/dbTestSetup';
+import Cube from '@cubeartisan/server/models/cube';
+import cubefixture from '../../../fixtures/examplecube';
+import carddb from '@cubeartisan/server/serverjs/cards';
 
 const fixturesPath = 'fixtures';
-const exampleCube = cubefixture.exampleCube;
+const { exampleCube } = cubefixture;
 const cubeID = exampleCube.shortID;
 
+const app = express();
 app.use('/', router);
 
 let mongoServer;
@@ -30,7 +28,7 @@ afterAll(async () => {
 
 test('cubelist', () => {
   return request(app)
-    .get('/cubelist/' + cubeID)
+    .get(`/${cubeID}/export/plaintext`)
     .expect(200)
     .expect('Content-Type', 'text/plain; charset=utf-8')
     .expect((res) => {

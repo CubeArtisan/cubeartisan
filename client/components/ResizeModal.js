@@ -43,7 +43,7 @@ const ResizeModal = ({ cubeID }) => {
       </Button>
       <Modal isOpen={open} toggle={toggleOpen} size="lg">
         <ModalHeader toggle={toggleOpen}>Resize Cube</ModalHeader>
-        <CSRFForm method="POST" action={`/cube/resize/${cubeID}/${size}`} encType="multipart/form-data">
+        <CSRFForm method="POST" action={`/cube/${cubeID}/resize/${size}`} encType="multipart/form-data">
           <ModalBody>
             <p>
               Resize your cube to the set size. This will add or remove cards from the suggestions found in the

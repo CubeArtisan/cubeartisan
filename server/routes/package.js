@@ -19,7 +19,7 @@
 import express from 'express';
 import render from '@cubeartisan/server/serverjs/render';
 import { ensureAuth, ensureRole, csrfProtection } from '@cubeartisan/server/routes/middleware';
-import { redirect, wrapAsyncApi } from '@cubeartisan/server/serverjs/util';
+import { wrapAsyncApi } from '@cubeartisan/server/serverjs/util';
 import carddb from '@cubeartisan/server/serverjs/cards';
 import Package from '@cubeartisan/server/models/package';
 import User from '@cubeartisan/server/models/user';
@@ -228,8 +228,7 @@ router.get('/packages/pending/:page/:sort/:direction/:filter', async (req, res) 
 );
 router.get('/packages/approved/:page/:sort/:direction', async (req, res) => getPackages(req, res, { approved: true }));
 router.get('/packages/pending/:page/:sort/:direction', async (req, res) => getPackages(req, res, { approved: false }));
-router.post('/package/', ensureAuth, wrapAsyncApi(submitPackage));
-router.get('/package/', redirect('/packages'));
+router.post('/package', ensureAuth, wrapAsyncApi(submitPackage));
 router.post('/package/:id/vote', ensureAuth, wrapAsyncApi(upvotePackage));
 router.delete('/package/:id/vote', ensureAuth, wrapAsyncApi(downvotePackage));
 router.post('/package/:id/approve', ensureRole('Admin'), wrapAsyncApi(approvePackage));

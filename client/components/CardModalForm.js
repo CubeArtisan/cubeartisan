@@ -45,7 +45,7 @@ const CardModalForm = ({ children, ...props }) => {
     const wrapper = async () => {
       if (!cube) return;
       const allIds = [...cube.cards, ...(cube.maybe || [])].map(({ cardID }) => cardID);
-      const response = await csrfFetch(`/cube/api/getversions`, {
+      const response = await csrfFetch(`/cards/versions`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -133,8 +133,8 @@ const CardModalForm = ({ children, ...props }) => {
 
     try {
       if (!maybe) {
-        const response = await csrfFetch(`/cube/api/updatecard/${cubeID}`, {
-          method: 'POST',
+        const response = await csrfFetch(`/cube//${cubeID}/card/${card.index}`, {
+          method: 'PUT',
           body: JSON.stringify({ src: card, updated }),
           headers: {
             'Content-Type': 'application/json',
@@ -142,7 +142,7 @@ const CardModalForm = ({ children, ...props }) => {
         });
         const json = await response.json();
         if (json.success === 'true') {
-          const cardResponse = await fetch(`/cube/api/getcardfromid/${updated.cardID}`);
+          const cardResponse = await fetch(`/card/${updated.cardID}`);
           const cardJson = await cardResponse.json();
 
           const newCard = {
@@ -157,8 +157,8 @@ const CardModalForm = ({ children, ...props }) => {
           setIsOpen(false);
         }
       } else {
-        const response = await csrfFetch(`/cube/api/maybe/update/${cubeID}`, {
-          method: 'POST',
+        const response = await csrfFetch(`/cube/${cubeID}/maybe/${card._id}`, {
+          method: 'PUT',
           body: JSON.stringify({ id: card._id, updated }),
           headers: {
             'Content-Type': 'application/json',

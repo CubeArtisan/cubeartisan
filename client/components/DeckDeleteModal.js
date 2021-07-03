@@ -24,7 +24,7 @@ import ConfirmDeleteModal from '@cubeartisan/client/components/ConfirmDeleteModa
 
 const DeckDeleteModal = ({ deckID, cubeID, nextURL, isOpen, toggle }) => {
   const confirm = async () => {
-    const response = await csrfFetch(`/cube/deck/deletedeck/${deckID}`, {
+    const response = await csrfFetch(`/deck/${deckID}`, {
       method: 'DELETE',
       headers: {},
     });
@@ -34,7 +34,7 @@ const DeckDeleteModal = ({ deckID, cubeID, nextURL, isOpen, toggle }) => {
     } else if (nextURL) {
       window.location.href = nextURL;
     } else {
-      window.location.href = `/cube/playtest/${cubeID}`;
+      window.location.href = `/cube/${cubeID}/playtest`;
     }
   };
 

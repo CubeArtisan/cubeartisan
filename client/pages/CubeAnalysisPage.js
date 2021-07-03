@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Col, Nav, NavLink, Row, Card, CardBody } from 'reactstrap';
@@ -58,6 +58,7 @@ import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
 import { fromEntries } from '@cubeartisan/client/utils/Util';
 import { getLabels, cardIsLabel } from '@cubeartisan/client/utils/Sort';
+import UserContext from '@cubeartisan/client/contexts/UserContext';
 
 const CubeAnalysisPage = ({
   cube,
@@ -69,6 +70,7 @@ const CubeAnalysisPage = ({
   loginCallback,
   cubeAnalytics,
 }) => {
+  const { _id: userID } = useContext(UserContext);
   defaultFormatId = cube.defaultDraftFormat ?? -1;
   const [filter, setFilter] = useState(null);
   const [activeTab, setActiveTab] = useQueryParam('tab', defaultTab ?? 0);
@@ -313,6 +315,7 @@ const CubeAnalysisPage = ({
           defaultTagColors={cube.tag_colors}
           defaultShowTagColors={defaultShowTagColors}
           defaultTags={defaultTags}
+          userID={userID}
         >
           <DynamicFlash />
           {cube.cards.length === 0 ? (

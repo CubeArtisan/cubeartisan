@@ -70,7 +70,7 @@ const PasteBulkModal = ({ isOpen, toggle }) => {
       <ModalHeader id="pasteBulkModalTitle" toggle={toggle}>
         Bulk Upload - Paste Text
       </ModalHeader>
-      <CSRFForm method="POST" action={`/cube/bulkupload/${cubeID}`}>
+      <CSRFForm method="POST" action={`/cube/${cubeID}/import/paste`}>
         <ModalBody>
           <p>
             Acceptable formats are:
@@ -112,7 +112,7 @@ const UploadBulkModal = ({ isOpen, toggle }) => {
       <ModalHeader id="uploadBulkModalTitle" toggle={toggle}>
         Bulk Upload - Upload File
       </ModalHeader>
-      <CSRFForm method="POST" action={`/cube/bulkuploadfile/${cubeID}`} encType="multipart/form-data">
+      <CSRFForm method="POST" action={`/cube/${cubeID}/import/file`} encType="multipart/form-data">
         <ModalBody>
           <p>
             Acceptable files are:
@@ -152,7 +152,7 @@ const UploadBulkReplaceModal = ({ isOpen, toggle }) => {
       <ModalHeader id="uploadReplacementModalTitle" toggle={toggle}>
         Bulk Upload - Replace with CSV File Upload
       </ModalHeader>
-      <CSRFForm method="POST" action={`/cube/bulkreplacefile/${cubeID}`} encType="multipart/form-data">
+      <CSRFForm method="POST" action={`/cube/${cubeID}/import/file/replace`} encType="multipart/form-data">
         <ModalBody>
           <p>
             Replaces all cards in your cube and Maybeboard. Acceptable files are .csv files with the exact format as our
@@ -190,7 +190,7 @@ const CubetutorImportModal = ({ isOpen, toggle }) => {
       <ModalHeader id="cubetutorImportModalTitle" toggle={toggle}>
         Bulk Upload - Import from Cubetutor
       </ModalHeader>
-      <CSRFForm method="POST" action={`/cube/importcubetutor/${cubeID}`}>
+      <CSRFForm method="POST" action={`/cube/${cubeID}/import/cubetutor`}>
         <ModalBody>
           <p>
             Most card versions will be mantained. Some cards with unknown sets will default to the newest printing. Tags
@@ -257,7 +257,7 @@ const CompareCollapse = (props) => {
   const [compareID, setCompareID] = useState('');
   const handleChange = useCallback((event) => setCompareID(event.target.value), []);
 
-  const targetUrl = `/cube/compare/${cubeID}/to/${compareID}`;
+  const targetUrl = `/cube/${cubeID}/compare/${compareID}`;
 
   return (
     <Collapse {...props}>
@@ -466,12 +466,14 @@ const CubeListNavbar = ({
                     <DropdownItem disabled>Export</DropdownItem>
                   </>
                 )}
-                <DropdownItem href={`/cube/clone/${cubeID}`}>Clone Cube</DropdownItem>
-                <DropdownItem href={`/cube/download/plaintext/${cubeID}?${urlSegment}`}>Card Names (.txt)</DropdownItem>
-                <DropdownItem href={`/cube/download/csv/${cubeID}?${urlSegment}`}>Comma-Separated (.csv)</DropdownItem>
-                <DropdownItem href={`/cube/download/forge/${cubeID}?${urlSegment}`}>Forge (.dck)</DropdownItem>
-                <DropdownItem href={`/cube/download/mtgo/${cubeID}?${urlSegment}`}>MTGO (.txt)</DropdownItem>
-                <DropdownItem href={`/cube/download/xmage/${cubeID}?${urlSegment}`}>XMage (.dck)</DropdownItem>
+                {/* TODO: Needs to be a POST request. */}
+                <DropdownItem href={`/cube/${cubeID}/clone`}>Clone Cube</DropdownItem>
+                <DropdownItem href={`/cube/${cubeID}/export/cubecobra?${urlSegment}`}>CubeCobra (.txt)</DropdownItem>
+                <DropdownItem href={`/cube/${cubeID}/export/plaintext?${urlSegment}`}>Card Names (.txt)</DropdownItem>
+                <DropdownItem href={`/cube/${cubeID}/export/csv?${urlSegment}`}>Comma-Separated (.csv)</DropdownItem>
+                <DropdownItem href={`/cube/${cubeID}/export/forge?${urlSegment}`}>Forge (.dck)</DropdownItem>
+                <DropdownItem href={`/cube/${cubeID}/export/mtgo?${urlSegment}`}>MTGO (.txt)</DropdownItem>
+                <DropdownItem href={`/cube/${cubeID}/export/xmage${urlSegment}`}>XMage (.dck)</DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem toggle={false} onClick={() => setIsSortUsed((is) => !is)}>
                   <FormGroup check style={{ display: 'flex' }}>

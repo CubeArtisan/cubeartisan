@@ -20,7 +20,7 @@ import { Input, InputGroup, InputGroupAddon, Button } from 'reactstrap';
 
 const CardSearchBar = () => {
   return (
-    <form method="GET" action="/tool/searchcards" autoComplete="off" className="w-100">
+    <form method="GET" action="/cards/search/query" autoComplete="off" className="w-100">
       <div className="search-bar flex-container flex-align-stretch flex-grow">
         <InputGroup>
           <Input name="f" placeholder="Search Cards..." />

@@ -29,7 +29,7 @@ const PodcastPreview = ({ podcast }) => {
   const handleClick = useCallback(
     (event) => {
       if (!event.target.getAttribute('data-sublink')) {
-        window.location.href = `/content/podcast/${podcast._id}`;
+        window.location.href = `/podcast/${podcast._id}`;
       }
     },
     [podcast],
@@ -51,7 +51,7 @@ const PodcastPreview = ({ podcast }) => {
         <small>
           <em className="text-muted text-ellipsis">
             By{' '}
-            <a data-sublink href={`/user/view/${podcast.owner}`}>
+            <a data-sublink href={`/user/${podcast.owner}`}>
               {podcast.username}
             </a>
           </em>

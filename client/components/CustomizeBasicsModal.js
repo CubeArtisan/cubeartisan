@@ -32,7 +32,7 @@ const CustomizeBasicsModal = ({ isOpen, toggle, cube, updateBasics, onError }) =
   const [imageDict, setImageDict] = useState({});
 
   useEffect(() => {
-    fetch('/cube/api/imagedict')
+    fetch('/cards/images/dict')
       .then((response) => response.json())
       .then((json) => {
         setImageDict(json.dict);
@@ -50,8 +50,8 @@ const CustomizeBasicsModal = ({ isOpen, toggle, cube, updateBasics, onError }) =
   };
 
   const save = async () => {
-    const response = await csrfFetch(`/cube/api/updatebasics/${cube._id}`, {
-      method: 'POST',
+    const response = await csrfFetch(`/cube/${cube._id}/basics`, {
+      method: 'PUT',
       body: JSON.stringify(basics),
       headers: {
         'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ const CustomizeBasicsModal = ({ isOpen, toggle, cube, updateBasics, onError }) =
         <Row className="pb-3">
           <Col xs="12" md="8">
             <AutocompleteInput
-              treeUrl="/cube/api/fullnames"
+              treeUrl="/cards/names/full"
               treePath="cardnames"
               type="text"
               className="mr-2"
@@ -106,7 +106,7 @@ const CustomizeBasicsModal = ({ isOpen, toggle, cube, updateBasics, onError }) =
           {basics.map((cardId, index) => (
             <Col key={cardId} className="col-6 col-md-2-4 col-lg-2-4 col-xl-2-4">
               <Card className="mb-3">
-                <img className="w-100" src={`/tool/cardimage/${cardId}`} alt={cardId} />
+                <img className="w-100" src={`/card/${cardId}/redirect`} alt={cardId} />
                 <Button
                   className="mt-1"
                   color="danger"

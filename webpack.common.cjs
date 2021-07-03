@@ -76,7 +76,6 @@ const clientConfig = merge(config, {
     DownTimePage: 'client/pages/DownTimePage.js',
     ErrorPage: 'client/pages/ErrorPage.js',
     CardSearchPage: 'client/pages/CardSearchPage.js',
-    TopCardsPage: 'client/pages/TopCardsPage.js',
     CardPage: 'client/pages/CardPage.js',
     CommentPage: 'client/pages/CommentPage.js',
     LoginPage: 'client/pages/LoginPage.js',

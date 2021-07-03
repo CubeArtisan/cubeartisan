@@ -34,7 +34,7 @@ const UserPreview = ({ user }) => {
   return (
     <Card
       className={hover ? 'cube-preview-card hover' : 'cube-preview-card'}
-      data-href={`/user/view/${user._id}`}
+      data-href={`/user/${user._id}`}
       onClick={handleClick}
       onMouseOver={handleMouseOver}
       onFocus={handleMouseOver}

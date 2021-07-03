@@ -39,7 +39,7 @@ const CreatorPodcasts = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await csrfFetch(`/content/api/podcasts/${user.id}/${page}`);
+      const response = await csrfFetch(`/podcasts/${user.id}/${page}`);
       if (!response.ok) {
         console.log(response);
       }
@@ -62,7 +62,7 @@ const CreatorPodcasts = () => {
       <Navbar light expand className="usercontrols mb-3">
         <Nav navbar>
           <NavItem>
-            <NavLink href="/content/newpodcast" className="clickable">
+            <NavLink href="/podcast" className="clickable">
               Create New Podcast
             </NavLink>
           </NavItem>

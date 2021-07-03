@@ -42,3 +42,13 @@ export const postJson = (resource, body) => {
     },
   });
 };
+
+export const putJson = (resource, body) => {
+  return csrfFetch(resource, {
+    method: 'PUT',
+    body: JSON.stringify(body),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+};

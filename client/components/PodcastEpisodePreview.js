@@ -31,7 +31,7 @@ const PodcastEpisodePreview = ({ episode }) => {
   const handleClick = useCallback(
     (event) => {
       if (!event.target.getAttribute('data-sublink')) {
-        window.location.href = `/content/episode/${episode._id}`;
+        window.location.href = `/podcast/${episode.podcast}/episode/${episode._id}`;
       }
     },
     [episode],
@@ -67,7 +67,7 @@ const PodcastEpisodePreview = ({ episode }) => {
       <div className={`w-100 pb-1 pt-0 px-2 m-0 ${hover ? 'preview-footer-bg-hover' : 'preview-footer-bg'}`}>
         <small className="float-left">
           By{' '}
-          <a data-sublink href={`/user/view/${episode.owner}`}>
+          <a data-sublink href={`/user/${episode.owner}`}>
             {episode.username}
           </a>
         </small>

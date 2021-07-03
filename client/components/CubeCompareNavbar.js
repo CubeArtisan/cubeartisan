@@ -64,7 +64,7 @@ class CubeCompareNavbar extends Component {
   }
 
   render() {
-    const { cubeA, cubeAID, cubeB, cubeBID, cards, openCollapse, filter, setFilter } = this.props;
+    const { cubeA, cubeB, cards, openCollapse, filter, setFilter } = this.props;
     return (
       <>
         <div className="cubenav">
@@ -73,11 +73,11 @@ class CubeCompareNavbar extends Component {
               <h5 style={{ color: '#218937' }}>Compare Cubes</h5>
               <h6 className="my-3" style={{ color: '#218937' }}>
                 <span className="text-muted">Base Cube:</span>{' '}
-                <a href={`/cube/list/${cubeAID}`} className="mr-3" style={{ color: '#218937' }}>
+                <a href={`/cube/${cubeA.shortID}/list`} className="mr-3" style={{ color: '#218937' }}>
                   {cubeA.name} ({cubeA.card_count} cards)
                 </a>{' '}
                 <span className="text-muted">Comparison Cube:</span>{' '}
-                <a href={`/cube/list/${cubeBID}`} style={{ color: '#218937' }}>
+                <a href={`/cube/${cubeB.shortID}/list`} style={{ color: '#218937' }}>
                   {cubeB.name} ({cubeB.card_count} cards)
                 </a>
               </h6>

@@ -8,7 +8,6 @@ import { Canvas, Image } from 'canvas';
 import createdraft from '@cubeartisan/client/drafting/createdraft';
 import filterutil from '@cubeartisan/client/filtering/FilterCards';
 import { decodeName, normalizeName } from '@cubeartisan/client/utils/Card';
-import miscutil from '@cubeartisan/client/utils/Util';
 import carddb from '@cubeartisan/server/serverjs/cards';
 import { render } from '@cubeartisan/server/serverjs/render';
 import {
@@ -48,6 +47,7 @@ import {
   removeCardHtml,
   replaceCardHtml,
   setCubeType,
+  addDeckCardAnalytics,
 } from '@cubeartisan/server/serverjs/cubefn';
 import {
   CARD_HEIGHT,
@@ -72,6 +72,7 @@ import GridDraft from '@cubeartisan/server/models/gridDraft';
 import CubeAnalytic from '@cubeartisan/server/models/cubeAnalytic';
 import CubeExportRoutes from '@cubeartisan/server/routes/cube/export';
 import CubeBlogRoutes from '@cubeartisan/server/routes/cube/blog';
+import Util, { getCubeDescription } from '@cubeartisan/client/utils/Util';
 
 Canvas.Image = Image;
 
@@ -401,7 +402,7 @@ const viewOverview = async (req, res) => {
         title: `${abbreviate(cube.name)} - Overview`,
         metadata: generateMeta(
           `${process.env.SITE_NAME} Overview: ${cube.name}`,
-          miscutil.getCubeDescription(cube),
+          getCubeDescription(cube),
           cube.image_uri,
           `${process.env.SITE_ROOT}/cube/overview/${req.params.id}`,
         ),
@@ -583,7 +584,7 @@ const viewList = async (req, res) => {
         title: `${abbreviate(cube.name)} - List`,
         metadata: generateMeta(
           `${process.env.SITE_NAME} List: ${cube.name}`,
-          miscutil.getCubeDescription(cube),
+          getCubeDescription(cube),
           cube.image_uri,
           `${process.env.SITE_ROOT}/cube/list/${req.params.id}`,
         ),
@@ -627,7 +628,7 @@ const viewPlaytest = async (req, res) => {
         title: `${abbreviate(cube.name)} - Playtest`,
         metadata: generateMeta(
           `${process.env.SITE_NAME} Playtest: ${cube.name}`,
-          miscutil.getCubeDescription(cube),
+          getCubeDescription(cube),
           cube.image_uri,
           `${process.env.SITE_ROOT}/cube/playtest/${req.params.id}`,
         ),
@@ -704,7 +705,7 @@ const viewAnalytics = async (req, res) => {
       {
         metadata: generateMeta(
           `${process.env.SITE_NAME} Analysis: ${cube.name}`,
-          miscutil.getCubeDescription(cube),
+          getCubeDescription(cube),
           cube.image_uri,
           `${process.env.SITE_ROOT}/cube/analysis/${req.params.id}`,
         ),
@@ -1622,13 +1623,6 @@ const getCubeCardTags = async (req, res) => {
   });
 };
 
-const getCubeCards = async (req, res) => {
-  return res.status(200).send({
-    success: 'true',
-    details: req.body.cards.map((id) => carddb.cardFromId(id)),
-  });
-};
-
 const updateTagColors = async (req, res) => {
   const cube = await Cube.findOne(buildIdQuery(req.params.id));
 
@@ -2142,6 +2136,167 @@ const getCardImageById = async (req, res) => {
   }
 };
 
+const viewDecks = async (req, res) => {
+  try {
+    const { id: cubeid } = req.params;
+    const pagesize = 30;
+
+    const cube = await Cube.findOne(buildIdQuery(cubeid), Cube.LAYOUT_FIELDS).lean();
+
+    if (!cube) {
+      req.flash('danger', 'Cube not found');
+      return res.redirect('/404');
+    }
+
+    const decksq = Deck.find(
+      {
+        cube: cube._id,
+      },
+      '_id seats date cube owner cubeOwner',
+    )
+      .sort({
+        date: -1,
+      })
+      .skip(pagesize * Math.max(req.params.page, 0))
+      .limit(pagesize)
+      .lean()
+      .exec();
+    const numDecksq = Deck.countDocuments({
+      cube: cube._id,
+    }).exec();
+
+    const [numDecks, decks] = await Promise.all([numDecksq, decksq]);
+
+    return render(
+      req,
+      res,
+      'CubeDecksPage',
+      {
+        cube,
+        decks,
+        pages: Math.ceil(numDecks / pagesize),
+        activePage: Math.max(req.params.page, 0),
+      },
+      {
+        title: `${abbreviate(cube.name)} - Draft Decks`,
+        metadata: generateMeta(
+          `${process.env.SITE_NAME} Decks: ${cube.name}`,
+          Util.getCubeDescription(cube),
+          cube.image_uri,
+          `${process.env.SITE_ROOT}/user/decks/${encodeURIComponent(req.params.cubeid)}`,
+        ),
+      },
+    );
+  } catch (err) {
+    return handleRouteError(req, res, err, `/cube/playtest/${encodeURIComponent(req.params.cubeid)}`);
+  }
+};
+
+const uploadDeckList = async (req, res) => {
+  try {
+    const cube = await Cube.findOne(buildIdQuery(req.params.id));
+    if (!cube) {
+      req.flash('danger', 'Cube not found.');
+      return res.redirect('/404');
+    }
+
+    if (!req.user._id.equals(cube.owner)) {
+      req.flash('danger', 'Not Authorized');
+      return res.redirect(`/cube/playtest/${encodeURIComponent(req.params.id)}`);
+    }
+
+    const cards = req.body.body.match(/[^\r\n]+/g);
+    if (!cards) {
+      req.flash('danger', 'No cards detected');
+      return res.redirect(`/cube/playtest/${encodeURIComponent(req.params.id)}`);
+    }
+
+    const cardList = [];
+
+    const added = [];
+    for (let i = 0; i < 16; i += 1) {
+      added.push([]);
+    }
+
+    for (let i = 0; i < cards.length; i += 1) {
+      const item = cards[i].toLowerCase().trim();
+      const numericMatch = item.match(/([0-9]+)x? (.*)/);
+      if (numericMatch) {
+        let count = parseInt(numericMatch[1], 10);
+        if (!Number.isInteger(count)) {
+          count = 1;
+        }
+        for (let j = 0; j < count; j += 1) {
+          cards.push(numericMatch[2]);
+        }
+      } else {
+        let selected = null;
+        // does not have set info
+        const normalizedName = normalizeName(item);
+        const potentialIds = carddb.getIdsFromName(normalizedName);
+        if (potentialIds && potentialIds.length > 0) {
+          const inCube = cube.cards.find((card) => carddb.cardFromId(card.cardID).name_lower === normalizedName);
+          if (inCube) {
+            selected = {
+              finish: inCube.finish,
+              imgBackUrl: inCube.imgBackUrl,
+              imgUrl: inCube.imgUrl,
+              cardID: inCube.cardID,
+              details: carddb.cardFromId(inCube.cardID),
+            };
+          } else {
+            const reasonableCard = carddb.getMostReasonable(normalizedName, cube.defaultPrinting);
+            const reasonableId = reasonableCard ? reasonableCard._id : null;
+            const selectedId = reasonableId || potentialIds[0];
+            selected = {
+              cardID: selectedId,
+              details: carddb.cardFromId(selectedId),
+            };
+          }
+        }
+        if (selected) {
+          // push into correct column.
+          let column = Math.min(7, selected.cmc !== undefined ? selected.cmc : selected.details.cmc);
+          if (!selected.details.type.toLowerCase().includes('creature')) {
+            column += 8;
+          }
+          added[column].push(cardList.length);
+          cardList.push(selected);
+        }
+      }
+    }
+
+    const deck = new Deck();
+    deck.cards = cardList;
+    deck.date = Date.now();
+    deck.cubename = cube.name;
+    deck.cube = cube._id;
+    deck.cubeOwner = cube.owner;
+    deck.owner = req.user._id;
+    deck.seats = [
+      {
+        userid: req.user._id,
+        username: req.user.username,
+        name: `${req.user.username}'s decklist upload on ${deck.date.toLocaleString('en-US')}`,
+        deck: [added.slice(0, 8), added.slice(8, 16)],
+        sideboard: createPool(),
+      },
+    ];
+    deck.draft = null;
+
+    await deck.save();
+
+    cube.numDecks += 1;
+    await addDeckCardAnalytics(cube, deck, carddb);
+
+    await cube.save();
+
+    return res.redirect(`/cube/deck/deckbuilder/${deck._id}`);
+  } catch (err) {
+    return handleRouteError(req, res, err, '/404');
+  }
+};
+
 const router = express.Router();
 router.use(csrfProtection);
 router.post('/', ensureAuth, createCube);
@@ -2165,7 +2320,7 @@ router.get('/:id/playtest/sample/:seed/image', viewSamplePackImage);
 router.post('/:id/import/cubetutor', ensureAuth, body('cubeid').toInt(), flashValidationErrors, importFromCubeTutor);
 router.post('/:id/import/paste', ensureAuth, importFromPaste);
 router.post('/:id/import/file', ensureAuth, importFromFile);
-router.post('/:id/replace/file', ensureAuth, replaceFromFile);
+router.post('/:id/import/file/replace', ensureAuth, replaceFromFile);
 router.post(
   '/:id/playtest/griddraft',
   body('packs').toInt({ min: 1, max: 16 }),
@@ -2212,7 +2367,6 @@ router.put(
 );
 router.get('/:id/cards/names', wrapAsyncApi(getCardNamesForCube));
 router.get('/:id/cards/tags', wrapAsyncApi(getCubeCardTags));
-router.get('/:id/cards', wrapAsyncApi(getCubeCards));
 router.put('/:id/tags/colors', wrapAsyncApi(updateTagColors));
 router.get('/:id/tags/colors', wrapAsyncApi(getTagColors));
 router.get('/:id/card/:name', wrapAsyncApi(getCardByName));
@@ -2232,5 +2386,8 @@ router.get('/:id/playtest/p1p1', (req, res) =>
 router.get('/:id/playtest/p1p1/:seed', wrapAsyncApi(generateP1P1));
 router.get('/:id/date_updated', wrapAsyncApi(getDateUpdated));
 router.get('/:id/recommend', wrapAsyncApi(getRecommendations));
-router.get('/:id/:cardid/image', getIm);
+router.get('/:id/card/:cardid/image', getCardImageById);
+router.get('/:id/decks', (req, res) => res.redirect(`/cube/${req.params.id}/decks/0`));
+router.get('/:id/decks/:page', viewDecks);
+router.post('/:id/deck/import/file', ensureAuth, uploadDeckList);
 export default router;

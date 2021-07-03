@@ -272,7 +272,7 @@ const CustomDraftFormatModal = ({ isOpen, toggle, formatIndex, format, setFormat
               {error}
             </Alert>
           ))}
-        <CSRFForm method="POST" action={`/cube/format/add/${cubeID}`}>
+        <CSRFForm method="POST" action={`/cube/${cubeID}/format`}>
           <Input type="hidden" name="serializedFormat" value={packsJson} />
           <Input type="hidden" name="id" value={formatIndex} />
           <Button color={errorsInFormat ? 'error' : 'success'} type="submit" disabled={!!errorsInFormat}>

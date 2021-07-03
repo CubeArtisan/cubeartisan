@@ -26,6 +26,7 @@ import('dotenv').config();
 
 const { NODE_ENV } = process.env;
 
+// TODO: Don't make these dynamic imports.
 const pages = {};
 if (NODE_ENV === 'production') {
   pages.CardSearchPage = import('@cubeartisan/client/pages/CardSearchPage').default;
@@ -71,7 +72,6 @@ if (NODE_ENV === 'production') {
   pages.ReviewPodcastsPage = import('@cubeartisan/client/pages/ReviewPodcastsPage').default;
   pages.ReviewVideosPage = import('@cubeartisan/client/pages/ReviewVideosPage').default;
   pages.SearchPage = import('@cubeartisan/client/pages/SearchPage').default;
-  pages.TopCardsPage = import('@cubeartisan/client/pages/TopCardsPage').default;
   pages.UserAccountPage = import('@cubeartisan/client/pages/UserAccountPage').default;
   pages.UserBlogPage = import('@cubeartisan/client/pages/UserBlogPage').default;
   pages.UserCubePage = import('@cubeartisan/client/pages/UserCubePage').default;

@@ -39,7 +39,7 @@ const CreatorArticles = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await csrfFetch(`/content/api/articles/${user.id}/${page}`);
+      const response = await csrfFetch(`/articles/${user.id}/${page}`);
       if (!response.ok) {
         console.log(response);
       }
@@ -57,12 +57,13 @@ const CreatorArticles = () => {
     setPage(index);
   };
 
+  // TODO: Rework article creation needs to be a POST request.
   return (
     <>
       <Navbar light expand className="usercontrols mb-3">
         <Nav navbar>
           <NavItem>
-            <NavLink href="/content/newarticle" className="clickable">
+            <NavLink href="/article" className="clickable">
               Create New Article
             </NavLink>
           </NavItem>

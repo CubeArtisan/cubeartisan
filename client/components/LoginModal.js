@@ -25,7 +25,7 @@ import CSRFForm from '@cubeartisan/client/components/CSRFForm';
 const LoginModal = ({ isOpen, toggle, loginCallback }) => (
   <Modal size="lg" isOpen={isOpen} toggle={toggle}>
     <ModalHeader toggle={toggle}>Login</ModalHeader>
-    <CSRFForm method="POST" action="/user/login">
+    <CSRFForm method="POST" action="/login">
       <ModalBody>
         <FormGroup>
           <Row>
@@ -49,7 +49,7 @@ const LoginModal = ({ isOpen, toggle, loginCallback }) => (
           <Row>
             <Col sm="3" />
             <Col sm="9">
-              <a href="/user/lostpassword">Forgot password?</a>
+              <a href="/lostpassword">Forgot password?</a>
             </Col>
           </Row>
         </FormGroup>

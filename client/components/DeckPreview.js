@@ -64,7 +64,7 @@ const DeckPreview = ({ deck, nextURL }) => {
 
   const handleClick = useKeyHandlers(
     useCallback(() => {
-      window.location.href = `/cube/deck/${deck._id}`;
+      window.location.href = `/deck/${deck._id}`;
     }, [deck._id]),
   );
 
@@ -107,15 +107,10 @@ const DeckPreview = ({ deck, nextURL }) => {
         </>
       )}
       <h6 className="mb-0 text-muted">
-        <a href={`/cube/deck/${deck._id}`} title={fullName}>
+        <a href={`/deck/${deck._id}`} title={fullName}>
           {name}
         </a>{' '}
-        by{' '}
-        {deck.seats[0].userid ? (
-          <a href={`/user/view/${deck.seats[0].userid}`}>{deck.seats[0].username}</a>
-        ) : (
-          'Anonymous'
-        )}{' '}
+        by {deck.seats[0].userid ? <a href={`/user/${deck.seats[0].userid}`}>{deck.seats[0].username}</a> : 'Anonymous'}{' '}
         - <TimeAgo date={date} />
       </h6>
     </div>

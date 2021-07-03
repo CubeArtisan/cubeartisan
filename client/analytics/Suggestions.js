@@ -52,7 +52,7 @@ const Suggestion = ({ card, index, cube }) => {
         <AddModal
           front={card.details.image_normal}
           back={card.details.image_flip ?? undefined}
-          href={`/tool/card/${encodeName(card.cardID)}`}
+          href={`/card/${encodeName(card.cardID)}`}
           modalProps={{ card: card.details, hideAnalytics: false, cubeContext: cube._id }}
         >
           {card.details.name}

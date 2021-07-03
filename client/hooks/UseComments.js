@@ -20,7 +20,7 @@ import { useEffect, useState } from 'react';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
 import { findUserLinks } from '@cubeartisan/client/markdown/parser';
 
-const useToggle = (type, parent) => {
+const useComment = (type, parent) => {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -44,7 +44,7 @@ const useToggle = (type, parent) => {
   };
 
   const editComment = async (comment) => {
-    await csrfFetch(`/comment`, {
+    await csrfFetch(`/comment/${comment._id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -66,26 +66,22 @@ const useToggle = (type, parent) => {
   };
 
   useEffect(() => {
-    const getData = async () => {
+    (async () => {
       // Default options are marked with *
-      const response = await csrfFetch(`/comment/${type}/${parent}`, {
+      const response = await csrfFetch(`/comments/${parent}/${type}`, {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
         headers: {
           'Content-Type': 'application/json',
           // 'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
-      const val = await response.json();
-      return val;
-    };
-
-    getData().then((result) => {
+      const result = await response.json();
       setComments(result.comments);
       setLoading(false);
-    });
+    })();
   }, [parent, type]);
 
   return [comments, addComment, loading, editComment];
 };
 
-export default useToggle;
+export default useComment;

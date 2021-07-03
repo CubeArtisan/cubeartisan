@@ -22,9 +22,9 @@ import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
 
 import ConfirmDeleteModal from '@cubeartisan/client/components/ConfirmDeleteModal';
 
-const BlogDeleteModal = ({ isOpen, toggle, postID }) => {
+const BlogDeleteModal = ({ isOpen, toggle, postID, cubeID }) => {
   const confirm = async () => {
-    const response = await csrfFetch(`/cube/blog/remove/${postID}`, {
+    const response = await csrfFetch(`/cube/${cubeID}/blog/post/${postID}`, {
       method: 'DELETE',
       headers: {},
     });
@@ -50,6 +50,7 @@ BlogDeleteModal.propTypes = {
   toggle: PropTypes.func.isRequired,
   postID: PropTypes.string.isRequired,
   isOpen: PropTypes.bool.isRequired,
+  cubeID: PropTypes.string.isRequired,
 };
 
 export default BlogDeleteModal;

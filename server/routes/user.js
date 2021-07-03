@@ -782,7 +782,6 @@ router.put(
 );
 router.get('/:id/notification/:index', ensureAuth, viewNotification);
 router.delete('/:id/notification', ensureAuth, clearNotifications);
-router.get('/:id/password', (req, res) => render(req, res, 'LostPasswordPage'));
 router.put('/:id/follow', ensureAuth, followUser);
 router.delete('/:id/follow', ensureAuth, unfollowUser);
 router.post('/:id/password', body('email', 'Email is required').isEmail(), flashValidationErrors, submitLostPassword);

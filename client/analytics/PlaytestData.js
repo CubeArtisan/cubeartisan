@@ -34,7 +34,7 @@ const AutocardItem = withAutocard(ListGroupItem);
 
 const renderCardLink = (card) => (
   <AutocardItem className="p-0" key={card.index} card={card} data-in-modal index={card.index}>
-    <a href={`/tool/card/${encodeName(card.cardID)}`} target="_blank" rel="noopener noreferrer">
+    <a href={`/card/${encodeName(card.cardID)}`} target="_blank" rel="noopener noreferrer">
       {card.details.name}
     </a>
   </AutocardItem>

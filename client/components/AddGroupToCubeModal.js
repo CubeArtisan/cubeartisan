@@ -48,7 +48,7 @@ const AddGroupToCubeModal = ({ cards, isOpen, toggle, cubes, packid }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await csrfFetch(`/cube/api/getdetailsforcards`, {
+      const response = await csrfFetch(`/cards/details`, {
         method: 'POST',
         body: JSON.stringify({
           cards,
@@ -72,7 +72,7 @@ const AddGroupToCubeModal = ({ cards, isOpen, toggle, cubes, packid }) => {
 
   const add = async () => {
     try {
-      const response = await csrfFetch(`/cube/api/addtocube/${selectedCube}`, {
+      const response = await csrfFetch(`/cube/${selectedCube}/cards`, {
         method: 'POST',
         body: JSON.stringify({
           cards,
@@ -97,8 +97,8 @@ const AddGroupToCubeModal = ({ cards, isOpen, toggle, cubes, packid }) => {
 
   const maybe = async () => {
     try {
-      const response = await csrfFetch(`/cube/api/maybe/${selectedCube}`, {
-        method: 'POST',
+      const response = await csrfFetch(`/cube/${selectedCube}/maybe`, {
+        method: 'PUT',
         body: JSON.stringify({
           add: details.map((detail) => ({ details: detail })),
         }),

@@ -30,7 +30,7 @@ const ArticlePreview = ({ article }) => {
   const handleClick = useCallback(
     (event) => {
       if (!event.target.getAttribute('data-sublink')) {
-        window.location.href = `/content/article/${article._id}`;
+        window.location.href = `/article/${article._id}`;
       }
     },
     [article],
@@ -59,7 +59,7 @@ const ArticlePreview = ({ article }) => {
       <div className={`w-100 pb-1 pt-0 px-2 m-0 ${hover ? 'preview-footer-bg-hover' : 'preview-footer-bg'}`}>
         <small className="float-left">
           Written by{' '}
-          <a data-sublink href={`/user/view/${article.owner}`}>
+          <a data-sublink href={`/user/${article.owner}`}>
             {article.username}
           </a>
         </small>

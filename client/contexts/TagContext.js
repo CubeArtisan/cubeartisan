@@ -108,8 +108,8 @@ export class TagContextProvider extends Component {
 
   setTagColors(tagColors) {
     const { cubeID } = this.props;
-    return csrfFetch(`/cube/api/savetagcolors/${cubeID}`, {
-      method: 'POST',
+    return csrfFetch(`/cube/${cubeID}/tags/colors`, {
+      method: 'PUT',
       body: JSON.stringify(tagColors),
       headers: {
         'Content-Type': 'application/json',
@@ -125,8 +125,9 @@ export class TagContextProvider extends Component {
   }
 
   setShowTagColors(showTagColors) {
-    return csrfFetch('/cube/api/saveshowtagcolors', {
-      method: 'POST',
+    const { userID } = this.props;
+    return csrfFetch(`/user/${userID}/showtagcolors`, {
+      method: 'PUT',
       body: JSON.stringify({
         show_tag_colors: showTagColors,
       }),
@@ -187,6 +188,7 @@ TagContextProvider.propTypes = {
   defaultShowTagColors: PropTypes.bool,
   defaultTags: PropTypes.arrayOf(PropTypes.string),
   children: PropTypes.node.isRequired,
+  userID: PropTypes.string.isRequired,
 };
 TagContextProvider.defaultProps = {
   defaultTagColors: [],

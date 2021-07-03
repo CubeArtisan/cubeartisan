@@ -140,8 +140,8 @@ const SortCollapse = ({
 
   const handleSave = useCallback(async () => {
     try {
-      await csrfFetch(`/cube/api/savesorts/${cubeID}`, {
-        method: 'POST',
+      await csrfFetch(`/cube/${cubeID}/sorts`, {
+        method: 'PUT',
         body: JSON.stringify({
           sorts: [primary, secondary, tertiary, quaternary],
           showOther,

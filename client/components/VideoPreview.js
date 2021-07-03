@@ -30,7 +30,7 @@ const VideoPreview = ({ video }) => {
   const handleClick = useCallback(
     (event) => {
       if (!event.target.getAttribute('data-sublink')) {
-        window.location.href = `/content/video/${video._id}`;
+        window.location.href = `/video/${video._id}`;
       }
     },
     [video],
@@ -59,7 +59,7 @@ const VideoPreview = ({ video }) => {
       <div className={`w-100 pb-1 pt-0 px-2 m-0 ${hover ? 'preview-footer-bg-hover' : 'preview-footer-bg'}`}>
         <small className="float-left">
           By{' '}
-          <a data-sublink href={`/user/view/${video.owner}`}>
+          <a data-sublink href={`/user/${video.owner}`}>
             {video.username}
           </a>
         </small>

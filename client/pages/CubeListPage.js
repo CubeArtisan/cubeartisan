@@ -43,6 +43,7 @@ import CubeLayout from '@cubeartisan/client/layouts/CubeLayout';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
+import UserContext from '@cubeartisan/client/contexts/UserContext';
 
 const CubeListPageRaw = ({
   defaultFilterText,
@@ -55,6 +56,7 @@ const CubeListPageRaw = ({
   defaultShowUnsorted,
 }) => {
   const { cube, canEdit } = useContext(CubeContext);
+  const { _id: userID } = useContext(UserContext);
 
   const [cubeView, setCubeView] = useQueryParam('view', defaultView);
   const [openCollapse, setOpenCollapse] = useState(null);
@@ -93,6 +95,7 @@ const CubeListPageRaw = ({
           defaultTagColors={cube.tag_colors}
           defaultShowTagColors={defaultShowTagColors}
           defaultTags={defaultTags}
+          userID={userID}
         >
           <ChangelistContextProvider cubeID={cube._id} setOpenCollapse={setOpenCollapse}>
             <CardModalForm>

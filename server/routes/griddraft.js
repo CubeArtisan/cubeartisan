@@ -19,14 +19,18 @@
 import express from 'express';
 import Cube from '@cubeartisan/server/models/cube';
 import GridDraft from '@cubeartisan/server/models/gridDraft';
-import { abbreviate, buildIdQuery } from '@cubeartisan/server/serverjs/cubefn';
+import { abbreviate, addDeckCardAnalytics, buildIdQuery } from '@cubeartisan/server/serverjs/cubefn';
 import User from '@cubeartisan/server/models/user';
 import CubeAnalytic from '@cubeartisan/server/models/cubeAnalytic';
 import carddb from '@cubeartisan/server/serverjs/cards';
 import render from '@cubeartisan/server/serverjs/render';
 import generateMeta from '@cubeartisan/server/serverjs/meta';
-import { getCubeDescription } from '@cubeartisan/client/utils/Util';
-import { handleRouteError, wrapAsyncApi } from '@cubeartisan/server/serverjs/util';
+import Util, { getCubeDescription } from '@cubeartisan/client/utils/Util';
+import { addNotification, handleRouteError, wrapAsyncApi } from '@cubeartisan/server/serverjs/util';
+import { body } from 'express-validator';
+import Deck from '@cubeartisan/server/models/deck';
+import { buildDeck } from '@cubeartisan/client/drafting/deckutil';
+import { COLOR_COMBINATIONS } from '@cubeartisan/client/utils/Card';
 
 const getGridDraftPage = async (req, res) => {
   try {
@@ -86,7 +90,7 @@ const getGridDraftPage = async (req, res) => {
   }
 };
 
-const submitGridDraft = async (req, res) => {
+const saveGridDraft = async (req, res) => {
   await GridDraft.updateOne(
     {
       _id: req.body._id,
@@ -99,6 +103,95 @@ const submitGridDraft = async (req, res) => {
   });
 };
 
+const submitGridDraft = async (req, res) => {
+  try {
+    // req.body contains a draft
+    const draftid = req.body.body;
+    const draft = await GridDraft.findById(draftid).lean();
+    const cube = await Cube.findOne(buildIdQuery(draft.cube));
+
+    const deck = new Deck();
+    deck.cube = draft.cube;
+    deck.date = Date.now();
+    deck.draft = draft._id;
+    deck.cubename = cube.name;
+    deck.seats = [];
+    deck.cards = draft.cards;
+    deck.basics = draft.basics;
+
+    let eloOverrideDict = {};
+    if (cube.useCubeElo) {
+      const analytic = await CubeAnalytic.findOne({ cube: cube._id });
+      eloOverrideDict = Object.fromEntries(analytic.cards.map((c) => [c.cardName, c.elo]));
+    }
+    const cards = draft.cards.map((c) => {
+      const newCard = { ...c, details: carddb.cardFromId(c.cardID) };
+      if (eloOverrideDict[newCard.details.name_lower]) {
+        newCard.details.elo = eloOverrideDict[newCard.details.name_lower];
+      }
+      return newCard;
+    });
+    const botNumber = 1;
+    for (const seat of draft.seats) {
+      // eslint-disable-next-line no-await-in-loop
+      const { sideboard, deck: newDeck, colors } = await buildDeck(cards, seat.pickorder, draft.basics);
+      const colorString =
+        colors.length > 0 ? 'C' : COLOR_COMBINATIONS.find((comb) => Util.arraysAreEqualSets(comb, colors)).join('');
+      if (seat.bot) {
+        deck.seats.push({
+          bot: seat.bot,
+          userid: seat.userid,
+          username: `Bot ${botNumber}: ${colorString}`,
+          name: `Draft of ${cube.name}`,
+          description: '',
+          deck: newDeck,
+          sideboard,
+        });
+      } else {
+        deck.seats.push({
+          bot: seat.bot,
+          userid: seat.userid,
+          username: `${seat.name}: ${colorString}`,
+          name: `Draft of ${cube.name}`,
+          description: '',
+          deck: seat.drafted,
+          sideboard: seat.sideboard ? seat.sideboard : [],
+        });
+      }
+    }
+
+    const userq = User.findById(deck.seats[0].userid);
+    const cubeOwnerq = User.findById(cube.owner);
+
+    const [user, cubeOwner] = await Promise.all([userq, cubeOwnerq]);
+
+    if (user && !cube.disableNotifications) {
+      await addNotification(
+        cubeOwner,
+        user,
+        `/cube/deck/${deck._id}`,
+        `${user.username} drafted your cube: ${cube.name}`,
+      );
+    }
+
+    if (!cube.numDecks) {
+      cube.numDecks = 0;
+    }
+    cube.numDecks += 1;
+    await addDeckCardAnalytics(cube, deck, carddb);
+
+    await Promise.all([cube.save(), deck.save(), cubeOwner.save()]);
+    if (req.body.skipDeckbuilder) {
+      return res.redirect(`/cube/deck/${deck._id}`);
+    }
+    return res.redirect(`/cube/deck/deckbuilder/${deck._id}`);
+  } catch (err) {
+    return handleRouteError(req, res, err, `/cube/playtest/${encodeURIComponent(req.params.id)}`);
+  }
+};
+
 const router = express.Router();
 router.get('/:id', getGridDraftPage);
-router.post('/:id', wrapAsyncApi(submitGridDraft));
+router.post('/:id', wrapAsyncApi(saveGridDraft));
+router.post('/:id/submit', body('skipDeckbuilder').toBoolean(), submitGridDraft);
+export default router;

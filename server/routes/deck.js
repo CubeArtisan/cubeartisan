@@ -17,16 +17,14 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import express from 'express';
-import { body } from 'express-validator';
 import { Canvas, Image } from 'canvas';
 
 import Util from '@cubeartisan/client/utils/Util';
 import carddb from '@cubeartisan/server/serverjs/cards';
 import { buildDeck } from '@cubeartisan/client/drafting/deckutil';
 import { render } from '@cubeartisan/server/serverjs/render';
-import util from '@cubeartisan/server/serverjs/util';
+import { addNotification, handleRouteError } from '@cubeartisan/server/serverjs/util';
 import generateMeta from '@cubeartisan/server/serverjs/meta';
-import cardutil from '@cubeartisan/client/utils/Card';
 import { ensureAuth } from '@cubeartisan/server/routes/middleware';
 import {
   buildIdQuery,
@@ -36,20 +34,16 @@ import {
 } from '@cubeartisan/server/serverjs/cubefn';
 import { exportToMtgo, createPool, rotateArrayLeft } from '@cubeartisan/server/routes/cube/helper';
 
-// Bring in models
 import Cube from '@cubeartisan/server/models/cube';
-
 import Deck from '@cubeartisan/server/models/deck';
 import User from '@cubeartisan/server/models/user';
 import CubeAnalytic from '@cubeartisan/server/models/cubeAnalytic';
 import Draft from '@cubeartisan/server/models/draft';
-import GridDraft from '@cubeartisan/server/models/gridDraft';
+import { COLOR_COMBINATIONS } from '@cubeartisan/client/utils/Card';
 
 Canvas.Image = Image;
 
-const router = express.Router();
-
-router.get('/download/xmage/:id/:seat', async (req, res) => {
+const exportToXmage = async (req, res) => {
   try {
     const deck = await Deck.findById(req.params.id).lean();
 
@@ -101,11 +95,11 @@ router.get('/download/xmage/:id/:seat', async (req, res) => {
     }
     return res.end();
   } catch (err) {
-    return util.handleRouteError(req, res, err, '/404');
+    return handleRouteError(req, res, err, '/404');
   }
-});
+};
 
-router.get('/download/forge/:id/:seat', async (req, res) => {
+const exportToForge = async (req, res) => {
   try {
     const deck = await Deck.findById(req.params.id).lean();
     if (!deck) {
@@ -159,11 +153,11 @@ router.get('/download/forge/:id/:seat', async (req, res) => {
 
     return res.end();
   } catch (err) {
-    return util.handleRouteError(req, res, err, '/404');
+    return handleRouteError(req, res, err, '/404');
   }
-});
+};
 
-router.get('/download/txt/:id/:seat', async (req, res) => {
+const exportToPlaintext = async (req, res) => {
   try {
     const deck = await Deck.findById(req.params.id).lean();
     if (!deck) {
@@ -185,11 +179,11 @@ router.get('/download/txt/:id/:seat', async (req, res) => {
     }
     return res.end();
   } catch (err) {
-    return util.handleRouteError(req, res, err, '/404');
+    return handleRouteError(req, res, err, '/404');
   }
-});
+};
 
-router.get('/download/mtgo/:id/:seat', async (req, res) => {
+const exportForMtgo = async (req, res) => {
   try {
     const deck = await Deck.findById(req.params.id).lean();
     if (!deck) {
@@ -199,11 +193,11 @@ router.get('/download/mtgo/:id/:seat', async (req, res) => {
     const seat = deck.seats[req.params.seat];
     return exportToMtgo(res, seat.name, seat.deck.flat(), seat.sideboard.flat(), deck.cards);
   } catch (err) {
-    return util.handleRouteError(req, res, err, '/404');
+    return handleRouteError(req, res, err, '/404');
   }
-});
+};
 
-router.get('/download/arena/:id/:seat', async (req, res) => {
+const exportToArena = async (req, res) => {
   try {
     const deck = await Deck.findById(req.params.id).lean();
     if (!deck) {
@@ -255,11 +249,11 @@ router.get('/download/arena/:id/:seat', async (req, res) => {
 
     return res.end();
   } catch (err) {
-    return util.handleRouteError(req, res, err, '/404');
+    return handleRouteError(req, res, err, '/404');
   }
-});
+};
 
-router.get('/download/cockatrice/:id/:seat', async (req, res) => {
+const exportToCockatrice = async (req, res) => {
   try {
     const deck = await Deck.findById(req.params.id).lean();
     if (!deck) {
@@ -310,11 +304,11 @@ router.get('/download/cockatrice/:id/:seat', async (req, res) => {
 
     return res.end();
   } catch (err) {
-    return util.handleRouteError(req, res, err, '/404');
+    return handleRouteError(req, res, err, '/404');
   }
-});
+};
 
-router.delete('/deletedeck/:id', ensureAuth, async (req, res) => {
+const deleteDeck = async (req, res) => {
   try {
     const query = {
       _id: req.params.id,
@@ -338,9 +332,9 @@ router.delete('/deletedeck/:id', ensureAuth, async (req, res) => {
       message: 'Error deleting deck.',
     });
   }
-});
+};
 
-router.get('/deckbuilder/:id', async (req, res) => {
+const viewDeckbuilder = async (req, res) => {
   try {
     const deck = await Deck.findById(req.params.id).lean();
     if (!deck) {
@@ -363,7 +357,7 @@ router.get('/deckbuilder/:id', async (req, res) => {
     let eloOverrideDict = {};
     if (cube.useCubeElo) {
       const analytic = await CubeAnalytic.findOne({ cube: cube._id });
-      eloOverrideDict = util.fromEntries(analytic.cards.map((c) => [c.cardName, c.elo]));
+      eloOverrideDict = Object.fromEntries(analytic.cards.map((c) => [c.cardName, c.elo]));
     }
 
     // add details to cards
@@ -393,71 +387,11 @@ router.get('/deckbuilder/:id', async (req, res) => {
       },
     );
   } catch (err) {
-    return util.handleRouteError(req, res, err, '/404');
+    return handleRouteError(req, res, err, '/404');
   }
-});
+};
 
-router.get('/decks/:cubeid/:page', async (req, res) => {
-  try {
-    const { cubeid } = req.params;
-    const pagesize = 30;
-
-    const cube = await Cube.findOne(buildIdQuery(cubeid), Cube.LAYOUT_FIELDS).lean();
-
-    if (!cube) {
-      req.flash('danger', 'Cube not found');
-      return res.redirect('/404');
-    }
-
-    const decksq = Deck.find(
-      {
-        cube: cube._id,
-      },
-      '_id seats date cube owner cubeOwner',
-    )
-      .sort({
-        date: -1,
-      })
-      .skip(pagesize * Math.max(req.params.page, 0))
-      .limit(pagesize)
-      .lean()
-      .exec();
-    const numDecksq = Deck.countDocuments({
-      cube: cube._id,
-    }).exec();
-
-    const [numDecks, decks] = await Promise.all([numDecksq, decksq]);
-
-    return render(
-      req,
-      res,
-      'CubeDecksPage',
-      {
-        cube,
-        decks,
-        pages: Math.ceil(numDecks / pagesize),
-        activePage: Math.max(req.params.page, 0),
-      },
-      {
-        title: `${abbreviate(cube.name)} - Draft Decks`,
-        metadata: generateMeta(
-          `${process.env.SITE_NAME} Decks: ${cube.name}`,
-          Util.getCubeDescription(cube),
-          cube.image_uri,
-          `${process.env.SITE_ROOT}/user/decks/${encodeURIComponent(req.params.cubeid)}`,
-        ),
-      },
-    );
-  } catch (err) {
-    return util.handleRouteError(req, res, err, `/cube/playtest/${encodeURIComponent(req.params.cubeid)}`);
-  }
-});
-
-router.get('/decks/:id', async (req, res) => {
-  res.redirect(`/cube/deck/decks/${encodeURIComponent(req.params.id)}/0`);
-});
-
-router.get('/rebuild/:id/:index', ensureAuth, async (req, res) => {
+const rebuildDeck = async (req, res) => {
   try {
     const index = parseInt(req.params.index, 10);
     const base = await Deck.findById(req.params.id).lean();
@@ -470,7 +404,7 @@ router.get('/rebuild/:id/:index', ensureAuth, async (req, res) => {
     let eloOverrideDict = {};
     if (cube.useCubeElo) {
       const analytic = await CubeAnalytic.findOne({ cube: cube._id });
-      eloOverrideDict = util.fromEntries(analytic.cards.map((c) => [c.cardName, c.elo]));
+      eloOverrideDict = Object.fromEntries(analytic.cards.map((c) => [c.cardName, c.elo]));
     }
 
     const cardsArray = [];
@@ -524,7 +458,7 @@ router.get('/rebuild/:id/:index', ensureAuth, async (req, res) => {
     const [user, cubeOwner, baseUser] = await Promise.all([userq, cubeOwnerq, baseuserq]);
 
     if (!cubeOwner._id.equals(user._id) && !cube.disableNotifications) {
-      await util.addNotification(
+      await addNotification(
         cubeOwner,
         user,
         `/cube/deck/${deck._id}`,
@@ -532,7 +466,7 @@ router.get('/rebuild/:id/:index', ensureAuth, async (req, res) => {
       );
     }
     if (baseUser && !baseUser._id.equals(user.id)) {
-      await util.addNotification(
+      await addNotification(
         baseUser,
         user,
         `/cube/deck/${deck._id}`,
@@ -544,11 +478,11 @@ router.get('/rebuild/:id/:index', ensureAuth, async (req, res) => {
 
     return res.redirect(`/cube/deck/deckbuilder/${deck._id}`);
   } catch (err) {
-    return util.handleRouteError(req, res, err, `/404`);
+    return handleRouteError(req, res, err, `/404`);
   }
-});
+};
 
-router.post('/editdeck/:id', ensureAuth, async (req, res) => {
+const updateDeck = async (req, res) => {
   try {
     const deck = await Deck.findById(req.params.id);
     const deckOwner = await User.findById(deck.seats[0].userid);
@@ -569,7 +503,7 @@ router.post('/editdeck/:id', ensureAuth, async (req, res) => {
     let eloOverrideDict = {};
     if (cube.useCubeElo) {
       const analytic = await CubeAnalytic.findOne({ cube: cube._id });
-      eloOverrideDict = util.fromEntries(analytic.cards.map((c) => [c.cardName, c.elo]));
+      eloOverrideDict = Object.fromEntries(analytic.cards.map((c) => [c.cardName, c.elo]));
     }
     const cardsArray = [];
     for (const card of deck.toObject().cards) {
@@ -581,9 +515,7 @@ router.post('/editdeck/:id', ensureAuth, async (req, res) => {
     }
     const { colors } = await buildDeck(cardsArray, deck.toObject().seats[0].deck.flat(3), []);
     const colorString =
-      colors.length === 0
-        ? 'C'
-        : cardutil.COLOR_COMBINATIONS.find((comb) => Util.arraysAreEqualSets(comb, colors)).join('');
+      colors.length === 0 ? 'C' : COLOR_COMBINATIONS.find((comb) => Util.arraysAreEqualSets(comb, colors)).join('');
 
     deck.seats[0].deck = newdeck.playerdeck;
     deck.seats[0].sideboard = newdeck.playersideboard;
@@ -598,197 +530,11 @@ router.post('/editdeck/:id', ensureAuth, async (req, res) => {
     req.flash('success', 'Deck saved successfully');
     return res.redirect(`/cube/deck/${deck._id}`);
   } catch (err) {
-    return util.handleRouteError(req, res, err, '/404');
+    return handleRouteError(req, res, err, '/404');
   }
-});
+};
 
-router.post('/submitdeck/:id', body('skipDeckbuilder').toBoolean(), async (req, res) => {
-  try {
-    // req.body contains a draft
-    const draftid = req.body.body;
-    const draft = await Draft.findById(draftid).lean();
-    const cube = await Cube.findOne(buildIdQuery(draft.cube));
-    // TODO: Should have guards on if the objects aren't found in the DB.
-
-    const deck = new Deck();
-    deck.cube = draft.cube;
-    deck.cubeOwner = cube.owner;
-    deck.date = Date.now();
-    deck.draft = draft._id;
-    deck.cubename = cube.name;
-    deck.seats = [];
-    deck.owner = draft.seats[0].userid;
-    deck.cards = draft.cards;
-    deck.basics = draft.basics;
-
-    let eloOverrideDict = {};
-    if (cube.useCubeElo) {
-      const analytic = await CubeAnalytic.findOne({ cube: cube._id });
-      eloOverrideDict = util.fromEntries(analytic.cards.map((c) => [c.cardName, c.elo]));
-    }
-    const cards = draft.cards.map((c) => {
-      const newCard = { ...c, details: carddb.cardFromId(c.cardID) };
-      if (eloOverrideDict[newCard.details.name_lower]) {
-        newCard.details.elo = eloOverrideDict[newCard.details.name_lower];
-      }
-      return newCard;
-    });
-    let botNumber = 1;
-    for (const seat of draft.seats) {
-      // eslint-disable-next-line no-await-in-loop
-      const { sideboard, deck: newDeck, colors } = await buildDeck(cards, seat.pickorder, draft.basics);
-      const colorString =
-        colors.length === 0
-          ? 'C'
-          : cardutil.COLOR_COMBINATIONS.find((comb) => Util.arraysAreEqualSets(comb, colors)).join('');
-      if (seat.bot) {
-        deck.seats.push({
-          bot: seat.bot,
-          userid: seat.userid,
-          username: `Bot ${botNumber}: ${colorString}`,
-          name: `Draft of ${cube.name}`,
-          description: '',
-          deck: newDeck,
-          sideboard,
-        });
-        botNumber += 1;
-      } else {
-        deck.seats.push({
-          bot: seat.bot,
-          userid: seat.userid,
-          username: `${seat.name}: ${colorString}`,
-          name: `Draft of ${cube.name}`,
-          description: '',
-          deck: seat.drafted,
-          sideboard: seat.sideboard ? seat.sideboard : [],
-        });
-      }
-    }
-
-    const userq = User.findById(deck.seats[0].userid);
-    const cubeOwnerq = User.findById(cube.owner);
-
-    const [user, cubeOwner] = await Promise.all([userq, cubeOwnerq]);
-
-    if (user && !cube.disableNotifications) {
-      await util.addNotification(
-        cubeOwner,
-        user,
-        `/cube/deck/${deck._id}`,
-        `${user.username} drafted your cube: ${cube.name}`,
-      );
-    } else if (!cube.disableNotifications) {
-      await util.addNotification(
-        cubeOwner,
-        { user_from_name: 'Anonymous', user_from: '404' },
-        `/cube/deck/${deck._id}`,
-        `An anonymous user drafted your cube: ${cube.name}`,
-      );
-    }
-
-    cube.numDecks += 1;
-    await addDeckCardAnalytics(cube, deck, carddb);
-
-    await Promise.all([cube.save(), deck.save(), cubeOwner.save()]);
-    if (req.body.skipDeckbuilder) {
-      return res.redirect(`/cube/deck/${deck._id}`);
-    }
-    return res.redirect(`/cube/deck/deckbuilder/${deck._id}`);
-  } catch (err) {
-    return util.handleRouteError(req, res, err, `/cube/playtest/${encodeURIComponent(req.params.id)}`);
-  }
-});
-
-router.post('/submitgriddeck/:id', body('skipDeckbuilder').toBoolean(), async (req, res) => {
-  try {
-    // req.body contains a draft
-    const draftid = req.body.body;
-    const draft = await GridDraft.findById(draftid).lean();
-    const cube = await Cube.findOne(buildIdQuery(draft.cube));
-
-    const deck = new Deck();
-    deck.cube = draft.cube;
-    deck.date = Date.now();
-    deck.draft = draft._id;
-    deck.cubename = cube.name;
-    deck.seats = [];
-    deck.cards = draft.cards;
-    deck.basics = draft.basics;
-
-    let eloOverrideDict = {};
-    if (cube.useCubeElo) {
-      const analytic = await CubeAnalytic.findOne({ cube: cube._id });
-      eloOverrideDict = util.fromEntries(analytic.cards.map((c) => [c.cardName, c.elo]));
-    }
-    const cards = draft.cards.map((c) => {
-      const newCard = { ...c, details: carddb.cardFromId(c.cardID) };
-      if (eloOverrideDict[newCard.details.name_lower]) {
-        newCard.details.elo = eloOverrideDict[newCard.details.name_lower];
-      }
-      return newCard;
-    });
-    const botNumber = 1;
-    for (const seat of draft.seats) {
-      // eslint-disable-next-line no-await-in-loop
-      const { sideboard, deck: newDeck, colors } = await buildDeck(cards, seat.pickorder, draft.basics);
-      const colorString =
-        colors.length > 0
-          ? 'C'
-          : cardutil.COLOR_COMBINATIONS.find((comb) => Util.arraysAreEqualSets(comb, colors)).join('');
-      if (seat.bot) {
-        deck.seats.push({
-          bot: seat.bot,
-          userid: seat.userid,
-          username: `Bot ${botNumber}: ${colorString}`,
-          name: `Draft of ${cube.name}`,
-          description: '',
-          deck: newDeck,
-          sideboard,
-        });
-      } else {
-        deck.seats.push({
-          bot: seat.bot,
-          userid: seat.userid,
-          username: `${seat.name}: ${colorString}`,
-          name: `Draft of ${cube.name}`,
-          description: '',
-          deck: seat.drafted,
-          sideboard: seat.sideboard ? seat.sideboard : [],
-        });
-      }
-    }
-
-    const userq = User.findById(deck.seats[0].userid);
-    const cubeOwnerq = User.findById(cube.owner);
-
-    const [user, cubeOwner] = await Promise.all([userq, cubeOwnerq]);
-
-    if (user && !cube.disableNotifications) {
-      await util.addNotification(
-        cubeOwner,
-        user,
-        `/cube/deck/${deck._id}`,
-        `${user.username} drafted your cube: ${cube.name}`,
-      );
-    }
-
-    if (!cube.numDecks) {
-      cube.numDecks = 0;
-    }
-    cube.numDecks += 1;
-    await addDeckCardAnalytics(cube, deck, carddb);
-
-    await Promise.all([cube.save(), deck.save(), cubeOwner.save()]);
-    if (req.body.skipDeckbuilder) {
-      return res.redirect(`/cube/deck/${deck._id}`);
-    }
-    return res.redirect(`/cube/deck/deckbuilder/${deck._id}`);
-  } catch (err) {
-    return util.handleRouteError(req, res, err, `/cube/playtest/${encodeURIComponent(req.params.id)}`);
-  }
-});
-
-router.get('/redraft/:id/:seat', async (req, res) => {
+const redraftDeck = async (req, res) => {
   try {
     const base = await Deck.findById(req.params.id).lean();
     if (!(base && base.draft)) {
@@ -834,116 +580,11 @@ router.get('/redraft/:id/:seat', async (req, res) => {
     await draft.save();
     return res.redirect(`/cube/draft/${draft._id}`);
   } catch (err) {
-    return util.handleRouteError(req, res, err, `/cube/playtest/${req.params.id}`);
+    return handleRouteError(req, res, err, `/cube/playtest/${req.params.id}`);
   }
-});
+};
 
-router.post('/uploaddecklist/:id', ensureAuth, async (req, res) => {
-  try {
-    const cube = await Cube.findOne(buildIdQuery(req.params.id));
-    if (!cube) {
-      req.flash('danger', 'Cube not found.');
-      return res.redirect('/404');
-    }
-
-    if (!req.user._id.equals(cube.owner)) {
-      req.flash('danger', 'Not Authorized');
-      return res.redirect(`/cube/playtest/${encodeURIComponent(req.params.id)}`);
-    }
-
-    const cards = req.body.body.match(/[^\r\n]+/g);
-    if (!cards) {
-      req.flash('danger', 'No cards detected');
-      return res.redirect(`/cube/playtest/${encodeURIComponent(req.params.id)}`);
-    }
-
-    const cardList = [];
-
-    const added = [];
-    for (let i = 0; i < 16; i += 1) {
-      added.push([]);
-    }
-
-    for (let i = 0; i < cards.length; i += 1) {
-      const item = cards[i].toLowerCase().trim();
-      const numericMatch = item.match(/([0-9]+)x? (.*)/);
-      if (numericMatch) {
-        let count = parseInt(numericMatch[1], 10);
-        if (!Number.isInteger(count)) {
-          count = 1;
-        }
-        for (let j = 0; j < count; j += 1) {
-          cards.push(numericMatch[2]);
-        }
-      } else {
-        let selected = null;
-        // does not have set info
-        const normalizedName = cardutil.normalizeName(item);
-        const potentialIds = carddb.getIdsFromName(normalizedName);
-        if (potentialIds && potentialIds.length > 0) {
-          const inCube = cube.cards.find((card) => carddb.cardFromId(card.cardID).name_lower === normalizedName);
-          if (inCube) {
-            selected = {
-              finish: inCube.finish,
-              imgBackUrl: inCube.imgBackUrl,
-              imgUrl: inCube.imgUrl,
-              cardID: inCube.cardID,
-              details: carddb.cardFromId(inCube.cardID),
-            };
-          } else {
-            const reasonableCard = carddb.getMostReasonable(normalizedName, cube.defaultPrinting);
-            const reasonableId = reasonableCard ? reasonableCard._id : null;
-            const selectedId = reasonableId || potentialIds[0];
-            selected = {
-              cardID: selectedId,
-              details: carddb.cardFromId(selectedId),
-            };
-          }
-        }
-        if (selected) {
-          // push into correct column.
-          let column = Math.min(7, selected.cmc !== undefined ? selected.cmc : selected.details.cmc);
-          if (!selected.details.type.toLowerCase().includes('creature')) {
-            column += 8;
-          }
-          added[column].push(cardList.length);
-          cardList.push(selected);
-        }
-      }
-    }
-
-    const deck = new Deck();
-    deck.cards = cardList;
-    deck.date = Date.now();
-    deck.cubename = cube.name;
-    deck.cube = cube._id;
-    deck.cubeOwner = cube.owner;
-    deck.owner = req.user._id;
-    deck.seats = [
-      {
-        userid: req.user._id,
-        username: req.user.username,
-        name: `${req.user.username}'s decklist upload on ${deck.date.toLocaleString('en-US')}`,
-        deck: [added.slice(0, 8), added.slice(8, 16)],
-        sideboard: createPool(),
-      },
-    ];
-    deck.draft = null;
-
-    await deck.save();
-
-    cube.numDecks += 1;
-    await addDeckCardAnalytics(cube, deck, carddb);
-
-    await cube.save();
-
-    return res.redirect(`/cube/deck/deckbuilder/${deck._id}`);
-  } catch (err) {
-    return util.handleRouteError(req, res, err, '/404');
-  }
-});
-
-router.get('/:id', async (req, res) => {
+const viewDeck = async (req, res) => {
   try {
     if (!req.params.id || req.params.id === 'null' || req.params.id === 'false') {
       req.flash('danger', 'Invalid deck ID.');
@@ -965,7 +606,7 @@ router.get('/:id', async (req, res) => {
     let eloOverrideDict = {};
     if (cube.useCubeElo) {
       const analytic = await CubeAnalytic.findOne({ cube: cube._id });
-      eloOverrideDict = util.fromEntries(analytic.cards.map((c) => [c.cardName, c.elo]));
+      eloOverrideDict = Object.fromEntries(analytic.cards.map((c) => [c.cardName, c.elo]));
     }
 
     for (const card of deck.cards) {
@@ -1016,8 +657,21 @@ router.get('/:id', async (req, res) => {
       },
     );
   } catch (err) {
-    return util.handleRouteError(req, res, err, '/404');
+    return handleRouteError(req, res, err, '/404');
   }
-});
+};
 
+const router = express.Router();
+router.get('/:id/export/:seat/xmage', exportToXmage);
+router.get('/:id/export/:seat/forge', exportToForge);
+router.get('/:id/export/:seat/plaintext', exportToPlaintext);
+router.get('/:id/export/:seat/mtgo', exportForMtgo);
+router.get('/:id/export/:seat/arena', exportToArena);
+router.get('/:id/export/:seat/cockatrice', exportToCockatrice);
+router.delete('/:id', ensureAuth, deleteDeck);
+router.get('/:id/build', viewDeckbuilder);
+router.get('/:id/rebuild/:index', ensureAuth, rebuildDeck);
+router.put('/:id', ensureAuth, updateDeck);
+router.get('/:id/redraft/:seat', redraftDeck);
+router.get('/:id', viewDeck);
 export default router;

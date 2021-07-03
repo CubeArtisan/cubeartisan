@@ -41,7 +41,7 @@ const CARD_TRAIT = Object.freeze({
     const { index, cardID } = card;
     return (
       <AutocardItem key={index} card={card} data-in-modal index={index}>
-        <a href={`/tool/card/${encodeName(cardID)}`} target="_blank" rel="noopener noreferrer">
+        <a href={`/card/${encodeName(cardID)}`} target="_blank" rel="noopener noreferrer">
           {cardName(card)}
         </a>
       </AutocardItem>

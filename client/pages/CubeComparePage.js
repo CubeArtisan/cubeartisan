@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
@@ -33,6 +33,7 @@ import { SortContextProvider } from '@cubeartisan/client/contexts/SortContext';
 import { TAG_COLORS, TagContextProvider } from '@cubeartisan/client/contexts/TagContext';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import UserContext from '@cubeartisan/client/contexts/UserContext';
 
 const deduplicateTags = (tagColors) => {
   const used = new Set();
@@ -58,7 +59,7 @@ const CubeComparePage = ({
 }) => {
   const [openCollapse, setOpenCollapse] = useState(Query.get('f', false) ? 'filter' : null);
   const [filter, setFilter] = useState(null);
-
+  const { _id: userID } = useContext(UserContext);
   const defaultTagSet = new Set([].concat(...cards.map((card) => card.tags)));
   const defaultTags = [...defaultTagSet].map((tag) => ({
     id: tag,
@@ -74,6 +75,7 @@ const CubeComparePage = ({
             defaultTagColors={deduplicateTags(defaultTagColors)}
             defaultShowTagColors={defaultShowTagColors}
             defaultTags={defaultTags}
+            userID={userID}
           >
             <CubeCompareNavbar
               cubeA={cube}

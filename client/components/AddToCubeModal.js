@@ -49,7 +49,7 @@ const AddToCubeModal = ({ card, isOpen, toggle, hideAnalytics, cubeContext }) =>
 
   const add = async () => {
     try {
-      const response = await csrfFetch(`/cube/api/addtocube/${selectedCube}`, {
+      const response = await csrfFetch(`/cube/${selectedCube}/cards`, {
         method: 'POST',
         body: JSON.stringify({
           cards: [card._id],
@@ -73,8 +73,8 @@ const AddToCubeModal = ({ card, isOpen, toggle, hideAnalytics, cubeContext }) =>
 
   const maybe = async () => {
     try {
-      const response = await csrfFetch(`/cube/api/maybe/${selectedCube}`, {
-        method: 'POST',
+      const response = await csrfFetch(`/cube/${selectedCube}/maybe`, {
+        method: 'PUT',
         body: JSON.stringify({
           add: [{ details: card }],
         }),
@@ -110,7 +110,7 @@ const AddToCubeModal = ({ card, isOpen, toggle, hideAnalytics, cubeContext }) =>
         </ModalBody>
         <ModalFooter>
           {!hideAnalytics && (
-            <Button color="primary" href={`/tool/card/${card._id}`} target="_blank">
+            <Button color="primary" href={`/card/${card._id}`} target="_blank">
               Analytics
             </Button>
           )}
@@ -151,7 +151,7 @@ const AddToCubeModal = ({ card, isOpen, toggle, hideAnalytics, cubeContext }) =>
       </ModalBody>
       <ModalFooter>
         {!hideAnalytics && (
-          <Button color="primary" href={`/tool/card/${card._id}`} target="_blank">
+          <Button color="primary" href={`/card/${card._id}`} target="_blank">
             Analytics
           </Button>
         )}

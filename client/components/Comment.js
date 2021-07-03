@@ -97,7 +97,7 @@ const Comment = ({ comment, index, depth, noReplies, editComment }) => {
         </ModalBody>
       </Modal>
       <Modal isOpen={reportModalOpen} toggle={toggleReportModal} size="lg">
-        <CSRFForm method="POST" action="/comment/report" autoComplete="off">
+        <CSRFForm method="POST" action={`/comment/${comment._id}/report`} autoComplete="off">
           <ModalHeader toggle={toggle}>Report this Comment</ModalHeader>
           <ModalBody>
             <InputGroup className="mb-3">
@@ -128,7 +128,7 @@ const Comment = ({ comment, index, depth, noReplies, editComment }) => {
         </CSRFForm>
       </Modal>
       <div className={`pl-2 pt-2 flex-container${index % 2 === 0 ? ' comment-bg-even' : ' comment-bg-odd'}`}>
-        <a href={`/user/view/${comment.owner}`}>
+        <a href={`/user/${comment.owner}`}>
           <img className="profile-thumbnail" src={comment.image} alt={comment.artist} title={comment.artist} />
         </a>
         <div className="flex-grow ml-2">
@@ -136,7 +136,7 @@ const Comment = ({ comment, index, depth, noReplies, editComment }) => {
             <div className="flex-container flex-space-between">
               <div>
                 {comment.ownerName ? (
-                  <a href={`/user/view/${comment.owner}`}>
+                  <a href={`/user/${comment.owner}`}>
                     <small>{comment.ownerName}</small>
                   </a>
                 ) : (

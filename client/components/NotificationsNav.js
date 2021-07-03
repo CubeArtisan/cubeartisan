@@ -31,9 +31,7 @@ const NotificationsNav = () => {
   const [notifications, setNotifications] = useState(user.notifications);
 
   const clear = async () => {
-    await csrfFetch('/user/clearnotifications', {
-      method: 'POST',
-    });
+    await csrfFetch(`/user/${user._id}/notifications`, { method: 'DELETE' });
     setNotifications([]);
   };
 
@@ -60,7 +58,7 @@ const NotificationsNav = () => {
           {notifications.length > 0 ? (
             notifications.slice(0, 100).map((notification, index) => (
               <div className="user-notification py-3 px-2">
-                <a className="no-underline-hover" href={`/user/notification/${index}`}>
+                <a className="no-underline-hover" href={`/user/${user._id}/notification/${index}`}>
                   <h6 className="card-subtitle">{notification.text}</h6>
                 </a>
               </div>
@@ -73,7 +71,7 @@ const NotificationsNav = () => {
         </div>
         <CardFooter className="pb-1 pt-1">
           <h6>
-            <a className="my-0 card-subtitle" href="/user/notifications">
+            <a className="my-0 card-subtitle" href={`/user/${user._id}/notifications`}>
               View Older Notifications
             </a>
           </h6>

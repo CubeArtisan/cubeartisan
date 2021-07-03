@@ -165,8 +165,8 @@ const GroupModal = ({ cubeID, canEdit, children, ...props }) => {
       [...'WUBRG'].forEach((color) => delete updated[`color${color}`]);
 
       try {
-        const response = await csrfFetch(`/cube/api/updatecards/${cubeID}`, {
-          method: 'POST',
+        const response = await csrfFetch(`/cube/${cubeID}/cards`, {
+          method: 'PUT',
           body: JSON.stringify({ selected, updated }),
           headers: {
             'Content-Type': 'application/json',

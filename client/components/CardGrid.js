@@ -23,7 +23,7 @@ import { Row, Col } from 'reactstrap';
 
 function cardImage(Tag, card, cardProps, linkDetails) {
   const cardTag = <Tag card={card} {...cardProps} />;
-  if (linkDetails) return <a href={`/tool/card/${card.details._id}`}>{cardTag}</a>;
+  if (linkDetails) return <a href={`/card/${card.details._id}`}>{cardTag}</a>;
   return cardTag;
 }
 

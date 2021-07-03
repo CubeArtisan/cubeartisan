@@ -32,7 +32,7 @@ const Video = ({ video }) => {
       <CardHeader>
         <h1>{video.title}</h1>
         <h6>
-          By <a href={`/user/view/${video.owner}`}>{video.username}</a>
+          By <a href={`/user/${video.owner}`}>{video.username}</a>
           {' | '}
           <TimeAgo date={video.date} />
         </h6>

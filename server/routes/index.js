@@ -47,6 +47,9 @@ import CommentRoutes from '@cubeartisan/server/routes/comment';
 import AdminRoutes from '@cubeartisan/server/routes/admin';
 import ContentRoutes from '@cubeartisan/server/routes/content';
 import PackagesRoutes from '@cubeartisan/server/routes/package';
+import DraftRoutes from '@cubeartisan/server/routes/draft';
+import GridDraftRoutes from '@cubeartisan/server/routes/griddraft';
+import DeckRoutes from '@cubeartisan/server/routes/deck';
 import passportConfig from '@cubeartisan/server/config/passport';
 import { handleRouteError, wrapAsyncApi } from '@cubeartisan/server/serverjs/util';
 import Blog from '@cubeartisan/server/models/blog';
@@ -59,6 +62,7 @@ import PodcastEpisode from '@cubeartisan/server/models/podcastEpisode';
 import { makeFilter } from '@cubeartisan/server/serverjs/filterCubes';
 import { ensureAuth, requestLogging, timeoutMiddleware } from '@cubeartisan/server/routes/middleware';
 import { getCubeId } from '@cubeartisan/server/serverjs/cubefn';
+import router from '@cubeartisan/server/routes/user';
 
 dotenv.config();
 
@@ -464,35 +468,6 @@ const showErrorPage = (req, res) => {
 
 const browsePackages = (req, res) => render(req, res, 'BrowsePackagesPage', {});
 
-const listCardNames = (_, res) => {
-  return res.status(200).send({
-    success: 'true',
-    cardnames: carddb.cardtree,
-  });
-};
-
-// Get the full card images including image_normal and image_flip
-const getCardImageUrls = (_, res) => {
-  return res.status(200).send({
-    success: 'true',
-    cardimages: carddb.cardimages,
-  });
-};
-
-const getImageDict = (_, res) => {
-  res.status(200).send({
-    success: 'true',
-    dict: carddb.imagedict,
-  });
-};
-
-const getFullNames = (_, res) => {
-  res.status(200).send({
-    success: 'true',
-    cardnames: carddb.full_names,
-  });
-};
-
 const loginUser = (req, res, next) => {
   const query = {
     [req.body.username.includes('@') ? 'email' : 'username_lower']: req.body.username.toLowerCase(),
@@ -590,6 +565,9 @@ app.use('/dev', DevRoutes);
 app.use('/', PackagesRoutes);
 app.use('/user', UserRoutes);
 app.get('/', redirectToLandingOrDash);
+app.use('/draft', DraftRoutes);
+app.use('/griddraft', GridDraftRoutes);
+app.use('/deck', DeckRoutes);
 app.get('/comments/:parent/:type', wrapAsyncApi(getChildComments));
 app.get('/explore', wrapAsyncApi(exploreCubes));
 app.get('/random', wrapAsyncApi(showRandomCube));
@@ -597,17 +575,14 @@ app.get('/dashboard', ensureAuth, wrapAsyncApi(viewDashboard));
 app.get('/dashboard/decks/:page', wrapAsyncApi(dashboardDecks));
 app.get('/landing', wrapAsyncApi(viewLanding));
 app.get('/version', getVersion);
-app.get('/search', viewSearchPage);
-app.get('/search/:query/:page', searchResultsPage);
+app.get('/cubes/search', viewSearchPage);
+app.get('/cubes/search/:query/:page', searchResultsPage);
 app.get('/leave', showLeavePage);
 app.get('/packages', browsePackages);
-app.get('/cardnames', listCardNames);
-app.get('/cardimages', getCardImageUrls);
-app.get('/imagedict', getImageDict);
-app.get('/fullnames', getFullNames);
 app.get('/login', (req, res) => render(req, res, 'LoginPage'));
 app.post('/login', loginUser);
 app.post('/logout', logoutUser);
+router.get('/lostpassword', (req, res) => render(req, res, 'LostPasswordPage'));
 app.get('/404', showErrorPage);
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, _next) => {

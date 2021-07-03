@@ -33,7 +33,7 @@ const CubePreview = ({ cube }) => {
   const handleClick = useCallback(
     (event) => {
       if (!event.target.getAttribute('data-sublink')) {
-        window.location.href = `/cube/overview/${encodeURIComponent(getCubeId(cube))}`;
+        window.location.href = `/cube/${encodeURIComponent(getCubeId(cube))}`;
       }
     },
     [cube],
@@ -59,7 +59,7 @@ const CubePreview = ({ cube }) => {
         <div className="text-muted text-ellipsis">{getCubeDescription(cube)}</div>
         <em className="text-muted text-ellipsis">
           Designed by{' '}
-          <a data-sublink href={`/user/view/${cube.owner}`}>
+          <a data-sublink href={`/user/${cube.owner}`}>
             {cube.owner_name}
           </a>
         </em>
