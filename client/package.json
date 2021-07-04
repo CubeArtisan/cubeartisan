@@ -2,6 +2,10 @@
   "name": "@cubeartisan/client",
   "version": "0.1.0",
   "license": "AGPL-3.0-only",
+  "scripts": {
+    "list-files": "git ls-files -x ",
+    "nearley": "sh nearley/helper.sh"
+  },
   "dependencies": {
     "@babel/core": "^7.14.6",
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.14.5",
