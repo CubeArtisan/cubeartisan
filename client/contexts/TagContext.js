@@ -94,11 +94,6 @@ export class TagContextProvider extends Component {
       tags: [...(defaultTags || [])],
     };
 
-    if (typeof window !== 'undefined') {
-      window.globalTagColors = defaultTagColors;
-      window.globalShowTagColors = !!defaultShowTagColors;
-    }
-
     this.addTag = this.addTag.bind(this);
     this.setTagColors = this.setTagColors.bind(this);
     this.setShowTagColors = this.setShowTagColors.bind(this);
@@ -117,7 +112,6 @@ export class TagContextProvider extends Component {
     }).then((response) => {
       if (response.ok) {
         this.setState({ tagColors });
-        window.globalTagColors = tagColors;
       } else {
         console.error('Request failed.');
       }
@@ -137,7 +131,6 @@ export class TagContextProvider extends Component {
     }).then((response) => {
       if (response.ok) {
         this.setState({ showTagColors });
-        window.globalShowTagColors = showTagColors;
       } else {
         console.error('Request failed.');
       }

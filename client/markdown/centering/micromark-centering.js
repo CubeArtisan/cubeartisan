@@ -10,21 +10,26 @@ function centering() {
   let shouldEnd = false;
   let isOneLine = false;
   let endMark;
-  const endingConstruct = { tokenize: tokenizeCenteringEnd, partial: true };
-  const oneLineConstruct = { tokenize: tokenizeLine, partial: true };
 
-  function tokenizeCentering(effects, ok, nok) {
+  const oneLineConstruct = { partial: true };
+
+  const tokenizeCentering = (effects, ok, nok) => {
     let size = 0;
-    return start;
 
-    function start(code) {
-      assert(code === 62, 'expected `>`');
-      effects.enter('centering', { _container: true });
-      effects.enter('centeringPrefix');
-      return sequence(code);
-    }
+    const markOneLine = (code) => {
+      isOneLine = true;
+      return ok(code);
+    };
 
-    function sequence(code) {
+    const after = (code) => {
+      if (size < 3) return nok(code);
+      if (markdownSpace(code)) {
+        return spaceFactory(effects, after, types.whitespace)(code);
+      }
+      return effects.attempt(oneLineConstruct, markOneLine, ok)(code);
+    };
+
+    const sequence = (code) => {
       if (code === 62) {
         size += 1;
         effects.consume(code);
@@ -32,43 +37,20 @@ function centering() {
       }
       effects.exit('centeringPrefix');
       return after(code);
-    }
+    };
 
-    function after(code) {
-      if (size < 3) return nok(code);
-      if (markdownSpace(code)) {
-        return spaceFactory(effects, after, types.whitespace)(code);
-      }
-      return effects.attempt(oneLineConstruct, markOneLine, ok)(code);
-    }
-
-    function markOneLine(code) {
-      isOneLine = true;
-      return ok(code);
-    }
-  }
-
-  function tokenizeCenteringEnd(effects, ok, nok) {
-    let size = 0;
-    return start;
-
-    function start(code) {
-      effects.enter('centeringSuffix');
+    return (code) => {
+      assert(code === 62, 'expected `>`');
+      effects.enter('centering', { _container: true });
+      effects.enter('centeringPrefix');
       return sequence(code);
-    }
+    };
+  };
 
-    function sequence(code) {
-      if (code === 60) {
-        size += 1;
-        effects.consume(code);
-        return sequence;
-      }
+  const tokenizeCenteringEnd = (effects, ok, nok) => {
+    let size = 0;
 
-      effects.exit('centeringSuffix');
-      return after(code);
-    }
-
-    function after(code) {
+    const after = (code) => {
       if (markdownSpace(code)) {
         return spaceFactory(effects, after, types.whitespace)(code);
       }
@@ -78,18 +60,36 @@ function centering() {
       }
 
       return nok(code);
-    }
-  }
+    };
 
-  function tokenizeLine(effects, ok, nok) {
-    return start;
+    const sequence = (code) => {
+      if (code === 60) {
+        size += 1;
+        effects.consume(code);
+        return sequence;
+      }
 
-    function start(code) {
-      effects.enter('centeringLineValue', { contentType: 'flow' });
-      return content(code);
-    }
+      effects.exit('centeringSuffix');
+      return after(code);
+    };
 
-    function content(code) {
+    return (code) => {
+      effects.enter('centeringSuffix');
+      return sequence(code);
+    };
+  };
+
+  const endingConstruct = { tokenize: tokenizeCenteringEnd, partial: true };
+
+  oneLineConstruct.tokenize = (effects, ok, nok) => {
+    const end = (code) => {
+      effects.exit('centeringLineValue');
+      return effects.attempt(endingConstruct, ok)(code);
+    };
+
+    let consumeLt;
+
+    const content = (code) => {
       if (code === 60) {
         return effects.check(endingConstruct, end, consumeLt)(code);
       }
@@ -98,43 +98,43 @@ function centering() {
       }
       effects.consume(code);
       return content;
-    }
+    };
 
-    function consumeLt(code) {
+    consumeLt = (code) => {
       assert(code === 60, 'expected `<`');
       effects.consume(code);
       return content;
-    }
+    };
 
-    function end(code) {
-      effects.exit('centeringLineValue');
-      return effects.attempt(endingConstruct, ok)(code);
-    }
-  }
+    return (code) => {
+      effects.enter('centeringLineValue', { contentType: 'flow' });
+      return content(code);
+    };
+  };
 
-  function tokenizeCenteringContinuation(effects, ok, nok) {
+  const tokenizeCenteringContinuation = (effects, ok, nok) => {
     if (isOneLine) return nok;
     const now = this.now();
-    // the tokenization can be callled twice on the same input, so we have to check where we are as well
-    // otherwise the second invocation on the closing fence would return nok, which we don't want
-    if (shouldEnd && !shallowEqual(now, endMark)) return nok;
-    return spaceFactory(effects, effects.attempt(endingConstruct, markEnd, ok), types.linePrefix, 4);
 
-    function markEnd(code) {
+    const markEnd = (code) => {
       // we want to include the closing fence in the block, but exit on the next line
       shouldEnd = true;
       // marking the point before the fence so that it can be checked in parent function.
       endMark = now;
       return ok(code);
-    }
-  }
+    };
+    // the tokenization can be callled twice on the same input, so we have to check where we are as well
+    // otherwise the second invocation on the closing fence would return nok, which we don't want
+    if (shouldEnd && !shallowEqual(now, endMark)) return nok;
+    return spaceFactory(effects, effects.attempt(endingConstruct, markEnd, ok), types.linePrefix, 4);
+  };
 
-  function exit(effects) {
+  const exit = (effects) => {
     effects.exit('centering');
     shouldEnd = false;
     isOneLine = false;
     endMark = undefined;
-  }
+  };
 
   return {
     tokenize: tokenizeCentering,

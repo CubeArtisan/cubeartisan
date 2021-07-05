@@ -27,16 +27,6 @@ html(lang='en')
 		link(href='https://unpkg.com/react-pivottable@0.9.0/pivottable.css', rel='stylesheet')
 
 	body
-		#autocardPopup.d-none
-			.autocard-background
-				.row.no-gutters
-					.position-relative.card-border
-						img.foilOverlay(src='/content/foilOverlay.png')
-						img#autocardImageFront(src='', alt='')
-					.position-relative.card-border
-						img.foilOverlay(src='/content/foilOverlay.png')
-						img#autocardImageBack(src='', alt='')
-				#autocardTags.row.no-gutters.p-1
 		include dynamic_flash
 		#react-root !{reactHTML}
 		script(src='/js/csrf.js', async)
@@ -44,8 +34,4 @@ html(lang='en')
 		script(type='text/javascript').
 			window.reactProps = !{reactProps};
 		script(src='/js/'+page+'.bundle.js')
-
 		script(src='/js/autocard.js')
-		script(type='text/javascript').
-			autocard_init('autocard');
-			autocard_init('dynamic-autocard');

@@ -1,10 +1,9 @@
 server/private/
 server/dist/
-/.vscode/
-generated/
+client/generated/
 server/jobs/export/
-*.old
 coverage/
+*.old
 
 .python-version
 

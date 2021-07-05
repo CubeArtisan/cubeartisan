@@ -289,7 +289,7 @@ body {
 	color: var(--link);
 }
 
-#autocardPopup {
+.autocardPopup {
 	position: absolute;
 	pointer-events: none;
 	user-select: none;
@@ -301,15 +301,15 @@ body {
 	overflow: hidden;
 }
 
-#autocardPopup img {
+.autocardPopup img {
 	width: 15rem;
 }
 
-#autocardPopup {
+.autocardPopup {
 	width: 15rem;
 }
 
-#autocardPopup.double-width {
+.autocardPopup.double-width {
 	width: 30rem;
 }
 
@@ -319,7 +319,7 @@ body {
 }
 
 @media (max-width: 767.98px) {
-	#autocardPopup {
+	.autocardPopup {
 		display: none !important;
 	}
 }

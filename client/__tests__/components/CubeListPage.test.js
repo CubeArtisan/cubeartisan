@@ -1,12 +1,11 @@
-import React from 'react';
 import { FetchMock } from '@react-mock/fetch';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
 import CubeListPage from '@cubeartisan/client/pages/CubeListPage';
 import { fromEntries } from '@cubeartisan/client/utils/Util';
-import exampleCube from '../../../server/fixtures/examplecube';
-import exampleCardsFull from '../../../server/fixtures/examplecardsdetails';
+import exampleCube from '@cubeartisan/client/fixtures/examplecube';
+import exampleCardsFull from '@cubeartisan/client/fixtures/examplecardsdetails';
 
 jest.spyOn(URLSearchParams.prototype, 'get').mockImplementation(() => undefined);
 

@@ -1,37 +1,10 @@
 import assert from 'assert';
 
-function symbols(codes) {
+const symbols = (codes) => {
   const validCodes = codes?.toLowerCase() || '';
 
-  function tokenizeSymbol(effects, ok, nok) {
-    return start;
-
-    function start(code) {
-      assert(code === 123, 'expected `{`');
-      effects.enter('symbol');
-      effects.enter('symbolStartMarker');
-      effects.consume(code);
-      effects.exit('symbolStartMarker');
-      return open;
-    }
-
-    function open(code) {
-      if (code < 0) {
-        return nok(code);
-      }
-
-      const c = String.fromCharCode(code).toLowerCase();
-
-      if (validCodes.includes(c)) {
-        effects.enter('symbolValue');
-        effects.consume(code);
-        return more;
-      }
-
-      return nok(code);
-    }
-
-    function more(code) {
+  const tokenizeSymbol = (effects, ok, nok) => {
+    const more = (code) => {
       if (code === 125) {
         // '}'
         effects.exit('symbolValue');
@@ -53,8 +26,33 @@ function symbols(codes) {
       }
 
       return nok(code);
-    }
-  }
+    };
+
+    const open = (code) => {
+      if (code < 0) {
+        return nok(code);
+      }
+
+      const c = String.fromCharCode(code).toLowerCase();
+
+      if (validCodes.includes(c)) {
+        effects.enter('symbolValue');
+        effects.consume(code);
+        return more;
+      }
+
+      return nok(code);
+    };
+
+    return (code) => {
+      assert(code === 123, 'expected `{`');
+      effects.enter('symbol');
+      effects.enter('symbolStartMarker');
+      effects.consume(code);
+      effects.exit('symbolStartMarker');
+      return open;
+    };
+  };
 
   const symbol = {
     tokenize: tokenizeSymbol,
@@ -65,6 +63,6 @@ function symbols(codes) {
       123: symbol,
     },
   };
-}
+};
 
 export default symbols;

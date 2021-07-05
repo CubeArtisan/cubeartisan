@@ -1,5 +1,6 @@
 .tag {
 	background-color: var(--header);
+    color: var(--text);
 	font-size: 85%;
 	padding: 0.5em .75em;
 	margin: .25em .1em;

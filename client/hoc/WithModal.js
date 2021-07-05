@@ -17,10 +17,10 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import { useCallback, useState } from 'react';
+import PropTypes from 'prop-types';
 
-const withModal =
-  (Tag, ModalTag) =>
-  ({ children, className, modalProps, ...props }) => {
+const withModal = (Tag, ModalTag) => {
+  const WithModal = ({ children, className, modalProps, ...props }) => {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = useCallback(
       (event) => {
@@ -41,5 +41,15 @@ const withModal =
       </>
     );
   };
+  WithModal.propTypes = {
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string,
+    modalProps: PropTypes.shape(ModalTag.propTypes).isRequired,
+  };
+  WithModal.defaultProps = {
+    className: null,
+  };
+  return WithModal;
+};
 
 export default withModal;
