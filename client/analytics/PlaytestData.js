@@ -28,7 +28,7 @@ import { fromEntries } from '@cubeartisan/client/utils/Util';
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
 import { mainboardRate, pickRate, encodeName } from '@cubeartisan/client/utils/Card';
 
-import withAutocard from '@cubeartisan/client/components/WithAutocard';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard';
 
 const AutocardItem = withAutocard(ListGroupItem);
 

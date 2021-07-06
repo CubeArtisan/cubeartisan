@@ -28,7 +28,7 @@ const MaybeboardContext = createContext({
 });
 
 export const MaybeboardContextProvider = ({ initialCards, ...props }) => {
-  const [maybeboard, setMaybeboard] = useState([...initialCards]);
+  const [maybeboard, setMaybeboard] = useState(Array.from(initialCards));
 
   const addMaybeboardCard = useCallback((card) => {
     setMaybeboard((current) => [...current, card]);
@@ -38,7 +38,7 @@ export const MaybeboardContextProvider = ({ initialCards, ...props }) => {
   }, []);
   const updateMaybeboardCard = useCallback((updatedCard) => {
     setMaybeboard((current) => {
-      const newMaybeboard = [...current];
+      const newMaybeboard = Array.from(current);
       const index = newMaybeboard.findIndex((card) => card._id === updatedCard._id);
       if (index > 0) {
         newMaybeboard[index] = updatedCard;

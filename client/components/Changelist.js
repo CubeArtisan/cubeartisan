@@ -20,7 +20,7 @@ import { useCallback, useContext } from 'react';
 
 import { Badge, Input } from 'reactstrap';
 
-import ChangelistContext from '@cubeartisan/client/contexts/ChangelistContext';
+import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext';
 import withAutocard from './WithAutocard';
 
 const TextAutocard = withAutocard('span');

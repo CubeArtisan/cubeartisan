@@ -22,7 +22,7 @@ import { InputGroup, InputGroupAddon, InputGroupText, UncontrolledTooltip } from
 import PropTypes from 'prop-types';
 
 import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown';
-import ThemeContext from '@cubeartisan/client/contexts/ThemeContext';
+import ThemeContext from '@cubeartisan/client/components/contexts/ThemeContext';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
 import CubePropTypes from '@cubeartisan/client/proptypes/CubePropType';
 import TagInput from '@cubeartisan/client/components/TagInput';

@@ -326,7 +326,7 @@ export const weightedAverage = (arr) => {
 
 export const weightedMedian = (arr) => {
   const count = arr.reduce((acc, [weight]) => acc + weight, 0);
-  const nums = [...arr].sort(([, a], [, b]) => a - b);
+  const nums = Array.from(arr).sort(([, a], [, b]) => a - b);
   const mid = count / 2;
   let total = 0;
   let prevValue = nums[0]?.[1] ?? 0;
@@ -346,7 +346,7 @@ export const weightedMedian = (arr) => {
 // Returns num+1 elements that are min, 1/num, 2/num, ..., max
 export const weightedPercentiles = (arr, num) => {
   const count = arr.reduce((acc, [weight]) => acc + weight, 0);
-  const nums = [...arr].sort(([, a], [, b]) => a - b);
+  const nums = Array.from(arr).sort(([, a], [, b]) => a - b);
   let total = 0;
   let prevValue = nums[0]?.[1] ?? 0;
   const percentiles = [];

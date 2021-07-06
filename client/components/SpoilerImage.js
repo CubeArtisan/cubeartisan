@@ -18,7 +18,7 @@
  */
 import { useCallback, useContext } from 'react';
 
-import CardModalContext from '@cubeartisan/client/contexts/CardModalContext';
+import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext';
 import FoilCardImage from '@cubeartisan/client/components/FoilCardImage';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
 

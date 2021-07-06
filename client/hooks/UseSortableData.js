@@ -22,7 +22,7 @@ const useSortableData = (data, config = null, sortFns = {}) => {
   const [sortConfig, setSortConfig] = useState(config);
 
   const items = useMemo(() => {
-    const sortableItems = [...data];
+    const sortableItems = Array.from(data);
     if (sortConfig) {
       const { key, direction } = sortConfig;
       const sortFn = sortFns[key] ?? ((a, b) => a - b);

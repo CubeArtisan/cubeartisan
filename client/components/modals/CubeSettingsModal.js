@@ -25,7 +25,7 @@ import { putJson } from '@cubeartisan/client/utils/CSRF';
 import { formDataObject } from '@cubeartisan/client/utils/Form';
 
 import CSRFForm from '@cubeartisan/client/components/CSRFForm';
-import CubeContext from '@cubeartisan/client/contexts/CubeContext';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
 import LoadingButton from '@cubeartisan/client/components/LoadingButton';
 
 const CubeSettingsModal = ({ addAlert, onCubeUpdate, isOpen, toggle }) => {

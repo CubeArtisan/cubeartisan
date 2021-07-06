@@ -25,14 +25,14 @@ import Markdown from '@cubeartisan/client/components/Markdown';
 import MassBuyButton from '@cubeartisan/client/components/MassBuyButton';
 
 const compareCards = (x, y) => x.details.name.localeCompare(y.details.name);
-const sortCards = (cards) => [...cards].sort(compareCards);
+const sortCards = (cards) => Array.from(cards).sort(compareCards);
 
 const dedupeCards = (cards) => {
   const map = new Map();
-  for (const card of [...cards].reverse()) {
+  for (const card of Array.from(cards).reverse()) {
     map.set(card.details.name, card);
   }
-  return [...map.values()];
+  return Array.from(map.values());
 };
 
 const Tokens = ({ cube }) => {
@@ -52,7 +52,7 @@ const Tokens = ({ cube }) => {
     }
   }
 
-  const sorted = [...Object.entries(byOracleId)];
+  const sorted = Array.from(Object.entries(byOracleId));
   sorted.sort((x, y) => compareCards(x[1].token, y[1].token));
   const data = sorted.map(([, tokenData]) => ({
     card: tokenData.token,

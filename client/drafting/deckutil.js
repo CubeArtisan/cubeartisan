@@ -190,12 +190,12 @@ export const calculateBasicCounts = ({ picked, cards, basics }) => {
     .concat(...basics.map((ci) => new Array(17).fill(ci)))
     .filter((ci) => cardType(cards[ci]).toLowerCase().includes('land') && !cardIsSpecialZoneType(cards[ci]))
     .sort(getSortFn(cards));
-  const landsByComb = Array.from(lands).map((v, i) => [COLOR_COMBINATIONS[i].join(''), v]);
+  const landsByComb = Array.from(lands, (v, i) => [COLOR_COMBINATIONS[i].join(''), v]);
   const main = [];
   for (const [comb, count] of landsByComb) {
     for (let i = 0; i < count; i++) {
       const match = landCards.findIndex((ci) =>
-        arraysAreEqualSets([...comb], FETCH_LANDS[cardName(cards[ci])] ?? cardColorIdentity(cards[ci])),
+        arraysAreEqualSets(Array.from(comb), FETCH_LANDS[cardName(cards[ci])] ?? cardColorIdentity(cards[ci])),
       );
       if (match === -1) {
         console.warn('Could not find a matching land that the bots said was there.');
@@ -232,7 +232,7 @@ async function build({ cards, picked, probabilities, basics, lands: orginalLands
   if (nonlands.length < neededNonLands) {
     outOfColor.sort(sortFn);
     nonlands.push(...outOfColor.splice(0, neededNonLands - nonlands.length));
-    side = [...outOfColor];
+    side = Array.from(outOfColor);
   }
 
   const distanceFunc = (c1, c2) => 1 - (probabilities[c1] * probabilities[c2] * getSynergy(c1, c2, cards)) / MAX_SCORE;

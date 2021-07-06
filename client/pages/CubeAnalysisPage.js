@@ -34,7 +34,7 @@ import HyperGeom from '@cubeartisan/client/analytics/HyperGeom';
 import Suggestions from '@cubeartisan/client/analytics/Suggestions';
 import Asfans from '@cubeartisan/client/analytics/Asfans';
 import FilterCollapse from '@cubeartisan/client/components/FilterCollapse';
-import { TagContextProvider } from '@cubeartisan/client/contexts/TagContext';
+import { TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
 import useToggle from '@cubeartisan/client/hooks/UseToggle';
 import CubeLayout from '@cubeartisan/client/layouts/CubeLayout';
@@ -58,7 +58,7 @@ import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
 import { fromEntries } from '@cubeartisan/client/utils/Util';
 import { getLabels, cardIsLabel } from '@cubeartisan/client/utils/Sort';
-import UserContext from '@cubeartisan/client/contexts/UserContext';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
 
 const CubeAnalysisPage = ({
   cube,
@@ -290,19 +290,21 @@ const CubeAnalysisPage = ({
   }
 
   useEffect(() => {
-    getData(`/cube/api/adds/${cubeID}`)
-      .then(({ toCut, toAdd }) => {
+    (async () => {
+      try {
+        const { toCut, toAdd } = await getData(`/cube/api/adds/${cubeID}`);
         setAdds(toAdd);
         setCuts(toCut);
         setLoading('loaded');
-      })
-      .catch(() => {
+      } catch (err) {
         setLoading('error');
-      });
+        console.warn(err);
+      }
+    })();
   }, [cubeID]);
 
-  const defaultTagSet = new Set([].concat(...cube.cards.map((card) => card.tags)));
-  const defaultTags = [...defaultTagSet].map((tag) => ({
+  const defaultTagSet = new Set(cube.cards.flatMap((card) => card.tags));
+  const defaultTags = Array.from(defaultTagSet, (tag) => ({
     id: tag,
     text: tag,
   }));

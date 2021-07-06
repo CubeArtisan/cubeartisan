@@ -40,11 +40,11 @@ import { findUserLinks } from '@cubeartisan/client/markdown/parser';
 
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput';
 import Changelist from '@cubeartisan/client/components/Changelist';
-import ChangelistContext from '@cubeartisan/client/contexts/ChangelistContext';
-import CubeContext from '@cubeartisan/client/contexts/CubeContext';
+import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm';
-import DisplayContext from '@cubeartisan/client/contexts/DisplayContext';
-import ResizeModal from '@cubeartisan/client/components/ResizeModal';
+import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext';
+import ResizeModal from '@cubeartisan/client/components/modals/ResizeModal';
 import TextEntry from '@cubeartisan/client/components/TextEntry';
 
 export const getCard = async (cubeID, name, setAlerts) => {

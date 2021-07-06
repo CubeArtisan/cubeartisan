@@ -21,7 +21,7 @@ import PropTypes from 'prop-types';
 
 import { Card, CardBody, FormGroup, Label, Input, Button } from 'reactstrap';
 
-import UserContext from '@cubeartisan/client/contexts/UserContext';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
 import Paginate from '@cubeartisan/client/components/Paginate';
 import BlogPost from '@cubeartisan/client/components/BlogPost';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm';

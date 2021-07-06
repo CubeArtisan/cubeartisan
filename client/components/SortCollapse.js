@@ -23,8 +23,8 @@ import PropTypes from 'prop-types';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
 import { SORTS, ORDERED_SORTS } from '@cubeartisan/client/utils/Sort';
 
-import CubeContext from '@cubeartisan/client/contexts/CubeContext';
-import SortContext from '@cubeartisan/client/contexts/SortContext';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
+import SortContext from '@cubeartisan/client/components/contexts/SortContext';
 import Query from '@cubeartisan/client/utils/Query';
 import Tooltip from '@cubeartisan/client/components/Tooltip';
 

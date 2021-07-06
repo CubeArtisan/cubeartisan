@@ -41,8 +41,8 @@ import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
 import Tab from '@cubeartisan/client/components/Tab';
 import Video from '@cubeartisan/client/components/Video';
 import VideoPreview from '@cubeartisan/client/components/VideoPreview';
-import SiteCustomizationContext from '@cubeartisan/client/contexts/SiteCustomizationContext';
-import UserContext from '@cubeartisan/client/contexts/UserContext';
+import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
@@ -63,12 +63,12 @@ const EditVideoPage = ({ loginCallback, video }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/cube/api/imagedict')
-      .then((response) => response.json())
-      .then((json) => {
-        setLoading(false);
-        setImageDict(json.dict);
-      });
+    (async () => {
+      const response = await fetch('/cube/api/imagedict');
+      const json = await response.json();
+      setLoading(false);
+      setImageDict(json.dict);
+    })();
   }, []);
 
   useEffect(() => {

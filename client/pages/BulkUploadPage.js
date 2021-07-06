@@ -24,7 +24,9 @@ import { Button, Col, Form, Input, Label, Row, Card, CardBody, CardHeader } from
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm';
 import Changelist from '@cubeartisan/client/components/Changelist';
-import ChangelistContext, { ChangelistContextProvider } from '@cubeartisan/client/contexts/ChangelistContext';
+import ChangelistContext, {
+  ChangelistContextProvider,
+} from '@cubeartisan/client/components/contexts/ChangelistContext';
 import { getCard } from '@cubeartisan/client/components/EditCollapse';
 import LoadingButton from '@cubeartisan/client/components/LoadingButton';
 import CubeLayout from '@cubeartisan/client/layouts/CubeLayout';

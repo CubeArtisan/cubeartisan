@@ -45,13 +45,13 @@ import {
 } from 'reactstrap';
 
 import CSRFForm from '@cubeartisan/client/components/CSRFForm';
-import CubeContext from '@cubeartisan/client/contexts/CubeContext';
-import UserContext from '@cubeartisan/client/contexts/UserContext';
-import CustomDraftFormatModal from '@cubeartisan/client/components/CustomDraftFormatModal';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
+import CustomDraftFormatModal from '@cubeartisan/client/components/modals/CustomDraftFormatModal';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
 import DeckPreview from '@cubeartisan/client/components/DeckPreview';
 import Markdown from '@cubeartisan/client/components/Markdown';
-import withModal from '@cubeartisan/client/components/WithModal';
+import withModal from '@cubeartisan/client/components/hoc/WithModal';
 import useAlerts, { Alerts } from '@cubeartisan/client/hooks/UseAlerts';
 import useToggle from '@cubeartisan/client/hooks/UseToggle';
 import CubeLayout from '@cubeartisan/client/layouts/CubeLayout';
@@ -60,7 +60,7 @@ import { allBotsDraft } from '@cubeartisan/client/drafting/draftutil';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
 
-const range = (lo, hi) => Array.from(Array(hi - lo).keys()).map((n) => n + lo);
+const range = (lo, hi) => Array.from(Array(hi - lo).keys(), (n) => n + lo);
 const rangeOptions = (lo, hi) => range(lo, hi).map((n) => <option key={n}>{n}</option>);
 
 const CardTitleH5 = ({ ...props }) => <CardTitle tag="h5" className="mb-0" {...props} />;

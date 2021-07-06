@@ -40,7 +40,7 @@ import DndProvider from '@cubeartisan/client/components/DndProvider';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
 import FoilCardImage from '@cubeartisan/client/components/FoilCardImage';
-import { DisplayContextProvider } from '@cubeartisan/client/contexts/DisplayContext';
+import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext';
 import CubeLayout from '@cubeartisan/client/layouts/CubeLayout';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
@@ -54,9 +54,10 @@ import { getGridDrafterState } from '@cubeartisan/client/drafting/griddraftutils
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
 import { fromEntries, toNullableInt } from '@cubeartisan/client/utils/Util';
 
-const GRID_DRAFT_OPTIONS = [0, 1, 2]
-  .map((ind) => [[0, 1, 2].map((offset) => 3 * ind + offset), [0, 1, 2].map((offset) => ind + 3 * offset)])
-  .flat(1);
+const GRID_DRAFT_OPTIONS = [0, 1, 2].flatMap((ind) => [
+  [0, 1, 2].map((offset) => 3 * ind + offset),
+  [0, 1, 2].map((offset) => ind + 3 * offset),
+]);
 export const calculateGridBotPick = calculateBotPickFromOptions(GRID_DRAFT_OPTIONS);
 
 const Pack = ({ pack, packNumber, pickNumber, makePick, seatIndex, turn }) => (
@@ -173,7 +174,7 @@ const useMutatableGridDraft = (initialGridDraft) => {
         ({ seatIndex, cardIndices }) =>
           setGridDraft((oldGridDraft) => {
             const newGridDraft = { ...oldGridDraft };
-            newGridDraft.seats = [...newGridDraft.seats];
+            newGridDraft.seats = Array.from(newGridDraft.seats);
             newGridDraft.seats[seatIndex] = { ...newGridDraft.seats[seatIndex] };
             mutation({ newGridDraft, seatIndex, cardIndices });
             return newGridDraft;

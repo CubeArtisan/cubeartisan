@@ -22,7 +22,7 @@ import PropTypes from 'prop-types';
 import { Row, Col, Card, CardHeader, CardBody } from 'reactstrap';
 
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import SiteCustomizationContext from '@cubeartisan/client/contexts/SiteCustomizationContext';
+import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
 

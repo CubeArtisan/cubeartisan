@@ -32,14 +32,14 @@ import {
   DropdownMenu,
 } from 'reactstrap';
 
-import CreateCubeModal from '@cubeartisan/client/components/CreateCubeModal';
+import CreateCubeModal from '@cubeartisan/client/components/modals/CreateCubeModal';
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
-import LoginModal from '@cubeartisan/client/components/LoginModal';
+import LoginModal from '@cubeartisan/client/components/modals/LoginModal';
 import NotificationsNav from '@cubeartisan/client/components/NotificationsNav';
-import withModal from '@cubeartisan/client/components/WithModal';
-import SiteCustomizationContext from '@cubeartisan/client/contexts/SiteCustomizationContext';
-import ThemeContext from '@cubeartisan/client/contexts/ThemeContext';
-import UserContext from '@cubeartisan/client/contexts/UserContext';
+import withModal from '@cubeartisan/client/components/hoc/WithModal';
+import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext';
+import ThemeContext from '@cubeartisan/client/components/contexts/ThemeContext';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
 import useToggle from '@cubeartisan/client/hooks/UseToggle';
 import Footer from '@cubeartisan/client/layouts/Footer';
 
@@ -185,13 +185,6 @@ const MainLayout = ({ children, loginCallback }) => {
 MainLayout.propTypes = {
   children: PropTypes.node.isRequired,
   loginCallback: PropTypes.string,
-  siteCustomizations: PropTypes.shape({
-    discordUrl: PropTypes.string.isRequired,
-    siteName: PropTypes.string.isRequired,
-    siteRoot: PropTypes.string.isRequired,
-    sourceRepo: PropTypes.string.isRequired,
-    supportEmail: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 MainLayout.defaultProps = {

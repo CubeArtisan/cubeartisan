@@ -48,7 +48,7 @@ export const ColorCheckButton = ({ prefix, size, color, short, value, onChange }
         target: { name, value: !value },
       });
       if (short === 'C' && !value) {
-        for (const other of [...'WUBRG']) {
+        for (const other of Array.from('WUBRG')) {
           onChange({
             target: {
               name: prefix + other,
@@ -56,7 +56,7 @@ export const ColorCheckButton = ({ prefix, size, color, short, value, onChange }
             },
           });
         }
-      } else if ([...'WUBRG'].includes(short) && !value) {
+      } else if (Array.from('WUBRG').includes(short) && !value) {
         onChange({
           target: {
             name: `${prefix}C`,
@@ -111,7 +111,7 @@ ColorChecksControl.defaultProps = {
 };
 
 export const ColorChecksAddon = ({ addonType, colorless, prefix, size, values, onChange }) => {
-  const colors = [...COLORS];
+  const colors = Array.from(COLORS);
   if (colorless) {
     colors.push(['Colorless', 'C']);
   }

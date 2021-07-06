@@ -19,7 +19,7 @@
 import { forwardRef, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Input } from 'reactstrap';
-import withAutocard from '@cubeartisan/client/components/WithAutocard';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard';
 
 const AutocardLi = withAutocard('li');
 

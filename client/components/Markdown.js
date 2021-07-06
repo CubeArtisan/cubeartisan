@@ -27,9 +27,9 @@ import { LinkIcon } from '@primer/octicons-react';
 
 import { LIMITED_PLUGINS, ALL_PLUGINS } from '@cubeartisan/client/markdown/parser';
 
-import withAutocard from '@cubeartisan/client/components/WithAutocard';
-import withModal from '@cubeartisan/client/components/WithModal';
-import LinkModal from '@cubeartisan/client/components/LinkModal';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard';
+import withModal from '@cubeartisan/client/components/hoc/WithModal';
+import LinkModal from '@cubeartisan/client/components/modals/LinkModal';
 import FoilCardImage from '@cubeartisan/client/components/FoilCardImage';
 import { isInternalURL, isSamePageURL } from '@cubeartisan/client/utils/Util';
 

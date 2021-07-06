@@ -22,7 +22,7 @@ import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType';
 import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType';
 
-import UserContext from '@cubeartisan/client/contexts/UserContext';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
 import CubePreview from '@cubeartisan/client/components/CubePreview';
 import ArticlePreview from '@cubeartisan/client/components/ArticlePreview';
 import DeckPreview from '@cubeartisan/client/components/DeckPreview';
@@ -31,8 +31,8 @@ import PodcastEpisodePreview from '@cubeartisan/client/components/PodcastEpisode
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
-import withModal from '@cubeartisan/client/components/WithModal';
-import CreateCubeModal from '@cubeartisan/client/components/CreateCubeModal';
+import withModal from '@cubeartisan/client/components/hoc/WithModal';
+import CreateCubeModal from '@cubeartisan/client/components/modals/CreateCubeModal';
 import Feed from '@cubeartisan/client/components/Feed';
 
 import { Button, Card, Col, Row, CardHeader, CardBody, CardFooter } from 'reactstrap';

@@ -62,12 +62,12 @@ DraftLocation.DECK = 'deck';
 DraftLocation.SIDEBOARD = 'sideboard';
 
 export const moveOrAddCard = (cards, target, source) => {
-  const newCards = [...cards];
+  const newCards = Array.from(cards);
   let card;
   if (Array.isArray(source)) {
     // Source is a location.
     const [sourceRow, sourceCol, sourceIndex] = source;
-    newCards[sourceRow][sourceCol] = [...newCards[sourceRow][sourceCol]];
+    newCards[sourceRow][sourceCol] = Array.from(newCards[sourceRow][sourceCol]);
     [card] = newCards[sourceRow][sourceCol].splice(sourceIndex - 1, 1);
   } else {
     // Source is a card itself.
@@ -78,17 +78,17 @@ export const moveOrAddCard = (cards, target, source) => {
   if (newCards[targetRow].length < 1 + targetCol) {
     newCards[targetRow] = newCards[targetRow].concat(new Array(1 + targetCol - newCards[targetRow].length).fill([]));
   }
-  newCards[targetRow] = [...newCards[targetRow]];
-  newCards[targetRow][targetCol] = [...newCards[targetRow][targetCol]];
+  newCards[targetRow] = Array.from(newCards[targetRow]);
+  newCards[targetRow][targetCol] = Array.from(newCards[targetRow][targetCol]);
   newCards[targetRow][targetCol].splice(targetIndex, 0, card);
   return newCards;
 };
 
 export const removeCard = (cards, source) => {
-  const newCards = [...cards];
+  const newCards = Array.from(cards);
   const [sourceRow, sourceCol, sourceIndex] = source;
-  newCards[sourceRow] = [...newCards[sourceRow]];
-  newCards[sourceRow][sourceCol] = [...newCards[sourceRow][sourceCol]];
+  newCards[sourceRow] = Array.from(newCards[sourceRow]);
+  newCards[sourceRow][sourceCol] = Array.from(newCards[sourceRow][sourceCol]);
   const [card] = newCards[sourceRow][sourceCol].splice(sourceIndex - 1, 1);
   return [card, newCards];
 };

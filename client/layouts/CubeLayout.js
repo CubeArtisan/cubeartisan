@@ -21,8 +21,8 @@ import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
 
-import UserContext from '@cubeartisan/client/contexts/UserContext';
-import CubeContext, { CubeContextProvider } from '@cubeartisan/client/contexts/CubeContext';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
+import CubeContext, { CubeContextProvider } from '@cubeartisan/client/components/contexts/CubeContext';
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
 import { getCubeDescription, getCubeId } from '@cubeartisan/client/utils/Util';
 

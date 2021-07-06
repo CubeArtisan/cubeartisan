@@ -37,7 +37,7 @@ import {
 
 import BlogPost from '@cubeartisan/client/components/BlogPost';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm';
-import CubeContext from '@cubeartisan/client/contexts/CubeContext';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
 import Paginate from '@cubeartisan/client/components/Paginate';
 import TextEntry from '@cubeartisan/client/components/TextEntry';

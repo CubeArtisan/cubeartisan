@@ -54,14 +54,14 @@ export function arrayShuffle(array) {
 }
 
 export function arrayMove(arr, oldIndex, newIndex) {
-  const result = [...arr];
+  const result = Array.from(arr);
   const [element] = result.splice(oldIndex, 1);
   result.splice(newIndex, 0, element);
   return result;
 }
 
 export function arrayDelete(arr, index) {
-  const result = [...arr];
+  const result = Array.from(arr);
   result.splice(index, 1);
   return result;
 }

@@ -44,18 +44,18 @@ import { getCubeId, getCubeDescription } from '@cubeartisan/client/utils/Util';
 
 import BlogPost from '@cubeartisan/client/components/BlogPost';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm';
-import CubeIdModal from '@cubeartisan/client/components/CubeIdModal';
-import CubeOverviewModal from '@cubeartisan/client/components/CubeOverviewModal';
-import CubeSettingsModal from '@cubeartisan/client/components/CubeSettingsModal';
-import CustomizeBasicsModal from '@cubeartisan/client/components/CustomizeBasicsModal';
-import DeleteCubeModal from '@cubeartisan/client/components/DeleteCubeModal';
+import CubeIdModal from '@cubeartisan/client/components/modals/CubeIdModal';
+import CubeOverviewModal from '@cubeartisan/client/components/modals/CubeOverviewModal';
+import CubeSettingsModal from '@cubeartisan/client/components/modals/CubeSettingsModal';
+import CustomizeBasicsModal from '@cubeartisan/client/components/modals/CustomizeBasicsModal';
+import DeleteCubeModal from '@cubeartisan/client/components/modals/DeleteCubeModal';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import FollowersModal from '@cubeartisan/client/components/FollowersModal';
+import FollowersModal from '@cubeartisan/client/components/modals/FollowersModal';
 import Markdown from '@cubeartisan/client/components/Markdown';
 import TextBadge from '@cubeartisan/client/components/TextBadge';
 import Tooltip from '@cubeartisan/client/components/Tooltip';
-import withModal from '@cubeartisan/client/components/WithModal';
-import UserContext from '@cubeartisan/client/contexts/UserContext';
+import withModal from '@cubeartisan/client/components/hoc/WithModal';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
 import CubeLayout from '@cubeartisan/client/layouts/CubeLayout';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
@@ -82,30 +82,26 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
     setCubeState(updated);
   };
 
-  const follow = () => {
+  const follow = async () => {
     setFollowedState(true);
 
-    csrfFetch(`/cube/follow/${cube._id}`, {
+    const response = await csrfFetch(`/cube/follow/${cube._id}`, {
       method: 'POST',
       headers: {},
-    }).then((response) => {
-      if (!response.ok) {
-        console.error(response);
-      }
     });
+    if (!response.ok) console.error(response);
   };
 
-  const unfollow = () => {
+  const unfollow = async () => {
     setFollowedState(false);
 
-    csrfFetch(`/cube/unfollow/${cube._id}`, {
+    const response = await csrfFetch(`/cube/unfollow/${cube._id}`, {
       method: 'POST',
       headers: {},
-    }).then((response) => {
-      if (!response.ok) {
-        console.error(response);
-      }
     });
+    if (!response.ok) {
+      console.error(response);
+    }
   };
   return (
     <MainLayout loginCallback={loginCallback}>

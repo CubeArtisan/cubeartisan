@@ -22,7 +22,7 @@ import { Card, CardHeader, CardBody, Row, Col, CardTitle } from 'reactstrap';
 
 import DeckbuilderNavbar from '@cubeartisan/client/components/DeckbuilderNavbar';
 import DeckStacks from '@cubeartisan/client/components/DeckStacks';
-import { DisplayContextProvider } from '@cubeartisan/client/contexts/DisplayContext';
+import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext';
 import DndProvider from '@cubeartisan/client/components/DndProvider';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
@@ -85,7 +85,7 @@ const CubeDeckbuilderPage = ({ cube, initialDeck, loginCallback }) => {
       const locationType = eventTarget.getAttribute('data-location-type');
       const locationData = JSON.parse(eventTarget.getAttribute('data-location-data'));
       const source = new DraftLocation(locationType, locationData);
-      const target = new DraftLocation(oppositeLocation[source.type], [...source.data]);
+      const target = new DraftLocation(oppositeLocation[source.type], Array.from(source.data));
       target.data[2] = 0;
       if (target.type === DraftLocation.SIDEBOARD) {
         // Only one row for the sideboard.
@@ -101,8 +101,8 @@ const CubeDeckbuilderPage = ({ cube, initialDeck, loginCallback }) => {
 
   const addBasics = useCallback(
     (numBasics) => {
-      const toAdd = numBasics.map((count, index) => new Array(count).fill(initialDeck.cards[basics[index]])).flat();
-      const newDeck = [...deck];
+      const toAdd = numBasics.flatMap((count, index) => new Array(count).fill(initialDeck.cards[basics[index]]));
+      const newDeck = Array.from(deck);
       newDeck[1][0] = [].concat(newDeck[1][0], toAdd);
       setDeck(newDeck);
     },

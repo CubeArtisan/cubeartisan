@@ -23,7 +23,7 @@ import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import { sortDeep } from '@cubeartisan/client/utils/Sort';
 
-import SortContext from '@cubeartisan/client/contexts/SortContext';
+import SortContext from '@cubeartisan/client/components/contexts/SortContext';
 import SpoilerImage from '@cubeartisan/client/components/SpoilerImage';
 import CardGrid from '@cubeartisan/client/components/CardGrid';
 

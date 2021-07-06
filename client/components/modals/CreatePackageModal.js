@@ -18,63 +18,92 @@
  */
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
 
-import { Modal, ModalBody, ModalHeader, Button, ModalFooter, Row, Col, Card } from 'reactstrap';
+import {
+  Modal,
+  ModalBody,
+  ModalHeader,
+  Button,
+  ModalFooter,
+  Row,
+  Col,
+  Card,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Input,
+} from 'reactstrap';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
 import LoadingButton from '@cubeartisan/client/components/LoadingButton';
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput';
 
-const CustomizeBasicsModal = ({ isOpen, toggle, cube, updateBasics, onError }) => {
-  const [basics, setBasics] = useState(cube.basics.slice());
+const CreatePackageModal = ({ isOpen, toggle, onError, onSuccess }) => {
+  const [cards, setCards] = useState([]);
   const [cardName, setCardName] = useState('');
+  const [packageName, setPackageName] = useState('');
   const [imageDict, setImageDict] = useState({});
 
   useEffect(() => {
-    fetch('/cards/images/dict')
-      .then((response) => response.json())
-      .then((json) => {
-        setImageDict(json.dict);
-      });
+    (async () => {
+      const response = await fetch('/cube/api/imagedict');
+      const json = await response.json();
+      setImageDict(json.dict);
+    })();
   }, []);
 
   const submitCard = () => {
     if (imageDict) {
       const result = imageDict[cardName.toLowerCase()];
       if (result) {
-        setBasics([...basics, result.id]);
+        setCards([...cards, result.id]);
         setCardName('');
       }
     }
   };
 
   const save = async () => {
-    const response = await csrfFetch(`/cube/${cube._id}/basics`, {
-      method: 'PUT',
-      body: JSON.stringify(basics),
+    const response = await csrfFetch(`/package`, {
+      method: 'POST',
+      body: JSON.stringify({ cards, packageName }),
       headers: {
         'Content-Type': 'application/json',
       },
     });
-    if (response.ok) {
-      updateBasics(basics);
-      toggle();
+
+    const json = await response.json();
+
+    if (json.success === 'true') {
+      onSuccess('Succesfully created package');
+      setCards([]);
+      setCardName('');
+      setPackageName('');
     } else {
-      onError('Error updating basics');
+      console.log(json);
+      onError(`Error creating package: ${json.message}`);
     }
+    toggle();
   };
 
   return (
     <Modal size="xl" isOpen={isOpen} toggle={toggle}>
-      <ModalHeader toggle={toggle}>Customize Basics</ModalHeader>
+      <ModalHeader toggle={toggle}>Create New Package</ModalHeader>
       <ModalBody>
         <p>
-          This set of cards will have an unlimited quantity available when constructing decks. You can use this to
-          select which art your cube's basics will use, provide multiple art options for your drafters, and also provide
-          snow-covered basics. These don't necessarily have to be basic lands, but using an unconventional setup here
-          may result in confusing our draft bots' deckbuilding.
+          A package is a set of cards with some unifying theme, such as 'Power 9' or 'Fetchlands'. Once approved, these
+          packages can be quickly added to any cube.
         </p>
+        <InputGroup className="mb-3">
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Package Name</InputGroupText>
+          </InputGroupAddon>
+          <Input
+            type="text"
+            value={packageName}
+            placeholder="Untitled Package"
+            onChange={(e) => setPackageName(e.target.value)}
+          />
+        </InputGroup>
         <Row className="pb-3">
           <Col xs="12" md="8">
             <AutocompleteInput
@@ -103,19 +132,19 @@ const CustomizeBasicsModal = ({ isOpen, toggle, cube, updateBasics, onError }) =
           </Col>
         </Row>
         <Row>
-          {basics.map((cardId, index) => (
+          {cards.map((cardId, index) => (
             <Col key={cardId} className="col-6 col-md-2-4 col-lg-2-4 col-xl-2-4">
               <Card className="mb-3">
-                <img className="w-100" src={`/card/${cardId}/redirect`} alt={cardId} />
+                <img className="w-100" src={`/card/${cardId}/image/redirect`} alt={cardId} />
                 <Button
                   className="mt-1"
                   color="danger"
                   outline
                   block
                   onClick={() => {
-                    const temp = basics.slice();
+                    const temp = cards.slice();
                     temp.splice(index, 1);
-                    setBasics(temp);
+                    setCards(temp);
                   }}
                 >
                   Remove
@@ -127,20 +156,21 @@ const CustomizeBasicsModal = ({ isOpen, toggle, cube, updateBasics, onError }) =
       </ModalBody>
       <ModalFooter>
         <LoadingButton color="success" outline onClick={save}>
-          Save Changes
+          Submit Package
         </LoadingButton>
-        <Button onClick={toggle}>Close</Button>
+        <Button color="danger" outline onClick={toggle}>
+          Cancel
+        </Button>
       </ModalFooter>
     </Modal>
   );
 };
 
-CustomizeBasicsModal.propTypes = {
+CreatePackageModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   toggle: PropTypes.func.isRequired,
-  cube: CubePropType.isRequired,
-  updateBasics: PropTypes.func.isRequired,
   onError: PropTypes.func.isRequired,
+  onSuccess: PropTypes.func.isRequired,
 };
 
-export default CustomizeBasicsModal;
+export default CreatePackageModal;

@@ -25,7 +25,7 @@ import { getLabels, sortDeep } from '@cubeartisan/client/utils/Sort';
 import { fromEntries } from '@cubeartisan/client/utils/Util';
 
 import AutocardListGroup from '@cubeartisan/client/components/AutocardListGroup';
-import SortContext from '@cubeartisan/client/contexts/SortContext';
+import SortContext from '@cubeartisan/client/components/contexts/SortContext';
 
 const cmc2Labels = getLabels(null, 'Mana Value 2');
 

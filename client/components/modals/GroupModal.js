@@ -16,8 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { useCallback, useContext, useState } from 'react';
-
+import { useCallback, useContext, useMemo, useState } from 'react';
 import {
   Button,
   Row,
@@ -38,16 +37,16 @@ import {
   ModalHeader,
   UncontrolledAlert,
 } from 'reactstrap';
+import PropTypes from 'prop-types';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
-import { fromEntries } from '@cubeartisan/client/utils/Util';
+import { arrayMove, fromEntries } from '@cubeartisan/client/utils/Util';
 import { cardPrice, cardFoilPrice, cardPriceEur, cardTix } from '@cubeartisan/client/utils/Card';
-
 import AutocardListItem from '@cubeartisan/client/components/AutocardListItem';
-import ChangelistContext from '@cubeartisan/client/contexts/ChangelistContext';
+import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext';
 import { ColorChecksAddon } from '@cubeartisan/client/components/ColorCheck';
-import CubeContext from '@cubeartisan/client/contexts/CubeContext';
-import GroupModalContext from '@cubeartisan/client/contexts/GroupModalContext';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
+import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext';
 import LoadingButton from '@cubeartisan/client/components/LoadingButton';
 import MassBuyButton from '@cubeartisan/client/components/MassBuyButton';
 import TagInput from '@cubeartisan/client/components/TagInput';
@@ -59,7 +58,7 @@ const DEFAULT_FORM_VALUES = {
   finish: '',
   cmc: '',
   type_line: '',
-  ...fromEntries([...'WUBRGC'].map((c) => [`color${c}`, false])),
+  ...fromEntries(Array.from('WUBRGC', (c) => [`color${c}`, false])),
   addTags: true,
   deleteTags: false,
   tags: [],
@@ -78,91 +77,117 @@ const GroupModal = ({ cubeID, canEdit, children, ...props }) => {
   const open = useCallback(() => {
     setFormValues(DEFAULT_FORM_VALUES);
     setIsOpen(true);
-  });
-  const close = useCallback(() => setIsOpen(false));
+  }, [setFormValues, setIsOpen]);
 
-  const error = useCallback((message) => {
-    setAlerts((alerts) => [
-      ...alerts,
-      {
-        color: 'danger',
-        message,
-      },
-    ]);
-  });
+  const close = useCallback(() => setIsOpen(false), [setIsOpen]);
 
-  const handleChange = useCallback((event) => {
-    const { target } = event;
-    const value = ['checkbox', 'radio'].includes(target.type) ? target.checked : target.value;
-    const { name } = target;
-    const extra = {};
-    if (name === 'addTags') {
-      extra.deleteTags = false;
-    }
-    if (name === 'deleteTags') {
-      extra.addTags = false;
-    }
-    setFormValues((formValues) => ({
-      ...formValues,
-      [name]: value,
-      ...extra,
-    }));
-  });
-
-  const handleRemoveCard = useCallback((event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    const target = event.currentTarget;
-    const index = target.getAttribute('data-index');
-
-    if (cards.length == 1) {
-      close();
-    } else {
-      setCardIndices((cards) => cards.filter((c) => c !== parseInt(index)));
-    }
-  });
-
-  const setTagInput = useCallback((value) =>
-    setFormValues((formValues) => ({
-      ...formValues,
-      tagInput: value,
-    })),
+  const error = useCallback(
+    (message) => {
+      setAlerts((oldAlerts) => [
+        ...oldAlerts,
+        {
+          color: 'danger',
+          message,
+        },
+      ]);
+    },
+    [setAlerts],
   );
 
-  const setTags = useCallback((tagF) => {
-    setFormValues(({ tags, ...formValues }) => ({ ...formValues, tags: tagF(tags) }));
-  });
-  const addTag = useCallback((tag) => {
-    setTags((tags) => [...tags, tag]);
-    setTagInput('');
-  });
-  const addTagText = useCallback((tag) => tag.trim() && addTag({ text: tag.trim(), id: tag.trim() }));
-  const deleteTag = useCallback((tagIndex) => {
-    setTags((tags) => tags.filter((tag, i) => i !== tagIndex));
-  });
-  const reorderTag = useCallback((tag, currIndex, newIndex) => {
-    setTags((tags) => arrayMove(tags, currIndex, newIndex));
-  });
+  const handleChange = useCallback(
+    (event) => {
+      const { target } = event;
+      const value = ['checkbox', 'radio'].includes(target.type) ? target.checked : target.value;
+      const { name } = target;
+      const extra = {};
+      if (name === 'addTags') {
+        extra.deleteTags = false;
+      }
+      if (name === 'deleteTags') {
+        extra.addTags = false;
+      }
+      setFormValues((oldFormValues) => ({
+        ...oldFormValues,
+        [name]: value,
+        ...extra,
+      }));
+    },
+    [setFormValues],
+  );
+
+  const cards = useMemo(() => cardIndices.map((index) => cube.cards[index]), [cube.cards, cardIndices]);
+
+  const handleRemoveCard = useCallback(
+    (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const target = event.currentTarget;
+      const index = target.getAttribute('data-index');
+
+      if (cards.length === 1) {
+        close();
+      } else {
+        setCardIndices((oldIndices) => oldIndices.filter((c) => c !== parseInt(index, 10)));
+      }
+    },
+    [cards, close, setCardIndices],
+  );
+
+  const setTagInput = useCallback(
+    (value) =>
+      setFormValues((oldFormValues) => ({
+        ...oldFormValues,
+        tagInput: value,
+      })),
+    [setFormValues],
+  );
+
+  const setTags = useCallback(
+    (tagF) => {
+      setFormValues(({ tags, ...oldFormValues }) => ({ ...oldFormValues, tags: tagF(tags) }));
+    },
+    [setFormValues],
+  );
+  const addTag = useCallback(
+    (tag) => {
+      setTags((tags) => [...tags, tag]);
+      setTagInput('');
+    },
+    [setTags, setTagInput],
+  );
+  const addTagText = useCallback((tag) => tag.trim() && addTag({ text: tag.trim(), id: tag.trim() }), [addTag]);
+  const deleteTag = useCallback(
+    (tagIndex) => {
+      setTags((tags) => tags.filter((tag, i) => i !== tagIndex));
+    },
+    [setTags],
+  );
+  const reorderTag = useCallback(
+    (tag, currIndex, newIndex) => {
+      setTags((tags) => arrayMove(tags, currIndex, newIndex));
+    },
+    [setTags],
+  );
 
   const handleApply = useCallback(
     async (event) => {
       event.preventDefault();
 
       const selected = cardIndices;
-      const colors = [...'WUBRG'].filter((color) => formValues[`color${color}`]);
+      const colors = Array.from('WUBRG').filter((color) => formValues[`color${color}`]);
       const updated = {
         ...formValues,
         tags: formValues.tags.map((tag) => tag.text),
       };
-      updated.cmc = parseInt(updated.cmc);
-      if (isNaN(updated.cmc)) {
+      updated.cmc = parseInt(updated.cmc, 10);
+      if (Number.isNaN(updated.cmc)) {
         delete updated.cmc;
       }
       updated.colors = colors;
       if (updated.colors.length === 0) {
         delete updated.colors;
       }
-      [...'WUBRG'].forEach((color) => delete updated[`color${color}`]);
+      Array.from('WUBRG').forEach((color) => delete updated[`color${color}`]);
 
       try {
         const response = await csrfFetch(`/cube/${cubeID}/cards`, {
@@ -177,19 +202,26 @@ const GroupModal = ({ cubeID, canEdit, children, ...props }) => {
           // Make shallow copy of each card.
           const updatedCards = cardIndices.map((index) => ({ ...cube.cards[index] }));
           for (const card of updatedCards) {
-            updated.status && (card.status = updated.status);
-            updated.finish && (card.finish = updated.finish);
-            !isNaN(updated.cmc) && (card.cmc = updated.cmc);
-            updated.type_line && (card.type_line = updated.type_line);
+            if (updated.status) {
+              card.status = updated.status;
+            }
+            if (updated.finish) {
+              card.finish = updated.finish;
+            }
+            if (!Number.isNaN(updated.cmc)) {
+              card.cmc = updated.cmc;
+            }
+            if (updated.type_line) {
+              card.type_line = updated.type_line;
+            }
             if (updated.addTags) {
               card.tags = [...card.tags, ...updated.tags.filter((tag) => !card.tags.includes(tag))];
             }
             if (updated.deleteTags) {
               card.tags = card.tags.filter((tag) => !updated.tags.includes(tag));
             }
-
             if (colors.length > 0) {
-              card.colors = [...colors];
+              card.colors = Array.from(colors);
             }
             if (updated.colorC) {
               card.colors = [];
@@ -204,7 +236,7 @@ const GroupModal = ({ cubeID, canEdit, children, ...props }) => {
         error(e);
       }
     },
-    [cardIndices, formValues, updateCubeCards, close, error],
+    [cube.cards, cubeID, cardIndices, formValues, updateCubeCards, close, error],
   );
 
   const handleRemoveAll = useCallback(
@@ -220,8 +252,7 @@ const GroupModal = ({ cubeID, canEdit, children, ...props }) => {
     [addChanges, cardIndices, cube, close],
   );
 
-  const cards = cardIndices.map((index) => cube.cards[index]);
-  const setCards = useCallback((cards) => setCardIndices(cards.map((card) => card.index)));
+  const setCards = useCallback((oldCards) => setCardIndices(oldCards.map((card) => card.index)), []);
 
   const contextChildren = (
     <GroupModalContext.Provider value={{ groupModalCards: cards, openGroupModal: open, setGroupModalCards: setCards }}>
@@ -394,6 +425,14 @@ const GroupModal = ({ cubeID, canEdit, children, ...props }) => {
       </Modal>
     </>
   );
+};
+GroupModal.propTypes = {
+  cubeID: PropTypes.string.isRequired,
+  canEdit: PropTypes.bool,
+  children: PropTypes.node.isRequired,
+};
+GroupModal.defaultProps = {
+  canEdit: false,
 };
 
 export default GroupModal;

@@ -49,17 +49,17 @@ import {
   FormGroup,
 } from 'reactstrap';
 
-import CardModalContext from '@cubeartisan/client/contexts/CardModalContext';
+import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm';
-import CubeContext from '@cubeartisan/client/contexts/CubeContext';
-import DisplayContext from '@cubeartisan/client/contexts/DisplayContext';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
+import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext';
 import EditCollapse from '@cubeartisan/client/components/EditCollapse';
 import FilterCollapse from '@cubeartisan/client/components/FilterCollapse';
-import GroupModalContext from '@cubeartisan/client/contexts/GroupModalContext';
+import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext';
 import SortCollapse from '@cubeartisan/client/components/SortCollapse';
-import SortContext from '@cubeartisan/client/contexts/SortContext';
-import TagColorsModal from '@cubeartisan/client/components/TagColorsModal';
-import withModal from '@cubeartisan/client/components/WithModal';
+import SortContext from '@cubeartisan/client/components/contexts/SortContext';
+import TagColorsModal from '@cubeartisan/client/components/modals/TagColorsModal';
+import withModal from '@cubeartisan/client/components/hoc/WithModal';
 import { QuestionIcon } from '@primer/octicons-react';
 import Tooltip from '@cubeartisan/client/components/Tooltip';
 

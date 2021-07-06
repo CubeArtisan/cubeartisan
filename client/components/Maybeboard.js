@@ -25,17 +25,17 @@ import { Button, Col, Form, ListGroupItem, Row, Spinner } from 'reactstrap';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
 
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput';
-import CardModalContext from '@cubeartisan/client/contexts/CardModalContext';
-import CardModalForm from '@cubeartisan/client/components/CardModalForm';
-import ChangelistContext from '@cubeartisan/client/contexts/ChangelistContext';
-import CubeContext from '@cubeartisan/client/contexts/CubeContext';
-import DisplayContext from '@cubeartisan/client/contexts/DisplayContext';
+import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext';
+import CardModalForm from '@cubeartisan/client/components/modals/CardModalForm';
+import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
+import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext';
 import { getCard } from '@cubeartisan/client/components/EditCollapse';
 import LoadingButton from '@cubeartisan/client/components/LoadingButton';
-import MaybeboardContext from '@cubeartisan/client/contexts/MaybeboardContext';
+import MaybeboardContext from '@cubeartisan/client/components/contexts/MaybeboardContext';
 import TableView from '@cubeartisan/client/components/TableView';
-import { getCardColorClass } from '@cubeartisan/client/contexts/TagContext';
-import withAutocard from '@cubeartisan/client/components/WithAutocard';
+import { getCardColorClass } from '@cubeartisan/client/components/contexts/TagContext';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard';
 
 const AutocardItem = withAutocard(ListGroupItem);
 

@@ -35,7 +35,7 @@ import {
   Input,
 } from 'reactstrap';
 
-import UserContext from '@cubeartisan/client/contexts/UserContext';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
 import LinkButton from '@cubeartisan/client/components/LinkButton';
 import CommentContextMenu from '@cubeartisan/client/components/CommentContextMenu';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm';

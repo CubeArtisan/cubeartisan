@@ -20,11 +20,11 @@ import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import TimeAgo from 'react-timeago';
 
-import UserContext from '@cubeartisan/client/contexts/UserContext';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
 import CardPackagePropType from '@cubeartisan/client/proptypes/CardPackagePropType';
-import withAutocard from '@cubeartisan/client/components/WithAutocard';
-import AddGroupToCubeModal from '@cubeartisan/client/components/AddGroupToCubeModal';
-import withModal from '@cubeartisan/client/components/WithModal';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard';
+import AddGroupToCubeModal from '@cubeartisan/client/components/modals/AddGroupToCubeModal';
+import withModal from '@cubeartisan/client/components/hoc/WithModal';
 import TextBadge from '@cubeartisan/client/components/TextBadge';
 import Tooltip from '@cubeartisan/client/components/Tooltip';
 import CommentsSection from '@cubeartisan/client/components/CommentsSection';

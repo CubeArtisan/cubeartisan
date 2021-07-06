@@ -22,8 +22,8 @@ import { Row, Col, Button } from 'reactstrap';
 
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
 import Footer from '@cubeartisan/client/layouts/Footer';
-import LoginModal from '@cubeartisan/client/components/LoginModal';
-import withModal from '@cubeartisan/client/components/WithModal';
+import LoginModal from '@cubeartisan/client/components/modals/LoginModal';
+import withModal from '@cubeartisan/client/components/hoc/WithModal';
 import CardSearchBar from '@cubeartisan/client/components/CardSearchBar';
 
 const LoginModalButton = withModal(Button, LoginModal);

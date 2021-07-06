@@ -25,7 +25,7 @@ import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
 
 import { Spinner } from 'reactstrap';
 import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType';
-import UserContext from '@cubeartisan/client/contexts/UserContext';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
 
 const wait = async (ms) => {
   return new Promise((resolve) => {
@@ -52,7 +52,7 @@ const Feed = ({ items }) => {
       const json = await response.json();
       if (json.success === 'true') {
         const ids = new Set(feedItems.map((item) => item._id));
-        const newFeedItems = [...feedItems];
+        const newFeedItems = Array.from(feedItems);
         for (const item of json.items) {
           if (!ids.has(item._id)) {
             newFeedItems.push(item);

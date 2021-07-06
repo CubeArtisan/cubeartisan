@@ -19,12 +19,12 @@
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
 
-import UserContext from '@cubeartisan/client/contexts/UserContext';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
 
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
-import FollowersModal from '@cubeartisan/client/components/FollowersModal';
-import withModal from '@cubeartisan/client/components/WithModal';
-import CreateCubeModal from '@cubeartisan/client/components/CreateCubeModal';
+import FollowersModal from '@cubeartisan/client/components/modals/FollowersModal';
+import withModal from '@cubeartisan/client/components/hoc/WithModal';
+import CreateCubeModal from '@cubeartisan/client/components/modals/CreateCubeModal';
 
 import { Button, Nav, Navbar, NavItem, NavLink, Row } from 'reactstrap';
 

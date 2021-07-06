@@ -35,7 +35,7 @@ import {
   Button,
 } from 'reactstrap';
 
-import UserContext from '@cubeartisan/client/contexts/UserContext';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
 import ArticlePreview from '@cubeartisan/client/components/ArticlePreview';
 import Tab from '@cubeartisan/client/components/Tab';
@@ -60,12 +60,12 @@ const EditArticlePage = ({ loginCallback, article, siteCustomizations }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/cube/api/imagedict')
-      .then((response) => response.json())
-      .then((json) => {
-        setLoading(false);
-        setImageDict(json.dict);
-      });
+    (async () => {
+      const response = await fetch('/cube/api/imagedict');
+      const json = await response.json();
+      setLoading(false);
+      setImageDict(json.dict);
+    })();
   }, []);
 
   useEffect(() => {

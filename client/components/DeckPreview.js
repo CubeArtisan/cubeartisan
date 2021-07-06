@@ -23,9 +23,9 @@ import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType';
 
 import TimeAgo from 'react-timeago';
 
-import UserContext from '@cubeartisan/client/contexts/UserContext';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
 import useKeyHandlers from '@cubeartisan/client/hooks/UseKeyHandlers';
-import DeckDeleteModal from '@cubeartisan/client/components/DeckDeleteModal';
+import DeckDeleteModal from '@cubeartisan/client/components/modals/DeckDeleteModal';
 
 /** 2020-11-17 struesdell:
  *  Pulled constants out of component render so that they are defined only once

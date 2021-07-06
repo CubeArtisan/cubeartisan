@@ -18,7 +18,7 @@
  */
 import { useState, useEffect, useContext } from 'react';
 
-import UserContext from '@cubeartisan/client/contexts/UserContext';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
 import { Navbar, Nav, NavItem, NavLink, Row, Col, CardBody } from 'reactstrap';
 import Loading from '@cubeartisan/client/pages/Loading';
 import VideoPreview from '@cubeartisan/client/components/VideoPreview';

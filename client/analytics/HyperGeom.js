@@ -224,7 +224,7 @@ const HyperGeom = () => {
   };
 
   const plotdata = {
-    labels: [...Array(length).keys()],
+    labels: Array.from(Array(length).keys()),
     datasets: data.map((dataset) => ({
       label: dataset.name,
       borderColor: dataset.color,

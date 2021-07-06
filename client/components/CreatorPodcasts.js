@@ -20,7 +20,7 @@ import { useState, useEffect, useContext } from 'react';
 
 import { Navbar, Nav, NavItem, NavLink, Row, Col, CardBody } from 'reactstrap';
 
-import UserContext from '@cubeartisan/client/contexts/UserContext';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
 import Loading from '@cubeartisan/client/pages/Loading';
 import PodcastPreview from '@cubeartisan/client/components/PodcastPreview';
 import Paginate from '@cubeartisan/client/components/Paginate';

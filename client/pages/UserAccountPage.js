@@ -42,7 +42,7 @@ import {
 
 import Query from '@cubeartisan/client/utils/Query';
 
-import UserContext from '@cubeartisan/client/contexts/UserContext';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
@@ -59,9 +59,11 @@ const UserAccountPage = ({ defaultNav, loginCallback, patreonClientId, patreonRe
   const [markdown, setMarkdown] = useState(user?.about ?? '');
 
   useEffect(() => {
-    fetch('/cube/api/imagedict')
-      .then((response) => response.json())
-      .then((json) => setImageDict(json.dict));
+    (async () => {
+      const response = await fetch('/cube/api/imagedict');
+      const json = await response.json();
+      setImageDict(json.dict);
+    })();
   }, []);
 
   const handleClickNav = useCallback(

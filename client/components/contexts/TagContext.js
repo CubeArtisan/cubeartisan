@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { createContext, Component } from 'react';
+import { createContext, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
@@ -33,7 +33,7 @@ export const getCardColorClass = (card) => {
   if (colors.length > 1) {
     return 'multi';
   }
-  if (colors.length === 1 && [...'WUBRGC'].includes(colors[0])) {
+  if (colors.length === 1 && Array.from('WUBRGC').includes(colors[0])) {
     return {
       W: 'white',
       U: 'blue',
@@ -83,98 +83,87 @@ const TagContext = createContext({
   allSuggestions: [],
 });
 
-export class TagContextProvider extends Component {
-  constructor(props) {
-    super(props);
-    const { defaultTagColors, defaultShowTagColors, defaultTags } = this.props;
+const TagContextProvider = ({ children, cubeID, defaultTagColors, defaultShowTagColors, defaultTags, userID }) => {
+  const [tagColors, setTagColors] = useState(Array.from(defaultTagColors ?? []));
+  const [showTagColors, setShowTagColors] = useState(!!defaultShowTagColors);
+  const [tags, setTags] = useState(defaultTags ?? []);
 
-    this.state = {
-      tagColors: [...(defaultTagColors || [])],
-      showTagColors: !!defaultShowTagColors,
-      tags: [...(defaultTags || [])],
-    };
-
-    this.addTag = this.addTag.bind(this);
-    this.setTagColors = this.setTagColors.bind(this);
-    this.setShowTagColors = this.setShowTagColors.bind(this);
-    this.cardColorClass = this.cardColorClass.bind(this);
-    this.tagColorClass = this.tagColorClass.bind(this);
-  }
-
-  setTagColors(tagColors) {
-    const { cubeID } = this.props;
-    return csrfFetch(`/cube/${cubeID}/tags/colors`, {
-      method: 'PUT',
-      body: JSON.stringify(tagColors),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }).then((response) => {
+  const saveTagColors = useCallback(
+    async (newTagColors) => {
+      const response = await csrfFetch(`/cube/${cubeID}/tags/colors`, {
+        method: 'PUT',
+        body: JSON.stringify(newTagColors),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       if (response.ok) {
-        this.setState({ tagColors });
+        setTagColors(newTagColors);
       } else {
         console.error('Request failed.');
       }
-    });
-  }
+    },
+    [cubeID],
+  );
 
-  setShowTagColors(showTagColors) {
-    const { userID } = this.props;
-    return csrfFetch(`/user/${userID}/showtagcolors`, {
-      method: 'PUT',
-      body: JSON.stringify({
-        show_tag_colors: showTagColors,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }).then((response) => {
+  const saveShowTagColors = useCallback(
+    async (newShowTagColors) => {
+      const response = await csrfFetch(`/user/${userID}/showtagcolors`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          show_tag_colors: newShowTagColors,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       if (response.ok) {
-        this.setState({ showTagColors });
+        setShowTagColors(newShowTagColors);
       } else {
         console.error('Request failed.');
       }
-    });
-  }
+    },
+    [userID],
+  );
 
-  addTag(tag) {
-    this.setState(({ tags }) => (tags.some((t) => t.id === tag.id) ? {} : { tags: [...tags, tag] }));
-  }
+  const addTag = useCallback(
+    (tag) => {
+      if (!tags.some((t) => t.id === tag.id)) {
+        setTags((oldTags) => [...oldTags, tag]);
+      }
+    },
+    [tags],
+  );
 
-  cardColorClass(card) {
-    const { showTagColors, tagColors } = this.state;
-    if (showTagColors) {
-      return getCardTagColorClass(tagColors, card);
-    }
-    return getCardColorClass(card);
-  }
+  const cardColorClass = useCallback(
+    (card) => {
+      if (showTagColors) return getCardTagColorClass(tagColors, card);
+      return getCardColorClass(card);
+    },
+    [tagColors, showTagColors],
+  );
 
-  tagColorClass(tag) {
-    const { showTagColors, tagColors } = this.state;
-    if (showTagColors) {
-      return getTagColorClass(tagColors, tag);
-    }
-    return 'tag-no-color';
-  }
+  const tagColorClass = useCallback(
+    (tag) => {
+      if (showTagColors) return getTagColorClass(tagColors, tag);
+      return 'tag-no-color';
+    },
+    [tagColors, showTagColors],
+  );
 
-  render() {
-    const { children } = this.props;
-    const { tags, tagColors, showTagColors } = this.state;
-    const value = {
-      allSuggestions: tags,
-      addSuggestion: this.addTag,
-      allTags: tags.map((tag) => tag.text),
-      tagColors,
-      setTagColors: this.setTagColors,
-      showTagColors,
-      setShowTagColors: this.setShowTagColors,
-      cardColorClass: this.cardColorClass,
-      tagColorClass: this.tagColorClass,
-    };
-    return <TagContext.Provider value={value}>{children}</TagContext.Provider>;
-  }
-}
-
+  const value = {
+    allSuggestions: tags,
+    addSuggestion: addTag,
+    allTags: tags.map((tag) => tag.text),
+    tagColors,
+    setTagColors: saveTagColors,
+    showTagColors,
+    setShowTagColors: saveShowTagColors,
+    cardColorClass,
+    tagColorClass,
+  };
+  return <TagContext.Provider value={value}>{children}</TagContext.Provider>;
+};
 TagContextProvider.propTypes = {
   cubeID: PropTypes.string.isRequired,
   defaultTagColors: PropTypes.arrayOf(PropTypes.string),
@@ -188,5 +177,4 @@ TagContextProvider.defaultProps = {
   defaultShowTagColors: false,
   defaultTags: [],
 };
-
 export default TagContext;

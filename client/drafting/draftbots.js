@@ -77,10 +77,10 @@ export const FETCH_LANDS = Object.freeze({
   'Verdant Catacombs': ['B', 'G'],
   'Windswept Heath': ['W', 'G'],
   'Wooded Foothills': ['R', 'G'],
-  'Prismatic Vista': [...'WUBRG'],
-  'Fabled Passage': [...'WUBRG'],
-  'Terramorphic Expanse': [...'WUBRG'],
-  'Evolving Wilds': [...'WUBRG'],
+  'Prismatic Vista': Array.from('WUBRG'),
+  'Fabled Passage': Array.from('WUBRG'),
+  'Terramorphic Expanse': Array.from('WUBRG'),
+  'Evolving Wilds': Array.from('WUBRG'),
 });
 const COLOR_COMBINATION_INDICES = fromEntries(COLOR_COMBINATIONS.map((comb, i) => [comb.join(''), i]));
 const COLOR_COMBINATION_INCLUDES = new Uint8Array(32 * 32);
@@ -92,10 +92,10 @@ for (const [comb1, i] of Object.entries(COLOR_COMBINATION_INDICES)) {
 const COLOR_COMBINATION_INTERSECTS = new Uint8Array(32 * 32);
 for (const [comb1, i] of Object.entries(COLOR_COMBINATION_INDICES)) {
   for (const [comb2, j] of Object.entries(COLOR_COMBINATION_INDICES)) {
-    COLOR_COMBINATION_INTERSECTS[i * 32 + j] = [...comb1].some((c) => [...comb2].includes(c)) ? 255 : 0;
+    COLOR_COMBINATION_INTERSECTS[i * 32 + j] = Array.from(comb1).some((c) => Array.from(comb2).includes(c)) ? 255 : 0;
   }
 }
-export const COLORS = Object.freeze([...'WUBRG']);
+export const COLORS = Object.freeze(Array.from('WUBRG'));
 export const BASICS = Object.freeze(['Plains', 'Island', 'Swamp', 'Mountain', 'Forest']);
 
 // This function gets approximate weight values when there are not 15 cards in the pack.
@@ -195,7 +195,7 @@ export const getCastingProbability = (card, lands) => {
       for (const symbol of cost) {
         const symbolUpper = symbol.toUpperCase();
         if (!symbolUpper.includes('P') && !symbolUpper.includes('2')) {
-          const unsortedSymbolColors = [...COLORS].filter((char) => symbolUpper.includes(char));
+          const unsortedSymbolColors = Array.from(COLORS).filter((char) => symbolUpper.includes(char));
           if (unsortedSymbolColors.length > 0) {
             const symbolColors = COLOR_COMBINATIONS.find((comb) => arraysAreEqualSets(unsortedSymbolColors, comb)).join(
               '',

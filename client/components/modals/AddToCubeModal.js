@@ -16,12 +16,13 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { useState, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
+
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
+import ImageFallback from '@cubeartisan/client/components/ImageFallback';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
-import withAutocard from '@cubeartisan/client/components/WithAutocard';
-import { getCardColorClass } from '@cubeartisan/client/contexts/TagContext';
+
 import {
   Modal,
   ModalHeader,
@@ -33,50 +34,25 @@ import {
   InputGroupText,
   CustomInput,
   UncontrolledAlert,
-  Spinner,
-  ListGroup,
-  ListGroupItem,
 } from 'reactstrap';
 
-const AutocardItem = withAutocard(ListGroupItem);
+const AddToCubeModal = ({ card, isOpen, toggle, hideAnalytics, cubeContext }) => {
+  const user = useContext(UserContext);
+  const cubes = user ? user.cubes : [];
 
-const AddGroupToCubeModal = ({ cards, isOpen, toggle, cubes, packid }) => {
-  const [selectedCube, setSelectedCube] = useState(cubes && cubes.length > 0 ? cubes[0]._id : null);
+  let def = cubeContext;
+  if (cubes.length > 0) {
+    def = cubes.map((cube) => cube._id).includes(cubeContext) ? cubeContext : cubes[0]._id;
+  }
+  const [selectedCube, setSelectedCube] = useState(cubes && cubes.length > 0 ? def : '');
   const [alerts, setAlerts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [details, setDetails] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await csrfFetch(`/cards/details`, {
-        method: 'POST',
-        body: JSON.stringify({
-          cards,
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (response.ok) {
-        const json = await response.json();
-        if (json.success === 'true') {
-          setDetails(json.details);
-          setLoading(false);
-        }
-      }
-      return [];
-    };
-    fetchData();
-  }, [cards, setDetails, setLoading]);
 
   const add = async () => {
     try {
       const response = await csrfFetch(`/cube/${selectedCube}/cards`, {
         method: 'POST',
         body: JSON.stringify({
-          cards,
-          packid,
+          cards: [card._id],
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -100,7 +76,7 @@ const AddGroupToCubeModal = ({ cards, isOpen, toggle, cubes, packid }) => {
       const response = await csrfFetch(`/cube/${selectedCube}/maybe`, {
         method: 'PUT',
         body: JSON.stringify({
-          add: details.map((detail) => ({ details: detail })),
+          add: [{ details: card }],
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -119,43 +95,25 @@ const AddGroupToCubeModal = ({ cards, isOpen, toggle, cubes, packid }) => {
     }
   };
 
-  if (loading) {
-    return (
-      <Modal isOpen={isOpen} toggle={toggle} size="xs">
-        <ModalHeader toggle={toggle}>Add Package to Cube</ModalHeader>
-        <div className="centered py-3 my-4">
-          <Spinner className="position-absolute" />
-        </div>
-        <ModalFooter>
-          <Button color="danger" onClick={toggle}>
-            Close
-          </Button>
-        </ModalFooter>
-      </Modal>
-    );
-  }
-
   if (!cubes || cubes.length === 0) {
     return (
       <Modal isOpen={isOpen} toggle={toggle} size="xs">
-        <ModalHeader toggle={toggle}>Add Package to Cube</ModalHeader>
+        <ModalHeader toggle={toggle}>{card.name}</ModalHeader>
         <ModalBody>
-          <ListGroup className="list-outline">
-            {details.map((card) => (
-              <AutocardItem
-                key={card.index}
-                card={{ details: card }}
-                className={`card-list-item d-flex flex-row ${getCardColorClass({ details: card })}`}
-                data-in-modal
-                index={card.index}
-              >
-                <>{card.name}</>
-              </AutocardItem>
-            ))}
-          </ListGroup>
+          <ImageFallback
+            className="w-100 mb-3"
+            src={card.image_normal}
+            fallbackSrc="/content/default_card.png"
+            alt={card.name}
+          />
           <p>You don't appear to have any cubes to add this card to. Are you logged in?</p>
         </ModalBody>
         <ModalFooter>
+          {!hideAnalytics && (
+            <Button color="primary" href={`/card/${card._id}`} target="_blank">
+              Analytics
+            </Button>
+          )}
           <Button color="danger" onClick={toggle}>
             Close
           </Button>
@@ -166,7 +124,7 @@ const AddGroupToCubeModal = ({ cards, isOpen, toggle, cubes, packid }) => {
 
   return (
     <Modal isOpen={isOpen} toggle={toggle} size="xs">
-      <ModalHeader toggle={toggle}>Add Package to Cube</ModalHeader>
+      <ModalHeader toggle={toggle}>{`Add ${card.name} to Cube`}</ModalHeader>
       <ModalBody>
         {' '}
         {alerts.map(({ color, message }) => (
@@ -174,19 +132,12 @@ const AddGroupToCubeModal = ({ cards, isOpen, toggle, cubes, packid }) => {
             {message}
           </UncontrolledAlert>
         ))}
-        <ListGroup className="list-outline">
-          {details.map((card) => (
-            <AutocardItem
-              key={card.index}
-              card={{ details: card }}
-              className={`card-list-item d-flex flex-row ${getCardColorClass({ details: card })}`}
-              data-in-modal
-              index={card.index}
-            >
-              <>{card.name}</>
-            </AutocardItem>
-          ))}
-        </ListGroup>
+        <ImageFallback
+          className="w-100"
+          src={card.image_normal}
+          fallbackSrc="/content/default_card.png"
+          alt={card.name}
+        />
         <InputGroup className="my-3">
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Cube: </InputGroupText>
@@ -199,6 +150,11 @@ const AddGroupToCubeModal = ({ cards, isOpen, toggle, cubes, packid }) => {
         </InputGroup>
       </ModalBody>
       <ModalFooter>
+        {!hideAnalytics && (
+          <Button color="primary" href={`/card/${card._id}`} target="_blank">
+            Analytics
+          </Button>
+        )}
         <Button color="success" onClick={add}>
           Add
         </Button>
@@ -213,16 +169,21 @@ const AddGroupToCubeModal = ({ cards, isOpen, toggle, cubes, packid }) => {
   );
 };
 
-AddGroupToCubeModal.propTypes = {
-  cards: PropTypes.arrayOf(PropTypes.string).isRequired,
+AddToCubeModal.propTypes = {
+  card: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    image_normal: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
+  }).isRequired,
   isOpen: PropTypes.bool.isRequired,
+  hideAnalytics: PropTypes.bool,
   toggle: PropTypes.func.isRequired,
-  cubes: PropTypes.arrayOf(CubePropType).isRequired,
-  packid: PropTypes.string,
+  cubeContext: PropTypes.string,
 };
 
-AddGroupToCubeModal.defaultProps = {
-  packid: null,
+AddToCubeModal.defaultProps = {
+  hideAnalytics: false,
+  cubeContext: null,
 };
 
-export default AddGroupToCubeModal;
+export default AddToCubeModal;

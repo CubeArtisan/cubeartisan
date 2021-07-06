@@ -37,7 +37,7 @@ export const CubeContextProvider = ({ initialCube, canEdit, ...props }) => {
   const updateCubeCard = useCallback((index, newCard) => {
     setCube((currentCube) => {
       const newCube = { ...currentCube };
-      newCube.cards = [...newCube.cards];
+      newCube.cards = Array.from(newCube.cards);
       newCube.cards[index] = newCard;
       return newCube;
     });
@@ -46,7 +46,7 @@ export const CubeContextProvider = ({ initialCube, canEdit, ...props }) => {
   const updateCubeCards = useCallback((newCards) => {
     setCube((currentCube) => {
       const newCube = { ...currentCube };
-      newCube.cards = [...newCube.cards];
+      newCube.cards = Array.from(newCube.cards);
       for (const card of newCards) {
         newCube.cards[card.index] = card;
       }

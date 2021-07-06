@@ -22,7 +22,7 @@ import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType';
 
 import { CardHeader, Card } from 'reactstrap';
 
-import UserContext from '@cubeartisan/client/contexts/UserContext';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
 import Podcast from '@cubeartisan/client/components/Podcast';
 import ButtonLink from '@cubeartisan/client/components/ButtonLink';

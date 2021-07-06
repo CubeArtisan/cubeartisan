@@ -20,7 +20,7 @@ import { useContext } from 'react';
 import { WithContext as ReactTags } from 'react-tag-input';
 import PropTypes from 'prop-types';
 
-import TagContext from '@cubeartisan/client/contexts/TagContext';
+import TagContext from '@cubeartisan/client/components/contexts/TagContext';
 
 const TagInput = ({ tags, addTag, deleteTag, reorderTag, dontAddSuggestions, ...props }) => {
   const { allSuggestions, addSuggestion, tagColorClass } = useContext(TagContext);

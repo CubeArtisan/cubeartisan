@@ -19,11 +19,11 @@
 import { useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
-import AddToCubeModal from '@cubeartisan/client/components/AddToCubeModal';
+import AddToCubeModal from '@cubeartisan/client/components/modals/AddToCubeModal';
 import PagedList from '@cubeartisan/client/components/PagedList';
-import withAutocard from '@cubeartisan/client/components/WithAutocard';
-import withModal from '@cubeartisan/client/components/WithModal';
-import SiteCustomizationContext from '@cubeartisan/client/contexts/SiteCustomizationContext';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard';
+import withModal from '@cubeartisan/client/components/hoc/WithModal';
+import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
 import { encodeName } from '@cubeartisan/client/utils/Card';
 import {

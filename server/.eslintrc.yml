@@ -5,12 +5,14 @@ env:
 extends:
   - airbnb
   - prettier
+  - plugin:array-func/all
 parser: 'babel-eslint'
 plugins:
   - jest
   - prettier
   - react-hooks
   - babel
+  - promise
 settings:
   import/resolver:
     node: {}
@@ -54,6 +56,11 @@ rules:
   no-restricted-imports:
     - error
     - patterns: ['./*', '../*']
+  promise/param-names: error
+  promise/no-new-statics: error
+  promise/valid-params: error
+  promise/prefer-await-to-then: error
+  promise/prefer-await-to-callbacks: error
 overrides:
   - files: ['**/*.cjs']
     rules:

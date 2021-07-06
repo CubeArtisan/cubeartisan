@@ -17,16 +17,16 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import { useCallback, useContext, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 import { cardsAreEquivalent, normalizeName } from '@cubeartisan/client/utils/Card';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
 import { arrayMove } from '@cubeartisan/client/utils/Util';
-
-import CardModal from '@cubeartisan/client/components/CardModal';
-import CardModalContext from '@cubeartisan/client/contexts/CardModalContext';
-import ChangelistContext from '@cubeartisan/client/contexts/ChangelistContext';
-import CubeContext from '@cubeartisan/client/contexts/CubeContext';
-import MaybeboardContext from '@cubeartisan/client/contexts/MaybeboardContext';
+import CardModal from '@cubeartisan/client/components/modals/CardModal';
+import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext';
+import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
+import MaybeboardContext from '@cubeartisan/client/components/contexts/MaybeboardContext';
 import { cardGetLabels } from '@cubeartisan/client/utils/Sort';
 
 const CardModalForm = ({ children, ...props }) => {
@@ -61,44 +61,53 @@ const CardModalForm = ({ children, ...props }) => {
 
   const setTagInput = useCallback(
     (value) =>
-      setFormValues((formValues) => ({
-        ...formValues,
+      setFormValues((oldFormValues) => ({
+        ...oldFormValues,
         tagInput: value,
       })),
     [],
   );
 
   const setTags = useCallback((tagF) => {
-    setFormValues(({ tags, ...formValues }) => ({ ...formValues, tags: tagF(tags) }));
+    setFormValues(({ tags, ...oldFormValues }) => ({ ...oldFormValues, tags: tagF(tags) }));
   }, []);
-  const addTag = useCallback((tag) => {
-    setTags((tags) => [...tags, tag]);
-    setTagInput('');
-  }, []);
+  const addTag = useCallback(
+    (tag) => {
+      setTags((oldTags) => [...oldTags, tag]);
+      setTagInput('');
+    },
+    [setTags, setTagInput],
+  );
   const addTagText = useCallback((tag) => tag.trim() && addTag({ text: tag.trim(), id: tag.trim() }), [addTag]);
-  const deleteTag = useCallback((tagIndex) => {
-    setTags((tags) => tags.filter((_, i) => i !== tagIndex));
-  }, []);
-  const reorderTag = useCallback((_, currIndex, newIndex) => {
-    setTags((tags) => arrayMove(tags, currIndex, newIndex));
-  }, []);
+  const deleteTag = useCallback(
+    (deleteIndex) => setTags((oldTags) => oldTags.filter((_, i) => i !== deleteIndex)),
+    [setTags],
+  );
+  const reorderTag = useCallback(
+    (_, currIndex, newIndex) => {
+      setTags((oldTags) => arrayMove(oldTags, currIndex, newIndex));
+    },
+    [setTags],
+  );
 
   const handleChange = useCallback((event) => {
     const { target } = event;
     const value = ['checkbox', 'radio'].includes(target.type) ? target.checked : target.value;
     const { name } = target;
 
-    setFormValues((formValues) => ({
-      ...formValues,
+    setFormValues((oldFormValues) => ({
+      ...oldFormValues,
       [name]: value,
     }));
   }, []);
 
+  const closeCardModal = useCallback(() => setIsOpen(false), []);
+
   const saveChanges = useCallback(async () => {
-    const colors = [...'WUBRG'].filter((color) => formValues[`color${color}`]);
+    const colors = Array.from('WUBRG').filter((color) => formValues[`color${color}`]);
     const updated = { ...formValues, colors };
     updated.rarity = updated.rarity.toLowerCase();
-    for (const color of [...'WUBRG']) {
+    for (const color of Array.from('WUBRG')) {
       delete updated[`color${color}`];
     }
     if (updated.imgUrl === '') {
@@ -181,7 +190,7 @@ const CardModalForm = ({ children, ...props }) => {
     } catch (e) {
       console.error(e);
     }
-  }, [card, formValues, updateCubeCard, updateMaybeboardCard]);
+  }, [closeCardModal, card, cubeID, maybe, formValues, updateCubeCard, updateMaybeboardCard]);
 
   const queueRemoveCard = useCallback(() => {
     addChange({
@@ -219,8 +228,6 @@ const CardModalForm = ({ children, ...props }) => {
     setIsOpen(true);
   }, []);
 
-  const closeCardModal = useCallback(() => setIsOpen(false));
-
   const versions = card.details.name ? versionDict[normalizeName(card.details.name)] || [card.details] : [];
   const details = versions.find((version) => version._id === formValues.version) || card.details;
   const renderCard = {
@@ -254,5 +261,7 @@ const CardModalForm = ({ children, ...props }) => {
     </CardModalContext.Provider>
   );
 };
-
+CardModalForm.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 export default CardModalForm;

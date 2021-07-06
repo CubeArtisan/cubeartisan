@@ -37,14 +37,14 @@ import {
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
 
-import UserContext from '@cubeartisan/client/contexts/UserContext';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
 import Tab from '@cubeartisan/client/components/Tab';
-import CreatePackageModal from '@cubeartisan/client/components/CreatePackageModal';
-import withModal from '@cubeartisan/client/components/WithModal';
+import CreatePackageModal from '@cubeartisan/client/components/modals/CreatePackageModal';
+import withModal from '@cubeartisan/client/components/hoc/WithModal';
 import CardPackage from '@cubeartisan/client/components/CardPackage';
 import Paginate from '@cubeartisan/client/components/Paginate';
 
@@ -83,7 +83,7 @@ const BrowsePackagesPage = ({ loginCallback }) => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
+    (async () => {
       if (refresh) {
         setRefresh(false);
       }
@@ -98,9 +98,8 @@ const BrowsePackagesPage = ({ loginCallback }) => {
           setPackages(json.packages);
         }
       }
-      return [];
-    };
-    fetchData().then(() => setFilterTemp(filter));
+      setFilterTemp(filter);
+    })();
   }, [filter, page, sort, sortDirection, selectedTab, refresh, setRefresh]);
 
   return (

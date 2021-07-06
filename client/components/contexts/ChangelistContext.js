@@ -94,7 +94,7 @@ export const ChangelistContextProvider = ({ cubeID, setOpenCollapse, initialChan
     (addedChanges) => {
       const highestId = Math.max(changes.map((change) => change.id));
       let newId = !Number.isNaN(highestId) ? highestId + 1 : Math.floor(Math.random() * 2 ** 20);
-      const newChanges = [...changes];
+      const newChanges = Array.from(changes);
       for (const change of addedChanges) {
         newChanges.push({
           ...change,

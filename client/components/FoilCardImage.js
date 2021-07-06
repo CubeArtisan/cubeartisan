@@ -17,8 +17,8 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import CardImage from '@cubeartisan/client/components/CardImage';
-import FoilOverlay from '@cubeartisan/client/components/FoilOverlay';
+import WithFoilOverlay from '@cubeartisan/client/components/WithFoilOverlay';
 
-const FoilCardImage = FoilOverlay(CardImage);
+const FoilCardImage = WithFoilOverlay(CardImage);
 
 export default FoilCardImage;

@@ -25,7 +25,7 @@ import TimeAgo from 'react-timeago';
 
 import { Card, CardHeader, Row, Col, CardBody, CardText } from 'reactstrap';
 
-import UserContext from '@cubeartisan/client/contexts/UserContext';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
 import BlogContextMenu from '@cubeartisan/client/components/BlogContextMenu';
 import CommentsSection from '@cubeartisan/client/components/CommentsSection';
 import Markdown from '@cubeartisan/client/components/Markdown';

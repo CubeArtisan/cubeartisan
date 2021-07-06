@@ -2,8 +2,8 @@ import { forwardRef, useContext, useRef } from 'react';
 import { Col, PopoverBody, PopoverHeader, Row, UncontrolledPopover } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import TagContext from '@cubeartisan/client/contexts/TagContext';
-import DisplayContext from '@cubeartisan/client/contexts/DisplayContext';
+import TagContext from '@cubeartisan/client/components/contexts/TagContext';
+import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext';
 import {
   cardFinish,
   cardFullName,

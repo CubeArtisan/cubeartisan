@@ -34,7 +34,7 @@ import {
 import PropTypes from 'prop-types';
 
 import CSRFForm from '@cubeartisan/client/components/CSRFForm';
-import CubeContext from '@cubeartisan/client/contexts/CubeContext';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
 import CustomPackCard from '@cubeartisan/client/components/CustomPackCard';
 import TextEntry from '@cubeartisan/client/components/TextEntry';
 import { fromEntries, toNullableInt } from '@cubeartisan/client/utils/Util';
@@ -46,14 +46,15 @@ const DEFAULT_STEP = Object.freeze([
   { action: 'pass', amount: null },
 ]);
 
-const cloneSteps = ({ packIndex, newFormat }) => [
-  ...(newFormat.packs[packIndex].steps ??
-    new Array(newFormat.packs[packIndex].slots.length)
-      .fill(DEFAULT_STEP)
-      .flat()
-      .slice(0, newFormat.packs[packIndex].slots.length * 2 - 1)
-      .map((action) => ({ ...action }))),
-];
+const cloneSteps = ({ packIndex, newFormat }) =>
+  Array.from(
+    newFormat.packs[packIndex].steps ??
+      new Array(newFormat.packs[packIndex].slots.length)
+        .fill(DEFAULT_STEP)
+        .flat()
+        .slice(0, newFormat.packs[packIndex].slots.length * 2 - 1)
+        .map((action) => ({ ...action })),
+  );
 const MUTATIONS = Object.freeze({
   changeTitle: ({ newFormat, value }) => {
     newFormat.title = value;
@@ -157,7 +158,7 @@ const CustomDraftFormatModal = ({ isOpen, toggle, formatIndex, format, setFormat
           const slotIndex = toNullableInt(target.getAttribute('data-slot-index'));
           const stepIndex = toNullableInt(target.getAttribute('data-step-index'));
           setFormat((oldFormat) => {
-            const newFormat = { ...oldFormat, packs: [...(oldFormat.packs ?? [{ ...DEFAULT_PACK }])] };
+            const newFormat = { ...oldFormat, packs: Array.from(oldFormat.packs ?? [{ ...DEFAULT_PACK }]) };
             if (packIndex || packIndex === 0) {
               if (
                 oldFormat.packs.length <= packIndex ||
@@ -167,7 +168,7 @@ const CustomDraftFormatModal = ({ isOpen, toggle, formatIndex, format, setFormat
               }
               newFormat.packs[packIndex] = {
                 ...newFormat.packs[packIndex],
-                slots: [...(newFormat.packs[packIndex].slots ?? DEFAULT_PACK.slots)],
+                slots: Array.from(newFormat.packs[packIndex].slots ?? DEFAULT_PACK.slots),
               };
             }
             mutation({ newFormat, value, packIndex, slotIndex, stepIndex });

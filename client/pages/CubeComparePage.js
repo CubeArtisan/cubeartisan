@@ -23,17 +23,17 @@ import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
 
 import Query from '@cubeartisan/client/utils/Query';
 
-import CardModalForm from '@cubeartisan/client/components/CardModalForm';
+import CardModalForm from '@cubeartisan/client/components/modals/CardModalForm';
 import CompareView from '@cubeartisan/client/components/CompareView';
 import CubeCompareNavbar from '@cubeartisan/client/components/CubeCompareNavbar';
-import { DisplayContextProvider } from '@cubeartisan/client/contexts/DisplayContext';
+import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
-import { SortContextProvider } from '@cubeartisan/client/contexts/SortContext';
-import { TAG_COLORS, TagContextProvider } from '@cubeartisan/client/contexts/TagContext';
+import { SortContextProvider } from '@cubeartisan/client/components/contexts/SortContext';
+import { TAG_COLORS, TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
-import UserContext from '@cubeartisan/client/contexts/UserContext';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
 
 const deduplicateTags = (tagColors) => {
   const used = new Set();
@@ -60,8 +60,8 @@ const CubeComparePage = ({
   const [openCollapse, setOpenCollapse] = useState(Query.get('f', false) ? 'filter' : null);
   const [filter, setFilter] = useState(null);
   const { _id: userID } = useContext(UserContext);
-  const defaultTagSet = new Set([].concat(...cards.map((card) => card.tags)));
-  const defaultTags = [...defaultTagSet].map((tag) => ({
+  const defaultTagSet = new Set(cards.flatMap((card) => card.tags));
+  const defaultTags = Array.from(defaultTagSet, (tag) => ({
     id: tag,
     text: tag,
   }));

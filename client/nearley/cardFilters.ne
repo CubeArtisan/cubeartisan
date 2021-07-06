@@ -108,7 +108,7 @@ const genericCondition = (propertyName, propertyAccessor, valuePred) => {
 %} # %}
 
 
-cmcCondition -> ("mv"i | "cmc"i) integerOpValue {% ([, valuePred]) => genericCondition('cmc', cardCmc, valuePred) %}
+cmcCondition -> ("mv"i | "cmc"i | "manavalue"i) integerOpValue {% ([, valuePred]) => genericCondition('cmc', cardCmc, valuePred) %}
 
 colorCondition -> ("c"i | "color"i | "colors"i) colorCombinationOpValue {% ([, valuePred]) => genericCondition('colors', cardColors, valuePred) %}
 

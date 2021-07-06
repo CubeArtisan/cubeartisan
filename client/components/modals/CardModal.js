@@ -30,6 +30,7 @@ import {
   ModalHeader,
   Row,
 } from 'reactstrap';
+import PropTypes from 'prop-types';
 
 import Affiliate from '@cubeartisan/client/utils/Affiliate';
 import { getLabels, cardGetLabels } from '@cubeartisan/client/utils/Sort';
@@ -41,7 +42,8 @@ import FoilCardImage from '@cubeartisan/client/components/FoilCardImage';
 import TagInput from '@cubeartisan/client/components/TagInput';
 import TextBadge from '@cubeartisan/client/components/TextBadge';
 import Tooltip from '@cubeartisan/client/components/Tooltip';
-import withLoading from '@cubeartisan/client/components/WithLoading';
+import withLoading from '@cubeartisan/client/components/hoc/WithLoading';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
 
 const LoadingCustomInput = withLoading(CustomInput, []);
 
@@ -59,7 +61,6 @@ const CardModal = ({
   setTagInput,
   addTagText,
   tagActions,
-  cardFinishActions,
   ...props
 }) => {
   return (
@@ -245,5 +246,24 @@ const CardModal = ({
     </Modal>
   );
 };
-
+CardModal.propTypes = {
+  card: CardPropType.isRequired,
+  maybe: PropTypes.bool,
+  versions: PropTypes.arrayOf(CardPropType.isRequired).isRequired,
+  versionsLoading: PropTypes.bool,
+  toggle: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
+  values: CardPropType.isRequired,
+  onChange: PropTypes.func.isRequired,
+  saveChanges: PropTypes.func.isRequired,
+  queueRemoveCard: PropTypes.func.isRequired,
+  setTagInput: PropTypes.func.isRequired,
+  addTagText: PropTypes.func.isRequired,
+  tagActions: PropTypes.shape({ addTag: PropTypes.func.isRequired, deleteTag: PropTypes.func.isRequired }).isRequired,
+};
+CardModal.defaultProps = {
+  disabled: false,
+  maybe: false,
+  versionsLoading: false,
+};
 export default CardModal;

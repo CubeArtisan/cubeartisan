@@ -21,9 +21,9 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
 
-import CardModalContext from '@cubeartisan/client/contexts/CardModalContext';
-import TagContext from '@cubeartisan/client/contexts/TagContext';
-import withAutocard from '@cubeartisan/client/components/WithAutocard';
+import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext';
+import TagContext from '@cubeartisan/client/components/contexts/TagContext';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard';
 
 const AutocardDiv = withAutocard('li');
 

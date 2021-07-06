@@ -22,7 +22,7 @@ import VideoPropType from '@cubeartisan/client/proptypes/VideoPropType';
 
 import { CardHeader, Card } from 'reactstrap';
 
-import UserContext from '@cubeartisan/client/contexts/UserContext';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
 import Video from '@cubeartisan/client/components/Video';
 import ButtonLink from '@cubeartisan/client/components/ButtonLink';

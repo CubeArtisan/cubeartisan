@@ -26,14 +26,14 @@ import { cardsAreEquivalent, normalizeName } from '@cubeartisan/client/utils/Car
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
 import { getLabels, sortDeep } from '@cubeartisan/client/utils/Sort';
 
-import CubeContext from '@cubeartisan/client/contexts/CubeContext';
-import GroupModalContext from '@cubeartisan/client/contexts/GroupModalContext';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
+import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext';
 import PagedTable from '@cubeartisan/client/components/PagedTable';
-import SortContext from '@cubeartisan/client/contexts/SortContext';
-import TagContext from '@cubeartisan/client/contexts/TagContext';
+import SortContext from '@cubeartisan/client/components/contexts/SortContext';
+import TagContext from '@cubeartisan/client/components/contexts/TagContext';
 import TagInput from '@cubeartisan/client/components/TagInput';
-import withAutocard from '@cubeartisan/client/components/WithAutocard';
-import withLoading from '@cubeartisan/client/components/WithLoading';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard';
+import withLoading from '@cubeartisan/client/components/hoc/WithLoading';
 import useAlerts, { Alerts } from '@cubeartisan/client/hooks/UseAlerts';
 
 const colorCombos = [
@@ -174,7 +174,7 @@ const ListViewRow = ({ card, versions, versionsLoading, checked, onCheck, addAle
 
   const reorderTag = useCallback(
     async (tag, currIndex, newIndex) => {
-      const newTags = [...tags];
+      const newTags = Array.from(tags);
       newTags.splice(currIndex, 1);
       newTags.splice(newIndex, 0, tag);
       setTags(newTags);
@@ -214,7 +214,7 @@ const ListViewRow = ({ card, versions, versionsLoading, checked, onCheck, addAle
         try {
           const updatedCard = {};
           if (name === 'colors') {
-            updatedCard.colors = value === 'C' ? [] : [...value];
+            updatedCard.colors = value === 'C' ? [] : Array.from(value);
           } else {
             updatedCard[name] = value;
           }
@@ -441,7 +441,7 @@ const ListView = ({ cards }) => {
     ),
   );
 
-  const rowsFlat = [].concat(...[].concat(...[].concat(...rows)));
+  const rowsFlat = rows.flat().flat().flat();
 
   return (
     <>

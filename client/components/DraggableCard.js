@@ -18,19 +18,15 @@
  */
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
+import PropTypes from 'prop-types';
 
-import CardImage from './CardImage';
-import FoilCardImage from './FoilCardImage';
+import FoilCardImage from '@cubeartisan/client/components/FoilCardImage';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
 
 const DraggableCard = ({ card, location, canDrop, onMoveCard, width, height, className, ...props }) => {
   const [{ isDragging }, drag, preview] = useDrag({
     item: { type: 'card', location },
-    begin: (monitor) => {
-      /* global */ stopAutocard = true;
-      /* global */ autocard_hide_card();
-    },
     end: (item, monitor) => {
-      /* global */ stopAutocard = false;
       if (monitor.didDrop()) {
         onMoveCard(item.location, monitor.getDropResult());
       }
@@ -82,5 +78,17 @@ const DraggableCard = ({ card, location, canDrop, onMoveCard, width, height, cla
     </>
   );
 };
-
+DraggableCard.propTypes = {
+  card: CardPropType.isRequired,
+  location: PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    data: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+  }).isRequired,
+  canDrop: PropTypes.func.isRequired,
+  onMoveCard: PropTypes.func.isRequired,
+  className: PropTypes.string,
+};
+DraggableCard.defaultProps = {
+  className: null,
+};
 export default DraggableCard;

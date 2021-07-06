@@ -17,17 +17,31 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import CardDetailsPropType from '@cubeartisan/client/proptypes/CardDetailsPropType';
 
-const CardPropType = PropTypes.shape({
-  _id: PropTypes.string,
-  index: PropTypes.number,
-  imgUrl: PropTypes.string,
-  imgBackUrl: PropTypes.string,
-  cardID: PropTypes.string.isRequired,
-  colors: PropTypes.arrayOf(PropTypes.oneOf(Array.from('WUBRG'))),
-  tags: PropTypes.arrayOf(PropTypes.string),
-  details: CardDetailsPropType,
-});
+import { cardFinish } from '@cubeartisan/client/utils/Card';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
 
-export default CardPropType;
+const withFoilOverlay = (Tag) => {
+  const WithFoilOverlay = ({ card, finish: finishOverride, ...props }) => {
+    const finish = finishOverride ?? cardFinish(card) ?? 'Non-foil';
+    return (
+      <div className="position-relative">
+        {finish !== 'Foil' ? (
+          ''
+        ) : (
+          <img src="/content/foilOverlay.png" className="foilOverlay card-border" width="100%" alt="Foil overlay" />
+        )}
+        <Tag card={card} {...props} />
+      </div>
+    );
+  };
+  WithFoilOverlay.propTypes = {
+    card: CardPropType.isRequired,
+    finish: PropTypes.string,
+  };
+  WithFoilOverlay.defaultProps = {
+    finish: null,
+  };
+  return WithFoilOverlay;
+};
+export default withFoilOverlay;

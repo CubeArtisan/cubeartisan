@@ -21,8 +21,8 @@ import PropTypes from 'prop-types';
 import { Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
 
 import FoilCardImage from '@cubeartisan/client/components/FoilCardImage';
-import withAutocard from '@cubeartisan/client/components/WithAutocard';
-import { getCardColorClass } from '@cubeartisan/client/contexts/TagContext';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard';
+import { getCardColorClass } from '@cubeartisan/client/components/contexts/TagContext';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
 import { DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes';
 import { cardName, encodeName } from '@cubeartisan/client/utils/Card';

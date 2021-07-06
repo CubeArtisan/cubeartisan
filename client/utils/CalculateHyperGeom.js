@@ -56,7 +56,7 @@ const clamp = (val, min, max) => {
 };
 
 const calculate = (populationSize, sampleSize, popSuccesses, sampleSuccesses) => {
-  const keys = [...Array(parseInt(sampleSuccesses, 10) + 1).keys()];
+  const keys = Array.from(Array(parseInt(sampleSuccesses, 10) + 1).keys());
   const values = keys.map((x) =>
     hyp(parseInt(populationSize, 10), parseInt(sampleSize, 10), parseInt(popSuccesses, 10), x),
   );

@@ -25,8 +25,8 @@ import { ListGroup, ListGroupItem } from 'reactstrap';
 import { sortDeep } from '@cubeartisan/client/utils/Sort';
 
 import AutocardListItem from '@cubeartisan/client/components/AutocardListItem';
-import CubeContext from '@cubeartisan/client/contexts/CubeContext';
-import GroupModalContext from '@cubeartisan/client/contexts/GroupModalContext';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
+import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext';
 
 const AutocardListGroup = ({ cards, heading, sort, orderedSort, showOther, rowTag, noGroupModal }) => {
   const RowTag = rowTag;

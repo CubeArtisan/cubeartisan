@@ -22,7 +22,7 @@ import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
 
 import { Button, Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
 
-import UserContext from '@cubeartisan/client/contexts/UserContext';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
 import CubePreview from '@cubeartisan/client/components/CubePreview';
 import UserLayout from '@cubeartisan/client/layouts/UserLayout';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';

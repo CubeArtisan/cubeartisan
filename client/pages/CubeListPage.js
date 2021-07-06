@@ -22,28 +22,28 @@ import PropTypes from 'prop-types';
 import LocalStorage from '@cubeartisan/client/utils/LocalStorage';
 import Query from '@cubeartisan/client/utils/Query';
 
-import CardModalForm from '@cubeartisan/client/components/CardModalForm';
-import { ChangelistContextProvider } from '@cubeartisan/client/contexts/ChangelistContext';
+import CardModalForm from '@cubeartisan/client/components/modals/CardModalForm';
+import { ChangelistContextProvider } from '@cubeartisan/client/components/contexts/ChangelistContext';
 import ClientOnly from '@cubeartisan/client/components/ClientOnly';
-import CubeContext from '@cubeartisan/client/contexts/CubeContext';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
 import CubeListNavbar from '@cubeartisan/client/components/CubeListNavbar';
 import CurveView from '@cubeartisan/client/components/CurveView';
-import DisplayContext, { DisplayContextProvider } from '@cubeartisan/client/contexts/DisplayContext';
+import DisplayContext, { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
-import GroupModal from '@cubeartisan/client/components/GroupModal';
+import GroupModal from '@cubeartisan/client/components/modals/GroupModal';
 import ListView from '@cubeartisan/client/components/ListView';
 import Maybeboard from '@cubeartisan/client/components/Maybeboard';
-import { MaybeboardContextProvider } from '@cubeartisan/client/contexts/MaybeboardContext';
-import { SortContextProvider } from '@cubeartisan/client/contexts/SortContext';
+import { MaybeboardContextProvider } from '@cubeartisan/client/components/contexts/MaybeboardContext';
+import { SortContextProvider } from '@cubeartisan/client/components/contexts/SortContext';
 import TableView from '@cubeartisan/client/components/TableView';
-import { TAG_COLORS, TagContextProvider } from '@cubeartisan/client/contexts/TagContext';
+import { TAG_COLORS, TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext';
 import VisualSpoiler from '@cubeartisan/client/components/VisualSpoiler';
 import CubeLayout from '@cubeartisan/client/layouts/CubeLayout';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
-import UserContext from '@cubeartisan/client/contexts/UserContext';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
 
 const CubeListPageRaw = ({
   defaultFilterText,
@@ -77,8 +77,8 @@ const CubeListPageRaw = ({
     }
   }, [cube._id, defaultFilterText, defaultPrimarySort, defaultSecondarySort]);
 
-  const defaultTagSet = new Set([].concat(...cube.cards.map((card) => card.tags)));
-  const defaultTags = [...defaultTagSet].map((tag) => ({
+  const defaultTagSet = new Set(cube.cards.flatMap((card) => card.tags));
+  const defaultTags = Array.from(defaultTagSet, (tag) => ({
     id: tag,
     text: tag,
   }));

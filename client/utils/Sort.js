@@ -142,7 +142,9 @@ export function getColorCombination(colors) {
   if (colors.length < 2) {
     return GetColorIdentity(colors);
   }
-  const ordered = [...'WUBRG'].filter((c) => colors.includes(c)).join('');
+  const ordered = Array.from('WUBRG')
+    .filter((c) => colors.includes(c))
+    .join('');
   if (colors.length === 2) {
     return GUILD_MAP[ordered];
   }
@@ -234,7 +236,7 @@ const allDevotions = (cube, color) => {
   for (const card of cube) {
     counts.add(cardDevotion(card, color));
   }
-  return [...counts].sort((a, b) => a - b);
+  return Array.from(counts).sort((a, b) => a - b);
 };
 
 const priceBuckets = [0.25, 0.5, 1, 2, 3, 4, 5, 7, 10, 15, 20, 25, 30, 40, 50, 75, 100];
@@ -307,7 +309,9 @@ function getLabelsRaw(cube, sort, showOther) {
   } else if (sort === 'Mana Value Full') {
     // All unique CMCs of cards in the cube, rounded to a half-integer
     ret = cube.map((card) => Math.round(cmcToNumber(card) * 2) / 2);
-    ret = [...new Set(ret)].sort((a, b) => a - b).map((n) => n.toString());
+    ret = Array.from(new Set(ret))
+      .sort((a, b) => a - b)
+      .map((n) => n.toString());
   } else if (sort === 'Color') {
     ret = ['White', 'Blue', 'Black', 'Red', 'Green', 'Colorless'];
   } else if (sort === 'Type') {
@@ -372,7 +376,7 @@ function getLabelsRaw(cube, sort, showOther) {
         }
       }
     }
-    ret = [...types];
+    ret = Array.from(types);
   } else if (sort === 'Types-Multicolor') {
     ret = CARD_TYPES.slice(0, -1)
       .concat(GUILDS)
@@ -502,7 +506,9 @@ export function cardGetLabels(card, sort, showOther) {
     if (cardColorIdentity(card).length === 5) {
       ret = ['Five Color'];
     } else if (cardColorIdentity(card).length === 4) {
-      ret = [...'WUBRG'].filter((c) => !cardColorIdentity(card).includes(c)).map((c) => `Non-${COLOR_MAP[c]}`);
+      ret = Array.from('WUBRG')
+        .filter((c) => !cardColorIdentity(card).includes(c))
+        .map((c) => `Non-${COLOR_MAP[c]}`);
     }
   } else if (sort === 'Mana Value') {
     // Sort by CMC, but collapse all >= 8 into '8+' category.
@@ -558,12 +564,16 @@ export function cardGetLabels(card, sort, showOther) {
     ret = [ISODateToYYYYMMDD(card.addedTmsp)];
   } else if (sort === 'Guilds') {
     if (cardColorIdentity(card).length === 2) {
-      const ordered = [...'WUBRG'].filter((c) => cardColorIdentity(card).includes(c)).join('');
+      const ordered = Array.from('WUBRG')
+        .filter((c) => cardColorIdentity(card).includes(c))
+        .join('');
       ret = [GUILD_MAP[ordered]];
     }
   } else if (sort === 'Shards / Wedges') {
     if (cardColorIdentity(card).length === 3) {
-      const ordered = [...'WUBRG'].filter((c) => cardColorIdentity(card).includes(c)).join('');
+      const ordered = Array.from('WUBRG')
+        .filter((c) => cardColorIdentity(card).includes(c))
+        .join('');
       ret = [SHARD_AND_WEDGE_MAP[ordered]];
     }
   } else if (sort === 'Color Count') {
@@ -757,7 +767,7 @@ export function sortIntoGroups(cards, sort, showOther) {
 
 export function sortDeep(cards, showOther, last, ...sorts) {
   if (sorts.length === 0) {
-    return [...cards].sort(SortFunctions[last]);
+    return Array.from(cards).sort(SortFunctions[last]);
   }
   const [first, ...rest] = sorts;
   const result = sortGroupsOrdered(cards, first ?? 'Unsorted', showOther);

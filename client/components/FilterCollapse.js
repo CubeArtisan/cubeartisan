@@ -16,8 +16,8 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { Component } from 'react';
-
+import { useCallback, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   Button,
   Col,
@@ -36,16 +36,16 @@ import {
 } from 'reactstrap';
 
 import { makeFilter } from '@cubeartisan/client/filtering/FilterCards';
-import Query from '@cubeartisan/client/utils/Query';
 import { fromEntries } from '@cubeartisan/client/utils/Util';
-
 import { ColorChecksAddon, ColorChecksControl } from '@cubeartisan/client/components/ColorCheck';
 import LoadingButton from '@cubeartisan/client/components/LoadingButton';
-
 import TextField from '@cubeartisan/client/components/TextField';
 import NumericField from '@cubeartisan/client/components/NumericField';
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput';
-import CubeContext from '@cubeartisan/client/contexts/CubeContext';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
+import { CARD_CATEGORY_DETECTORS } from '@cubeartisan/client/utils/Card';
+import useToggle from '@cubeartisan/client/hooks/UseToggle';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
 
 const allFields = [
   'name',
@@ -151,7 +151,7 @@ const AdvancedFilterModal = ({ isOpen, toggle, apply, values, onChange, ...props
             <InputGroupText>Manacost Type</InputGroupText>
           </InputGroupAddon>
           <Input type="select" name="is" value={values.is} onChange={onChange}>
-            {['', 'Gold', 'Hybrid', 'Phyrexian'].map((type) => (
+            {Object.keys(CARD_CATEGORY_DETECTORS).map((type) => (
               <option key={type}>{type}</option>
             ))}
           </Input>
@@ -171,27 +171,29 @@ const AdvancedFilterModal = ({ isOpen, toggle, apply, values, onChange, ...props
           onChange={onChange}
         />
         <CubeContext.Consumer>
-          {({ cubeID }) =>
-            cubeID && (
-              <InputGroup className="mb-3" {...props}>
-                <InputGroupAddon addonType="prepend">
-                  <InputGroupText>Tag</InputGroupText>
-                </InputGroupAddon>
-                <AutocompleteInput
-                  treeUrl={`/cube/${cubeID}/cards/tags`}
-                  treePath="tags"
-                  type="text"
-                  name="tag"
-                  value={values.tag}
-                  onChange={onChange}
-                  placeholder={'Any text, e.g. "Zombie Testing"'}
-                  autoComplete="off"
-                  data-lpignore
-                  className="tag-autocomplete-input"
-                  wrapperClassName="tag-autocomplete-wrapper"
-                />
-              </InputGroup>
-            )
+          {
+            ({ cubeID }) =>
+              cubeID && (
+                <InputGroup className="mb-3" {...props}>
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupText>Tag</InputGroupText>
+                  </InputGroupAddon>
+                  <AutocompleteInput
+                    treeUrl={`/cube/${cubeID}/cards/tags`}
+                    treePath="tags"
+                    type="text"
+                    name="tag"
+                    value={values.tag}
+                    onChange={onChange}
+                    placeholder={'Any text, e.g. "Zombie Testing"'}
+                    autoComplete="off"
+                    data-lpignore
+                    className="tag-autocomplete-input"
+                    wrapperClassName="tag-autocomplete-wrapper"
+                  />
+                </InputGroup>
+              )
+            // eslint-disable-next-line react/jsx-curly-newline
           }
         </CubeContext.Consumer>
         <Row className="row-mid-padding">
@@ -347,62 +349,97 @@ const AdvancedFilterModal = ({ isOpen, toggle, apply, values, onChange, ...props
     </Form>
   </Modal>
 );
+AdvancedFilterModal.propTypes = {
+  isOpen: PropTypes.func.isRequired,
+  toggle: PropTypes.func.isRequired,
+  apply: PropTypes.func.isRequired,
+  values: PropTypes.shape({
+    name: PropTypes.string,
+    oracle: PropTypes.string,
+    cmc: PropTypes.string,
+    cmcOp: PropTypes.string,
+    color: PropTypes.arrayOf(PropTypes.string.isRequired),
+    colorOp: PropTypes.string,
+    identity: PropTypes.arrayOf(PropTypes.string.isRequired),
+    identityOp: PropTypes.string,
+    is: PropTypes.string,
+    mana: PropTypes.string,
+    type: PropTypes.string,
+    set: PropTypes.string,
+    tag: PropTypes.string,
+    status: PropTypes.string,
+    finish: PropTypes.string,
+    price: PropTypes.string,
+    priceOp: PropTypes.string,
+    priceFoil: PropTypes.string,
+    priceFoilOp: PropTypes.string,
+    priceEur: PropTypes.string,
+    priceEurOp: PropTypes.string,
+    priceTix: PropTypes.string,
+    priceTixOp: PropTypes.string,
+    elo: PropTypes.string,
+    eloOp: PropTypes.string,
+    power: PropTypes.string,
+    powerOp: PropTypes.string,
+    toughness: PropTypes.string,
+    toughnessOp: PropTypes.string,
+    loyalty: PropTypes.string,
+    loyaltyOp: PropTypes.string,
+    rarity: PropTypes.string,
+    rarityOp: PropTypes.string,
+    legalityOp: PropTypes.string,
+    legality: PropTypes.string,
+    artist: PropTypes.string,
+  }).isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
-class FilterCollapse extends Component {
-  constructor(props) {
-    super(props);
+const FilterCollapse = ({ filter, setFilter, numCards, numShown, defaultFilterText, noCount, ...props }) => {
+  const [advancedOpen, toggleAdvancedOpen, , closeAdvanced] = useToggle(false);
+  const [filterInput, setFilterInput] = useQueryParam('filter', defaultFilterText ?? '');
+  const [values, setValues] = useState({
+    ...fromEntries(allFields.map((n) => [n, ''])),
+    ...fromEntries(numFields.map((n) => [`${n}Op`, '='])),
+    ...fromEntries(colorFields.map((n) => [`${n}Op`, '='])),
+    ...fromEntries(colorFields.flatMap((n) => Array.from('WUBRG', (c) => [n + c, false]))),
+    typeQuick: '',
+    cmcQuick: '',
+    cmcQuickOp: '<=',
+    textQuick: '',
+  });
 
-    this.state = {
-      loading: false,
-      advancedOpen: false,
-      filterInput: this.props.defaultFilterText || '',
-      ...fromEntries(allFields.map((n) => [n, ''])),
-      ...fromEntries(numFields.map((n) => [`${n}Op`, '='])),
-      ...fromEntries(colorFields.map((n) => [`${n}Op`, '='])),
-      ...fromEntries(colorFields.map((n) => [...'WUBRG'].map((c) => [n + c, false])).flat()),
-      typeQuick: '',
-      cmcQuick: '',
-      cmcQuickOp: '<=',
-      textQuick: '',
-      ...fromEntries(colorFields.map((n) => [...'WUBRG'].map((c) => [n + c, false])).flat()),
-    };
-
-    this.toggleAdvanced = this.toggleAdvanced.bind(this);
-    this.applyAdvanced = this.applyAdvanced.bind(this);
-    this.applyQuick = this.applyQuick.bind(this);
-    this.updateFilters = this.updateFilters.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleApply = this.handleApply.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.handleReset = this.handleReset.bind(this);
-
-    if (this.props.defaultFilterText) this.updateFilters();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.filter !== this.props.filter) {
-      const { filterInput } = this.state;
-      if (filterInput === '') {
-        Query.del('f');
-      } else {
-        Query.set('f', filterInput);
+  const updateFilter = useCallback(
+    async (filterValue) => {
+      filterValue = filterValue ?? '';
+      if (filterValue !== (filter?.stringify ?? '')) {
+        if (filterValue === '') {
+          setFilter(null);
+        } else {
+          const { filter: newFilter, err } = makeFilter(filterValue);
+          if (err) {
+            console.error(err);
+          } else {
+            setFilter(() => newFilter);
+          }
+        }
       }
-    }
-  }
+    },
+    [filter?.stringify, setFilter],
+  );
 
-  toggleAdvanced() {
-    this.setState({
-      advancedOpen: !this.state.advancedOpen,
-    });
-  }
+  useEffect(() => {
+    updateFilter(filterInput);
+    // Disable since this is the proper way to ensure it only runs once.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  async applyAdvanced() {
+  const applyAdvanced = async () => {
     // Advanced Filter change. Render to filter input.
     const tokens = [];
     for (const name of allFields) {
-      if (this.state[name]) {
-        const op = numFields.includes(name) ? this.state[`${name}Op`] || '=' : ':';
-        let value = this.state[name].replace('"', '\\"');
+      if (values[name]) {
+        const op = numFields.includes(name) ? values[`${name}Op`] || '=' : ':';
+        let value = values[name].replace('"', '\\"');
         if (value.indexOf(' ') > -1) {
           value = `"${value}"`;
         }
@@ -411,9 +448,9 @@ class FilterCollapse extends Component {
     }
     for (const name of colorFields) {
       const colors = [];
-      const op = this.state[`${name}Op`] || '=';
-      for (const color of [...'WUBRG']) {
-        if (this.state[name + color]) {
+      const op = values[`${name}Op`] || '=';
+      for (const color of Array.from('WUBRG')) {
+        if (values[name + color]) {
           colors.push(color);
         }
       }
@@ -421,248 +458,221 @@ class FilterCollapse extends Component {
         tokens.push(`${name}${op}${colors.join('')}`);
       }
     }
-    const filterInput = tokens.join(' ');
-    this.setState({
-      advancedOpen: false,
-      filterInput,
-    });
-    await this.updateFilters(filterInput);
-  }
+    const advancedFilterInput = tokens.join(' ');
+    closeAdvanced();
+    setFilterInput(advancedFilterInput);
+    updateFilter(advancedFilterInput);
+  };
 
-  async applyQuick(event) {
+  const applyQuick = async (event) => {
     event.preventDefault();
     const tokens = [];
-
-    const colors = [];
-    for (const color of [...'WUBRGC']) {
-      if (this.state[`colorQuick${color}`]) {
-        colors.push(color);
+    if (values.cmcQuick) {
+      tokens.push(`mv${values.cmcQuickOp}${values.cmcQuick}`);
+    }
+    if (values.typeQuick) {
+      if (values.typeQuick.includes(' ')) {
+        tokens.push(`type:"${values.typeQuick.replace('"', '\\""')}"`);
+      } else {
+        tokens.push(`type:${values.typeQuick}`);
       }
     }
-    if (colors.length > 0) {
-      tokens.push(`coloridentity=${colors.join('')}`);
-    }
-
-    if (this.state.cmcQuick) {
-      tokens.push(`mv${this.state.cmcQuickOp}${this.state.cmcQuick}`);
-    }
-
-    for (const name of ['type', 'text']) {
-      let value = this.state[`${name}Quick`];
-      if (!value) continue;
-      if (value.includes(' ')) {
-        value = value.replace('"', '\\"');
-        value = `"${value}"`;
+    if (values.textQuick) {
+      if (values.textQuick.includes(' ')) {
+        tokens.push(`text:"${values.textQuick.replace('"', '\\""')}"`);
+      } else {
+        tokens.push(`type:${values.textQuick}`);
       }
-      tokens.push(`${name}:${value}`);
     }
+    const quickFilterInput = tokens.join(' ');
+    setFilterInput(quickFilterInput);
+    return updateFilter(quickFilterInput);
+  };
 
-    const filterInput = tokens.join(' ');
-    this.setState({ filterInput });
-    await this.updateFilters(filterInput);
-  }
-
-  async updateFilters(overrideFilter) {
-    if (this.props.filter && Query.get('f') === this.state.filterInput) {
-      return;
-    }
-
-    const filterInput = overrideFilter ?? this.state.filterInput;
-    if ((filterInput ?? '') === '') {
-      this.props.setFilter(null, '');
-      return;
-    }
-
-    const { filter, err } = makeFilter(filterInput);
-    if (err) {
-      console.error(err);
-      return;
-    }
-
-    // TODO: Copy to advanced filter boxes.
-    this.setState({ loading: true });
-    await this.props.setFilter(() => filter, filterInput);
-    this.setState({ loading: false });
-  }
-
-  handleChange(event) {
+  const handleChange = (event) => {
     const { target } = event;
     const value = ['checkbox', 'radio'].includes(target.type) ? target.checked : target.value;
     const { name } = target;
+    setValues((oldValues) => ({ ...oldValues, [name]: value }));
+  };
 
-    this.setState({
-      [name]: value,
-    });
-  }
+  const changeFilterInput = (event) => setFilterInput(event.target.value);
 
-  async handleApply(event) {
+  const apply = (event) => {
     event.preventDefault();
-    await this.updateFilters();
-  }
+    return updateFilter(filterInput);
+  };
 
-  async handleKeyDown(event) {
+  const handleKeyDown = (event) => {
     if (event.keyCode === 13 /* ENTER */) {
-      event.preventDefault();
-      await this.updateFilters();
+      return apply(event);
     }
-  }
+    return Promise.resolve(null);
+  };
 
-  handleReset() {
-    this.setState({ filterInput: '' });
-    this.props.setFilter(null, '');
-  }
+  const reset = () => {
+    setFilterInput('');
+    return updateFilter('');
+  };
 
-  render() {
-    const { filter, setFilter, numCards, numShown, useQuery, defaultFilterText, noCount, ...props } = this.props;
-    const { loading, filterInput, advancedOpen } = this.state;
-    const { err } = makeFilter(filterInput);
-    const valid = !err;
-    if (err) {
-      console.warn('Error parsing', err);
-    }
-    const appliedText = `Filters applied${typeof numCards !== 'undefined' ? `: ${numCards} cards` : ''}${
-      typeof numShown !== 'undefined' ? `, ${numShown} shown` : ''
-    }.`;
-    return (
-      <Collapse className="px-3" {...props}>
-        <Row>
-          <Col>
-            <Form>
-              <InputGroup className="mb-3">
-                <InputGroupAddon addonType="prepend">
-                  <InputGroupText htmlFor="filterInput">Filter</InputGroupText>
-                </InputGroupAddon>
-                <Input
-                  type="text"
-                  id="filterInput"
-                  name="filterInput"
-                  placeholder={'name:"Ambush Viper"'}
-                  disabled={loading}
-                  valid={filterInput.length > 0 && valid}
-                  invalid={filterInput.length > 0 && !valid}
-                  value={this.state.filterInput}
-                  onChange={this.handleChange}
-                  onKeyDown={this.handleKeyDown}
-                />
-                <InputGroupAddon addonType="append">
-                  <LoadingButton color="success" className="square-left" onClick={this.handleApply} loading={loading}>
-                    Apply
-                  </LoadingButton>
-                </InputGroupAddon>
-              </InputGroup>
-            </Form>
-          </Col>
-        </Row>
-        <Row style={{ margin: '0 -5px' }}>
-          <Form inline>
-            <Col xs="auto" style={{ padding: '0 5px' }}>
-              <ColorChecksControl
-                size="sm"
-                className="mb-3"
-                colorless
-                prefix="colorQuick"
-                values={this.state}
-                onChange={this.handleChange}
+  const { err } = makeFilter(filterInput);
+  const valid = !err;
+  if (err) {
+    console.warn('Error parsing', err);
+  }
+  const appliedText = `Filters applied${typeof numCards !== 'undefined' ? `: ${numCards} cards` : ''}${
+    typeof numShown !== 'undefined' ? `, ${numShown} shown` : ''
+  }.`;
+  return (
+    <Collapse className="px-3" {...props}>
+      <Row>
+        <Col>
+          <Form>
+            <InputGroup className="mb-3">
+              <InputGroupAddon addonType="prepend">
+                <InputGroupText htmlFor="filterInput">Filter</InputGroupText>
+              </InputGroupAddon>
+              <Input
+                type="text"
+                id="filterInput"
+                name="filterInput"
+                placeholder={'name:"Ambush Viper"'}
+                valid={filterInput.length > 0 && valid}
+                invalid={filterInput.length > 0 && !valid}
+                value={filterInput}
+                onChange={changeFilterInput}
+                onKeyDown={handleKeyDown}
               />
-            </Col>
-            <Col xs="auto" style={{ padding: '0 5px' }}>
-              <InputGroup size="sm" className="mb-3">
-                <InputGroupAddon addonType="prepend">
-                  <InputGroupText htmlFor="cmcQuick">Mana Value</InputGroupText>
-                </InputGroupAddon>
-                <CustomInput
-                  id="cmcQickOp"
-                  type="select"
-                  name="cmcQuickOp"
-                  value={this.state.cmcQuickOp}
-                  onChange={this.handleChange}
-                  bsSize="sm"
-                  style={{ textAlignLast: 'center', maxWidth: '3.5rem' }}
-                >
-                  <option>{'>'}</option>
-                  <option>{'>='}</option>
-                  <option>=</option>
-                  <option>{'<='}</option>
-                  <option>{'<'}</option>
-                </CustomInput>
-                <InputGroupAddon addonType="append">
-                  <Input
-                    name="cmcQuick"
-                    id="cmcQuick"
-                    value={this.state.cmcQuick}
-                    onChange={this.handleChange}
-                    bsSize="sm"
-                    className="square-left"
-                    style={{ width: '3rem' }}
-                  />
-                </InputGroupAddon>
-              </InputGroup>
-            </Col>
-            <Col xs="auto" style={{ padding: '0 5px' }}>
-              <InputGroup size="sm" className="mb-3">
-                <InputGroupAddon addonType="prepend">
-                  <InputGroupText htmlFor="typeQuick">Type</InputGroupText>
-                </InputGroupAddon>
-                <Input
-                  name="typeQuick"
-                  id="typeQuick"
-                  value={this.state.typeQuick}
-                  onChange={this.handleChange}
-                  style={{ width: '8rem' }}
-                />
-              </InputGroup>
-            </Col>
-            <Col xs="auto" style={{ padding: '0 5px' }}>
-              <InputGroup size="sm" className="mb-3">
-                <InputGroupAddon addonType="prepend">
-                  <InputGroupText htmlFor="textQuick">Text</InputGroupText>
-                </InputGroupAddon>
-                <Input
-                  name="textQuick"
-                  id="textQuick"
-                  value={this.state.textQuick}
-                  onChange={this.handleChange}
-                  style={{ width: '8rem' }}
-                />
-              </InputGroup>
-            </Col>
-            <Col xs="auto" style={{ padding: '0 5px' }}>
-              <Button type="submit" onClick={this.applyQuick} size="sm" color="success" className="mb-3">
-                Quick Filter
-              </Button>
-            </Col>
+              <InputGroupAddon addonType="append">
+                <LoadingButton color="success" className="square-left" onClick={apply} loading={false}>
+                  Apply
+                </LoadingButton>
+              </InputGroupAddon>
+            </InputGroup>
           </Form>
-        </Row>
-        <Row>
-          <Col>
-            {!noCount && (
-              <p>{!filter || filter.length === 0 ? <em>No filters applied.</em> : <em>{appliedText}</em>}</p>
-            )}
+        </Col>
+      </Row>
+      <Row style={{ margin: '0 -5px' }}>
+        <Form inline>
+          <Col xs="auto" style={{ padding: '0 5px' }}>
+            <ColorChecksControl
+              size="sm"
+              className="mb-3"
+              colorless
+              prefix="colorQuick"
+              values={values}
+              onChange={handleChange}
+            />
           </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Button color="danger" className="mr-2 mb-3" onClick={this.handleReset}>
-              Reset Filters
-            </Button>
-            <Button color="primary" className="mr-2 mb-3" onClick={this.toggleAdvanced}>
-              Advanced...
-            </Button>
-            <Button color="secondary" className="mr-2 mb-3" href="/filters">
-              Syntax Guide
+          <Col xs="auto" style={{ padding: '0 5px' }}>
+            <InputGroup size="sm" className="mb-3">
+              <InputGroupAddon addonType="prepend">
+                <InputGroupText htmlFor="cmcQuick">Mana Value</InputGroupText>
+              </InputGroupAddon>
+              <CustomInput
+                id="cmcQickOp"
+                type="select"
+                name="cmcQuickOp"
+                value={values.cmcQuickOp}
+                onChange={handleChange}
+                bsSize="sm"
+                style={{ textAlignLast: 'center', maxWidth: '3.5rem' }}
+              >
+                <option>{'>'}</option>
+                <option>{'>='}</option>
+                <option>=</option>
+                <option>{'<='}</option>
+                <option>{'<'}</option>
+              </CustomInput>
+              <InputGroupAddon addonType="append">
+                <Input
+                  name="cmcQuick"
+                  id="cmcQuick"
+                  value={values.cmcQuick}
+                  onChange={handleChange}
+                  bsSize="sm"
+                  className="square-left"
+                  style={{ width: '3rem' }}
+                />
+              </InputGroupAddon>
+            </InputGroup>
+          </Col>
+          <Col xs="auto" style={{ padding: '0 5px' }}>
+            <InputGroup size="sm" className="mb-3">
+              <InputGroupAddon addonType="prepend">
+                <InputGroupText htmlFor="typeQuick">Type</InputGroupText>
+              </InputGroupAddon>
+              <Input
+                name="typeQuick"
+                id="typeQuick"
+                value={values.typeQuick}
+                onChange={handleChange}
+                style={{ width: '8rem' }}
+              />
+            </InputGroup>
+          </Col>
+          <Col xs="auto" style={{ padding: '0 5px' }}>
+            <InputGroup size="sm" className="mb-3">
+              <InputGroupAddon addonType="prepend">
+                <InputGroupText htmlFor="textQuick">Text</InputGroupText>
+              </InputGroupAddon>
+              <Input
+                name="textQuick"
+                id="textQuick"
+                value={values.textQuick}
+                onChange={handleChange}
+                style={{ width: '8rem' }}
+              />
+            </InputGroup>
+          </Col>
+          <Col xs="auto" style={{ padding: '0 5px' }}>
+            <Button type="submit" onClick={applyQuick} size="sm" color="success" className="mb-3">
+              Quick Filter
             </Button>
           </Col>
-        </Row>
-        <AdvancedFilterModal
-          isOpen={advancedOpen}
-          toggle={this.toggleAdvanced}
-          apply={this.applyAdvanced}
-          values={this.state}
-          onChange={this.handleChange}
-        />
-      </Collapse>
-    );
-  }
-}
-
+        </Form>
+      </Row>
+      <Row>
+        <Col>
+          {!noCount && <p>{!filter || filter.length === 0 ? <em>No filters applied.</em> : <em>{appliedText}</em>}</p>}
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Button color="danger" className="mr-2 mb-3" onClick={reset}>
+            Reset Filters
+          </Button>
+          <Button color="primary" className="mr-2 mb-3" onClick={toggleAdvancedOpen}>
+            Advanced...
+          </Button>
+          <Button color="secondary" className="mr-2 mb-3" href="/filters">
+            Syntax Guide
+          </Button>
+        </Col>
+      </Row>
+      <AdvancedFilterModal
+        isOpen={advancedOpen}
+        toggle={toggleAdvancedOpen}
+        apply={applyAdvanced}
+        values={values}
+        onChange={handleChange}
+      />
+    </Collapse>
+  );
+};
+FilterCollapse.propTypes = {
+  filter: PropTypes.func,
+  setFilter: PropTypes.func.isRequired,
+  numCards: PropTypes.number,
+  numShown: PropTypes.number,
+  defaultFilterText: PropTypes.string,
+  noCount: PropTypes.bool,
+};
+FilterCollapse.defaultProps = {
+  filter: null,
+  numCards: 0,
+  numShown: 0,
+  defaultFilterText: null,
+  noCount: false,
+};
 export default FilterCollapse;

@@ -42,7 +42,7 @@ import { DraftbotBreakdownTable } from '@cubeartisan/client/components/DraftbotB
 import DraggableCard from '@cubeartisan/client/components/DraggableCard';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
-import { DisplayContextProvider } from '@cubeartisan/client/contexts/DisplayContext';
+import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext';
 import useToggle from '@cubeartisan/client/hooks/UseToggle';
 import CubeLayout from '@cubeartisan/client/layouts/CubeLayout';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout';
@@ -145,7 +145,7 @@ const useMutatableDraft = (initialDraft) => {
           setDraft((oldDraft) => {
             const newDraft = { ...oldDraft };
             if ((seatIndex || seatIndex === 0) && !cardIndices) {
-              newDraft.seats = [...newDraft.seats];
+              newDraft.seats = Array.from(newDraft.seats);
               newDraft.seats[seatIndex] = { ...newDraft.seats[seatIndex] };
             } else {
               newDraft.seats = newDraft.seats.map((seat) => ({ ...seat }));
@@ -320,14 +320,15 @@ const CubeDraftPage = ({ cube, initialDraft, seatNumber, loginCallback }) => {
 
   useEffect(() => {
     if (doneDrafting) {
-      const submitableDraft = { ...draft, cards: draft.cards.map(({ details: _, ...card }) => ({ ...card })) };
-      csrfFetch(`/cube/api/submitdraft/${draft.cube}`, {
-        method: 'POST',
-        body: JSON.stringify(submitableDraft),
-        headers: { 'Content-Type': 'application/json' },
-      }).then(() => {
+      (async () => {
+        const submitableDraft = { ...draft, cards: draft.cards.map(({ details: _, ...card }) => ({ ...card })) };
+        await csrfFetch(`/cube/api/submitdraft/${draft.cube}`, {
+          method: 'POST',
+          body: JSON.stringify(submitableDraft),
+          headers: { 'Content-Type': 'application/json' },
+        });
         submitDeckForm.current?.submit?.(); // eslint-disable-line
-      });
+      })();
     }
   }, [doneDrafting, draft]);
 

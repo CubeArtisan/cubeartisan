@@ -31,7 +31,7 @@ client/components/CubeOverviewModal.js
 client/components/DraggableCard.js
 client/components/ErrorBoundary.js
 client/components/FilterCollapse.js
-client/components/FoilOverlay.js
+client/components/WithFoilOverlay.js
 client/components/GroupModal.js
 client/components/TagColorsModal.js
 client/components/WithModal.js

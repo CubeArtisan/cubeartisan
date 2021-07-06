@@ -21,7 +21,7 @@ import { useState, useEffect, useContext } from 'react';
 import { Navbar, Nav, NavItem, NavLink, Row, Col, CardBody } from 'reactstrap';
 
 import Loading from '@cubeartisan/client/pages/Loading';
-import UserContext from '@cubeartisan/client/contexts/UserContext';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
 import ArticlePreview from '@cubeartisan/client/components/ArticlePreview';
 import Paginate from '@cubeartisan/client/components/Paginate';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF';

@@ -20,7 +20,7 @@ import PropTypes from 'prop-types';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
 
-import ConfirmDeleteModal from '@cubeartisan/client/components/ConfirmDeleteModal';
+import ConfirmDeleteModal from '@cubeartisan/client/components/modals/ConfirmDeleteModal';
 
 const DeckDeleteModal = ({ deckID, cubeID, nextURL, isOpen, toggle }) => {
   const confirm = async () => {

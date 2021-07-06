@@ -26,8 +26,8 @@ import { countGroup, sortDeep } from '@cubeartisan/client/utils/Sort';
 
 import AutocardListGroup from '@cubeartisan/client/components/AutocardListGroup';
 import AutocardListItem from '@cubeartisan/client/components/AutocardListItem';
-import DisplayContext from '@cubeartisan/client/contexts/DisplayContext';
-import SortContext from '@cubeartisan/client/contexts/SortContext';
+import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext';
+import SortContext from '@cubeartisan/client/components/contexts/SortContext';
 
 const TableView = ({ cards, rowTag, noGroupModal, className, ...props }) => {
   const { primary, secondary, tertiary, quaternary, showOther } = useContext(SortContext);

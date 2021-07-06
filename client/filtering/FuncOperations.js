@@ -198,7 +198,7 @@ const subtractOutValue = (intValue, costValue, remainder, remove, replace, index
   return intValue;
 };
 const canCastWith = (mana, cost) => {
-  cost = [...cost]
+  cost = Array.from(cost)
     .filter((symbol) => symbol[0] === 'x' || symbol[0] === 'y' || symbol[0] === 'z')
     .map((symbol) => {
       console.debug(symbol);

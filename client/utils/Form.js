@@ -19,7 +19,7 @@
 import { fromEntries } from '@cubeartisan/client/utils/Util';
 
 export const formDataObject = (formElement) => {
-  const inputs = [...formElement.querySelectorAll('[name]')];
+  const inputs = Array.from(formElement.querySelectorAll('[name]'));
   return fromEntries(inputs.map((input) => [input.name, input.type === 'checkbox' ? input.checked : input.value]));
 };
 

@@ -73,12 +73,12 @@ const BasicsModal = ({ isOpen, toggle, addBasics, deck, basics, cards }) => {
                   type="select"
                   value={counts[index]}
                   onChange={(e) => {
-                    const newCount = [...counts];
+                    const newCount = Array.from(counts);
                     newCount[index] = parseInt(e.target.value, 10);
                     setCounts(newCount);
                   }}
                 >
-                  {Array.from(new Array(MAX_BASICS).keys()).map((n) => (
+                  {Array.from(new Array(MAX_BASICS).keys(), (n) => (
                     <option key={n} value={n}>
                       {n}
                     </option>

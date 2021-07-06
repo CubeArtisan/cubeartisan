@@ -19,7 +19,7 @@
 import { useCallback, useRef, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
-import DeckDeleteModal from '@cubeartisan/client/components/DeckDeleteModal';
+import DeckDeleteModal from '@cubeartisan/client/components/modals/DeckDeleteModal';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
 
 import { Collapse, Nav, Navbar, NavbarToggler, NavItem, NavLink, Input } from 'reactstrap';
@@ -27,8 +27,8 @@ import { Collapse, Nav, Navbar, NavbarToggler, NavItem, NavLink, Input } from 'r
 import CSRFForm from '@cubeartisan/client/components/CSRFForm';
 import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler';
 import { buildDeck } from '@cubeartisan/client/drafting/deckutil';
-import BasicsModal from '@cubeartisan/client/components/BasicsModal';
-import withModal from '@cubeartisan/client/components/WithModal';
+import BasicsModal from '@cubeartisan/client/components/modals/BasicsModal';
+import withModal from '@cubeartisan/client/components/hoc/WithModal';
 
 const DeleteDeckModalLink = withModal(NavLink, DeckDeleteModal);
 const BasicsModalLink = withModal(NavLink, BasicsModal);
@@ -81,7 +81,7 @@ const DeckbuilderNavbar = ({ deck, addBasics, name, description, className, setS
   const autoBuildDeck = useCallback(async () => {
     let main = deck.seats[0].pickorder;
     if (main.length <= 0) {
-      main = [...deck.seats[0].deck.flat(3)].concat(...deck.seats[0].sideboard.flat(3));
+      main = Array.from(deck.seats[0].deck.flat(3)).concat(...deck.seats[0].sideboard.flat(3));
     }
     const { sideboard: side, deck: newDeck } = await buildDeck(deck.cards, main, basics);
     const newSide = side.map((row) => row.map((col) => col.map((ci) => deck.cards[ci])));

@@ -19,8 +19,8 @@
 import ReactDOM from 'react-dom';
 
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
-import SiteCustomizationContext from '@cubeartisan/client/contexts/SiteCustomizationContext';
-import UserContext from '@cubeartisan/client/contexts/UserContext';
+import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
 
 const RenderToRoot = (Element) => {
   const reactProps = typeof window !== 'undefined' ? window.reactProps : {};

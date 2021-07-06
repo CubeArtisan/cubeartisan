@@ -21,7 +21,7 @@ import PropTypes from 'prop-types';
 
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
-import BlogDeleteModal from '@cubeartisan/client/components/BlogDeleteModal';
+import BlogDeleteModal from '@cubeartisan/client/components/modals/BlogDeleteModal';
 
 class BlogContextMenu extends Component {
   constructor(props) {

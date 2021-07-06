@@ -24,7 +24,7 @@ import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
 const PagedList = ({ pageSize, rows, showBottom, pageWrap }) => {
   const [page, setPage] = useQueryParam('page', 0);
 
-  const validPages = [...Array(Math.ceil(rows.length / pageSize)).keys()];
+  const validPages = Array.from(Array(Math.ceil(rows.length / pageSize)).keys());
   const current = Math.min(parseInt(page, 10), validPages.length - 1);
   const displayRows = rows.slice(current * pageSize, (current + 1) * pageSize);
 
