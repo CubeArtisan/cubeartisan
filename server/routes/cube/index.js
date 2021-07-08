@@ -2221,7 +2221,7 @@ const uploadDeckList = async (req, res) => {
 
     for (let i = 0; i < cards.length; i += 1) {
       const item = cards[i].toLowerCase().trim();
-      const numericMatch = item.match(/([0-9]+)x? (.*)/);
+      const numericMatch = item.match(/^([0-9]+)x? (.*)$/);
       if (numericMatch) {
         let count = parseInt(numericMatch[1], 10);
         if (!Number.isInteger(count)) {

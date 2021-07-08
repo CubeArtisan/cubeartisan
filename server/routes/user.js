@@ -670,7 +670,7 @@ const updateUserInfo = async (req, res) => {
       if (imageData) {
         user.image = imageData.uri;
         user.artist = imageData.artist;
-        user.image_name = req.body.image.replace(/ \[[^\]]*]$/, '');
+        user.image_name = req.body.image.replace(/ \[[^\]]+]$/, '');
       }
     }
     const userQ = user.save();

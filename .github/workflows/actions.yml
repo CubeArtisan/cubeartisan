@@ -22,4 +22,3 @@ jobs:
       run: yarn workspace @cubeartisan/client test
     - name: Run Server Tests
       run: yarn workspace @cubeartisan/server test
-  

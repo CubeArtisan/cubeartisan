@@ -150,7 +150,7 @@ export const writeCard = (res, card, maybe) => {
   } else {
     imgBackUrl = '';
   }
-  res.write(`"${name.replace(/"/, '""')}",`);
+  res.write(`"${name.replace(/"/g, '""')}",`);
   res.write(`${card.cmc},`);
   res.write(`"${card.type_line.replace('—', '-')}",`);
   res.write(`${(card.colors || []).join('')},`);

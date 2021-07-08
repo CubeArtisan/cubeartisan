@@ -522,12 +522,11 @@ app.use(
   }),
 );
 // Load view engine
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'pug');
 // Set Public Folder
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/js', express.static(path.join(__dirname, 'dist')));
-app.use('/jquery-ui', express.static(`${__dirname}/node_modules/jquery-ui-dist/`));
+app.use(express.static(path.join(__dirname, '../public')));
+app.use('/js', express.static(path.join(__dirname, '../../client/dist')));
 // Express session middleware
 app.use(
   session({

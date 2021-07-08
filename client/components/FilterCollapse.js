@@ -439,7 +439,7 @@ const FilterCollapse = ({ filter, setFilter, numCards, numShown, defaultFilterTe
     for (const name of allFields) {
       if (values[name]) {
         const op = numFields.includes(name) ? values[`${name}Op`] || '=' : ':';
-        let value = values[name].replace('"', '\\"');
+        let value = values[name].replace(/"/g, '\\"');
         if (value.indexOf(' ') > -1) {
           value = `"${value}"`;
         }
@@ -472,14 +472,14 @@ const FilterCollapse = ({ filter, setFilter, numCards, numShown, defaultFilterTe
     }
     if (values.typeQuick) {
       if (values.typeQuick.includes(' ')) {
-        tokens.push(`type:"${values.typeQuick.replace('"', '\\""')}"`);
+        tokens.push(`type:"${values.typeQuick.replace(/"/g, '\\""')}"`);
       } else {
         tokens.push(`type:${values.typeQuick}`);
       }
     }
     if (values.textQuick) {
       if (values.textQuick.includes(' ')) {
-        tokens.push(`text:"${values.textQuick.replace('"', '\\""')}"`);
+        tokens.push(`text:"${values.textQuick.replace(/"/g, '\\""')}"`);
       } else {
         tokens.push(`type:${values.textQuick}`);
       }
