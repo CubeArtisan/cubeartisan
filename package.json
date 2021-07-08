@@ -13,10 +13,11 @@
   "scripts": {
     "build": "yarn workspace @cubeartisan/client build",
     "build:dev": "yarn workspace @cubeartisan/client build:dev",
-    "ci": "yarn lint && yarn test",
+    "ci": "yarn nearley && yarn lint:loud && yarn test:loud",
     "list-files": "git ls-files '*.js' '*.cjs' '*.mjs'",
     "lint:fix": "yarn workspaces run lint:fix",
     "lint": "yarn workspaces run lint",
+    "lint:loud": "yarn workspaces run lint:loud",
     "nearley": "yarn workspace @cubeartisan/client nearley",
     "nodemon": "yarn workspace @cubeartisan/server nodemon",
     "run-continuous-jobs": "yarn workspace @cubeartisan/server run-continuous-jobs",

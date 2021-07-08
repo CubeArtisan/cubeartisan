@@ -21,12 +21,13 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 
 // Set up in-memory MongoDB.
 async function connect() {
-  const mongoServer = new MongoMemoryServer();
-  const uri = await mongoServer.getConnectionString();
+  const mongoServer = await MongoMemoryServer.create();
+  const uri = await mongoServer.getUri();
 
   const mongooseOpts = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: true,
   };
 
   await mongoose.connect(uri, mongooseOpts);
