@@ -25,7 +25,7 @@ import fetch from 'node-fetch';
 import AWS from 'aws-sdk';
 import winston from '@cubeartisan/server/serverjs/winstonConfig';
 import cardutil from '@cubeartisan/client/utils/Card';
-import util from '@cubeartisan/server/serverjs/util';
+import { binaryInsert, turnToTree } from '@cubeartisan/server/serverjs/util';
 import carddb from '@cubeartisan/server/serverjs/cards';
 
 const catalog = {};
@@ -194,8 +194,8 @@ function addCardToCatalog(card, isExtra) {
     catalog.oracleToId[card.oracle_id] = [];
   }
   catalog.oracleToId[card.oracle_id].push(card._id);
-  util.binaryInsert(normalizedName, catalog.names);
-  util.binaryInsert(normalizedFullName, catalog.full_names);
+  binaryInsert(normalizedName, catalog.names);
+  binaryInsert(normalizedFullName, catalog.full_names);
 }
 
 function writeFile(filepath, data) {
@@ -772,14 +772,12 @@ function writeCatalog(basePath = 'private') {
   }
   const pendingWrites = [];
   pendingWrites.push(writeFile(path.join(basePath, 'names.json'), JSON.stringify(catalog.names)));
-  pendingWrites.push(writeFile(path.join(basePath, 'cardtree.json'), JSON.stringify(util.turnToTree(catalog.names))));
+  pendingWrites.push(writeFile(path.join(basePath, 'cardtree.json'), JSON.stringify(turnToTree(catalog.names))));
   pendingWrites.push(writeFile(path.join(basePath, 'carddict.json'), JSON.stringify(catalog.dict)));
   pendingWrites.push(writeFile(path.join(basePath, 'nameToId.json'), JSON.stringify(catalog.nameToId)));
   pendingWrites.push(writeFile(path.join(basePath, 'oracleToId.json'), JSON.stringify(catalog.oracleToId)));
   pendingWrites.push(writeFile(path.join(basePath, 'english.json'), JSON.stringify(catalog.english)));
-  pendingWrites.push(
-    writeFile(path.join(basePath, 'full_names.json'), JSON.stringify(util.turnToTree(catalog.full_names))),
-  );
+  pendingWrites.push(writeFile(path.join(basePath, 'full_names.json'), JSON.stringify(turnToTree(catalog.full_names))));
   pendingWrites.push(writeFile(path.join(basePath, 'imagedict.json'), JSON.stringify(catalog.imagedict)));
   pendingWrites.push(writeFile(path.join(basePath, 'cardimages.json'), JSON.stringify(catalog.cardimages)));
   const allWritesPromise = Promise.all(pendingWrites);

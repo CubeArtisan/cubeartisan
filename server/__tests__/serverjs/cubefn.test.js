@@ -16,16 +16,27 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+/* eslint-disable import/first */
+jest.mock('@cubeartisan/server/serverjs/util');
+
 import sinon from 'sinon';
 import carddb from '@cubeartisan/server/serverjs/cards';
-import cubefn from '@cubeartisan/server/serverjs/cubefn';
-import util from '@cubeartisan/server/serverjs/util';
+import {
+  buildIdQuery,
+  compareCubes,
+  CSVtoCards,
+  generateShortId,
+  intToLegality,
+  legalityToInt,
+  setCubeType,
+} from '@cubeartisan/server/serverjs/cubefn';
+import { hasProfanity, toBase36 } from '@cubeartisan/server/serverjs/util';
 import Cube from '@cubeartisan/server/models/cube';
 import { arraysEqual } from '@cubeartisan/client/utils/Util';
 // eslint-disable-next-line no-restricted-imports
 import cubefixture from '../fixtures/examplecube';
 
-const fixturesPath = 'fixtures';
+const fixturesPath = '__tests__/fixtures';
 
 beforeEach(() => {
   sinon.stub(Cube, 'findOne');
@@ -36,83 +47,34 @@ afterEach(() => {
   carddb.unloadCardDb();
 });
 
-test('getCubeId returns shortID when defined', () => {
-  const testCube = {
-    shortID: 'bbb',
-    _id: 'c',
-  };
-  const result = cubefn.getCubeId(testCube);
-  expect(result).toBe(testCube.shortID);
-});
-
-test('getCubeId returns _id when other ID fields are not present', () => {
-  const testCube = {
-    _id: 'c',
-  };
-  const result = cubefn.getCubeId(testCube);
-  expect(result).toBe(testCube._id);
-});
-
 test('buildIdQuery returns a simple query when passed a 24-character alphanumeric string', () => {
   const testId = 'a1a1a1a1a1a1a1a1a1a1a1a1';
-  const result = cubefn.buildIdQuery(testId);
+  const result = buildIdQuery(testId);
   expect(result._id).toBe(testId);
 });
 
 test('buildIdQuery returns a shortID query when passed a non-alphanumeric string', () => {
   const testId = 'a1a-a1a1a1a1a1a1a1a1a1a1';
-  const result = cubefn.buildIdQuery(testId);
+  const result = buildIdQuery(testId);
   expect(result.shortID).toBe(testId);
 });
 
-test('cardsAreEquivalent returns true for two equivalent cards', () => {
-  const testCard1 = {
-    cardID: 'abcdef',
-    status: 'Owned',
-    cmc: 1,
-    type_line: 'Creature - Hound',
-    tags: ['New'],
-    colors: ['W'],
-    randomField: 'y',
-    finish: 'Foil',
-  };
-  const testCard2 = JSON.parse(JSON.stringify(testCard1));
-  const result = cubefn.cardsAreEquivalent(testCard1, testCard2);
-  expect(result).toBe(true);
-});
-
-test('cardsAreEquivalent returns false for two nonequivalent cards', () => {
-  const testCard1 = {
-    cardID: 'abcdef',
-    status: 'Owned',
-    cmc: 1,
-    type_line: 'Creature - Hound',
-    tags: ['New'],
-    colors: ['W'],
-    randomField: 'y',
-  };
-  const testCard2 = JSON.parse(JSON.stringify(testCard1));
-  testCard2.cmc = 2;
-  const result = cubefn.cardsAreEquivalent(testCard1, testCard2);
-  expect(result).toBe(false);
-});
-
 test('intToLegality returns the expected values', () => {
-  expect(cubefn.intToLegality(0)).toBe('Vintage');
-  expect(cubefn.intToLegality(1)).toBe('Legacy');
-  expect(cubefn.intToLegality(2)).toBe('Modern');
-  expect(cubefn.intToLegality(3)).toBe('Pioneer');
-  expect(cubefn.intToLegality(4)).toBe('Standard');
-  expect(cubefn.intToLegality(5)).toBe(undefined);
+  expect(intToLegality(0)).toBe('Vintage');
+  expect(intToLegality(1)).toBe('Legacy');
+  expect(intToLegality(2)).toBe('Modern');
+  expect(intToLegality(3)).toBe('Pioneer');
+  expect(intToLegality(4)).toBe('Standard');
+  expect(intToLegality(5)).toBe(undefined);
 });
 
 test('legalityToInt returns the expected values', () => {
-  expect(cubefn.legalityToInt('Vintage')).toBe(0);
-  expect(cubefn.legalityToInt('Legacy')).toBe(1);
-  expect(cubefn.legalityToInt('Modern')).toBe(2);
-  expect(cubefn.legalityToInt('Pioneer')).toBe(3);
-  expect(cubefn.legalityToInt('Standard')).toBe(4);
-  expect(cubefn.legalityToInt('not a format')).toBe(undefined);
+  expect(legalityToInt('Vintage')).toBe(0);
+  expect(legalityToInt('Legacy')).toBe(1);
+  expect(legalityToInt('Modern')).toBe(2);
+  expect(legalityToInt('Pioneer')).toBe(3);
+  expect(legalityToInt('Standard')).toBe(4);
+  expect(legalityToInt('not a format')).toBe(undefined);
 });
 
 test('generateShortId returns a valid short ID', async () => {
@@ -122,13 +84,15 @@ test('generateShortId returns a valid short ID', async () => {
       resolve(dummyModel);
     });
   });
+  toBase36.mockReturnValue('123456');
+  hasProfanity.mockReturnValueOnce(false);
   const queryMock = jest.fn();
   queryMock.mockReturnValue(queryMockPromise);
   const initialCubeFind = Cube.find;
   Cube.find = queryMock;
-  const result = await cubefn.generateShortId();
+  const result = await generateShortId();
   // result is a base36 number
-  expect(result).toMatch(/[0-9a-z]+/g);
+  expect(result).toEqual('123456');
   // result is unique
   for (const cube of dummyModel) {
     expect(result).not.toEqual(cube.shortID);
@@ -145,39 +109,26 @@ test('generateShortId returns a valid short ID without profanity', async () => {
       resolve([dummyModel]);
     });
   });
+  const mockHasProfanity = hasProfanity.mockReturnValueOnce(true).mockReturnValue(false);
   const queryMock = jest.fn().mockReturnValue(queryMockPromise);
   const initialCubeFind = Cube.find;
   Cube.find = queryMock;
-  const initialHasProfanity = util.hasProfanity;
-  const mockHasProfanity = jest.fn().mockReturnValueOnce(true).mockReturnValue(false);
-  util.hasProfanity = mockHasProfanity;
-  await cubefn.generateShortId();
+  await generateShortId();
   // hasProfanity must be called at least once
   expect(mockHasProfanity.mock.calls.length).toBeGreaterThan(0);
   // the last profanity check must return false
   const { results } = mockHasProfanity.mock;
   expect(results[results.length - 1].value).toBe(false);
   Cube.find = initialCubeFind;
-  util.hasProfanity = initialHasProfanity;
 });
 
-test('setCubeType correctly sets the type of its input cube', () => {
+test('setCubeType correctly sets the type of its input cube', async () => {
   expect.assertions(2);
   const exampleCube = JSON.parse(JSON.stringify(cubefixture.exampleCube));
-  const promise = carddb.initializeCardDb(fixturesPath, true);
-  return promise.then(() => {
-    const result = cubefn.setCubeType(exampleCube, carddb);
-    expect(result.type).toBe('Standard');
-    expect(exampleCube.type).toBe('Standard');
-  });
-});
-
-test('sanitize allows the correct tags', () => {
-  const exampleHtml =
-    '<html><head></head><body><div>lkgdfsge</div><strong>kjggggsgggg</strong><ol><li>gfgwwerer</li></ol></body></html>';
-  const expected = '<div>lkgdfsge</div><strong>kjggggsgggg</strong><ol><li>gfgwwerer</li></ol>';
-  const result = cubefn.sanitize(exampleHtml);
-  expect(result).toBe(expected);
+  await carddb.initializeCardDb(fixturesPath, true);
+  const result = setCubeType(exampleCube, carddb);
+  expect(result.type).toBe('Standard');
+  expect(exampleCube.type).toBe('Standard');
 });
 
 describe('CSVtoCards', () => {
@@ -223,7 +174,7 @@ describe('CSVtoCards', () => {
       },${expectedMaybe.finish},true,undefined,"${expectedMaybe.tags.join(';')}"`,
     ];
     await carddb.initializeCardDb(fixturesPath, true);
-    const { newCards, newMaybe, missing } = cubefn.CSVtoCards(cards.join('\n'), carddb);
+    const { newCards, newMaybe, missing } = CSVtoCards(cards.join('\n'), carddb);
     expect.extend({
       equalsArray: (received, expected) => ({
         message: () => `expected ${received} to equal array ${expected}`,
@@ -267,7 +218,7 @@ describe('compareCubes', () => {
     for (const card of cardsB) {
       card.details = { ...carddb.cardFromId(card.cardID) };
     }
-    const { inBoth, onlyA, onlyB, aNames, bNames, allCards } = await cubefn.compareCubes(cardsA, cardsB);
+    const { inBoth, onlyA, onlyB, aNames, bNames, allCards } = await compareCubes(cardsA, cardsB);
     expect(inBoth.length).toBe(1);
     expect(inBoth[0].cardID).toBe(cubefixture.exampleCube.cards[1].cardID);
     expect(onlyA.length).toBe(1);

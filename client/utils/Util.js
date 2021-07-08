@@ -169,7 +169,7 @@ export function isTouchDevice() {
 
   const prefixes = ' -webkit- -moz- -o- -ms- '.split(' ');
 
-  const mq = (query) => window.matchMedia(query).matches;
+  const mq = (query) => window?.matchMedia?.(query)?.matches;
 
   if (
     Object.prototype.hasOwnProperty.call(window, 'ontouchstart') ||

@@ -182,9 +182,9 @@ export const wrapAsyncApi = (route) => {
 };
 
 export const handleRouteError = (req, res, err, reroute) => {
+  req.logger.error(err);
   req.flash('danger', err.message);
   res.redirect(reroute);
-  req.logger.error(err);
 };
 
 export const toNonNullArray = (arr) => {

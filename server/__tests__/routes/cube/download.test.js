@@ -5,9 +5,10 @@ import express from 'express';
 
 import carddb from '@cubeartisan/server/serverjs/cards';
 import Cube from '@cubeartisan/server/models/cube';
-import router from '@cubeartisan/server/routes/cube/export';
-import dbSetup from '../../helpers/dbTestSetup';
-import cubefixture from '../../fixtures/examplecube';
+import router from '@cubeartisan/server/routes/cube';
+import { requestLogging } from '@cubeartisan/server/routes/middleware';
+import dbSetup from '@cubeartisan/server/__tests__/helpers/dbTestSetup';
+import cubefixture from '@cubeartisan/server/__tests__/fixtures/examplecube';
 
 const splitText = (text) =>
   text
@@ -21,14 +22,26 @@ const exampleCubeWithName = (name) => {
   return cube;
 };
 
-const fixturesPath = 'fixtures';
+const fixturesPath = '__tests__/fixtures';
 const cubeName = '"Galaxy Brain" Cube!!! :)';
 const sanitizedCubeName = 'GalaxyBrainCube';
 const exampleCube = exampleCubeWithName(cubeName);
 const cubeID = exampleCube.shortID;
 
 const app = express();
-app.use('/:id/export', router);
+app.use(requestLogging);
+app.use((req, res, next) => {
+  req.flash = (kind, message) => req.logger.info(`${kind}: ${message}`);
+  next();
+});
+app.use('/', router);
+// eslint-disable-next-line no-unused-vars
+app.use((err, req, res, _next) => {
+  req.logger.error(err);
+  if (!res.statusCode) {
+    res.status(500);
+  }
+});
 
 let mongoServer;
 
@@ -60,7 +73,7 @@ test('plaintext download', () => {
   return request(app)
     .get(`/${cubeID}/export/plaintext`)
     .expect(200)
-    .expect('Content-Type', 'text/plain')
+    .expect('Content-Type', 'text/plain; charset=utf-8')
     .expect('Content-disposition', `attachment; filename=${sanitizedCubeName}.txt`)
     .expect((res) => {
       const lines = splitText(res.text);
@@ -115,12 +128,12 @@ test('csv download', () => {
     'Color Category': 'w',
     Status: 'Not Owned',
     Finish: 'Non-foil',
+    'MTGO ID': '78110',
     Maybeboard: 'false',
     'Image URL': '',
     'Image Back URL': '',
     Tags: 'New',
     Notes: '',
-    'MTGO ID': '78110',
   };
 
   return request(app)
@@ -131,7 +144,6 @@ test('csv download', () => {
     .expect((res) => {
       const parsed = Papa.parse(res.text.trim(), { header: true });
       expect(parsed.errors).toEqual([]);
-
       expect(parsed.meta.fields.sort()).toEqual(headerFields.sort());
       expect(parsed.data[0]).toEqual(faerieGuidemotherData);
       expect(parsed.data.length).toEqual(exampleCube.cards.length);

@@ -18,7 +18,6 @@
  */
 import fs from 'fs';
 import winston from 'winston';
-import util from '@cubeartisan/server/serverjs/util';
 import { SortFunctions, ORDERED_SORTS } from '@cubeartisan/client/utils/Sort';
 
 // eslint-disable-next-line
@@ -91,7 +90,7 @@ function cardFromId(id, fields) {
     fields = fields.split(' ');
   }
 
-  return util.fromEntries(fields.map((field) => [field, details[field]]));
+  return Object.fromEntries(fields.map((field) => [field, details[field]]));
 }
 
 function getCardDetails(card) {

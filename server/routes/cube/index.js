@@ -10,12 +10,7 @@ import filterutil from '@cubeartisan/client/filtering/FilterCards';
 import { decodeName, normalizeName } from '@cubeartisan/client/utils/Card';
 import carddb from '@cubeartisan/server/serverjs/cards';
 import { render } from '@cubeartisan/server/serverjs/render';
-import {
-  ensureAuth,
-  csrfProtection,
-  flashValidationErrors,
-  jsonValidationErrors,
-} from '@cubeartisan/server/routes/middleware';
+import { ensureAuth, flashValidationErrors, jsonValidationErrors } from '@cubeartisan/server/routes/middleware';
 import util, {
   addCardToCube,
   addMultipleNotifications,
@@ -59,8 +54,6 @@ import {
   shuffle,
   updateCubeAndBlog,
 } from '@cubeartisan/server/routes/cube/helper';
-
-// Bring in models
 import Cube from '@cubeartisan/server/models/cube';
 
 import Deck from '@cubeartisan/server/models/deck';
@@ -70,7 +63,15 @@ import Draft from '@cubeartisan/server/models/draft';
 import Package from '@cubeartisan/server/models/package';
 import GridDraft from '@cubeartisan/server/models/gridDraft';
 import CubeAnalytic from '@cubeartisan/server/models/cubeAnalytic';
-import CubeExportRoutes from '@cubeartisan/server/routes/cube/export';
+import {
+  exportForMtgo,
+  exportToCsv,
+  exportToCubeCobra,
+  exportToForge,
+  exportToJson,
+  exportToPlaintext,
+  exportToXmage,
+} from '@cubeartisan/server/routes/cube/export';
 import CubeBlogRoutes from '@cubeartisan/server/routes/cube/blog';
 import Util, { getCubeDescription } from '@cubeartisan/client/utils/Util';
 
@@ -2298,9 +2299,14 @@ const uploadDeckList = async (req, res) => {
 };
 
 const router = express.Router();
-router.use(csrfProtection);
 router.post('/', ensureAuth, createCube);
-router.use('/:id/export', CubeExportRoutes);
+router.get('/:id/export/json', wrapAsyncApi(exportToJson));
+router.get('/:id/export/cubecobra', wrapAsyncApi(exportToCubeCobra));
+router.get('/:id/export/csv', wrapAsyncApi(exportToCsv));
+router.get('/:id/export/forge', wrapAsyncApi(exportToForge));
+router.get('/:id/export/mtgo', wrapAsyncApi(exportForMtgo));
+router.get('/:id/export/xmage', wrapAsyncApi(exportToXmage));
+router.get('/:id/export/plaintext', wrapAsyncApi(exportToPlaintext));
 router.use('/:id/blog', CubeBlogRoutes);
 router.post('/:id/clone', ensureAuth, cloneCube);
 router.get('/:id', viewOverview);

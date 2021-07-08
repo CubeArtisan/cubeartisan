@@ -51,7 +51,7 @@ import {
   cardType,
 } from '@cubeartisan/client/utils/Card';
 import { arraysAreEqualSets, fromEntries } from '@cubeartisan/client/utils/Util';
-import probTableBase64 from '@cubeartisan/client/res/probTable.b64';
+import probTableBase64 from '@cubeartisan/client/res/probTable.b64.json';
 
 const probTable = (() => {
   const isBrowser = typeof window !== 'undefined' && typeof window.atob === 'function';

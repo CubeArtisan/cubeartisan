@@ -19,7 +19,7 @@
 /* eslint no-underscore-dangle: ["error", {"allow": ["_id", "_RankleMasterofFixtures"]}] */
 import carddb from '@cubeartisan/server/serverjs/cards';
 
-const fixturesPath = 'fixtures';
+const fixturesPath = '__tests__/fixtures';
 const firstLetterCount = 21;
 const fixtureCardCount = 100;
 const fixtureCardNameCount = 99;
@@ -150,7 +150,7 @@ test('cardFromId returns a well-formed card object', () => {
   });
 });
 
-test('cardFromId returns only selected fields', () => {
+test('cardFromId returns only selected fields', async () => {
   expect.assertions(1);
   const { _id } = _RankleMasterofFixtures;
   const expected = {
@@ -158,11 +158,9 @@ test('cardFromId returns only selected fields', () => {
     name: 'Rankle, Master of Pranks',
     colors: ['B'],
   };
-  const promise = carddb.initializeCardDb(fixturesPath, true);
-  return promise.then(() => {
-    const result = carddb.cardFromId(_id, '_id name colors');
-    expect(result).toEqual(expected);
-  });
+  await carddb.initializeCardDb(fixturesPath, true);
+  const result = carddb.cardFromId(_id, '_id name colors');
+  expect(result).toEqual(expected);
 });
 
 test('cardFromId returns a placeholder card object when given a nonexistent ID', () => {

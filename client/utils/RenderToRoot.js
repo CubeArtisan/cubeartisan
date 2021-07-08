@@ -26,8 +26,8 @@ const RenderToRoot = (Element) => {
   const reactProps = typeof window !== 'undefined' ? window.reactProps : {};
   const element = (
     <ErrorBoundary className="mt-3">
-      <SiteCustomizationContext.Provider value={reactProps ? reactProps.siteCustomizations : null}>
-        <UserContext.Provider value={reactProps ? reactProps.user : null}>
+      <SiteCustomizationContext.Provider value={reactProps?.siteCustomizations}>
+        <UserContext.Provider value={reactProps?.user}>
           <Element {...reactProps} />
         </UserContext.Provider>
       </SiteCustomizationContext.Provider>

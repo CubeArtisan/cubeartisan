@@ -62,14 +62,25 @@ export const requestLogging = (req, res, next) => {
   next();
 };
 
-export const ensureAuth = (req, res, next) => {
-  if (req.isAuthenticated()) {
+export const csrfProtection = [
+  csurf(),
+  (req, res, next) => {
+    res.locals.csrfToken = req.csrfToken();
     return next();
-  }
+  },
+];
 
-  req.flash('danger', 'Please login to view this content');
-  return res.redirect('/user/login');
-};
+export const ensureAuth = [
+  csrfProtection,
+  (req, res, next) => {
+    if (req.isAuthenticated()) {
+      return next();
+    }
+
+    req.flash('danger', 'Please login to view this content');
+    return res.redirect('/user/login');
+  },
+];
 
 export const ensureRole = (role) => (req, res, next) => {
   if (!req.isAuthenticated()) {
@@ -84,14 +95,6 @@ export const ensureRole = (role) => (req, res, next) => {
     return res.redirect('/404');
   });
 };
-
-export const csrfProtection = [
-  csurf(),
-  (req, res, next) => {
-    res.locals.csrfToken = req.csrfToken();
-    return next();
-  },
-];
 
 export const flashValidationErrors = (req, _res, next) => {
   const errors = validationResult(req).formatWith(({ msg }) => msg);

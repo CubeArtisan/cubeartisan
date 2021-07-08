@@ -1,19 +1,17 @@
-import express from 'express';
-// eslint-disable-next-line import/no-unresolved
 import { Canvas, Image } from 'canvas';
-import sortutil from '@cubeartisan/client/utils/Sort';
-import filterutil from '@cubeartisan/client/filtering/FilterCards';
+import { sortForDownload } from '@cubeartisan/client/utils/Sort';
+import { makeFilter } from '@cubeartisan/client/filtering/FilterCards';
 import carddb from '@cubeartisan/server/serverjs/cards';
-import { handleRouteError, wrapAsyncApi } from '@cubeartisan/server/serverjs/util';
+import { handleRouteError } from '@cubeartisan/server/serverjs/util';
 import { buildIdQuery } from '@cubeartisan/server/serverjs/cubefn';
 import { writeCard, CSV_HEADER, exportToMtgo } from '@cubeartisan/server/routes/cube/helper';
 import Cube from '@cubeartisan/server/models/cube';
 
 Canvas.Image = Image;
 
-const sortCardsByQuery = (req, cards) => {
+export const sortCardsByQuery = (req, cards) => {
   if (req.query.filter) {
-    const { filter, err } = filterutil.makeFilter(req.query.filter);
+    const { filter, err } = makeFilter(req.query.filter);
     if (err) {
       throw err;
     }
@@ -22,7 +20,7 @@ const sortCardsByQuery = (req, cards) => {
     }
   }
 
-  return sortutil.sortForDownload(
+  return sortForDownload(
     cards,
     req.query.primary,
     req.query.secondary,
@@ -32,7 +30,7 @@ const sortCardsByQuery = (req, cards) => {
   );
 };
 
-const exportToJson = async (req, res) => {
+export const exportToJson = async (req, res) => {
   const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
 
   if (!cube) {
@@ -43,7 +41,7 @@ const exportToJson = async (req, res) => {
   return res.status(200).send(JSON.stringify(cube));
 };
 
-const exportToCubeCobra = async (req, res) => {
+export const exportToCubeCobra = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
     if (!cube) {
@@ -70,7 +68,7 @@ const exportToCubeCobra = async (req, res) => {
   }
 };
 
-const exportToCsv = async (req, res) => {
+export const exportToCsv = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
 
@@ -105,12 +103,12 @@ const exportToCsv = async (req, res) => {
   }
 };
 
-const exportToForge = async (req, res) => {
+export const exportToForge = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
-
+    req.logger.info(JSON.stringify(req.params));
     if (!cube) {
-      req.flash('danger', `Cube ID ${req.params.id} not found/`);
+      req.flash('danger', `Cube ID ${req.params.id} not found`);
       return res.redirect('/404');
     }
 
@@ -136,7 +134,7 @@ const exportToForge = async (req, res) => {
   }
 };
 
-const exportForMtgo = async (req, res) => {
+export const exportForMtgo = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
     if (!cube) {
@@ -157,7 +155,7 @@ const exportForMtgo = async (req, res) => {
   }
 };
 
-const exportToXmage = async (req, res) => {
+export const exportToXmage = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
     if (!cube) {
@@ -184,7 +182,7 @@ const exportToXmage = async (req, res) => {
   }
 };
 
-const exportToPlaintext = async (req, res) => {
+export const exportToPlaintext = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
     if (!cube) {
@@ -199,9 +197,9 @@ const exportToPlaintext = async (req, res) => {
 
     cube.cards = sortCardsByQuery(req, cube.cards);
 
-    res.setHeader('Content-disposition', `attachment; filename=${cube.name.replace(/\W/g, '')}.txt`);
-    res.setHeader('Content-type', 'text/plain');
     res.charset = 'UTF-8';
+    res.setHeader('Content-disposition', `attachment; filename=${cube.name.replace(/\W/g, '')}.txt`);
+    res.type('text/plain');
     for (const card of cube.cards) {
       res.write(`${card.details.name}\n`);
     }
@@ -210,13 +208,3 @@ const exportToPlaintext = async (req, res) => {
     return handleRouteError(req, res, err, '/404');
   }
 };
-
-const router = express.Router();
-router.get('/json', wrapAsyncApi(exportToJson));
-router.get('/cubecobra', exportToCubeCobra);
-router.get('/csv', exportToCsv);
-router.get('/forge', exportToForge);
-router.get('/mtgo', exportForMtgo);
-router.get('/xmage', exportToXmage);
-router.get('/plaintext', exportToPlaintext);
-export default router;

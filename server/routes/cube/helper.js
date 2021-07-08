@@ -171,13 +171,13 @@ export const writeCard = (res, card, maybe) => {
   });
   res.write(`","${card.notes || ''}",`);
   res.write(`${carddb.cardFromId(card.cardID).mtgo_id || ''}`);
-  res.write('\r\n');
+  res.write('\n');
 };
 
 export const exportToMtgo = (res, fileName, mainCards, sideCards, cards) => {
+  res.charset = 'UTF-8';
   res.setHeader('Content-disposition', `attachment; filename=${fileName.replace(/\W/g, '')}.txt`);
   res.setHeader('Content-type', 'text/plain');
-  res.charset = 'UTF-8';
   const main = {};
   for (const cardIndex of mainCards.flat()) {
     const cardID = cardIndex.cardID || cards[cardIndex].cardID;

@@ -67,9 +67,7 @@ const element = () => (
 );
 
 test('CubeListPage has major functionality', async () => {
-  const { findByAltText, findByDisplayValue, findByText, getAllByText, getByDisplayValue, getByText } = render(
-    element(),
-  );
+  const { findByDisplayValue, findByText, getAllByText, getByDisplayValue, getByText } = render(element());
 
   expect(getByText(exampleCardsFull[0].details.name));
 

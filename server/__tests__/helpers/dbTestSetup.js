@@ -37,7 +37,7 @@ async function connect() {
  * returned from connect(). */
 async function close(mongoServer) {
   await mongoose.disconnect();
-  await mongoServer.stop();
+  await mongoServer?.stop?.();
 }
 
 export default {
