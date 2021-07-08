@@ -8,6 +8,7 @@
     "build:dev": "yarn build:base --mode development --config webpack.dev.cjs",
     "lint": "eslint --quiet `yarn --silent list-files`",
     "lint:fix": "eslint --fix `yarn --silent list-files`",
+    "lint:loud": "eslint `yarn --silent list-files`",
     "list-files": "git ls-files '*.js' '*.cjs' '*.mjs'",
     "nearley": "sh nearley/helper.sh",
     "start": "yarn webpack-dev-server",
