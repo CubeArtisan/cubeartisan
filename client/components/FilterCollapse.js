@@ -439,7 +439,7 @@ const FilterCollapse = ({ filter, setFilter, numCards, numShown, defaultFilterTe
     for (const name of allFields) {
       if (values[name]) {
         const op = numFields.includes(name) ? values[`${name}Op`] || '=' : ':';
-        let value = values[name].replace(/"/g, '\\"');
+        let value = values[name].replace(/"/g, '\\"').replace(/\\/g, '\\\\');
         if (value.indexOf(' ') > -1) {
           value = `"${value}"`;
         }

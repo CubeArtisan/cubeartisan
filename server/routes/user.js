@@ -538,8 +538,7 @@ const viewUserPage = async (req, res) => {
       following,
     });
   } catch (err) {
-    req.logger.error(err);
-    return res.status(500).send(err);
+    return handleRouteError(req, res, err, '/404');
   }
 };
 
@@ -670,7 +669,7 @@ const updateUserInfo = async (req, res) => {
       if (imageData) {
         user.image = imageData.uri;
         user.artist = imageData.artist;
-        user.image_name = req.body.image.replace(/ \[[^\]]+]$/, '');
+        user.image_name = req.body.image.replace(/ \[[^[\]]+]$/, '');
       }
     }
     const userQ = user.save();
