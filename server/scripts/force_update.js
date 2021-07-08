@@ -1,11 +1,12 @@
 // Load Environment Variables
+import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import { winston } from './serverjs/cloudwatch';
-import updatedb from './serverjs/updatecards';
-import CardRating from './models/cardrating';
-import CardHistory from './models/cardHistory';
+import winston from '@cubeartisan/server/serverjs/winstonConfig';
+import updatedb from '@cubeartisan/server/serverjs/updatecards';
+import CardRating from '@cubeartisan/server/models/cardrating';
+import CardHistory from '@cubeartisan/server/models/cardHistory';
 
-require('dotenv').config();
+dotenv.config();
 
 (async () => {
   try {

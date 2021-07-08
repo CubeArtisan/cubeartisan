@@ -4,16 +4,17 @@
 // will oom without the added tag
 
 // Load Environment Variables
-require('dotenv').config();
-
+import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import { winston } from '../serverjs/cloudwatch';
-import carddb from '../serverjs/cards.js';
-import Deck from '../models/deck';
-import Cube from '../models/cube';
-import CardHistory from '../models/cardHistory';
-import CardRating from '../models/cardrating';
-import { fromEntries } from '../serverjs/util';
+import winston from '@cubeartisan/server/serverjs/winstonConfig';
+import carddb from '@cubeartisan/server/serverjs/cards';
+import Deck from '@cubeartisan/server/models/deck';
+import Cube from '@cubeartisan/server/models/cube';
+import CardHistory from '@cubeartisan/server/models/cardHistory';
+import CardRating from '@cubeartisan/server/models/cardrating';
+import { fromEntries } from '@cubeartisan/server/serverjs/util';
+
+dotenv.config();
 
 const basics = ['mountain', 'forest', 'plains', 'island', 'swamp'];
 const RELATED_LIMIT = 24;
@@ -105,7 +106,7 @@ const processDeck = async (deck, oracleToIndex, correlations) => {
   }
 };
 
-const processCube = async (cube, cardUseCount, cardCountByCubeSize, cubeCountBySize, oracleToIndex) => {
+const processCube = async (cube, cardUseCount, cardCountByCubeSize, cubeCountBySize) => {
   let cubeSizeDict = cardCountByCubeSize.size180;
   let cubeLegalityDict = cardCountByCubeSize.vintage;
 
@@ -286,6 +287,7 @@ const processCard = async (
       : [0, 0];
   }
 
+  // eslint-disable-next-line prefer-destructuring
   currentDatapoint.cubes = currentDatapoint.total[0];
 
   currentDatapoint.prices = versions.map((id) => {

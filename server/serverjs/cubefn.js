@@ -273,7 +273,7 @@ export const CSVtoCards = (csvString, carddb) => {
         name,
         cmc: cmc || null,
         type_line: (type || null) && type.replace('-', '—'),
-        colors: (color || null) && color.split('').filter((c) => [...'WUBRG'].includes(c)),
+        colors: (color || null) && color.split('').filter((c) => Array.from('WUBRG').includes(c)),
         addedTmsp: new Date(),
         collector_number: collectorNumber && collectorNumber.toUpperCase(),
         status: status || 'Not Owned',

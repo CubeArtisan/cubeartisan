@@ -16,11 +16,11 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { Fragment, useCallback } from 'react';
-
+import { useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { Button, ButtonGroup, FormGroup, Input, InputGroupAddon, Label } from 'reactstrap';
 
-import { COLORS } from '../utils/Util';
+import { COLORS } from '@cubeartisan/client/utils/Util';
 
 export const ColorChecks = ({ prefix, values, onChange }) =>
   COLORS.map(([color, short]) => (
@@ -65,7 +65,7 @@ export const ColorCheckButton = ({ prefix, size, color, short, value, onChange }
         });
       }
     },
-    [prefix, color, short, value, onChange],
+    [prefix, short, value, onChange],
   );
   const symbolClassName = size ? `mana-symbol-${size}` : 'mana-symbol';
   return (
@@ -80,16 +80,32 @@ export const ColorCheckButton = ({ prefix, size, color, short, value, onChange }
     </Button>
   );
 };
+ColorCheckButton.propTypes = {
+  prefix: PropTypes.string.isRequired,
+  size: PropTypes.string,
+  color: PropTypes.string.isRequired,
+  short: PropTypes.string.isRequired,
+  value: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
+};
+ColorCheckButton.defaultProps = {
+  value: false,
+  size: null,
+};
 
-export const ColorChecksControl = ({ colorless, prefix, size, values, onChange, ...props }) => {
+export const ColorChecksControl = ({ colorless, prefix, size, values, onChange, style, ...props }) => {
   const colors = colorless ? [...COLORS, ['Colorless', 'C']] : COLORS;
-  const style = props.style || {};
+  // eslint-disable-next-line react/prop-types
+  delete props.width;
+  // eslint-disable-next-line react/prop-types
+  delete props.height;
+  const adjustedStyle = { ...style };
   if (size === 'sm') {
-    style.height = 'calc(1.5em + .5rem + 2px)';
-    style.fontSize = '0.875rem';
+    adjustedStyle.height = 'calc(1.5em + .5rem + 2px)';
+    adjustedStyle.fontSize = '0.875rem';
   }
   return (
-    <ButtonGroup size={size} style={style} {...props}>
+    <ButtonGroup size={size} style={adjustedStyle} {...props}>
       {colors.map(([color, short]) => (
         <ColorCheckButton
           key={short}
@@ -104,10 +120,18 @@ export const ColorChecksControl = ({ colorless, prefix, size, values, onChange, 
     </ButtonGroup>
   );
 };
-
+ColorChecksControl.propTypes = {
+  colorless: PropTypes.bool,
+  prefix: PropTypes.string,
+  size: PropTypes.string.isRequired,
+  values: PropTypes.shape({}).isRequired,
+  onChange: PropTypes.func.isRequired,
+  style: PropTypes.shape({ height: PropTypes.string, fontSize: PropTypes.string }),
+};
 ColorChecksControl.defaultProps = {
   colorless: false,
   prefix: 'color',
+  style: {},
 };
 
 export const ColorChecksAddon = ({ addonType, colorless, prefix, size, values, onChange }) => {
@@ -132,15 +156,31 @@ export const ColorChecksAddon = ({ addonType, colorless, prefix, size, values, o
     </>
   );
 };
-
+ColorChecksAddon.propTypes = {
+  colorless: PropTypes.bool,
+  prefix: PropTypes.string,
+  size: PropTypes.string.isRequired,
+  values: PropTypes.shape({}).isRequired,
+  onChange: PropTypes.func.isRequired,
+  addonType: PropTypes.string,
+};
 ColorChecksAddon.defaultProps = {
   addonType: 'prepend',
   colorless: false,
   prefix: 'color',
 };
 
-const ColorCheck = ({ prefix, color, short, value, onChange }) => (
-  <Input type="checkbox" name={`${prefix || 'color'}${short.toUpperCase()}`} checked={value} onChange={onChange} />
+const ColorCheck = ({ prefix, short, value, onChange }) => (
+  <Input type="checkbox" name={`${prefix}${short.toUpperCase()}`} checked={value} onChange={onChange} />
 );
-
+ColorCheck.propTypes = {
+  prefix: PropTypes.string,
+  short: PropTypes.string.isRequired,
+  value: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
+};
+ColorCheck.defaultProps = {
+  prefix: 'color',
+  value: false,
+};
 export default ColorCheck;

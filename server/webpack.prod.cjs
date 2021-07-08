@@ -16,23 +16,21 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-export const expectOperator = (test, operator, number) => {
-  switch (operator) {
-    case '=':
-      return expect(test).toEqual(number);
-    case '<':
-      return expect(test).toBeLessThan(number);
-    case '<=':
-      return expect(test).toBeLessThanOrEqual(number);
-    case '>':
-      return expect(test).toBeGreaterThan(number);
-    case '>=':
-      return expect(test).toBeGreaterThanOrEqual(number);
-    case '!=':
-      return expect(test).not.toEqual(number);
-    default:
-      return expect(false).toEqual(true);
-  }
+const merge = require('webpack-merge');
+const webpack = require('webpack');
+
+const common = require('@cubeartisan/server/webpack.common.cjs');
+
+const config = {
+  mode: 'production',
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production'),
+      'process.env.DEBUG': false,
+    }),
+  ],
 };
 
-export default { expectOperator };
+const clientConfig = merge(common.serverConfig, config, {});
+
+module.exports = clientConfig;

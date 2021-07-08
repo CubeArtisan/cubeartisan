@@ -7,7 +7,7 @@ import carddb from '@cubeartisan/server/serverjs/cards';
 import Cube from '@cubeartisan/server/models/cube';
 import router from '@cubeartisan/server/routes/cube/export';
 import dbSetup from '../../helpers/dbTestSetup';
-import cubefixture from '../../../fixtures/examplecube';
+import cubefixture from '../../fixtures/examplecube';
 
 const splitText = (text) =>
   text

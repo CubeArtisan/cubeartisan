@@ -45,7 +45,7 @@ import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
 import { ORDERED_SORTS } from '@cubeartisan/client/utils/Sort';
 
 const CardSearchPage = ({ loginCallback }) => {
-  const [page, setPage] = useState(parseInt(Query.get('p'), 0) || 0);
+  const [page, setPage] = useState(parseInt(Query.get('p'), 10) ?? 0);
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState(Query.get('f') || '');

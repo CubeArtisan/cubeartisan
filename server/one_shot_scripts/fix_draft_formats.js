@@ -3,10 +3,11 @@
 // will oom without the added tag
 
 // Load Environment Variables
+import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import Cube from '../models/cube';
+import Cube from '@cubeartisan/server/models/cube';
 
-require('dotenv').config();
+dotenv.config();
 
 const BATCH_SIZE = 1024;
 
@@ -44,12 +45,10 @@ const processCube = async (leanCube) => {
 try {
   (async () => {
     await mongoose.connect(process.env.MONGODB_URL);
-
     // process all cube objects
     console.log('Started');
     const count = await Cube.countDocuments();
     const cursor = Cube.find().lean().cursor();
-
     // batch them by batchSize
     for (let i = 0; i < count; ) {
       const cubes = [];
@@ -60,13 +59,10 @@ try {
           cubes.push(processCube(cube));
         }
       }
-
       await Promise.all(cubes);
-
       console.log(`Finished: ${i} of ${count} cubes`);
     }
-
-    mongoose.disconnect();
+    await mongoose.disconnect();
     console.log('done');
     process.exit();
   })();

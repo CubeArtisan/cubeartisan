@@ -3,12 +3,13 @@
 // will oom without the added tag
 
 // Load Environment Variables
+import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import Cube from '../models/cube';
-import { cardsNeedsCleaning, cleanCards } from '../models/migrations/cleanCards';
-import carddb from '../serverjs/cards';
+import Cube from '@cubeartisan/server/models/cube';
+import { cardsNeedsCleaning, cleanCards } from '@cubeartisan/server/models/migrations/cleanCards';
+import carddb from '@cubeartisan/server/serverjs/cards';
 
-require('dotenv').config();
+dotenv.config();
 
 const DEFAULT_BASICS = [
   '1d7dba1c-a702-43c0-8fca-e47bbad4a00f',

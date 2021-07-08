@@ -23,7 +23,11 @@ import PropTypes from 'prop-types';
 import FoilCardImage from '@cubeartisan/client/components/FoilCardImage';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
 
-const DraggableCard = ({ card, location, canDrop, onMoveCard, width, height, className, ...props }) => {
+const DraggableCard = ({ card, location, canDrop, onMoveCard, className, onClick, ...props }) => {
+  // eslint-disable-next-line react/prop-types
+  delete props.width;
+  // eslint-disable-next-line react/prop-types
+  delete props.height;
   const [{ isDragging }, drag, preview] = useDrag({
     item: { type: 'card', location },
     end: (item, monitor) => {
@@ -61,7 +65,7 @@ const DraggableCard = ({ card, location, canDrop, onMoveCard, width, height, cla
   return (
     <>
       <FoilCardImage card={card} innerRef={imageRef} className={oldClasses.join(' ')} />
-      <div ref={drag} className={onMoveCard || props.onClick ? 'clickable' : undefined}>
+      <div ref={drag} className={onMoveCard ?? onClick ? 'clickable' : undefined}>
         <div ref={drop}>
           <FoilCardImage
             card={card}
@@ -71,6 +75,7 @@ const DraggableCard = ({ card, location, canDrop, onMoveCard, width, height, cla
             data-location-type={location.type}
             data-location-data={JSON.stringify(location.data)}
             data-cnc={cnc.toString()}
+            onClick={onClick}
             {...props}
           />
         </div>
@@ -87,8 +92,10 @@ DraggableCard.propTypes = {
   canDrop: PropTypes.func.isRequired,
   onMoveCard: PropTypes.func.isRequired,
   className: PropTypes.string,
+  onClick: PropTypes.func,
 };
 DraggableCard.defaultProps = {
   className: null,
+  onClick: null,
 };
 export default DraggableCard;

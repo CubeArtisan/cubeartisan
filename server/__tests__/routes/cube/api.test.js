@@ -1,10 +1,10 @@
-import router from '@hypercube/server/routes/cube';
+import router from '@cubeartisan/server/routes/cube';
 import request from 'supertest';
 import express from 'express';
-import dbSetup from '../../helpers/dbTestSetup';
 import Cube from '@cubeartisan/server/models/cube';
-import cubefixture from '../../../fixtures/examplecube';
 import carddb from '@cubeartisan/server/serverjs/cards';
+import dbSetup from '@cubeartisan/server/__tests__/helpers/dbTestSetup';
+import cubefixture from '@cubeartisan/server/__tests__/fixtures/examplecube';
 
 const fixturesPath = 'fixtures';
 const { exampleCube } = cubefixture;

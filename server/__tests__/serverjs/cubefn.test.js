@@ -23,7 +23,7 @@ import util from '@cubeartisan/server/serverjs/util';
 import Cube from '@cubeartisan/server/models/cube';
 import { arraysEqual } from '@cubeartisan/client/utils/Util';
 // eslint-disable-next-line no-restricted-imports
-import cubefixture from '../../fixtures/examplecube';
+import cubefixture from '../fixtures/examplecube';
 
 const fixturesPath = 'fixtures';
 

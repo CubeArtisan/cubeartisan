@@ -1,16 +1,14 @@
 // Load Environment Variables
+import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import CardRating from '../models/cardrating';
+import CardRating from '@cubeartisan/server/models/cardrating';
 
-require('dotenv').config();
+dotenv.config();
 
 (async () => {
-  mongoose.connect(process.env.MONGODB_URL).then(async () => {
-    const res = await CardRating.deleteMany({ name: null });
-
-    console.log(res);
-
-    console.log('done');
-    process.exit();
-  });
+  await mongoose.connect(process.env.MONGODB_URL);
+  const res = await CardRating.deleteMany({ name: null });
+  console.log(res);
+  console.log('done');
+  process.exit();
 })();

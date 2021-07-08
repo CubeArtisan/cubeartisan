@@ -1,12 +1,7 @@
-const { getDraftFormat, createDraft } = require('../../../dist/drafting/createdraft'); // eslint-disable-line
-const { makeFilter } = require('../../../dist/filtering/FilterCards');
-
-const fixturesPath = 'fixtures';
-const cubefixture = require('../../../server/fixtures/examplecube');
-
-const Draft = require('../../../models/draft');
-
-const carddb = require('../../../serverjs/cards');
+import { createDraft, getDraftFormat } from '@cubeartisan/client/drafting/createdraft';
+import { makeFilter } from '@cubeartisan/client/filtering/FilterCards';
+import carddb from '@cubeartisan/server/serverjs/cards';
+import cubefixture from '@cubeartisan/client/__tests__/fixtures/examplecube';
 
 describe('getDraftFormat', () => {
   let exampleCube;
@@ -114,7 +109,7 @@ describe('createDraft', () => {
   let cards;
   let seats;
   beforeAll(() => {
-    draft = new Draft();
+    draft = {};
     format = [];
     cards = [];
     seats = 8;
@@ -149,14 +144,13 @@ describe('createDraft', () => {
 
   describe('', () => {
     let exampleCube;
-    beforeAll(() => {
+    beforeAll(async () => {
       exampleCube = JSON.parse(JSON.stringify(cubefixture.exampleCube));
       exampleCube.draft_formats = [];
       exampleCube.draft_formats[0] = {}; // mock
-      return carddb.initializeCardDb(fixturesPath, true).then(() => {
-        exampleCube.cards.forEach((card) => {
-          card.details = carddb.cardFromId(card.cardID);
-        });
+      await carddb.initializeCardDb('__tests__/fixtures', true);
+      exampleCube.cards.forEach((card) => {
+        card.details = carddb.cardFromId(card.cardID);
       });
     });
 

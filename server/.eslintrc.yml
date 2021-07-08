@@ -22,7 +22,6 @@ rules:
   prettier/prettier:
     - error
     - endOfLine: lf
-  no-console: 0
   global-require: 0
   no-param-reassign: 0
   no-underscore-dangle:
@@ -59,23 +58,19 @@ rules:
   promise/param-names: error
   promise/no-new-statics: error
   promise/valid-params: error
-  promise/prefer-await-to-then: error
-  promise/prefer-await-to-callbacks: error
+  promise/prefer-await-to-then: warn
+  promise/prefer-await-to-callbacks: warn
+  no-console: error
 overrides:
   - files: ['**/*.cjs']
     rules:
       import/no-commonjs: off
-  - files: ['server/**']
-    rules:
-      no-console: error
-  - files: ['client/markdown/**/micromark-*']
-    rules: 
-      no-use-before-define: ['error', 'nofunc']
-  - files: ['server/models/**']
+  - files: ['models/**']
     rules:
       no-underscore-dangle:
         - error
         - allowAfterThis: true
-  - files: ['server/one_shot_scripts/**', 'server/jobs/**']
+  - files: ['one_shot_scripts/**', 'jobs/**', 'scripts/**']
     rules:
       no-await-in-loop: 0
+      no-console: 0

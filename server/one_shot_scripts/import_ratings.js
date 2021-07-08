@@ -1,13 +1,11 @@
 // Load Environment Variables
-require('dotenv').config();
-
 // node one_shot_scripts/import_ratings.js ../ratings.json
-import es from 'event-stream';
-
+import dotenv from 'dotenv';
 import fs from 'fs';
-import JSONStream from 'JSONStream';
 import mongoose from 'mongoose';
-import CardRating from '../models/cardrating.js';
+import CardRating from '@cubeartisan/server/models/cardrating';
+
+dotenv.config();
 
 async function saveCardRating(cardRating) {
   const existing = (await CardRating.findOne({ name: cardRating.name })) || new CardRating();
@@ -25,10 +23,9 @@ async function saveRatings(defaultPath) {
 }
 
 (async () => {
-  mongoose.connect(process.env.MONGODB_URL).then(async () => {
-    await saveRatings(process.argv[2]);
-    mongoose.disconnect();
-    console.log('done');
-    process.exit();
-  });
+  await mongoose.connect(process.env.MONGODB_URL);
+  await saveRatings(process.argv[2]);
+  await mongoose.disconnect();
+  console.log('done');
+  process.exit();
 })();

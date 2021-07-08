@@ -4,8 +4,9 @@ import '@testing-library/jest-dom/extend-expect';
 
 import CubeListPage from '@cubeartisan/client/pages/CubeListPage';
 import { fromEntries } from '@cubeartisan/client/utils/Util';
-import exampleCube from '@cubeartisan/client/fixtures/examplecube';
-import exampleCardsFull from '@cubeartisan/client/fixtures/examplecardsdetails';
+import exampleCube from '@cubeartisan/client/__tests__/fixtures/examplecube';
+import exampleCardsFull from '@cubeartisan/client/__tests__/fixtures/examplecardsdetails';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext';
 
 jest.spyOn(URLSearchParams.prototype, 'get').mockImplementation(() => undefined);
 
@@ -45,21 +46,23 @@ const element = () => (
       },
     ]}
   >
-    <CubeListPage
-      cube={cube}
-      maybe={exampleCardsFull}
-      defaultView="table"
-      defaultFilterText=""
-      defaultTagColors={[]}
-      defaultShowTagColors
-      defaultPrimarySort=""
-      defaultSecondarySort=""
-      user={{
-        id: '5d671c495c4dcdeca1a2f7c8',
-        username: 'sensitiveemmett',
-        notifications: [],
-      }}
-    />
+    <UserContext.Provider value={{ _id: '1234', notifications: [] }}>
+      <CubeListPage
+        cube={cube}
+        maybe={exampleCardsFull}
+        defaultView="table"
+        defaultFilterText=""
+        defaultTagColors={[]}
+        defaultShowTagColors
+        defaultPrimarySort=""
+        defaultSecondarySort=""
+        user={{
+          id: '5d671c495c4dcdeca1a2f7c8',
+          username: 'sensitiveemmett',
+          notifications: [],
+        }}
+      />
+    </UserContext.Provider>
   </FetchMock>
 );
 
@@ -78,9 +81,6 @@ test('CubeListPage has major functionality', async () => {
     // eslint-disable-next-line no-await-in-loop
     expect(await findByText(exampleCardsFull[0].details.name));
   }
-
-  fireEvent.change(viewSelect, { target: { value: 'spoiler' } });
-  expect(await findByAltText(exampleCardsFull[0].details.name));
 
   fireEvent.change(viewSelect, { target: { value: 'table' } });
   await findByText(exampleCardsFull[0].details.name);

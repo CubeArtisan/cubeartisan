@@ -1,17 +1,18 @@
 // Load Environment Variables
+import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import Cube from '../models/cube';
-import Deck from '../models/deck';
-import Draft from '../models/draft';
-import GridDraft from '../models/gridDraft';
-import cubeMigrations from '../models/migrations/cubeMigrations';
-import deckMigrations from '../models/migrations/deckMigrations';
-import draftMigrations from '../models/migrations/draftMigrations';
-import gridDraftMigrations from '../models/migrations/gridDraftMigrations';
-import { applyPendingMigrationsPre } from '../models/migrations/migrationMiddleware';
-import carddb from '../serverjs/cards';
+import Cube from '@cubeartisan/server/models/cube';
+import Deck from '@cubeartisan/server/models/deck';
+import Draft from '@cubeartisan/server/models/draft';
+import GridDraft from '@cubeartisan/server/models/gridDraft';
+import cubeMigrations from '@cubeartisan/server/models/migrations/cubeMigrations';
+import deckMigrations from '@cubeartisan/server/models/migrations/deckMigrations';
+import draftMigrations from '@cubeartisan/server/models/migrations/draftMigrations';
+import gridDraftMigrations from '@cubeartisan/server/models/migrations/gridDraftMigrations';
+import { applyPendingMigrationsPre } from '@cubeartisan/server/models/migrations/migrationMiddleware';
+import carddb from '@cubeartisan/server/serverjs/cards';
 
-require('dotenv').config();
+dotenv.config();
 
 const MIGRATABLE = Object.freeze([
   { name: 'GridDraft', model: GridDraft, migrate: applyPendingMigrationsPre(gridDraftMigrations) },

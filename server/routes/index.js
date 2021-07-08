@@ -62,7 +62,6 @@ import PodcastEpisode from '@cubeartisan/server/models/podcastEpisode';
 import { makeFilter } from '@cubeartisan/server/serverjs/filterCubes';
 import { ensureAuth, requestLogging, timeoutMiddleware } from '@cubeartisan/server/routes/middleware';
 import { getCubeId } from '@cubeartisan/server/serverjs/cubefn';
-import router from '@cubeartisan/server/routes/user';
 
 dotenv.config();
 
@@ -582,7 +581,7 @@ app.get('/packages', browsePackages);
 app.get('/login', (req, res) => render(req, res, 'LoginPage'));
 app.post('/login', loginUser);
 app.post('/logout', logoutUser);
-router.get('/lostpassword', (req, res) => render(req, res, 'LostPasswordPage'));
+app.get('/lostpassword', (req, res) => render(req, res, 'LostPasswordPage'));
 app.get('/404', showErrorPage);
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, _next) => {

@@ -1,11 +1,9 @@
 // Load Environment Variables
-require('dotenv').config();
-
+import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import Cube from '../models/cube';
-import Draft from '../models/draft';
-import GridDraft from '../models/gridDraft';
-import Deck from '../models/Deck';
+import Cube from '@cubeartisan/server/models/cube';
+
+dotenv.config();
 
 const batchSize = 100;
 

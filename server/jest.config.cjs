@@ -1,5 +1,5 @@
-export default {
-  moduleDirectories: ['node_modules'],
+module.exports = {
+  moduleDirectories: ['../node_modules'],
   testPathIgnorePatterns: ['<rootDir>/public/', '<rootDir>/__tests__/helpers/'],
   transform: {
     '^.+\\.jsx?$': require.resolve('babel-jest'),

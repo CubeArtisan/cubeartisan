@@ -17,11 +17,13 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import { Col, ListGroup, ListGroupItem, Row } from 'reactstrap';
+import PropTypes from 'prop-types';
 
 import SortContext from '@cubeartisan/client/components/contexts/SortContext';
-import { getLabels, sortIntoGroups } from '../utils/Sort';
-
-import AutocardListItem from './AutocardListItem';
+import { getLabels, sortIntoGroups } from '@cubeartisan/client/utils/Sort';
+import AutocardListItem from '@cubeartisan/client/components/AutocardListItem';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
+import { useContext } from 'react';
 
 const CompareGroup = ({ heading, both, onlyA, onlyB }) => {
   const bothCmc = sortIntoGroups(both, 'Mana Value');
@@ -49,6 +51,7 @@ const CompareGroup = ({ heading, both, onlyA, onlyB }) => {
             ].map(([cards, key]) => (
               <Col xs="4" key={key}>
                 {(cards[cmc] || []).map((card, index) => (
+                  // eslint-disable-next-line react/no-array-index-key
                   <AutocardListItem key={index} card={card} />
                 ))}
               </Col>
@@ -58,32 +61,39 @@ const CompareGroup = ({ heading, both, onlyA, onlyB }) => {
     </ListGroup>
   );
 };
+CompareGroup.propTypes = {
+  heading: PropTypes.string.isRequired,
+  both: PropTypes.arrayOf(CardPropType.isRequired).isRequired,
+  onlyA: PropTypes.arrayOf(CardPropType.isRequired).isRequired,
+  onlyB: PropTypes.arrayOf(CardPropType.isRequired).isRequired,
+};
 
-const CompareViewRaw = ({ cards, primary, secondary, showOther, both, onlyA, onlyB, ...props }) => {
+const CompareView = ({ cards, both, onlyA, onlyB, ...props }) => {
+  const { primary, secondary, showOther } = useContext(SortContext);
   const columns = sortIntoGroups(cards, primary, showOther);
   const columnCounts = {};
   const bothCounts = { total: 0 };
   const onlyACounts = { total: 0 };
   const onlyBCounts = { total: 0 };
 
-  const both_copy = both.slice(0);
-  const only_a_copy = onlyA.slice(0);
-  const only_b_copy = onlyB.slice(0);
+  const bothCopy = both.slice(0);
+  const onlyACopy = onlyA.slice(0);
+  const onlyBCopy = onlyB.slice(0);
 
   for (const columnLabel of Object.keys(columns)) {
     let onlyACount = 0;
     let onlyBCount = 0;
     let bothCount = 0;
     for (const card of columns[columnLabel]) {
-      if (both_copy.includes(card.details.name)) {
-        bothCount++;
-        both_copy.splice(both_copy.indexOf(card.details.name), 1);
-      } else if (only_a_copy.includes(card.details.name)) {
-        onlyACount++;
-        only_a_copy.splice(only_a_copy.indexOf(card.details.name), 1);
-      } else if (only_b_copy.includes(card.details.name)) {
-        onlyBCount++;
-        only_b_copy.splice(only_b_copy.indexOf(card.details.name), 1);
+      if (bothCopy.includes(card.details.name)) {
+        bothCount += 1;
+        bothCopy.splice(bothCopy.indexOf(card.details.name), 1);
+      } else if (onlyACopy.includes(card.details.name)) {
+        onlyACount += 1;
+        onlyACopy.splice(onlyACopy.indexOf(card.details.name), 1);
+      } else if (onlyBCopy.includes(card.details.name)) {
+        onlyBCount += 1;
+        onlyBCopy.splice(onlyBCopy.indexOf(card.details.name), 1);
       }
     }
 
@@ -96,9 +106,9 @@ const CompareViewRaw = ({ cards, primary, secondary, showOther, both, onlyA, onl
     onlyBCounts.total += onlyBCount;
     columns[columnLabel] = sortIntoGroups(columns[columnLabel], secondary, showOther);
   }
-  const bothCopy = both.slice(0);
-  const onlyACopy = onlyA.slice(0);
-  const onlyBCopy = onlyB.slice(0);
+  const bothCopy2 = both.slice(0);
+  const onlyACopy2 = onlyA.slice(0);
+  const onlyBCopy2 = onlyB.slice(0);
 
   return (
     <>
@@ -174,18 +184,17 @@ const CompareViewRaw = ({ cards, primary, secondary, showOther, both, onlyA, onl
                     const onlyBGroup = [];
 
                     for (const card of group) {
-                      if (bothCopy.includes(card.details.name)) {
+                      if (bothCopy2.includes(card.details.name)) {
                         bothGroup.push(card);
-                        bothCopy.splice(bothCopy.indexOf(card.details.name), 1);
-                      } else if (onlyACopy.includes(card.details.name)) {
+                        bothCopy2.splice(bothCopy2.indexOf(card.details.name), 1);
+                      } else if (onlyACopy2.includes(card.details.name)) {
                         onlyAGroup.push(card);
-                        onlyACopy.splice(onlyACopy.indexOf(card.details.name), 1);
-                      } else if (onlyBCopy.includes(card.details.name)) {
+                        onlyACopy2.splice(onlyACopy2.indexOf(card.details.name), 1);
+                      } else if (onlyBCopy2.includes(card.details.name)) {
                         onlyBGroup.push(card);
-                        onlyBCopy.splice(onlyBCopy.indexOf(card.details.name), 1);
+                        onlyBCopy2.splice(onlyBCopy2.indexOf(card.details.name), 1);
                       }
                     }
-
                     return (
                       <CompareGroup
                         key={label}
@@ -203,13 +212,11 @@ const CompareViewRaw = ({ cards, primary, secondary, showOther, both, onlyA, onl
     </>
   );
 };
-
-const CompareView = (props) => (
-  <SortContext.Consumer>
-    {({ primary, secondary, showOther }) => (
-      <CompareViewRaw primary={primary} secondary={secondary} showOther={showOther} {...props} />
-    )}
-  </SortContext.Consumer>
-);
+CompareView.propTypes = {
+  both: PropTypes.arrayOf(CardPropType.isRequired).isRequired,
+  onlyA: PropTypes.arrayOf(CardPropType.isRequired).isRequired,
+  onlyB: PropTypes.arrayOf(CardPropType.isRequired).isRequired,
+  cards: PropTypes.arrayOf(CardPropType.isRequired).isRequired,
+};
 
 export default CompareView;

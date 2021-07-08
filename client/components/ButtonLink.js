@@ -16,7 +16,9 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-const ButtonLink = ({ children, outline, color = 'primary', block, ...props }) => {
+import PropTypes from 'prop-types';
+
+const ButtonLink = ({ children, outline, color, block, ...props }) => {
   const type = outline ? `btn-outline-${color}` : `btn-${color}`;
 
   return (
@@ -25,5 +27,15 @@ const ButtonLink = ({ children, outline, color = 'primary', block, ...props }) =
     </a>
   );
 };
-
+ButtonLink.propTypes = {
+  children: PropTypes.node.isRequired,
+  outline: PropTypes.bool,
+  color: PropTypes.string,
+  block: PropTypes.bool,
+};
+ButtonLink.defaultProps = {
+  outline: false,
+  color: 'primary',
+  block: false,
+};
 export default ButtonLink;

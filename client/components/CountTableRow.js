@@ -16,7 +16,9 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-const CountTableRow = ({ label, value, ...props }) => (
+import PropTypes from 'prop-types';
+
+const CountTableRow = ({ label, value }) => (
   <tr>
     <td>{label}:</td>
     <td>
@@ -24,5 +26,8 @@ const CountTableRow = ({ label, value, ...props }) => (
     </td>
   </tr>
 );
-
+CountTableRow.propTypes = {
+  label: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
+};
 export default CountTableRow;

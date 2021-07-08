@@ -1,10 +1,11 @@
 // Load Environment Variables
+import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import { setCubeType } from '../serverjs/cubefn';
-import carddb from '../serverjs/cards';
-import Cube from '../models/cube';
+import { setCubeType } from '@cubeartisan/server/serverjs/cubefn';
+import carddb from '@cubeartisan/server/serverjs/cards';
+import Cube from '@cubeartisan/server/models/cube';
 
-require('dotenv').config();
+dotenv.config();
 
 const batchSize = 100;
 

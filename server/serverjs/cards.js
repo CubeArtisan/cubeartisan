@@ -231,7 +231,7 @@ function getMostReasonable(cardName, printing = 'recent', filter = null) {
 
   // Ids are stored in reverse chronological order, so reverse if we want first printing.
   if (printing !== 'recent') {
-    ids = [...ids];
+    ids = Array.from(ids);
     ids.reverse();
   }
 

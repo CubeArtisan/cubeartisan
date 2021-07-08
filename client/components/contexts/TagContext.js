@@ -83,7 +83,14 @@ const TagContext = createContext({
   allSuggestions: [],
 });
 
-const TagContextProvider = ({ children, cubeID, defaultTagColors, defaultShowTagColors, defaultTags, userID }) => {
+export const TagContextProvider = ({
+  children,
+  cubeID,
+  defaultTagColors,
+  defaultShowTagColors,
+  defaultTags,
+  userID,
+}) => {
   const [tagColors, setTagColors] = useState(Array.from(defaultTagColors ?? []));
   const [showTagColors, setShowTagColors] = useState(!!defaultShowTagColors);
   const [tags, setTags] = useState(defaultTags ?? []);

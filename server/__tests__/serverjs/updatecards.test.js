@@ -22,7 +22,7 @@ import updatecards from '@cubeartisan/server/serverjs/updatecards';
 import carddb from '@cubeartisan/server/serverjs/cards';
 import cardutil from '@cubeartisan/client/utils/Card';
 // eslint-disable-next-line no-restricted-imports
-import examplecards from '../../fixtures/examplecards';
+import examplecards from '../fixtures/examplecards';
 
 const emptyFixturePath = 'fixtures/empty.json';
 const cardsFixturePath = 'fixtures/cards_small.json';

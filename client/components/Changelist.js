@@ -17,19 +17,24 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import { useCallback, useContext } from 'react';
-
-import { Badge, Input } from 'reactstrap';
+import { Badge, Button, Input } from 'reactstrap';
+import PropTypes from 'prop-types';
 
 import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext';
-import withAutocard from './WithAutocard';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
 
 const TextAutocard = withAutocard('span');
 
 const CloseButton = ({ changeId, close }) => (
-  <a href="#" className="clickx" data-change-id={changeId} onClick={close}>
+  <Button href="#" className="clickx" data-change-id={changeId} onClick={close}>
     ×
-  </a>
+  </Button>
 );
+CloseButton.propTypes = {
+  changeId: PropTypes.string.isRequired,
+  close: PropTypes.func.isRequired,
+};
 
 const Add = ({ card, changeId, close }) => (
   <li>
@@ -37,6 +42,11 @@ const Add = ({ card, changeId, close }) => (
     <TextAutocard card={card}>{card.details.name}</TextAutocard>
   </li>
 );
+Add.propTypes = {
+  changeId: PropTypes.string.isRequired,
+  close: PropTypes.func.isRequired,
+  card: CardPropType.isRequired,
+};
 
 const Remove = ({ card, changeId, close }) => (
   <li>
@@ -44,6 +54,11 @@ const Remove = ({ card, changeId, close }) => (
     <TextAutocard card={card}>{card.details.name}</TextAutocard>
   </li>
 );
+Remove.propTypes = {
+  changeId: PropTypes.string.isRequired,
+  close: PropTypes.func.isRequired,
+  card: CardPropType.isRequired,
+};
 
 const Replace = ({ cards, changeId, close }) => (
   <li>
@@ -53,6 +68,11 @@ const Replace = ({ cards, changeId, close }) => (
     <TextAutocard card={cards[1]}>{cards[1].details.name}</TextAutocard>
   </li>
 );
+Replace.propTypes = {
+  changeId: PropTypes.string.isRequired,
+  close: PropTypes.func.isRequired,
+  cards: PropTypes.arrayOf(CardPropType.isRequired).isRequired,
+};
 
 const Changelist = () => {
   const { changes, removeChange } = useContext(ChangelistContext);
@@ -61,7 +81,7 @@ const Changelist = () => {
       event.preventDefault();
 
       const { target } = event;
-      const changeId = parseInt(target.getAttribute('data-change-id'));
+      const changeId = parseInt(target.getAttribute('data-change-id'), 10);
       removeChange(changeId);
     },
     [removeChange],
@@ -80,6 +100,7 @@ const Changelist = () => {
       if (change.replace) {
         return `/${`${change.replace[0].index}$${getId(change.replace[0])}`}>${getId(change.replace[1])}`;
       }
+      return null;
     })
     .join(';');
 
@@ -96,6 +117,7 @@ const Changelist = () => {
           if (change.replace) {
             return <Replace key={change.id} cards={change.replace} changeId={change.id} close={close} />;
           }
+          return null;
         })}
       </ul>
       <Input type="hidden" name="body" value={changelistData} />

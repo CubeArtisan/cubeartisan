@@ -1,10 +1,8 @@
-import { makeFilter } from 'filtering/FilterCards';
-import { expectOperator } from '../helpers/helpers';
+import { makeFilter } from '@cubeartisan/client/filtering/FilterCards';
+import { expectOperator } from '@cubeartisan/client/__tests__/helpers/helpers';
 
-const fixturesPath = 'fixtures';
-const cubefixture = require('../../../server/fixtures/examplecube');
-
-const carddb = require('../../../serverjs/cards');
+import cubefixture from '@cubeartisan/client/__tests__/fixtures/examplecube';
+import carddb from '@cubeartisan/server/serverjs/cards';
 
 const COLOR_IDENTITY_ACCESSOR = (card) => card.colors ?? card.details.color_identity;
 
@@ -55,12 +53,11 @@ const countsByCount = (cards, propertyAccessor, operator) => {
 describe('filter', () => {
   describe('makeFilter', () => {
     let exampleCube;
-    beforeAll(() => {
+    beforeAll(async () => {
       exampleCube = JSON.parse(JSON.stringify(cubefixture.exampleCube));
-      return carddb.initializeCardDb(fixturesPath, true).then(() => {
-        exampleCube.cards.forEach((card) => {
-          card.details = carddb.cardFromId(card.cardID);
-        });
+      await carddb.initializeCardDb('__tests__/fixtures', true);
+      exampleCube.cards.forEach((card) => {
+        card.details = carddb.cardFromId(card.cardID);
       });
     });
     it('properly filters names and returns a valid object', () => {

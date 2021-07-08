@@ -37,7 +37,7 @@ import {
   // Spinner,
 } from 'reactstrap';
 
-// import CSRFForm from '@cubeartisan/client/components/CSRFForm';
+// import CSRFForm from '@cubeartisan/client/pages/CSRFForm';
 import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler';
 import DeckCard from '@cubeartisan/client/components/DeckCard';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';

@@ -1,10 +1,11 @@
 // Load Environment Variables
-require('dotenv').config();
-
+import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import Blog from '../models/blog';
-import Cube from '../models/cube';
-import User from '../models/user';
+import Blog from '@cubeartisan/server/models/blog';
+import Cube from '@cubeartisan/server/models/cube';
+import User from '@cubeartisan/server/models/user';
+
+dotenv.config();
 
 const batchSize = 100;
 
@@ -28,26 +29,25 @@ async function addVars(blog) {
 }
 
 (async () => {
-  mongoose.connect(process.env.MONGODB_URL).then(async (db) => {
-    const count = await Blog.countDocuments();
-    const cursor = Blog.find().cursor();
+  await mongoose.connect(process.env.MONGODB_URL);
+  const count = await Blog.countDocuments();
+  const cursor = Blog.find().cursor();
 
-    // batch them by batchSize
-    for (let i = 0; i < count; i += batchSize) {
-      console.log(`Finished: ${i} of ${count} blogs`);
-      const blogs = [];
-      for (let j = 0; j < batchSize; j++) {
-        if (i + j < count) {
-          const blog = await cursor.next();
-          if (blog) {
-            blogs.push(blog);
-          }
+  // batch them by batchSize
+  for (let i = 0; i < count; i += batchSize) {
+    console.log(`Finished: ${i} of ${count} blogs`);
+    const blogs = [];
+    for (let j = 0; j < batchSize; j++) {
+      if (i + j < count) {
+        const blog = await cursor.next();
+        if (blog) {
+          blogs.push(blog);
         }
       }
-      await Promise.all(blogs.map((blog) => addVars(blog)));
     }
-    console.log(`Finished: ${count} of ${count} blogs`);
-    mongoose.disconnect();
-    console.log('done');
-  });
+    await Promise.all(blogs.map((blog) => addVars(blog)));
+  }
+  console.log(`Finished: ${count} of ${count} blogs`);
+  await mongoose.disconnect();
+  console.log('done');
 })();

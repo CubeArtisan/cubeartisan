@@ -16,31 +16,14 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import mongoose from 'mongoose';
-import { MongoMemoryServer } from 'mongodb-memory-server';
+const merge = require('webpack-merge');
 
-// Set up in-memory MongoDB.
-async function connect() {
-  const mongoServer = new MongoMemoryServer();
-  const uri = await mongoServer.getConnectionString();
+const { serverConfig: common } = require('@cubeartisan/server/webpack.common.cjs');
 
-  const mongooseOpts = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  };
-
-  await mongoose.connect(uri, mongooseOpts);
-  return mongoServer;
-}
-
-/* Clean up in-memory MongoDB after we're done using it. Pass in the value
- * returned from connect(). */
-async function close(mongoServer) {
-  await mongoose.disconnect();
-  await mongoServer.stop();
-}
-
-export default {
-  connect,
-  close,
+const config = {
+  mode: 'development',
+  devtool: 'inline-source-map',
 };
+
+const clientConfig = merge(common, config);
+module.exports = [clientConfig];

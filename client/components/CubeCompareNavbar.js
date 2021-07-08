@@ -16,113 +16,101 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { Component } from 'react';
-
+import PropTypes from 'prop-types';
 import { Collapse, Nav, NavItem, NavLink, Navbar, NavbarToggler } from 'reactstrap';
 
-import FilterCollapse from './FilterCollapse';
-import SortCollapse from './SortCollapse';
-import TagColorsModal from './modals/TagColorsModal';
+import FilterCollapse from '@cubeartisan/client/components/FilterCollapse';
+import SortCollapse from '@cubeartisan/client/components/SortCollapse';
+import TagColorsModal from '@cubeartisan/client/components/modals/TagColorsModal';
+import useToggle from '@cubeartisan/client/hooks/UseToggle';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
 
-class CubeCompareNavbar extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isOpen: false,
-      tagColorsModalOpen: false,
-    };
-
-    this.toggle = this.toggle.bind(this);
-    this.handleOpenCollapse = this.handleOpenCollapse.bind(this);
-    this.handleOpenTagColorsModal = this.handleOpenTagColorsModal.bind(this);
-    this.handleToggleTagColorsModal = this.handleToggleTagColorsModal.bind(this);
-  }
-
-  toggle() {
+const CubeCompareNavbar = ({ cubeA, cubeB, cards, filter, setFilter, setOpenCollapse, openCollapse }) => {
+  const [isOpen, toggleOpen] = useToggle(false);
+  const [tagColorsModalOpen, toggleTagColorsModal, openTagColorsModal] = useToggle(false);
+  const toggle = (event) => {
     event.preventDefault();
-    this.setState(({ isOpen }) => ({
-      isOpen: !isOpen,
-    }));
-  }
+    toggleOpen();
+  };
 
-  handleOpenCollapse(event) {
+  const handleOpenCollapse = (event) => {
     event.preventDefault();
     const { target } = event;
     const collapse = target.getAttribute('data-target');
-    const { setOpenCollapse } = this.props;
-    setOpenCollapse((openCollapse) => (openCollapse === collapse ? null : collapse));
-  }
+    setOpenCollapse((prevOpenCollapse) => (prevOpenCollapse === collapse ? null : collapse));
+  };
 
-  handleOpenTagColorsModal(event) {
+  const handleOpenTagColorsModal = (event) => {
     event.preventDefault();
-    this.setState({ tagColorsModalOpen: true });
-  }
+    openTagColorsModal();
+  };
 
-  handleToggleTagColorsModal() {
-    this.setState({ tagColorsModalOpen: false });
-  }
-
-  render() {
-    const { cubeA, cubeB, cards, openCollapse, filter, setFilter } = this.props;
-    return (
-      <>
-        <div className="cubenav">
-          <ul className="nav nav-tabs nav-fill pt-2">
-            <li className="nav-item">
-              <h5 style={{ color: '#218937' }}>Compare Cubes</h5>
-              <h6 className="my-3" style={{ color: '#218937' }}>
-                <span className="text-muted">Base Cube:</span>{' '}
-                <a href={`/cube/${cubeA.shortID}/list`} className="mr-3" style={{ color: '#218937' }}>
-                  {cubeA.name} ({cubeA.card_count} cards)
-                </a>{' '}
-                <span className="text-muted">Comparison Cube:</span>{' '}
-                <a href={`/cube/${cubeB.shortID}/list`} style={{ color: '#218937' }}>
-                  {cubeB.name} ({cubeB.card_count} cards)
-                </a>
-              </h6>
-            </li>
-          </ul>
-        </div>
-        <div className="usercontrols">
-          <Navbar expand="md" light>
-            <NavbarToggler onClick={this.toggle} />
-            <Collapse isOpen={this.state.isOpen} navbar>
-              <Nav navbar>
-                <NavItem>
-                  <NavLink href="#" data-target="sort" onClick={this.handleOpenCollapse}>
-                    Sort
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="#" data-target="filter" onClick={this.handleOpenCollapse}>
-                    Filter
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="#" onClick={this.handleOpenTagColorsModal}>
-                    View Tag Colors
-                  </NavLink>
-                </NavItem>
-              </Nav>
-            </Collapse>
-          </Navbar>
-          <SortCollapse isOpen={openCollapse === 'sort'} />
-          <FilterCollapse
-            filter={filter}
-            setFilter={setFilter}
-            numCards={cards.length}
-            isOpen={this.props.openCollapse === 'filter'}
-          />
-        </div>
-        <TagColorsModal
-          canEdit={false}
-          isOpen={this.state.tagColorsModalOpen}
-          toggle={this.handleToggleTagColorsModal}
+  return (
+    <>
+      <div className="cubenav">
+        <ul className="nav nav-tabs nav-fill pt-2">
+          <li className="nav-item">
+            <h5 style={{ color: '#218937' }}>Compare Cubes</h5>
+            <h6 className="my-3" style={{ color: '#218937' }}>
+              <span className="text-muted">Base Cube:</span>{' '}
+              <a href={`/cube/${cubeA.shortID}/list`} className="mr-3" style={{ color: '#218937' }}>
+                {cubeA.name} ({cubeA.card_count} cards)
+              </a>{' '}
+              <span className="text-muted">Comparison Cube:</span>{' '}
+              <a href={`/cube/${cubeB.shortID}/list`} style={{ color: '#218937' }}>
+                {cubeB.name} ({cubeB.card_count} cards)
+              </a>
+            </h6>
+          </li>
+        </ul>
+      </div>
+      <div className="usercontrols">
+        <Navbar expand="md" light>
+          <NavbarToggler onClick={toggle} />
+          <Collapse isOpen={isOpen} navbar>
+            <Nav navbar>
+              <NavItem>
+                <NavLink href="#" data-target="sort" onClick={handleOpenCollapse}>
+                  Sort
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="#" data-target="filter" onClick={handleOpenCollapse}>
+                  Filter
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="#" onClick={handleOpenTagColorsModal}>
+                  View Tag Colors
+                </NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+        <SortCollapse isOpen={openCollapse === 'sort'} />
+        <FilterCollapse
+          filter={filter}
+          setFilter={setFilter}
+          numCards={cards.length}
+          isOpen={openCollapse === 'filter'}
         />
-      </>
-    );
-  }
-}
-
+      </div>
+      <TagColorsModal canEdit={false} isOpen={tagColorsModalOpen} toggle={toggleTagColorsModal} />
+    </>
+  );
+};
+CubeCompareNavbar.propTypes = {
+  setOpenCollapse: PropTypes.func.isRequired,
+  openCollapse: PropTypes.string,
+  cubeA: CubePropType.isRequired,
+  cubeB: CubePropType.isRequired,
+  cards: PropTypes.arrayOf(CardPropType.isRequired).isRequired,
+  filter: PropTypes.func,
+  setFilter: PropTypes.func.isRequired,
+};
+CubeCompareNavbar.defaultProps = {
+  openCollapse: null,
+  filter: null,
+};
 export default CubeCompareNavbar;

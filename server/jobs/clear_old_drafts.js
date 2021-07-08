@@ -1,9 +1,10 @@
 // Load Environment Variables
+import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import Deck from '../models/deck';
-import Draft from '../models/draft';
+import Deck from '@cubeartisan/server/models/deck';
+import Draft from '@cubeartisan/server/models/draft';
 
-require('dotenv').config();
+dotenv.config();
 
 const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
 const BATCH_SIZE = 1024;

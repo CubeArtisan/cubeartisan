@@ -3,12 +3,13 @@
 // will oom without the added tag
 
 // Load Environment Variables
-require('dotenv').config();
-
+import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import AWS from 'aws-sdk';
-import Cube from '../models/cube';
-import carddb from '../serverjs/cards.js';
+import Cube from '@cubeartisan/server/models/cube';
+import carddb from '@cubeartisan/server/serverjs/cards';
+
+dotenv.config();
 
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY,

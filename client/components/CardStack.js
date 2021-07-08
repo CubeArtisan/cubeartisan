@@ -17,14 +17,14 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import { useDrop } from 'react-dnd';
-
 import { Col } from 'reactstrap';
+import PropTypes from 'prop-types';
 
 const CardStack = ({ location, children, ...props }) => {
   const [{ isAcceptable }, drop] = useDrop({
     accept: 'card',
     drop: (item, monitor) => (monitor.didDrop() ? undefined : location),
-    canDrop: (item) => true,
+    canDrop: () => true,
     collect: (monitor) => ({
       isAcceptable: !!monitor.isOver({ shallow: true }) && !!monitor.canDrop(),
     }),
@@ -50,5 +50,8 @@ const CardStack = ({ location, children, ...props }) => {
     </Col>
   );
 };
-
+CardStack.propTypes = {
+  location: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+};
 export default CardStack;

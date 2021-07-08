@@ -1830,7 +1830,7 @@ const updateCardsInCube = async (req, res) => {
       allUpdates.$set[`cards.${index}.type_line`] = updated.type_line;
     }
     if (updated.colors) {
-      allUpdates.$set[`cards.${index}.colors`] = updated.colors.filter((color) => [...'WUBRG'].includes(color));
+      allUpdates.$set[`cards.${index}.colors`] = updated.colors.filter((color) => Array.from('WUBRG').includes(color));
     }
     if (updated.colorC) {
       allUpdates.$set[`cards.${index}.colors`] = [];
@@ -1947,7 +1947,7 @@ const updateMaybeboard = async (req, res) => {
     });
   }
 
-  const maybe = [...(cube.maybe || [])];
+  const maybe = Array.from(cube.maybe || []);
 
   const removeIndices = Array.isArray(req.body.remove) ? req.body.remove : [];
   const withRemoved = maybe.filter((_, index) => !removeIndices.includes(index));

@@ -199,7 +199,7 @@ export const mapNonNull = (arr, f) => {
 
 export const flatten = (arr, n) => {
   if (n <= 1) return toNonNullArray(arr);
-  return toNonNullArray([].concat(...mapNonNull(arr, (a) => flatten(a, n - 1))));
+  return toNonNullArray(mapNonNull(arr, (a) => flatten(a, n - 1)).flat());
 };
 
 export const shuffle = (array, seed) => {

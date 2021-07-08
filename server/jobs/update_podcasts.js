@@ -1,10 +1,11 @@
 // Load Environment Variables
+import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import { updatePodcast } from '../serverjs/podcast';
-import Podcast from '../models/podcast';
-import { winston } from '../serverjs/cloudwatch';
+import { updatePodcast } from '@cubeartisan/server/serverjs/podcast';
+import Podcast from '@cubeartisan/server/models/podcast';
+import winston from '@cubeartisan/server/serverjs/winstonConfig';
 
-require('dotenv').config();
+dotenv.config();
 
 const tryUpdate = async (podcast) => {
   try {
@@ -15,18 +16,13 @@ const tryUpdate = async (podcast) => {
 };
 const run = async () => {
   const podcasts = await Podcast.find({ status: 'published' });
-
   winston.info({ message: 'Updating podcasts...' });
-
   await Promise.all(podcasts.map(tryUpdate));
-
   winston.info({ message: 'Finished updating podcasts.' });
-
   // this is needed for log group to stream
   await new Promise((resolve) => {
     setTimeout(resolve, 10000);
   });
-
   process.exit();
 };
 
