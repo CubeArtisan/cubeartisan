@@ -48,12 +48,12 @@ let mongoServer;
 beforeAll(async () => {
   mongoServer = await dbSetup.connect();
   await carddb.initializeCardDb(fixturesPath, true);
-  await exampleCube.save();
-});
+  return exampleCube.save();
+}, 60000);
 
 afterAll(async () => {
   await dbSetup.close(mongoServer);
-  carddb.unloadCardDb();
+  return carddb.unloadCardDb();
 });
 
 test('cubecobra text download', () => {

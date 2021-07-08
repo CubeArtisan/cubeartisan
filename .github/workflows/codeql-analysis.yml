@@ -16,7 +16,7 @@ on:
     branches: [ dev, prod ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ dev, prod ]
+    branches: [ dev ]
 
 jobs:
   analyze:
