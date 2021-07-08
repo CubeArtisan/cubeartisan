@@ -9,13 +9,15 @@ jobs:
       with:
         node-version: '16'
     - name: Update NPM
-      run: npm install -g npm
+      run: npm install -g yarn
     - name: Setup
-      run: npm install
-    - name: Build
-      run: npm run build
-    - name: Check Code Style
-      run: npm run lint
-    - name: Run Unit Tests
-      run: npm run test
+      run: yarn install
+    - name: Check Client Code Style
+      run: yarn workspace @cubeartisan/client lint
+    - name: Check Server Code Style
+      run: yarn workspace @cubeartisan/server lint
+    - name: Run Client Tests
+      run: yarn workspace @cubeartisan/client test
+    - name: Run Server Tests
+      run: yarn workspace @cubeartisan/server test
   
