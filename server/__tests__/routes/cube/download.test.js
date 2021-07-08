@@ -67,7 +67,7 @@ test('cubecobra text download', () => {
       expect(lines[0]).toEqual('Faerie Guidemother [eld-11]');
       expect(lines.length).toEqual(exampleCube.cards.length);
     });
-});
+}, 15000);
 
 test('plaintext download', () => {
   return request(app)
@@ -80,7 +80,7 @@ test('plaintext download', () => {
       expect(lines[0]).toEqual('Faerie Guidemother');
       expect(lines.length).toEqual(exampleCube.cards.length);
     });
-});
+}, 15000);
 
 test('MTGO download', () => {
   return request(app)
@@ -95,7 +95,7 @@ test('MTGO download', () => {
       // The two Brazen Borrowers in the cube are deduped
       expect(lines.length).toEqual(exampleCube.cards.length - 1);
     });
-});
+}, 15000);
 
 test('csv download', () => {
   const headerFields = [
@@ -148,7 +148,7 @@ test('csv download', () => {
       expect(parsed.data[0]).toEqual(faerieGuidemotherData);
       expect(parsed.data.length).toEqual(exampleCube.cards.length);
     });
-});
+}, 15000);
 
 test('forge download', () => {
   return request(app)
@@ -165,7 +165,7 @@ test('forge download', () => {
       // Extra lines expected for [metadata] and [Main] headings, and cube name
       expect(lines.length).toEqual(exampleCube.cards.length + 3);
     });
-});
+}, 15000);
 
 test('xmage download', () => {
   return request(app)
@@ -178,4 +178,4 @@ test('xmage download', () => {
       expect(lines[0]).toEqual('1 [ELD:11] Faerie Guidemother');
       expect(lines.length).toEqual(exampleCube.cards.length);
     });
-});
+}, 15000);
