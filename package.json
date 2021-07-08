@@ -26,6 +26,7 @@
     "run-weekly-jobs": "yarn workspace @cubeartisan/server run-weekly-jobs",
     "start": "yarn webpack-dev-server & yarn nodemon",
     "test": "yarn workspaces run test",
+    "test:loud": "yarn workspaces run test:loud",
     "webpack-dev-server": "yarn workspace @cubeartisan/client webpack-dev-server"
   },
   "dependencies": {
