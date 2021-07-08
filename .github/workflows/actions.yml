@@ -12,6 +12,8 @@ jobs:
       run: npm install -g yarn
     - name: Setup
       run: yarn install
+    - name: Build generated code for the client
+      run: yarn workspace @cubeartisan/client nearley
     - name: Check Client Code Style
       run: yarn workspace @cubeartisan/client lint
     - name: Check Server Code Style
