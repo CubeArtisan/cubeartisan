@@ -21,17 +21,17 @@ import express from 'express';
 import mailer from 'nodemailer';
 import path from 'path';
 import Email from 'email-templates';
-import parser from '@cubeartisan/client/markdown/parser';
-import { ensureRole, csrfProtection } from '@cubeartisan/server/routes/middleware';
-import User from '@cubeartisan/server/models/user';
-import Report from '@cubeartisan/server/models/report';
-import Application from '@cubeartisan/server/models/application';
-import Comment from '@cubeartisan/server/models/comment';
-import Article from '@cubeartisan/server/models/article';
-import Video from '@cubeartisan/server/models/video';
-import Podcast from '@cubeartisan/server/models/podcast';
-import { render } from '@cubeartisan/server/serverjs/render';
-import util from '@cubeartisan/server/serverjs/util';
+import parser from '@cubeartisan/client/markdown/parser.js';
+import { ensureRole, csrfProtection } from '@cubeartisan/server/routes/middleware.js';
+import User from '@cubeartisan/server/models/user.js';
+import Report from '@cubeartisan/server/models/report.js';
+import Application from '@cubeartisan/server/models/application.js';
+import Comment from '@cubeartisan/server/models/comment.js';
+import Article from '@cubeartisan/server/models/article.js';
+import Video from '@cubeartisan/server/models/video.js';
+import Podcast from '@cubeartisan/server/models/podcast.js';
+import { render } from '@cubeartisan/server/serverjs/render.js';
+import { addMultipleNotifications, addNotification } from '@cubeartisan/server/serverjs/util.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -166,7 +166,7 @@ router.get('/publisharticle/:id', ensureAdmin, async (req, res) => {
   await article.save();
 
   if (owner) {
-    await util.addNotification(
+    await addNotification(
       owner,
       req.user,
       `/content/article/${article._id}`,
@@ -176,7 +176,7 @@ router.get('/publisharticle/:id', ensureAdmin, async (req, res) => {
     const mentions = parser.findUserLinks(article.body).map((x) => x.toLowerCase());
     if (mentions.length) {
       const query = User.find({ username_lower: mentions });
-      await util.addMultipleNotifications(
+      await addMultipleNotifications(
         query,
         owner,
         `/content/article/${article._id}`,
@@ -237,7 +237,7 @@ router.get('/publishvideo/:id', ensureAdmin, async (req, res) => {
   await video.save();
 
   if (owner) {
-    await util.addNotification(
+    await addNotification(
       owner,
       req.user,
       `/content/video/${video._id}`,
@@ -247,7 +247,7 @@ router.get('/publishvideo/:id', ensureAdmin, async (req, res) => {
     const mentions = parser.findUserLinks(video.body).map((x) => x.toLowerCase());
     if (mentions.length) {
       const query = User.find({ username_lower: mentions });
-      await util.addMultipleNotifications(
+      await addMultipleNotifications(
         query,
         owner,
         `/content/video/${video._id}`,
@@ -308,7 +308,7 @@ router.get('/publishpodcast/:id', ensureAdmin, async (req, res) => {
   await podcast.save();
 
   if (owner) {
-    await util.addNotification(
+    await addNotification(
       owner,
       req.user,
       `/content/podcast/${podcast._id}`,
@@ -368,7 +368,7 @@ router.get('/removearticlereview/:id', ensureAdmin, async (req, res) => {
   await article.save();
 
   if (owner) {
-    await util.addNotification(
+    await addNotification(
       owner,
       req.user,
       `/content/article/${article._id}`,
@@ -428,7 +428,7 @@ router.get('/removevideoreview/:id', ensureAdmin, async (req, res) => {
   await video.save();
 
   if (owner) {
-    await util.addNotification(
+    await addNotification(
       owner,
       req.user,
       `/content/video/${video._id}`,
@@ -488,7 +488,7 @@ router.get('/removepodcastreview/:id', ensureAdmin, async (req, res) => {
   await podcast.save();
 
   if (owner) {
-    await util.addNotification(
+    await addNotification(
       owner,
       req.user,
       `/content/podcast/${podcast._id}`,

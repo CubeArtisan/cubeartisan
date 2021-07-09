@@ -18,15 +18,14 @@
  */
 import NodeCache from 'node-cache';
 import Papa from 'papaparse';
-import sanitizeHtml from 'sanitize-html';
-import winston from '@cubeartisan/server/serverjs/winstonConfig';
-import CardRating from '@cubeartisan/server/models/cardrating';
-import Cube from '@cubeartisan/server/models/cube';
-import CubeAnalytic from '@cubeartisan/server/models/cubeAnalytic';
-import { getDraftFormat, createDraft } from '@cubeartisan/client/drafting/createdraft';
-import { getDrafterState } from '@cubeartisan/client/drafting/draftutil';
-import { hasProfanity, toBase36 } from '@cubeartisan/server/serverjs/util';
-import { arraysEqual } from '@cubeartisan/client/utils/Util';
+import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
+import CardRating from '@cubeartisan/server/models/cardrating.js';
+import Cube from '@cubeartisan/server/models/cube.js';
+import CubeAnalytic from '@cubeartisan/server/models/cubeAnalytic.js';
+import { getDraftFormat, createDraft } from '@cubeartisan/client/drafting/createdraft.js';
+import { getDrafterState } from '@cubeartisan/client/drafting/draftutil.js';
+import { hasProfanity, toBase36 } from '@cubeartisan/server/serverjs/util.js';
+import { arraysEqual } from '@cubeartisan/client/utils/Util.js';
 
 const ELO_BASE = 1200;
 const ELO_SPEED = 1 / 128;
@@ -341,7 +340,7 @@ export const compareCubes = async (cardsA, cardsB) => {
   };
 };
 
-const getEloAdjustment = (winner, loser, speed) => {
+export const getEloAdjustment = (winner, loser, speed) => {
   const diff = loser - winner;
   // Expected performance for pick.
   const expectedA = 1 / (1 + 10 ** (diff / 400));
@@ -351,7 +350,7 @@ const getEloAdjustment = (winner, loser, speed) => {
   return [adjustmentA, adjustmentB];
 };
 
-const newCardAnalytics = (cardName, elo) => {
+export const newCardAnalytics = (cardName, elo) => {
   return {
     cardName,
     picks: 0,
@@ -362,7 +361,7 @@ const newCardAnalytics = (cardName, elo) => {
   };
 };
 
-const removeDeckCardAnalytics = async (cube, deck, carddb) => {
+export const removeDeckCardAnalytics = async (cube, deck, carddb) => {
   // we don't want to save deck analytics for decks have not been built
   if (deck.seats[0].sideboard.flat().length > 0) {
     let analytic = await CubeAnalytic.findOne({ cube: cube._id });
@@ -407,7 +406,7 @@ const removeDeckCardAnalytics = async (cube, deck, carddb) => {
   }
 };
 
-const addDeckCardAnalytics = async (cube, deck, carddb) => {
+export const addDeckCardAnalytics = async (cube, deck, carddb) => {
   // we don't want to save deck analytics for decks have not been built
   if (deck.seats[0].sideboard.flat().length > 0) {
     let analytic = await CubeAnalytic.findOne({ cube: cube._id });
@@ -451,7 +450,7 @@ const addDeckCardAnalytics = async (cube, deck, carddb) => {
   }
 };
 
-const saveDraftAnalytics = async (draft, seatNumber, carddb) => {
+export const saveDraftAnalytics = async (draft, seatNumber, carddb) => {
   try {
     // first get all the card rating objects we need
     const cards = await CardRating.find(
@@ -574,7 +573,7 @@ const saveDraftAnalytics = async (draft, seatNumber, carddb) => {
 Forked from https://github.com/lukechilds/merge-images
 to support border radius for cards and width/height for custom card images.
 */
-const generateSamplepackImage = (sources = [], options = {}) =>
+export const generateSamplepackImage = (sources = [], options = {}) =>
   new Promise((resolve) => {
     const defaultOptions = {
       format: 'image/png',
@@ -713,49 +712,28 @@ export const cachePromise = (key, callback) => {
   return newPromise;
 };
 
-const methods = {
+export const generatePack = async (cubeId, carddb, seed) => {
+  const cube = await Cube.findOne(buildIdQuery(cubeId)).lean();
+  if (!seed) {
+    seed = Date.now().toString();
+  }
+  cube.cards = cube.cards.map((card) => ({ ...card, details: { ...carddb.getCardDetails(card) } }));
+  const formatId = cube.defaultDraftFormat === undefined ? -1 : cube.defaultDraftFormat;
+  const format = getDraftFormat({ id: formatId, packs: 1, cards: 15 }, cube);
+  const draft = createDraft(format, cube.cards, 1, { username: 'Anonymous' }, false, seed);
+  return {
+    seed,
+    pack: draft.initial_state[0][0].cards.map((cardIndex) => ({
+      ...draft.cards[cardIndex],
+      details: carddb.cardFromId(draft.cards[cardIndex].cardID),
+    })),
+  };
+};
+
+export default {
   setCubeType,
   cardsAreEquivalent,
-  sanitize(html) {
-    return sanitizeHtml(html, {
-      allowedTags: [
-        'div',
-        'p',
-        'strike',
-        'strong',
-        'b',
-        'i',
-        'em',
-        'u',
-        'a',
-        'h5',
-        'h6',
-        'ul',
-        'ol',
-        'li',
-        'span',
-        'br',
-      ],
-      selfClosing: ['br'],
-    });
-  },
-  generatePack: async (cubeId, carddb, seed) => {
-    const cube = await Cube.findOne(buildIdQuery(cubeId)).lean();
-    if (!seed) {
-      seed = Date.now().toString();
-    }
-    cube.cards = cube.cards.map((card) => ({ ...card, details: { ...carddb.getCardDetails(card) } }));
-    const formatId = cube.defaultDraftFormat === undefined ? -1 : cube.defaultDraftFormat;
-    const format = getDraftFormat({ id: formatId, packs: 1, cards: 15 }, cube);
-    const draft = createDraft(format, cube.cards, 1, { username: 'Anonymous' }, false, seed);
-    return {
-      seed,
-      pack: draft.initial_state[0][0].cards.map((cardIndex) => ({
-        ...draft.cards[cardIndex],
-        details: carddb.cardFromId(draft.cards[cardIndex].cardID),
-      })),
-    };
-  },
+  generatePack,
   newCardAnalytics,
   getEloAdjustment,
   generateShortId,
@@ -782,5 +760,3 @@ const methods = {
   ELO_SPEED,
   CUBE_ELO_SPEED,
 };
-
-export default methods;

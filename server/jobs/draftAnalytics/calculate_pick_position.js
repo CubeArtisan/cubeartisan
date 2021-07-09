@@ -2,7 +2,7 @@ import fs from 'fs';
 import glob from 'glob';
 
 // eslint-disable-next-line import/no-unresolved
-import cardToInt from '@cubeartisan/server/export/cardToInt.json';
+import cardToInt from '@cubeartisan/server/export/cardToInt.json.js';
 
 const intToCard = Object.fromEntries(Object.entries(cardToInt).map(([key, value]) => [value, key]));
 

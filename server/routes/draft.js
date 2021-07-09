@@ -17,26 +17,26 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import express from 'express';
-import { addNotification, handleRouteError } from '@cubeartisan/server/serverjs/util';
+import { addNotification, handleRouteError } from '@cubeartisan/server/serverjs/util.js';
 import {
   abbreviate,
   addDeckCardAnalytics,
   buildIdQuery,
   saveDraftAnalytics,
-} from '@cubeartisan/server/serverjs/cubefn';
-import generateMeta from '@cubeartisan/server/serverjs/meta';
-import Util, { fromEntries, getCubeDescription } from '@cubeartisan/client/utils/Util';
-import carddb from '@cubeartisan/server/serverjs/cards';
-import Draft from '@cubeartisan/server/models/draft';
-import Cube from '@cubeartisan/server/models/cube';
-import CubeAnalytic from '@cubeartisan/server/models/cubeAnalytic';
-import User from '@cubeartisan/server/models/user';
-import render from '@cubeartisan/server/serverjs/render';
-import { createPool, rotateArrayLeft } from '@cubeartisan/server/routes/cube/helper';
+} from '@cubeartisan/server/serverjs/cubefn.js';
+import generateMeta from '@cubeartisan/server/serverjs/meta.js';
+import Util, { fromEntries, getCubeDescription } from '@cubeartisan/client/utils/Util.js';
+import carddb from '@cubeartisan/server/serverjs/cards.js';
+import Draft from '@cubeartisan/server/models/draft.js';
+import Cube from '@cubeartisan/server/models/cube.js';
+import CubeAnalytic from '@cubeartisan/server/models/cubeAnalytic.js';
+import User from '@cubeartisan/server/models/user.js';
+import { render } from '@cubeartisan/server/serverjs/render.js';
+import { createPool, rotateArrayLeft } from '@cubeartisan/server/routes/cube/helper.js';
 import { body } from 'express-validator';
-import Deck from '@cubeartisan/server/models/deck';
-import { buildDeck } from '@cubeartisan/client/drafting/deckutil';
-import { COLOR_COMBINATIONS } from '@cubeartisan/client/utils/Card';
+import Deck from '@cubeartisan/server/models/deck.js';
+import { buildDeck } from '@cubeartisan/client/drafting/deckutil.js';
+import { COLOR_COMBINATIONS } from '@cubeartisan/client/utils/Card.js';
 
 const getDraftPage = async (req, res) => {
   try {

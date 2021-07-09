@@ -65,7 +65,7 @@ const nameToOracle = (name, carddb) => {
 
 const OPERATIONS = ['owner', 'keywords', 'decks', 'cards', 'category', 'card', 'tag'];
 
-async function makeFilter(filterText, carddb) {
+export const makeFilter = async (filterText, carddb) => {
   const query = {};
   const tokens = filterText.match(/(?:[^\s"]+|"[^"]*")+/g).map(parseToken);
 
@@ -199,7 +199,7 @@ async function makeFilter(filterText, carddb) {
   }
 
   return query;
-}
+};
 
 export default {
   makeFilter,

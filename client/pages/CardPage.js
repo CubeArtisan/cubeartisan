@@ -18,8 +18,8 @@
  */
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import CardPricePropType from '@cubeartisan/client/proptypes/CardPricePropType';
-import CardDataPointPropType from '@cubeartisan/client/proptypes/CardDataPointPropType';
+import CardPricePropType from '@cubeartisan/client/proptypes/CardPricePropType.js';
+import CardDataPointPropType from '@cubeartisan/client/proptypes/CardDataPointPropType.js';
 
 import {
   Card,
@@ -42,24 +42,24 @@ import {
 
 import ChartComponent from 'react-chartjs-2';
 
-import CardImage from '@cubeartisan/client/components/CardImage';
-import CardGrid from '@cubeartisan/client/components/CardGrid';
-import ImageFallback from '@cubeartisan/client/components/ImageFallback';
-import PagedList from '@cubeartisan/client/components/PagedList';
-import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard';
-import Markdown from '@cubeartisan/client/components/Markdown';
-import ButtonLink from '@cubeartisan/client/components/ButtonLink';
-import CountTableRow from '@cubeartisan/client/components/CountTableRow';
-import Tooltip from '@cubeartisan/client/components/Tooltip';
-import TextBadge from '@cubeartisan/client/components/TextBadge';
-import AddToCubeModal from '@cubeartisan/client/components/modals/AddToCubeModal';
-import CommentsSection from '@cubeartisan/client/components/CommentsSection';
-import withModal from '@cubeartisan/client/components/hoc/WithModal';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
-import Tab from '@cubeartisan/client/components/Tab';
+import CardImage from '@cubeartisan/client/components/CardImage.js';
+import CardGrid from '@cubeartisan/client/components/CardGrid.js';
+import ImageFallback from '@cubeartisan/client/components/ImageFallback.js';
+import PagedList from '@cubeartisan/client/components/PagedList.js';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
+import Markdown from '@cubeartisan/client/components/Markdown.js';
+import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
+import CountTableRow from '@cubeartisan/client/components/CountTableRow.js';
+import Tooltip from '@cubeartisan/client/components/Tooltip.js';
+import TextBadge from '@cubeartisan/client/components/TextBadge.js';
+import AddToCubeModal from '@cubeartisan/client/components/modals/AddToCubeModal.js';
+import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
+import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import Tab from '@cubeartisan/client/components/Tab.js';
 
 import {
   cardPrice,
@@ -69,13 +69,13 @@ import {
   cardElo,
   cardPopularity,
   cardCubeCount,
-} from '@cubeartisan/client/utils/Card';
+} from '@cubeartisan/client/utils/Card.js';
 import {
   getTCGLink,
   getCardMarketLink,
   getCardHoarderLink,
   getCardKingdomLink,
-} from '@cubeartisan/client/utils/Affiliate';
+} from '@cubeartisan/client/utils/Affiliate.js';
 import { ArrowSwitchIcon, CheckIcon, ClippyIcon } from '@primer/octicons-react';
 
 const AutocardA = withAutocard('a');

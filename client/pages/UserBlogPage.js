@@ -18,12 +18,12 @@
  */
 import PropTypes from 'prop-types';
 
-import UserLayout from '@cubeartisan/client/layouts/UserLayout';
-import BlogPost from '@cubeartisan/client/components/BlogPost';
-import Paginate from '@cubeartisan/client/components/Paginate';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import UserLayout from '@cubeartisan/client/layouts/UserLayout.js';
+import BlogPost from '@cubeartisan/client/components/BlogPost.js';
+import Paginate from '@cubeartisan/client/components/Paginate.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const UserBlogPage = ({ followers, following, posts, owner, loginCallback, pages, activePage }) => (
   <MainLayout loginCallback={loginCallback}>

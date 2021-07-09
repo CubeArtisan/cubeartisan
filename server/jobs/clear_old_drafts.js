@@ -1,8 +1,8 @@
 // Load Environment Variables
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import Deck from '@cubeartisan/server/models/deck';
-import Draft from '@cubeartisan/server/models/draft';
+import Deck from '@cubeartisan/server/models/deck.js';
+import Draft from '@cubeartisan/server/models/draft.js';
 
 dotenv.config();
 

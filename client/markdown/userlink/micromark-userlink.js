@@ -1,5 +1,5 @@
 import assert from 'assert';
-import markdownLineEndingOrSpace from 'micromark/dist/character/markdown-line-ending-or-space';
+import markdownLineEndingOrSpace from 'micromark/dist/character/markdown-line-ending-or-space.js';
 
 const tokenizeUserlink = (effects, ok, nok) => {
   const self = this;

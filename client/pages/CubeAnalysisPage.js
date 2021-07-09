@@ -21,26 +21,26 @@ import PropTypes from 'prop-types';
 
 import { Col, Nav, NavLink, Row, Card, CardBody } from 'reactstrap';
 
-import Averages from '@cubeartisan/client/analytics/Averages';
-import Chart from '@cubeartisan/client/analytics/Chart';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
-import Tokens from '@cubeartisan/client/analytics/Tokens';
-import Playtest from '@cubeartisan/client/analytics/PlaytestData';
-import PivotTable from '@cubeartisan/client/analytics/PivotTable';
-import AnalyticTable from '@cubeartisan/client/analytics/AnalyticTable';
-import Cloud from '@cubeartisan/client/analytics/Cloud';
-import HyperGeom from '@cubeartisan/client/analytics/HyperGeom';
-import Suggestions from '@cubeartisan/client/analytics/Suggestions';
-import Asfans from '@cubeartisan/client/analytics/Asfans';
-import FilterCollapse from '@cubeartisan/client/components/FilterCollapse';
-import { TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext';
-import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
-import useToggle from '@cubeartisan/client/hooks/UseToggle';
-import CubeLayout from '@cubeartisan/client/layouts/CubeLayout';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
-import CubeAnalyticPropType from '@cubeartisan/client/proptypes/CubeAnalyticPropType';
+import Averages from '@cubeartisan/client/analytics/Averages.js';
+import Chart from '@cubeartisan/client/analytics/Chart.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
+import Tokens from '@cubeartisan/client/analytics/Tokens.js';
+import Playtest from '@cubeartisan/client/analytics/PlaytestData.js';
+import PivotTable from '@cubeartisan/client/analytics/PivotTable.js';
+import AnalyticTable from '@cubeartisan/client/analytics/AnalyticTable.js';
+import Cloud from '@cubeartisan/client/analytics/Cloud.js';
+import HyperGeom from '@cubeartisan/client/analytics/HyperGeom.js';
+import Suggestions from '@cubeartisan/client/analytics/Suggestions.js';
+import Asfans from '@cubeartisan/client/analytics/Asfans.js';
+import FilterCollapse from '@cubeartisan/client/components/FilterCollapse.js';
+import { TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext.js';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
+import CubeLayout from '@cubeartisan/client/layouts/CubeLayout.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
+import CubeAnalyticPropType from '@cubeartisan/client/proptypes/CubeAnalyticPropType.js';
 import {
   cardCmc,
   cardDevotion,
@@ -53,12 +53,12 @@ import {
   cardTix,
   mainboardRate,
   pickRate,
-} from '@cubeartisan/client/utils/Card';
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
-import { fromEntries } from '@cubeartisan/client/utils/Util';
-import { getLabels, cardIsLabel } from '@cubeartisan/client/utils/Sort';
-import UserContext from '@cubeartisan/client/components/contexts/UserContext';
+} from '@cubeartisan/client/utils/Card.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import { fromEntries } from '@cubeartisan/client/utils/Util.js';
+import { getLabels, cardIsLabel } from '@cubeartisan/client/utils/Sort.js';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 
 const CubeAnalysisPage = ({
   cube,

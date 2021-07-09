@@ -18,12 +18,12 @@
  */
 import { useState, useContext } from 'react';
 
-import UserContext from '@cubeartisan/client/components/contexts/UserContext';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu, Badge, CardHeader, CardFooter } from 'reactstrap';
 
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
-import LinkButton from '@cubeartisan/client/components/LinkButton';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import LinkButton from '@cubeartisan/client/components/LinkButton.js';
 
 const NotificationsNav = () => {
   const user = useContext(UserContext);

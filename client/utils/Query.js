@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import URLSearchParams from 'core-js-pure/features/url-search-params';
+import URLSearchParams from 'core-js-pure/features/url-search-params/index.js';
 
 function query() {
   return typeof window !== 'undefined' ? window.location.search.slice(1) : '';

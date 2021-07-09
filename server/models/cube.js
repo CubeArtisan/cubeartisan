@@ -17,9 +17,9 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import mongoose from 'mongoose';
-import cardSchema from '@cubeartisan/server/models/shared/cardSchema';
-import stepsSchema from '@cubeartisan/server/models/shared/stepsSchema';
-import migrations from '@cubeartisan/server/models/migrations/cubeMigrations';
+import cardSchema from '@cubeartisan/server/models/shared/cardSchema.js';
+import stepsSchema from '@cubeartisan/server/models/shared/stepsSchema.js';
+import migrations from '@cubeartisan/server/models/migrations/cubeMigrations.js';
 
 const CURRENT_SCHEMA_VERSION = migrations.slice(-1)[0].version;
 

@@ -20,10 +20,10 @@ import PropTypes from 'prop-types';
 
 import { Card, CardHeader } from 'reactstrap';
 
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import Accordion from '@cubeartisan/client/components/Accordion';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import Accordion from '@cubeartisan/client/components/Accordion.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const ContactPage = ({ loginCallback }) => (
   <MainLayout loginCallback={loginCallback}>

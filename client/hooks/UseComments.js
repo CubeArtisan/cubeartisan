@@ -17,8 +17,8 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import { useEffect, useState } from 'react';
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
-import { findUserLinks } from '@cubeartisan/client/markdown/parser';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import { findUserLinks } from '@cubeartisan/client/markdown/parser.js';
 
 const useComment = (type, parent) => {
   const [comments, setComments] = useState([]);

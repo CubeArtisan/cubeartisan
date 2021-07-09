@@ -16,8 +16,8 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { arraysEqual, fromEntries, arrayIsSubset } from '@cubeartisan/client/utils/Util';
-import LandCategories from '@cubeartisan/client/res/LandCategories.json';
+import { arraysEqual, fromEntries, arrayIsSubset } from '@cubeartisan/client/utils/Util.js';
+import LandCategories from '@cubeartisan/client/res/LandCategories.js';
 
 export const COLOR_COMBINATIONS = [
   [],

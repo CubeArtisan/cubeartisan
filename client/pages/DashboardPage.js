@@ -18,25 +18,25 @@
  */
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
-import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType';
-import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
+import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
+import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType.js';
 
-import UserContext from '@cubeartisan/client/components/contexts/UserContext';
-import CubePreview from '@cubeartisan/client/components/CubePreview';
-import ArticlePreview from '@cubeartisan/client/components/ArticlePreview';
-import DeckPreview from '@cubeartisan/client/components/DeckPreview';
-import VideoPreview from '@cubeartisan/client/components/VideoPreview';
-import PodcastEpisodePreview from '@cubeartisan/client/components/PodcastEpisodePreview';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
-import withModal from '@cubeartisan/client/components/hoc/WithModal';
-import CreateCubeModal from '@cubeartisan/client/components/modals/CreateCubeModal';
-import Feed from '@cubeartisan/client/components/Feed';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import CubePreview from '@cubeartisan/client/components/CubePreview.js';
+import ArticlePreview from '@cubeartisan/client/components/ArticlePreview.js';
+import DeckPreview from '@cubeartisan/client/components/DeckPreview.js';
+import VideoPreview from '@cubeartisan/client/components/VideoPreview.js';
+import PodcastEpisodePreview from '@cubeartisan/client/components/PodcastEpisodePreview.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
+import CreateCubeModal from '@cubeartisan/client/components/modals/CreateCubeModal.js';
+import Feed from '@cubeartisan/client/components/Feed.js';
 
 import { Button, Card, Col, Row, CardHeader, CardBody, CardFooter } from 'reactstrap';
-import CubesCard from '@cubeartisan/client/components/CubesCard';
+import CubesCard from '@cubeartisan/client/components/CubesCard.js';
 
 const CreateCubeModalButton = withModal(Button, CreateCubeModal);
 

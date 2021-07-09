@@ -18,11 +18,11 @@
  */
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
-import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext';
-import ImageFallback from '@cubeartisan/client/components/ImageFallback';
-import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard';
+import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import ImageFallback from '@cubeartisan/client/components/ImageFallback.js';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 
 const ImageAutocard = withAutocard(ImageFallback);
 

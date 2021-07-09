@@ -18,14 +18,14 @@
  */
 import { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
-import { sortDeep } from '@cubeartisan/client/utils/Sort';
+import { sortDeep } from '@cubeartisan/client/utils/Sort.js';
 
-import SortContext from '@cubeartisan/client/components/contexts/SortContext';
-import SpoilerImage from '@cubeartisan/client/components/SpoilerImage';
-import CardGrid from '@cubeartisan/client/components/CardGrid';
+import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
+import SpoilerImage from '@cubeartisan/client/components/SpoilerImage.js';
+import CardGrid from '@cubeartisan/client/components/CardGrid.js';
 
 const VisualSpoiler = ({ cards }) => {
   const [scale, setScale] = useState('medium');

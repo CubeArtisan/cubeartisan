@@ -1,9 +1,9 @@
 // Load Environment Variables
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import { updatePodcast } from '@cubeartisan/server/serverjs/podcast';
-import Podcast from '@cubeartisan/server/models/podcast';
-import winston from '@cubeartisan/server/serverjs/winstonConfig';
+import { updatePodcast } from '@cubeartisan/server/serverjs/podcast.js';
+import Podcast from '@cubeartisan/server/models/podcast.js';
+import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 
 dotenv.config();
 

@@ -17,10 +17,10 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import { useState, useCallback } from 'react';
-import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType';
+import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType.js';
 
 import { Card } from 'reactstrap';
-import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox';
+import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox.js';
 
 const PodcastPreview = ({ podcast }) => {
   const [hover, setHover] = useState(false);

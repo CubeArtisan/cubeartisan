@@ -18,23 +18,23 @@
  */
 import { useCallback, useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
 import { Form, Input } from 'reactstrap';
 
-import { cardsAreEquivalent, normalizeName } from '@cubeartisan/client/utils/Card';
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
-import { getLabels, sortDeep } from '@cubeartisan/client/utils/Sort';
+import { cardsAreEquivalent, normalizeName } from '@cubeartisan/client/utils/Card.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import { getLabels, sortDeep } from '@cubeartisan/client/utils/Sort.js';
 
-import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
-import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext';
-import PagedTable from '@cubeartisan/client/components/PagedTable';
-import SortContext from '@cubeartisan/client/components/contexts/SortContext';
-import TagContext from '@cubeartisan/client/components/contexts/TagContext';
-import TagInput from '@cubeartisan/client/components/TagInput';
-import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard';
-import withLoading from '@cubeartisan/client/components/hoc/WithLoading';
-import useAlerts, { Alerts } from '@cubeartisan/client/hooks/UseAlerts';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
+import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext.js';
+import PagedTable from '@cubeartisan/client/components/PagedTable.js';
+import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
+import TagContext from '@cubeartisan/client/components/contexts/TagContext.js';
+import TagInput from '@cubeartisan/client/components/TagInput.js';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
+import withLoading from '@cubeartisan/client/components/hoc/WithLoading.js';
+import useAlerts, { Alerts } from '@cubeartisan/client/hooks/UseAlerts.js';
 
 const colorCombos = [
   'C',

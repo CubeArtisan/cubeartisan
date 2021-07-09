@@ -19,7 +19,7 @@
 import { createContext, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 export const getCardColorClass = (card) => {
   const type = card.type_line || card.details.type;

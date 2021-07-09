@@ -4,8 +4,8 @@
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import fetch from 'node-fetch';
-import carddb from '@cubeartisan/server/serverjs/cards';
-import CardRating from '@cubeartisan/server/models/cardrating';
+import carddb from '@cubeartisan/server/serverjs/cards.js';
+import CardRating from '@cubeartisan/server/models/cardrating.js';
 
 dotenv.config();
 

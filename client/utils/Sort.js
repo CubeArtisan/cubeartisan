@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { alphaCompare, arrayIsSubset, fromEntries } from '@cubeartisan/client/utils/Util';
+import { alphaCompare, arrayIsSubset, fromEntries } from '@cubeartisan/client/utils/Util.js';
 import {
   cardColorIdentity,
   cardDevotion,
@@ -32,7 +32,7 @@ import {
   COLOR_COMBINATIONS,
   cardRarity,
   cardPopularity,
-} from '@cubeartisan/client/utils/Card';
+} from '@cubeartisan/client/utils/Card.js';
 
 const COLOR_MAP = {
   W: 'White',
@@ -100,7 +100,7 @@ const FOUR_AND_FIVE_COLOR = ['Non-White', 'Non-Blue', 'Non-Black', 'Non-Red', 'N
 const ELO_DEFAULT = 1200;
 
 function ISODateToYYYYMMDD(dateString) {
-  const locale = 'en-US';
+  const locale = 'en-US.js';
 
   if (dateString === undefined) {
     return undefined;

@@ -20,11 +20,11 @@ import PropTypes from 'prop-types';
 
 import { Row, Col, Button } from 'reactstrap';
 
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
-import Footer from '@cubeartisan/client/layouts/Footer';
-import LoginModal from '@cubeartisan/client/components/modals/LoginModal';
-import withModal from '@cubeartisan/client/components/hoc/WithModal';
-import CardSearchBar from '@cubeartisan/client/components/CardSearchBar';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import Footer from '@cubeartisan/client/layouts/Footer.js';
+import LoginModal from '@cubeartisan/client/components/modals/LoginModal.js';
+import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
+import CardSearchBar from '@cubeartisan/client/components/CardSearchBar.js';
 
 const LoginModalButton = withModal(Button, LoginModal);
 

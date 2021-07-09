@@ -18,8 +18,8 @@
  */
 import PropTypes from 'prop-types';
 
-import { cardFinish } from '@cubeartisan/client/utils/Card';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
+import { cardFinish } from '@cubeartisan/client/utils/Card.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
 const withFoilOverlay = (Tag) => {
   const WithFoilOverlay = ({ card, finish: finishOverride, ...props }) => {

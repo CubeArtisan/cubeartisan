@@ -21,12 +21,12 @@ import PropTypes from 'prop-types';
 
 import { Collapse, Spinner } from 'reactstrap';
 
-import UserContext from '@cubeartisan/client/components/contexts/UserContext';
-import CommentList from '@cubeartisan/client/components/PagedCommentList';
-import LinkButton from '@cubeartisan/client/components/LinkButton';
-import CommentEntry from '@cubeartisan/client/components/CommentEntry';
-import useToggle from '@cubeartisan/client/hooks/UseToggle';
-import useComments from '@cubeartisan/client/hooks/UseComments';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import CommentList from '@cubeartisan/client/components/PagedCommentList.js';
+import LinkButton from '@cubeartisan/client/components/LinkButton.js';
+import CommentEntry from '@cubeartisan/client/components/CommentEntry.js';
+import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
+import useComments from '@cubeartisan/client/hooks/UseComments.js';
 
 const CommentsSection = ({ parent, parentType, collapse }) => {
   const user = useContext(UserContext);

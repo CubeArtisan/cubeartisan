@@ -18,15 +18,15 @@
  */
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import CommentPropType from '@cubeartisan/client/proptypes/CommentPropType';
+import CommentPropType from '@cubeartisan/client/proptypes/CommentPropType.js';
 
 import { Card, CardHeader } from 'reactstrap';
 
-import Comment from '@cubeartisan/client/components/Comment';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import CommentsSection from '@cubeartisan/client/components/CommentsSection';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import Comment from '@cubeartisan/client/components/Comment.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const translateType = {
   comment: 'Comment',

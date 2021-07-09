@@ -18,10 +18,10 @@
  */
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import useToggle from '@cubeartisan/client/hooks/UseToggle';
-import CSRFForm from '@cubeartisan/client/components/CSRFForm';
-import FilterCollapse from '@cubeartisan/client/components/FilterCollapse';
-import TextField from '@cubeartisan/client/components/TextField';
+import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import FilterCollapse from '@cubeartisan/client/components/FilterCollapse.js';
+import TextField from '@cubeartisan/client/components/TextField.js';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Card, Input } from 'reactstrap';
 
 const ResizeModal = ({ cubeID }) => {

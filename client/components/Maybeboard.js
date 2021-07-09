@@ -18,24 +18,24 @@
  */
 import { useCallback, useContext, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
 import { Button, Col, Form, ListGroupItem, Row, Spinner } from 'reactstrap';
 
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
-import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput';
-import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext';
-import CardModalForm from '@cubeartisan/client/components/modals/CardModalForm';
-import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext';
-import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
-import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext';
-import { getCard } from '@cubeartisan/client/components/EditCollapse';
-import LoadingButton from '@cubeartisan/client/components/LoadingButton';
-import MaybeboardContext from '@cubeartisan/client/components/contexts/MaybeboardContext';
-import TableView from '@cubeartisan/client/components/TableView';
-import { getCardColorClass } from '@cubeartisan/client/components/contexts/TagContext';
-import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard';
+import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
+import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext.js';
+import CardModalForm from '@cubeartisan/client/components/modals/CardModalForm.js';
+import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
+import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import { getCard } from '@cubeartisan/client/components/EditCollapse.js';
+import LoadingButton from '@cubeartisan/client/components/LoadingButton.js';
+import MaybeboardContext from '@cubeartisan/client/components/contexts/MaybeboardContext.js';
+import TableView from '@cubeartisan/client/components/TableView.js';
+import { getCardColorClass } from '@cubeartisan/client/components/contexts/TagContext.js';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 
 const AutocardItem = withAutocard(ListGroupItem);
 

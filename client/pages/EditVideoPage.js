@@ -18,7 +18,7 @@
  */
 import { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import VideoPropType from '@cubeartisan/client/proptypes/VideoPropType';
+import VideoPropType from '@cubeartisan/client/proptypes/VideoPropType.js';
 
 import {
   Spinner,
@@ -35,17 +35,17 @@ import {
   Button,
 } from 'reactstrap';
 
-import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput';
-import CSRFForm from '@cubeartisan/client/components/CSRFForm';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import Tab from '@cubeartisan/client/components/Tab';
-import Video from '@cubeartisan/client/components/Video';
-import VideoPreview from '@cubeartisan/client/components/VideoPreview';
-import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext';
-import UserContext from '@cubeartisan/client/components/contexts/UserContext';
-import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import Tab from '@cubeartisan/client/components/Tab.js';
+import Video from '@cubeartisan/client/components/Video.js';
+import VideoPreview from '@cubeartisan/client/components/VideoPreview.js';
+import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const EditVideoPage = ({ loginCallback, video }) => {
   const user = useContext(UserContext);

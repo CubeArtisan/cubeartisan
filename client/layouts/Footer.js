@@ -19,8 +19,8 @@
 import { useContext } from 'react';
 import { Row, Col, Container } from 'reactstrap';
 
-import Copyright from '@cubeartisan/client/components/Copyright';
-import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext';
+import Copyright from '@cubeartisan/client/components/Copyright.js';
+import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 
 const Footer = () => {
   const { discordUrl, siteName, sourceRepo } = useContext(SiteCustomizationContext);

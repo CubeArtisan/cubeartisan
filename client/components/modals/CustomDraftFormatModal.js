@@ -33,11 +33,11 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import CSRFForm from '@cubeartisan/client/components/CSRFForm';
-import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
-import CustomPackCard from '@cubeartisan/client/components/CustomPackCard';
-import TextEntry from '@cubeartisan/client/components/TextEntry';
-import { fromEntries, toNullableInt } from '@cubeartisan/client/utils/Util';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
+import CustomPackCard from '@cubeartisan/client/components/CustomPackCard.js';
+import TextEntry from '@cubeartisan/client/components/TextEntry.js';
+import { fromEntries, toNullableInt } from '@cubeartisan/client/utils/Util.js';
 
 export const DEFAULT_PACK = Object.freeze({ slots: [''], steps: null });
 

@@ -20,7 +20,7 @@ import PropTypes from 'prop-types';
 
 import { Col, Modal, ModalBody, ModalHeader, Row } from 'reactstrap';
 
-import UserPreview from '@cubeartisan/client/components/UserPreview';
+import UserPreview from '@cubeartisan/client/components/UserPreview.js';
 
 const FollowersModal = ({ followers, isOpen, toggle }) => (
   <Modal size="lg" isOpen={isOpen} toggle={toggle}>

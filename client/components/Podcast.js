@@ -17,11 +17,11 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType';
+import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType.js';
 
-import CommentsSection from '@cubeartisan/client/components/CommentsSection';
-import PodcastEpisodePreview from '@cubeartisan/client/components/PodcastEpisodePreview';
-import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox';
+import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
+import PodcastEpisodePreview from '@cubeartisan/client/components/PodcastEpisodePreview.js';
+import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox.js';
 
 import { CardBody, CardHeader, Row, Col } from 'reactstrap';
 

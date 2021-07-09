@@ -20,14 +20,14 @@ import PropTypes from 'prop-types';
 
 import { Nav, CardHeader, Card, TabContent, TabPane } from 'reactstrap';
 
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import Tab from '@cubeartisan/client/components/Tab';
-import CreatorArticles from '@cubeartisan/client/components/CreatorArticles';
-import CreatorVideos from '@cubeartisan/client/components/CreatorVideos';
-import CreatorPodcasts from '@cubeartisan/client/components/CreatorPodcasts';
-import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import Tab from '@cubeartisan/client/components/Tab.js';
+import CreatorArticles from '@cubeartisan/client/components/CreatorArticles.js';
+import CreatorVideos from '@cubeartisan/client/components/CreatorVideos.js';
+import CreatorPodcasts from '@cubeartisan/client/components/CreatorPodcasts.js';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const CreatorsPage = ({ loginCallback }) => {
   const [tab, setTab] = useQueryParam('tab', '0');

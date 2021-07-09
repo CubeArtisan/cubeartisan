@@ -3,7 +3,7 @@
 import dotenv from 'dotenv';
 import fs from 'fs';
 import mongoose from 'mongoose';
-import CardRating from '@cubeartisan/server/models/cardrating';
+import CardRating from '@cubeartisan/server/models/cardrating.js';
 
 dotenv.config();
 

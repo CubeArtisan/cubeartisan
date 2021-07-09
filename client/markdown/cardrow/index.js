@@ -1,6 +1,6 @@
-import syntax from '@cubeartisan/client/markdown/cardrow/micromark-cardrow';
-import { fromMarkdown } from '@cubeartisan/client/markdown/cardrow/mdast-cardrow';
-import { add } from '@cubeartisan/client/markdown/utils';
+import syntax from '@cubeartisan/client/markdown/cardrow/micromark-cardrow.js';
+import { fromMarkdown } from '@cubeartisan/client/markdown/cardrow/mdast-cardrow.js';
+import { add } from '@cubeartisan/client/markdown/utils.js';
 
 function cardrow() {
   const data = this.data();

@@ -6,8 +6,8 @@
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import AWS from 'aws-sdk';
-import Deck from '@cubeartisan/server/models/deck';
-import carddb from '@cubeartisan/server/serverjs/cards';
+import Deck from '@cubeartisan/server/models/deck.js';
+import carddb from '@cubeartisan/server/serverjs/cards.js';
 
 dotenv.config();
 

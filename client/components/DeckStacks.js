@@ -19,10 +19,10 @@
 import PropTypes from 'prop-types';
 import { CardBody, CardHeader, CardTitle, Row } from 'reactstrap';
 
-import CardStack from '@cubeartisan/client/components/CardStack';
-import DraggableCard from '@cubeartisan/client/components/DraggableCard';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
-import Location from '@cubeartisan/client/drafting/DraftLocation';
+import CardStack from '@cubeartisan/client/components/CardStack.js';
+import DraggableCard from '@cubeartisan/client/components/DraggableCard.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import Location from '@cubeartisan/client/drafting/DraftLocation.js';
 
 const DeckStacks = ({ cards, title, subtitle, locationType, canDrop, onMoveCard, onClickCard, ...props }) => (
   <>

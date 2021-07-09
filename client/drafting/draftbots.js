@@ -49,9 +49,9 @@ import {
   cardIsSpecialZoneType,
   cardName,
   cardType,
-} from '@cubeartisan/client/utils/Card';
-import { arraysAreEqualSets, fromEntries } from '@cubeartisan/client/utils/Util';
-import probTableBase64 from '@cubeartisan/client/res/probTable.b64.json';
+} from '@cubeartisan/client/utils/Card.js';
+import { arraysAreEqualSets, fromEntries } from '@cubeartisan/client/utils/Util.js';
+import probTableBase64 from '@cubeartisan/client/res/probTable.b64.js';
 
 const probTable = (() => {
   const isBrowser = typeof window !== 'undefined' && typeof window.atob === 'function';

@@ -18,8 +18,8 @@
  */
 import PropTypes from 'prop-types';
 
-import Paginate from '@cubeartisan/client/components/Paginate';
-import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
+import Paginate from '@cubeartisan/client/components/Paginate.js';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 
 const PagedList = ({ pageSize, rows, showBottom, pageWrap }) => {
   const [page, setPage] = useQueryParam('page', 0);

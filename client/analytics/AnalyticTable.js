@@ -21,14 +21,14 @@ import PropTypes from 'prop-types';
 
 import { Col, Row, InputGroup, InputGroupAddon, InputGroupText, CustomInput } from 'reactstrap';
 
-import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
-import { SortableTable, compareStrings, valueRenderer } from '@cubeartisan/client/components/SortableTable';
-import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
-import { SORTS, cardCanBeSorted, sortGroupsOrdered } from '@cubeartisan/client/utils/Sort';
-import { fromEntries } from '@cubeartisan/client/utils/Util';
+import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown.js';
+import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
+import { SortableTable, compareStrings, valueRenderer } from '@cubeartisan/client/components/SortableTable.js';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
+import { SORTS, cardCanBeSorted, sortGroupsOrdered } from '@cubeartisan/client/utils/Sort.js';
+import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 
 const sortWithTotal = (pool, sort) =>
   [...sortGroupsOrdered(pool, sort), ['Total', pool]].map(([label, cards]) => [

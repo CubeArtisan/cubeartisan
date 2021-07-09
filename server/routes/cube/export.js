@@ -1,13 +1,10 @@
-import { Canvas, Image } from 'canvas';
-import { sortForDownload } from '@cubeartisan/client/utils/Sort';
-import { makeFilter } from '@cubeartisan/client/filtering/FilterCards';
-import carddb from '@cubeartisan/server/serverjs/cards';
-import { handleRouteError } from '@cubeartisan/server/serverjs/util';
-import { buildIdQuery } from '@cubeartisan/server/serverjs/cubefn';
-import { writeCard, CSV_HEADER, exportToMtgo } from '@cubeartisan/server/routes/cube/helper';
-import Cube from '@cubeartisan/server/models/cube';
-
-Canvas.Image = Image;
+import { sortForDownload } from '@cubeartisan/client/utils/Sort.js';
+import { makeFilter } from '@cubeartisan/client/filtering/FilterCards.js';
+import carddb from '@cubeartisan/server/serverjs/cards.js';
+import { handleRouteError } from '@cubeartisan/server/serverjs/util.js';
+import { buildIdQuery } from '@cubeartisan/server/serverjs/cubefn.js';
+import { writeCard, CSV_HEADER, exportToMtgo } from '@cubeartisan/server/routes/cube/helper.js';
+import Cube from '@cubeartisan/server/models/cube.js';
 
 export const sortCardsByQuery = (req, cards) => {
   if (req.query.filter) {

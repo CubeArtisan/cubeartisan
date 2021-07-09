@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import carddb from '@cubeartisan/server/serverjs/cards';
-import updatecards from '@cubeartisan/server/serverjs/updatecards';
+import carddb from '@cubeartisan/server/serverjs/cards.js';
+import updatecards from '@cubeartisan/server/serverjs/updatecards.js';
 
 const dataPath = 'private';
 const fixturesPath = 'fixtures';

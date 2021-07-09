@@ -34,27 +34,27 @@ import {
   Spinner,
 } from 'reactstrap';
 
-import CSRFForm from '@cubeartisan/client/components/CSRFForm';
-import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler';
-import DeckStacks from '@cubeartisan/client/components/DeckStacks';
-import DndProvider from '@cubeartisan/client/components/DndProvider';
-import { DraftbotBreakdownTable } from '@cubeartisan/client/components/DraftbotBreakdown';
-import DraggableCard from '@cubeartisan/client/components/DraggableCard';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
-import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext';
-import useToggle from '@cubeartisan/client/hooks/UseToggle';
-import CubeLayout from '@cubeartisan/client/layouts/CubeLayout';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
-import { DrafterStatePropType, DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes';
-import { makeSubtitle } from '@cubeartisan/client/utils/Card';
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
-import { calculateBotPick } from '@cubeartisan/client/drafting/draftbots';
-import DraftLocation, { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation';
-import { getDefaultPosition, getDrafterState } from '@cubeartisan/client/drafting/draftutil';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
-import { fromEntries, toNullableInt } from '@cubeartisan/client/utils/Util';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
+import DeckStacks from '@cubeartisan/client/components/DeckStacks.js';
+import DndProvider from '@cubeartisan/client/components/DndProvider.js';
+import { DraftbotBreakdownTable } from '@cubeartisan/client/components/DraftbotBreakdown.js';
+import DraggableCard from '@cubeartisan/client/components/DraggableCard.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
+import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
+import CubeLayout from '@cubeartisan/client/layouts/CubeLayout.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
+import { DrafterStatePropType, DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
+import { makeSubtitle } from '@cubeartisan/client/utils/Card.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import { calculateBotPick } from '@cubeartisan/client/drafting/draftbots.js';
+import DraftLocation, { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation.js';
+import { getDefaultPosition, getDrafterState } from '@cubeartisan/client/drafting/draftutil.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import { fromEntries, toNullableInt } from '@cubeartisan/client/utils/Util.js';
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 

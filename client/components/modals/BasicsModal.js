@@ -18,12 +18,12 @@
  */
 import { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
 import { Button, Row, Col, Modal, ModalBody, ModalFooter, ModalHeader, Input, Card } from 'reactstrap';
 
-import { buildDeck } from '@cubeartisan/client/drafting/deckutil';
-import { fromEntries } from '@cubeartisan/client/utils/Util';
+import { buildDeck } from '@cubeartisan/client/drafting/deckutil.js';
+import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 
 const MAX_BASICS = 21;
 

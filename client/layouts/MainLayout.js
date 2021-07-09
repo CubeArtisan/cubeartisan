@@ -32,16 +32,16 @@ import {
   DropdownMenu,
 } from 'reactstrap';
 
-import CreateCubeModal from '@cubeartisan/client/components/modals/CreateCubeModal';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
-import LoginModal from '@cubeartisan/client/components/modals/LoginModal';
-import NotificationsNav from '@cubeartisan/client/components/NotificationsNav';
-import withModal from '@cubeartisan/client/components/hoc/WithModal';
-import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext';
-import ThemeContext from '@cubeartisan/client/components/contexts/ThemeContext';
-import UserContext from '@cubeartisan/client/components/contexts/UserContext';
-import useToggle from '@cubeartisan/client/hooks/UseToggle';
-import Footer from '@cubeartisan/client/layouts/Footer';
+import CreateCubeModal from '@cubeartisan/client/components/modals/CreateCubeModal.js';
+import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
+import LoginModal from '@cubeartisan/client/components/modals/LoginModal.js';
+import NotificationsNav from '@cubeartisan/client/components/NotificationsNav.js';
+import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
+import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
+import ThemeContext from '@cubeartisan/client/components/contexts/ThemeContext.js';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
+import Footer from '@cubeartisan/client/layouts/Footer.js';
 
 const LoginModalLink = withModal(NavLink, LoginModal);
 const CreateCubeModalLink = withModal(DropdownItem, CreateCubeModal);

@@ -19,16 +19,19 @@
 // Load Environment Variables
 import dotenv from 'dotenv';
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
+// eslint-disable-next-line import/extensions
+import ReactDOMServer from 'react-dom/server.node.js';
 import serialize from 'serialize-javascript';
-import Cube from '@cubeartisan/server/models/cube';
-import LoadingPage from '@cubeartisan/client/pages/Loading';
-import winston from '@cubeartisan/server/serverjs/winstonConfig';
+import Cube from '@cubeartisan/server/models/cube.js';
+import LoadingPage from '@cubeartisan/client/pages/Loading.js';
+import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 
 dotenv.config();
 
+const pageCache = { Loading: LoadingPage, LoadingPage };
 const getPage = async (page) => {
-  const pageModule = await import(`@cubeartisan/client/pages/${page}`);
+  if (pageCache[page]) return pageCache[page];
+  const pageModule = await import(`@cubeartisan/client/pages/${page}.js`);
   return pageModule?.default ?? LoadingPage;
 };
 
@@ -42,7 +45,7 @@ const getCubes = async (req) => {
   }
 };
 
-const render = async (req, res, page, reactProps = {}, options = {}) => {
+export const render = async (req, res, page, reactProps = {}, options = {}) => {
   const cubes = await getCubes(req);
   reactProps.user = req.user
     ? {

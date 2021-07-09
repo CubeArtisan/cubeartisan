@@ -15,7 +15,7 @@ import {
   setElementOperation,
   setCountOperation,
   devotionOperation,
-} from '@cubeartisan/client/filtering/FuncOperations';
+} from '@cubeartisan/client/filtering/FuncOperations.js';
 import {
   CARD_CATEGORY_DETECTORS,
   cardCmc,
@@ -47,7 +47,7 @@ import {
   cardLayout,
   cardDevotion,
   cardLegalIn
-} from '@cubeartisan/client/utils/Card';
+} from '@cubeartisan/client/utils/Card.js'
 %} # %}
 
 @{%

@@ -1,7 +1,7 @@
-import { cleanCards } from '@cubeartisan/server/models/migrations/cleanCards';
-import Cube from '@cubeartisan/server/models/cube';
-import { addBasics, createPool } from '@cubeartisan/server/routes/cube/helper';
-import { mapNonNull } from '@cubeartisan/server/serverjs/util';
+import { cleanCards } from '@cubeartisan/server/models/migrations/cleanCards.js';
+import Cube from '@cubeartisan/server/models/cube.js';
+import { addBasics, createPool } from '@cubeartisan/server/routes/cube/helper.js';
+import { mapNonNull } from '@cubeartisan/server/serverjs/util.js';
 
 const dedupeCardObjects = async (deck) => {
   if (!deck) return null;

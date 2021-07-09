@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { fromEntries } from '@cubeartisan/client/utils/Util';
+import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 
 export const formDataObject = (formElement) => {
   const inputs = Array.from(formElement.querySelectorAll('[name]'));

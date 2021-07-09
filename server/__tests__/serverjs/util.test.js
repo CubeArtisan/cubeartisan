@@ -24,7 +24,7 @@ import {
   generateEditToken,
   toBase36,
   fromBase36,
-} from '@cubeartisan/server/serverjs/util';
+} from '@cubeartisan/server/serverjs/util.js';
 
 beforeEach(() => {});
 

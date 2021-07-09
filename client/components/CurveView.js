@@ -21,11 +21,11 @@ import PropTypes from 'prop-types';
 
 import { Card, CardHeader, CardBody, Col, Row } from 'reactstrap';
 
-import { getLabels, sortDeep } from '@cubeartisan/client/utils/Sort';
-import { fromEntries } from '@cubeartisan/client/utils/Util';
+import { getLabels, sortDeep } from '@cubeartisan/client/utils/Sort.js';
+import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 
-import AutocardListGroup from '@cubeartisan/client/components/AutocardListGroup';
-import SortContext from '@cubeartisan/client/components/contexts/SortContext';
+import AutocardListGroup from '@cubeartisan/client/components/AutocardListGroup.js';
+import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
 
 const cmc2Labels = getLabels(null, 'Mana Value 2');
 

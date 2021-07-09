@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 // eslint-disable-next-line
-import carddb from '@cubeartisan/server/serverjs/cards';
+import carddb from '@cubeartisan/server/serverjs/cards.js';
 
 function getBlankCardHistory(id) {
   const card = carddb.cardFromId(id);

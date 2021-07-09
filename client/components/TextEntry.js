@@ -21,9 +21,9 @@ import PropTypes from 'prop-types';
 
 import { Card, CardHeader, Input, Nav, TabPane, TabContent, CardBody } from 'reactstrap';
 
-import Tab from '@cubeartisan/client/components/Tab';
-import Markdown from '@cubeartisan/client/components/Markdown';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
+import Tab from '@cubeartisan/client/components/Tab.js';
+import Markdown from '@cubeartisan/client/components/Markdown.js';
+import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
 
 const TextEntry = ({ name, value, onChange, maxLength }) => {
   const [tab, setTab] = useState('0');

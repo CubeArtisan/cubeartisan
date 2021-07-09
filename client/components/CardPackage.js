@@ -20,18 +20,18 @@ import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import TimeAgo from 'react-timeago';
 
-import UserContext from '@cubeartisan/client/components/contexts/UserContext';
-import CardPackagePropType from '@cubeartisan/client/proptypes/CardPackagePropType';
-import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard';
-import AddGroupToCubeModal from '@cubeartisan/client/components/modals/AddGroupToCubeModal';
-import withModal from '@cubeartisan/client/components/hoc/WithModal';
-import TextBadge from '@cubeartisan/client/components/TextBadge';
-import Tooltip from '@cubeartisan/client/components/Tooltip';
-import CommentsSection from '@cubeartisan/client/components/CommentsSection';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import CardPackagePropType from '@cubeartisan/client/proptypes/CardPackagePropType.js';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
+import AddGroupToCubeModal from '@cubeartisan/client/components/modals/AddGroupToCubeModal.js';
+import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
+import TextBadge from '@cubeartisan/client/components/TextBadge.js';
+import Tooltip from '@cubeartisan/client/components/Tooltip.js';
+import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
 
 import { CardHeader, Card, CardBody, Row, Col, Button } from 'reactstrap';
 
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 const AddGroupToCubeModalLink = withModal(Button, AddGroupToCubeModal);
 const AutocardA = withAutocard('a');

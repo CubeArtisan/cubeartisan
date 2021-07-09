@@ -19,31 +19,31 @@
 import { useContext, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import LocalStorage from '@cubeartisan/client/utils/LocalStorage';
-import Query from '@cubeartisan/client/utils/Query';
+import LocalStorage from '@cubeartisan/client/utils/LocalStorage.js';
+import Query from '@cubeartisan/client/utils/Query.js';
 
-import CardModalForm from '@cubeartisan/client/components/modals/CardModalForm';
-import { ChangelistContextProvider } from '@cubeartisan/client/components/contexts/ChangelistContext';
-import ClientOnly from '@cubeartisan/client/components/ClientOnly';
-import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
-import CubeListNavbar from '@cubeartisan/client/components/CubeListNavbar';
-import CurveView from '@cubeartisan/client/components/CurveView';
-import DisplayContext, { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
-import GroupModal from '@cubeartisan/client/components/modals/GroupModal';
-import ListView from '@cubeartisan/client/components/ListView';
-import Maybeboard from '@cubeartisan/client/components/Maybeboard';
-import { MaybeboardContextProvider } from '@cubeartisan/client/components/contexts/MaybeboardContext';
-import { SortContextProvider } from '@cubeartisan/client/components/contexts/SortContext';
-import TableView from '@cubeartisan/client/components/TableView';
-import { TAG_COLORS, TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext';
-import VisualSpoiler from '@cubeartisan/client/components/VisualSpoiler';
-import CubeLayout from '@cubeartisan/client/layouts/CubeLayout';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
-import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
-import UserContext from '@cubeartisan/client/components/contexts/UserContext';
+import CardModalForm from '@cubeartisan/client/components/modals/CardModalForm.js';
+import { ChangelistContextProvider } from '@cubeartisan/client/components/contexts/ChangelistContext.js';
+import ClientOnly from '@cubeartisan/client/components/ClientOnly.js';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
+import CubeListNavbar from '@cubeartisan/client/components/CubeListNavbar.js';
+import CurveView from '@cubeartisan/client/components/CurveView.js';
+import DisplayContext, { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
+import GroupModal from '@cubeartisan/client/components/modals/GroupModal.js';
+import ListView from '@cubeartisan/client/components/ListView.js';
+import Maybeboard from '@cubeartisan/client/components/Maybeboard.js';
+import { MaybeboardContextProvider } from '@cubeartisan/client/components/contexts/MaybeboardContext.js';
+import { SortContextProvider } from '@cubeartisan/client/components/contexts/SortContext.js';
+import TableView from '@cubeartisan/client/components/TableView.js';
+import { TAG_COLORS, TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext.js';
+import VisualSpoiler from '@cubeartisan/client/components/VisualSpoiler.js';
+import CubeLayout from '@cubeartisan/client/layouts/CubeLayout.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 
 const CubeListPageRaw = ({
   defaultFilterText,

@@ -21,10 +21,10 @@ import PropTypes from 'prop-types';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import { Col, Form, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
 
-import TagContext, { getTagColorClass, TAG_COLORS } from '@cubeartisan/client/components/contexts/TagContext';
-import { arrayMove } from '@cubeartisan/client/utils/Util';
+import TagContext, { getTagColorClass, TAG_COLORS } from '@cubeartisan/client/components/contexts/TagContext.js';
+import { arrayMove } from '@cubeartisan/client/utils/Util.js';
 
-import LoadingButton from '@cubeartisan/client/components/LoadingButton';
+import LoadingButton from '@cubeartisan/client/components/LoadingButton.js';
 
 const SortableItem = SortableElement(({ value }) => <div className="sortable-item">{value}</div>);
 

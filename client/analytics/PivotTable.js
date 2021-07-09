@@ -18,8 +18,8 @@
  */
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import PivotTableUI from 'react-pivottable/PivotTableUI';
-import { fromEntries } from '@cubeartisan/client/utils/Util';
+import PivotTableUI from 'react-pivottable/PivotTableUI.js';
+import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 
 const PivotTable = ({ cards, characteristics }) => {
   const data = cards.map((card) =>

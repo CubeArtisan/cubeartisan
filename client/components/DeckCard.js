@@ -17,16 +17,16 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
-import DraftSeatPropType from '@cubeartisan/client/proptypes/DraftSeatPropType';
-import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import DraftSeatPropType from '@cubeartisan/client/proptypes/DraftSeatPropType.js';
+import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 
-import CommentsSection from '@cubeartisan/client/components/CommentsSection';
-import DecksPickBreakdown from '@cubeartisan/client/components/DecksPickBreakdown';
-import DraftbotBreakdown from '@cubeartisan/client/components/DraftbotBreakdown';
-import FoilCardImage from '@cubeartisan/client/components/FoilCardImage';
-import Markdown from '@cubeartisan/client/components/Markdown';
-import { makeSubtitle } from '@cubeartisan/client/utils/Card';
+import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
+import DecksPickBreakdown from '@cubeartisan/client/components/DecksPickBreakdown.js';
+import DraftbotBreakdown from '@cubeartisan/client/components/DraftbotBreakdown.js';
+import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
+import Markdown from '@cubeartisan/client/components/Markdown.js';
+import { makeSubtitle } from '@cubeartisan/client/utils/Card.js';
 
 import { Card, CardBody, CardHeader, CardTitle, Col, Row } from 'reactstrap';
 

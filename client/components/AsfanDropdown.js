@@ -20,9 +20,9 @@ import PropTypes from 'prop-types';
 import { useCallback, useEffect, useMemo } from 'react';
 import { Col, DropdownItem, DropdownMenu, DropdownToggle, Form, Label, Row, UncontrolledDropdown } from 'reactstrap';
 
-import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
-import { calculateAsfans } from '@cubeartisan/client/drafting/createdraft';
-import { fromEntries } from '@cubeartisan/client/utils/Util';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import { calculateAsfans } from '@cubeartisan/client/drafting/createdraft.js';
+import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 
 const AsfanDropdown = ({ cube, defaultFormatId, setAsfans }) => {
   const [draftFormat, setDraftFormat] = useQueryParam('formatId', null);
@@ -30,7 +30,7 @@ const AsfanDropdown = ({ cube, defaultFormatId, setAsfans }) => {
   const labelText = useMemo(() => {
     if (draftFormat !== null) {
       if (draftFormat < 0) {
-        return 'Standard Draft Format';
+        return 'Standard Draft Format.js';
       }
       return cube.draft_formats[draftFormat].title;
     }

@@ -35,17 +35,17 @@ import {
   ModalHeader,
 } from 'reactstrap';
 
-import { makeFilter } from '@cubeartisan/client/filtering/FilterCards';
-import { fromEntries } from '@cubeartisan/client/utils/Util';
-import { ColorChecksAddon, ColorChecksControl } from '@cubeartisan/client/components/ColorCheck';
-import LoadingButton from '@cubeartisan/client/components/LoadingButton';
-import TextField from '@cubeartisan/client/components/TextField';
-import NumericField from '@cubeartisan/client/components/NumericField';
-import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput';
-import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
-import { CARD_CATEGORY_DETECTORS } from '@cubeartisan/client/utils/Card';
-import useToggle from '@cubeartisan/client/hooks/UseToggle';
-import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
+import { makeFilter } from '@cubeartisan/client/filtering/FilterCards.js';
+import { fromEntries } from '@cubeartisan/client/utils/Util.js';
+import { ColorChecksAddon, ColorChecksControl } from '@cubeartisan/client/components/ColorCheck.js';
+import LoadingButton from '@cubeartisan/client/components/LoadingButton.js';
+import TextField from '@cubeartisan/client/components/TextField.js';
+import NumericField from '@cubeartisan/client/components/NumericField.js';
+import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
+import { CARD_CATEGORY_DETECTORS } from '@cubeartisan/client/utils/Card.js';
+import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 
 const allFields = [
   'name',

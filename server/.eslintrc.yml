@@ -19,6 +19,7 @@ settings:
     webpack:
       config: ./webpack.dev.cjs
 rules:
+  import/extensions: off
   prettier/prettier:
     - error
     - endOfLine: lf

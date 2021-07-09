@@ -20,7 +20,7 @@ import { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Button, ButtonGroup, FormGroup, Input, InputGroupAddon, Label } from 'reactstrap';
 
-import { COLORS } from '@cubeartisan/client/utils/Util';
+import { COLORS } from '@cubeartisan/client/utils/Util.js';
 
 export const ColorChecks = ({ prefix, values, onChange }) =>
   COLORS.map(([color, short]) => (

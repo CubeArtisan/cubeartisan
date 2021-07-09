@@ -21,10 +21,10 @@ import PropTypes from 'prop-types';
 
 import { Row, Col, Card, CardHeader, CardBody } from 'reactstrap';
 
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const ContactPage = ({ loginCallback }) => {
   const { discordUrl, siteName, supportEmail } = useContext(SiteCustomizationContext);

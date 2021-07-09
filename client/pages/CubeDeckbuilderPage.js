@@ -20,20 +20,20 @@ import { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardHeader, CardBody, Row, Col, CardTitle } from 'reactstrap';
 
-import DeckbuilderNavbar from '@cubeartisan/client/components/DeckbuilderNavbar';
-import DeckStacks from '@cubeartisan/client/components/DeckStacks';
-import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext';
-import DndProvider from '@cubeartisan/client/components/DndProvider';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
-import TextEntry from '@cubeartisan/client/components/TextEntry';
-import DraftLocation, { moveOrAddCard, removeCard } from '@cubeartisan/client/drafting/DraftLocation';
-import CubeLayout from '@cubeartisan/client/layouts/CubeLayout';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
-import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType';
-import { makeSubtitle } from '@cubeartisan/client/utils/Card';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import DeckbuilderNavbar from '@cubeartisan/client/components/DeckbuilderNavbar.js';
+import DeckStacks from '@cubeartisan/client/components/DeckStacks.js';
+import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import DndProvider from '@cubeartisan/client/components/DndProvider.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
+import TextEntry from '@cubeartisan/client/components/TextEntry.js';
+import DraftLocation, { moveOrAddCard, removeCard } from '@cubeartisan/client/drafting/DraftLocation.js';
+import CubeLayout from '@cubeartisan/client/layouts/CubeLayout.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
+import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
+import { makeSubtitle } from '@cubeartisan/client/utils/Card.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const canDrop = () => true;
 

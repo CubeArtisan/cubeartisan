@@ -18,22 +18,22 @@
  */
 import { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 
-import Query from '@cubeartisan/client/utils/Query';
+import Query from '@cubeartisan/client/utils/Query.js';
 
-import CardModalForm from '@cubeartisan/client/components/modals/CardModalForm';
-import CompareView from '@cubeartisan/client/components/CompareView';
-import CubeCompareNavbar from '@cubeartisan/client/components/CubeCompareNavbar';
-import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
-import { SortContextProvider } from '@cubeartisan/client/components/contexts/SortContext';
-import { TAG_COLORS, TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
-import UserContext from '@cubeartisan/client/components/contexts/UserContext';
+import CardModalForm from '@cubeartisan/client/components/modals/CardModalForm.js';
+import CompareView from '@cubeartisan/client/components/CompareView.js';
+import CubeCompareNavbar from '@cubeartisan/client/components/CubeCompareNavbar.js';
+import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
+import { SortContextProvider } from '@cubeartisan/client/components/contexts/SortContext.js';
+import { TAG_COLORS, TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 
 const deduplicateTags = (tagColors) => {
   const used = new Set();

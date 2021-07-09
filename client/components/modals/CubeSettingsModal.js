@@ -21,12 +21,12 @@ import PropTypes from 'prop-types';
 
 import { Button, CustomInput, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
-import { putJson } from '@cubeartisan/client/utils/CSRF';
-import { formDataObject } from '@cubeartisan/client/utils/Form';
+import { putJson } from '@cubeartisan/client/utils/CSRF.js';
+import { formDataObject } from '@cubeartisan/client/utils/Form.js';
 
-import CSRFForm from '@cubeartisan/client/components/CSRFForm';
-import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
-import LoadingButton from '@cubeartisan/client/components/LoadingButton';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
+import LoadingButton from '@cubeartisan/client/components/LoadingButton.js';
 
 const CubeSettingsModal = ({ addAlert, onCubeUpdate, isOpen, toggle }) => {
   const { cube, cubeID, setCube } = useContext(CubeContext);

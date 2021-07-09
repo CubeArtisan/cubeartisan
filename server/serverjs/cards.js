@@ -18,7 +18,7 @@
  */
 import fs from 'fs';
 import winston from 'winston';
-import { SortFunctions, ORDERED_SORTS } from '@cubeartisan/client/utils/Sort';
+import { SortFunctions, ORDERED_SORTS } from '@cubeartisan/client/utils/Sort.js';
 
 // eslint-disable-next-line
 let data = {

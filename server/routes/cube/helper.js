@@ -1,15 +1,13 @@
-import { Canvas, Image } from 'canvas';
+import canvas from 'canvas';
 
-import carddb from '@cubeartisan/server/serverjs/cards';
-import { render } from '@cubeartisan/server/serverjs/render';
-import util from '@cubeartisan/server/serverjs/util';
-import { setCubeType, addCardHtml, CSVtoCards } from '@cubeartisan/server/serverjs/cubefn';
+import carddb from '@cubeartisan/server/serverjs/cards.js';
+import { render } from '@cubeartisan/server/serverjs/render.js';
+import { addCardToCube, handleRouteError } from '@cubeartisan/server/serverjs/util.js';
+import { setCubeType, addCardHtml, CSVtoCards } from '@cubeartisan/server/serverjs/cubefn.js';
+import Cube from '@cubeartisan/server/models/cube.js';
+import Blog from '@cubeartisan/server/models/blog.js';
 
-// Bring in models
-import Cube from '@cubeartisan/server/models/cube';
-
-import Blog from '@cubeartisan/server/models/blog';
-
+const { Canvas, Image } = canvas;
 Canvas.Image = Image;
 
 export const DEFAULT_BASICS = [
@@ -70,7 +68,7 @@ export const updateCubeAndBlog = async (req, res, cube, changelog, added, missin
     req.flash('success', 'All cards successfully added.');
     return res.redirect(`/cube/list/${encodeURIComponent(req.params.id)}`);
   } catch (err) {
-    return util.handleRouteError(req, res, err, `/cube/list/${encodeURIComponent(req.params.id)}`);
+    return handleRouteError(req, res, err, `/cube/list/${encodeURIComponent(req.params.id)}`);
   }
 };
 
@@ -120,7 +118,7 @@ export const bulkUpload = async (req, res, list, cube) => {
           if (selected) {
             const details = carddb.cardFromId(selected);
             if (!details.error) {
-              util.addCardToCube(cube, details);
+              addCardToCube(cube, details);
               added.push(details);
               changelog += addCardHtml(details);
             }

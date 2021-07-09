@@ -17,14 +17,14 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import express from 'express';
-import { isAdmin, redirect, wrapAsyncApi } from '@cubeartisan/server/serverjs/util';
-import { ensureAuth, csrfProtection } from '@cubeartisan/server/routes/middleware';
-import { render } from '@cubeartisan/server/serverjs/render';
+import { isAdmin, redirect, wrapAsyncApi } from '@cubeartisan/server/serverjs/util.js';
+import { ensureAuth, csrfProtection } from '@cubeartisan/server/routes/middleware.js';
+import { render } from '@cubeartisan/server/serverjs/render.js';
 
 // Bring in models
-import User from '@cubeartisan/server/models/user';
+import User from '@cubeartisan/server/models/user.js';
 
-import Blog from '@cubeartisan/server/models/blog';
+import Blog from '@cubeartisan/server/models/blog.js';
 
 const PAGESIZE = 10;
 

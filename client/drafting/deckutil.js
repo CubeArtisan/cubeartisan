@@ -22,7 +22,7 @@ import {
   MAX_SCORE,
   ORACLES_BY_NAME,
   FETCH_LANDS,
-} from '@cubeartisan/client/drafting/draftbots';
+} from '@cubeartisan/client/drafting/draftbots.js';
 import {
   COLOR_COMBINATIONS,
   cardCmc,
@@ -30,8 +30,8 @@ import {
   cardIsSpecialZoneType,
   cardName,
   cardType,
-} from '@cubeartisan/client/utils/Card';
-import { arraysAreEqualSets } from '@cubeartisan/client/utils/Util';
+} from '@cubeartisan/client/utils/Card.js';
+import { arraysAreEqualSets } from '@cubeartisan/client/utils/Util.js';
 
 const getSortFn = (draftCards) => (a, b) => draftCards[b].rating - draftCards[a].rating;
 

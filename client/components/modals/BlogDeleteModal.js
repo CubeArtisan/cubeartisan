@@ -18,9 +18,9 @@
  */
 import PropTypes from 'prop-types';
 
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
-import ConfirmDeleteModal from '@cubeartisan/client/components/modals/ConfirmDeleteModal';
+import ConfirmDeleteModal from '@cubeartisan/client/components/modals/ConfirmDeleteModal.js';
 
 const BlogDeleteModal = ({ isOpen, toggle, postID, cubeID }) => {
   const confirm = async () => {

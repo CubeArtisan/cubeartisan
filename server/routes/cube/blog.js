@@ -1,15 +1,15 @@
 import express from 'express';
 
-import { ensureAuth } from '@cubeartisan/server/routes/middleware';
-import carddb from '@cubeartisan/server/serverjs/cards';
-import { addMultipleNotifications, handleRouteError } from '@cubeartisan/server/serverjs/util';
-import { render } from '@cubeartisan/server/serverjs/render';
-import generateMeta from '@cubeartisan/server/serverjs/meta';
-import miscutil from '@cubeartisan/client/utils/Util';
-import { setCubeType, buildIdQuery, abbreviate } from '@cubeartisan/server/serverjs/cubefn';
-import Cube from '@cubeartisan/server/models/cube';
-import Blog from '@cubeartisan/server/models/blog';
-import User from '@cubeartisan/server/models/user';
+import { ensureAuth } from '@cubeartisan/server/routes/middleware.js';
+import carddb from '@cubeartisan/server/serverjs/cards.js';
+import { addMultipleNotifications, handleRouteError } from '@cubeartisan/server/serverjs/util.js';
+import { render } from '@cubeartisan/server/serverjs/render.js';
+import generateMeta from '@cubeartisan/server/serverjs/meta.js';
+import miscutil from '@cubeartisan/client/utils/Util.js';
+import { setCubeType, buildIdQuery, abbreviate } from '@cubeartisan/server/serverjs/cubefn.js';
+import Cube from '@cubeartisan/server/models/cube.js';
+import Blog from '@cubeartisan/server/models/blog.js';
+import User from '@cubeartisan/server/models/user.js';
 
 const router = express.Router();
 

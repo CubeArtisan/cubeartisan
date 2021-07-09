@@ -20,14 +20,14 @@ import { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
 
-import FoilCardImage from '@cubeartisan/client/components/FoilCardImage';
-import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard';
-import { getCardColorClass } from '@cubeartisan/client/components/contexts/TagContext';
-import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
-import { DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes';
-import { cardName, encodeName } from '@cubeartisan/client/utils/Card';
-import { getDrafterState } from '@cubeartisan/client/drafting/draftutil';
-import { toNullableInt } from '@cubeartisan/client/utils/Util';
+import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
+import { getCardColorClass } from '@cubeartisan/client/components/contexts/TagContext.js';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import { DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
+import { cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
+import { getDrafterState } from '@cubeartisan/client/drafting/draftutil.js';
+import { toNullableInt } from '@cubeartisan/client/utils/Util.js';
 
 const AutocardItem = withAutocard(ListGroupItem);
 

@@ -1,7 +1,7 @@
 // Load Environment Variables
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import CardHistory from '@cubeartisan/server/models/cardHistory';
+import CardHistory from '@cubeartisan/server/models/cardHistory.js';
 
 dotenv.config();
 

@@ -34,9 +34,9 @@ import {
   Input,
 } from 'reactstrap';
 
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
-import LoadingButton from '@cubeartisan/client/components/LoadingButton';
-import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import LoadingButton from '@cubeartisan/client/components/LoadingButton.js';
+import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
 
 const CreatePackageModal = ({ isOpen, toggle, onError, onSuccess }) => {
   const [cards, setCards] = useState([]);

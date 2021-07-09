@@ -22,14 +22,14 @@ import gfm from 'remark-gfm';
 import math from 'remark-math';
 import slug from 'remark-slug';
 import headings from 'remark-autolink-headings';
-import cardlink from '@cubeartisan/client/markdown/cardlink';
-import cardrow from '@cubeartisan/client/markdown/cardrow';
-import centering from '@cubeartisan/client/markdown/centering';
+import cardlink from '@cubeartisan/client/markdown/cardlink/index.js';
+import cardrow from '@cubeartisan/client/markdown/cardrow/index.js';
+import centering from '@cubeartisan/client/markdown/centering/index.js';
 import breaks from 'remark-breaks';
-import symbols from '@cubeartisan/client/markdown/symbols';
-import userlink from '@cubeartisan/client/markdown/userlink';
+import symbols from '@cubeartisan/client/markdown/symbols/index.js';
+import userlink from '@cubeartisan/client/markdown/userlink/index.js';
 
-const VALID_SYMBOLS = 'wubrgcmtsqepxyz/-0123456789';
+const VALID_SYMBOLS = 'wubrgcmtsqepxyz/-0123456789.js';
 
 const BASE_PLUGINS = [
   cardrow,

@@ -19,10 +19,10 @@
 import { Col, ListGroup, ListGroupItem, Row } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import SortContext from '@cubeartisan/client/components/contexts/SortContext';
-import { getLabels, sortIntoGroups } from '@cubeartisan/client/utils/Sort';
-import AutocardListItem from '@cubeartisan/client/components/AutocardListItem';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
+import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
+import { getLabels, sortIntoGroups } from '@cubeartisan/client/utils/Sort.js';
+import AutocardListItem from '@cubeartisan/client/components/AutocardListItem.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { useContext } from 'react';
 
 const CompareGroup = ({ heading, both, onlyA, onlyB }) => {

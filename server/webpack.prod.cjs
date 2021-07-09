@@ -23,6 +23,7 @@ const common = require('@cubeartisan/server/webpack.common.cjs');
 
 const config = {
   mode: 'production',
+  devtool: 'inline-source-map',
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),

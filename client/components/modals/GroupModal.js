@@ -39,19 +39,19 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
-import { arrayMove, fromEntries } from '@cubeartisan/client/utils/Util';
-import { cardPrice, cardFoilPrice, cardPriceEur, cardTix } from '@cubeartisan/client/utils/Card';
-import AutocardListItem from '@cubeartisan/client/components/AutocardListItem';
-import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext';
-import { ColorChecksAddon } from '@cubeartisan/client/components/ColorCheck';
-import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
-import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext';
-import LoadingButton from '@cubeartisan/client/components/LoadingButton';
-import MassBuyButton from '@cubeartisan/client/components/MassBuyButton';
-import TagInput from '@cubeartisan/client/components/TagInput';
-import TextBadge from '@cubeartisan/client/components/TextBadge';
-import Tooltip from '@cubeartisan/client/components/Tooltip';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import { arrayMove, fromEntries } from '@cubeartisan/client/utils/Util.js';
+import { cardPrice, cardFoilPrice, cardPriceEur, cardTix } from '@cubeartisan/client/utils/Card.js';
+import AutocardListItem from '@cubeartisan/client/components/AutocardListItem.js';
+import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';
+import { ColorChecksAddon } from '@cubeartisan/client/components/ColorCheck.js';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
+import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext.js';
+import LoadingButton from '@cubeartisan/client/components/LoadingButton.js';
+import MassBuyButton from '@cubeartisan/client/components/MassBuyButton.js';
+import TagInput from '@cubeartisan/client/components/TagInput.js';
+import TextBadge from '@cubeartisan/client/components/TextBadge.js';
+import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 
 const DEFAULT_FORM_VALUES = {
   status: '',

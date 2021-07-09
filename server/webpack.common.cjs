@@ -20,32 +20,22 @@ const path = require('path');
 const merge = require('webpack-merge');
 
 const config = {
-  optimization: {
-    runtimeChunk: true,
-    splitChunks: {
-      chunks: 'async',
-    },
-  },
   module: {
     rules: [
       {
         test: /\.jsx?$/,
         type: 'javascript/auto',
-        exclude: /node_modules[/\\](?!react-dnd|dnd-core)/,
+        exclude: /node_modules[/\\](?!react-dom[/\\]server|consolidate|@cubeartisan[/\\]client|canvas)/,
         use: {
           loader: 'babel-loader',
           options: {
-            configFile: path.resolve(__dirname, 'babel.config.cjs'),
+            configFile: path.resolve(__dirname, 'babel.config.js'),
           },
         },
       },
       {
         test: /\.(css|less)$/,
         use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: /\.b64$/,
-        type: 'asset',
       },
     ],
   },
@@ -65,11 +55,11 @@ const config = {
 const serverConfig = merge(config, {
   target: 'node',
   entry: {
-    app: 'routes/index.js',
+    render: './serverjs/render',
   },
   output: {
-    filename: 'app.js',
-    sourceMapFilename: 'app.js.map',
+    filename: 'dist/[name].js',
+    sourceMapFilename: 'dist/[name].js.map',
     path: __dirname,
   },
   parallelism: 8,

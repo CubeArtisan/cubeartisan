@@ -16,10 +16,10 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import CubePreview from '@cubeartisan/client/components/CubePreview';
+import CubePreview from '@cubeartisan/client/components/CubePreview.js';
 import InfiniteCarousel from 'react-leaf-carousel';
 import PropTypes from 'prop-types';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 
 const CubeCarousel = ({ cubes }) => {
   return (

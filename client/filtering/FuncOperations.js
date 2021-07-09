@@ -16,8 +16,8 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { arrayIsSubset, arraysAreEqualSets } from '@cubeartisan/client/utils/Util';
-import { cardDevotion } from '@cubeartisan/client/utils/Card';
+import { arrayIsSubset, arraysAreEqualSets } from '@cubeartisan/client/utils/Util.js';
+import { cardDevotion } from '@cubeartisan/client/utils/Card.js';
 
 export const defaultOperation = (op, value) => {
   switch (op.toString()) {
@@ -166,7 +166,7 @@ export const rarityOperation = (op, value) => {
   }
 };
 
-const convertParsedCost = (parsedCost) => parsedCost.map((symbol) => symbol.toLowerCase().split('-'));
+export const convertParsedCost = (parsedCost) => parsedCost.map((symbol) => symbol.toLowerCase().split('-'));
 export const manaCostOperation = (op, value) => {
   switch (op.toString()) {
     case ':':

@@ -20,7 +20,7 @@ import { forwardRef } from 'react';
 import { Form, Input } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import { getCsrfToken } from '@cubeartisan/client/utils/CSRF';
+import { getCsrfToken } from '@cubeartisan/client/utils/CSRF.js';
 
 const CSRFForm = forwardRef(({ children, ...props }, ref) => (
   <Form ref={ref} {...props}>

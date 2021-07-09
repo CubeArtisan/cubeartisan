@@ -19,8 +19,8 @@
 import seedrandom from 'seedrandom';
 import shuffleSeed from 'shuffle-seed';
 
-import { filterToString, makeFilter, operatorsRegex } from '@cubeartisan/client/filtering/FilterCards';
-import { fromEntries } from '@cubeartisan/client/utils/Util';
+import { filterToString, makeFilter, operatorsRegex } from '@cubeartisan/client/filtering/FilterCards.js';
+import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 
 export const matchingCards = (cards, filter) => {
   if (filter) {

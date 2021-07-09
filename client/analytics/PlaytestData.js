@@ -20,15 +20,15 @@ import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { ListGroupItem } from 'reactstrap';
 
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
-import CubeAnalyticPropType from '@cubeartisan/client/proptypes/CubeAnalyticPropType';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import CubeAnalyticPropType from '@cubeartisan/client/proptypes/CubeAnalyticPropType.js';
 
-import { compareStrings, SortableTable } from '@cubeartisan/client/components/SortableTable';
-import { fromEntries } from '@cubeartisan/client/utils/Util';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
-import { mainboardRate, pickRate, encodeName } from '@cubeartisan/client/utils/Card';
+import { compareStrings, SortableTable } from '@cubeartisan/client/components/SortableTable.js';
+import { fromEntries } from '@cubeartisan/client/utils/Util.js';
+import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
+import { mainboardRate, pickRate, encodeName } from '@cubeartisan/client/utils/Card.js';
 
-import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 
 const AutocardItem = withAutocard(ListGroupItem);
 

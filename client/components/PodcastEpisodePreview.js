@@ -17,11 +17,11 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import { useState, useCallback } from 'react';
-import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType';
+import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType.js';
 
 import { Card } from 'reactstrap';
 import TimeAgo from 'react-timeago';
-import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox';
+import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox.js';
 import htmlToText from 'html-to-text';
 
 const PodcastEpisodePreview = ({ episode }) => {

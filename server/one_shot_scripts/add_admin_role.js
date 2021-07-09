@@ -1,7 +1,7 @@
 // Load Environment Variables
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import User from '@cubeartisan/server/models/user';
+import User from '@cubeartisan/server/models/user.js';
 
 dotenv.config();
 

@@ -18,17 +18,17 @@
  */
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 
 import { Button, Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
 
-import UserContext from '@cubeartisan/client/components/contexts/UserContext';
-import CubePreview from '@cubeartisan/client/components/CubePreview';
-import UserLayout from '@cubeartisan/client/layouts/UserLayout';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
-import Markdown from '@cubeartisan/client/components/Markdown';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import CubePreview from '@cubeartisan/client/components/CubePreview.js';
+import UserLayout from '@cubeartisan/client/layouts/UserLayout.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import Markdown from '@cubeartisan/client/components/Markdown.js';
 
 const UserCubePage = ({ owner, followers, following, cubes, loginCallback }) => {
   const user = useContext(UserContext);

@@ -20,9 +20,9 @@ import { useCallback, useContext } from 'react';
 import { Badge, Button, Input } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext';
-import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
+import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
 const TextAutocard = withAutocard('span');
 

@@ -18,7 +18,7 @@
  */
 import { useContext, useCallback, useMemo, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType';
+import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 
 import {
   Button,
@@ -44,21 +44,21 @@ import {
   UncontrolledCollapse,
 } from 'reactstrap';
 
-import CSRFForm from '@cubeartisan/client/components/CSRFForm';
-import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
-import UserContext from '@cubeartisan/client/components/contexts/UserContext';
-import CustomDraftFormatModal from '@cubeartisan/client/components/modals/CustomDraftFormatModal';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import DeckPreview from '@cubeartisan/client/components/DeckPreview';
-import Markdown from '@cubeartisan/client/components/Markdown';
-import withModal from '@cubeartisan/client/components/hoc/WithModal';
-import useAlerts, { Alerts } from '@cubeartisan/client/hooks/UseAlerts';
-import useToggle from '@cubeartisan/client/hooks/UseToggle';
-import CubeLayout from '@cubeartisan/client/layouts/CubeLayout';
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
-import { allBotsDraft } from '@cubeartisan/client/drafting/draftutil';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import CustomDraftFormatModal from '@cubeartisan/client/components/modals/CustomDraftFormatModal.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import DeckPreview from '@cubeartisan/client/components/DeckPreview.js';
+import Markdown from '@cubeartisan/client/components/Markdown.js';
+import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
+import useAlerts, { Alerts } from '@cubeartisan/client/hooks/UseAlerts.js';
+import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
+import CubeLayout from '@cubeartisan/client/layouts/CubeLayout.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import { allBotsDraft } from '@cubeartisan/client/drafting/draftutil.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const range = (lo, hi) => Array.from(Array(hi - lo).keys(), (n) => n + lo);
 const rangeOptions = (lo, hi) => range(lo, hi).map((n) => <option key={n}>{n}</option>);

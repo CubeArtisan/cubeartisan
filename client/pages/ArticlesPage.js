@@ -17,15 +17,15 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType';
+import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType.js';
 
 import { Row, Col } from 'reactstrap';
 
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import ArticlePreview from '@cubeartisan/client/components/ArticlePreview';
-import Paginate from '@cubeartisan/client/components/Paginate';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import ArticlePreview from '@cubeartisan/client/components/ArticlePreview.js';
+import Paginate from '@cubeartisan/client/components/Paginate.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const PAGE_SIZE = 24;
 

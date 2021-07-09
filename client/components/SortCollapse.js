@@ -20,13 +20,13 @@ import { useCallback, useContext, useState, useRef, useEffect } from 'react';
 import { Button, Col, Collapse, Container, Input, Row, UncontrolledAlert } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
-import { SORTS, ORDERED_SORTS } from '@cubeartisan/client/utils/Sort';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import { SORTS, ORDERED_SORTS } from '@cubeartisan/client/utils/Sort.js';
 
-import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
-import SortContext from '@cubeartisan/client/components/contexts/SortContext';
-import Query from '@cubeartisan/client/utils/Query';
-import Tooltip from '@cubeartisan/client/components/Tooltip';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
+import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
+import Query from '@cubeartisan/client/utils/Query.js';
+import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 
 const SortCollapse = ({
   defaultPrimarySort,

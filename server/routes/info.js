@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import express from 'express';
-import render from '@cubeartisan/server/serverjs/render';
+import { render } from '@cubeartisan/server/serverjs/render.js';
 
 const viewTos = (req, res) =>
   render(req, res, 'InfoPage', {

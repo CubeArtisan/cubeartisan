@@ -20,8 +20,8 @@ import PropTypes from 'prop-types';
 
 import { Table } from 'reactstrap';
 
-import Paginate from '@cubeartisan/client/components/Paginate';
-import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
+import Paginate from '@cubeartisan/client/components/Paginate.js';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 
 const PagedTable = ({ pageSize, rows, children, ...props }) => {
   const [page, setPage] = useQueryParam('page', '0');

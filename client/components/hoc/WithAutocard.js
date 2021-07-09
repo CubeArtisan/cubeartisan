@@ -2,8 +2,8 @@ import { forwardRef, useContext, useRef } from 'react';
 import { Col, PopoverBody, PopoverHeader, Row, UncontrolledPopover } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import TagContext from '@cubeartisan/client/components/contexts/TagContext';
-import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext';
+import TagContext from '@cubeartisan/client/components/contexts/TagContext.js';
+import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import {
   cardFinish,
   cardFullName,
@@ -13,8 +13,8 @@ import {
   cardImageUrl,
   cardName,
   cardTags,
-} from '@cubeartisan/client/utils/Card';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
+} from '@cubeartisan/client/utils/Card.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
 const withAutocard = (Tag) => {
   const WithAutocard = forwardRef(({ card, front, back, tags, ...props }, ref) => {

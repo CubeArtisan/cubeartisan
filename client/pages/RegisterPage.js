@@ -20,10 +20,10 @@ import PropTypes from 'prop-types';
 
 import { Card, CardBody, FormGroup, Label, Input, Button, Col, Row, CardHeader } from 'reactstrap';
 
-import CSRFForm from '@cubeartisan/client/components/CSRFForm';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const RegisterPage = ({ username, email, loginCallback }) => (
   <MainLayout loginCallback={loginCallback}>

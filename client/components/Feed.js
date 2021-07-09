@@ -20,12 +20,12 @@ import { useContext, useState } from 'react';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import BlogPost from '@cubeartisan/client/components/BlogPost';
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
+import BlogPost from '@cubeartisan/client/components/BlogPost.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 import { Spinner } from 'reactstrap';
-import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType';
-import UserContext from '@cubeartisan/client/components/contexts/UserContext';
+import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType.js';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 
 const wait = async (ms) => {
   return new Promise((resolve) => {

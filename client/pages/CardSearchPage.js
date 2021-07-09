@@ -33,16 +33,16 @@ import {
   CustomInput,
 } from 'reactstrap';
 
-import Query from '@cubeartisan/client/utils/Query';
-import Paginate from '@cubeartisan/client/components/Paginate';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import ButtonLink from '@cubeartisan/client/components/ButtonLink';
-import CardGrid from '@cubeartisan/client/components/CardGrid';
-import CardImage from '@cubeartisan/client/components/CardImage';
-import FilterCollapse from '@cubeartisan/client/components/FilterCollapse';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
-import { ORDERED_SORTS } from '@cubeartisan/client/utils/Sort';
+import Query from '@cubeartisan/client/utils/Query.js';
+import Paginate from '@cubeartisan/client/components/Paginate.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
+import CardGrid from '@cubeartisan/client/components/CardGrid.js';
+import CardImage from '@cubeartisan/client/components/CardImage.js';
+import FilterCollapse from '@cubeartisan/client/components/FilterCollapse.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import { ORDERED_SORTS } from '@cubeartisan/client/utils/Sort.js';
 
 const CardSearchPage = ({ loginCallback }) => {
   const [page, setPage] = useState(parseInt(Query.get('p'), 10) ?? 0);

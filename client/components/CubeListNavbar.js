@@ -18,7 +18,7 @@
  */
 import { useCallback, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
 import {
   Button,
@@ -49,19 +49,19 @@ import {
   FormGroup,
 } from 'reactstrap';
 
-import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext';
-import CSRFForm from '@cubeartisan/client/components/CSRFForm';
-import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
-import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext';
-import EditCollapse from '@cubeartisan/client/components/EditCollapse';
-import FilterCollapse from '@cubeartisan/client/components/FilterCollapse';
-import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext';
-import SortCollapse from '@cubeartisan/client/components/SortCollapse';
-import SortContext from '@cubeartisan/client/components/contexts/SortContext';
-import TagColorsModal from '@cubeartisan/client/components/modals/TagColorsModal';
-import withModal from '@cubeartisan/client/components/hoc/WithModal';
+import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext.js';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
+import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import EditCollapse from '@cubeartisan/client/components/EditCollapse.js';
+import FilterCollapse from '@cubeartisan/client/components/FilterCollapse.js';
+import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext.js';
+import SortCollapse from '@cubeartisan/client/components/SortCollapse.js';
+import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
+import TagColorsModal from '@cubeartisan/client/components/modals/TagColorsModal.js';
+import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import { QuestionIcon } from '@primer/octicons-react';
-import Tooltip from '@cubeartisan/client/components/Tooltip';
+import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 
 const PasteBulkModal = ({ isOpen, toggle }) => {
   const { cubeID } = useContext(CubeContext);

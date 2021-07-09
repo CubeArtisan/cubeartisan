@@ -17,20 +17,20 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import express from 'express';
-import Cube from '@cubeartisan/server/models/cube';
-import GridDraft from '@cubeartisan/server/models/gridDraft';
-import { abbreviate, addDeckCardAnalytics, buildIdQuery } from '@cubeartisan/server/serverjs/cubefn';
-import User from '@cubeartisan/server/models/user';
-import CubeAnalytic from '@cubeartisan/server/models/cubeAnalytic';
-import carddb from '@cubeartisan/server/serverjs/cards';
-import render from '@cubeartisan/server/serverjs/render';
-import generateMeta from '@cubeartisan/server/serverjs/meta';
-import Util, { getCubeDescription } from '@cubeartisan/client/utils/Util';
-import { addNotification, handleRouteError, wrapAsyncApi } from '@cubeartisan/server/serverjs/util';
+import Cube from '@cubeartisan/server/models/cube.js';
+import GridDraft from '@cubeartisan/server/models/gridDraft.js';
+import { abbreviate, addDeckCardAnalytics, buildIdQuery } from '@cubeartisan/server/serverjs/cubefn.js';
+import User from '@cubeartisan/server/models/user.js';
+import CubeAnalytic from '@cubeartisan/server/models/cubeAnalytic.js';
+import carddb from '@cubeartisan/server/serverjs/cards.js';
+import { render } from '@cubeartisan/server/serverjs/render.js';
+import generateMeta from '@cubeartisan/server/serverjs/meta.js';
+import Util, { getCubeDescription } from '@cubeartisan/client/utils/Util.js';
+import { addNotification, handleRouteError, wrapAsyncApi } from '@cubeartisan/server/serverjs/util.js';
 import { body } from 'express-validator';
-import Deck from '@cubeartisan/server/models/deck';
-import { buildDeck } from '@cubeartisan/client/drafting/deckutil';
-import { COLOR_COMBINATIONS } from '@cubeartisan/client/utils/Card';
+import Deck from '@cubeartisan/server/models/deck.js';
+import { buildDeck } from '@cubeartisan/client/drafting/deckutil.js';
+import { COLOR_COMBINATIONS } from '@cubeartisan/client/utils/Card.js';
 
 const getGridDraftPage = async (req, res) => {
   try {

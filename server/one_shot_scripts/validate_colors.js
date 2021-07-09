@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Cube from '@cubeartisan/server/models/cube';
+import Cube from '@cubeartisan/server/models/cube.js';
 import dotenv from 'dotenv';
 
 dotenv.config();

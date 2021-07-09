@@ -34,7 +34,7 @@ const parser = new RSSParser({
 }
 
 */
-const getFeedData = async (url) => {
+export const getFeedData = async (url) => {
   const feed = await parser.parseURL(url);
 
   return {
@@ -57,7 +57,7 @@ const getFeedData = async (url) => {
 }
 
 */
-const getFeedEpisodes = async (url) => {
+export const getFeedEpisodes = async (url) => {
   const feed = await parser.parseURL(url);
 
   return feed.items.map((episode) => ({

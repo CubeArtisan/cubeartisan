@@ -20,10 +20,10 @@ import PropTypes from 'prop-types';
 
 import { Card, CardHeader, CardBody } from 'reactstrap';
 
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import ButtonLink from '@cubeartisan/client/components/ButtonLink';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const AdminDashboardPage = ({
   loginCallback,

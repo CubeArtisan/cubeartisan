@@ -3,15 +3,15 @@ import { body, param } from 'express-validator';
 import fetch from 'node-fetch';
 import cheerio from 'cheerio';
 import RSS from 'rss';
-import { Canvas, Image } from 'canvas';
+import canvas from 'canvas';
 
-import createdraft from '@cubeartisan/client/drafting/createdraft';
-import filterutil from '@cubeartisan/client/filtering/FilterCards';
-import { decodeName, normalizeName } from '@cubeartisan/client/utils/Card';
-import carddb from '@cubeartisan/server/serverjs/cards';
-import { render } from '@cubeartisan/server/serverjs/render';
-import { ensureAuth, flashValidationErrors, jsonValidationErrors } from '@cubeartisan/server/routes/middleware';
-import util, {
+import { createDraft, getDraftFormat } from '@cubeartisan/client/drafting/createdraft.js';
+import { makeFilter } from '@cubeartisan/client/filtering/FilterCards.js';
+import { decodeName, normalizeName } from '@cubeartisan/client/utils/Card.js';
+import carddb from '@cubeartisan/server/serverjs/cards.js';
+import { render } from '@cubeartisan/server/serverjs/render.js';
+import { ensureAuth, flashValidationErrors, jsonValidationErrors } from '@cubeartisan/server/routes/middleware.js';
+import {
   addCardToCube,
   addMultipleNotifications,
   addNotification,
@@ -23,8 +23,8 @@ import util, {
   newCard,
   turnToTree,
   wrapAsyncApi,
-} from '@cubeartisan/server/serverjs/util';
-import generateMeta from '@cubeartisan/server/serverjs/meta';
+} from '@cubeartisan/server/serverjs/util.js';
+import generateMeta from '@cubeartisan/server/serverjs/meta.js';
 import {
   CSVtoCards,
   abbreviate,
@@ -43,7 +43,7 @@ import {
   replaceCardHtml,
   setCubeType,
   addDeckCardAnalytics,
-} from '@cubeartisan/server/serverjs/cubefn';
+} from '@cubeartisan/server/serverjs/cubefn.js';
 import {
   CARD_HEIGHT,
   CARD_WIDTH,
@@ -53,16 +53,16 @@ import {
   createPool,
   shuffle,
   updateCubeAndBlog,
-} from '@cubeartisan/server/routes/cube/helper';
-import Cube from '@cubeartisan/server/models/cube';
+} from '@cubeartisan/server/routes/cube/helper.js';
+import Cube from '@cubeartisan/server/models/cube.js';
 
-import Deck from '@cubeartisan/server/models/deck';
-import Blog from '@cubeartisan/server/models/blog';
-import User from '@cubeartisan/server/models/user';
-import Draft from '@cubeartisan/server/models/draft';
-import Package from '@cubeartisan/server/models/package';
-import GridDraft from '@cubeartisan/server/models/gridDraft';
-import CubeAnalytic from '@cubeartisan/server/models/cubeAnalytic';
+import Deck from '@cubeartisan/server/models/deck.js';
+import Blog from '@cubeartisan/server/models/blog.js';
+import User from '@cubeartisan/server/models/user.js';
+import Draft from '@cubeartisan/server/models/draft.js';
+import Package from '@cubeartisan/server/models/package.js';
+import GridDraft from '@cubeartisan/server/models/gridDraft.js';
+import CubeAnalytic from '@cubeartisan/server/models/cubeAnalytic.js';
 import {
   exportForMtgo,
   exportToCsv,
@@ -71,10 +71,11 @@ import {
   exportToJson,
   exportToPlaintext,
   exportToXmage,
-} from '@cubeartisan/server/routes/cube/export';
-import CubeBlogRoutes from '@cubeartisan/server/routes/cube/blog';
-import Util, { getCubeDescription } from '@cubeartisan/client/utils/Util';
+} from '@cubeartisan/server/routes/cube/export.js';
+import CubeBlogRoutes from '@cubeartisan/server/routes/cube/blog.js';
+import { getCubeDescription } from '@cubeartisan/client/utils/Util.js';
 
+const { Canvas, Image } = canvas;
 Canvas.Image = Image;
 
 const createCube = async (req, res) => {
@@ -1096,12 +1097,12 @@ const startDraft = async (req, res) => {
       }
     }
     // setup draft
-    const format = createdraft.getDraftFormat(params, cube);
+    const format = getDraftFormat(params, cube);
 
     let draft = new Draft();
     let populated = {};
     try {
-      populated = createdraft.createDraft(
+      populated = createDraft(
         format,
         cube.cards,
         params.seats,
@@ -1331,7 +1332,7 @@ const resizeCube = async (req, res) => {
       })
       .map(formatTuple);
 
-    const { filter, err } = filterutil.makeFilter(req.body.filter);
+    const { filter, err } = makeFilter(req.body.filter);
     if (err) {
       return handleRouteError(req, res, 'Error parsing filter.', `/cube/${encodeURIComponent(req.params.id)}/list`);
     }
@@ -2133,7 +2134,7 @@ const getCardImageById = async (req, res) => {
 
     return res.redirect(card.image_normal);
   } catch (err) {
-    return util.handleRouteError(req, res, err, '/404');
+    return handleRouteError(req, res, err, '/404');
   }
 };
 
@@ -2182,7 +2183,7 @@ const viewDecks = async (req, res) => {
         title: `${abbreviate(cube.name)} - Draft Decks`,
         metadata: generateMeta(
           `${process.env.SITE_NAME} Decks: ${cube.name}`,
-          Util.getCubeDescription(cube),
+          getCubeDescription(cube),
           cube.image_uri,
           `${process.env.SITE_ROOT}/user/decks/${encodeURIComponent(req.params.cubeid)}`,
         ),

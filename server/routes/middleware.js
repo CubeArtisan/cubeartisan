@@ -19,10 +19,10 @@
 import csurf from 'csurf';
 import { validationResult } from 'express-validator';
 import onFinished from 'on-finished';
-import uuid from 'uuid/v4';
+import uuid from 'uuid/v4.js';
 
-import User from '@cubeartisan/server/models/user';
-import winston from '@cubeartisan/server/serverjs/winstonConfig';
+import User from '@cubeartisan/server/models/user.js';
+import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 
 export const setCorsUnrestricted = (_req, res, next) => {
   res.set('Access-Control-Allow-Origin', '*');

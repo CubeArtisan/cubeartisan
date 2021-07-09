@@ -21,13 +21,13 @@ import PropTypes from 'prop-types';
 
 import { Card, CardBody, FormGroup, Label, Input, Button } from 'reactstrap';
 
-import UserContext from '@cubeartisan/client/components/contexts/UserContext';
-import Paginate from '@cubeartisan/client/components/Paginate';
-import BlogPost from '@cubeartisan/client/components/BlogPost';
-import CSRFForm from '@cubeartisan/client/components/CSRFForm';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import Paginate from '@cubeartisan/client/components/Paginate.js';
+import BlogPost from '@cubeartisan/client/components/BlogPost.js';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 
 const DevBlog = ({ blogs, pages, activePage, loginCallback }) => {
   const user = useContext(UserContext);

@@ -19,7 +19,7 @@
 import PropTypes from 'prop-types';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 
-import ButtonLink from '@cubeartisan/client/components/ButtonLink';
+import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
 
 const AddToCubeModal = ({ link, isOpen, toggle }) => {
   return (

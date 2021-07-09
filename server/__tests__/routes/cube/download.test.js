@@ -3,12 +3,12 @@ import request from 'supertest';
 import Papa from 'papaparse';
 import express from 'express';
 
-import carddb from '@cubeartisan/server/serverjs/cards';
-import Cube from '@cubeartisan/server/models/cube';
-import router from '@cubeartisan/server/routes/cube';
-import { requestLogging } from '@cubeartisan/server/routes/middleware';
-import dbSetup from '@cubeartisan/server/__tests__/helpers/dbTestSetup';
-import cubefixture from '@cubeartisan/server/__tests__/fixtures/examplecube';
+import carddb from '@cubeartisan/server/serverjs/cards.js';
+import Cube from '@cubeartisan/server/models/cube.js';
+import router from '@cubeartisan/server/routes/cube/index.js';
+import { requestLogging } from '@cubeartisan/server/routes/middleware.js';
+import dbSetup from '@cubeartisan/server/__tests__/helpers/dbTestSetup.js';
+import cubefixture from '@cubeartisan/server/__tests__/fixtures/examplecube.js';
 
 const splitText = (text) =>
   text

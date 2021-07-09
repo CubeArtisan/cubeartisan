@@ -19,7 +19,7 @@
 import PropTypes from 'prop-types';
 import { Row, Col, Card, CardHeader, CardBody } from 'reactstrap';
 
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const DownTimePage = ({ siteCustomizations: { discordUrl, siteName, supportEmail } }) => (
   <Col xs="12" md="8" xl="5" style={{ margin: 'auto' }}>

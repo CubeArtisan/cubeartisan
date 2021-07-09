@@ -18,13 +18,13 @@
  */
 import { useCallback, useState } from 'react';
 
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 
 import { Card } from 'reactstrap';
 
-import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox';
+import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox.js';
 
-import { getCubeDescription, getCubeId } from '@cubeartisan/client/utils/Util';
+import { getCubeDescription, getCubeId } from '@cubeartisan/client/utils/Util.js';
 
 const CubePreview = ({ cube }) => {
   const [hover, setHover] = useState(false);

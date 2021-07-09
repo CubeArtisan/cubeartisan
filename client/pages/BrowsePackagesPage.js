@@ -35,18 +35,18 @@ import {
   Input,
 } from 'reactstrap';
 
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
-import UserContext from '@cubeartisan/client/components/contexts/UserContext';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
-import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
-import Tab from '@cubeartisan/client/components/Tab';
-import CreatePackageModal from '@cubeartisan/client/components/modals/CreatePackageModal';
-import withModal from '@cubeartisan/client/components/hoc/WithModal';
-import CardPackage from '@cubeartisan/client/components/CardPackage';
-import Paginate from '@cubeartisan/client/components/Paginate';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import Tab from '@cubeartisan/client/components/Tab.js';
+import CreatePackageModal from '@cubeartisan/client/components/modals/CreatePackageModal.js';
+import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
+import CardPackage from '@cubeartisan/client/components/CardPackage.js';
+import Paginate from '@cubeartisan/client/components/Paginate.js';
 
 const CreatePackageModalLink = withModal(Button, CreatePackageModal);
 

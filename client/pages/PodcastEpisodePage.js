@@ -21,11 +21,11 @@ import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType';
 
 import { CardHeader, Card, Row, Col, CardBody } from 'reactstrap';
 
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
-import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox';
-import CommentsSection from '@cubeartisan/client/components/CommentsSection';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox.js';
+import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
 import ReactAudioPlayer from 'react-audio-player';
 import TimeAgo from 'react-timeago';
 

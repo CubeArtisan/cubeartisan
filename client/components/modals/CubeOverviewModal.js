@@ -34,14 +34,14 @@ import {
   FormText,
 } from 'reactstrap';
 
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
-import { getCubeDescription, getCubeId } from '@cubeartisan/client/utils/Util';
-import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput';
-import LoadingButton from '@cubeartisan/client/components/LoadingButton';
-import TagInput from '@cubeartisan/client/components/TagInput';
-import { TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext';
-import TextEntry from '@cubeartisan/client/components/TextEntry';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import { getCubeDescription, getCubeId } from '@cubeartisan/client/utils/Util.js';
+import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
+import LoadingButton from '@cubeartisan/client/components/LoadingButton.js';
+import TagInput from '@cubeartisan/client/components/TagInput.js';
+import { TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext.js';
+import TextEntry from '@cubeartisan/client/components/TextEntry.js';
 import { useCallback, useEffect, useState } from 'react';
 
 /**

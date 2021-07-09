@@ -17,12 +17,18 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 const merge = require('webpack-merge');
+const path = require('path');
 
 const { serverConfig: common } = require('@cubeartisan/server/webpack.common.cjs');
 
 const config = {
   mode: 'development',
   devtool: 'inline-source-map',
+  cache: {
+    type: 'filesystem',
+    cacheDirectory: path.resolve(__dirname, '.webpack_cache'),
+    managedPaths: [path.resolve(__dirname, 'node_modules'), path.resolve(__dirname, '../node_modules')],
+  },
 };
 
 const clientConfig = merge(common, config);

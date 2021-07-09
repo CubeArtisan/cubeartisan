@@ -37,21 +37,21 @@ import {
   // Spinner,
 } from 'reactstrap';
 
-// import CSRFForm from '@cubeartisan/client/pages/CSRFForm';
-import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler';
-import DeckCard from '@cubeartisan/client/components/DeckCard';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import SampleHandModal from '@cubeartisan/client/components/modals/SampleHandModal';
-import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext';
-import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
-import CubeLayout from '@cubeartisan/client/layouts/CubeLayout';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
-import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType';
+// import CSRFForm from '@cubeartisan/client/pages/CSRFForm.js'
+import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
+import DeckCard from '@cubeartisan/client/components/DeckCard.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import SampleHandModal from '@cubeartisan/client/components/modals/SampleHandModal.js';
+import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import CubeLayout from '@cubeartisan/client/layouts/CubeLayout.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
+import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 
-import UserContext from '@cubeartisan/client/components/contexts/UserContext';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
-import { DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import { DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
 
 const CubeDeckPage = ({ cube, deck, draft, loginCallback }) => {
   const user = useContext(UserContext);

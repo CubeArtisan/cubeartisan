@@ -19,13 +19,13 @@
 import { useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
-import AddToCubeModal from '@cubeartisan/client/components/modals/AddToCubeModal';
-import PagedList from '@cubeartisan/client/components/PagedList';
-import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard';
-import withModal from '@cubeartisan/client/components/hoc/WithModal';
-import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
-import { encodeName } from '@cubeartisan/client/utils/Card';
+import AddToCubeModal from '@cubeartisan/client/components/modals/AddToCubeModal.js';
+import PagedList from '@cubeartisan/client/components/PagedList.js';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
+import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
+import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
+import { encodeName } from '@cubeartisan/client/utils/Card.js';
 import {
   Card,
   CardBody,
@@ -38,7 +38,7 @@ import {
   Row,
   Spinner,
 } from 'reactstrap';
-import useToggle from '@cubeartisan/client/hooks/UseToggle';
+import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 
 const AutocardA = withAutocard('a');
 const AddModal = withModal(AutocardA, AddToCubeModal);

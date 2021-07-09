@@ -17,16 +17,16 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType';
+import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType.js';
 
 import { Card, CardHeader, CardBody, Row, Col } from 'reactstrap';
 
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import Paginate from '@cubeartisan/client/components/Paginate';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
-import ButtonLink from '@cubeartisan/client/components/ButtonLink';
-import PodcastPreview from '@cubeartisan/client/components/PodcastPreview';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import Paginate from '@cubeartisan/client/components/Paginate.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
+import PodcastPreview from '@cubeartisan/client/components/PodcastPreview.js';
 
 const PAGE_SIZE = 24;
 

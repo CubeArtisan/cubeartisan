@@ -1,7 +1,7 @@
 // Load Environment Variables
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import Cube from '@cubeartisan/server/models/cube';
+import Cube from '@cubeartisan/server/models/cube.js';
 
 dotenv.config();
 

@@ -1,7 +1,7 @@
 import visit from 'unist-util-visit';
-import syntax from '@cubeartisan/client/markdown/cardlink/micromark-cardlink';
-import { fromMarkdown } from '@cubeartisan/client/markdown/cardlink/mdast-cardlink';
-import { add } from '@cubeartisan/client/markdown/utils';
+import syntax from '@cubeartisan/client/markdown/cardlink/micromark-cardlink.js';
+import { fromMarkdown } from '@cubeartisan/client/markdown/cardlink/mdast-cardlink.js';
+import { add } from '@cubeartisan/client/markdown/utils.js';
 
 function oncard(node) {
   if (node.value[0] === '!') {

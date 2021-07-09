@@ -20,8 +20,8 @@ import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import PropTypes from 'prop-types';
 
-import FoilCardImage from '@cubeartisan/client/components/FoilCardImage';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
+import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
 const DraggableCard = ({ card, location, canDrop, onMoveCard, className, onClick, ...props }) => {
   // eslint-disable-next-line react/prop-types

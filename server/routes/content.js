@@ -18,17 +18,17 @@
  */
 // Load Environment Variables
 import express from 'express';
-import { ensureAuth, ensureRole, csrfProtection } from '@cubeartisan/server/routes/middleware';
-import { render } from '@cubeartisan/server/serverjs/render';
-import { getFeedData } from '@cubeartisan/server/serverjs/rss';
-import { updatePodcast } from '@cubeartisan/server/serverjs/podcast';
-import generateMeta from '@cubeartisan/server/serverjs/meta';
-import Application from '@cubeartisan/server/models/application';
-import Article from '@cubeartisan/server/models/article';
-import Podcast from '@cubeartisan/server/models/podcast';
-import PodcastEpisode from '@cubeartisan/server/models/podcastEpisode';
-import Video from '@cubeartisan/server/models/video';
-import { redirect, wrapAsyncApi } from '@cubeartisan/server/serverjs/util';
+import { ensureAuth, ensureRole, csrfProtection } from '@cubeartisan/server/routes/middleware.js';
+import { render } from '@cubeartisan/server/serverjs/render.js';
+import { getFeedData } from '@cubeartisan/server/serverjs/rss.js';
+import { updatePodcast } from '@cubeartisan/server/serverjs/podcast.js';
+import generateMeta from '@cubeartisan/server/serverjs/meta.js';
+import Application from '@cubeartisan/server/models/application.js';
+import Article from '@cubeartisan/server/models/article.js';
+import Podcast from '@cubeartisan/server/models/podcast.js';
+import PodcastEpisode from '@cubeartisan/server/models/podcastEpisode.js';
+import Video from '@cubeartisan/server/models/video.js';
+import { redirect, wrapAsyncApi } from '@cubeartisan/server/serverjs/util.js';
 
 import dotenv from 'dotenv';
 

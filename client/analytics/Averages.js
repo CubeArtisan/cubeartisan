@@ -21,13 +21,13 @@ import PropTypes from 'prop-types';
 
 import { Col, Row, InputGroup, InputGroupAddon, InputGroupText, CustomInput } from 'reactstrap';
 
-import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
-import { compareStrings, SortableTable } from '@cubeartisan/client/components/SortableTable';
-import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
-import { cardType } from '@cubeartisan/client/utils/Card';
-import { weightedAverage, weightedMedian, weightedStdDev } from '@cubeartisan/client/drafting/createdraft';
-import { sortIntoGroups, SORTS } from '@cubeartisan/client/utils/Sort';
+import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown.js';
+import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
+import { compareStrings, SortableTable } from '@cubeartisan/client/components/SortableTable.js';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import { cardType } from '@cubeartisan/client/utils/Card.js';
+import { weightedAverage, weightedMedian, weightedStdDev } from '@cubeartisan/client/drafting/createdraft.js';
+import { sortIntoGroups, SORTS } from '@cubeartisan/client/utils/Sort.js';
 
 const Averages = ({ cards, characteristics, defaultFormatId, cube, setAsfans }) => {
   const [sort, setSort] = useQueryParam('sort', 'Color');

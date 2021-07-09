@@ -18,11 +18,11 @@
  */
 import PropTypes from 'prop-types';
 
-import BlogPost from '@cubeartisan/client/components/BlogPost';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
-import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType';
+import BlogPost from '@cubeartisan/client/components/BlogPost.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType.js';
 
 const BlogPostPage = ({ post, loginCallback }) => (
   <MainLayout loginCallback={loginCallback}>

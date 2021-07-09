@@ -19,16 +19,16 @@
 import { useCallback, useContext, useMemo } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
-import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext';
-import TagContext from '@cubeartisan/client/components/contexts/TagContext';
-import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard';
+import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext.js';
+import TagContext from '@cubeartisan/client/components/contexts/TagContext.js';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 
 const AutocardDiv = withAutocard('li');
 
 const CARD_NAME_FALLBACK = 'Unidentified Card';
-const CARD_ID_FALLBACK = 'undefined';
+const CARD_ID_FALLBACK = 'undefined.js';
 
 /** 2020-11-18 struesdell:
  *  Added noOp callback to allow props to fall through without passing undefined to children.

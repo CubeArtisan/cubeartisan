@@ -20,7 +20,7 @@ import { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Spinner } from 'reactstrap';
-import { fromEntries } from '@cubeartisan/client/utils/Util';
+import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 
 const withLoading = (Tag, handlers) => {
   const LoadingWrapped = ({ loading, spinnerSize, opacity, ...props }) => {

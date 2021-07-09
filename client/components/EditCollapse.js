@@ -35,17 +35,17 @@ import {
   InputGroupText,
 } from 'reactstrap';
 
-import { encodeName } from '@cubeartisan/client/utils/Card';
-import { findUserLinks } from '@cubeartisan/client/markdown/parser';
+import { encodeName } from '@cubeartisan/client/utils/Card.js';
+import { findUserLinks } from '@cubeartisan/client/markdown/parser.js';
 
-import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput';
-import Changelist from '@cubeartisan/client/components/Changelist';
-import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext';
-import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
-import CSRFForm from '@cubeartisan/client/components/CSRFForm';
-import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext';
-import ResizeModal from '@cubeartisan/client/components/modals/ResizeModal';
-import TextEntry from '@cubeartisan/client/components/TextEntry';
+import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
+import Changelist from '@cubeartisan/client/components/Changelist.js';
+import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import ResizeModal from '@cubeartisan/client/components/modals/ResizeModal.js';
+import TextEntry from '@cubeartisan/client/components/TextEntry.js';
 
 export const getCard = async (cubeID, name, setAlerts) => {
   if (name && name.length > 0) {

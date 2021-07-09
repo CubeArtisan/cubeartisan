@@ -17,10 +17,10 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import rimraf from 'rimraf';
-import updatecards from '@cubeartisan/server/serverjs/updatecards';
-import carddb from '@cubeartisan/server/serverjs/cards';
-import cardutil from '@cubeartisan/client/utils/Card';
-import examplecards from '@cubeartisan/server/__tests__/fixtures/examplecards';
+import updatecards from '@cubeartisan/server/serverjs/updatecards.js';
+import carddb from '@cubeartisan/server/serverjs/cards.js';
+import cardutil from '@cubeartisan/client/utils/Card.js';
+import examplecards from '@cubeartisan/server/__tests__/fixtures/examplecards.js';
 
 const convertedExampleCard = {
   color_identity: ['R', 'W'],

@@ -18,7 +18,7 @@
  */
 import { useContext } from 'react';
 
-import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext';
+import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 
 const Copyright = () => {
   const currentDate = new Date().getFullYear();

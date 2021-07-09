@@ -21,9 +21,9 @@ import PropTypes from 'prop-types';
 
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader, Navbar, Input, CardBody } from 'reactstrap';
 
-import TextField from '@cubeartisan/client/components/TextField';
-import NumericField from '@cubeartisan/client/components/NumericField';
-import SelectField from '@cubeartisan/client/components/SelectField';
+import TextField from '@cubeartisan/client/components/TextField.js';
+import NumericField from '@cubeartisan/client/components/NumericField.js';
+import SelectField from '@cubeartisan/client/components/SelectField.js';
 
 const AdvancedSearchModal = ({ isOpen, toggle }) => {
   const [keyword, setKeyword] = useState('');

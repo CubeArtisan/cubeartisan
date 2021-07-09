@@ -22,16 +22,16 @@ import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
 import Latex from 'react-latex';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { a11yLight, a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
+import { a11yLight, a11yDark } from 'react-syntax-highlighter/dist/esm/styles/hljs/index.js';
 import { LinkIcon } from '@primer/octicons-react';
 
-import { LIMITED_PLUGINS, ALL_PLUGINS } from '@cubeartisan/client/markdown/parser';
+import { LIMITED_PLUGINS, ALL_PLUGINS } from '@cubeartisan/client/markdown/parser.js';
 
-import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard';
-import withModal from '@cubeartisan/client/components/hoc/WithModal';
-import LinkModal from '@cubeartisan/client/components/modals/LinkModal';
-import FoilCardImage from '@cubeartisan/client/components/FoilCardImage';
-import { isInternalURL, isSamePageURL } from '@cubeartisan/client/utils/Util';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
+import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
+import LinkModal from '@cubeartisan/client/components/modals/LinkModal.js';
+import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
+import { isInternalURL, isSamePageURL } from '@cubeartisan/client/utils/Util.js';
 
 import { Col, Row, Card, CardBody } from 'reactstrap';
 

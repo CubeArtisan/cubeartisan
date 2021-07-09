@@ -18,9 +18,9 @@
  */
 import { useCallback, useContext } from 'react';
 
-import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext';
-import FoilCardImage from '@cubeartisan/client/components/FoilCardImage';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
+import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext.js';
+import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
 const SpoilerImage = ({ card }) => {
   const openCardModal = useContext(CardModalContext);

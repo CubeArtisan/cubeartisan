@@ -18,7 +18,7 @@
  */
 import { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 
 import {
   Button,
@@ -39,26 +39,26 @@ import {
 
 import { LinkExternalIcon, QuestionIcon } from '@primer/octicons-react';
 
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
-import { getCubeId, getCubeDescription } from '@cubeartisan/client/utils/Util';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import { getCubeId, getCubeDescription } from '@cubeartisan/client/utils/Util.js';
 
-import BlogPost from '@cubeartisan/client/components/BlogPost';
-import CSRFForm from '@cubeartisan/client/components/CSRFForm';
-import CubeIdModal from '@cubeartisan/client/components/modals/CubeIdModal';
-import CubeOverviewModal from '@cubeartisan/client/components/modals/CubeOverviewModal';
-import CubeSettingsModal from '@cubeartisan/client/components/modals/CubeSettingsModal';
-import CustomizeBasicsModal from '@cubeartisan/client/components/modals/CustomizeBasicsModal';
-import DeleteCubeModal from '@cubeartisan/client/components/modals/DeleteCubeModal';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import FollowersModal from '@cubeartisan/client/components/modals/FollowersModal';
-import Markdown from '@cubeartisan/client/components/Markdown';
-import TextBadge from '@cubeartisan/client/components/TextBadge';
-import Tooltip from '@cubeartisan/client/components/Tooltip';
-import withModal from '@cubeartisan/client/components/hoc/WithModal';
-import UserContext from '@cubeartisan/client/components/contexts/UserContext';
-import CubeLayout from '@cubeartisan/client/layouts/CubeLayout';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import BlogPost from '@cubeartisan/client/components/BlogPost.js';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import CubeIdModal from '@cubeartisan/client/components/modals/CubeIdModal.js';
+import CubeOverviewModal from '@cubeartisan/client/components/modals/CubeOverviewModal.js';
+import CubeSettingsModal from '@cubeartisan/client/components/modals/CubeSettingsModal.js';
+import CustomizeBasicsModal from '@cubeartisan/client/components/modals/CustomizeBasicsModal.js';
+import DeleteCubeModal from '@cubeartisan/client/components/modals/DeleteCubeModal.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import FollowersModal from '@cubeartisan/client/components/modals/FollowersModal.js';
+import Markdown from '@cubeartisan/client/components/Markdown.js';
+import TextBadge from '@cubeartisan/client/components/TextBadge.js';
+import Tooltip from '@cubeartisan/client/components/Tooltip.js';
+import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import CubeLayout from '@cubeartisan/client/layouts/CubeLayout.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const FollowersModalLink = withModal('a', FollowersModal);
 const CubeSettingsModalLink = withModal(NavLink, CubeSettingsModal);

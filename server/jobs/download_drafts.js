@@ -2,10 +2,10 @@
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import AWS from 'aws-sdk';
-import Deck from '@cubeartisan/server/models/deck';
-import Draft from '@cubeartisan/server/models/draft';
-import carddb from '@cubeartisan/server/serverjs/cards';
-import deckutils from '@cubeartisan/client/drafting/deckutil';
+import Deck from '@cubeartisan/server/models/deck.js';
+import Draft from '@cubeartisan/server/models/draft.js';
+import carddb from '@cubeartisan/server/serverjs/cards.js';
+import deckutils from '@cubeartisan/client/drafting/deckutil.js';
 
 dotenv.config();
 

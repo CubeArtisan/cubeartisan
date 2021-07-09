@@ -19,16 +19,16 @@
 import { useContext } from 'react';
 
 import PropTypes from 'prop-types';
-import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType';
+import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType.js';
 
 import TimeAgo from 'react-timeago';
 
 import { Card, CardHeader, Row, Col, CardBody, CardText } from 'reactstrap';
 
-import UserContext from '@cubeartisan/client/components/contexts/UserContext';
-import BlogContextMenu from '@cubeartisan/client/components/BlogContextMenu';
-import CommentsSection from '@cubeartisan/client/components/CommentsSection';
-import Markdown from '@cubeartisan/client/components/Markdown';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import BlogContextMenu from '@cubeartisan/client/components/BlogContextMenu.js';
+import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
+import Markdown from '@cubeartisan/client/components/Markdown.js';
 
 const BlogPost = ({ post, onEdit, noScroll }) => {
   const user = useContext(UserContext);

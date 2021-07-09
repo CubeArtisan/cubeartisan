@@ -19,17 +19,17 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import { body } from 'express-validator';
-import { filterCardsDetails, makeFilter } from '@cubeartisan/client/filtering/FilterCards';
-import carddb from '@cubeartisan/server/serverjs/cards';
-import { ORDERED_SORTS, SortFunctionsOnDetails } from '@cubeartisan/client/utils/Sort';
-import winston from '@cubeartisan/server/serverjs/winstonConfig';
-import render from '@cubeartisan/server/serverjs/render';
-import { handleRouteError, wrapAsyncApi } from '@cubeartisan/server/serverjs/util';
-import { decodeName, normalizeName } from '@cubeartisan/client/utils/Card';
-import CardHistory from '@cubeartisan/server/models/cardHistory';
-import getBlankCardHistory from '@cubeartisan/client/utils/BlankCardHistory';
-import generateMeta from '@cubeartisan/server/serverjs/meta';
-import { jsonValidationErrors } from '@cubeartisan/server/routes/middleware';
+import { filterCardsDetails, makeFilter } from '@cubeartisan/client/filtering/FilterCards.js';
+import carddb from '@cubeartisan/server/serverjs/cards.js';
+import { ORDERED_SORTS, SortFunctionsOnDetails } from '@cubeartisan/client/utils/Sort.js';
+import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
+import { render } from '@cubeartisan/server/serverjs/render.js';
+import { handleRouteError, wrapAsyncApi } from '@cubeartisan/server/serverjs/util.js';
+import { decodeName, normalizeName } from '@cubeartisan/client/utils/Card.js';
+import CardHistory from '@cubeartisan/server/models/cardHistory.js';
+import getBlankCardHistory from '@cubeartisan/client/utils/BlankCardHistory.js';
+import generateMeta from '@cubeartisan/server/serverjs/meta.js';
+import { jsonValidationErrors } from '@cubeartisan/server/routes/middleware.js';
 
 dotenv.config();
 

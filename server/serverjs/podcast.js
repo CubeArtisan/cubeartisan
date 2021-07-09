@@ -16,10 +16,10 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { getFeedEpisodes } from '@cubeartisan/server/serverjs/rss';
-import PodcastEpisode from '@cubeartisan/server/models/podcastEpisode';
+import { getFeedEpisodes } from '@cubeartisan/server/serverjs/rss.js';
+import PodcastEpisode from '@cubeartisan/server/models/podcastEpisode.js';
 
-const updatePodcast = async (podcast) => {
+export const updatePodcast = async (podcast) => {
   const episodes = await getFeedEpisodes(podcast.rss);
 
   const liveEpisodes = await PodcastEpisode.find({ guid: { $in: episodes.map((episode) => episode.guid) } });

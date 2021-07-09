@@ -18,7 +18,7 @@
  */
 import { useEffect, useRef, useState } from 'react';
 
-import Query from '@cubeartisan/client/utils/Query';
+import Query from '@cubeartisan/client/utils/Query.js';
 
 const useQueryParam = (name, defaultValue) => {
   const didMountRef = useRef(false);

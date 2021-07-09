@@ -5,9 +5,9 @@
 // Load Environment Variables
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import Cube from '@cubeartisan/server/models/cube';
-import { cardsNeedsCleaning, cleanCards } from '@cubeartisan/server/models/migrations/cleanCards';
-import carddb from '@cubeartisan/server/serverjs/cards';
+import Cube from '@cubeartisan/server/models/cube.js';
+import { cardsNeedsCleaning, cleanCards } from '@cubeartisan/server/models/migrations/cleanCards.js';
+import carddb from '@cubeartisan/server/serverjs/cards.js';
 
 dotenv.config();
 

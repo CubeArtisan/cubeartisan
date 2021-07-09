@@ -16,10 +16,10 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType';
+import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType.js';
 
-import Markdown from '@cubeartisan/client/components/Markdown';
-import CommentsSection from '@cubeartisan/client/components/CommentsSection';
+import Markdown from '@cubeartisan/client/components/Markdown.js';
+import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
 import TimeAgo from 'react-timeago';
 
 import { CardBody, CardHeader } from 'reactstrap';

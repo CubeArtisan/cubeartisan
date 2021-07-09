@@ -18,15 +18,15 @@
  */
 import { useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
 import { ListGroup, ListGroupItem } from 'reactstrap';
 
-import { sortDeep } from '@cubeartisan/client/utils/Sort';
+import { sortDeep } from '@cubeartisan/client/utils/Sort.js';
 
-import AutocardListItem from '@cubeartisan/client/components/AutocardListItem';
-import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
-import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext';
+import AutocardListItem from '@cubeartisan/client/components/AutocardListItem.js';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
+import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext.js';
 
 const AutocardListGroup = ({ cards, heading, sort, orderedSort, showOther, rowTag, noGroupModal }) => {
   const RowTag = rowTag;

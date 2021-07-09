@@ -17,14 +17,14 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 
 import { Col, Row } from 'reactstrap';
-import CubesCard from '@cubeartisan/client/components/CubesCard';
-import CubeSearchNavBar from '@cubeartisan/client/components/CubeSearchNavBar';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import CubesCard from '@cubeartisan/client/components/CubesCard.js';
+import CubeSearchNavBar from '@cubeartisan/client/components/CubeSearchNavBar.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const ExplorePage = ({ recents, featured, drafted, recentlyDrafted, loginCallback }) => {
   return (

@@ -6,13 +6,13 @@
 // Load Environment Variables
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import winston from '@cubeartisan/server/serverjs/winstonConfig';
-import carddb from '@cubeartisan/server/serverjs/cards';
-import Deck from '@cubeartisan/server/models/deck';
-import Cube from '@cubeartisan/server/models/cube';
-import CardHistory from '@cubeartisan/server/models/cardHistory';
-import CardRating from '@cubeartisan/server/models/cardrating';
-import { fromEntries } from '@cubeartisan/server/serverjs/util';
+import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
+import carddb from '@cubeartisan/server/serverjs/cards.js';
+import Deck from '@cubeartisan/server/models/deck.js';
+import Cube from '@cubeartisan/server/models/cube.js';
+import CardHistory from '@cubeartisan/server/models/cardHistory.js';
+import CardRating from '@cubeartisan/server/models/cardrating.js';
+import { fromEntries } from '@cubeartisan/server/serverjs/util.js';
 
 dotenv.config();
 

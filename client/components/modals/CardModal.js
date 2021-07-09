@@ -32,18 +32,18 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import Affiliate from '@cubeartisan/client/utils/Affiliate';
-import { getLabels, cardGetLabels } from '@cubeartisan/client/utils/Sort';
-import { cardPrice, cardFoilPrice, cardPriceEur, cardTix, cardElo } from '@cubeartisan/client/utils/Card';
+import Affiliate from '@cubeartisan/client/utils/Affiliate.js';
+import { getLabels, cardGetLabels } from '@cubeartisan/client/utils/Sort.js';
+import { cardPrice, cardFoilPrice, cardPriceEur, cardTix, cardElo } from '@cubeartisan/client/utils/Card.js';
 
-import { ColorChecksAddon } from '@cubeartisan/client/components/ColorCheck';
-import LoadingButton from '@cubeartisan/client/components/LoadingButton';
-import FoilCardImage from '@cubeartisan/client/components/FoilCardImage';
-import TagInput from '@cubeartisan/client/components/TagInput';
-import TextBadge from '@cubeartisan/client/components/TextBadge';
-import Tooltip from '@cubeartisan/client/components/Tooltip';
-import withLoading from '@cubeartisan/client/components/hoc/WithLoading';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
+import { ColorChecksAddon } from '@cubeartisan/client/components/ColorCheck.js';
+import LoadingButton from '@cubeartisan/client/components/LoadingButton.js';
+import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
+import TagInput from '@cubeartisan/client/components/TagInput.js';
+import TextBadge from '@cubeartisan/client/components/TextBadge.js';
+import Tooltip from '@cubeartisan/client/components/Tooltip.js';
+import withLoading from '@cubeartisan/client/components/hoc/WithLoading.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
 const LoadingCustomInput = withLoading(CustomInput, []);
 

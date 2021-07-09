@@ -19,12 +19,12 @@
 import { useContext } from 'react';
 
 import PropTypes from 'prop-types';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 
-import UserContext from '@cubeartisan/client/components/contexts/UserContext';
-import CubeContext, { CubeContextProvider } from '@cubeartisan/client/components/contexts/CubeContext';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
-import { getCubeDescription, getCubeId } from '@cubeartisan/client/utils/Util';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import CubeContext, { CubeContextProvider } from '@cubeartisan/client/components/contexts/CubeContext.js';
+import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
+import { getCubeDescription, getCubeId } from '@cubeartisan/client/utils/Util.js';
 
 import { NavItem, NavLink } from 'reactstrap';
 

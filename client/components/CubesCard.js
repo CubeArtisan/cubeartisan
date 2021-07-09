@@ -18,8 +18,8 @@
  */
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
-import CubePreview from '@cubeartisan/client/components/CubePreview';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
+import CubePreview from '@cubeartisan/client/components/CubePreview.js';
 import { Col, Row, Card, CardHeader, CardBody, Button, Collapse } from 'reactstrap';
 
 const CubesCard = ({ cubes, title, header, lean, ...props }) => {

@@ -20,11 +20,11 @@ import PropTypes from 'prop-types';
 
 import { Card, CardHeader, CardBody, Row, Col } from 'reactstrap';
 
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import Paginate from '@cubeartisan/client/components/Paginate';
-import ButtonLink from '@cubeartisan/client/components/ButtonLink';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import Paginate from '@cubeartisan/client/components/Paginate.js';
+import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import TimeAgo from 'react-timeago';
 
 const PAGE_SIZE = 24;

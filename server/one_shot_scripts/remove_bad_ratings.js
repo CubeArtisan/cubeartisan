@@ -1,7 +1,7 @@
 // Load Environment Variables
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import CardRating from '@cubeartisan/server/models/cardrating';
+import CardRating from '@cubeartisan/server/models/cardrating.js';
 
 dotenv.config();
 

@@ -33,26 +33,26 @@ import {
   Badge,
 } from 'reactstrap';
 
-import CSRFForm from '@cubeartisan/client/components/CSRFForm';
-import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler';
-import DeckStacks from '@cubeartisan/client/components/DeckStacks';
-import DndProvider from '@cubeartisan/client/components/DndProvider';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary';
-import FoilCardImage from '@cubeartisan/client/components/FoilCardImage';
-import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext';
-import CubeLayout from '@cubeartisan/client/layouts/CubeLayout';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
-import { makeSubtitle } from '@cubeartisan/client/utils/Card';
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
-import Location, { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation';
-import { calculateBotPickFromOptions } from '@cubeartisan/client/drafting/draftbots';
-import { getDefaultPosition } from '@cubeartisan/client/drafting/draftutil';
-import { getGridDrafterState } from '@cubeartisan/client/drafting/griddraftutils';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
-import { fromEntries, toNullableInt } from '@cubeartisan/client/utils/Util';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
+import DeckStacks from '@cubeartisan/client/components/DeckStacks.js';
+import DndProvider from '@cubeartisan/client/components/DndProvider.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
+import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
+import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import CubeLayout from '@cubeartisan/client/layouts/CubeLayout.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
+import { makeSubtitle } from '@cubeartisan/client/utils/Card.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import Location, { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation.js';
+import { calculateBotPickFromOptions } from '@cubeartisan/client/drafting/draftbots.js';
+import { getDefaultPosition } from '@cubeartisan/client/drafting/draftutil.js';
+import { getGridDrafterState } from '@cubeartisan/client/drafting/griddraftutils.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import { fromEntries, toNullableInt } from '@cubeartisan/client/utils/Util.js';
 
 const GRID_DRAFT_OPTIONS = [0, 1, 2].flatMap((ind) => [
   [0, 1, 2].map((offset) => 3 * ind + offset),

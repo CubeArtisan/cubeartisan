@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { arraysEqual } from '@cubeartisan/client/utils/Util';
+import { arraysEqual } from '@cubeartisan/client/utils/Util.js';
 
 class DraftLocation {
   constructor(type, data) {

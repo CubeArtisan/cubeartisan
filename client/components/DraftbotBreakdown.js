@@ -20,15 +20,15 @@ import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
 
-import { usePickListAndDrafterState, ACTION_LABELS } from '@cubeartisan/client/components/DecksPickBreakdown';
-import { SortableTable, compareStrings } from '@cubeartisan/client/components/SortableTable';
-import Tooltip from '@cubeartisan/client/components/Tooltip';
-import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard';
-import { getCardColorClass } from '@cubeartisan/client/components/contexts/TagContext';
-import { DrafterStatePropType, DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes';
-import { COLOR_COMBINATIONS, cardName, encodeName } from '@cubeartisan/client/utils/Card';
-import { evaluateCardsOrPool, ORACLES_BY_NAME } from '@cubeartisan/client/drafting/draftbots';
-import { fromEntries } from '@cubeartisan/client/utils/Util';
+import { usePickListAndDrafterState, ACTION_LABELS } from '@cubeartisan/client/components/DecksPickBreakdown.js';
+import { SortableTable, compareStrings } from '@cubeartisan/client/components/SortableTable.js';
+import Tooltip from '@cubeartisan/client/components/Tooltip.js';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
+import { getCardColorClass } from '@cubeartisan/client/components/contexts/TagContext.js';
+import { DrafterStatePropType, DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
+import { COLOR_COMBINATIONS, cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
+import { evaluateCardsOrPool, ORACLES_BY_NAME } from '@cubeartisan/client/drafting/draftbots.js';
+import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 
 const AutocardItem = withAutocard(ListGroupItem);
 

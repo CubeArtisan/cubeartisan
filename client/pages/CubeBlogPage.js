@@ -18,7 +18,7 @@
  */
 import { useContext, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 
 import {
   Button,
@@ -35,16 +35,16 @@ import {
   NavLink,
 } from 'reactstrap';
 
-import BlogPost from '@cubeartisan/client/components/BlogPost';
-import CSRFForm from '@cubeartisan/client/components/CSRFForm';
-import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import Paginate from '@cubeartisan/client/components/Paginate';
-import TextEntry from '@cubeartisan/client/components/TextEntry';
-import CubeLayout from '@cubeartisan/client/layouts/CubeLayout';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
-import { findUserLinks } from '@cubeartisan/client/markdown/parser';
+import BlogPost from '@cubeartisan/client/components/BlogPost.js';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import Paginate from '@cubeartisan/client/components/Paginate.js';
+import TextEntry from '@cubeartisan/client/components/TextEntry.js';
+import CubeLayout from '@cubeartisan/client/layouts/CubeLayout.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import { findUserLinks } from '@cubeartisan/client/markdown/parser.js';
 
 const EditBlogModal = ({ isOpen, toggle, markdown, setMarkdown, post }) => {
   const { cubeID } = useContext(CubeContext);

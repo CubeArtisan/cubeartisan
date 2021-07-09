@@ -17,15 +17,15 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 
 import { Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
 
-import CubePreview from '@cubeartisan/client/components/CubePreview';
-import UserPreview from '@cubeartisan/client/components/UserPreview';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import CubePreview from '@cubeartisan/client/components/CubePreview.js';
+import UserPreview from '@cubeartisan/client/components/UserPreview.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const UserSocialPage = ({ followedCubes, followedUsers, followers, loginCallback }) => (
   <MainLayout loginCallback={loginCallback}>

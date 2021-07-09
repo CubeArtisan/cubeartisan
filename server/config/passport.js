@@ -17,8 +17,8 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import { Strategy as LocalStrategy } from 'passport-local';
-import { compare } from 'bcryptjs';
-import { findOne, findById } from '@cubeartisan/server/models/user';
+import bcrypt from 'bcryptjs';
+import User from '@cubeartisan/server/models/user.js';
 
 export default function (passport) {
   // Local Strategy
@@ -28,7 +28,7 @@ export default function (passport) {
       const query = {
         username_lower: username.toLowerCase(),
       };
-      findOne(query, (err, user) => {
+      User.findOne(query, (err, user) => {
         if (err) throw err;
         if (!user) {
           return done(null, false, {
@@ -37,7 +37,7 @@ export default function (passport) {
         }
 
         // Match password
-        return compare(password, user.password, (err2, isMatch) => {
+        return bcrypt.compare(password, user.password, (err2, isMatch) => {
           if (err2) throw err2;
           if (isMatch) {
             return done(null, user);
@@ -55,7 +55,7 @@ export default function (passport) {
   });
 
   passport.deserializeUser((id, done) => {
-    findById(id, (err, user) => {
+    User.findById(id, (err, user) => {
       done(err, user);
     });
   });

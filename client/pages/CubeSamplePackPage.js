@@ -17,17 +17,17 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 
 import { Row, Col } from 'reactstrap';
 
-import CardGrid from '@cubeartisan/client/components/CardGrid';
-import CardImage from '@cubeartisan/client/components/CardImage';
-import CubeLayout from '@cubeartisan/client/layouts/CubeLayout';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import CardGrid from '@cubeartisan/client/components/CardGrid.js';
+import CardImage from '@cubeartisan/client/components/CardImage.js';
+import CubeLayout from '@cubeartisan/client/layouts/CubeLayout.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const SamplePackPage = ({ seed, pack, cube, loginCallback }) => {
   return (

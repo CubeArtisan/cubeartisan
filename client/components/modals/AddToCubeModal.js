@@ -19,9 +19,9 @@
 import { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 
-import UserContext from '@cubeartisan/client/components/contexts/UserContext';
-import ImageFallback from '@cubeartisan/client/components/ImageFallback';
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import ImageFallback from '@cubeartisan/client/components/ImageFallback.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 import {
   Modal,

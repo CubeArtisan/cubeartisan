@@ -18,7 +18,7 @@
  */
 import { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import CommentPropType from '@cubeartisan/client/proptypes/CommentPropType';
+import CommentPropType from '@cubeartisan/client/proptypes/CommentPropType.js';
 import TimeAgo from 'react-timeago';
 
 import {
@@ -35,14 +35,14 @@ import {
   Input,
 } from 'reactstrap';
 
-import UserContext from '@cubeartisan/client/components/contexts/UserContext';
-import LinkButton from '@cubeartisan/client/components/LinkButton';
-import CommentContextMenu from '@cubeartisan/client/components/CommentContextMenu';
-import CSRFForm from '@cubeartisan/client/components/CSRFForm';
-import useComments from '@cubeartisan/client/hooks/UseComments';
-import useToggle from '@cubeartisan/client/hooks/UseToggle';
-import CommentEntry from '@cubeartisan/client/components/CommentEntry';
-import Markdown from '@cubeartisan/client/components/Markdown';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import LinkButton from '@cubeartisan/client/components/LinkButton.js';
+import CommentContextMenu from '@cubeartisan/client/components/CommentContextMenu.js';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import useComments from '@cubeartisan/client/hooks/UseComments.js';
+import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
+import CommentEntry from '@cubeartisan/client/components/CommentEntry.js';
+import Markdown from '@cubeartisan/client/components/Markdown.js';
 
 const maxDepth = 4;
 

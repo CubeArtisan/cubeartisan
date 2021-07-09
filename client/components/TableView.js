@@ -18,16 +18,16 @@
  */
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
 import { Row, Col } from 'reactstrap';
 
-import { countGroup, sortDeep } from '@cubeartisan/client/utils/Sort';
+import { countGroup, sortDeep } from '@cubeartisan/client/utils/Sort.js';
 
-import AutocardListGroup from '@cubeartisan/client/components/AutocardListGroup';
-import AutocardListItem from '@cubeartisan/client/components/AutocardListItem';
-import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext';
-import SortContext from '@cubeartisan/client/components/contexts/SortContext';
+import AutocardListGroup from '@cubeartisan/client/components/AutocardListGroup.js';
+import AutocardListItem from '@cubeartisan/client/components/AutocardListItem.js';
+import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
 
 const TableView = ({ cards, rowTag, noGroupModal, className, ...props }) => {
   const { primary, secondary, tertiary, quaternary, showOther } = useContext(SortContext);

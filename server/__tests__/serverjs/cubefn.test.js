@@ -17,10 +17,10 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 /* eslint-disable import/first */
-jest.mock('@cubeartisan/server/serverjs/util');
+jest.mock('@cubeartisan/server/serverjs/util.js');
 
 import sinon from 'sinon';
-import carddb from '@cubeartisan/server/serverjs/cards';
+import carddb from '@cubeartisan/server/serverjs/cards.js';
 import {
   buildIdQuery,
   compareCubes,
@@ -29,10 +29,10 @@ import {
   intToLegality,
   legalityToInt,
   setCubeType,
-} from '@cubeartisan/server/serverjs/cubefn';
-import { hasProfanity, toBase36 } from '@cubeartisan/server/serverjs/util';
-import Cube from '@cubeartisan/server/models/cube';
-import { arraysEqual } from '@cubeartisan/client/utils/Util';
+} from '@cubeartisan/server/serverjs/cubefn.js';
+import { hasProfanity, toBase36 } from '@cubeartisan/server/serverjs/util.js';
+import Cube from '@cubeartisan/server/models/cube.js';
+import { arraysEqual } from '@cubeartisan/client/utils/Util.js';
 // eslint-disable-next-line no-restricted-imports
 import cubefixture from '../fixtures/examplecube';
 

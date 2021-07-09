@@ -19,16 +19,16 @@
 import { useCallback, useRef, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
-import DeckDeleteModal from '@cubeartisan/client/components/modals/DeckDeleteModal';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType';
+import DeckDeleteModal from '@cubeartisan/client/components/modals/DeckDeleteModal.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
 import { Collapse, Nav, Navbar, NavbarToggler, NavItem, NavLink, Input } from 'reactstrap';
 
-import CSRFForm from '@cubeartisan/client/components/CSRFForm';
-import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler';
-import { buildDeck } from '@cubeartisan/client/drafting/deckutil';
-import BasicsModal from '@cubeartisan/client/components/modals/BasicsModal';
-import withModal from '@cubeartisan/client/components/hoc/WithModal';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
+import { buildDeck } from '@cubeartisan/client/drafting/deckutil.js';
+import BasicsModal from '@cubeartisan/client/components/modals/BasicsModal.js';
+import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 
 const DeleteDeckModalLink = withModal(NavLink, DeckDeleteModal);
 const BasicsModalLink = withModal(NavLink, BasicsModal);

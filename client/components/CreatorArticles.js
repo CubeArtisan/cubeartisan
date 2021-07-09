@@ -20,12 +20,12 @@ import { useState, useEffect, useContext } from 'react';
 
 import { Navbar, Nav, NavItem, NavLink, Row, Col, CardBody } from 'reactstrap';
 
-import Loading from '@cubeartisan/client/pages/Loading';
-import UserContext from '@cubeartisan/client/components/contexts/UserContext';
-import ArticlePreview from '@cubeartisan/client/components/ArticlePreview';
-import Paginate from '@cubeartisan/client/components/Paginate';
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
-import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
+import Loading from '@cubeartisan/client/pages/Loading.js';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import ArticlePreview from '@cubeartisan/client/components/ArticlePreview.js';
+import Paginate from '@cubeartisan/client/components/Paginate.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 
 const PAGE_SIZE = 24;
 

@@ -19,19 +19,19 @@
 import { useCallback, useMemo, useState, useContext } from 'react';
 
 import PropTypes from 'prop-types';
-import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType';
+import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 
 import TimeAgo from 'react-timeago';
 
-import UserContext from '@cubeartisan/client/components/contexts/UserContext';
-import useKeyHandlers from '@cubeartisan/client/hooks/UseKeyHandlers';
-import DeckDeleteModal from '@cubeartisan/client/components/modals/DeckDeleteModal';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import useKeyHandlers from '@cubeartisan/client/hooks/UseKeyHandlers.js';
+import DeckDeleteModal from '@cubeartisan/client/components/modals/DeckDeleteModal.js';
 
 /** 2020-11-17 struesdell:
  *  Pulled constants out of component render so that they are defined only once
  */
 const MAX_LENGTH = 35;
-const DEFAULT_DECK_NAME = 'Untitled Deck';
+const DEFAULT_DECK_NAME = 'Untitled Deck.js';
 
 /** 2020-11-17 struesdell:
  *  Pulled string truncation logic out of component render and made it more

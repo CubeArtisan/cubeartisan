@@ -19,15 +19,15 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { cardsAreEquivalent, normalizeName } from '@cubeartisan/client/utils/Card';
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF';
-import { arrayMove } from '@cubeartisan/client/utils/Util';
-import CardModal from '@cubeartisan/client/components/modals/CardModal';
-import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext';
-import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext';
-import CubeContext from '@cubeartisan/client/components/contexts/CubeContext';
-import MaybeboardContext from '@cubeartisan/client/components/contexts/MaybeboardContext';
-import { cardGetLabels } from '@cubeartisan/client/utils/Sort';
+import { cardsAreEquivalent, normalizeName } from '@cubeartisan/client/utils/Card.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import { arrayMove } from '@cubeartisan/client/utils/Util.js';
+import CardModal from '@cubeartisan/client/components/modals/CardModal.js';
+import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext.js';
+import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
+import MaybeboardContext from '@cubeartisan/client/components/contexts/MaybeboardContext.js';
+import { cardGetLabels } from '@cubeartisan/client/utils/Sort.js';
 
 const CardModalForm = ({ children, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);

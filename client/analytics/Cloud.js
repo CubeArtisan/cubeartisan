@@ -21,14 +21,14 @@ import { TagCloud } from 'react-tagcloud';
 import { InputGroup, InputGroupAddon, InputGroupText, UncontrolledTooltip } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown';
-import ThemeContext from '@cubeartisan/client/components/contexts/ThemeContext';
-import useQueryParam from '@cubeartisan/client/hooks/useQueryParam';
-import CubePropTypes from '@cubeartisan/client/proptypes/CubePropType';
-import TagInput from '@cubeartisan/client/components/TagInput';
-import { arrayMove, isTouchDevice } from '@cubeartisan/client/utils/Util';
+import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown.js';
+import ThemeContext from '@cubeartisan/client/components/contexts/ThemeContext.js';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import CubePropTypes from '@cubeartisan/client/proptypes/CubePropType.js';
+import TagInput from '@cubeartisan/client/components/TagInput.js';
+import { arrayMove, isTouchDevice } from '@cubeartisan/client/utils/Util.js';
 
-const trigger = isTouchDevice() ? 'click' : 'hover';
+const trigger = isTouchDevice() ? 'click' : 'hover.js';
 
 const TagCloudTag = ({ tag, size, color }) => {
   const spanRef = useRef();

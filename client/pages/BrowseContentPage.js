@@ -20,12 +20,12 @@ import PropTypes from 'prop-types';
 
 import { Row, Col } from 'reactstrap';
 
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import ArticlePreview from '@cubeartisan/client/components/ArticlePreview';
-import VideoPreview from '@cubeartisan/client/components/VideoPreview';
-import PodcastEpisodePreview from '@cubeartisan/client/components/PodcastEpisodePreview';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import ArticlePreview from '@cubeartisan/client/components/ArticlePreview.js';
+import VideoPreview from '@cubeartisan/client/components/VideoPreview.js';
+import PodcastEpisodePreview from '@cubeartisan/client/components/PodcastEpisodePreview.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const BrowseContentPage = ({ loginCallback, content }) => {
   return (

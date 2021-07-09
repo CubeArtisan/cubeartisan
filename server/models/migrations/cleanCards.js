@@ -1,4 +1,4 @@
-import carddb from '@cubeartisan/server/serverjs/cards';
+import carddb from '@cubeartisan/server/serverjs/cards.js';
 
 const COLORS = ['W', 'U', 'B', 'R', 'G'];
 const DEFAULT_FINISH = 'Non-foil';
@@ -10,7 +10,7 @@ const isInvalidStatus = (status) => !['Not Owned', 'Ordered', 'Owned', 'Premium 
 const isInvalidColors = (colors) => !colors || !Array.isArray(colors) || colors.some((c) => !COLORS.includes(c));
 const isInvalidTags = (tags) => !tags || tags.some((t) => !t);
 
-const cleanCards = (collection, filter = true) => {
+export const cleanCards = (collection, filter = true) => {
   if (filter) {
     collection = collection.filter((c) => c && !isInvalidCardId(c.cardID));
   }
@@ -23,7 +23,7 @@ const cleanCards = (collection, filter = true) => {
   return collection;
 };
 
-const cardsNeedsCleaning = (collection) =>
+export const cardsNeedsCleaning = (collection) =>
   collection.some(
     (card) =>
       !card ||

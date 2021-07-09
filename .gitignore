@@ -2,7 +2,9 @@ server/private/
 server/dist/
 client/generated/
 server/jobs/export/
-coverage/
+client/coverage/
+server/coverage/
+.webpack_cache/
 *.old
 
 .python-version

@@ -17,13 +17,13 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType';
+import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 
-import DeckPreview from '@cubeartisan/client/components/DeckPreview';
-import Paginate from '@cubeartisan/client/components/Paginate';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+import DeckPreview from '@cubeartisan/client/components/DeckPreview.js';
+import Paginate from '@cubeartisan/client/components/Paginate.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 import { Card, Col, Row, CardHeader, CardBody, CardFooter } from 'reactstrap';
 

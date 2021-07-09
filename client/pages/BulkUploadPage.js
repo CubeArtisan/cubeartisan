@@ -21,18 +21,18 @@ import PropTypes from 'prop-types';
 
 import { Button, Col, Form, Input, Label, Row, Card, CardBody, CardHeader } from 'reactstrap';
 
-import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput';
-import CSRFForm from '@cubeartisan/client/components/CSRFForm';
-import Changelist from '@cubeartisan/client/components/Changelist';
+import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
+import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import Changelist from '@cubeartisan/client/components/Changelist.js';
 import ChangelistContext, {
   ChangelistContextProvider,
-} from '@cubeartisan/client/components/contexts/ChangelistContext';
-import { getCard } from '@cubeartisan/client/components/EditCollapse';
-import LoadingButton from '@cubeartisan/client/components/LoadingButton';
-import CubeLayout from '@cubeartisan/client/layouts/CubeLayout';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot';
+} from '@cubeartisan/client/components/contexts/ChangelistContext.js';
+import { getCard } from '@cubeartisan/client/components/EditCollapse.js';
+import LoadingButton from '@cubeartisan/client/components/LoadingButton.js';
+import CubeLayout from '@cubeartisan/client/layouts/CubeLayout.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const BulkUploadPageRaw = ({ cubeID, missing, blogpost, cube }) => {
   const [addValue, setAddValue] = useState('');

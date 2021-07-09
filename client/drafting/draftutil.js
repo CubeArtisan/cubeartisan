@@ -19,10 +19,10 @@
 /* eslint-disable no-loop-func */
 import seedrandom from 'seedrandom';
 
-import { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation';
-import { calculateBotPick } from '@cubeartisan/client/drafting/draftbots';
-import { cardType } from '@cubeartisan/client/utils/Card';
-import { cmcColumn, toNullableInt } from '@cubeartisan/client/utils/Util';
+import { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation.js';
+import { calculateBotPick } from '@cubeartisan/client/drafting/draftbots.js';
+import { cardType } from '@cubeartisan/client/utils/Card.js';
+import { cmcColumn, toNullableInt } from '@cubeartisan/client/utils/Util.js';
 
 export const defaultStepsForLength = (length) =>
   new Array(length)
