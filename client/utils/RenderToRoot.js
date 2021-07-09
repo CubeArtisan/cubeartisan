@@ -19,7 +19,9 @@
 import ReactDOM from 'react-dom';
 
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
-import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
+import SiteCustomizationContext, {
+  DEFAULT_SITE_CUSTOMIZATIONS,
+} from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 
 const RenderToRoot = (Element) => {
@@ -28,7 +30,7 @@ const RenderToRoot = (Element) => {
     const reactProps = { ...defaultReactProps, ...providedReactProps };
     return (
       <ErrorBoundary className="mt-3">
-        <SiteCustomizationContext.Provider value={reactProps?.siteCustomizations}>
+        <SiteCustomizationContext.Provider value={reactProps?.siteCustomizations ?? DEFAULT_SITE_CUSTOMIZATIONS}>
           <UserContext.Provider value={reactProps?.user}>
             <Element {...reactProps} />
           </UserContext.Provider>

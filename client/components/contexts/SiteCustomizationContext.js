@@ -18,12 +18,14 @@
  */
 import { createContext } from 'react';
 
-const SiteCustomizationContext = createContext({
+export const DEFAULT_SITE_CUSTOMIZATIONS = {
   discordUrl: 'DiscordUrl',
   siteName: 'SiteName',
   siteRoot: 'http://localhost:8080',
   sourceRepo: 'https://github.com/ruler501/CubeCobra',
   supportEmail: 'support@localhost',
-});
+};
+
+const SiteCustomizationContext = createContext(DEFAULT_SITE_CUSTOMIZATIONS);
 
 export default SiteCustomizationContext;
