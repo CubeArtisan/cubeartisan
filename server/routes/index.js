@@ -603,7 +603,7 @@ app.use((_req, res) => res.redirect(303, '/404'));
 
 // Start server after carddb is initialized.
 carddb.initializeCardDb().then(() => {
-  http.createServer(app).listen(process.env.PORT || 5000, '127.0.0.1', () => {
+  http.createServer(app).listen(process.env.PORT || 5000, process.env.LISTEN_ADDR, () => {
     winston.info(`Server started on port ${process.env.PORT || 5000}...`);
   });
 });

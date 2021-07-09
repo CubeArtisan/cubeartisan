@@ -1,0 +1,23 @@
+name: Build Docker Image
+on:
+  workflow_run:
+    workflows:
+      - Continuous Integration Checks
+    branches:
+      - prod
+      - dev
+    types: completed
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Show tag and repo
+        run: 'echo "REPOSITORY: `echo "docker.pkg.github.com/$GITHUB_REPOSITORY" | tr "[:upper:]" "[:lower:]"`" && echo "TAG: ${GITHUB_SHA:0:8}"'
+      - name: Build the Docker image
+        run: TAG=${GITHUB_SHA:0:8} REPOSITORY=`echo "docker.pkg.github.com/$GITHUB_REPOSITORY" | tr "[:upper:]" "[:lower:]"` docker-compose -f .docker/docker-compose.yml build
+      - name: Login to Docker
+        run: docker login -u $GITHUB_ACTOR -p ${{ secrets.GITHUB_TOKEN }} 'docker.pkg.github.com'
+      - name: Push to github package registry
+        run: TAG=${GITHUB_SHA:0:8} REPOSITORY=`echo "docker.pkg.github.com/$GITHUB_REPOSITORY" | tr "[:upper:]" "[:lower:]"` docker-compose -f .docker/docker-compose.yml push

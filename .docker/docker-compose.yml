@@ -1,0 +1,21 @@
+version: '3'
+services:
+  cubeartisan-mongodb:
+    image: 'mongo'
+    volumes:
+      - cubeartisan-mongodb-volume:/data/db
+    ports:
+      - '27017-27019:27017-27019'
+  cubeartisan:
+    build:
+      dockerfile: ../Dockerfile
+      context: ../
+    image: ${REPOSITORY}/cubeartisan:${TAG}
+    ports:
+      - "5000:8080"
+    depends_on:
+      - "cubeartisan-mongodb"
+    env_file:
+      - '../server/.env'
+volumes:
+  cubeartisan-mongodb-volume:

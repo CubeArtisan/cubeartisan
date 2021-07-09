@@ -17,8 +17,10 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 // Load Environment Variables
+import elasticApmNode from 'elastic-apm-node';
 import winston from 'winston';
 import dotenv from 'dotenv';
+import { ElasticsearchTransport } from 'winston-elasticsearch';
 
 dotenv.config();
 
@@ -37,11 +39,57 @@ const linearFormat = winston.format((info) => {
 });
 
 const consoleFormat = winston.format.combine(linearFormat(), winston.format.simple());
+const transports = [new winston.transports.Console({ format: consoleFormat })];
+
+let apm = null;
+if (process.env.APM_SERVER_URL) {
+  apm = elasticApmNode.start({
+    serverUrl: process.env.APM_SERVER_URL,
+    serviceName: 'Cube Cobra',
+  });
+  // eslint-disable-next-line
+  console.log('Initialized APM', apm);
+}
+if (process.env.ELASTICSEARCH_URL) {
+  const transportOptions = {
+    level: 'info',
+    indexPrefix: 'cubecobra',
+    ensureMappingTemplate: true,
+    mappingTemplate: {
+      index_patterns: ['cubecobra-*'],
+      settings: {
+        number_of_shards: 1,
+        number_of_replicas: 0,
+        index: {
+          refresh_interval: '5s',
+        },
+      },
+      mappings: {
+        _source: { enabled: true },
+        properties: {
+          '@timestamp': { type: 'date' },
+          '@version': { type: 'keyword' },
+          message: { type: 'text', index: true },
+          severity: { type: 'keyword', index: true },
+          fields: {
+            dynamic: true,
+            properties: {},
+          },
+        },
+      },
+    },
+    clientOpts: { node: process.env.ELASTICSEARCH_URL },
+  };
+  if (apm) {
+    transportOptions.apm = apm;
+  }
+  transports.push(new ElasticsearchTransport(transportOptions));
+}
 
 winston.configure({
   level: 'info',
   format: winston.format.json(),
   exitOnError: false,
-  transports: [new winston.transports.Console({ format: consoleFormat })],
+  transports,
 });
 export default winston;
