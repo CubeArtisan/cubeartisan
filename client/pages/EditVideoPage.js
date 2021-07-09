@@ -47,7 +47,7 @@ import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
-const EditVideoPage = ({ loginCallback, video }) => {
+export const EditVideoPage = ({ loginCallback, video }) => {
   const user = useContext(UserContext);
   const { siteName } = useContext(SiteCustomizationContext);
 

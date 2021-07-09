@@ -25,7 +25,7 @@ import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
-const AdminDashboardPage = ({ loginCallback, siteCustomizations }) => (
+export const AdminDashboardPage = ({ loginCallback, siteCustomizations }) => (
   <MainLayout loginCallback={loginCallback} siteCustomizations={siteCustomizations}>
     <DynamicFlash />
     <Card className="my-3 mx-4">

@@ -25,7 +25,7 @@ import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
-const RegisterPage = ({ username, email, loginCallback }) => (
+export const RegisterPage = ({ username, email, loginCallback }) => (
   <MainLayout loginCallback={loginCallback}>
     <DynamicFlash />
     <Card className="mt-3">
@@ -33,7 +33,7 @@ const RegisterPage = ({ username, email, loginCallback }) => (
         <h5>Register</h5>
       </CardHeader>
       <CardBody>
-        <CSRFForm method="POST" action="/user/register">
+        <CSRFForm method="POST" action="/user">
           <FormGroup>
             <Row>
               <Col sm="3">

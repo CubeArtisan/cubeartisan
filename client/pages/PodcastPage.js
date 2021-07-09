@@ -29,7 +29,7 @@ import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
-const PodcastPage = ({ loginCallback, podcast, episodes }) => {
+export const PodcastPage = ({ loginCallback, podcast, episodes }) => {
   const user = useContext(UserContext);
 
   return (

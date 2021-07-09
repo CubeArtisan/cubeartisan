@@ -18,10 +18,10 @@
  */
 import { Spinner } from 'reactstrap';
 
-const Loading = () => (
+export const LoadingPage = () => (
   <div className="centered py-3">
     <Spinner className="position-absolute" />
   </div>
 );
 
-export default Loading;
+export default LoadingPage;

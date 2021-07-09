@@ -29,7 +29,7 @@ import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
 import ReactAudioPlayer from 'react-audio-player';
 import TimeAgo from 'react-timeago';
 
-const PodcastEpisodePage = ({ loginCallback, episode }) => {
+export const PodcastEpisodePage = ({ loginCallback, episode }) => {
   return (
     <MainLayout loginCallback={loginCallback}>
       <DynamicFlash />

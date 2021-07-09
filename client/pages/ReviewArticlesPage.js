@@ -30,7 +30,7 @@ import ArticlePreview from '@cubeartisan/client/components/ArticlePreview.js';
 
 const PAGE_SIZE = 24;
 
-const ReviewArticlesPage = ({ loginCallback, articles, count, page }) => (
+export const ReviewArticlesPage = ({ loginCallback, articles, count, page }) => (
   <MainLayout loginCallback={loginCallback}>
     <DynamicFlash />
     <Card className="my-3">

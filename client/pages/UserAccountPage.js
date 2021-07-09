@@ -51,7 +51,7 @@ import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import TextEntry from '@cubeartisan/client/components/TextEntry.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 
-const UserAccountPage = ({ defaultNav, loginCallback, patreonClientId, patreonRedirectUri, patron }) => {
+export const UserAccountPage = ({ defaultNav, loginCallback, patreonClientId, patreonRedirectUri, patron }) => {
   const user = useContext(UserContext);
   const [nav, setNav] = useQueryParam('nav', defaultNav);
   const [imageValue, setImageValue] = useState('');

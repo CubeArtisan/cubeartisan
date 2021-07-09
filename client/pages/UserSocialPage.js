@@ -27,7 +27,7 @@ import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
-const UserSocialPage = ({ followedCubes, followedUsers, followers, loginCallback }) => (
+export const UserSocialPage = ({ followedCubes, followedUsers, followers, loginCallback }) => (
   <MainLayout loginCallback={loginCallback}>
     <DynamicFlash />
     <Row className="my-3">

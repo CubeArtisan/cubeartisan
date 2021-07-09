@@ -23,28 +23,31 @@ import SiteCustomizationContext from '@cubeartisan/client/components/contexts/Si
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 
 const RenderToRoot = (Element) => {
-  const reactProps = typeof window !== 'undefined' ? window.reactProps : {};
-  const element = (
-    <ErrorBoundary className="mt-3">
-      <SiteCustomizationContext.Provider value={reactProps?.siteCustomizations}>
-        <UserContext.Provider value={reactProps?.user}>
-          <Element {...reactProps} />
-        </UserContext.Provider>
-      </SiteCustomizationContext.Provider>
-    </ErrorBoundary>
-  );
+  const defaultReactProps = typeof window !== 'undefined' ? window?.reactProps ?? {} : {};
+  const Wrapped = (providedReactProps) => {
+    const reactProps = { ...defaultReactProps, ...providedReactProps };
+    return (
+      <ErrorBoundary className="mt-3">
+        <SiteCustomizationContext.Provider value={reactProps?.siteCustomizations}>
+          <UserContext.Provider value={reactProps?.user}>
+            <Element {...reactProps} />
+          </UserContext.Provider>
+        </SiteCustomizationContext.Provider>
+      </ErrorBoundary>
+    );
+  };
   if (typeof document !== 'undefined') {
     const wrapper = document.getElementById('react-root');
+    const element = <Wrapped />;
     if (wrapper) {
       if (wrapper.children.length === 0) {
         ReactDOM.render(element, wrapper);
       } else {
-        ReactDOM.hydrate(element, wrapper);
+        ReactDOM.hydrateRoot(wrapper, element);
       }
     }
   }
-
-  return Element;
+  return Wrapped;
 };
 
 export default RenderToRoot;

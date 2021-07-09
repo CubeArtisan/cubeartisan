@@ -29,7 +29,7 @@ import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
-const ArticlePage = ({ loginCallback, article }) => {
+export const ArticlePage = ({ loginCallback, article }) => {
   const user = useContext(UserContext);
 
   return (

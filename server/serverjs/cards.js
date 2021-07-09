@@ -131,7 +131,7 @@ function registerFileWatcher(filename, attribute) {
 }
 
 async function initializeCardDb(dataRoot, skipWatchers) {
-  winston.info('Loading carddb...');
+  winston.info('LoadingPage carddb...');
   if (dataRoot === undefined) {
     dataRoot = 'private';
   }

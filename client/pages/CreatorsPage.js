@@ -29,7 +29,7 @@ import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
-const CreatorsPage = ({ loginCallback }) => {
+export const CreatorsPage = ({ loginCallback }) => {
   const [tab, setTab] = useQueryParam('tab', '0');
 
   return (

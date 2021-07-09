@@ -25,7 +25,7 @@ import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
-const AdminDashboardPage = ({
+export const AdminDashboardPage = ({
   loginCallback,
   commentReportCount,
   applicationCount,

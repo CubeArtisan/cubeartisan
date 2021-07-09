@@ -41,6 +41,12 @@ import {
   jsonValidationErrors,
 } from '@cubeartisan/server/routes/middleware.js';
 import { getPackages } from '@cubeartisan/server/routes/package.js';
+import { fileURLToPath } from 'url';
+
+// eslint-disable-next-line no-underscore-dangle,prettier/prettier
+const __filename = fileURLToPath(import.meta.url);
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = path.dirname(__filename);
 
 const getFeedItems = async (req, res) => {
   const items = await Blog.find({

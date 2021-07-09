@@ -44,7 +44,7 @@ import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import { ORDERED_SORTS } from '@cubeartisan/client/utils/Sort.js';
 
-const CardSearchPage = ({ loginCallback }) => {
+export const CardSearchPage = ({ loginCallback }) => {
   const [page, setPage] = useState(parseInt(Query.get('p'), 10) ?? 0);
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(false);

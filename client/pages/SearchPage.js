@@ -28,7 +28,7 @@ import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
-const SearchPage = ({ cubes, query, count, perPage, page, order, loginCallback }) => {
+export const SearchPage = ({ cubes, query, count, perPage, page, order, loginCallback }) => {
   const pages = Math.ceil(count / perPage);
 
   return (

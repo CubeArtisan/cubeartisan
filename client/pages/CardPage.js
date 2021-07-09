@@ -244,7 +244,7 @@ const getPriceTypeUnit = {
   tix: 'TIX',
 };
 
-const CardPage = ({ card, data, versions, related, loginCallback }) => {
+export const CardPage = ({ card, data, versions, related, loginCallback }) => {
   const [selectedTab, setSelectedTab] = useQueryParam('tab', '0');
   const [priceType, setPriceType] = useQueryParam('priceType', 'price');
   const [cubeType, setCubeType] = useQueryParam('cubeType', 'total');

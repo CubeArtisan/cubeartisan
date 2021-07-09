@@ -20,7 +20,7 @@ import { useState, useEffect, useContext } from 'react';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import { Navbar, Nav, NavItem, NavLink, Row, Col, CardBody } from 'reactstrap';
-import Loading from '@cubeartisan/client/pages/Loading.js';
+import LoadingPage from '@cubeartisan/client/pages/LoadingPage.js';
 import VideoPreview from '@cubeartisan/client/components/VideoPreview.js';
 import Paginate from '@cubeartisan/client/components/Paginate.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
@@ -74,7 +74,7 @@ const CreatorVideos = () => {
         </CardBody>
       )}
       {loading ? (
-        <Loading />
+        <LoadingPage />
       ) : (
         <Row className="px-3">
           {videos.map((video) => (

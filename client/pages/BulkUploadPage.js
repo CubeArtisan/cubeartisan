@@ -132,7 +132,7 @@ BulkUploadPageRaw.propTypes = {
   }).isRequired,
 };
 
-const BulkUploadPage = ({ cubeID, added, loginCallback, ...props }) => (
+export const BulkUploadPage = ({ cubeID, added, loginCallback, ...props }) => (
   <MainLayout loginCallback={loginCallback}>
     <DynamicFlash />
     <ChangelistContextProvider

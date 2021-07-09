@@ -46,7 +46,7 @@ import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 
-const EditArticlePage = ({ loginCallback, article, siteCustomizations }) => {
+export const EditArticlePage = ({ loginCallback, article, siteCustomizations }) => {
   const user = useContext(UserContext);
 
   const [tab, setTab] = useQueryParam('tab', '0');

@@ -29,7 +29,7 @@ import TimeAgo from 'react-timeago';
 
 const PAGE_SIZE = 24;
 
-const AdminDashboardPage = ({ loginCallback, applications, count, page }) => (
+export const AdminDashboardPage = ({ loginCallback, applications, count, page }) => (
   <MainLayout loginCallback={loginCallback}>
     <DynamicFlash />
     <Card className="my-3">

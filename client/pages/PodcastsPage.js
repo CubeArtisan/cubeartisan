@@ -29,7 +29,7 @@ import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const PAGE_SIZE = 24;
 
-const PodcastsPage = ({ loginCallback, podcasts, episodes, count, page }) => (
+export const PodcastsPage = ({ loginCallback, podcasts, episodes, count, page }) => (
   <MainLayout loginCallback={loginCallback}>
     <DynamicFlash />
     <Card className="my-3">

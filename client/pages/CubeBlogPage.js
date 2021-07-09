@@ -96,7 +96,7 @@ EditBlogModal.defaultProps = {
   post: null,
 };
 
-const CubeBlogPage = ({ cube, pages, activePage, posts, loginCallback }) => {
+export const CubeBlogPage = ({ cube, pages, activePage, posts, loginCallback }) => {
   const [editPostIndex, setEditPostIndex] = useState(-1);
   const [editOpen, setEditOpen] = useState(false);
   const [editMarkdown, setEditMarkdown] = useState('');

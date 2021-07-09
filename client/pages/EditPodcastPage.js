@@ -31,7 +31,7 @@ import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 
-const EditPodcastPage = ({ loginCallback, podcast }) => {
+export const EditPodcastPage = ({ loginCallback, podcast }) => {
   const [tab, setTab] = useQueryParam('tab', '0');
   const [rss, setRss] = useState(podcast.rss);
 

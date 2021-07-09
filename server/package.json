@@ -14,7 +14,7 @@
     "lint:loud": "eslint `yarn --silent list-files`",
     "lint:fix": "eslint --fix `yarn --silent list-files`",
     "list-files": "git ls-files '*.js' '*.cjs' '*.mjs'",
-    "nodemon": "nodemon -x 'node --experimental-loader @node-loader/babel routes/index.js' --ignore public --ignore private --ignore __tests__",
+    "nodemon": "nodemon -x 'node --experimental-loader @node-loader/babel routes/index.js' --ignore public --ignore private --ignore __tests__ -w ../client/dist -w ./",
     "run-daily-jobs": "sh server/jobs/definition/daily.sh",
     "run-weekly-jobs": "sh server/jobs/definition/weekly.sh",
     "run-monthly-jobs": "sh server/jobs/definition/monthly.sh",

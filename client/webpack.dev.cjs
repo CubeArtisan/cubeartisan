@@ -27,11 +27,6 @@ const config = {
   optimization: {
     usedExports: true,
   },
-  cache: {
-    type: 'filesystem',
-    cacheDirectory: path.resolve(__dirname, '.webpack_cache'),
-    managedPaths: [path.resolve(__dirname, 'node_modules'), path.resolve(__dirname, '../node_modules')],
-  },
 };
 
 const clientConfig = merge(common, config, {

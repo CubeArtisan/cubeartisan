@@ -42,7 +42,7 @@ const oppositeLocation = {
   [DraftLocation.SIDEBOARD]: DraftLocation.DECK,
 };
 
-const CubeDeckbuilderPage = ({ cube, initialDeck, loginCallback }) => {
+export const CubeDeckbuilderPage = ({ cube, initialDeck, loginCallback }) => {
   const { basics } = initialDeck;
   const [deck, setDeck] = useState(
     initialDeck.seats[0].deck.map((row) => row.map((col) => col.map((cardIndex) => initialDeck.cards[cardIndex]))),

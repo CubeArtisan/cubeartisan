@@ -29,7 +29,7 @@ import { Card, Col, Row, CardHeader, CardBody, CardFooter } from 'reactstrap';
 
 const PER_PAGE = 30;
 
-const RecentDraftsPage = ({ decks, currentPage, totalPages, count, loginCallback }) => (
+export const RecentDraftsPage = ({ decks, currentPage, totalPages, count, loginCallback }) => (
   <MainLayout loginCallback={loginCallback}>
     <DynamicFlash />
     <Row className="my-3">

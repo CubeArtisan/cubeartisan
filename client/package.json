@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "license": "AGPL-3.0-only",
   "type": "module",
+  "sideEffects": ["pages/**"],
   "scripts": {
     "build": "yarn build:base --mode production --config webpack.prod.cjs",
     "build:base": "export NODE_OPTIONS=--max_old_space_size=16000 && yarn nearley && webpack --progress",

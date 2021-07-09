@@ -48,7 +48,7 @@ const CreateCubeModalLink = withModal(DropdownItem, CreateCubeModal);
 
 const MainLayout = ({ children, loginCallback }) => {
   const user = useContext(UserContext);
-  const siteCustomizations = useContext(SiteCustomizationContext);
+  const { siteName, sourceRepo } = useContext(SiteCustomizationContext);
   const [expanded, toggle] = useToggle(false);
 
   return (
@@ -61,7 +61,7 @@ const MainLayout = ({ children, loginCallback }) => {
                 <img
                   className="banner-image"
                   src="/content/banner.png"
-                  alt={`${siteCustomizations.siteName}: a site for Magic: the Gathering Cubing`}
+                  alt={`${siteName}: a site for cubing Magic: the Gathering.`}
                 />
               </a>
             </div>
@@ -117,7 +117,7 @@ const MainLayout = ({ children, loginCallback }) => {
                   <DropdownItem href="/ourstory">Our Story</DropdownItem>
                   <DropdownItem href="/faq">FAQ</DropdownItem>
                   <DropdownItem href="/donate">Donate</DropdownItem>
-                  <DropdownItem href={siteCustomizations.sourceRepo}>Github</DropdownItem>
+                  <DropdownItem href={sourceRepo}>Github</DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
               {user ? (

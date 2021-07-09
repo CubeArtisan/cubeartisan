@@ -448,7 +448,7 @@ const DEFAULT_FORMAT = {
   markdown: '',
   packs: [{ slots: ['rarity:Mythic', 'tag:new', 'identity>1'], steps: null }],
 };
-const CubePlaytestPage = ({ cube, decks, loginCallback }) => {
+export const CubePlaytestPage = ({ cube, decks, loginCallback }) => {
   const user = useContext(UserContext);
 
   const { alerts, addAlert } = useAlerts();

@@ -23,16 +23,24 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server.node.js';
 import serialize from 'serialize-javascript';
 import Cube from '@cubeartisan/server/models/cube.js';
-import LoadingPage from '@cubeartisan/client/pages/Loading.js';
+import { LoadingPage } from '@cubeartisan/client/pages/LoadingPage.js';
 import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 
 dotenv.config();
 
+// const getPage = async () => null;
 const pageCache = { Loading: LoadingPage, LoadingPage };
-const getPage = async (page) => {
-  if (pageCache[page]) return pageCache[page];
-  const pageModule = await import(`@cubeartisan/client/pages/${page}.js`);
-  return pageModule?.default ?? LoadingPage;
+const getPage = async (page, req) => {
+  if (!pageCache[page]) {
+    const pageModule = await import(`@cubeartisan/client/pages/${page}.js`);
+    if (pageModule.default) {
+      pageCache[page] = pageModule.default;
+    } else {
+      req.logger.error(`Could not load page ${page}.`);
+      return LoadingPage;
+    }
+  }
+  return pageCache[page];
 };
 
 const getCubes = async (req) => {
@@ -63,9 +71,8 @@ export const render = async (req, res, page, reactProps = {}, options = {}) => {
         cubes,
       }
     : null;
-
+  req.logger.info(`baseUrl: ${req.baseUrl}, path: ${req.path}`);
   reactProps.loginCallback = req.baseUrl + req.path;
-  reactProps.nitroPayEnabled = process.env.NITROPAY_ENABLED === 'true';
   reactProps.siteCustomizations = {
     discordUrl: process.env.DISCORD_URL,
     siteName: process.env.SITE_NAME,
@@ -84,13 +91,14 @@ export const render = async (req, res, page, reactProps = {}, options = {}) => {
     });
   }
 
+  const pageElement = await getPage(page, req);
   res.render('main', {
-    reactHTML: ReactDOMServer.renderToString(React.createElement(await getPage(page), reactProps)),
+    reactHTML: pageElement ? ReactDOMServer.renderToString(React.createElement(pageElement, reactProps)) : null,
     reactProps: serialize(reactProps),
     page,
     metadata: options.metadata,
     title: options.title ? `${options.title} - ${process.env.SITE_NAME}` : process.env.SITE_NAME,
-    colors: req.user && req.user.theme ? `/css/${req.user.theme}.css` : '/css/default.css',
+    colors: req.user?.theme ? `/css/${req.user.theme}.css` : '/css/default.css',
   });
 };
 

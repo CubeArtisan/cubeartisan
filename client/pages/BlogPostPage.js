@@ -24,7 +24,7 @@ import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType.js';
 
-const BlogPostPage = ({ post, loginCallback }) => (
+export const BlogPostPage = ({ post, loginCallback }) => (
   <MainLayout loginCallback={loginCallback}>
     <DynamicFlash />
     <BlogPost key={post._id} post={post} noScroll />

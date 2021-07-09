@@ -20,7 +20,7 @@ import { useState, useEffect, useContext } from 'react';
 
 import { Navbar, Nav, NavItem, NavLink, Row, Col, CardBody } from 'reactstrap';
 
-import Loading from '@cubeartisan/client/pages/Loading.js';
+import LoadingPage from '@cubeartisan/client/pages/LoadingPage.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import ArticlePreview from '@cubeartisan/client/components/ArticlePreview.js';
 import Paginate from '@cubeartisan/client/components/Paginate.js';
@@ -75,7 +75,7 @@ const CreatorArticles = () => {
         </CardBody>
       )}
       {loading ? (
-        <Loading />
+        <LoadingPage />
       ) : (
         <Row className="px-3">
           {articles.map((article) => (

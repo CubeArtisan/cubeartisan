@@ -47,7 +47,7 @@ const deduplicateTags = (tagColors) => {
   return result;
 };
 
-const CubeComparePage = ({
+export const CubeComparePage = ({
   cards,
   cube,
   cubeB,

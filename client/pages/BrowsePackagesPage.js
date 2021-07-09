@@ -58,7 +58,7 @@ const tabTypes = {
   '2': 'yourpackages',
 };
 
-const BrowsePackagesPage = ({ loginCallback }) => {
+export const BrowsePackagesPage = ({ loginCallback }) => {
   const user = useContext(UserContext);
   const [alerts, setAlerts] = useState([]);
   const [page, setPage] = useQueryParam('p', 0);

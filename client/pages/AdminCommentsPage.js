@@ -29,7 +29,7 @@ import Comment from '@cubeartisan/client/components/Comment.js';
 
 const PAGE_SIZE = 24;
 
-const AdminCommentsPage = ({ loginCallback, comments, count, page }) => {
+export const AdminCommentsPage = ({ loginCallback, comments, count, page }) => {
   return (
     <MainLayout loginCallback={loginCallback}>
       <DynamicFlash />

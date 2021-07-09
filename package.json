@@ -8,7 +8,6 @@
     "server"
   ],
   "license": "AGPL-3.0-only",
-  "sideEffects": "false",
   "repository": "https://github.com/CubeArtisan/cubeartisan",
   "scripts": {
     "build": "yarn workspace @cubeartisan/client build",

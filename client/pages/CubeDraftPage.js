@@ -289,7 +289,7 @@ CubeDraftPlayerUI.propTypes = {
   takeCard: PropTypes.func.isRequired,
   moveCard: PropTypes.func.isRequired,
 };
-const CubeDraftPage = ({ cube, initialDraft, seatNumber, loginCallback }) => {
+export const CubeDraftPage = ({ cube, initialDraft, seatNumber, loginCallback }) => {
   const { seed } = initialDraft;
   const [seatNum] = useState(() => toNullableInt(seatNumber) ?? 0);
   const { draft, mutations } = useMutatableDraft(initialDraft);

@@ -21,7 +21,7 @@ import { Row, Col, Card, CardHeader, CardBody } from 'reactstrap';
 
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
-const DownTimePage = ({ siteCustomizations: { discordUrl, siteName, supportEmail } }) => (
+export const DownTimePage = ({ siteCustomizations: { discordUrl, siteName, supportEmail } }) => (
   <Col xs="12" md="8" xl="5" style={{ margin: 'auto' }}>
     <Row className="mb-5 mt-4">
       <img src="/content/logo.png" alt={`${siteName} logo`} width="50%" style={{ margin: 'auto' }} />

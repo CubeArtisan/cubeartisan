@@ -25,7 +25,7 @@ import Markdown from '@cubeartisan/client/components/Markdown.js';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
-const MarkdownPage = ({ loginCallback, siteCustomizations: { siteName } }) => (
+export const MarkdownPage = ({ loginCallback, siteCustomizations: { siteName } }) => (
   <MainLayout loginCallback={loginCallback}>
     <DynamicFlash />
     <Card className="my-3 mx-4">

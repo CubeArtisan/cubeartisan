@@ -40,7 +40,7 @@ import CubesCard from '@cubeartisan/client/components/CubesCard.js';
 
 const CreateCubeModalButton = withModal(Button, CreateCubeModal);
 
-const DashboardPage = ({ posts, cubes, decks, loginCallback, content, featured }) => {
+export const DashboardPage = ({ posts, cubes, decks, loginCallback, content, featured }) => {
   const user = useContext(UserContext);
   // where featured cubes are positioned on the screen
   let featuredPosition;

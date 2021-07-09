@@ -30,7 +30,7 @@ import VideoPreview from '@cubeartisan/client/components/VideoPreview.js';
 
 const PAGE_SIZE = 24;
 
-const ReviewVideosPage = ({ loginCallback, videos, count, page }) => (
+export const ReviewVideosPage = ({ loginCallback, videos, count, page }) => (
   <MainLayout loginCallback={loginCallback}>
     <DynamicFlash />
     <Card className="my-3">

@@ -25,7 +25,7 @@ import Accordion from '@cubeartisan/client/components/Accordion.js';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
-const ContactPage = ({ loginCallback }) => (
+export const ContactPage = ({ loginCallback }) => (
   <MainLayout loginCallback={loginCallback}>
     <DynamicFlash />
     <Card className="my-3 mx-4">

@@ -29,7 +29,7 @@ import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const PAGE_SIZE = 24;
 
-const VideosPage = ({ loginCallback, videos, count, page }) => (
+export const VideosPage = ({ loginCallback, videos, count, page }) => (
   <MainLayout loginCallback={loginCallback}>
     <DynamicFlash />
     <h4>Videos</h4>

@@ -26,7 +26,7 @@ import SiteCustomizationContext from '@cubeartisan/client/components/contexts/Si
 import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
-const ContactPage = ({ loginCallback }) => {
+export const ContactPage = ({ loginCallback }) => {
   const { discordUrl, siteName, supportEmail } = useContext(SiteCustomizationContext);
   return (
     <MainLayout loginCallback={loginCallback}>

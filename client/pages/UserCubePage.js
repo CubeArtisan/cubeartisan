@@ -30,7 +30,7 @@ import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import Markdown from '@cubeartisan/client/components/Markdown.js';
 
-const UserCubePage = ({ owner, followers, following, cubes, loginCallback }) => {
+export const UserCubePage = ({ owner, followers, following, cubes, loginCallback }) => {
   const user = useContext(UserContext);
 
   return (

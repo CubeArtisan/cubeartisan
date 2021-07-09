@@ -20,12 +20,6 @@ const path = require('path');
 const merge = require('webpack-merge');
 
 const config = {
-  optimization: {
-    runtimeChunk: true,
-    splitChunks: {
-      chunks: 'async',
-    },
-  },
   module: {
     rules: [
       {
@@ -129,9 +123,6 @@ const clientConfig = merge(config, {
     path: path.resolve(__dirname, 'dist'),
   },
   target: 'browserslist:> 2%',
-  optimization: {
-    chunkIds: 'size',
-  },
   parallelism: 8,
 });
 

@@ -30,7 +30,7 @@ import PodcastPreview from '@cubeartisan/client/components/PodcastPreview.js';
 
 const PAGE_SIZE = 24;
 
-const ReviewPodcastsPage = ({ loginCallback, podcasts, count, page }) => (
+export const ReviewPodcastsPage = ({ loginCallback, podcasts, count, page }) => (
   <MainLayout loginCallback={loginCallback}>
     <DynamicFlash />
     <Card className="my-3">

@@ -27,7 +27,7 @@ import PodcastEpisodePreview from '@cubeartisan/client/components/PodcastEpisode
 import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
-const BrowseContentPage = ({ loginCallback, content }) => {
+export const BrowseContentPage = ({ loginCallback, content }) => {
   return (
     <MainLayout loginCallback={loginCallback}>
       <DynamicFlash />

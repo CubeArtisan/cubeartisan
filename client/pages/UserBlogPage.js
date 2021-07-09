@@ -25,7 +25,7 @@ import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
-const UserBlogPage = ({ followers, following, posts, owner, loginCallback, pages, activePage }) => (
+export const UserBlogPage = ({ followers, following, posts, owner, loginCallback, pages, activePage }) => (
   <MainLayout loginCallback={loginCallback}>
     <UserLayout user={owner} followers={followers} following={following} activeLink="blog">
       <DynamicFlash />

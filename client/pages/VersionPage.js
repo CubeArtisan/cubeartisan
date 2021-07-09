@@ -23,7 +23,7 @@ import { Card, CardHeader, CardBody } from 'reactstrap';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
-const VersionPage = ({ version, host, loginCallback }) => {
+export const VersionPage = ({ version, host, loginCallback }) => {
   return (
     <MainLayout loginCallback={loginCallback}>
       <Card className="my-3">

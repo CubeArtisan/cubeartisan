@@ -29,7 +29,7 @@ import TimeAgo from 'react-timeago';
 
 const PAGE_SIZE = 24;
 
-const CommentReportsPage = ({ loginCallback, reports, count, page }) => (
+export const CommentReportsPage = ({ loginCallback, reports, count, page }) => (
   <MainLayout loginCallback={loginCallback}>
     <DynamicFlash />
     <Card className="my-3">

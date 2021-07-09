@@ -29,7 +29,7 @@ import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
-const SamplePackPage = ({ seed, pack, cube, loginCallback }) => {
+export const SamplePackPage = ({ seed, pack, cube, loginCallback }) => {
   return (
     <MainLayout loginCallback={loginCallback}>
       <CubeLayout cube={cube} activeLink="playtest">

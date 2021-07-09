@@ -25,10 +25,15 @@ import Footer from '@cubeartisan/client/layouts/Footer.js';
 import LoginModal from '@cubeartisan/client/components/modals/LoginModal.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import CardSearchBar from '@cubeartisan/client/components/CardSearchBar.js';
+import { useContext } from 'react';
+import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
+import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 
 const LoginModalButton = withModal(Button, LoginModal);
 
-const LandingPage = ({ numusers, numcubes, numdrafts, siteCustomizations: { siteName } }) => {
+export const LandingPage = ({ numusers, numcubes, numdrafts }) => {
+  const [loginIsOpen, toggleLoginModal] = useToggle(false);
+  const { siteName } = useContext(SiteCustomizationContext);
   return (
     <div className="flex-container flex-vertical viewport">
       <Row className="m-0 p-0 flex-grow">
@@ -50,10 +55,17 @@ const LandingPage = ({ numusers, numcubes, numdrafts, siteCustomizations: { site
               <strong>{numdrafts}</strong>
               {' Completed Drafts'}
             </h5>
-            <Button href="/user/register" className="landing-btn my-3" color="success">
+            <Button href="/user" className="landing-btn my-3" color="success">
               Sign Up
             </Button>
-            <LoginModalButton modalProps={{ loginCallback: '/' }} className="landing-btn mb-3" color="success" outline>
+            <LoginModalButton
+              modalProps={{ loginCallback: '/' }}
+              className="landing-btn mb-3"
+              color="success"
+              outline
+              isOpen={loginIsOpen}
+              toggle={toggleLoginModal}
+            >
               Login
             </LoginModalButton>
             <span data-ccpa-link="1" />
@@ -69,11 +81,6 @@ LandingPage.propTypes = {
   numusers: PropTypes.string.isRequired,
   numcubes: PropTypes.string.isRequired,
   numdrafts: PropTypes.string.isRequired,
-  siteCustomizations: PropTypes.shape({
-    discordUrl: PropTypes.string.isRequired,
-    siteName: PropTypes.string.isRequired,
-    supportEmail: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default RenderToRoot(LandingPage);

@@ -26,7 +26,7 @@ import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const back = () => (window.history.length > 1 ? window.history.back() : window.close());
 
-const LeaveWarningPage = ({ url, loginCallback, siteCustomizations: { siteName } }) => (
+export const LeaveWarningPage = ({ url, loginCallback, siteCustomizations: { siteName } }) => (
   <MainLayout loginCallback={loginCallback}>
     <DynamicFlash />
     <Card className="my-3">

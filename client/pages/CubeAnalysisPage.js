@@ -60,7 +60,7 @@ import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 import { getLabels, cardIsLabel } from '@cubeartisan/client/utils/Sort.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 
-const CubeAnalysisPage = ({
+export const CubeAnalysisPage = ({
   cube,
   cubeID,
   defaultFilterText,

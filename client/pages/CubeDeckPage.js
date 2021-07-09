@@ -53,7 +53,7 @@ import UserContext from '@cubeartisan/client/components/contexts/UserContext.js'
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import { DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
 
-const CubeDeckPage = ({ cube, deck, draft, loginCallback }) => {
+export const CubeDeckPage = ({ cube, deck, draft, loginCallback }) => {
   const user = useContext(UserContext);
 
   const [seatIndex, setSeatIndex] = useQueryParam('seat', 0);

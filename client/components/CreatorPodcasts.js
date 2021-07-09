@@ -21,7 +21,7 @@ import { useState, useEffect, useContext } from 'react';
 import { Navbar, Nav, NavItem, NavLink, Row, Col, CardBody } from 'reactstrap';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import Loading from '@cubeartisan/client/pages/Loading.js';
+import LoadingPage from '@cubeartisan/client/pages/LoadingPage.js';
 import PodcastPreview from '@cubeartisan/client/components/PodcastPreview.js';
 import Paginate from '@cubeartisan/client/components/Paginate.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
@@ -74,7 +74,7 @@ const CreatorPodcasts = () => {
         </CardBody>
       )}
       {loading ? (
-        <Loading />
+        <LoadingPage />
       ) : (
         <Row className="px-3">
           {podcasts.map((podcast) => (

@@ -52,7 +52,7 @@ const translateLink = {
   package: (id) => `/packages/${id}`,
 };
 
-const CommentPage = ({ comment, loginCallback }) => {
+export const CommentPage = ({ comment, loginCallback }) => {
   const [content, setContent] = useState(comment);
 
   return (

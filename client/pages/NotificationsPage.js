@@ -25,7 +25,7 @@ import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
-const NotificationsPage = ({ notifications, loginCallback, siteCustomizations: { discordUrl, siteName } }) => (
+export const NotificationsPage = ({ notifications, loginCallback, siteCustomizations: { discordUrl, siteName } }) => (
   <MainLayout loginCallback={loginCallback}>
     <DynamicFlash />
     <Card className="mx-auto">

@@ -24,7 +24,7 @@ import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
-const PackagePage = ({ pack, loginCallback }) => (
+export const PackagePage = ({ pack, loginCallback }) => (
   <MainLayout loginCallback={loginCallback}>
     <DynamicFlash />
     <CardPackage cardPackage={pack} refresh={() => window.location.reload()} />
