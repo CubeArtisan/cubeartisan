@@ -12,7 +12,7 @@ COPY yarn.lock ./
 COPY .yarnrc.yml ./
 RUN yarn install
 
-COPY server/babel.config.js server/babel.config.js
+COPY server/babel.config.cjs server/babel.config.cjs
 COPY server/config/   server/config/
 COPY server/emails/   server/emails/
 COPY server/models/   server/models/

@@ -112,35 +112,33 @@ const CompareView = ({ cards, both, onlyA, onlyB, ...props }) => {
 
   return (
     <>
-      {
-        <div className="compare-header pt-2">
-          <Row>
-            <Col>
-              <h6 className="text-center">Total</h6>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs="4">
-              <h6 className="text-center">
-                In Both Cubes
-                <br />({bothCounts.total})
-              </h6>
-            </Col>
-            <Col xs="4">
-              <h6 className="text-center">
-                Only in Base Cube
-                <br />({onlyACounts.total})
-              </h6>
-            </Col>
-            <Col xs="4">
-              <h6 className="text-center">
-                Only in Comparison Cube
-                <br />({onlyBCounts.total})
-              </h6>
-            </Col>
-          </Row>
-        </div>
-      }
+      <div className="compare-header pt-2">
+        <Row>
+          <Col>
+            <h6 className="text-center">Total</h6>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs="4">
+            <h6 className="text-center">
+              In Both Cubes
+              <br />({bothCounts.total})
+            </h6>
+          </Col>
+          <Col xs="4">
+            <h6 className="text-center">
+              Only in Base Cube
+              <br />({onlyACounts.total})
+            </h6>
+          </Col>
+          <Col xs="4">
+            <h6 className="text-center">
+              Only in Comparison Cube
+              <br />({onlyBCounts.total})
+            </h6>
+          </Col>
+        </Row>
+      </div>
       {getLabels(cards, primary, showOther)
         .filter((columnLabel) => columns[columnLabel])
         .map((columnLabel) => {

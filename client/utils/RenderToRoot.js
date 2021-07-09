@@ -43,7 +43,7 @@ const RenderToRoot = (Element) => {
     const element = <Wrapped />;
     if (wrapper) {
       if (wrapper.children.length === 0) {
-        ReactDOM.render(element, wrapper);
+        ReactDOM.createRoot(element, wrapper);
       } else {
         ReactDOM.hydrateRoot(wrapper, element);
       }

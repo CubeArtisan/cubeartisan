@@ -6,7 +6,7 @@ extends:
   - airbnb
   - prettier
   - plugin:array-func/all
-parser: 'babel-eslint'
+parser: '@babel/eslint-parser'
 plugins:
   - jest
   - prettier
