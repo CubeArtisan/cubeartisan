@@ -40,7 +40,7 @@ export const ArticlePage = ({ loginCallback, article }) => {
           <CardHeader>
             <h5>
               <em className="pr-3">*Draft*</em>
-              <ButtonLink color="success" outline href={`/content/article/edit/${article._id}`}>
+              <ButtonLink color="success" outline href={`/article/${article._id}/edit`}>
                 Edit
               </ButtonLink>
             </h5>

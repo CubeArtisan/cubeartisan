@@ -81,7 +81,7 @@ const postToBlog = async (req, res) => {
       await addMultipleNotifications(
         query,
         owner,
-        `/cube/blog/blogpost/${blogpost._id}`,
+        `/cube/${cube._id}/blog/post/${blogpost._id}`,
         `${user.username} mentioned you in their blog post`,
       );
     }
@@ -169,7 +169,7 @@ const getBlogPage = async (req, res) => {
       },
     );
   } catch (err) {
-    return handleRouteError(req, res, err, `/cube/overview/${encodeURIComponent(req.params.id)}`);
+    return handleRouteError(req, res, err, `/cube/${encodeURIComponent(req.params.id)}`);
   }
 };
 

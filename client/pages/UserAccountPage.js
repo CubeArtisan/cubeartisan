@@ -18,7 +18,6 @@
  */
 import { useCallback, useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import PatronPropType from '@cubeartisan/client/proptypes/PatronPropType.js';
 
 import {
   Button,
@@ -51,7 +50,7 @@ import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import TextEntry from '@cubeartisan/client/components/TextEntry.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 
-export const UserAccountPage = ({ defaultNav, loginCallback, patreonClientId, patreonRedirectUri, patron }) => {
+export const UserAccountPage = ({ defaultNav, loginCallback }) => {
   const user = useContext(UserContext);
   const [nav, setNav] = useQueryParam('nav', defaultNav);
   const [imageValue, setImageValue] = useState('');
@@ -60,7 +59,7 @@ export const UserAccountPage = ({ defaultNav, loginCallback, patreonClientId, pa
 
   useEffect(() => {
     (async () => {
-      const response = await fetch('/cube/api/imagedict');
+      const response = await fetch('/cards/images/dict');
       const json = await response.json();
       setImageDict(json.dict);
     })();
@@ -146,7 +145,7 @@ export const UserAccountPage = ({ defaultNav, loginCallback, patreonClientId, pa
             <TabPane tabId="profile">
               <Card>
                 <CardBody>
-                  <CSRFForm method="POST" action="/user/updateuserinfo">
+                  <CSRFForm method="PUT" action={`/user/${user.id}`}>
                     <div className="form-group">
                       <dl className="row">
                         <dt className="col-sm-3">Username</dt>
@@ -166,7 +165,7 @@ export const UserAccountPage = ({ defaultNav, loginCallback, patreonClientId, pa
                             </Col>
                             <Col xs={6}>
                               <AutocompleteInput
-                                treeUrl="/cube/api/fullnames"
+                                treeUrl="/cards/names/full"
                                 treePath="cardnames"
                                 type="text"
                                 className="mr-2"
@@ -200,7 +199,7 @@ export const UserAccountPage = ({ defaultNav, loginCallback, patreonClientId, pa
             <TabPane tabId="password">
               <Card>
                 <CardBody>
-                  <CSRFForm method="POST" action="/user/resetpassword">
+                  <CSRFForm method="PUT" action={`/user/${user.id}/password`}>
                     <FormGroup row>
                       <Label for="password" className="col-sm-4 col-form-Label">
                         Old password:
@@ -229,7 +228,7 @@ export const UserAccountPage = ({ defaultNav, loginCallback, patreonClientId, pa
             <TabPane tabId="email">
               <Card>
                 <CardBody>
-                  <CSRFForm method="POST" action="/user/updateemail">
+                  <CSRFForm method="POST" action={`/user/${user.id}/email`}>
                     <FormGroup row>
                       <Label for="email" className="col-sm-4 col-form-Label">
                         New Email:
@@ -252,7 +251,7 @@ export const UserAccountPage = ({ defaultNav, loginCallback, patreonClientId, pa
             <TabPane tabId="display">
               <Card>
                 <CardBody>
-                  <CSRFForm method="POST" action="/user/changedisplay">
+                  <CSRFForm method="POST" action={`/user/${user.id}/display`}>
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>Theme</InputGroupText>
@@ -278,42 +277,6 @@ export const UserAccountPage = ({ defaultNav, loginCallback, patreonClientId, pa
                 </CardBody>
               </Card>
             </TabPane>
-
-            <TabPane tabId="patreon">
-              <Card>
-                {patron ? (
-                  <CardBody>
-                    {user.roles.includes('Patron') ? (
-                      <p>
-                        Your account is linked at the <b>{patron.level}</b> level.
-                      </p>
-                    ) : (
-                      <p>Your account is linked, but you are not an active patron.</p>
-                    )}
-                    <p>
-                      <i>More Patreon features are coming soon!</i>
-                    </p>
-                    <Button block outline color="danger" href="/patreon/unlink">
-                      Unlink Patreon Account
-                    </Button>
-                  </CardBody>
-                ) : (
-                  <CardBody>
-                    <p>Your account is currently not linked to your patreon account.</p>
-                    <Button
-                      block
-                      outline
-                      color="success"
-                      href={`https://www.patreon.com/oauth2/authorize?response_type=code&client_id=${patreonClientId}&redirect_uri=${encodeURIComponent(
-                        patreonRedirectUri,
-                      )}`}
-                    >
-                      Link Patreon Account
-                    </Button>
-                  </CardBody>
-                )}
-              </Card>
-            </TabPane>
           </TabContent>
         </Col>
       </Row>
@@ -324,14 +287,10 @@ export const UserAccountPage = ({ defaultNav, loginCallback, patreonClientId, pa
 UserAccountPage.propTypes = {
   defaultNav: PropTypes.string.isRequired,
   loginCallback: PropTypes.string,
-  patreonClientId: PropTypes.string.isRequired,
-  patreonRedirectUri: PropTypes.string.isRequired,
-  patron: PatronPropType,
 };
 
 UserAccountPage.defaultProps = {
   loginCallback: '/',
-  patron: null,
 };
 
 export default RenderToRoot(UserAccountPage);

@@ -78,14 +78,14 @@ export const ensureAuth = [
     }
 
     req.flash('danger', 'Please login to view this content');
-    return res.redirect('/user/login');
+    return res.redirect('/login');
   },
 ];
 
 export const ensureRole = (role) => (req, res, next) => {
   if (!req.isAuthenticated()) {
     req.flash('danger', 'Please login to view this content');
-    return res.redirect('/user/login');
+    return res.redirect('/login');
   }
 
   return User.findById(req.user.id, (_err, user) => {

@@ -63,7 +63,7 @@ export const CardSearchPage = ({ loginCallback }) => {
         ['d', direction],
         ['di', distinct],
       ]);
-      const response = await fetch(`/tool/api/searchcards/?${params.toString()}`);
+      const response = await fetch(`cards/search/query?${params.toString()}`);
       if (!response.ok) {
         console.error(response);
       }
@@ -121,10 +121,7 @@ export const CardSearchPage = ({ loginCallback }) => {
           </Col>
           <Col xs="6">
             <div className="text-right">
-              <ButtonLink outline color="success" href="/tool/topcards">
-                View Top Cards
-              </ButtonLink>{' '}
-              <ButtonLink outline color="success" href="/packages/browse">
+              <ButtonLink outline color="success" href="/packages">
                 View Card Packages
               </ButtonLink>
             </div>

@@ -513,7 +513,13 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
                 <CardBody>
                   <Row>
                     <Col className="pb-2" xs="12" sm="6">
-                      <ButtonLink outline color="success" block href={`/search/card:"${card.name}"/0`} target="_blank">
+                      <ButtonLink
+                        outline
+                        color="success"
+                        block
+                        href={`/cubes/search/card:"${card.name}"/0`}
+                        target="_blank"
+                      >
                         {`Cubes with ${card.name}`}
                       </ButtonLink>
                     </Col>
@@ -612,7 +618,7 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
                       <AutocardA
                         front={version.image_normal}
                         back={version.image_flip || undefined}
-                        href={`/tool/card/${version._id}`}
+                        href={`/card/${version._id}`}
                       >
                         {`${version.set_name} [${version.set.toUpperCase()}-${version.collector_number}]`}
                       </AutocardA>

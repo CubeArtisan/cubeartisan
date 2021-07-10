@@ -61,7 +61,7 @@ export const EditArticlePage = ({ loginCallback, article, siteCustomizations }) 
 
   useEffect(() => {
     (async () => {
-      const response = await fetch('/cube/api/imagedict');
+      const response = await fetch('/cards/images/dict');
       const json = await response.json();
       setLoading(false);
       setImageDict(json.dict);
@@ -90,14 +90,14 @@ export const EditArticlePage = ({ loginCallback, article, siteCustomizations }) 
               <h4>Edit Article</h4>
             </Col>
             <Col xs="12" sm="6">
-              <a href="/content/creators" className="float-right">
+              <a href="/creators" className="float-right">
                 Back to Dashboard
               </a>
             </Col>
           </Row>
           <Row>
             <Col xs="6">
-              <CSRFForm method="POST" action="/content/editarticle" autoComplete="off">
+              <CSRFForm method="PUT" action={`/article/${article._id}`} autoComplete="off">
                 <Input type="hidden" name="articleid" value={article._id} />
                 <Input type="hidden" name="title" value={title} />
                 <Input type="hidden" name="short" value={short} />
@@ -111,7 +111,7 @@ export const EditArticlePage = ({ loginCallback, article, siteCustomizations }) 
               </CSRFForm>
             </Col>
             <Col xs="6">
-              <CSRFForm method="POST" action="/content/submitarticle" autoComplete="off">
+              <CSRFForm method="POST" action={`/article/${article._id}/submit`} autoComplete="off">
                 <Input type="hidden" name="articleid" value={article._id} />
                 <Input type="hidden" name="title" value={title} />
                 <Input type="hidden" name="short" value={short} />
@@ -176,7 +176,7 @@ export const EditArticlePage = ({ loginCallback, article, siteCustomizations }) 
                   </Col>
                   <Col sm="5">
                     <AutocompleteInput
-                      treeUrl="/cube/api/fullnames"
+                      treeUrl="/cards/names/full"
                       treePath="cardnames"
                       type="text"
                       className="mr-2"

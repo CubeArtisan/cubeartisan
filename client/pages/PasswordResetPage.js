@@ -33,7 +33,7 @@ const LostPassword = ({ loginCallback }) => (
         <h5>Reset Password</h5>
       </CardHeader>
       <CardBody>
-        <CSRFForm method="POST" action="/user/lostpasswordreset">
+        <CSRFForm method="POST" action="/lostpassword/reset">
           <FormGroup>
             <Row>
               <Col sm="4">

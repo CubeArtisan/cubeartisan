@@ -85,7 +85,7 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
   const follow = async () => {
     setFollowedState(true);
 
-    const response = await csrfFetch(`/cube/follow/${cube._id}`, {
+    const response = await csrfFetch(`/cube/${cube._id}/follow`, {
       method: 'POST',
       headers: {},
     });
@@ -95,8 +95,8 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
   const unfollow = async () => {
     setFollowedState(false);
 
-    const response = await csrfFetch(`/cube/unfollow/${cube._id}`, {
-      method: 'POST',
+    const response = await csrfFetch(`/cube/${cube._id}/follow`, {
+      method: 'DELETE',
       headers: {},
     });
     if (!response.ok) {
@@ -215,9 +215,9 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
                 <h6 className="mb-2">
                   <i>
                     Designed by
-                    <a href={`/user/view/${cubeState.owner}`}> {cubeState.owner_name}</a>
+                    <a href={`/user/${cubeState.owner}`}> {cubeState.owner_name}</a>
                   </i>{' '}
-                  • <a href={`/cube/rss/${cubeState._id}`}>RSS</a>
+                  • <a href={`/cube/${cubeState._id}/rss`}>RSS</a>
                 </h6>
                 <p>
                   <a href={`https://luckypaper.co/resources/cube-map/?cube=${cubeState._id}`}>
@@ -244,9 +244,9 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
                 )}
                 {user && user.roles.includes('Admin') && (
                   <CSRFForm
-                    method="POST"
+                    method={cubeState.isFeatured ? 'DELETE' : 'POST'}
                     id="featuredForm"
-                    action={`/cube/${cubeState.isFeatured ? 'unfeature/' : 'feature/'}${cubeState._id}`}
+                    action={`/cube/${cubeState._id}/feature`}
                     className="mt-2"
                   >
                     <Button color="success" type="submit">
@@ -281,7 +281,7 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
                 <CardFooter>
                   <div className="autocard-tags">
                     {cubeState.tags.map((tag) => (
-                      <a href={`/search/tag:"${tag}"/0`}>
+                      <a href={`/cubes/search/tag:"${tag}"/0`}>
                         <span key={tag} className="tag">
                           {tag}
                         </span>

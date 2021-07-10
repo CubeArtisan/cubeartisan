@@ -166,12 +166,7 @@ const submitGridDraft = async (req, res) => {
     const [user, cubeOwner] = await Promise.all([userq, cubeOwnerq]);
 
     if (user && !cube.disableNotifications) {
-      await addNotification(
-        cubeOwner,
-        user,
-        `/cube/deck/${deck._id}`,
-        `${user.username} drafted your cube: ${cube.name}`,
-      );
+      await addNotification(cubeOwner, user, `/deck/${deck._id}`, `${user.username} drafted your cube: ${cube.name}`);
     }
 
     if (!cube.numDecks) {
@@ -182,11 +177,11 @@ const submitGridDraft = async (req, res) => {
 
     await Promise.all([cube.save(), deck.save(), cubeOwner.save()]);
     if (req.body.skipDeckbuilder) {
-      return res.redirect(`/cube/deck/${deck._id}`);
+      return res.redirect(`/deck/${deck._id}`);
     }
-    return res.redirect(`/cube/deck/deckbuilder/${deck._id}`);
+    return res.redirect(`/deck/${deck._id}/build`);
   } catch (err) {
-    return handleRouteError(req, res, err, `/cube/playtest/${encodeURIComponent(req.params.id)}`);
+    return handleRouteError(req, res, err, `/cube/${encodeURIComponent(req.params.id)}/playtest`);
   }
 };
 

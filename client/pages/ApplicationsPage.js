@@ -66,7 +66,7 @@ export const AdminDashboardPage = ({ loginCallback, applications, count, page })
             </p>
             <p>
               Submitted by by:{' '}
-              <a href={`/user/view/${application.userid}`} target="_blank" rel="noopener noreferrer">
+              <a href={`/user/${application.userid}`} target="_blank" rel="noopener noreferrer">
                 {application.userid}
               </a>
               - <TimeAgo date={application.timePosted} />

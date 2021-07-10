@@ -88,8 +88,8 @@ export const BrowsePackagesPage = ({ loginCallback }) => {
         setRefresh(false);
       }
       setLoading(true);
-      const post = filter.length > 0 ? `/${filter}` : '';
-      const response = await csrfFetch(`/packages/${tabTypes[selectedTab]}/${page}/${sort}/${sortDirection}${post}`);
+      const post = filter.length > 0 ? `${filter}` : '';
+      const response = await csrfFetch(`/packages/${tabTypes[selectedTab]}/${page}/${sort}/${sortDirection}/${post}`);
       if (response.ok) {
         const json = await response.json();
         if (json.success === 'true') {

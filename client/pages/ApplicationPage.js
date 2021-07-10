@@ -29,7 +29,7 @@ export const AdminDashboardPage = ({ loginCallback, siteCustomizations }) => (
   <MainLayout loginCallback={loginCallback} siteCustomizations={siteCustomizations}>
     <DynamicFlash />
     <Card className="my-3 mx-4">
-      <CSRFForm method="POST" action="/content/submitapplication" autoComplete="off">
+      <CSRFForm method="POST" action="/application" autoComplete="off">
         <CardHeader>
           <h5>Apply to be a {siteCustomizations.siteName} Content Creator Partner</h5>
         </CardHeader>

@@ -292,7 +292,7 @@ export const CubeAnalysisPage = ({
   useEffect(() => {
     (async () => {
       try {
-        const { toCut, toAdd } = await getData(`/cube/api/adds/${cubeID}`);
+        const { toCut, toAdd } = await getData(`/cube/${cubeID}/recommend`);
         setAdds(toAdd);
         setCuts(toCut);
         setLoading('loaded');

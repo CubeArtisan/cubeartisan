@@ -44,7 +44,7 @@ export const SearchPage = ({ cubes, query, count, perPage, page, order, loginCal
                 <h5>
                   {`Displaying ${perPage * page + 1}-${Math.min(count, perPage * (page + 1))} of ${count} Results`}
                 </h5>
-                <Paginate count={pages} active={page} urlF={(i) => `/search/${query}/${i}?order=${order}`} />
+                <Paginate count={pages} active={page} urlF={(i) => `/cubes/search/${query}/${i}?order=${order}`} />
               </>
             ) : (
               <h5>{`Displaying all ${count} Results`}</h5>
@@ -59,7 +59,7 @@ export const SearchPage = ({ cubes, query, count, perPage, page, order, loginCal
           </Row>
           {pages > 1 && (
             <CardBody>
-              <Paginate count={pages} active={page} urlF={(i) => `/search/${query}/${i}?order=${order}`} />
+              <Paginate count={pages} active={page} urlF={(i) => `/cubes/search/${query}/${i}?order=${order}`} />
             </CardBody>
           )}
         </Card>

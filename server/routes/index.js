@@ -60,10 +60,20 @@ import Article from '@cubeartisan/server/models/article.js';
 import Video from '@cubeartisan/server/models/video.js';
 import PodcastEpisode from '@cubeartisan/server/models/podcastEpisode.js';
 import { makeFilter } from '@cubeartisan/server/serverjs/filterCubes.js';
-import { ensureAuth, requestLogging, timeoutMiddleware } from '@cubeartisan/server/routes/middleware.js';
+import {
+  ensureAuth,
+  flashValidationErrors,
+  requestLogging,
+  timeoutMiddleware
+} from "@cubeartisan/server/routes/middleware.js";
 import { getCubeId } from '@cubeartisan/server/serverjs/cubefn.js';
 
 import { fileURLToPath } from 'url';
+import { body } from "express-validator";
+import PasswordReset from "@cubeartisan/server/models/passwordreset";
+import mailer from "nodemailer";
+import Email from "email-templates";
+import bcrypt from "bcryptjs";
 
 // eslint-disable-next-line no-underscore-dangle,prettier/prettier
 const __filename = fileURLToPath(import.meta.url);
@@ -206,7 +216,7 @@ const showRandomCube = async (_, res) => {
   const [randCube] = await Cube.aggregate()
     .match({ isListed: true, card_count: { $gte: 360 }, date_updated: { $gte: lastMonth() } })
     .sample(1);
-  res.redirect(303, `/cube/${encodeURIComponent(getCubeId(randCube))}/overview`);
+  res.redirect(303, `/cube/${encodeURIComponent(getCubeId(randCube))}`);
 };
 
 const viewDashboard = async (req, res) => {
@@ -480,7 +490,7 @@ const loginUser = (req, res, next) => {
   User.findOne(query, (_err, user) => {
     if (!user) {
       req.flash('danger', 'Incorrect username or email address.');
-      res.redirect('/user/login');
+      res.redirect('/login');
     } else {
       req.body.username = user.username;
       // TODO: fix confirmation and check it here.
@@ -490,7 +500,7 @@ const loginUser = (req, res, next) => {
       }
       passport.authenticate('local', {
         successRedirect: redirect,
-        failureRedirect: '/user/Login',
+        failureRedirect: '/login',
         failureFlash: true,
       })(req, res, next);
     }
@@ -502,6 +512,127 @@ const logoutUser = (req, res) => {
   req.flash('success', 'You have been logged out');
   res.redirect('/');
 };
+
+const addMinutes = (date, minutes)  => {
+  return new Date(new Date(date).getTime() + minutes * 60000);
+}
+
+const submitLostPassword = async (req, res) => {
+  try {
+    if (!req.validated) {
+      return render(req, res, 'LostPasswordPage');
+    }
+    const recoveryEmail = req.body.email.toLowerCase();
+    await PasswordReset.deleteOne({
+      email: recoveryEmail,
+    });
+
+    const passwordReset = new PasswordReset();
+    passwordReset.expires = addMinutes(Date.now(), 15);
+    passwordReset.email = recoveryEmail;
+    passwordReset.code = Math.floor(1000000000 + Math.random() * 9000000000);
+    await passwordReset.save();
+
+    const smtpTransport = mailer.createTransport({
+      name: process.env.SITE_HOSTNAME,
+      secure: true,
+      service: 'Gmail',
+      auth: {
+        user: process.env.EMAIL_CONFIG_USERNAME,
+        pass: process.env.EMAIL_CONFIG_PASSWORD,
+      },
+    });
+
+    const email = new Email({
+      message: {
+        from: process.env.SUPPORT_EMAIL_FROM,
+        to: passwordReset.email,
+        subject: 'Password Reset',
+      },
+      send: true,
+      juiceResources: {
+        webResources: {
+          relativeTo: path.join(__dirname, '..', 'public'),
+          images: true,
+        },
+      },
+      transport: smtpTransport,
+    });
+
+    await email.send({
+      template: 'password_reset',
+      locals: {
+        id: passwordReset.id,
+        code: passwordReset.code,
+      },
+    });
+
+    req.flash('success', `Password recovery email sent to ${recoveryEmail}`);
+    return res.redirect('/user/lostpassword');
+  } catch (err) {
+    return handleRouteError(req, res, err, `/user/lostpassword`);
+  }
+};
+
+const resetPassword = async (req, res) => {
+  try {
+    if (!req.validated) {
+      return render(req, res, 'PasswordResetPage');
+    }
+    const recoveryEmail = req.body.email.toLowerCase();
+    const passwordreset = await PasswordReset.findOne({
+      code: req.body.code,
+      email: recoveryEmail,
+    });
+
+    if (!passwordreset) {
+      req.flash('danger', 'Incorrect email and recovery code combination.');
+      return render(req, res, 'PasswordResetPage');
+    }
+    const user = await User.findOne({
+      email: recoveryEmail,
+    });
+
+    if (!user) {
+      req.flash('danger', 'No user with that email found! Are you sure you created an account?');
+      return render(req, res, 'PasswordResetPage');
+    }
+
+    if (req.body.password2 !== req.body.password) {
+      req.flash('danger', "New passwords don't match");
+      return render(req, res, 'PasswordResetPage');
+    }
+
+    return bcrypt.genSalt(10, (err4, salt) => {
+      if (err4) {
+        return handleRouteError(req, res, err4, `/`);
+      }
+      return bcrypt.hash(req.body.password2, salt, async (err5, hash) => {
+        if (err5) {
+          return handleRouteError(req, res, err5, `/`);
+        }
+        user.password = hash;
+        try {
+          await user.save();
+          req.flash('success', 'Password updated successfully');
+          return res.redirect('/user/login');
+        } catch (err6) {
+          return handleRouteError(req, res, err6, `/`);
+        }
+      });
+    });
+  } catch (err) {
+    return handleRouteError(req, res, err, `/`);
+  }
+};
+
+const checkPasswordsMatch = (value, { req }) => {
+  if (value !== req.body.password2) {
+    throw new Error('Password confirmation does not match password');
+  }
+
+  return true;
+}
 
 // Init app
 const app = express();
@@ -572,8 +703,8 @@ app.use('/draft', DraftRoutes);
 app.use('/griddraft', GridDraftRoutes);
 app.use('/deck', DeckRoutes);
 app.get('/comments/:parent/:type', wrapAsyncApi(getChildComments));
-app.get('/explore', wrapAsyncApi(exploreCubes));
-app.get('/random', wrapAsyncApi(showRandomCube));
+app.get('/cubes/explore', wrapAsyncApi(exploreCubes));
+app.get('/cubes/random', wrapAsyncApi(showRandomCube));
 app.get('/dashboard', ensureAuth, wrapAsyncApi(viewDashboard));
 app.get('/dashboard/decks/:page', wrapAsyncApi(dashboardDecks));
 app.get('/landing', wrapAsyncApi(viewLanding));
@@ -586,6 +717,13 @@ app.get('/login', (req, res) => render(req, res, 'LoginPage'));
 app.post('/login', loginUser);
 app.post('/logout', logoutUser);
 app.get('/lostpassword', (req, res) => render(req, res, 'LostPasswordPage'));
+app.post('/lostpassword', body('email', 'Email is required').isEmail(), flashValidationErrors, submitLostPassword);
+app.post('/lostpassword/reset',
+  body('password', 'Password must be between 8 and 24 characters.').isLength({ min: 8, max: 24 }),
+  body('password', 'New passwords must match.').custom(checkPasswordsMatch),
+  flashValidationErrors,
+  resetPassword,
+);
 app.get('/404', showErrorPage);
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, _next) => {

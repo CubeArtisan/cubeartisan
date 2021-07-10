@@ -26,12 +26,12 @@ import FollowersModal from '@cubeartisan/client/components/modals/FollowersModal
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import CreateCubeModal from '@cubeartisan/client/components/modals/CreateCubeModal.js';
 
-import { Button, Nav, Navbar, NavItem, NavLink, Row } from 'reactstrap';
+import { Nav, Navbar, NavItem, NavLink, Row } from 'reactstrap';
 
 const FollowersModalLink = withModal('a', FollowersModal);
 const CreateCubeModalLink = withModal(NavLink, CreateCubeModal);
 
-const UserLayout = ({ user, followers, following, activeLink, children }) => {
+const UserLayout = ({ user, followers, activeLink, children }) => {
   const activeUser = useContext(UserContext);
   const canEdit = activeUser && activeUser.id === user._id;
 
@@ -55,29 +55,31 @@ const UserLayout = ({ user, followers, following, activeLink, children }) => {
           ) : (
             followersText
           )}
-          {!following && !canEdit && (
-            <Button color="success" className="rounded-0 w-100" href={`/user/follow/${user._id}`}>
-              Follow
-            </Button>
-          )}
-          {following && !canEdit && (
-            <Button color="danger" outline className="rounded-0 w-100" href={`/user/unfollow/${user._id}`}>
-              Unfollow
-            </Button>
-          )}
+          {/* TODO: Needs to be a POST method call. */}
+          {/* {!following && !canEdit && ( */}
+          {/*  <Button color="success" className="rounded-0 w-100" href={`/user/${user._id}/follow`}> */}
+          {/*    Follow */}
+          {/*  </Button> */}
+          {/* )} */}
+          {/* TODO: Needs to be a DELETE method call. */}
+          {/* {following && !canEdit && ( */}
+          {/*  <Button color="danger" outline className="rounded-0 w-100" href={`/user/${user._id}/follow`}> */}
+          {/*    Unfollow */}
+          {/*  </Button> */}
+          {/* )} */}
         </NavItem>
         <NavItem className="px-2 align-self-end">
-          <NavLink active={activeLink === 'view'} href={`/user/view/${user._id}`}>
+          <NavLink active={activeLink === 'view'} href={`/user/${user._id}`}>
             Cubes
           </NavLink>
         </NavItem>
         <NavItem className="px-2 align-self-end">
-          <NavLink active={activeLink === 'decks'} href={`/user/decks/${user._id}`}>
+          <NavLink active={activeLink === 'decks'} href={`/user/${user._id}/decks`}>
             Decks
           </NavLink>
         </NavItem>
         <NavItem className="px-2 align-self-end">
-          <NavLink active={activeLink === 'blog'} href={`/user/blog/${user._id}`}>
+          <NavLink active={activeLink === 'blog'} href={`/user/${user._id}/blog`}>
             Blog
           </NavLink>
         </NavItem>
@@ -103,7 +105,6 @@ UserLayout.propTypes = {
     username: PropTypes.string.isRequired,
   }).isRequired,
   followers: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  following: PropTypes.bool.isRequired,
   activeLink: PropTypes.string.isRequired,
   children: PropTypes.node,
 };

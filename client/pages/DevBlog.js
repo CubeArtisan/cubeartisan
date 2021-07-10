@@ -41,7 +41,7 @@ const DevBlog = ({ blogs, pages, activePage, loginCallback }) => {
           <Card>
             <CardBody>
               <h5>Create New Blog Post</h5>
-              <CSRFForm method="POST" action="/dev/blogpost/">
+              <CSRFForm method="POST" action="/dev/blog">
                 <FormGroup>
                   <Label>Title:</Label>
                   <Input maxLength="200" name="title" type="text" />

@@ -31,7 +31,7 @@ export const UserBlogPage = ({ followers, following, posts, owner, loginCallback
       <DynamicFlash />
 
       {pages > 1 && (
-        <Paginate count={pages} active={parseInt(activePage, 10)} urlF={(i) => `/user/blog/${owner._id}/${i}`} />
+        <Paginate count={pages} active={parseInt(activePage, 10)} urlF={(i) => `/user/${owner._id}/blog/${i}`} />
       )}
       {posts.length > 0 ? (
         posts.slice(0).map((post) => <BlogPost key={post._id} post={post} loggedIn />)
@@ -40,7 +40,7 @@ export const UserBlogPage = ({ followers, following, posts, owner, loginCallback
       )}
 
       {pages > 1 && (
-        <Paginate count={pages} active={parseInt(activePage, 10)} urlF={(i) => `/user/blog/${owner._id}/${i}`} />
+        <Paginate count={pages} active={parseInt(activePage, 10)} urlF={(i) => `/user/${owner._id}/blog/${i}`} />
       )}
     </UserLayout>
   </MainLayout>

@@ -135,7 +135,7 @@ const getInfoForId = async (req, res) => {
     const card = getCardFromId(req, res);
     if (card.error) {
       req.flash('danger', `Card with id ${req.params.id} not found.`);
-      return res.redirect(302, '/404');
+      return res.redirect(303, '/404');
     }
     // otherwise just go to this ID.
     let data = await CardHistory.findOne({ oracleId: card.oracle_id });

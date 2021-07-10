@@ -40,7 +40,7 @@ export const VideoPage = ({ loginCallback, video }) => {
           <CardHeader>
             <h5>
               <em className="pr-3">*Draft*</em>
-              <ButtonLink color="success" outline href={`/content/video/edit/${video._id}`}>
+              <ButtonLink color="success" outline href={`/video/${video._id}/edit`}>
                 Edit
               </ButtonLink>
             </h5>

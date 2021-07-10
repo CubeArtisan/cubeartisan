@@ -46,14 +46,14 @@ export const EditPodcastPage = ({ loginCallback, podcast }) => {
               <h4>Edit Podcast</h4>
             </Col>
             <Col xs="12" sm="6">
-              <a href="/content/creators" className="float-right">
+              <a href="/creators" className="float-right">
                 Back to Dashboard
               </a>
             </Col>
           </Row>
           <Row>
             <Col xs="6">
-              <CSRFForm method="POST" action="/content/editpodcast" autoComplete="off">
+              <CSRFForm method="PUT" action={`/podcast/${podcast._id}`} autoComplete="off">
                 <Input type="hidden" name="podcastid" value={podcast._id} />
                 <Input type="hidden" name="rss" value={rss} />
                 <Button type="submit" color="success" block disabled={!hasChanges}>
@@ -62,7 +62,7 @@ export const EditPodcastPage = ({ loginCallback, podcast }) => {
               </CSRFForm>
             </Col>
             <Col xs="6">
-              <CSRFForm method="POST" action="/content/submitpodcast" autoComplete="off">
+              <CSRFForm method="POST" action={`/podcast/${podcast._id}/submit`} autoComplete="off">
                 <Input type="hidden" name="podcastid" value={podcast._id} />
                 <Input type="hidden" name="rss" value={rss} />
                 <Button type="submit" outline color="success" block>

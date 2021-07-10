@@ -54,11 +54,7 @@ export const PodcastsPage = ({ loginCallback, podcasts, episodes, count, page })
       ))}
     </Row>
     {count > PAGE_SIZE && (
-      <Paginate
-        count={Math.ceil(count / PAGE_SIZE)}
-        active={parseInt(page, 10)}
-        urlF={(i) => `/content/podcasts/${i}`}
-      />
+      <Paginate count={Math.ceil(count / PAGE_SIZE)} active={parseInt(page, 10)} urlF={(i) => `/podcasts/${i}`} />
     )}
   </MainLayout>
 );

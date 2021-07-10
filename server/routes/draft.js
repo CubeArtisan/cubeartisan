@@ -103,17 +103,17 @@ const redraftDraft = async (req, res) => {
     const seat = parseInt(req.params.seat, 10);
     if (!srcDraft) {
       req.flash('danger', 'This deck is not able to be redrafted.');
-      return res.redirect(`/cube/deck/${req.params.id}`);
+      return res.redirect(303, `/deck/${req.params.id}`);
     }
     if (!Number.isInteger(seat) || seat < 0 || seat >= srcDraft.seats.length) {
       req.flash('dange', 'Did not give a valid seat number to redraft as.');
-      return res.redirect(`/cube/deck/${req.params.id}`);
+      return res.redirect(303, `/deck/${req.params.id}`);
     }
 
     const cube = await Cube.findById(srcDraft.cube);
     if (!cube) {
       req.flash('danger', 'The cube that this deck belongs to no longer exists.');
-      return res.redirect(`/cube/deck/${req.params.id}`);
+      return res.redirect(303, `/deck/${req.params.id}`);
     }
 
     let draft = new Draft();
@@ -157,7 +157,7 @@ const redraftDraft = async (req, res) => {
       draft,
     });
   } catch (err) {
-    return handleRouteError(req, res, err, `/cube/playtest/${encodeURIComponent(req.params.id)}`);
+    return handleRouteError(req, res, err, `/cube/${encodeURIComponent(req.params.id)}/playtest`);
   }
 };
 
@@ -240,17 +240,12 @@ const submitDraft = async (req, res) => {
     const [user, cubeOwner] = await Promise.all([userq, cubeOwnerq]);
 
     if (user && !cube.disableNotifications) {
-      await addNotification(
-        cubeOwner,
-        user,
-        `/cube/deck/${deck._id}`,
-        `${user.username} drafted your cube: ${cube.name}`,
-      );
+      await addNotification(cubeOwner, user, `/deck/${deck._id}`, `${user.username} drafted your cube: ${cube.name}`);
     } else if (!cube.disableNotifications) {
       await addNotification(
         cubeOwner,
         { user_from_name: 'Anonymous', user_from: '404' },
-        `/cube/deck/${deck._id}`,
+        `/deck/${deck._id}`,
         `An anonymous user drafted your cube: ${cube.name}`,
       );
     }
@@ -259,9 +254,9 @@ const submitDraft = async (req, res) => {
     saveDraftAnalytics(draft, 0, carddb);
     addDeckCardAnalytics(cube, deck, carddb);
     if (req.body.skipDeckbuilder) {
-      return res.redirect(`/cube/deck/${deck._id}`);
+      return res.redirect(`/deck/${deck._id}`);
     }
-    return res.redirect(`/cube/deck/deckbuilder/${deck._id}`);
+    return res.redirect(`/deck/${deck._id}/build`);
   } catch (err) {
     return handleRouteError(req, res, err, `/draft/${encodeURIComponent(req.params.id)}`);
   }
@@ -269,7 +264,7 @@ const submitDraft = async (req, res) => {
 
 const router = express.Router();
 router.get('/:id', getDraftPage);
-router.post('/:id', saveDraft);
+router.put('/:id', saveDraft);
 router.post('/:id/:seat/redraft', redraftDraft);
 router.post('/:id/submit', body('skipDeckbuilder').toBoolean(), submitDraft);
 export default router;

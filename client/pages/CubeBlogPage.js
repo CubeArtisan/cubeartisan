@@ -56,7 +56,7 @@ const EditBlogModal = ({ isOpen, toggle, markdown, setMarkdown, post }) => {
 
   return (
     <Modal isOpen={isOpen} toggle={toggle} labelledBy="#blogEditTitle" size="lg">
-      <CSRFForm method="POST" action={`/cube/blog/post/${cubeID}`} onSubmit={handleMentions}>
+      <CSRFForm method="POST" action={`/cube/${cubeID}/blog/post`} onSubmit={handleMentions}>
         <ModalHeader toggle={toggle} id="blogEditTitle">
           Edit Blog Post
         </ModalHeader>
@@ -131,13 +131,13 @@ export const CubeBlogPage = ({ cube, pages, activePage, posts, loginCallback }) 
           </Collapse>
         </Navbar>
         <DynamicFlash />
-        {pages > 1 && <Paginate count={pages} active={activePage} urlF={(i) => `/cube/blog/${cube._id}/${i}`} />}
+        {pages > 1 && <Paginate count={pages} active={activePage} urlF={(i) => `/cube/${cube._id}/blog/page/${i}`} />}
         {posts.length > 0 ? (
           posts.map((post) => <BlogPost key={post._id} post={post} onEdit={handleEdit} />)
         ) : (
           <h5>No blog posts for this cube.</h5>
         )}
-        {pages > 1 && <Paginate count={pages} active={activePage} urlF={(i) => `/cube/blog/${cube._id}/${i}`} />}
+        {pages > 1 && <Paginate count={pages} active={activePage} urlF={(i) => `/cube/${cube._id}/blog/page/${i}`} />}
         <EditBlogModal
           isOpen={editOpen}
           toggle={toggleEdit}

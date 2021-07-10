@@ -221,8 +221,8 @@ export const GridDraftPage = ({ cube, initialDraft, seatNumber, loginCallback })
           ...gridDraft,
           cards: gridDraft.cards.map(({ details: _, ...card }) => ({ ...card })),
         };
-        await csrfFetch(`/cube/api/submitgriddraft/${gridDraft.cube}`, {
-          method: 'POST',
+        await csrfFetch(`/griddraft/${gridDraft._id}`, {
+          method: 'PUT',
           body: JSON.stringify(submitableGridDraft),
           headers: { 'Content-Type': 'application/json' },
         });
@@ -254,7 +254,7 @@ export const GridDraftPage = ({ cube, initialDraft, seatNumber, loginCallback })
             className="d-none"
             innerRef={submitDeckForm}
             method="POST"
-            action={`/cube/deck/submitgriddeck/${initialDraft.cube}`}
+            action={`/griddraft/${initialDraft._id}/submit`}
           >
             <Input type="hidden" name="body" value={initialDraft._id} />
           </CSRFForm>

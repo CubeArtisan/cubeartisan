@@ -32,7 +32,7 @@ export const UserDecksPage = ({ owner, followers, following, decks, pages, activ
   <MainLayout loginCallback={loginCallback}>
     <UserLayout user={owner} followers={followers} following={following} activeLink="decks">
       <DynamicFlash />
-      {pages > 1 && <Paginate count={pages} active={activePage} urlF={(i) => `/user/decks/${owner._id}/${i}`} />}
+      {pages > 1 && <Paginate count={pages} active={activePage} urlF={(i) => `/user/${owner._id}/decks/${i}`} />}
       <Card>
         <CardHeader>
           <h5 className="mb-0">All Decks</h5>
@@ -40,14 +40,14 @@ export const UserDecksPage = ({ owner, followers, following, decks, pages, activ
         {decks.length > 0 ? (
           <CardBody className="p-0">
             {decks.map((deck) => (
-              <DeckPreview key={deck._id} deck={deck} nextURL={`/user/decks/${owner._id}/${activePage}`} />
+              <DeckPreview key={deck._id} deck={deck} nextURL={`/user/${owner._id}/decks/${activePage}`} />
             ))}
           </CardBody>
         ) : (
           <CardBody>No decks to show.</CardBody>
         )}
       </Card>
-      {pages > 1 && <Paginate count={pages} active={activePage} urlF={(i) => `/user/decks/${owner._id}/${i}`} />}
+      {pages > 1 && <Paginate count={pages} active={activePage} urlF={(i) => `/user/${owner._id}/decks/${i}`} />}
     </UserLayout>
   </MainLayout>
 );

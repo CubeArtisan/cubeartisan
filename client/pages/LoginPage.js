@@ -33,7 +33,7 @@ export const LoginPage = ({ loginCallback }) => (
         <h5>Login</h5>
       </CardHeader>
       <CardBody>
-        <CSRFForm method="POST" action="/user/login">
+        <CSRFForm method="POST" action="/login">
           <FormGroup>
             <Row>
               <Col sm="3">
@@ -56,7 +56,7 @@ export const LoginPage = ({ loginCallback }) => (
             <Row>
               <Col sm="3" />
               <Col sm="9">
-                <a href="/user/lostpassword">Forgot password?</a>
+                <a href="/lostpassword">Forgot password?</a>
               </Col>
             </Row>
           </FormGroup>

@@ -37,7 +37,7 @@ const LostPassword = ({ loginCallback }) => (
           To recover your password, provide the email associated with the account. A password reset link will be emailed
           to you.
         </p>
-        <CSRFForm method="POST" action="/user/lostpassword">
+        <CSRFForm method="POST" action="/lostpassword">
           <FormGroup>
             <Row>
               <Col sm="3">

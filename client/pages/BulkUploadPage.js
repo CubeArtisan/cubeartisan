@@ -90,7 +90,7 @@ const BulkUploadPageRaw = ({ cubeID, missing, blogpost, cube }) => {
             <Col>
               <Form inline className="mb-2" onSubmit={handleAdd}>
                 <AutocompleteInput
-                  treeUrl="/cube/api/cardnames"
+                  treeUrl="/cards/names"
                   treePath="cardnames"
                   type="text"
                   className="mr-2"
@@ -104,7 +104,7 @@ const BulkUploadPageRaw = ({ cubeID, missing, blogpost, cube }) => {
                   Add
                 </LoadingButton>
               </Form>
-              <CSRFForm method="POST" action={`/cube/edit/${cubeID}`} innerRef={formRef}>
+              <CSRFForm method="PUT" action={`/cube/${cubeID}`} innerRef={formRef}>
                 <Label>Changelist:</Label>
                 <div className="changelist-container mb-2">
                   <Changelist />

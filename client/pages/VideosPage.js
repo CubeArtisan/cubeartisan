@@ -41,7 +41,7 @@ export const VideosPage = ({ loginCallback, videos, count, page }) => (
       ))}
     </Row>
     {count > PAGE_SIZE && (
-      <Paginate count={Math.ceil(count / PAGE_SIZE)} active={parseInt(page, 10)} urlF={(i) => `/content/videos/${i}`} />
+      <Paginate count={Math.ceil(count / PAGE_SIZE)} active={parseInt(page, 10)} urlF={(i) => `/videos/${i}`} />
     )}
   </MainLayout>
 );

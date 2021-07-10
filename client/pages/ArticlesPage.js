@@ -41,11 +41,7 @@ export const ArticlesPage = ({ loginCallback, articles, count, page }) => (
       ))}
     </Row>
     {count > PAGE_SIZE && (
-      <Paginate
-        count={Math.ceil(count / PAGE_SIZE)}
-        active={parseInt(page, 10)}
-        urlF={(i) => `/content/articles/${i}`}
-      />
+      <Paginate count={Math.ceil(count / PAGE_SIZE)} active={parseInt(page, 10)} urlF={(i) => `/articles/${i}`} />
     )}
   </MainLayout>
 );

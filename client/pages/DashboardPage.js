@@ -83,28 +83,13 @@ export const DashboardPage = ({ posts, cubes, decks, loginCallback, content, fea
               </Row>
             </CardBody>
             {featuredPosition !== 'left' && (
-              <CardFooter>{cubes.length > 2 && <a href={`/user/view/${cubes[0].owner}`}>View All</a>}</CardFooter>
+              <CardFooter>{cubes.length > 2 && <a href={`/user/${cubes[0].owner}`}>View All</a>}</CardFooter>
             )}
           </Card>
-          {featuredPosition === 'left' && (
-            <CubesCard
-              title="Featured Cubes"
-              cubes={featured}
-              lean
-              header={{ hLevel: 5, sideLink: '/donate', sideText: 'Learn more...' }}
-            />
-          )}
+          {featuredPosition === 'left' && <CubesCard title="Featured Cubes" cubes={featured} lean />}
         </Col>
         <Col xs="12" md="6">
-          {featuredPosition === 'right' && (
-            <CubesCard
-              className="mb-4"
-              title="Featured Cubes"
-              cubes={featured}
-              lean
-              header={{ hLevel: 5, sideLink: '/donate', sideText: 'Learn more...' }}
-            />
-          )}
+          {featuredPosition === 'right' && <CubesCard className="mb-4" title="Featured Cubes" cubes={featured} lean />}
           <Card>
             <CardHeader>
               <h5>Recent Drafts of Your Cubes</h5>
@@ -138,7 +123,7 @@ export const DashboardPage = ({ posts, cubes, decks, loginCallback, content, fea
                   <h5>Latest Content</h5>
                 </Col>
                 <Col xs="6">
-                  <a className="float-right" href="/content/browse">
+                  <a className="float-right" href="/content">
                     View more...
                   </a>
                 </Col>

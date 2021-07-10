@@ -76,10 +76,10 @@ const MainLayout = ({ children, loginCallback }) => {
                   Content
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem href="/content/browse">Browse</DropdownItem>
-                  <DropdownItem href="/content/articles">Articles</DropdownItem>
-                  <DropdownItem href="/content/podcasts">Podcasts</DropdownItem>
-                  <DropdownItem href="/content/videos">Videos</DropdownItem>
+                  <DropdownItem href="/content">Browse</DropdownItem>
+                  <DropdownItem href="/articles">Articles</DropdownItem>
+                  <DropdownItem href="/podcasts">Podcasts</DropdownItem>
+                  <DropdownItem href="/videos">Videos</DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
               <UncontrolledDropdown nav inNavbar>
@@ -87,9 +87,9 @@ const MainLayout = ({ children, loginCallback }) => {
                   Cube
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem href="/explore">Explore Cubes</DropdownItem>
-                  <DropdownItem href="/search">Search Cubes</DropdownItem>
-                  <DropdownItem href="/random">Random Cube</DropdownItem>
+                  <DropdownItem href="/cubes/explore">Explore Cubes</DropdownItem>
+                  <DropdownItem href="/cubes/search">Search Cubes</DropdownItem>
+                  <DropdownItem href="/cubes/random">Random Cube</DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
               <UncontrolledDropdown nav inNavbar>
@@ -97,10 +97,9 @@ const MainLayout = ({ children, loginCallback }) => {
                   Cards
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem href="/tool/topcards">Top Cards</DropdownItem>
-                  <DropdownItem href="/tool/searchcards">Search Cards</DropdownItem>
-                  <DropdownItem href="/packages/browse">Packages</DropdownItem>
-                  <DropdownItem href="/tool/randomcard">Random Card</DropdownItem>
+                  <DropdownItem href="/cards/search">Search Cards</DropdownItem>
+                  <DropdownItem href="/packages">Packages</DropdownItem>
+                  <DropdownItem href="/cards/random">Random Card</DropdownItem>
                   <DropdownItem href="/filters">Filter Syntax</DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
@@ -111,12 +110,8 @@ const MainLayout = ({ children, loginCallback }) => {
                 <DropdownMenu right>
                   <DropdownItem href="/dev/blog">Dev Blog</DropdownItem>
                   <DropdownItem href="/contact">Contact</DropdownItem>
-                  <DropdownItem href="https://www.inkedgaming.com/collections/artists-gwen-dekker?rfsn=4250904.d3f372&utm_source=refersion&utm_medium=affiliate&utm_campaign=4250904.d3f372">
-                    Merchandise
-                  </DropdownItem>
                   <DropdownItem href="/ourstory">Our Story</DropdownItem>
                   <DropdownItem href="/faq">FAQ</DropdownItem>
-                  <DropdownItem href="/donate">Donate</DropdownItem>
                   <DropdownItem href={sourceRepo}>Github</DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
@@ -130,7 +125,7 @@ const MainLayout = ({ children, loginCallback }) => {
                       </DropdownToggle>
                       <DropdownMenu right>
                         {user.cubes.map((item) => (
-                          <DropdownItem key={`dropdown_cube_${item.name}`} href={`/cube/overview/${item._id}`}>
+                          <DropdownItem key={`dropdown_cube_${item.name}`} href={`/cube/${item._id}`}>
                             {item.name}
                           </DropdownItem>
                         ))}
@@ -144,24 +139,24 @@ const MainLayout = ({ children, loginCallback }) => {
                       {user.username}
                     </DropdownToggle>
                     <DropdownMenu right>
-                      <DropdownItem href={`/user/view/${user.id}`}>Your Profile</DropdownItem>
+                      <DropdownItem href={`/user/${user.id}`}>Your Profile</DropdownItem>
                       {user.roles && user.roles.includes('Admin') && (
                         <DropdownItem href="/admin/dashboard">Admin Page</DropdownItem>
                       )}
                       {user.roles && user.roles.includes('ContentCreator') && (
-                        <DropdownItem href="/content/creators">Content Creator Dashboard</DropdownItem>
+                        <DropdownItem href="/creators">Content Creator Dashboard</DropdownItem>
                       )}
                       <CreateCubeModalLink>Create A New Cube</CreateCubeModalLink>
-                      <DropdownItem href="/user/social">Social</DropdownItem>
-                      <DropdownItem href="/user/account">Account Information</DropdownItem>
-                      <DropdownItem href="/user/logout">Logout</DropdownItem>
+                      <DropdownItem href={`/user/${user.id}/social`}>Social</DropdownItem>
+                      <DropdownItem href={`/user/${user.id}/account`}>Account Information</DropdownItem>
+                      <DropdownItem href="/logout">Logout</DropdownItem>
                     </DropdownMenu>
                   </UncontrolledDropdown>
                 </>
               ) : (
                 <>
                   <NavItem>
-                    <NavLink href="/user/register">Register</NavLink>
+                    <NavLink href="/user">Register</NavLink>
                   </NavItem>
                   <NavItem>
                     <LoginModalLink modalProps={{ loginCallback }}>Login</LoginModalLink>

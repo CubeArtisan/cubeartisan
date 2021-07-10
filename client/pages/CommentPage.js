@@ -42,14 +42,14 @@ const translateType = {
 
 const translateLink = {
   comment: (id) => `/comment/${id}`,
-  blog: (id) => `/cube/blog/blogpost/${id}`,
-  deck: (id) => `/cube/deck/${id}`,
-  card: (id) => `/tool/card/${id}`,
-  article: (id) => `/content/article/${id}`,
-  video: (id) => `/content/video/${id}`,
-  podcast: (id) => `/content/podcast/${id}`,
-  episode: (id) => `/content/episode/${id}`,
-  package: (id) => `/packages/${id}`,
+  blog: (id) => `/cube/blog/post/${id}`,
+  deck: (id) => `/deck/${id}`,
+  card: (id) => `/card/${id}`,
+  article: (id) => `/article/${id}`,
+  video: (id) => `/video/${id}`,
+  podcast: (id) => `/podcast/${id}`,
+  episode: (id) => `/episode/${id}`,
+  package: (id) => `/package/${id}`,
 };
 
 export const CommentPage = ({ comment, loginCallback }) => {

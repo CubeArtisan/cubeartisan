@@ -89,18 +89,6 @@ const usernameValid = [
   body('username', 'Username may not use profanity.').custom((value) => !hasProfanity(value)),
 ];
 
-function checkPasswordsMatch(value, { req }) {
-  if (value !== req.body.password2) {
-    throw new Error('Password confirmation does not match password');
-  }
-
-  return true;
-}
-
-function addMinutes(date, minutes) {
-  return new Date(new Date(date).getTime() + minutes * 60000);
-}
-
 const getUserCubes = async (req, res) => {
   const cubes = await Cube.find({
     owner: req.params.id,
@@ -188,11 +176,11 @@ const followUser = async (req, res) => {
       user.followed_users.push(other.id);
     }
 
-    await addNotification(other, user, `/user/view/${user.id}`, `${user.username} has followed you!`);
+    await addNotification(other, user, `/user/${user.id}`, `${user.username} has followed you!`);
 
     await Promise.all([user.save(), other.save()]);
 
-    return res.redirect(303, `/user/view/${req.params.id}`);
+    return res.redirect(303, `/user/${req.params.id}`);
   } catch (err) {
     req.logger.error(err);
     return res.status(500).send({
@@ -216,69 +204,12 @@ const unfollowUser = async (req, res) => {
 
     await Promise.all([user.save(), other.save()]);
 
-    return res.redirect(303, `/user/view/${req.params.id}`);
+    return res.redirect(303, `/user/${req.params.id}`);
   } catch (err) {
     req.logger.error(err);
     return res.status(500).send({
       success: 'false',
     });
-  }
-};
-
-const submitLostPassword = async (req, res) => {
-  try {
-    if (!req.validated) {
-      return render(req, res, 'LostPasswordPage');
-    }
-    const recoveryEmail = req.body.email.toLowerCase();
-    await PasswordReset.deleteOne({
-      email: recoveryEmail,
-    });
-
-    const passwordReset = new PasswordReset();
-    passwordReset.expires = addMinutes(Date.now(), 15);
-    passwordReset.email = recoveryEmail;
-    passwordReset.code = Math.floor(1000000000 + Math.random() * 9000000000);
-    await passwordReset.save();
-
-    const smtpTransport = mailer.createTransport({
-      name: process.env.SITE_HOSTNAME,
-      secure: true,
-      service: 'Gmail',
-      auth: {
-        user: process.env.EMAIL_CONFIG_USERNAME,
-        pass: process.env.EMAIL_CONFIG_PASSWORD,
-      },
-    });
-
-    const email = new Email({
-      message: {
-        from: process.env.SUPPORT_EMAIL_FROM,
-        to: passwordReset.email,
-        subject: 'Password Reset',
-      },
-      send: true,
-      juiceResources: {
-        webResources: {
-          relativeTo: path.join(__dirname, '..', 'public'),
-          images: true,
-        },
-      },
-      transport: smtpTransport,
-    });
-
-    await email.send({
-      template: 'password_reset',
-      locals: {
-        id: passwordReset.id,
-        code: passwordReset.code,
-      },
-    });
-
-    req.flash('success', `Password recovery email sent to ${recoveryEmail}`);
-    return res.redirect('/user/lostpassword');
-  } catch (err) {
-    return handleRouteError(req, res, err, `/user/lostpassword`);
   }
 };
 
@@ -292,62 +223,10 @@ const viewResetPassword = async (req, res) => {
   return render(req, res, 'PasswordResetPage');
 };
 
-const resetPassword = async (req, res) => {
-  try {
-    if (!req.validated) {
-      return render(req, res, 'PasswordResetPage');
-    }
-    const recoveryEmail = req.body.email.toLowerCase();
-    const passwordreset = await PasswordReset.findOne({
-      code: req.body.code,
-      email: recoveryEmail,
-    });
-
-    if (!passwordreset) {
-      req.flash('danger', 'Incorrect email and recovery code combination.');
-      return render(req, res, 'PasswordResetPage');
-    }
-    const user = await User.findOne({
-      email: recoveryEmail,
-    });
-
-    if (!user) {
-      req.flash('danger', 'No user with that email found! Are you sure you created an account?');
-      return render(req, res, 'PasswordResetPage');
-    }
-
-    if (req.body.password2 !== req.body.password) {
-      req.flash('danger', "New passwords don't match");
-      return render(req, res, 'PasswordResetPage');
-    }
-
-    return bcrypt.genSalt(10, (err4, salt) => {
-      if (err4) {
-        return handleRouteError(req, res, err4, `/`);
-      }
-      return bcrypt.hash(req.body.password2, salt, async (err5, hash) => {
-        if (err5) {
-          return handleRouteError(req, res, err5, `/`);
-        }
-        user.password = hash;
-        try {
-          await user.save();
-          req.flash('success', 'Password updated successfully');
-          return res.redirect('/user/login');
-        } catch (err6) {
-          return handleRouteError(req, res, err6, `/`);
-        }
-      });
-    });
-  } catch (err) {
-    return handleRouteError(req, res, err, `/`);
-  }
-};
-
 const changePassword = async (req, res) => {
   if (!req.validated) {
     User.findById(req.user._id, () => {
-      res.redirect('/user/account');
+      res.redirect(`/user/${req.user._id}/account`);
     });
   } else {
     User.findById(req.user._id, (_err, user) => {
@@ -355,11 +234,11 @@ const changePassword = async (req, res) => {
         bcrypt.compare(req.body.password, user.password, (_err2, isMatch) => {
           if (!isMatch) {
             req.flash('danger', 'Password is incorrect');
-            return res.redirect('/user/account?nav=password');
+            return res.redirect(`/user/${req.user._id}/account?nav=password`);
           }
           if (req.body.password2 !== req.body.password3) {
             req.flash('danger', "New passwords don't match");
-            return res.redirect('/user/account?nav=password');
+            return res.redirect(`/user/${req.user._id}/account?nav=password`);
           }
           return bcrypt.genSalt(10, (_err3, salt) => {
             bcrypt.hash(req.body.password2, salt, (err4, hash) => {
@@ -371,11 +250,11 @@ const changePassword = async (req, res) => {
                   if (err5) {
                     req.logger.error(err5);
                     req.flash('danger', 'Error saving user.');
-                    return res.redirect('/user/account?nav=password');
+                    return res.redirect(`/user/${req.user._id}/account?nav=password`);
                   }
 
                   req.flash('success', 'Password updated successfully');
-                  return res.redirect('/user/account?nav=password');
+                  return res.redirect(`/user/${req.user._id}/account?nav=password`);
                 });
               }
             });
@@ -481,7 +360,7 @@ const confirmUser = async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user.confirmed === 'true') {
       req.flash('success', 'User already confirmed.');
-      return res.redirect('/user/login');
+      return res.redirect('/login');
     }
     user.confirmed = true;
     try {
@@ -653,7 +532,7 @@ const updateUserInfo = async (req, res) => {
   try {
     const { user } = req;
     if (!req.validated) {
-      return res.redirect('/user/account');
+      return res.redirect(`/user/${user._id}/account`);
     }
 
     const duplicate = await User.findOne({
@@ -664,7 +543,7 @@ const updateUserInfo = async (req, res) => {
     });
     if (duplicate) {
       req.flash('danger', 'Username already taken.');
-      return res.redirect('/user/account');
+      return res.redirect(`/user/${user._id}/account`);
     }
 
     user.username = req.body.username;
@@ -690,9 +569,9 @@ const updateUserInfo = async (req, res) => {
     await Promise.all([userQ, cubesQ]);
 
     req.flash('success', 'User information updated.');
-    return res.redirect('/user/account');
+    return res.redirect(`/user/${req.user._id}/account`);
   } catch (err) {
-    return handleRouteError(req, res, err, '/user/account');
+    return handleRouteError(req, res, err, `/user/${req.user._id}/account`);
   }
 };
 
@@ -706,10 +585,10 @@ const updateDisplaySettings = async (req, res) => {
     await user.save();
 
     req.flash('success', 'Your display preferences have been updated.');
-    res.redirect('/user/account');
+    res.redirect(`/user/${user._id}/account`);
   } catch (err) {
     req.flash('danger', `Could not save preferences: ${err.message}`);
-    res.redirect('/user/account?nav=display');
+    res.redirect(`/user/${req.user.id}/account?nav=display`);
   }
 };
 
@@ -721,22 +600,22 @@ const updateEmail = (req, res) => {
     (_err, user) => {
       if (user) {
         req.flash('danger', 'Email already associated with an existing account.');
-        res.redirect('/user/account?nav=email');
+        res.redirect(`/user/${req.user._id}/account?nav=email`);
       } else if (req.user) {
         req.user.email = req.body.email;
         req.user.save((err2) => {
           if (err2) {
             req.logger.error(err2);
             req.flash('danger', 'Error saving user.');
-            res.redirect('/user/account');
+            res.redirect(`/user/${req.user._id}/account`);
           } else {
             req.flash('success', 'Your profile has been updated.');
-            res.redirect('/user/account');
+            res.redirect(`/user/${req.user._id}/account`);
           }
         });
       } else {
         req.flash('danger', 'Not logged in.');
-        res.redirect('/user/account?nav=email');
+        res.redirect(`/user/${req.user._id}/account?nav=email`);
       }
     },
   );
@@ -774,6 +653,20 @@ const viewSocialPage = async (req, res) => {
   }
 };
 
+const viewAccountPage = async (req, res) => {
+  return render(
+    req,
+    res,
+    'UserAccountPage',
+    {
+      defaultNav: req.query.nav || 'profile',
+    },
+    {
+      title: 'Account',
+    },
+  );
+}
+
 const router = express.Router();
 router.use(csrfProtection);
 router.get('/:id/cubes', getUserCubes);
@@ -789,15 +682,7 @@ router.get('/:id/notification/:index', ensureAuth, viewNotification);
 router.delete('/:id/notification', ensureAuth, clearNotifications);
 router.put('/:id/follow', ensureAuth, followUser);
 router.delete('/:id/follow', ensureAuth, unfollowUser);
-router.post('/:id/password', body('email', 'Email is required').isEmail(), flashValidationErrors, submitLostPassword);
 router.get('/:id/password/reset', viewResetPassword);
-router.post(
-  '/:id/password/reset',
-  body('password', 'Password must be between 8 and 24 characters.').isLength({ min: 8, max: 24 }),
-  body('password', 'New passwords must match.').custom(checkPasswordsMatch),
-  flashValidationErrors,
-  resetPassword,
-);
 router.get('/', (req, res) => render(req, res, 'RegisterPage'));
 router.post(
   '/',
@@ -825,8 +710,8 @@ router.get('/:id/notifications', ensureAuth, (req, res) =>
 router.get('/:userid/decks/:page', viewUserDecks);
 router.get('/:userid/blog', (req, res) => res.redirect(`/user/${req.params.userid}/blog/0`));
 router.get('/:userid/blog/:page', viewUserBlog);
-router.post(
-  '/:id/password/change',
+router.put(
+  '/:id/password',
   ensureAuth,
   body('password', 'Password must be between 8 and 24 characters.').isLength({
     min: 8,
@@ -840,4 +725,5 @@ router.post('/:id/email', ensureAuth, updateEmail);
 router.post('/:id/display', ensureAuth, updateDisplaySettings);
 router.get('/:id/social', ensureAuth, viewSocialPage);
 router.get('/:id/packages/:page/:sort/:direction', (req, res) => getPackages(req, res, { userid: req.params.id }));
+router.get('/:id/account', ensureAuth, viewAccountPage);
 export default router;

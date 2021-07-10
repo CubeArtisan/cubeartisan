@@ -63,12 +63,12 @@ export const updateCubeAndBlog = async (req, res, cube, changelog, added, missin
     } catch (err) {
       req.logger.error(err);
       req.flash('danger', 'Error adding cards. Please try again.');
-      return res.redirect(`/cube/list/${encodeURIComponent(req.params.id)}`);
+      return res.redirect(`/cube/${encodeURIComponent(req.params.id)}/list`);
     }
     req.flash('success', 'All cards successfully added.');
-    return res.redirect(`/cube/list/${encodeURIComponent(req.params.id)}`);
+    return res.redirect(`/cube/${encodeURIComponent(req.params.id)}/list`);
   } catch (err) {
-    return handleRouteError(req, res, err, `/cube/list/${encodeURIComponent(req.params.id)}`);
+    return handleRouteError(req, res, err, `/cube/${encodeURIComponent(req.params.id)}/list`);
   }
 };
 

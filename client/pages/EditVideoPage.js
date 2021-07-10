@@ -64,7 +64,7 @@ export const EditVideoPage = ({ loginCallback, video }) => {
 
   useEffect(() => {
     (async () => {
-      const response = await fetch('/cube/api/imagedict');
+      const response = await fetch('/cards/images/dict');
       const json = await response.json();
       setLoading(false);
       setImageDict(json.dict);
@@ -92,14 +92,14 @@ export const EditVideoPage = ({ loginCallback, video }) => {
               <h4>Edit Video</h4>
             </Col>
             <Col xs="12" sm="6">
-              <a href="/content/creators" className="float-right">
+              <a href="/creators" className="float-right">
                 Back to Dashboard
               </a>
             </Col>
           </Row>
           <Row>
             <Col xs="6">
-              <CSRFForm method="POST" action="/content/editvideo" autoComplete="off">
+              <CSRFForm method="PUT" action={`/video/${video._id}`} autoComplete="off">
                 <Input type="hidden" name="videoid" value={video._id} />
                 <Input type="hidden" name="title" value={title} />
                 <Input type="hidden" name="short" value={short} />
@@ -114,7 +114,7 @@ export const EditVideoPage = ({ loginCallback, video }) => {
               </CSRFForm>
             </Col>
             <Col xs="6">
-              <CSRFForm method="POST" action="/content/submitvideo" autoComplete="off">
+              <CSRFForm method="POST" action={`/video/${video._id}/submit`} autoComplete="off">
                 <Input type="hidden" name="videoid" value={video._id} />
                 <Input type="hidden" name="title" value={title} />
                 <Input type="hidden" name="short" value={short} />
@@ -190,7 +190,7 @@ export const EditVideoPage = ({ loginCallback, video }) => {
                   </Col>
                   <Col sm="5">
                     <AutocompleteInput
-                      treeUrl="/cube/api/fullnames"
+                      treeUrl="/cards/names/full"
                       treePath="cardnames"
                       type="text"
                       className="mr-2"

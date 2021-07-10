@@ -33,22 +33,22 @@ const Footer = () => {
               <h6 className="footer-header">Content</h6>
               <ul className="footer-ul pl-0">
                 <li>
-                  <a className="footer-link" href="/content/browse">
+                  <a className="footer-link" href="/content">
                     Browse
                   </a>
                 </li>
                 <li>
-                  <a className="footer-link" href="/content/articles">
+                  <a className="footer-link" href="/articles">
                     Articles
                   </a>
                 </li>
                 <li>
-                  <a className="footer-link" href="/content/podcasts">
+                  <a className="footer-link" href="/podcasts">
                     Podcasts
                   </a>
                 </li>
                 <li>
-                  <a className="footer-link" href="/content/videos">
+                  <a className="footer-link" href="/videos">
                     Videos
                   </a>
                 </li>
@@ -60,17 +60,17 @@ const Footer = () => {
               <h6 className="footer-header">Cube</h6>
               <ul className="footer-ul pl-0">
                 <li>
-                  <a className="footer-link" href="/explore">
+                  <a className="footer-link" href="/cubes/explore">
                     Explore Cubes
                   </a>
                 </li>
                 <li>
-                  <a className="footer-link" href="/search">
+                  <a className="footer-link" href="/cubes/search">
                     Search Cubes
                   </a>
                 </li>
                 <li>
-                  <a className="footer-link" href="/random">
+                  <a className="footer-link" href="/cubes/random">
                     Random Cube
                   </a>
                 </li>
@@ -82,22 +82,17 @@ const Footer = () => {
               <h6 className="footer-header">Cards</h6>
               <ul className="footer-ul pl-0">
                 <li>
-                  <a className="footer-link" href="/tool/topcards">
-                    Top Cards
-                  </a>
-                </li>
-                <li>
-                  <a className="footer-link" href="/tool/searchcards">
+                  <a className="footer-link" href="/cards/search">
                     Search Cards
                   </a>
                 </li>
                 <li>
-                  <a className="footer-link" href="/packages/browse">
+                  <a className="footer-link" href="/packages">
                     Packages
                   </a>
                 </li>
                 <li>
-                  <a className="footer-link" href="/tool/randomcard">
+                  <a className="footer-link" href="/cards/random">
                     Random Card
                   </a>
                 </li>
@@ -124,14 +119,6 @@ const Footer = () => {
                   </a>
                 </li>
                 <li>
-                  <a
-                    className="footer-link"
-                    href="https://www.inkedgaming.com/collections/artists-gwen-dekker?rfsn=4250904.d3f372&utm_source=refersion&utm_medium=affiliate&utm_campaign=4250904.d3f372"
-                  >
-                    Merchandise
-                  </a>
-                </li>
-                <li>
                   <a className="footer-link" href="/ourstory">
                     Our Story
                   </a>
@@ -139,11 +126,6 @@ const Footer = () => {
                 <li>
                   <a className="footer-link" href="/faq">
                     FAQ
-                  </a>
-                </li>
-                <li>
-                  <a className="footer-link" href="/donate">
-                    Donate
                   </a>
                 </li>
                 <li>

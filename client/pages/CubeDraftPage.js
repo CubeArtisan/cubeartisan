@@ -322,8 +322,8 @@ export const CubeDraftPage = ({ cube, initialDraft, seatNumber, loginCallback })
     if (doneDrafting) {
       (async () => {
         const submitableDraft = { ...draft, cards: draft.cards.map(({ details: _, ...card }) => ({ ...card })) };
-        await csrfFetch(`/cube/api/submitdraft/${draft.cube}`, {
-          method: 'POST',
+        await csrfFetch(`/draft/${draft._id}`, {
+          method: 'PUT',
           body: JSON.stringify(submitableDraft),
           headers: { 'Content-Type': 'application/json' },
         });
@@ -373,7 +373,7 @@ export const CubeDraftPage = ({ cube, initialDraft, seatNumber, loginCallback })
             className="d-none"
             innerRef={submitDeckForm}
             method="POST"
-            action={`/cube/deck/submitdeck/${initialDraft.cube}`}
+            action={`/draft/${initialDraft._id}/submit`}
           >
             <Input type="hidden" name="body" value={initialDraft._id} />
           </CSRFForm>

@@ -169,7 +169,7 @@ router.get('/publisharticle/:id', ensureAdmin, async (req, res) => {
     await addNotification(
       owner,
       req.user,
-      `/content/article/${article._id}`,
+      `/article/${article._id}`,
       `${req.user.username} has approved and published your article: ${article.title}`,
     );
 
@@ -179,7 +179,7 @@ router.get('/publisharticle/:id', ensureAdmin, async (req, res) => {
       await addMultipleNotifications(
         query,
         owner,
-        `/content/article/${article._id}`,
+        `/article/${article._id}`,
         `${owner.username} mentioned you in their article`,
       );
     }
@@ -240,7 +240,7 @@ router.get('/publishvideo/:id', ensureAdmin, async (req, res) => {
     await addNotification(
       owner,
       req.user,
-      `/content/video/${video._id}`,
+      `/video/${video._id}`,
       `${req.user.username} has approved and published your video: ${video.title}`,
     );
 
@@ -250,7 +250,7 @@ router.get('/publishvideo/:id', ensureAdmin, async (req, res) => {
       await addMultipleNotifications(
         query,
         owner,
-        `/content/video/${video._id}`,
+        `/video/${video._id}`,
         `${owner.username} mentioned you in their video`,
       );
     }
@@ -311,7 +311,7 @@ router.get('/publishpodcast/:id', ensureAdmin, async (req, res) => {
     await addNotification(
       owner,
       req.user,
-      `/content/podcast/${podcast._id}`,
+      `/podcast/${podcast._id}`,
       `${req.user.username} has approved your podcast: ${podcast.title}`,
     );
   }
@@ -371,7 +371,7 @@ router.get('/removearticlereview/:id', ensureAdmin, async (req, res) => {
     await addNotification(
       owner,
       req.user,
-      `/content/article/${article._id}`,
+      `/article/${article._id}`,
       `${req.user.username} has declined to publish your article: ${article.title}`,
     );
   }
@@ -431,7 +431,7 @@ router.get('/removevideoreview/:id', ensureAdmin, async (req, res) => {
     await addNotification(
       owner,
       req.user,
-      `/content/video/${video._id}`,
+      `/video/${video._id}`,
       `${req.user.username} has declined to publish your video: ${video.title}`,
     );
   }
@@ -491,7 +491,7 @@ router.get('/removepodcastreview/:id', ensureAdmin, async (req, res) => {
     await addNotification(
       owner,
       req.user,
-      `/content/podcast/${podcast._id}`,
+      `/podcast/${podcast._id}`,
       `${req.user.username} has declined your podcast: ${podcast.title}`,
     );
   }

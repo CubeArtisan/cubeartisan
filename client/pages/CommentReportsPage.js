@@ -63,7 +63,7 @@ export const CommentReportsPage = ({ loginCallback, reports, count, page }) => (
             <p>Details: {report.info}</p>
             <p>
               Reported by:{' '}
-              <a href={`/user/view/${report.reportee}`} target="_blank" rel="noopener noreferrer">
+              <a href={`/user/${report.reportee}`} target="_blank" rel="noopener noreferrer">
                 {report.reportee}
               </a>
               - <TimeAgo date={report.timePosted} />

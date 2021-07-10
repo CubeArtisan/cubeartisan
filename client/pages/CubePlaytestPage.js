@@ -69,7 +69,7 @@ const UploadDecklistModal = ({ isOpen, toggle }) => {
   const { cubeID } = useContext(CubeContext);
   return (
     <Modal isOpen={isOpen} toggle={toggle} labelledBy="uploadDecklistModalTitle">
-      <CSRFForm method="POST" action={`/cube/deck/uploaddecklist/${cubeID}`}>
+      <CSRFForm method="POST" action={`/cube/${cubeID}/playtest/deck/import/plaintext`}>
         <ModalHeader toggle={toggle} id="uploadDecklistModalTitle">
           Upload Decklist
         </ModalHeader>
@@ -126,15 +126,15 @@ LabelRow.propTypes = {
 const useBotsOnlyCallback = (botsOnly, cubeID) => {
   const formRef = useRef();
   const submitDeckForm = useRef();
-  const [draftId, setDraftId] = useState('');
   const [loading, setLoading] = useState(false);
+  const [draftId, setDraftId] = useState({ _id: '' });
   const submitForm = useCallback(
     async (e) => {
       if (botsOnly) {
         setLoading(true);
         e.preventDefault();
         const body = new FormData(formRef.current);
-        const response = await csrfFetch(`/cube/startdraft/${cubeID}`, {
+        const response = await csrfFetch(`/cube/${cubeID}/playtest/draft`, {
           method: 'POST',
           body,
         });
@@ -144,8 +144,8 @@ const useBotsOnlyCallback = (botsOnly, cubeID) => {
         setDraftId(json.draft._id);
         const draft = await allBotsDraft(json.draft);
 
-        await csrfFetch(`/cube/api/submitdraft/${draft.cube}`, {
-          method: 'POST',
+        await csrfFetch(`/draft/${draft._id}`, {
+          method: 'PUT',
           body: JSON.stringify(draft),
           headers: { 'Content-Type': 'application/json' },
         });
@@ -178,7 +178,7 @@ const CustomDraftCard = ({
         className="d-none"
         innerRef={submitDeckForm}
         method="POST"
-        action={`/cube/deck/submitdeck/${cubeID}`}
+        action={`/draft/${draftId}/submit`}
       >
         <Input type="hidden" name="body" value={draftId} />
         <Input type="hidden" name="skipDeckbuilder" value="true" />
@@ -186,7 +186,7 @@ const CustomDraftCard = ({
       <CSRFForm
         method="POST"
         key="createDraft"
-        action={`/cube/startdraft/${cubeID}`}
+        action={`/cube/${cubeID}/playtest/draft`}
         innerRef={formRef}
         onSubmit={submitForm}
       >
@@ -278,7 +278,7 @@ const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
         className="d-none"
         innerRef={submitDeckForm}
         method="POST"
-        action={`/cube/deck/submitdeck/${cubeID}`}
+        action={`/draft/${draftId}/submit`}
       >
         <Input type="hidden" name="body" value={draftId} />
         <Input type="hidden" name="skipDeckbuilder" value="true" />
@@ -333,39 +333,11 @@ StandardDraftCard.propTypes = {
   defaultDraftFormat: PropTypes.number.isRequired,
 };
 
-const SealedCard = () => {
-  const { cubeID } = useContext(CubeContext);
-  return (
-    <Card className="mb-3">
-      <CSRFForm method="POST" action={`/cube/startsealed/${cubeID}`}>
-        <CardHeader>
-          <CardTitleH5>Standard Sealed</CardTitleH5>
-        </CardHeader>
-        <CardBody>
-          <LabelRow htmlFor="packs-sealed" label="Number of Packs">
-            <Input type="select" name="packs" id="packs-sealed" defaultValue="6">
-              {rangeOptions(1, 16)}
-            </Input>
-          </LabelRow>
-          <LabelRow htmlFor="cards-sealed" label="Cards per Pack">
-            <Input type="select" name="cards" id="cards-sealed" defaultValue="15">
-              {rangeOptions(5, 25)}
-            </Input>
-          </LabelRow>
-        </CardBody>
-        <CardFooter>
-          <Button color="success">Start Sealed</Button>
-        </CardFooter>
-      </CSRFForm>
-    </Card>
-  );
-};
-
 const GridCard = () => {
   const { cubeID } = useContext(CubeContext);
   return (
     <Card className="mb-3">
-      <CSRFForm method="POST" action={`/cube/startgriddraft/${cubeID}`}>
+      <CSRFForm method="POST" action={`/cube/${cubeID}/playtest/griddraft`}>
         <CardHeader>
           <CardTitleH5>Grid Draft</CardTitleH5>
         </CardHeader>
@@ -406,7 +378,7 @@ const DecksCard = ({ decks, ...props }) => {
         ))}
       </CardBody>
       <CardFooter>
-        <a href={`/cube/deck/decks/${cubeID}`}>View all</a>
+        <a href={`/cube/${cubeID}/playtest/decks`}>View all</a>
       </CardFooter>
     </Card>
   );
@@ -431,10 +403,10 @@ const SamplePackCard = (props) => {
         </LabelRow>
       </CardBody>
       <CardFooter>
-        <Button color="success" className="mr-2" href={`/cube/samplepack/${cubeID}`}>
+        <Button color="success" className="mr-2" href={`/cube/${cubeID}/playtest/sample`}>
           View Random
         </Button>
-        <Button color="success" disabled={!seed} href={`/cube/samplepack/${cubeID}/${seed}`}>
+        <Button color="success" disabled={!seed} href={`/cube/${cubeID}/playtest/sample/${seed}`}>
           View Seeded
         </Button>
       </CardFooter>
@@ -480,7 +452,7 @@ export const CubePlaytestPage = ({ cube, decks, loginCallback }) => {
     async (event) => {
       const formatIndex = parseInt(event.target.getAttribute('data-index'), 10);
       try {
-        const response = await csrfFetch(`/cube/format/remove/${cube._id}/${formatIndex}`, {
+        const response = await csrfFetch(`/cube/${cube._id}/format/${formatIndex}`, {
           method: 'DELETE',
         });
         if (!response.ok) throw Error();
@@ -502,8 +474,8 @@ export const CubePlaytestPage = ({ cube, decks, loginCallback }) => {
     async (event) => {
       const formatIndex = parseInt(event.target.getAttribute('data-index'), 10);
       try {
-        const response = await csrfFetch(`/cube/${cube._id}/defaultdraftformat/${formatIndex}`, {
-          method: 'POST',
+        const response = await csrfFetch(`/cube/${cube._id}/defaultformat/${formatIndex}`, {
+          method: 'PUT',
         });
 
         if (!response.ok) throw Error();
@@ -580,7 +552,6 @@ export const CubePlaytestPage = ({ cube, decks, loginCallback }) => {
               />
             ))}
             {defaultDraftFormat !== -1 && <StandardDraftFormatCard />}
-            <SealedCard className="mb-3" />
             <GridCard className="mb-3" />
           </Col>
           <Col xs="12" md="6" xl="6">

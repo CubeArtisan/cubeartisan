@@ -42,12 +42,13 @@ export const PodcastPage = ({ loginCallback, podcast, episodes }) => {
               {podcast.status !== 'published' && (
                 <>
                   <em className="pr-3">*Draft*</em>
-                  <ButtonLink color="success" outline href={`/content/podcast/edit/${podcast._id}`}>
+                  <ButtonLink color="success" outline href={`/podcast/${podcast._id}/edit`}>
                     Edit
                   </ButtonLink>
                 </>
               )}
-              <ButtonLink color="primary" outline href={`/content/podcast/update/${podcast._id}`}>
+              {/* TODO: Does this need to be a POST request? */}
+              <ButtonLink color="primary" outline href={`/podcast/${podcast._id}/fetch`}>
                 Fetch Episodes
               </ButtonLink>
             </h5>

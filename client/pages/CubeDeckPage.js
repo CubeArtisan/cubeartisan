@@ -115,7 +115,7 @@ export const CubeDeckPage = ({ cube, deck, draft, loginCallback }) => {
                 </NavItem>
                 {user && deck.owner === user.id && (
                   <NavItem>
-                    <NavLink href={`/cube/deck/deckbuilder/${deck._id}`}>Edit</NavLink>
+                    <NavLink href={`/deck/${deck._id}/build`}>Edit</NavLink>
                   </NavItem>
                 )}
                 {/* loading && <Spinner className="position-absolute" /> */}
@@ -125,16 +125,14 @@ export const CubeDeckPage = ({ cube, deck, draft, loginCallback }) => {
                       Rebuild/Redraft Seat
                     </DropdownToggle>
                     <DropdownMenu right>
-                      <DropdownItem href={`/cube/deck/redraft/${deck._id}/${seatIndex}`}>Redraft</DropdownItem>
+                      <DropdownItem href={`/deck/${deck._id}/redraft/${seatIndex}`}>Redraft</DropdownItem>
                       {/* <DropdownItem onClick={haveBotsRedraft}>Have Bots Redraft</DropdownItem> */}
-                      <DropdownItem href={`/cube/deck/rebuild/${deck._id}/${seatIndex}`}>
-                        Clone and Rebuild
-                      </DropdownItem>
+                      <DropdownItem href={`/deck/${deck._id}/rebuild/${seatIndex}`}>Clone and Rebuild</DropdownItem>
                     </DropdownMenu>
                   </UncontrolledDropdown>
                 ) : (
                   <NavItem>
-                    <NavLink href={`/cube/deck/rebuild/${deck._id}/${seatIndex}`}>Clone and Rebuild</NavLink>
+                    <NavLink href={`/deck/${deck._id}/rebuild/${seatIndex}`}>Clone and Rebuild</NavLink>
                   </NavItem>
                 )}
                 <CustomImageToggler />
@@ -143,20 +141,14 @@ export const CubeDeckPage = ({ cube, deck, draft, loginCallback }) => {
                     Export
                   </DropdownToggle>
                   <DropdownMenu right>
-                    <DropdownItem href={`/cube/deck/download/txt/${deck._id}/${seatIndex}`}>
+                    <DropdownItem href={`/deck/${deck._id}/export/${seatIndex}/plaintext`}>
                       Card Names (.txt)
                     </DropdownItem>
-                    <DropdownItem href={`/cube/deck/download/forge/${deck._id}/${seatIndex}`}>
-                      Forge (.dck)
-                    </DropdownItem>
-                    <DropdownItem href={`/cube/deck/download/xmage/${deck._id}/${seatIndex}`}>
-                      XMage (.dck)
-                    </DropdownItem>
-                    <DropdownItem href={`/cube/deck/download/mtgo/${deck._id}/${seatIndex}`}>MTGO (.txt)</DropdownItem>
-                    <DropdownItem href={`/cube/deck/download/arena/${deck._id}/${seatIndex}`}>
-                      Arena (.txt)
-                    </DropdownItem>
-                    <DropdownItem href={`/cube/deck/download/cockatrice/${deck._id}/${seatIndex}`}>
+                    <DropdownItem href={`/deck/${deck._id}/export/${seatIndex}/forge`}>Forge (.dck)</DropdownItem>
+                    <DropdownItem href={`/deck/${deck._id}/export/${seatIndex}/xmage`}>XMage (.dck)</DropdownItem>
+                    <DropdownItem href={`/deck/${deck._id}/export/${seatIndex}/mtgo`}>MTGO (.txt)</DropdownItem>
+                    <DropdownItem href={`/deck/${deck._id}/export/${seatIndex}/arena`}>Arena (.txt)</DropdownItem>
+                    <DropdownItem href={`/deck/${deck._id}/export/${seatIndex}/cockatrice`}>
                       Cockatrice (.txt)
                     </DropdownItem>
                   </DropdownMenu>

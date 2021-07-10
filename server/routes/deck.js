@@ -346,7 +346,7 @@ const viewDeckbuilder = async (req, res) => {
     const deckOwner = await User.findById(deck.seats[0].userid).lean();
     if (!req.user || !deckOwner._id.equals(req.user._id)) {
       req.flash('danger', 'Only logged in deck owners can build decks.');
-      return res.redirect(`/cube/deck/${req.params.id}`);
+      return res.redirect(`/deck/${req.params.id}`);
     }
 
     const cube = await Cube.findOne(buildIdQuery(deck.cube), `${Cube.LAYOUT_FIELDS} basics useCubeElo`).lean();
@@ -383,7 +383,7 @@ const viewDeckbuilder = async (req, res) => {
           `${process.env.SITE_NAME} Draft: ${cube.name}`,
           Util.getCubeDescription(cube),
           cube.image_uri,
-          `${process.env.SITE_ROOT}/cube/draft/${req.params.id}`,
+          `${process.env.SITE_ROOT}/deck/${req.params.id}/build`,
         ),
       },
     );
@@ -462,7 +462,7 @@ const rebuildDeck = async (req, res) => {
       await addNotification(
         cubeOwner,
         user,
-        `/cube/deck/${deck._id}`,
+        `/deck/${deck._id}`,
         `${user.username} rebuilt a deck from your cube: ${cube.name}`,
       );
     }
@@ -470,14 +470,14 @@ const rebuildDeck = async (req, res) => {
       await addNotification(
         baseUser,
         user,
-        `/cube/deck/${deck._id}`,
+        `/deck/${deck._id}`,
         `${user.username} rebuilt your deck from cube: ${cube.name}`,
       );
     }
 
     await Promise.all([cube.save(), deck.save()]);
 
-    return res.redirect(`/cube/deck/deckbuilder/${deck._id}`);
+    return res.redirect(`/deck/${deck._id}/build`);
   } catch (err) {
     return handleRouteError(req, res, err, `/404`);
   }
@@ -529,7 +529,7 @@ const updateDeck = async (req, res) => {
     await cube.save();
 
     req.flash('success', 'Deck saved successfully');
-    return res.redirect(`/cube/deck/${deck._id}`);
+    return res.redirect(`/deck/${deck._id}`);
   } catch (err) {
     return handleRouteError(req, res, err, '/404');
   }
@@ -546,20 +546,20 @@ const redraftDeck = async (req, res) => {
     const seat = parseInt(req.params.seat, 10);
     if (!Number.isInteger(seat) || seat < 0 || seat >= base.seats.length) {
       req.flash('dangeer', 'Invalid seat index to redraft as.');
-      return res.redirect(`/cube/deck/${req.params.id}`);
+      return res.redirect(`/deck/${req.params.id}`);
     }
 
     // TODO: Handle gridDraft
     const srcDraft = await Draft.findById(base.draft).lean();
     if (!srcDraft) {
       req.flash('danger', 'This deck is not able to be redrafted.');
-      return res.redirect(`/cube/deck/${req.params.id}`);
+      return res.redirect(`/deck/${req.params.id}`);
     }
 
     const cube = await Cube.findById(srcDraft.cube);
     if (!cube) {
       req.flash('danger', 'The cube that this deck belongs to no longer exists.');
-      return res.redirect(`/cube/deck/${req.params.id}`);
+      return res.redirect(`/deck/${req.params.id}`);
     }
 
     const draft = new Draft();
@@ -579,9 +579,9 @@ const redraftDeck = async (req, res) => {
     draft.seats[0].name = req.user ? req.user.username : 'Anonymous';
 
     await draft.save();
-    return res.redirect(`/cube/draft/${draft._id}`);
+    return res.redirect(`/draft/${draft._id}`);
   } catch (err) {
-    return handleRouteError(req, res, err, `/cube/playtest/${req.params.id}`);
+    return handleRouteError(req, res, err, `/cube/${req.params.id}/playtest`);
   }
 };
 
