@@ -1,7 +1,5 @@
 FROM node:16
-
 ENV NODE_ENV=production
-RUN npm install -g yarn
 
 WORKDIR /CubeArtisan
 RUN mkdir client server
