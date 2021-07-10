@@ -15,7 +15,5 @@ services:
       - "5000:8080"
     depends_on:
       - "cubeartisan-mongodb"
-    env_file:
-      - '../server/.env'
 volumes:
   cubeartisan-mongodb-volume:
