@@ -9,7 +9,7 @@ services:
   cubeartisan:
     build:
       dockerfile: .docker/Dockerfile
-      context: ./
+      context: ../
     image: ${REPOSITORY}/cubeartisan:${TAG}
     ports:
       - "5000:8080"
