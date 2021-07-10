@@ -1,5 +1,4 @@
 FROM node:16
-ENV NODE_ENV=production
 
 WORKDIR /CubeArtisan
 RUN mkdir client server
@@ -8,6 +7,7 @@ COPY ./server/package.json server/package.json
 COPY ./client/package.json client/package.json
 COPY ./yarn.lock ./
 COPY ./.yarnrc.yml ./
+ENV NODE_ENV=development
 RUN yarn install
 
 COPY ./server/babel.config.cjs server/babel.config.cjs
@@ -35,6 +35,9 @@ COPY ./client/proptypes  client/proptypes/
 COPY ./client/res        client/res/
 COPY ./client/utils      client/utils/
 
+ENV NODE_ENV=production
+ENV DEBUG=false
 RUN yarn build
+RUN yarn upgrade
 
 ENTRYPOINT sh -c 'yarn cards && node --experimental-loader @node-loader/babel routes/index.js'
