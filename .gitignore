@@ -1,5 +1,6 @@
 server/private/
 server/dist/
+client/dist/
 client/generated/
 server/jobs/export/
 client/coverage/

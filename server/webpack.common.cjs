@@ -41,7 +41,6 @@ const config = {
   },
   devtool: 'source-map',
   resolve: {
-    fullySpecified: false,
     alias: {
       '@cubeartisan/client': path.resolve(__dirname, '../client'),
       '@cubeartisan/server': path.resolve(__dirname, '.'),

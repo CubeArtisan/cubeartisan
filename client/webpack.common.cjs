@@ -20,6 +20,13 @@ const path = require('path');
 const merge = require('webpack-merge');
 
 const config = {
+  optimization: {
+    runtimeChunk: 'single',
+    splitChunks: {
+      chunks: 'all',
+      usedExports: true,
+    },
+  },
   module: {
     rules: [
       {
@@ -39,15 +46,11 @@ const config = {
       },
     ],
   },
-  devtool: 'source-map',
   resolve: {
     alias: {
       '@cubeartisan/client': path.resolve(__dirname, './'),
       '@cubeartisan/server': path.resolve(__dirname, '../server'),
     },
-  },
-  performance: {
-    hints: 'warning',
   },
 };
 
@@ -121,9 +124,9 @@ const clientConfig = merge(config, {
     filename: '[name].bundle.js',
     sourceMapFilename: '[name].js.map',
     path: path.resolve(__dirname, 'dist'),
+    chunkFilename: '[chunkhash].js',
   },
   target: 'browserslist:> 2%',
-  parallelism: 8,
 });
 
 module.exports = { clientConfig };

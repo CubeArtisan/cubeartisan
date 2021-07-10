@@ -150,7 +150,7 @@ spec:
           name: cubeartisan
           ports:
             - containerPort: 5000
-              name: cubeartisan-http
+              name: cubeartisan
           resources:
             limits:
               cpu: 1000m
@@ -159,7 +159,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /version
-              port: cubeartisan-http
+              port: 5000
             initialDelaySeconds: 60
             periodSeconds: 5
           startupProbe:

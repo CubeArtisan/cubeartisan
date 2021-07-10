@@ -1,7 +1,7 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: custom-servers-ingress
+  name: cubeartisan-ingress
   namespace: default
   annotations:
     kubernetes.io/ingress.class: nginx
@@ -11,10 +11,14 @@ spec:
     - hosts:
         - cubeartisan.net
       secretName: cubeartisan-tls
+  rules:
     - host: cubeartisan.net
       http:
         paths:
           - path: /
+            pathType: Prefix
             backend:
-              serviceName: cubeartisan
-              servicePort: 80
+              service:
+                name: cubeartisan
+                port:
+                  number: 80
