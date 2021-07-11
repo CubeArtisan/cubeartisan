@@ -5,7 +5,8 @@ on:
       - Build Docker Image
     branches:
       - dev
-    types: completed
+    types: complete
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,7 +23,7 @@ jobs:
         run: "TAG=${GITHUB_SHA:0:8} && sed -i 's|<TAG>|'${TAG}'|' $GITHUB_WORKSPACE/.docker/k8s/cubeartisan.template.kube.yaml && sed -i 's|<ENV>|https://staging.cubeartisan.net/|' $GITHUB_WORKSPACE/.docker/k8s/cubeartisan.template.kube.yaml"
       - name: Save DigitalOcean kubeconfig with short-lived credentials
         # At the moment we are going to deploy directly to prod while in beta. TODO: Update this to a staging cluster.
-        run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 do-nyc1-cubeartisan
+        run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 cubeartisan
       - name: Deploy to DigitalOcean Kubernetes
         run: kubectl apply -f $GITHUB_WORKSPACE/.docker/k8s/cubeartisan.template.kube.yaml
       - name: Verify deployment
