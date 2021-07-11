@@ -9,7 +9,7 @@
     "build": "yarn build:base --mode production --config webpack.prod.cjs",
     "build:base": "export NODE_OPTIONS=--max_old_space_size=16000 && webpack --progress",
     "build:dev": "yarn build:base --mode development --config webpack.dev.cjs",
-    "cards": "node --max-old-space-size=4096 force_update.cjs",
+    "cards": "node --max-old-space-size=4096 --experimental-loader @node-loader/babel  scripts/force_update.js",
     "lint": "eslint --quiet `yarn --silent list-files`",
     "lint:loud": "eslint `yarn --silent list-files`",
     "lint:fix": "eslint --fix `yarn --silent list-files`",

@@ -16,6 +16,7 @@ COPY ./server/emails   server/emails/
 COPY ./server/models   server/models/
 COPY ./server/public   server/public/
 COPY ./server/routes   server/routes/
+COPY ./server/scripts  server/scripts/
 COPY ./server/serverjs server/serverjs/
 COPY ./server/views    server/views/
 
@@ -29,7 +30,7 @@ COPY ./client/filtering  client/filtering/
 COPY ./client/hooks      client/hooks/
 COPY ./client/layouts    client/layouts/
 COPY ./client/markdown   client/markdown/
-COPY /client/nearley    client/nearley/
+COPY ./client/nearley    client/nearley/
 COPY ./client/pages      client/pages/
 COPY ./client/proptypes  client/proptypes/
 COPY ./client/res        client/res/
