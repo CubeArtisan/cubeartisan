@@ -71,7 +71,7 @@ export const csrfProtection = [
 ];
 
 export const ensureAuth = [
-  csrfProtection,
+  // ...csrfProtection,
   (req, res, next) => {
     if (req.isAuthenticated()) {
       return next();
