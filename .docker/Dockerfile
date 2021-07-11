@@ -41,4 +41,4 @@ ENV DEBUG=false
 RUN yarn build
 RUN yarn upgrade
 
-ENTRYPOINT sh -c 'yarn cards && node --experimental-loader @node-loader/babel routes/index.js'
+ENTRYPOINT sh -c 'yarn cards && yarn server'

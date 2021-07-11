@@ -70,7 +70,7 @@ import { getCubeId } from '@cubeartisan/server/serverjs/cubefn.js';
 
 import { fileURLToPath } from 'url';
 import { body } from "express-validator";
-import PasswordReset from "@cubeartisan/server/models/passwordreset";
+import PasswordReset from "@cubeartisan/server/models/passwordreset.js";
 import mailer from "nodemailer";
 import Email from "email-templates";
 import bcrypt from "bcryptjs";

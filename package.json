@@ -24,6 +24,7 @@
     "run-daily-jobs": "yarn workspace @cubeartisan/server run-daily-jobs",
     "run-monthly-jobs": "yarn workspace @cubeartisan/server run-monthly-jobs",
     "run-weekly-jobs": "yarn workspace @cubeartisan/server run-weekly-jobs",
+    "server": "yarn workspace @cubeartisan/server server",
     "start": "yarn webpack-dev-server & yarn nodemon",
     "test": "yarn workspaces run test",
     "test:loud": "yarn workspaces run test:loud",
