@@ -62,7 +62,8 @@ export const requestLogging = (req, res, next) => {
   next();
 };
 
-export const csrfProtection = [];
+// eslint-disable-next-line
+export const csrfProtection = (req, res, next) => next();
 // export const csrfProtection = [
 //   csurf(),
 //   (req, res, next) => {
