@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import csurf from 'csurf';
+// import csurf from 'csurf';
 import { validationResult } from 'express-validator';
 import onFinished from 'on-finished';
 import uuid from 'uuid/v4.js';
@@ -62,13 +62,14 @@ export const requestLogging = (req, res, next) => {
   next();
 };
 
-export const csrfProtection = [
-  csurf(),
-  (req, res, next) => {
-    res.locals.csrfToken = req.csrfToken();
-    return next();
-  },
-];
+export const csrfProtection = [];
+// export const csrfProtection = [
+//   csurf(),
+//   (req, res, next) => {
+//     res.locals.csrfToken = req.csrfToken();
+//     return next();
+//   },
+// ];
 
 export const ensureAuth = [
   // ...csrfProtection,
