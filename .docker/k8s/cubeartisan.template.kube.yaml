@@ -104,7 +104,7 @@ spec:
         io.kompose.service: cubeartisan
     spec:
       containers:
-        - image: "docker.pkg.github.com/ruler501/cubeartisan/cubeartisan:566bdf63"
+        - image: "ghcr.io/cubeartisan/cubeartisan:<TAG>"
           imagePullPolicy: Always
           env:
             - name: NODE_ENV
@@ -194,7 +194,7 @@ spec:
             periodSeconds: 10
       restartPolicy: Always
       imagePullSecrets:
-        - name: regcred
+        - name: github-docker
 status: {}
 ---
 apiVersion: autoscaling/v1

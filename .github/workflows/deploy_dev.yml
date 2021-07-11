@@ -6,7 +6,6 @@ on:
     branches:
       - dev
     types: complete
-  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,13 +13,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Show tag and repo
-        run: 'echo "REPOSITORY: `echo "docker.pkg.github.com/$GITHUB_REPOSITORY" | tr "[:upper:]" "[:lower:]"`" && echo "TAG: ${GITHUB_SHA:0:8}"'
+        run: 'echo "REPOSITORY: `echo "ghcr.io/cubeartisan" | tr "[:upper:]" "[:lower:]"`" && echo "TAG: ${GITHUB_SHA:0:8}"'
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       - name: Update deployment file
-        run: "TAG=${GITHUB_SHA:0:8} && sed -i 's|<TAG>|'${TAG}'|' $GITHUB_WORKSPACE/.docker/k8s/cubeartisan.template.kube.yaml && sed -i 's|<ENV>|https://staging.cubeartisan.net/|' $GITHUB_WORKSPACE/.docker/k8s/cubeartisan.template.kube.yaml"
+        run: "TAG=${GITHUB_SHA:0:8} && sed -i 's|<TAG>|'${TAG}'|' $GITHUB_WORKSPACE/.docker/k8s/cubeartisan.template.kube.yaml && sed -i 's|<ENV>|https://cubeartisan.net/|' $GITHUB_WORKSPACE/.docker/k8s/cubeartisan.template.kube.yaml"
       - name: Save DigitalOcean kubeconfig with short-lived credentials
         # At the moment we are going to deploy directly to prod while in beta. TODO: Update this to a staging cluster.
         run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 cubeartisan
