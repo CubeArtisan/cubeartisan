@@ -125,28 +125,52 @@ spec:
                     name: cubeartisansecrets
                     key: SESSION_SECRET
             - name: DBNAME
-              value: "nodecube"
+              value: "cubeartisan"
             - name: SESSION
               valueFrom:
                   secretKeyRef:
                     name: cubeartisansecrets
                     key: SESSION
+            - name: EMAIL_CONFIG_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: cubeartisansecrets
+                  key: EMAIL_CONFIG_USERNAME
+            - name: EMAIL_CONFIG_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cubeartisansecrets
+                  key: EMAIL_CONFIG_PASSWORD
             - name: FLASKROOT
               value: "http://cubeartisan-recommender"
             - name: PORT
               value: "5000"
             - name: HOST
               value: "http://cubeartisan"
-            - name: CUBECOBRA_VERSION
-              value: "3.6.0"
+            - name: SITE_VERSION
+              value: "<TAG>"
             - name: ELASTICSEARCH_URL
               value: "http://elasticsearch-external:9200/"
             - name: APM_SERVER_URL
               value: "http://apm-server:8200/"
             - name: MONGODB_URL
-              value: "mongodb://cubeartisan-mongodb:27017/nodecube"
+              value: "mongodb://cubeartisan-mongodb:27017/cubeartisan"
             - name: LISTEN_ADDR
               value: "0.0.0.0"
+            - name: SITE_ROOT
+              value: <ENV>
+            - name: SITE_NAME
+              value: CubeArtisan (beta)
+            - name: SUPPORT_EMAIL_FROM
+              value: CubeArtisan Support Team <support@cubeartisan.net>
+            - name: SUPPORT_EMAIL
+              value: support@cubeartisan.net
+            - name: DOWNTIME_ACTIVE
+              value: "false"
+            - name: DISCORD_URL
+              value: "N/A"
+            - name: SOURCE_REPO
+              value: https://github.com/CubeArtisan/cubeartisan
           name: cubeartisan
           ports:
             - containerPort: 5000
