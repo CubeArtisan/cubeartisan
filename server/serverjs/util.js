@@ -168,9 +168,9 @@ export const addMultipleNotifications = async (users, from, url, text) => {
 };
 
 export const wrapAsyncApi = (route) => {
-  return (req, res, next) => {
+  return async (req, res, next) => {
     try {
-      return route(req, res, next);
+      return await route(req, res, next);
     } catch (err) {
       req.logger.error(err);
       return res.status(500).send({
