@@ -18,30 +18,29 @@
  */
 // Load Environment Variables
 import dotenv from 'dotenv';
-import React from 'react';
+// import React from 'react';
 // eslint-disable-next-line import/extensions
-import ReactDOMServer from 'react-dom/server.node.js';
+// import ReactDOMServer from 'react-dom/server.node.js';
 import serialize from 'serialize-javascript';
 import Cube from '@cubeartisan/server/models/cube.js';
-import { LoadingPage } from '@cubeartisan/client/pages/LoadingPage.js';
+// import { LoadingPage } from '@cubeartisan/client/pages/LoadingPage.js';
 import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 
 dotenv.config();
 
-// const getPage = async () => null;
-const pageCache = { Loading: LoadingPage, LoadingPage };
-const getPage = async (page, req) => {
-  if (!pageCache[page]) {
-    const pageModule = await import(`@cubeartisan/client/pages/${page}.js`);
-    if (pageModule.default) {
-      pageCache[page] = pageModule.default;
-    } else {
-      req.logger.error(`Could not load page ${page}.`);
-      return LoadingPage;
-    }
-  }
-  return pageCache[page];
-};
+// const pageCache = { Loading: LoadingPage, LoadingPage };
+// const getPage = async (page, req) => {
+//   if (!pageCache[page]) {
+//     const pageModule = await import(`@cubeartisan/client/pages/${page}.js`);
+//     if (pageModule.default) {
+//       pageCache[page] = pageModule.default;
+//     } else {
+//       req.logger.error(`Could not load page ${page}.`);
+//       return LoadingPage;
+//     }
+//   }
+//   return pageCache[page];
+// };
 
 const getCubes = async (req) => {
   if (!req.user) return [];
@@ -91,9 +90,10 @@ export const render = async (req, res, page, reactProps = {}, options = {}) => {
     });
   }
 
-  const pageElement = await getPage(page, req);
+  // const pageElement = await getPage(page, req);
   res.render('main', {
-    reactHTML: pageElement ? ReactDOMServer.renderToString(React.createElement(pageElement, reactProps)) : null,
+    // reactHTML: pageElement ? ReactDOMServer.renderToString(React.createElement(pageElement, reactProps)) : null,
+    reactHtml: null,
     reactProps: serialize(reactProps),
     page,
     metadata: options.metadata,
