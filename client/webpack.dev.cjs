@@ -24,9 +24,6 @@ const { clientConfig: common } = require('./webpack.common.cjs');
 const config = {
   mode: 'development',
   devtool: 'inline-source-map',
-  optimization: {
-    usedExports: false,
-  },
 };
 
 const clientConfig = merge(common, config, {

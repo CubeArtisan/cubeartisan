@@ -21,11 +21,10 @@ const merge = require('webpack-merge');
 
 const config = {
   optimization: {
-    runtimeChunk: 'single',
     splitChunks: {
-      chunks: 'all',
+      chunks: 'async',
     },
-    usedExports: true,
+    usedExports: false,
   },
   module: {
     rules: [
