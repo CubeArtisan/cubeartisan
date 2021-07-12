@@ -17,7 +17,6 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 const path = require('path');
-const webpack = require('webpack');
 const merge = require('webpack-merge');
 
 const config = {

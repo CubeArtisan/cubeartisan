@@ -40,7 +40,7 @@ const RenderToRoot = (Element) => {
     );
   };
   if (typeof document !== 'undefined') {
-    import('bootstrap/dist/css/bootstrap.min.css');
+    // import('bootstrap/dist/css/bootstrap.min.css');
     const wrapper = document.getElementById('react-root');
     const element = <Wrapped />;
     if (wrapper) {
