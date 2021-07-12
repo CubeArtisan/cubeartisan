@@ -90,8 +90,9 @@ draftSchema.index({
   schemaVersion: 1,
 });
 
-draftSchema.pre('save', () => {
+draftSchema.pre('save', function saveDraftSchemaVersion(next) {
   this.schemaVersion = CURRENT_SCHEMA_VERSION;
+  next();
 });
 
 const Draft = mongoose.model('Draft', draftSchema);

@@ -98,8 +98,9 @@ deckSchema.index({
   draft: 1,
 });
 
-deckSchema.pre('save', async () => {
+deckSchema.pre('save', function saveDeckSchemaVersion(next) {
   this.schemaVersion = CURRENT_SCHEMA_VERSION;
+  next();
 });
 
 const Deck = mongoose.model('Deck', deckSchema);

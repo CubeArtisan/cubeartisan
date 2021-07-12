@@ -283,7 +283,7 @@ const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
         <Input type="hidden" name="body" value={draftId} />
         <Input type="hidden" name="skipDeckbuilder" value="true" />
       </CSRFForm>
-      <CSRFForm method="POST" action={`/cube/startdraft/${cubeID}`} onSubmit={submitForm} innerRef={formRef}>
+      <CSRFForm method="POST" action={`/cube/${cubeID}/playtest/draft`} onSubmit={submitForm} innerRef={formRef}>
         <CardHeader>
           <CardTitleH5>{defaultDraftFormat === -1 && 'Default Format: '}Standard Draft</CardTitleH5>
         </CardHeader>

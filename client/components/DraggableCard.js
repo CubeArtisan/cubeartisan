@@ -29,7 +29,8 @@ const DraggableCard = ({ card, location, canDrop, onMoveCard, className, onClick
   // eslint-disable-next-line react/prop-types
   delete props.height;
   const [{ isDragging }, drag, preview] = useDrag({
-    item: { type: 'card', location },
+    type: 'card',
+    item: { location },
     end: (item, monitor) => {
       if (monitor.didDrop()) {
         onMoveCard(item.location, monitor.getDropResult());

@@ -21,15 +21,15 @@ const withAutocard = (Tag) => {
     const { tagColorClass } = useContext(TagContext);
     const { showCustomImages } = useContext(DisplayContext);
     const backupRef = useRef();
-    card = card || { details: {} };
-    tags = tags || cardTags(card) || [];
+    card = card ?? { details: {} };
+    tags = tags ?? cardTags(card) ?? [];
     front = front || (showCustomImages && cardImageUrl(card)) || cardImageNormal(card);
     back = back || (showCustomImages && cardImageBackUrl(card)) || cardImageFlip(card);
     const foil = cardFinish(card) === 'Foil';
     const name = cardFullName(card);
     return (
       <>
-        <Tag ref={ref || backupRef} {...props} />
+        <Tag ref={ref ?? backupRef} {...props} />
         <UncontrolledPopover
           trigger="hover"
           placement="auto"
@@ -37,7 +37,7 @@ const withAutocard = (Tag) => {
           hideArrow
           fad
           offset={12}
-          target={ref || backupRef}
+          target={ref ?? backupRef}
           popperClassName={`autocard-background autocardPopup ${back ? 'double-width' : ''}`}
           innerClassName="autocard-background no-gutters"
           className="autocard-background"

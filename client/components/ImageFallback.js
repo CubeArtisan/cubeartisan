@@ -16,10 +16,10 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-const ImageFallback = ({ src, fallbackSrc, innerRef, ...props }) => {
+const ImageFallback = forwardRef(({ src, fallbackSrc, alt, ...props }, ref) => {
   const [fallback, setFallback] = useState(false);
 
   const handleError = () => setFallback(true);
@@ -27,17 +27,24 @@ const ImageFallback = ({ src, fallbackSrc, innerRef, ...props }) => {
   useEffect(() => setFallback(false), [src]);
 
   // eslint-disable-next-line jsx-a11y/alt-text
-  return <img src={fallback ? fallbackSrc : src} onError={handleError} ref={innerRef} {...props} />;
-};
-
+  return (
+    <img
+      alt={fallback ? 'fallback image' : alt}
+      src={fallback ? fallbackSrc : src}
+      onError={handleError}
+      ref={ref}
+      {...props}
+    />
+  );
+});
 ImageFallback.propTypes = {
   src: PropTypes.string.isRequired,
   fallbackSrc: PropTypes.string.isRequired,
-  innerRef: PropTypes.shape({}),
+  alt: PropTypes.string,
 };
-
 ImageFallback.defaultProps = {
-  innerRef: null,
+  alt: '',
 };
+ImageFallback.displayName = 'ImageFallback';
 
 export default ImageFallback;

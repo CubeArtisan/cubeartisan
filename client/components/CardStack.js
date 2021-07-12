@@ -52,7 +52,8 @@ const CardStack = ({ location, children, ...props }) => {
   );
 };
 CardStack.propTypes = {
-  location: PropTypes.string.isRequired,
+  location: PropTypes.shape({ type: PropTypes.string.isRequired, data: PropTypes.arrayOf(PropTypes.number) })
+    .isRequired,
   children: PropTypes.node.isRequired,
 };
 export default CardStack;
