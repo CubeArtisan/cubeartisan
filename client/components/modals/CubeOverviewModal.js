@@ -320,7 +320,7 @@ const CubeOverviewModal = ({ cube: savedCube, onError, onCubeUpdate, userID, isO
             <br />
           </ModalBody>
           <ModalFooter>
-            <Button color="secondary" onClick={close}>
+            <Button color="secondary" onClick={toggle}>
               Close
             </Button>{' '}
             <LoadingButton color="success" onClick={handleApply}>
@@ -333,6 +333,8 @@ const CubeOverviewModal = ({ cube: savedCube, onError, onCubeUpdate, userID, isO
   );
 };
 CubeOverviewModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  toggle: PropTypes.func.isRequired,
   cube: CubePropType.isRequired,
   onError: PropTypes.func.isRequired,
   onCubeUpdate: PropTypes.func.isRequired,
