@@ -60,6 +60,7 @@ import CubeLayout from '@cubeartisan/client/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
+const CubeOverviewModalLink = withModal(NavLink, CubeOverviewModal);
 const FollowersModalLink = withModal('a', FollowersModal);
 const CubeSettingsModalLink = withModal(NavLink, CubeSettingsModal);
 const DeleteCubeModalLink = withModal(NavLink, DeleteCubeModal);
@@ -116,12 +117,16 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
             <UncontrolledCollapse navbar id="cubeOverviewNavbarCollapse" toggler="#cubeOverviewNavbarToggler">
               <Nav navbar>
                 <NavItem>
-                  <CubeOverviewModal
-                    cube={cubeState}
-                    cubeID={cubeState._id}
-                    onError={(message) => addAlert('danger', message)}
-                    onCubeUpdate={onCubeUpdate}
-                  />
+                  <CubeOverviewModalLink
+                    modalProps={{
+                      cube: cubeState,
+                      cubeID: cubeState._id,
+                      onError: (message) => addAlert('danger', message),
+                      onCubeUpdate,
+                    }}
+                  >
+                    Edit Overview
+                  </CubeOverviewModalLink>
                 </NavItem>
                 <NavItem>
                   <CubeSettingsModalLink cube={cubeState} modalProps={{ addAlert, onCubeUpdate }}>

@@ -35,6 +35,8 @@ const withAutocard = (Tag) => {
           placement="auto"
           delay={{ show: 50, hide: 250 }}
           hideArrow
+          fad
+          offset={12}
           target={ref || backupRef}
           popperClassName={`autocard-background autocardPopup ${back ? 'double-width' : ''}`}
           innerClassName="autocard-background no-gutters"

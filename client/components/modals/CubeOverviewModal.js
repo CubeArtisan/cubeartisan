@@ -63,8 +63,7 @@ const pickDescriptionFromCube = (cube) => {
     : cube.description;
 };
 
-const CubeOverviewModal = ({ cube: savedCube, onError, onCubeUpdate, userID }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const CubeOverviewModal = ({ cube: savedCube, onError, onCubeUpdate, userID, isOpen, toggle }) => {
   const [tags, setTags] = useState((savedCube.tags ?? []).map((tag) => ({ id: tag, text: tag })));
   const [cube, setCube] = useState(JSON.parse(JSON.stringify(savedCube)));
   const [urlChanged, setUrlChanged] = useState(false);
@@ -78,16 +77,6 @@ const CubeOverviewModal = ({ cube: savedCube, onError, onCubeUpdate, userID }) =
       setImageDict(imageJson.dict);
     })();
   }, []);
-
-  const open = useCallback(
-    (event) => {
-      event.preventDefault();
-      setIsOpen(true);
-    },
-    [setIsOpen],
-  );
-
-  const close = useCallback(() => setIsOpen(false), [setIsOpen]);
 
   const changeDescription = useCallback(
     (event) => setCube((prevCube) => ({ ...prevCube, raw_desc: event.target.value })),
@@ -170,186 +159,177 @@ const CubeOverviewModal = ({ cube: savedCube, onError, onCubeUpdate, userID }) =
           onError(error);
         }
       }
-      close();
+      toggle();
     },
-    [close, onError, cube, tags, urlChanged, cubeID, onCubeUpdate],
+    [toggle, onError, cube, tags, urlChanged, cubeID, onCubeUpdate],
   );
 
   return (
-    <>
-      <Button className="nav-link" onClick={open}>
-        Edit Overview
-      </Button>
+    <TagContextProvider
+      cubeID={getCubeId(savedCube)}
+      defaultTagColors={cube.tag_colors}
+      defaultShowTagColors={false}
+      defaultTags={[]}
+      userID={userID}
+    >
+      <Modal size="lg" isOpen={isOpen} toggle={toggle}>
+        <ModalHeader toggle={toggle}>Edit Overview</ModalHeader>
+        <form method="PUT" action={`/cube/${cubeID}/overview`} autoComplete="off">
+          <ModalBody>
+            <h6>Cube Name</h6>
+            <input
+              className="form-control"
+              name="name"
+              type="text"
+              value={cube.name}
+              required
+              onChange={handleChange}
+            />
+            <br />
 
-      <TagContextProvider
-        cubeID={getCubeId(savedCube)}
-        defaultTagColors={cube.tag_colors}
-        defaultShowTagColors={false}
-        defaultTags={[]}
-        userID={userID}
-      >
-        <Modal size="lg" isOpen={isOpen} toggle={close}>
-          <ModalHeader toggle={close}>Edit Overview</ModalHeader>
+            <h6>Options</h6>
+            <div className="form-check">
+              <Label className="form-check-label">
+                <input
+                  className="form-check-input"
+                  name="overrideCategory"
+                  type="checkbox"
+                  checked={cube.overrideCategory}
+                  onChange={handleChange}
+                />
+                Override Cube Category
+              </Label>
+            </div>
+            <br />
 
-          <form method="PUT" action={`/cube/${cubeID}/overview`} autoComplete="off">
-            <ModalBody>
-              <h6>Cube Name</h6>
-              <input
-                className="form-control"
-                name="name"
-                type="text"
-                value={cube.name}
-                required
-                onChange={handleChange}
-              />
-              <br />
+            <h6>Category</h6>
 
-              <h6>Options</h6>
-              <div className="form-check">
-                <Label className="form-check-label">
-                  <input
-                    className="form-check-input"
-                    name="overrideCategory"
-                    type="checkbox"
-                    checked={cube.overrideCategory}
-                    onChange={handleChange}
-                  />
-                  Override Cube Category
-                </Label>
-              </div>
-              <br />
+            <input className="form-control" name="name" type="text" disabled value={getCubeDescription(cube)} />
 
-              <h6>Category</h6>
-
-              <input className="form-control" name="name" type="text" disabled value={getCubeDescription(cube)} />
-
-              <Row>
-                <Col>
-                  <FormGroup tag="fieldset">
-                    {['Vintage', 'Legacy+', 'Legacy', 'Modern', 'Pioneer', 'Historic', 'Standard', 'Set'].map(
-                      (label) => (
-                        <FormGroup check key={label}>
-                          <Label check>
-                            <Input
-                              type="radio"
-                              name="categoryOverride"
-                              value={label}
-                              disabled={!cube.overrideCategory}
-                              checked={cube.categoryOverride === label}
-                              onChange={handleChange}
-                            />{' '}
-                            {label}
-                          </Label>
-                        </FormGroup>
-                      ),
-                    )}
-                  </FormGroup>
-                </Col>
-                <Col>
-                  {[
-                    'Powered',
-                    'Unpowered',
-                    'Pauper',
-                    'Peasant',
-                    'Budget',
-                    'Silver-bordered',
-                    'Commander',
-                    'Battle Box',
-                    'Multiplayer',
-                    'Judge Tower',
-                  ].map((label) => (
-                    <div className="form-check" key={label}>
-                      <input
-                        className="form-check-input"
-                        name="category_prefix"
-                        id={`categoryPrefix${label}`}
-                        value={label}
-                        type="checkbox"
-                        checked={(cube.categoryPrefixes ? cube.categoryPrefixes : []).includes(label)}
-                        onChange={handleChange}
-                        disabled={!cube.overrideCategory}
-                      />
-                      <label className="form-check-label" htmlFor={`categoryPrefix${label}`}>
+            <Row>
+              <Col>
+                <FormGroup tag="fieldset">
+                  {['Vintage', 'Legacy+', 'Legacy', 'Modern', 'Pioneer', 'Historic', 'Standard', 'Set'].map((label) => (
+                    <FormGroup check key={label}>
+                      <Label check>
+                        <Input
+                          type="radio"
+                          name="categoryOverride"
+                          value={label}
+                          disabled={!cube.overrideCategory}
+                          checked={cube.categoryOverride === label}
+                          onChange={handleChange}
+                        />{' '}
                         {label}
-                      </label>
-                    </div>
+                      </Label>
+                    </FormGroup>
                   ))}
-                </Col>
-              </Row>
+                </FormGroup>
+              </Col>
+              <Col>
+                {[
+                  'Powered',
+                  'Unpowered',
+                  'Pauper',
+                  'Peasant',
+                  'Budget',
+                  'Silver-bordered',
+                  'Commander',
+                  'Battle Box',
+                  'Multiplayer',
+                  'Judge Tower',
+                ].map((label) => (
+                  <div className="form-check" key={label}>
+                    <input
+                      className="form-check-input"
+                      name="category_prefix"
+                      id={`categoryPrefix${label}`}
+                      value={label}
+                      type="checkbox"
+                      checked={(cube.categoryPrefixes ? cube.categoryPrefixes : []).includes(label)}
+                      onChange={handleChange}
+                      disabled={!cube.overrideCategory}
+                    />
+                    <label className="form-check-label" htmlFor={`categoryPrefix${label}`}>
+                      {label}
+                    </label>
+                  </div>
+                ))}
+              </Col>
+            </Row>
 
-              <h6>Image</h6>
-              <Row>
-                <Col xs="12" sm="6" md="6" lg="6">
-                  <Card>
-                    <CardHeader>Preview</CardHeader>
-                    <img className="card-img-top w-100" alt={cube.image_name} src={cube.image_uri} />
-                    <CardBody>
-                      <p>Art by: {cube.image_artist}</p>
-                    </CardBody>
-                  </Card>
-                </Col>
-              </Row>
-              <br />
-              <AutocompleteInput
-                treeUrl="/cards/names/full"
-                treePath="cardnames"
-                type="text"
-                className="mr-2"
-                name="remove"
-                value={cube.image_name}
-                onChange={changeImageName}
-                placeholder="Cardname for Image"
-                autoComplete="off"
-                data-lpignore
-              />
-              <br />
+            <h6>Image</h6>
+            <Row>
+              <Col xs="12" sm="6" md="6" lg="6">
+                <Card>
+                  <CardHeader>Preview</CardHeader>
+                  <img className="card-img-top w-100" alt={cube.image_name} src={cube.image_uri} />
+                  <CardBody>
+                    <p>Art by: {cube.image_artist}</p>
+                  </CardBody>
+                </Card>
+              </Col>
+            </Row>
+            <br />
+            <AutocompleteInput
+              treeUrl="/cards/names/full"
+              treePath="cardnames"
+              type="text"
+              className="mr-2"
+              name="remove"
+              value={cube.image_name}
+              onChange={changeImageName}
+              placeholder="Cardname for Image"
+              autoComplete="off"
+              data-lpignore
+            />
+            <br />
 
-              <h6>Description</h6>
-              <TextEntry
-                name="blog"
-                value={pickDescriptionFromCube(cube)}
-                onChange={changeDescription}
-                maxLength={100000}
-              />
-              <FormText>
-                Having trouble formatting your posts? Check out the{' '}
-                <a href="/markdown" target="_blank">
-                  markdown guide
-                </a>
-                .
-              </FormText>
-              <br />
+            <h6>Description</h6>
+            <TextEntry
+              name="blog"
+              value={pickDescriptionFromCube(cube)}
+              onChange={changeDescription}
+              maxLength={100000}
+            />
+            <FormText>
+              Having trouble formatting your posts? Check out the{' '}
+              <a href="/markdown" target="_blank">
+                markdown guide
+              </a>
+              .
+            </FormText>
+            <br />
 
-              <h6>Tags</h6>
-              <TagInput tags={tags} addTag={addTag} deleteTag={deleteTag} />
-              <br />
+            <h6>Tags</h6>
+            <TagInput tags={tags} addTag={addTag} deleteTag={deleteTag} />
+            <br />
 
-              <h6>Short ID</h6>
-              <input
-                className="form-control"
-                id="shortID"
-                name="shortID"
-                type="text"
-                value={cube.shortID}
-                onChange={handleChange}
-                required
-                placeholder="Give this cube an easy to remember URL."
-              />
-              <FormText>Changing the short ID may break existing links to your cube.</FormText>
-              <br />
-            </ModalBody>
-            <ModalFooter>
-              <Button color="secondary" onClick={close}>
-                Close
-              </Button>{' '}
-              <LoadingButton color="success" onClick={handleApply}>
-                Save Changes
-              </LoadingButton>
-            </ModalFooter>
-          </form>
-        </Modal>
-      </TagContextProvider>
-    </>
+            <h6>Short ID</h6>
+            <input
+              className="form-control"
+              id="shortID"
+              name="shortID"
+              type="text"
+              value={cube.shortID}
+              onChange={handleChange}
+              required
+              placeholder="Give this cube an easy to remember URL."
+            />
+            <FormText>Changing the short ID may break existing links to your cube.</FormText>
+            <br />
+          </ModalBody>
+          <ModalFooter>
+            <Button color="secondary" onClick={close}>
+              Close
+            </Button>{' '}
+            <LoadingButton color="success" onClick={handleApply}>
+              Save Changes
+            </LoadingButton>
+          </ModalFooter>
+        </form>
+      </Modal>
+    </TagContextProvider>
   );
 };
 CubeOverviewModal.propTypes = {

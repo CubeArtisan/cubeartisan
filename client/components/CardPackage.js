@@ -158,8 +158,8 @@ const CardPackage = ({ cardPackage, refresh }) => {
           {cardPackage.cards.map((cardId) => (
             <Col key={`${cardPackage._id}-${cardId}`} className="col-6 col-md-2-4 col-lg-2-4 col-xl-2-4">
               <Card className="mb-3">
-                <AutocardA href={`/card/${cardId}`} front={`/card/${cardId}/image`} target="_blank">
-                  <img className="w-100" src={`/card/${cardId}/image`} alt={cardId} />
+                <AutocardA href={`/card/${cardId}`} front={`/card/${cardId}/image/redirect`} target="_blank">
+                  <img className="w-100" src={`/card/${cardId}/image/redirect`} alt={cardId} />
                 </AutocardA>
               </Card>
             </Col>
