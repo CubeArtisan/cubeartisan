@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { UncontrolledAlert } from 'reactstrap';
 

@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 

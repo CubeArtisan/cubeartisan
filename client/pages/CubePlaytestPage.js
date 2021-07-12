@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { useContext, useCallback, useMemo, useState, useRef } from 'react';
+import React, { useContext, useCallback, useMemo, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 

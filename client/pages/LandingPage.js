@@ -25,7 +25,7 @@ import Footer from '@cubeartisan/client/layouts/Footer.js';
 import LoginModal from '@cubeartisan/client/components/modals/LoginModal.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import CardSearchBar from '@cubeartisan/client/components/CardSearchBar.js';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 

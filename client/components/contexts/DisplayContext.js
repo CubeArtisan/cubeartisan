@@ -16,9 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-/* Holds general display settings. */
-
-import { createContext, useCallback, useState } from 'react';
+import React, { createContext, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
 const DisplayContext = createContext({

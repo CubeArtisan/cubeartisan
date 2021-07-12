@@ -1,4 +1,3 @@
-import assert from 'assert';
 import markdownSpace from 'micromark/dist/character/markdown-space.js';
 import markdownLineEnding from 'micromark/dist/character/markdown-line-ending.js';
 import spaceFactory from 'micromark/dist/tokenize/factory-space.js';
@@ -40,7 +39,9 @@ function centering() {
     };
 
     return (code) => {
-      assert(code === 62, 'expected `>`');
+      if (code !== 62) {
+        throw new Error('expected `>`');
+      }
       effects.enter('centering', { _container: true });
       effects.enter('centeringPrefix');
       return sequence(code);
@@ -101,7 +102,9 @@ function centering() {
     };
 
     consumeLt = (code) => {
-      assert(code === 60, 'expected `<`');
+      if (code !== 60) {
+        throw new Error('expected `<`');
+      }
       effects.consume(code);
       return content;
     };

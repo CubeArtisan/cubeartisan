@@ -16,6 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import React from 'react';
 import { useDrop } from 'react-dnd';
 import { Col } from 'reactstrap';
 import PropTypes from 'prop-types';

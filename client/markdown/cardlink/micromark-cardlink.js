@@ -1,5 +1,3 @@
-import assert from 'assert';
-
 function tokenizeCardlink(effects, ok, nok) {
   const end = (code) => {
     if (code === 93) {
@@ -56,7 +54,9 @@ function tokenizeCardlink(effects, ok, nok) {
   }
 
   return (code) => {
-    assert(code === 91, 'expected `[`');
+    if (code !== 91) {
+      throw new Error('expected `[`');
+    }
     effects.enter('cardlink');
     effects.enter('cardlinkStartLabel');
     effects.consume(code);

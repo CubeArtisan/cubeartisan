@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import VideoPropType from '@cubeartisan/client/proptypes/VideoPropType.js';
 
 import { Card } from 'reactstrap';

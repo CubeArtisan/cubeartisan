@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 
 import { NavItem, NavLink } from 'reactstrap';
 

@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { useCallback, useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { Badge, Button, Input } from 'reactstrap';
 import PropTypes from 'prop-types';
 

@@ -1,4 +1,3 @@
-import assert from 'assert';
 import markdownLineEndingOrSpace from 'micromark/dist/character/markdown-line-ending-or-space.js';
 
 const tokenizeUserlink = (effects, ok, nok) => {
@@ -25,7 +24,9 @@ const tokenizeUserlink = (effects, ok, nok) => {
   };
 
   return (code) => {
-    assert(code === 64, 'expected `@`');
+    if (code !== 64) {
+      throw new Error('expected `@`');
+    }
     // '@' shouldn't be preceded by an actual character
     if (!self.previous || markdownLineEndingOrSpace(self.previous)) {
       effects.enter('userlink');

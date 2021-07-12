@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { useContext, useCallback, useMemo } from 'react';
+import React, { useContext, useCallback, useMemo } from 'react';
 import {
   Alert,
   Button,

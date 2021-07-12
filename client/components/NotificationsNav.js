@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 

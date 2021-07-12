@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
@@ -37,10 +37,12 @@ import Feed from '@cubeartisan/client/components/Feed.js';
 
 import { Button, Card, Col, Row, CardHeader, CardBody, CardFooter } from 'reactstrap';
 import CubesCard from '@cubeartisan/client/components/CubesCard.js';
+import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 
 const CreateCubeModalButton = withModal(Button, CreateCubeModal);
 
 export const DashboardPage = ({ posts, cubes, decks, loginCallback, content, featured }) => {
+  const { discordUrl } = useContext(SiteCustomizationContext);
   const user = useContext(UserContext);
   // where featured cubes are positioned on the screen
   let featuredPosition;
@@ -100,7 +102,7 @@ export const DashboardPage = ({ posts, cubes, decks, loginCallback, content, fea
               ) : (
                 <p className="m-2">
                   Nobody has drafted your cubes! Perhaps try reaching out on the{' '}
-                  <a href="https://discord.gg/Hn39bCU">Discord draft exchange?</a>
+                  <a href={discordUrl}>Discord draft exchange?</a>
                 </p>
               )}
             </CardBody>
@@ -156,5 +158,4 @@ DashboardPage.defaultProps = {
   loginCallback: '/',
   featured: [],
 };
-
 export default RenderToRoot(DashboardPage);

@@ -346,7 +346,7 @@ const createUser = async (req, res) => {
               .then(() => {
                 // req.flash('success','Please check your email for confirmation link. It may be filtered as spam.');
                 req.flash('success', 'Account successfully created. You are now able to login.');
-                res.redirect('/login');
+                res.redirect(303, '/login');
               });
           }
         });

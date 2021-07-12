@@ -1,4 +1,3 @@
-import assert from 'assert';
 import markdownLineEnding from 'micromark/dist/character/markdown-line-ending.js';
 import chunkedSplice from 'micromark/dist/util/chunked-splice.js';
 
@@ -6,7 +5,9 @@ const resolveCardrow = (events, context) => {
   const contentEnd = 4;
   const contentStart = 3;
 
-  assert(contentEnd > contentStart, 'content cannot end before it starts');
+  if (contentEnd <= contentStart) {
+    throw new Error('content cannot end before it starts');
+  }
   const text = {
     type: 'chunkText',
     start: events[contentStart][1].start,
@@ -48,7 +49,9 @@ const tokenizeCardrow = (effects, ok, nok) => {
   let content;
 
   const consumeGt = (code) => {
-    assert(code === 62, 'expected `>`');
+    if (code !== 62) {
+      throw new Error('expected `>`');
+    }
     effects.consume(code);
     return content;
   };
@@ -91,7 +94,9 @@ const tokenizeCardrow = (effects, ok, nok) => {
   };
 
   return (code) => {
-    assert(code === 60, 'expected `<`');
+    if (code === 60) {
+      throw new Error('expected `<`');
+    }
     effects.enter('cardrow');
     effects.enter('cardrowStartLabel');
     effects.consume(code);

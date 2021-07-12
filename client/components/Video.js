@@ -16,6 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import React from 'react';
 import VideoPropType from '@cubeartisan/client/proptypes/VideoPropType.js';
 
 import Markdown from '@cubeartisan/client/components/Markdown.js';

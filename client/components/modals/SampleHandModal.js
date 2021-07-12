@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { Component } from 'react';
+import React, { Component } from 'react';
 
 import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
 import CardGrid from '@cubeartisan/client/components/CardGrid.js';

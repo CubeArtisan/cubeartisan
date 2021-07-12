@@ -23,6 +23,7 @@ const webpack = require('webpack');
 const common = require('./webpack.common.cjs');
 
 const config = {
+  devtool: 'source-map',
   mode: 'production',
   plugins: [
     new webpack.DefinePlugin({

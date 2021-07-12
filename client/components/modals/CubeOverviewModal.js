@@ -42,7 +42,7 @@ import LoadingButton from '@cubeartisan/client/components/LoadingButton.js';
 import TagInput from '@cubeartisan/client/components/TagInput.js';
 import { TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext.js';
 import TextEntry from '@cubeartisan/client/components/TextEntry.js';
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 /**
  * A utility for safely picking the current working description from a Cube.

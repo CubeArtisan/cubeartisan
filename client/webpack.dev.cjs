@@ -25,7 +25,7 @@ const config = {
   mode: 'development',
   devtool: 'inline-source-map',
   optimization: {
-    usedExports: true,
+    usedExports: false,
   },
 };
 

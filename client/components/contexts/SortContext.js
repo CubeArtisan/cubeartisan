@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { createContext, Component } from 'react';
+import React, { createContext, Component } from 'react';
 import PropTypes from 'prop-types';
 
 const SortContext = createContext({

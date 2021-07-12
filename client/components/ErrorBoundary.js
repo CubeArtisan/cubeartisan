@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { Component, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Card, Container } from 'reactstrap';
 import PropTypes from 'prop-types';
 

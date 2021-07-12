@@ -23,7 +23,7 @@ import SortContext from '@cubeartisan/client/components/contexts/SortContext.js'
 import { getLabels, sortIntoGroups } from '@cubeartisan/client/utils/Sort.js';
 import AutocardListItem from '@cubeartisan/client/components/AutocardListItem.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 
 const CompareGroup = ({ heading, both, onlyA, onlyB }) => {
   const bothCmc = sortIntoGroups(both, 'Mana Value');

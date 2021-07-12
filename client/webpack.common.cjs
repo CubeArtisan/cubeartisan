@@ -17,6 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 const path = require('path');
+const webpack = require('webpack');
 const merge = require('webpack-merge');
 
 const config = {
@@ -24,8 +25,8 @@ const config = {
     runtimeChunk: 'single',
     splitChunks: {
       chunks: 'all',
-      usedExports: true,
     },
+    usedExports: true,
   },
   module: {
     rules: [
@@ -33,6 +34,7 @@ const config = {
         test: /\.jsx?$/,
         type: 'javascript/auto',
         exclude: /node_modules/,
+
         use: {
           loader: 'babel-loader',
           options: {
@@ -42,6 +44,7 @@ const config = {
       },
       {
         test: /\.(css|less)$/,
+        sideEffects: true,
         use: ['style-loader', 'css-loader'],
       },
     ],
@@ -124,7 +127,6 @@ const clientConfig = merge(config, {
     filename: '[name].bundle.js',
     sourceMapFilename: '[name].js.map',
     path: path.resolve(__dirname, 'dist'),
-    chunkFilename: '[chunkhash].js',
   },
   target: 'browserslist:> 2%',
 });

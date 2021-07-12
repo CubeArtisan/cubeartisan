@@ -7,6 +7,13 @@
     "client",
     "server"
   ],
+  "sideEffects": [
+    "**/RenderToRoot.js",
+    "**/pages/*.js",
+    "**/*.js",
+    "**/*.css",
+    "**/*.scss"
+  ],
   "license": "AGPL-3.0-only",
   "repository": "https://github.com/CubeArtisan/cubeartisan",
   "scripts": {

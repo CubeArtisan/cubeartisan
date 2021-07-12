@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';

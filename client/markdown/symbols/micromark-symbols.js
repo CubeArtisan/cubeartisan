@@ -1,5 +1,3 @@
-import assert from 'assert';
-
 const symbols = (codes) => {
   const validCodes = codes?.toLowerCase() || '';
 
@@ -45,7 +43,9 @@ const symbols = (codes) => {
     };
 
     return (code) => {
-      assert(code === 123, 'expected `{`');
+      if (code !== 123) {
+        throw new Error('expected `{`');
+      }
       effects.enter('symbol');
       effects.enter('symbolStartMarker');
       effects.consume(code);

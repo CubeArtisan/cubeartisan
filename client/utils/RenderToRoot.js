@@ -16,6 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import React from 'react';
 import ReactDOM from 'react-dom';
 
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
@@ -39,13 +40,14 @@ const RenderToRoot = (Element) => {
     );
   };
   if (typeof document !== 'undefined') {
+    import('bootstrap/dist/css/bootstrap.min.css');
     const wrapper = document.getElementById('react-root');
     const element = <Wrapped />;
     if (wrapper) {
       if (wrapper.children.length === 0) {
-        ReactDOM.createRoot(element, wrapper);
+        ReactDOM.render(element, wrapper);
       } else {
-        ReactDOM.hydrateRoot(wrapper, element);
+        ReactDOM.hydrate(element, wrapper);
       }
     }
   }

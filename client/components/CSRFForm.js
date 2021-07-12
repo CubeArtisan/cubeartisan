@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import { Form, Input } from 'reactstrap';
 import PropTypes from 'prop-types';
 
