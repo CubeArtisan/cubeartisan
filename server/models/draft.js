@@ -82,6 +82,10 @@ const draftSchema = mongoose.Schema(
     },
     seats: [Seat],
     seed: String,
+    cas: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true },
 );

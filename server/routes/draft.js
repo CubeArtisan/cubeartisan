@@ -25,7 +25,7 @@ import {
   saveDraftAnalytics,
 } from '@cubeartisan/server/serverjs/cubefn.js';
 import generateMeta from '@cubeartisan/server/serverjs/meta.js';
-import Util, { fromEntries, getCubeDescription } from '@cubeartisan/client/utils/Util.js';
+import Util, { fromEntries, getCubeDescription, toNullableInt } from '@cubeartisan/client/utils/Util.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import Draft from '@cubeartisan/server/models/draft.js';
 import Cube from '@cubeartisan/server/models/cube.js';
@@ -177,6 +177,7 @@ const submitDraft = async (req, res) => {
   try {
     // req.body contains a draft
     const draftid = req.params.id;
+    const seatNum = toNullableInt(req.params.seat) ?? 0;
     const draft = await Draft.findById(draftid).lean();
     const cube = await Cube.findOne(buildIdQuery(draft.cube));
     // TODO: Should have guards on if the objects aren't found in the DB.
@@ -188,7 +189,7 @@ const submitDraft = async (req, res) => {
     deck.draft = draft._id;
     deck.cubename = cube.name;
     deck.seats = [];
-    deck.owner = draft.seats[0].userid;
+    deck.owner = draft.seats[seatNum].userid;
     deck.cards = draft.cards;
     deck.basics = draft.basics;
 
@@ -234,7 +235,7 @@ const submitDraft = async (req, res) => {
       }
     }
 
-    const userq = User.findById(deck.seats[0].userid);
+    const userq = User.findById(deck.seats[seatNum].userid);
     const cubeOwnerq = User.findById(cube.owner);
 
     const [user, cubeOwner] = await Promise.all([userq, cubeOwnerq]);

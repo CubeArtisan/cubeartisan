@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useContext } from 'react';
+import React, { forwardRef, useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
@@ -26,10 +26,11 @@ import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 
 const ImageAutocard = withAutocard(ImageFallback);
 
-const CardImage = ({ card, autocard, className, width, height, ...props }) => {
+const CardImage = forwardRef(({ card, autocard, className, width, height, ...props }, ref) => {
   const { showCustomImages } = useContext(DisplayContext);
   const imageSrc = (showCustomImages && card.imgUrl) || card.details.image_normal;
   const Tag = autocard ? ImageAutocard : ImageFallback;
+  const fallbackRef = useRef();
 
   return (
     <Tag
@@ -40,11 +41,11 @@ const CardImage = ({ card, autocard, className, width, height, ...props }) => {
       width={width || '100%'}
       height={height || 'auto'}
       className={className ? `${className} card-border` : 'card-border'}
+      ref={ref ?? fallbackRef}
       {...props}
     />
   );
-};
-
+});
 CardImage.propTypes = {
   card: CardPropType.isRequired,
   autocard: PropTypes.bool,
@@ -52,12 +53,12 @@ CardImage.propTypes = {
   width: PropTypes.string,
   height: PropTypes.string,
 };
-
 CardImage.defaultProps = {
   autocard: false,
   className: null,
   width: null,
   height: null,
 };
+CardImage.displayName = 'CardImage';
 
 export default CardImage;
