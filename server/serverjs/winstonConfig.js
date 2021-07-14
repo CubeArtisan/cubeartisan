@@ -44,15 +44,14 @@ const transports = [new winston.transports.Console({ format: consoleFormat })];
 if (process.env.ELASTICSEARCH_URL) {
   const transportOptions = {
     level: 'info',
-    indexPrefix: 'cubecobra',
+    dataStream: true,
     clientOpts: { node: process.env.ELASTICSEARCH_URL },
+    apm,
   };
-  if (apm) {
-    transportOptions.apm = apm;
-  }
   transports.push(new ElasticsearchTransport(transportOptions));
 }
 
+export const getApmCurrentTraceIds = () => apm.currentTraceIds;
 export const logApmError = (err) => apm.captureError(err);
 
 winston.configure({

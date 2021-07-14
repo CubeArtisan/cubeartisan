@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import winston, { logApmError } from '@cubeartisan/server/serverjs/winstonConfig.js';
+import winston, { getApmCurrentTraceIds, logApmError } from '@cubeartisan/server/serverjs/winstonConfig.js';
 // import csurf from 'csurf';
 import { validationResult } from 'express-validator';
 import onFinished from 'on-finished';
@@ -47,7 +47,7 @@ export const requestLogging = (req, res, next) => {
   res.locals.requestId = req.uuid;
   res.startTime = Date.now();
   onFinished(res, (_err, finalRes) => {
-    winston.info({
+    req.logger.info('', {
       level: 'info',
       type: 'request',
       remoteAddr: req.ip,
@@ -57,6 +57,7 @@ export const requestLogging = (req, res, next) => {
       status: finalRes.statusCode,
       length: finalRes.getHeader('content-length'),
       elapsed: Date.now() - finalRes.startTime,
+      ...getApmCurrentTraceIds(),
     });
   });
   next();

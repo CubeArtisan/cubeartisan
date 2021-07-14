@@ -80,6 +80,8 @@ spec:
               value: "http://elasticsearch-external:9200/"
             - name: APM_SERVER_URL
               value: "http://apm-server:8200/"
+            - name: APM_CONFIG_FILE
+              value: "config/elastic-apm-node.cjs"
             - name: MONGODB_URL
               value: "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/cubeartisan?replicaSet=rs0"
             - name: LISTEN_ADDR
@@ -124,7 +126,6 @@ spec:
       restartPolicy: Always
       imagePullSecrets:
         - name: github-docker
-status: {}
 ---
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
@@ -137,4 +138,4 @@ spec:
     name: cubeartisan
   minReplicas: 1
   maxReplicas: 4
-  targetCPUUtilizationPercentage: 75
+  targetCPUUtilizationPercentage: 50
