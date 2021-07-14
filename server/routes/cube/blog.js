@@ -1,6 +1,3 @@
-import express from 'express';
-
-import { ensureAuth } from '@cubeartisan/server/routes/middleware.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import { addMultipleNotifications, handleRouteError } from '@cubeartisan/server/serverjs/util.js';
 import { render } from '@cubeartisan/server/serverjs/render.js';
@@ -11,9 +8,7 @@ import Cube from '@cubeartisan/server/models/cube.js';
 import Blog from '@cubeartisan/server/models/blog.js';
 import User from '@cubeartisan/server/models/user.js';
 
-const router = express.Router();
-
-const updateBlogPost = async (req, res) => {
+export const updateBlogPost = async (req, res) => {
   // update an existing blog post
   const blog = await Blog.findById(req.parms.postid);
   const { user } = req;
@@ -36,7 +31,7 @@ const updateBlogPost = async (req, res) => {
   return res.redirect(303, `/cube/${encodeURIComponent(req.params.id)}/blog`);
 };
 
-const postToBlog = async (req, res) => {
+export const postToBlog = async (req, res) => {
   try {
     if (req.body.title.length < 5 || req.body.title.length > 100) {
       req.flash('danger', 'Blog title length must be between 5 and 100 characters.');
@@ -93,7 +88,7 @@ const postToBlog = async (req, res) => {
   }
 };
 
-const getBlogPost = async (req, res) => {
+export const getBlogPost = async (req, res) => {
   try {
     const post = await Blog.findById(req.params.postid);
 
@@ -105,7 +100,7 @@ const getBlogPost = async (req, res) => {
   }
 };
 
-const deleteBlogPost = async (req, res) => {
+export const deleteBlogPost = async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.postid);
 
@@ -125,7 +120,7 @@ const deleteBlogPost = async (req, res) => {
   }
 };
 
-const getBlogPage = async (req, res) => {
+export const getBlogPage = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id), Cube.LAYOUT_FIELDS).lean();
 
@@ -172,14 +167,3 @@ const getBlogPage = async (req, res) => {
     return handleRouteError(req, res, err, `/cube/${encodeURIComponent(req.params.id)}`);
   }
 };
-
-const redirectToFirstPage = (req, res) => res.redirect(`/cube/${encodeURIComponent(req.params.id)}/blog/page/0`);
-
-router.get('/', redirectToFirstPage);
-router.get('/page/:page', getBlogPage);
-router.post('/post', ensureAuth, postToBlog);
-router.get('/post/:postid', getBlogPost);
-router.put('/post/:postid', updateBlogPost);
-router.delete('/post/:postid', ensureAuth, deleteBlogPost);
-
-export default router;
