@@ -21,7 +21,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType.js';
 
-import TimeAgo from 'react-timeago';
+import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
 
 import { Card, CardHeader, Row, Col, CardBody, CardText } from 'reactstrap';
 

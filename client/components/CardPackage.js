@@ -18,7 +18,7 @@
  */
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import TimeAgo from 'react-timeago';
+import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import CardPackagePropType from '@cubeartisan/client/proptypes/CardPackagePropType.js';

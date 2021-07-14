@@ -48,7 +48,6 @@ const DeckDeleteModal = ({ deckID, cubeID, nextURL, isOpen, toggle }) => {
     />
   );
 };
-
 DeckDeleteModal.propTypes = {
   toggle: PropTypes.func.isRequired,
   deckID: PropTypes.string.isRequired,
@@ -56,9 +55,7 @@ DeckDeleteModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   nextURL: PropTypes.string,
 };
-
 DeckDeleteModal.defaultProps = {
   nextURL: null,
 };
-
 export default DeckDeleteModal;

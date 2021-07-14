@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
       - name: kibana
-        image: docker.elastic.co/kibana/kibana:7.6.2
+        image: docker.elastic.co/kibana/kibana:7.13.3
         resources:
           limits:
             cpu: 1000m

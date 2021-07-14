@@ -21,7 +21,7 @@ import VideoPropType from '@cubeartisan/client/proptypes/VideoPropType.js';
 
 import Markdown from '@cubeartisan/client/components/Markdown.js';
 import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
-import TimeAgo from 'react-timeago';
+import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
 
 import ReactPlayer from 'react-player';
 

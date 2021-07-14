@@ -57,7 +57,8 @@ const NotificationsNav = () => {
         <div className="sm-main-nav notification-scrollarea">
           {notifications.length > 0 ? (
             notifications.slice(0, 100).map((notification, index) => (
-              <div className="user-notification py-3 px-2">
+              // eslint-disable-next-line react/no-array-index-key
+              <div className="user-notification py-3 px-2" key={index}>
                 <a className="no-underline-hover" href={`/user/${user._id}/notification/${index}`}>
                   <h6 className="card-subtitle">{notification.text}</h6>
                 </a>

@@ -21,7 +21,7 @@ import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType.js';
 
 import { Card } from 'reactstrap';
 import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox.js';
-import TimeAgo from 'react-timeago';
+import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
 
 const ArticlePreview = ({ article }) => {
   const [hover, setHover] = useState(false);
