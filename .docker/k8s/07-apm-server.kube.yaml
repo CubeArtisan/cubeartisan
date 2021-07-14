@@ -28,14 +28,14 @@ spec:
     spec:
       containers:
       - name: apm-server
-        image: docker.elastic.co/apm/apm-server:7.6.2
+        image: docker.elastic.co/apm/apm-server:7.13.3
         env:
-          - name: ELASTICSEARCH_HOSTS
+          - name: output.elasticsearch.hosts
             value: http://elasticsearch-external:9200/
         resources:
           limits:
             cpu: 1000m
           requests:
-            cpu: 100m
+            cpu: 250m
         ports:
         - containerPort: 8200
