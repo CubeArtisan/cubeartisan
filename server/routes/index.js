@@ -16,7 +16,8 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-// Load Environment Variables
+import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
+
 import express from 'express';
 import ConnectFlash from 'connect-flash';
 import ExpressMessages from 'express-messages';
@@ -33,7 +34,6 @@ import schedule from 'node-schedule';
 import dotenv from 'dotenv';
 import { Server as SocketIO } from 'socket.io';
 
-import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 import updatedb from '@cubeartisan/server/serverjs/updatecards.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import CardRating from '@cubeartisan/server/models/cardrating.js';
@@ -119,12 +119,8 @@ const store = new MongoDBStore(
 schedule.scheduleJob('0 10 * * *', async () => {
   winston.info('String midnight cardbase update...');
 
-  let ratings = [];
-  let histories = [];
-  if (process.env.USE_S3 !== 'true') {
-    ratings = await CardRating.find({}, 'name elo embedding').lean();
-    histories = await CardHistory.find({}, 'oracleId current.total current.picks').lean();
-  }
+  const ratings = await CardRating.find({}, 'name elo embedding').lean();
+  const histories = await CardHistory.find({}, 'oracleId current.total current.picks').lean();
   updatedb.updateCardbase(ratings, histories);
 });
 

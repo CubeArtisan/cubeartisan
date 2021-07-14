@@ -1,7 +1,8 @@
+import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
+
 import seedrandom from 'seedrandom';
 
 import carddb from '@cubeartisan/server/serverjs/cards.js';
-import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 import Draft from '@cubeartisan/server/models/draft.js';
 import { getDefaultPosition, getDrafterState } from '@cubeartisan/client/drafting/draftutil.js';
 import { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation.js';

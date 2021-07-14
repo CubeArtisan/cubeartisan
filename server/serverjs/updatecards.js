@@ -16,14 +16,15 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
+
 import fs from 'fs';
 import path from 'path'; // eslint-disable-line import/no-extraneous-dependencies
 import https from 'https'; // eslint-disable-line import/no-extraneous-dependencies
 import JSONStream from 'JSONStream';
 import es from 'event-stream';
 import fetch from 'node-fetch';
-import AWS from 'aws-sdk';
-import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
+
 import cardutil from '@cubeartisan/client/utils/Card.js';
 import { binaryInsert, turnToTree } from '@cubeartisan/server/serverjs/util.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
@@ -869,40 +870,13 @@ const downloadFromScryfall = async (
   winston.info('Finished cardbase update...');
 };
 
-const downloadFromS3 = async (basePath = 'private') => {
-  winston.info('Downloading files from S3...');
-
-  const s3 = new AWS.S3({
-    accessKeyId: process.env.AWS_ACCESS_KEY,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  });
-
-  await Promise.all(
-    Object.keys(carddb.fileToAttribute).map(async (file) => {
-      const res = await s3
-        .getObject({
-          Bucket: 'cubecobra',
-          Key: `cards/${file}`,
-        })
-        .promise();
-      await fs.writeFileSync(`${basePath}/${file}`, res.Body);
-    }),
-  );
-
-  winston.info('Finished downloading files from S3...');
-};
-
 async function updateCardbase(ratings, histories, basePath = 'private', defaultPath = null, allPath = null) {
   if (!fs.existsSync(basePath)) {
     fs.mkdirSync(basePath);
   }
   winston.info('Updating cardbase, this might take a little while...');
 
-  if (process.env.USE_S3 === 'true') {
-    await downloadFromS3(basePath, defaultPath, allPath);
-  } else {
-    await downloadFromScryfall(ratings, histories, basePath, defaultPath, allPath);
-  }
+  await downloadFromScryfall(ratings, histories, basePath, defaultPath, allPath);
 }
 
 export default {

@@ -16,13 +16,13 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-// import csurf from 'csurf';
+import winston, { logApmError } from '@cubeartisan/server/serverjs/winstonConfig.js';
+import csurf from 'csurf';
 import { validationResult } from 'express-validator';
 import onFinished from 'on-finished';
 import uuid from 'uuid/v4.js';
 
 import User from '@cubeartisan/server/models/user.js';
-import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 
 export const setCorsUnrestricted = (_req, res, next) => {
   res.set('Access-Control-Allow-Origin', '*');
@@ -34,7 +34,7 @@ export const requestLogging = (req, res, next) => {
 
   req.logger = {
     error: (err) => {
-      // err.requst = req;
+      logApmError(err);
       winston.error({
         message: err.message,
         stack: err.stack,
