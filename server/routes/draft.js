@@ -33,7 +33,6 @@ import CubeAnalytic from '@cubeartisan/server/models/cubeAnalytic.js';
 import User from '@cubeartisan/server/models/user.js';
 import { render } from '@cubeartisan/server/serverjs/render.js';
 import { createPool, rotateArrayLeft } from '@cubeartisan/server/routes/cube/helper.js';
-import { body } from 'express-validator';
 import Deck from '@cubeartisan/server/models/deck.js';
 import { buildDeck } from '@cubeartisan/client/drafting/deckutil.js';
 import { COLOR_COMBINATIONS } from '@cubeartisan/client/utils/Card.js';
@@ -87,7 +86,7 @@ const getDraftPage = async (req, res) => {
           `${process.env.SITE_NAME} Draft: ${cube.name}`,
           getCubeDescription(cube),
           cube.image_uri,
-          `${process.env.SITE_ROOT}/cube/draft/${encodeURIComponent(req.params.id)}`,
+          `${process.env.SITE_ROOT}/draft/${encodeURIComponent(req.params.id)}`,
         ),
       },
     );
@@ -98,7 +97,6 @@ const getDraftPage = async (req, res) => {
 
 const redraftDraft = async (req, res) => {
   try {
-    // TODO: Handle gridDraft here.
     const srcDraft = await Draft.findById(req.params.id).lean();
     const seat = parseInt(req.params.seat, 10);
     if (!srcDraft) {
@@ -175,7 +173,6 @@ const saveDraft = async (req, res) => {
 
 const submitDraft = async (req, res) => {
   try {
-    // req.body contains a draft
     const draftid = req.params.id;
     const seatNum = toNullableInt(req.params.seat) ?? 0;
     const draft = await Draft.findById(draftid).lean();
@@ -235,6 +232,10 @@ const submitDraft = async (req, res) => {
       }
     }
 
+    const temp = deck.seats[0];
+    deck.seats[0] = deck.seats[seatNum];
+    deck.seats[seatNum] = temp;
+
     const userq = User.findById(deck.seats[seatNum].userid);
     const cubeOwnerq = User.findById(cube.owner);
 
@@ -252,14 +253,16 @@ const submitDraft = async (req, res) => {
     }
     cube.numDecks += 1;
     await Promise.all([cube.save(), deck.save(), cubeOwner.save()]);
-    saveDraftAnalytics(draft, 0, carddb);
+    saveDraftAnalytics(draft, seatNum, carddb);
     addDeckCardAnalytics(cube, deck, carddb);
-    if (req.body.skipDeckbuilder) {
-      return res.redirect(`/deck/${deck._id}`);
-    }
-    return res.redirect(`/deck/${deck._id}/build`);
+    return res.status(200).send({
+      success: 'true',
+      url: req.query.skipDeckbuilder ? `/deck/${deck._id}` : `/deck/${deck._id}/build`,
+    });
   } catch (err) {
-    return handleRouteError(req, res, err, `/draft/${encodeURIComponent(req.params.id)}`);
+    return res.status(500).send({
+      success: 'false',
+    });
   }
 };
 
@@ -267,5 +270,5 @@ const router = express.Router();
 router.get('/:id', getDraftPage);
 router.put('/:id', saveDraft);
 router.post('/:id/:seat/redraft', redraftDraft);
-router.post('/:id/submit', body('skipDeckbuilder').toBoolean(), submitDraft);
+router.post('/:id/submit/:seat', submitDraft);
 export default router;
