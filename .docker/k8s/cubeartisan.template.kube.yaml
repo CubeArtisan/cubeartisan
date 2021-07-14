@@ -2,80 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    io.kompose.service: cubeartisan-mongodb
-  name: cubeartisan-mongodb
-spec:
-  ports:
-  - name: "27017"
-    port: 27017
-    targetPort: 27017
-  - name: "27018"
-    port: 27018
-    targetPort: 27018
-  - name: "27019"
-    port: 27019
-    targetPort: 27019
-  selector:
-    io.kompose.service: cubeartisan-mongodb
-status:
-  loadBalancer: {}
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    io.kompose.service: cubeartisan-mongodb
-  name: cubeartisan-mongodb
-spec:
-  replicas: 1
-  strategy:
-    type: Recreate
-  selector:
-    matchLabels:
-      io.kompose.service: cubeartisan-mongodb
-  template:
-    metadata:
-      labels:
-        io.kompose.service: cubeartisan-mongodb
-    spec:
-      containers:
-      - image: mongo
-        name: cubeartisan-mongodb
-        ports:
-        - containerPort: 27017
-        - containerPort: 27018
-        - containerPort: 27019
-        resources: {}
-        volumeMounts:
-        - mountPath: /data/db
-          name: cubeartisan-mongodb-claim
-      restartPolicy: Always
-      volumes:
-      - name: cubeartisan-mongodb-claim
-        persistentVolumeClaim:
-          claimName: cubeartisan-mongodb-claim
-status: {}
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  labels:
-    io.kompose.service: cubeartisan-mongodb-claim
-  name: cubeartisan-mongodb-claim
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 100Gi
-  storageClassName: do-block-storage
-status: {}
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    io.kompose.service: cubeartisan
+    name: cubeartisan
   name: cubeartisan
 spec:
   ports:
@@ -97,11 +24,11 @@ spec:
   strategy: {}
   selector:
     matchLabels:
-      io.kompose.service: cubeartisan
+      name: cubeartisan
   template:
     metadata:
       labels:
-        io.kompose.service: cubeartisan
+        name: cubeartisan
     spec:
       containers:
         - image: "ghcr.io/cubeartisan/cubeartisan:<TAG>"
@@ -154,7 +81,7 @@ spec:
             - name: APM_SERVER_URL
               value: "http://apm-server:8200/"
             - name: MONGODB_URL
-              value: "mongodb://cubeartisan-mongodb:27017/cubeartisan"
+              value: "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/cubeartisan?replicaSet=rs0"
             - name: LISTEN_ADDR
               value: "0.0.0.0"
             - name: SITE_ROOT
@@ -168,7 +95,7 @@ spec:
             - name: DOWNTIME_ACTIVE
               value: "false"
             - name: DISCORD_URL
-              value: "N/A"
+              value: "https://discord.gg/NKCaZRFU"
             - name: SOURCE_REPO
               value: https://github.com/CubeArtisan/cubeartisan
           name: cubeartisan
@@ -177,9 +104,11 @@ spec:
               name: cubeartisan
           resources:
             limits:
-              cpu: 1000m
+              memory: 4Gi
+              cpu: 2000m
             requests:
-              cpu: 500m
+              memory: 2Gi
+              cpu: 1000m
           readinessProbe:
             httpGet:
               path: /version
@@ -208,4 +137,4 @@ spec:
     name: cubeartisan
   minReplicas: 1
   maxReplicas: 4
-  targetCPUUtilizationPercentage: 80
+  targetCPUUtilizationPercentage: 75
