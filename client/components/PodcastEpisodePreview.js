@@ -20,7 +20,7 @@ import React, { useState, useCallback } from 'react';
 import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType.js';
 
 import { Card } from 'reactstrap';
-import TimeAgo from 'react-timeago';
+import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
 import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox.js';
 import htmlToText from 'html-to-text';
 

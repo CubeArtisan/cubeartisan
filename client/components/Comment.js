@@ -19,7 +19,7 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import CommentPropType from '@cubeartisan/client/proptypes/CommentPropType.js';
-import TimeAgo from 'react-timeago';
+import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
 
 import {
   Collapse,

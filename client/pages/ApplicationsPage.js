@@ -26,7 +26,7 @@ import Paginate from '@cubeartisan/client/components/Paginate.js';
 import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
-import TimeAgo from 'react-timeago';
+import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
 
 const PAGE_SIZE = 24;
 

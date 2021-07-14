@@ -21,7 +21,7 @@ import React, { useCallback, useMemo, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 
-import TimeAgo from 'react-timeago';
+import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import useKeyHandlers from '@cubeartisan/client/hooks/UseKeyHandlers.js';
@@ -110,18 +110,21 @@ const DeckPreview = ({ deck, nextURL }) => {
         <a href={`/deck/${deck._id}`} title={fullName}>
           {name}
         </a>{' '}
-        by {deck.seats[0].userid ? <a href={`/user/${deck.seats[0].userid}`}>{deck.seats[0].username}</a> : 'Anonymous'}{' '}
+        by{' '}
+        {deck.seats[0].userid && deck.seats[0].username ? (
+          <a href={`/user/${deck.seats[0].userid}`}>{deck.seats[0].username}</a>
+        ) : (
+          'Anonymous'
+        )}{' '}
         - <TimeAgo date={date} />
       </h6>
     </div>
   );
 };
-
 DeckPreview.propTypes = {
   deck: DeckPropType.isRequired,
   nextURL: PropTypes.string,
 };
-
 DeckPreview.defaultProps = {
   nextURL: null,
 };

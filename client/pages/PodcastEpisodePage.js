@@ -28,7 +28,7 @@ import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox.js';
 import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
 import ReactAudioPlayer from 'react-audio-player';
-import TimeAgo from 'react-timeago';
+import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
 
 export const PodcastEpisodePage = ({ loginCallback, episode }) => {
   return (

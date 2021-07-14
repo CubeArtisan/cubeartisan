@@ -23,7 +23,7 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server.node.js';
 import serialize from 'serialize-javascript';
 import Cube from '@cubeartisan/server/models/cube.js';
-import { LoadingPage } from '@cubeartisan/client/pages/LoadingPage.js';
+import LoadingPage from '@cubeartisan/client/pages/LoadingPage.js';
 
 dotenv.config();
 

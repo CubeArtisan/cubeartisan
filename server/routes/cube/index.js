@@ -412,7 +412,7 @@ const viewOverview = async (req, res) => {
           `${process.env.SITE_NAME} Overview: ${cube.name}`,
           getCubeDescription(cube),
           cube.image_uri,
-          `${process.env.SITE_ROOT}/cube/overview/${req.params.id}`,
+          `${process.env.SITE_ROOT}/cube/${req.params.id}`,
         ),
       },
     );
@@ -2328,6 +2328,7 @@ router.post('/post', ensureAuth, postToBlog);
 router.delete('/post/:postid', ensureAuth, deleteBlogPost);
 router.post('/:id/clone', ensureAuth, cloneCube);
 router.get('/:id', viewOverview);
+router.get('/:id/overview', (req, res) => res.redirect(`/cube/${encodeURIComponent(req.params.id)}`));
 router.post('/:id/format', ensureAuth, addFormat);
 router.post('/:id/follow', ensureAuth, wrapAsyncApi(followCube));
 router.delete('/:id/follow', ensureAuth, wrapAsyncApi(unfollowCube));
