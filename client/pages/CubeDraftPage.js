@@ -234,9 +234,6 @@ export const CubeDraftPage = ({ cube, initialDraft, loginCallback }) => {
   });
   useEffect(() => {
     socket.current = io('/wsdraft', { autoConnect: false, query: { draftid: initialDraft._id } });
-    socket.current.onAny((event, ...args) => {
-      console.log(event, args);
-    });
     socket.current.on('drafterState', (newDrafterState) => {
       setPicking(null);
       setDrafterState(newDrafterState);
@@ -245,12 +242,13 @@ export const CubeDraftPage = ({ cube, initialDraft, loginCallback }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const { action, drafted, sideboard, seatNum, doneDrafting } = useMemo(
+  const { action, drafted, sideboard, seatNum, doneDrafting, cardsInPack } = useMemo(
     () => ({
       action: drafterState.step.action,
       drafted: drafterState.drafted,
       sideboard: drafterState.sideboard,
       seatNum: drafterState.seatNum,
+      cardsInPack: drafterState.cardsInPack,
       doneDrafting: drafterState.packNum >= drafterState.numPacks,
     }),
     [drafterState],
@@ -260,15 +258,21 @@ export const CubeDraftPage = ({ cube, initialDraft, loginCallback }) => {
   useEffect(() => {
     if (doneDrafting && !submitted) {
       setSubmitted(true);
-      csrfFetch(`/draft/${initialDraft._id}/submit/${seatNum}`, { method: 'POST' });
+      (async () => {
+        console.log(`/draft/${initialDraft._id}/submit/${seatNum}`);
+        const response = await csrfFetch(`/draft/${initialDraft._id}/submit/${seatNum}`, { method: 'POST' });
+        const json = await response.json();
+        console.log(JSON.stringify(json, null, 2));
+        window.location.replace(json.url);
+      })();
     }
   }, [doneDrafting, submitted, seatNum, initialDraft._id]);
 
   // This has to be async to allow the loading animation to be applied while it runs.
   const takeCard = useCallback(
     (cardIndex, target) => {
-      if (socket.current) {
-        setPicking(cardIndex);
+      if (socket.current && picking === null) {
+        setPicking(cardsInPack.indexOf(cardIndex));
         if (action.match(/pick/)) {
           socket.current.emit('pick card', cardIndex, target);
         } else {
@@ -276,7 +280,7 @@ export const CubeDraftPage = ({ cube, initialDraft, loginCallback }) => {
         }
       }
     },
-    [action],
+    [action, picking, cardsInPack],
   );
 
   const moveCard = useCallback(({ source, target }) => {
