@@ -18,23 +18,9 @@
  */
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import seedrandom from 'seedrandom';
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  CardTitle,
-  Col,
-  Collapse,
-  Input,
-  Nav,
-  Navbar,
-  NavLink,
-  Row,
-  Spinner,
-} from 'reactstrap';
+import { Card, CardBody, CardHeader, CardTitle, Col, Collapse, Nav, Navbar, NavLink, Row, Spinner } from 'reactstrap';
 
-import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
 import DeckStacks from '@cubeartisan/client/components/DeckStacks.js';
 import DndProvider from '@cubeartisan/client/components/DndProvider.js';
@@ -49,14 +35,9 @@ import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { DrafterStatePropType, DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
 import { makeSubtitle } from '@cubeartisan/client/utils/Card.js';
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
-import { calculateBotPick } from '@cubeartisan/client/drafting/draftbots.js';
-import DraftLocation, { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation.js';
-import { getDefaultPosition, getDrafterState } from '@cubeartisan/client/drafting/draftutil.js';
+import DraftLocation from '@cubeartisan/client/drafting/DraftLocation.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
-import { fromEntries, toNullableInt } from '@cubeartisan/client/utils/Util.js';
-
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+import { io } from 'socket.io-client';
 
 const canDrop = (_, target) => {
   return target.type === DraftLocation.PICKS;
@@ -82,7 +63,7 @@ const Pack = ({ pack, packNumber, pickNumber, instructions, picking, onMoveCard,
           >
             {picking === index && <Spinner className="position-absolute" />}
             <DraggableCard
-              location={DraftLocation.pack(index)}
+              location={DraftLocation.pack([index])}
               data-index={index}
               card={card}
               canDrop={canDrop}
@@ -112,55 +93,7 @@ Pack.defaultProps = {
   instructions: null,
 };
 
-const MUTATIONS = Object.freeze({
-  pickCards: ({ newDraft, cardIndices, seatIndex: seatNum, target, cards }) => {
-    for (let seatIndex = 0; seatIndex < newDraft.initial_state.length; seatIndex++) {
-      const cardIndex = cardIndices[seatIndex];
-      newDraft.seats[seatIndex].pickorder = [...newDraft.seats[seatIndex].pickorder, cardIndex];
-      const pos =
-        target && seatIndex === seatNum
-          ? target
-          : getDefaultPosition(cards[cardIndex], newDraft.seats[seatIndex].drafted);
-      newDraft.seats[seatIndex].drafted = moveOrAddCard(newDraft.seats[seatIndex].drafted, pos, cardIndex);
-    }
-  },
-  trashCards: ({ newDraft, cardIndices }) => {
-    for (let seatIndex = 0; seatIndex < newDraft.initial_state.length; seatIndex++) {
-      newDraft.seats[seatIndex].trashorder = [...newDraft.seats[seatIndex].trashorder, cardIndices[seatIndex]];
-    }
-  },
-  moveCard: ({ newDraft, seatIndex, target, source }) => {
-    newDraft.seats[seatIndex].drafted = moveOrAddCard(newDraft.seats[seatIndex].drafted, target, source);
-  },
-});
-
-const useMutatableDraft = (initialDraft) => {
-  const { cards } = initialDraft;
-  const [draft, setDraft] = useState(initialDraft);
-  const [mutations] = useState(
-    fromEntries(
-      Object.entries(MUTATIONS).map(([name, mutation]) => [
-        name,
-        ({ cardIndices, seatIndex, source, target }) =>
-          setDraft((oldDraft) => {
-            const newDraft = { ...oldDraft };
-            if ((seatIndex || seatIndex === 0) && !cardIndices) {
-              newDraft.seats = Array.from(newDraft.seats);
-              newDraft.seats[seatIndex] = { ...newDraft.seats[seatIndex] };
-            } else {
-              newDraft.seats = newDraft.seats.map((seat) => ({ ...seat }));
-            }
-            mutation({ newDraft, cardIndices, seatIndex, source, target, cards });
-            return newDraft;
-          }),
-        // eslint-disable-next-line
-      ]),
-    ),
-  );
-  return { draft, mutations };
-};
-
-const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard }) => {
+const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking }) => {
   const {
     cards,
     cardsInPack,
@@ -171,8 +104,6 @@ const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard }) => {
   } = drafterState;
 
   const [showBotBreakdown, toggleShowBotBreakdown] = useToggle(false);
-  // State for showing loading while waiting for next pick.
-  const [picking, setPicking] = useState(null);
   const pack = useMemo(() => cardsInPack.map((cardIndex) => cards[cardIndex]), [cardsInPack, cards]);
   // Picks is an array with 1st key C/NC, 2d key CMC, 3d key order
   const picks = useMemo(
@@ -194,9 +125,7 @@ const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard }) => {
       if (source.equals(target)) return;
       if (source.type === DraftLocation.PACK) {
         if (target.type === DraftLocation.PICKS) {
-          setPicking(source.data);
-          await takeCard(cardsInPack[source.data], target.data);
-          setPicking(null);
+          takeCard(cardsInPack[source.data[0]], target.data);
         } else {
           console.error("Can't move cards inside pack.");
         }
@@ -208,20 +137,17 @@ const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard }) => {
         }
       }
     },
-    [setPicking, takeCard, cardsInPack, moveCard],
+    [takeCard, cardsInPack, moveCard],
   );
 
   const handleClickCard = useCallback(
     async (event) => {
       event.preventDefault();
-      /* eslint-disable-line no-undef */ autocard_hide_card();
       const cardPackIndex = parseInt(event.currentTarget.getAttribute('data-index'), 10);
       const cardIndex = cardsInPack[cardPackIndex];
-      setPicking(cardPackIndex);
       await takeCard(cardIndex);
-      setPicking(null);
     },
-    [cardsInPack, setPicking, takeCard],
+    [cardsInPack, takeCard],
   );
   return (
     <>
@@ -288,110 +214,99 @@ CubeDraftPlayerUI.propTypes = {
     .isRequired,
   takeCard: PropTypes.func.isRequired,
   moveCard: PropTypes.func.isRequired,
+  picking: PropTypes.number,
 };
-export const CubeDraftPage = ({ cube, initialDraft, seatNumber, loginCallback }) => {
-  const { seed } = initialDraft;
-  const [seatNum] = useState(() => toNullableInt(seatNumber) ?? 0);
-  const { draft, mutations } = useMutatableDraft(initialDraft);
-  const { drafted } = draft.seats[seatNum];
-  const submitDeckForm = useRef();
-  const [rng] = useState(() => seedrandom(seed));
-  const drafterStates = useMemo(
-    () => draft.seats.map((_, seatIndex) => getDrafterState({ draft, seatNumber: seatIndex })),
-    [draft],
-  );
-  const [action, doneDrafting] = useMemo(() => {
-    const {
-      step: { action: actionInner },
-      numPacks,
-      packNum,
-    } = drafterStates[seatNum];
-    return [actionInner, packNum >= numPacks];
-  }, [drafterStates, seatNum]);
-  const makeBotChoices = useCallback(
-    (playerChose, reverse) =>
-      drafterStates.map((drafterState, seatIndex) =>
-        seatIndex === seatNum ? playerChose : calculateBotPick(drafterState, reverse),
-      ),
-    [drafterStates, seatNum],
-  );
-  const makeBotPicks = useCallback((playerChose) => makeBotChoices(playerChose, false), [makeBotChoices]);
-  const makeBotTrashPicks = useCallback((playerChose) => makeBotChoices(playerChose, true), [makeBotChoices]);
-
+CubeDraftPlayerUI.defaultProps = {
+  picking: null,
+};
+export const CubeDraftPage = ({ cube, initialDraft, loginCallback }) => {
+  const [picking, setPicking] = useState(null);
+  const socket = useRef();
+  const [drafterState, setDrafterState] = useState({
+    step: { action: 'loading' },
+    drafted: [],
+    sideboard: [],
+    seatNum: -1,
+    packNum: 0,
+    numPacks: 1,
+    cardsInPack: [0],
+    cards: [{ details: { type: '' } }],
+  });
   useEffect(() => {
-    if (doneDrafting) {
-      (async () => {
-        const submitableDraft = { ...draft, cards: draft.cards.map(({ details: _, ...card }) => ({ ...card })) };
-        await csrfFetch(`/draft/${draft._id}`, {
-          method: 'PUT',
-          body: JSON.stringify(submitableDraft),
-          headers: { 'Content-Type': 'application/json' },
-        });
-        submitDeckForm.current?.submit?.(); // eslint-disable-line
-      })();
-    }
-  }, [doneDrafting, draft]);
+    socket.current = io('/wsdraft', { autoConnect: false, query: { draftid: initialDraft._id } });
+    socket.current.onAny((event, ...args) => {
+      console.log(event, args);
+    });
+    socket.current.on('drafterState', (newDrafterState) => {
+      setPicking(null);
+      setDrafterState(newDrafterState);
+    });
+    socket.current.connect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
+  const { action, drafted, sideboard, seatNum, doneDrafting } = useMemo(
+    () => ({
+      action: drafterState.step.action,
+      drafted: drafterState.drafted,
+      sideboard: drafterState.sideboard,
+      seatNum: drafterState.seatNum,
+      doneDrafting: drafterState.packNum >= drafterState.numPacks,
+    }),
+    [drafterState],
+  );
+
+  const [submitted, setSubmitted] = useState(false);
   useEffect(() => {
-    if (action.match(/random/) && !doneDrafting) {
-      const cardIndices = drafterStates.map((state) => state.cardsInPack[Math.floor(rng() * state.cardsInPack.length)]);
-      if (action.match(/pick/)) {
-        mutations.pickCards({ cardIndices });
-      } else if (action.match(/trash/)) {
-        mutations.trashCards({ cardIndices });
-      }
+    if (doneDrafting && !submitted) {
+      setSubmitted(true);
+      csrfFetch(`/draft/${initialDraft._id}/submit/${seatNum}`, { method: 'POST' });
     }
-  }, [action, drafterStates, mutations, rng, doneDrafting]);
+  }, [doneDrafting, submitted, seatNum, initialDraft._id]);
 
   // This has to be async to allow the loading animation to be applied while it runs.
   const takeCard = useCallback(
-    async (cardIndex, target) => {
-      await sleep(0); // We have to suspend and free up the main thread at least once.
-      if (action.match(/pick/)) {
-        const cardIndices = makeBotPicks(cardIndex);
-        mutations.pickCards({ cardIndices, seatIndex: target && seatNum, target });
-      } else {
-        const cardIndices = makeBotTrashPicks(cardIndex);
-        mutations.trashCards({ cardIndices });
+    (cardIndex, target) => {
+      if (socket.current) {
+        setPicking(cardIndex);
+        if (action.match(/pick/)) {
+          socket.current.emit('pick card', cardIndex, target);
+        } else {
+          socket.current.emit('trash card', cardIndex);
+        }
       }
     },
-    [action, makeBotPicks, seatNum, makeBotTrashPicks, mutations],
+    [action],
   );
 
-  const moveCard = useCallback((args) => mutations.moveCard({ ...args, seatIndex: seatNum }), [mutations, seatNum]);
+  const moveCard = useCallback(({ source, target }) => {
+    if (socket.current) {
+      socket.current.emit('move card', source, target);
+    }
+  }, []);
   return (
     <MainLayout loginCallback={loginCallback}>
       <CubeLayout cube={cube} activeLink="playtest">
-        <DisplayContextProvider>
+        <DisplayContextProvider cubeID={cube._id}>
           <CubeDraftPlayerUI
-            drafterState={drafterStates[seatNum]}
+            picking={picking}
+            drafterState={drafterState}
+            sideboard={sideboard}
             drafted={drafted}
             takeCard={takeCard}
             moveCard={moveCard}
           />
-          <CSRFForm
-            className="d-none"
-            innerRef={submitDeckForm}
-            method="POST"
-            action={`/draft/${initialDraft._id}/submit`}
-          >
-            <Input type="hidden" name="body" value={initialDraft._id} />
-          </CSRFForm>
         </DisplayContextProvider>
       </CubeLayout>
     </MainLayout>
   );
 };
-
 CubeDraftPage.propTypes = {
   cube: CubePropType.isRequired,
   initialDraft: DraftPropType.isRequired,
-  seatNumber: PropTypes.number,
   loginCallback: PropTypes.string,
 };
-
 CubeDraftPage.defaultProps = {
-  seatNumber: 0,
   loginCallback: '/',
 };
 

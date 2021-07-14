@@ -303,6 +303,11 @@ const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
               {rangeOptions(2, 17)}
             </Input>
           </LabelRow>
+          <LabelRow htmlFor="humanSeats" label="Number of Human Seats">
+            <Input type="select" name="humanSeats" id="humanSeats" defaultValue="1">
+              {rangeOptions(1, 16)}
+            </Input>
+          </LabelRow>
           <FormGroup check>
             <Label check>
               <Input type="checkbox" name="botsOnly" onClick={toggleBotsOnly} value={botsOnly} /> Have just bots draft.

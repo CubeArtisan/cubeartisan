@@ -180,11 +180,13 @@ export const getDraftFormat = (params, cube) => {
     format = parseDraftFormat(cube.draft_formats[params.id].packs);
     format.custom = true;
     format.multiples = cube.draft_formats[params.id].multiples;
+    format.humanSeats = params.humanSeats;
   } else {
     // default format
     format = [];
     format.custom = false;
     format.multiples = false;
+    format.humanSeats = params.humanSeats;
     for (let pack = 0; pack < params.packs; pack++) {
       format[pack] = { slots: [], steps: null };
       for (let card = 0; card < params.cards; card++) {
@@ -226,6 +228,7 @@ const createPacks = (draft, format, seats, nextCardFn) => {
 
 // NOTE: format is an array with extra attributes, see getDraftFormat()
 export const createDraft = (format, cubeCards, seats, user, botsOnly = false, seed = false) => {
+  if (botsOnly) format.humanSeats = 0;
   if (!seed) {
     seed = Date.now().toString();
   }
@@ -286,16 +289,25 @@ export const createDraft = (format, cubeCards, seats, user, botsOnly = false, se
   );
   draft.cards = shuffledIndices.sort(([, , a], [, , b]) => a - b).map(([card], index) => ({ ...card, index }));
 
+  let seatIndices = [];
+  for (let i = 0; i < draft.initial_state.length; i++) seatIndices.push(i);
+  seatIndices = shuffleSeed.shuffle(seatIndices, rng());
+  const humanIndices = seatIndices.slice(0, format.humanSeats);
+  let botIndex = 0;
   // Need a better way to assign this for when there's more than one player, or the player isn't index 0
-  draft.seats = draft.initial_state.map((_, seatIndex) => ({
-    bot: seatIndex !== 0 || botsOnly,
-    name: seatIndex === 0 ? user.username : `Bot ${seatIndex}`,
-    userid: seatIndex === 0 ? user._id : null,
-    drafted: [new Array(8).fill([]), new Array(8).fill([])], // organized draft picks
-    sideboard: [new Array(8).fill([]), new Array(8).fill([])],
-    pickorder: [],
-    trashorder: [],
-  }));
+  draft.seats = draft.initial_state.map((_, seatIndex) => {
+    const bot = !humanIndices.includes(seatIndex);
+    if (bot) botIndex += 1;
+    return {
+      bot,
+      name: bot ? `Bot ${botIndex}` : null,
+      userid: null,
+      drafted: [new Array(8).fill([]), new Array(8).fill([])], // organized draft picks
+      sideboard: [new Array(8).fill([]), new Array(8).fill([])],
+      pickorder: [],
+      trashorder: [],
+    };
+  });
 
   return draft;
 };

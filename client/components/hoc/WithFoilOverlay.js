@@ -16,14 +16,14 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { cardFinish } from '@cubeartisan/client/utils/Card.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
 const withFoilOverlay = (Tag) => {
-  const WithFoilOverlay = ({ card, finish: finishOverride, ...props }) => {
+  const WithFoilOverlay = forwardRef(({ card, finish: finishOverride, ...props }, ref) => {
     const finish = finishOverride ?? cardFinish(card) ?? 'Non-foil';
     return (
       <div className="position-relative">
@@ -32,10 +32,10 @@ const withFoilOverlay = (Tag) => {
         ) : (
           <img src="/content/foilOverlay.png" className="foilOverlay card-border" width="100%" alt="Foil overlay" />
         )}
-        <Tag card={card} {...props} />
+        <Tag card={card} ref={ref} {...props} />
       </div>
     );
-  };
+  });
   WithFoilOverlay.propTypes = {
     card: CardPropType.isRequired,
     finish: PropTypes.string,
@@ -43,6 +43,7 @@ const withFoilOverlay = (Tag) => {
   WithFoilOverlay.defaultProps = {
     finish: null,
   };
+  WithFoilOverlay.displayName = `${Tag.displayName ?? ''}WithFoilOverlay`;
   return WithFoilOverlay;
 };
 export default withFoilOverlay;

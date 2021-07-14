@@ -31,6 +31,7 @@ import compression from 'compression';
 import MongoDBStoreFactory from 'connect-mongodb-session';
 import schedule from 'node-schedule';
 import dotenv from 'dotenv';
+import { Server as SocketIO } from 'socket.io';
 
 import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 import updatedb from '@cubeartisan/server/serverjs/updatecards.js';
@@ -58,6 +59,8 @@ import Deck from '@cubeartisan/server/models/deck.js';
 import User from '@cubeartisan/server/models/user.js';
 import Article from '@cubeartisan/server/models/article.js';
 import Video from '@cubeartisan/server/models/video.js';
+import PasswordReset from "@cubeartisan/server/models/passwordreset.js";
+import Comment from '@cubeartisan/server/models/comment.js'
 import PodcastEpisode from '@cubeartisan/server/models/podcastEpisode.js';
 import { makeFilter } from '@cubeartisan/server/serverjs/filterCubes.js';
 import {
@@ -70,10 +73,10 @@ import { getCubeId } from '@cubeartisan/server/serverjs/cubefn.js';
 
 import { fileURLToPath } from 'url';
 import { body } from "express-validator";
-import PasswordReset from "@cubeartisan/server/models/passwordreset.js";
 import mailer from "nodemailer";
 import Email from "email-templates";
 import bcrypt from "bcryptjs";
+import manageWebsocketDraft from "@cubeartisan/server/routes/websockets/wsDraft.js";
 
 // eslint-disable-next-line no-underscore-dangle,prettier/prettier
 const __filename = fileURLToPath(import.meta.url);
@@ -87,6 +90,7 @@ mongoose.connect(process.env.MONGODB_URL, {
   useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
 });
 
 const db = mongoose.connection;
@@ -664,17 +668,16 @@ app.set('view engine', 'pug');
 app.use(express.static(path.join(__dirname, '../public')));
 app.use('/js', express.static(path.join(__dirname, '../../client/dist')));
 // Express session middleware
-app.use(
-  session({
-    secret: process.env.SESSION,
-    store,
-    resave: true,
-    saveUninitialized: true,
-    cookie: {
-      maxAge: 1000 * 60 * 60 * 24 * 7 * 52, // 1 year
-    },
-  }),
-);
+const sessionConfig = session({
+      secret: process.env.SESSION,
+      store,
+      resave: true,
+      saveUninitialized: true,
+      cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 7 * 52, // 1 year
+      },
+    });
+app.use(sessionConfig);
 app.use(ConnectFlash());
 app.use((req, res, next) => {
   res.locals.messages = ExpressMessages(req, res);
@@ -683,8 +686,10 @@ app.use((req, res, next) => {
 });
 // Passport config and middleware
 passportConfig(passport);
-app.use(passport.initialize());
-app.use(passport.session());
+const passportInitialized = passport.initialize();
+const passportSession = passport.session();
+app.use(passportInitialized);
+app.use(passportSession);
 app.use('/', InfoRoutes);
 // check for downtime
 if (process.env.DOWNTIME_ACTIVE === 'true') {
@@ -739,9 +744,29 @@ app.use((err, req, res, _next) => {
 });
 app.use((_req, res) => res.redirect(303, '/404'));
 
+const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
 // Start server after carddb is initialized.
 carddb.initializeCardDb().then(() => {
-  http.createServer(app).listen(process.env.PORT || 5000, process.env.LISTEN_ADDR, () => {
+  const httpServer = http.createServer(app);
+  const wsServer = new SocketIO(httpServer, { cors: { origin: process.env.SITE_ROOT } });
+  wsServer.use(wrap(sessionConfig));
+  wsServer.use(wrap(passportInitialized));
+  wsServer.use(wrap(passportSession));
+  // wsServer.use(wrap(requestLogging));
+  wsServer.use((socket, next) => {
+    if (socket.request.isAuthenticated()) return next();
+    return next(new Error("Authentication is required to use websockets."));
+  });
+  const draftingWsRoute = wsServer.of('/wsdraft');
+  draftingWsRoute.use(wrap(sessionConfig));
+  draftingWsRoute.use(wrap(passportInitialized));
+  draftingWsRoute.use(wrap(passportSession));
+  draftingWsRoute.use((socket, next) => {
+    if (socket.request.isAuthenticated()) return next();
+    return next(new Error("Authentication is required to use websockets."));
+  });
+  draftingWsRoute.on('connection', manageWebsocketDraft)
+  httpServer.listen(process.env.PORT ?? 5000, process.env.LISTEN_ADDR, () => {
     winston.info(`Server started on port ${process.env.PORT || 5000}...`);
   });
 });

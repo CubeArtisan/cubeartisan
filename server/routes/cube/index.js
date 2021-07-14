@@ -1070,19 +1070,20 @@ const startDraft = async (req, res) => {
       buildIdQuery(req.params.id),
       '_id name draft_formats cards basics useCubeElo',
     ).lean();
-
     if (!cube) {
       req.flash('danger', 'Cube not found');
       return res.redirect('/404');
     }
-
     if (cube.cards.length === 0) {
       // This is a 4XX error, not a 5XX error
       req.flash('danger', 'This cube has no cards!');
       return res.redirect(`/cube/${encodeURIComponent(req.params.id)}/playtest`);
     }
-
     const params = req.body;
+    if (params.seats < params.humanSeats) {
+      req.flash('danger', 'You cannot have more human seats than total seats!');
+      return res.redirect(`/cube/${encodeURIComponent(req.params.id)}/playtest`);
+    }
 
     let eloOverrideDict = {};
     if (cube.useCubeElo) {
@@ -1141,7 +1142,7 @@ const startDraft = async (req, res) => {
         draft,
       });
     }
-    return res.redirect(`/cube/${draft._id}/draft`);
+    return res.redirect(`/draft/${draft._id}`);
   } catch (err) {
     return handleRouteError(req, res, err, `/cube/${encodeURIComponent(req.params.id)}/playtest`);
   }
@@ -2344,6 +2345,7 @@ router.post(
   body('seats').toInt({ min: 2, max: 16 }),
   body('packs').toInt({ min: 1, max: 36 }),
   body('cards').toInt({ min: 1, max: 90 }),
+  body('humanSeats').toInt({ min: 1, max: 16 }),
   startDraft,
 );
 router.put('/:id', ensureAuth, editCube);

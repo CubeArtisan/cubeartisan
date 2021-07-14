@@ -49,25 +49,26 @@ export const getDrafterState = ({ draft, seatNumber, pickNumber = -1, stepNumber
   let trashedNum = 0;
   let curStepNumber = 0;
   let pickNum = 0;
-  let packSize = 0;
   let packsWithCards = new Array(draft.initial_state.length).fill([]);
   let action = 'pass';
   let amount = 0;
   let packNum = 0;
   let offset = 0;
+  let stepIndex = 1;
+  let steps = [];
 
   // loop through each pack
   while (packNum < numPacks) {
     let done = false;
     packsWithCards = draft.initial_state.map((packsForSeat) => packsForSeat[packNum].cards.slice());
     pickNum = 0;
-    packSize = packsWithCards[seatNum].length;
     offset = 0;
-    const steps = ourPacks[packNum].steps ?? defaultStepsForLength(ourPacks[packNum].cards.length);
+    steps = ourPacks[packNum].steps ?? defaultStepsForLength(ourPacks[packNum].cards.length);
     seen.push(...packsWithCards[seatNum]); // We see the pack we opened.
 
     // loop through each step of this pack
-    for ({ action, amount } of steps) {
+    for (stepIndex = 0; stepIndex < steps.length; stepIndex++) {
+      ({ action, amount } = steps[stepIndex]);
       const passLeft = (packNum % 2 === 0) === (amount || 1) >= 0;
 
       // repeat the action for the amount
@@ -81,7 +82,7 @@ export const getDrafterState = ({ draft, seatNumber, pickNumber = -1, stepNumber
           break;
         }
 
-        // pass if we have a pass
+        // pass if we have a pass action
         if (action === 'pass') {
           offset = (offset + (passLeft ? 1 : numSeats - 1)) % numSeats;
           seen.push(...packsWithCards[(seatNum + offset) % numSeats]);
@@ -105,11 +106,17 @@ export const getDrafterState = ({ draft, seatNumber, pickNumber = -1, stepNumber
             const indexToRemove = cardsInPackForSeat.indexOf(takenCardIndex);
 
             if (indexToRemove < 0) {
-              console.error(
-                `Seat ${seatIndex} should have picked/trashed ${takenCardIndex} at pickNumber ${
-                  pickedNum + trashedNum
-                }, but the pack contains only [${packsWithCards[offsetSeatIndex].join(', ')}].`,
-              );
+              if (seatIndex === seatNum) {
+                // We needed the missing card.
+                console.error(
+                  `Seat ${seatIndex} should have picked/trashed ${takenCardIndex} at pickNumber ${
+                    pickedNum + trashedNum
+                  }, but the pack contains only [${packsWithCards[offsetSeatIndex].join(', ')}].`,
+                );
+              } else {
+                // This isn't our pack so we can treat it as indeterminate.
+                packsWithCards[offsetSeatIndex] = [];
+              }
             } else {
               packsWithCards[offsetSeatIndex].splice(indexToRemove, 1);
             }
@@ -131,7 +138,7 @@ export const getDrafterState = ({ draft, seatNumber, pickNumber = -1, stepNumber
       }
     } // step
     if (done || (useFinal && (curStepNumber > (stepEnd ?? curStepNumber + 1) || pickedNum + trashedNum >= pickEnd))) {
-      if (!skipAutoPass && packsWithCards[seatNum].length === 0 && packNum + 1 < numPacks) {
+      if (!skipAutoPass && stepIndex >= steps.length && packNum + 1 < numPacks) {
         packsWithCards = draft.initial_state.map((packsForSeat) => packsForSeat[packNum + 1].cards.slice());
         seen.push(...packsWithCards[seatNum]); // We see the pack we opened.
       }
@@ -140,24 +147,26 @@ export const getDrafterState = ({ draft, seatNumber, pickNumber = -1, stepNumber
     packNum += 1;
   } // pack
 
-  const result = {
+  return {
     cards, // .map((card, cardIndex) => (seen.includes(cardIndex) || basics.includes(cardIndex) ? card : null)),
     picked: ourSeat.pickorder.slice(0, pickedNum),
     trashed: ourSeat.trashorder.slice(0, trashedNum),
+    drafted: ourSeat.drafted,
+    sideboard: ourSeat.sideboard,
+    seatNum,
     seen,
     cardsInPack: packsWithCards[(seatNum + offset) % numSeats],
     basics,
     packNum,
     pickNum,
-    numPacks,
-    packSize,
+    numPacks: draft.initial_state[0].length,
+    packSize: draft.initial_state[0][packNum]?.cards?.length ?? 1,
     pickedNum,
     trashedNum,
     stepNumber: curStepNumber,
     pickNumber: pickedNum + trashedNum,
     step: { action, amount },
   };
-  return result;
 };
 
 export const getDefaultPosition = (card, picks) => {

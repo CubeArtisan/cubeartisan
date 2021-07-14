@@ -65,7 +65,7 @@ const DraggableCard = ({ card, location, canDrop, onMoveCard, className, onClick
 
   return (
     <>
-      <FoilCardImage card={card} innerRef={imageRef} className={oldClasses.join(' ')} />
+      <FoilCardImage card={card} ref={imageRef} className={oldClasses.join(' ')} />
       <div ref={drag} className={onMoveCard ?? onClick ? 'clickable' : undefined}>
         <div ref={drop}>
           <FoilCardImage
