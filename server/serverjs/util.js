@@ -16,10 +16,10 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
+
 import Filter from 'bad-words';
 import shuffleSeed from 'shuffle-seed';
-
-import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 
 export const hasProfanity = (text) => {
   if (!text) return false;

@@ -16,9 +16,11 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
+
 import NodeCache from 'node-cache';
 import Papa from 'papaparse';
-import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
+
 import CardRating from '@cubeartisan/server/models/cardrating.js';
 import Cube from '@cubeartisan/server/models/cube.js';
 import CubeAnalytic from '@cubeartisan/server/models/cubeAnalytic.js';
