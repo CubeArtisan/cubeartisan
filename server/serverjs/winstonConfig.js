@@ -53,7 +53,7 @@ if (process.env.ELASTICSEARCH_URL) {
   transports.push(new ElasticsearchTransport(transportOptions));
 }
 
-export const logApmError = (err) => {};
+export const logApmError = (err) => apm.captureError(err);
 
 winston.configure({
   level: 'info',

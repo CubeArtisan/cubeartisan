@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import winston, { logApmError } from '@cubeartisan/server/serverjs/winstonConfig.js';
-import csurf from 'csurf';
+// import csurf from 'csurf';
 import { validationResult } from 'express-validator';
 import onFinished from 'on-finished';
 import uuid from 'uuid/v4.js';
