@@ -72,7 +72,13 @@ import {
   exportToPlaintext,
   exportToXmage,
 } from '@cubeartisan/server/routes/cube/export.js';
-import CubeBlogRoutes from '@cubeartisan/server/routes/cube/blog.js';
+import {
+  deleteBlogPost,
+  getBlogPage,
+  getBlogPost,
+  postToBlog,
+  updateBlogPost,
+} from '@cubeartisan/server/routes/cube/blog.js';
 import { getCubeDescription } from '@cubeartisan/client/utils/Util.js';
 
 const { Canvas, Image } = canvas;
@@ -709,7 +715,7 @@ const viewAnalytics = async (req, res) => {
           `${process.env.SITE_NAME} Analysis: ${cube.name}`,
           getCubeDescription(cube),
           cube.image_uri,
-          `${process.env.SITE_ROOT}/cube/analysis/${req.params.id}`,
+          `${process.env.SITE_ROOT}/cube/${req.params.id}/analytics`,
         ),
         title: `${abbreviate(cube.name)} - Analysis`,
       },
@@ -2303,6 +2309,8 @@ const uploadDeckList = async (req, res) => {
   }
 };
 
+const redirectToFirstPage = (req, res) => res.redirect(`/cube/${encodeURIComponent(req.params.id)}/blog/page/0`);
+
 const router = express.Router();
 router.post('/', ensureAuth, createCube);
 router.get('/:id/export/json', wrapAsyncApi(exportToJson));
@@ -2312,7 +2320,12 @@ router.get('/:id/export/forge', wrapAsyncApi(exportToForge));
 router.get('/:id/export/mtgo', wrapAsyncApi(exportForMtgo));
 router.get('/:id/export/xmage', wrapAsyncApi(exportToXmage));
 router.get('/:id/export/plaintext', wrapAsyncApi(exportToPlaintext));
-router.use('/:id/blog', CubeBlogRoutes);
+router.get('/:id/blog/', redirectToFirstPage);
+router.get('/:id/blog/page/:page', getBlogPage);
+router.get('/:id/blog/post/:postid', getBlogPost);
+router.put('/:id/blog/post/:postid', updateBlogPost);
+router.post('/post', ensureAuth, postToBlog);
+router.delete('/post/:postid', ensureAuth, deleteBlogPost);
 router.post('/:id/clone', ensureAuth, cloneCube);
 router.get('/:id', viewOverview);
 router.post('/:id/format', ensureAuth, addFormat);

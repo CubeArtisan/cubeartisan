@@ -70,8 +70,8 @@ const CubeLayout = ({ cube, activeLink, children }) => {
             <CubeNavItem link="playtest" activeLink={activeLink}>
               Playtest
             </CubeNavItem>
-            <CubeNavItem link="analysis" activeLink={activeLink}>
-              Analysis
+            <CubeNavItem link="analytics" activeLink={activeLink}>
+              Analytics
             </CubeNavItem>
             <CubeNavItem link="blog" activeLink={activeLink}>
               Blog
