@@ -32,7 +32,7 @@ const RenderToRoot = (Element) => {
     return (
       <ErrorBoundary className="mt-3">
         <SiteCustomizationContext.Provider value={reactProps?.siteCustomizations ?? DEFAULT_SITE_CUSTOMIZATIONS}>
-          <UserContext.Provider value={reactProps?.user}>
+          <UserContext.Provider value={reactProps?.user ?? { _id: null, username: 'Anonymous User' }}>
             <Element {...reactProps} />
           </UserContext.Provider>
         </SiteCustomizationContext.Provider>
