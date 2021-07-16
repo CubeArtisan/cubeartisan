@@ -41,7 +41,26 @@ spec:
           args:
             - gunicorn web:app --bind=0.0.0.0
           imagePullPolicy: Always
+          resources:
+            limits:
+              memory: 4Gi
+              cpu: 2000m
+            requests:
+              memory: 2Gi
+              cpu: 1000m
       restartPolicy: Always
       imagePullSecrets:
         - name: regcred
-status: {}
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: cubeartisan-recommender
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: cubeartisan-recommender
+  minReplicas: 1
+  maxReplicas: 2
+  targetCPUUtilizationPercentage: 50

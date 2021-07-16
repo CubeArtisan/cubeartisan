@@ -78,16 +78,24 @@ spec:
               value: "<TAG>"
             - name: ELASTICSEARCH_URL
               value: "http://elasticsearch-external:9200/"
-            - name: APM_SERVER_URL
+            - name: ELASTIC_APM_SERVICE_NAME
+              value: CubeArtisan_beta
+            - name: ELASTIC_APM_SERVER_URL
               value: "http://apm-server:8200/"
-            - name: APM_CONFIG_FILE
-              value: "config/elastic-apm-node.cjs"
+            - name: ELASTIC_APM_SERVICE_VERSION
+              value: "<TAG>"
+            - name: ELASTIC_APM_ACTIVE
+              value: 'true'
+            - name: ELASTIC_APM_ENVIRONMENT
+              value: "<ENV>"
+            - name: ELASTIC_APM_TRANSACTION_IGNORE_URLS
+              value: "/version"
             - name: MONGODB_URL
               value: "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/cubeartisan?replicaSet=rs0"
             - name: LISTEN_ADDR
               value: "0.0.0.0"
             - name: SITE_ROOT
-              value: <ENV>
+              value: "<ENV>"
             - name: SITE_NAME
               value: CubeArtisan (beta)
             - name: SUPPORT_EMAIL_FROM
@@ -110,19 +118,19 @@ spec:
               cpu: 2000m
             requests:
               memory: 2Gi
-              cpu: 1000m
+              cpu: 1500m
           readinessProbe:
             httpGet:
               path: /version
               port: 5000
-            initialDelaySeconds: 60
-            periodSeconds: 5
+            initialDelaySeconds: 120
+            periodSeconds: 15
           startupProbe:
             httpGet:
               path: /version
               port: 5000
             failureThreshold: 30
-            periodSeconds: 10
+            periodSeconds: 15
       restartPolicy: Always
       imagePullSecrets:
         - name: github-docker
@@ -136,6 +144,6 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: cubeartisan
-  minReplicas: 1
-  maxReplicas: 4
+  minReplicas: 2
+  maxReplicas: 8
   targetCPUUtilizationPercentage: 50

@@ -34,8 +34,10 @@ spec:
             value: http://elasticsearch-external:9200/
         resources:
           limits:
+            memory: 2Gi
             cpu: 1000m
           requests:
+            memory: 512Mi
             cpu: 250m
         ports:
         - containerPort: 8200

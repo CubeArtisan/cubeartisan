@@ -4,6 +4,7 @@ metadata:
   name: kibana
   namespace: kube-logging
   labels:
+    name: kibana
     app: kibana
 spec:
   ports:
@@ -17,6 +18,7 @@ metadata:
   name: kibana
   namespace: kube-logging
   labels:
+    name: kibana
     app: kibana
 spec:
   replicas: 1
@@ -33,9 +35,11 @@ spec:
         image: docker.elastic.co/kibana/kibana:7.13.3
         resources:
           limits:
-            cpu: 1000m
+            cpu: 2000m
+            memory: 2Gi
           requests:
-            cpu: 100m
+            cpu: 250m
+            memory: 1Gi
         env:
           - name: ELASTICSEARCH_HOSTS
             value: http://elasticsearch:9200
