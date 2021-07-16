@@ -73,10 +73,18 @@ spec:
               value: "<TAG>"
             - name: ELASTICSEARCH_URL
               value: "http://elasticsearch:9200/"
-            - name: APM_SERVER_URL
+            - name: ELASTIC_APM_SERVICE_NAME
+              value: CubeArtisan_beta
+            - name: ELASTIC_APM_SERVER_URL
               value: "http://apm-server:8200/"
-            - name: APM_CONFIG_FILE
-              value: "config/elastic-apm-node.cjs"
+            - name: ELASTIC_APM_SERVICE_VERSION
+              value: "<TAG>"
+            - name: ELASTIC_APM_ACTIVE
+              value: 'true'
+            - name: ELASTIC_APM_ENVIRONMENT
+              value: "<ENV>"
+            - name: ELASTIC_APM_TRANSACTION_IGNORE_URLS
+              value: "/version"
             - name: MONGODB_URL
               value: "mongodb://mongo:27017/cubeartisan?replicaSet=rs0"
             - name: LISTEN_ADDR
@@ -102,24 +110,24 @@ spec:
           resources:
             limits:
               memory: 2Gi
-              cpu: 1250m
+              cpu: 1500m
               ephemeral-storage: 2Gi
             requests:
               memory: 2Gi
-              cpu: 1250m
+              cpu: 1500m
               ephemeral-storage: 2Gi
           readinessProbe:
             httpGet:
               path: /version
               port: 5000
-            initialDelaySeconds: 60
-            periodSeconds: 5
+            initialDelaySeconds: 120
+            periodSeconds: 15
           startupProbe:
             httpGet:
               path: /version
               port: 5000
             failureThreshold: 30
-            periodSeconds: 10
+            periodSeconds: 15
       restartPolicy: Always
       imagePullSecrets:
         - name: github-docker
@@ -134,5 +142,5 @@ spec:
     kind: Deployment
     name: cubeartisan
   minReplicas: 1
-  maxReplicas: 4
+  maxReplicas: 8
   targetCPUUtilizationPercentage: 50
