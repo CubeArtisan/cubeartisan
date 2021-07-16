@@ -176,7 +176,7 @@ const submitDraft = async (req, res) => {
     const draftid = req.params.id;
     const seatNum = toNullableInt(req.params.seat) ?? 0;
     const draft = await Draft.findById(draftid).lean();
-    const cube = await Cube.findOne(buildIdQuery(draft.cube));
+    const cube = await Cube.findOne(buildIdQuery(draft.cube)).lean();
     // TODO: Should have guards on if the objects aren't found in the DB.
 
     const deck = new Deck();
@@ -195,17 +195,16 @@ const submitDraft = async (req, res) => {
       const analytic = await CubeAnalytic.findOne({ cube: cube._id });
       eloOverrideDict = Object.fromEntries(analytic.cards.map((c) => [c.cardName, c.elo]));
     }
-    const cards = draft.cards.map((c) => {
-      const newCard = { ...c, details: carddb.cardFromId(c.cardID) };
-      if (eloOverrideDict[newCard.details.name_lower]) {
-        newCard.details.elo = eloOverrideDict[newCard.details.name_lower];
+    for (const card of draft.cards) {
+      card.details = carddb.cardFromId(card.cardID);
+      if (eloOverrideDict[card.details.name_lower]) {
+        card.details.elo = eloOverrideDict[card.details.name_lower];
       }
-      return newCard;
-    });
+    }
     let botNumber = 1;
     for (const seat of draft.seats) {
       // eslint-disable-next-line no-await-in-loop
-      const { sideboard, deck: newDeck, colors } = await buildDeck(cards, seat.pickorder, draft.basics);
+      const { sideboard, deck: newDeck, colors } = await buildDeck(draft.cards, seat.pickorder, draft.basics);
       const colorString =
         colors.length === 0 ? 'C' : COLOR_COMBINATIONS.find((comb) => Util.arraysAreEqualSets(comb, colors)).join('');
       if (seat.bot) {
@@ -235,7 +234,7 @@ const submitDraft = async (req, res) => {
     const temp = deck.seats[0];
     deck.seats[0] = deck.seats[seatNum];
     deck.seats[seatNum] = temp;
-
+    const deckQ = deck.save();
     const userq = User.findById(deck.seats[seatNum].userid);
     const cubeOwnerq = User.findById(cube.owner);
 
@@ -251,9 +250,11 @@ const submitDraft = async (req, res) => {
         `An anonymous user drafted your cube: ${cube.name}`,
       );
     }
-    cube.numDecks += 1;
-    await Promise.all([cube.save(), deck.save(), cubeOwner.save()]);
+    const cubeUpdate = cube.numDecks ? { $inc: { numDecks: 1 } } : { $set: { numDecks: 1 } };
+    Cube.updateOne({ _id: cube._id }, cubeUpdate);
+    cubeOwner.save();
     saveDraftAnalytics(draft, seatNum, carddb);
+    await deckQ;
     addDeckCardAnalytics(cube, deck, carddb);
     return res.status(200).send({
       success: 'true',
