@@ -77,7 +77,7 @@ export function encodeName(name) {
 }
 
 export function decodeName(name) {
-  return decodeURIComponent(name.toLowerCase());
+  return decodeURIComponent(name?.toLowerCase?.() ?? 'Invalid Card');
 }
 
 export function cardsAreEquivalent(a, b) {

@@ -134,7 +134,7 @@ const getImageRedirectForId = (req, res) => {
 
 const getInfoForId = async (req, res) => {
   try {
-    const card = getCardFromId(req, res);
+    const card = getCardFromId(req.params.id);
     if (card.error) {
       req.flash('danger', `Card with id ${req.params.id} not found.`);
       return res.redirect(303, '/404');
