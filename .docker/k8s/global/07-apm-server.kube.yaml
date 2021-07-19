@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: apm-server
+  namespace: kube-logging
   labels:
     app: apm-server
 spec:
@@ -13,6 +14,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: kube-logging
   name: apm-server
   labels:
     app: apm-server
@@ -31,11 +33,13 @@ spec:
         image: docker.elastic.co/apm/apm-server:7.13.3
         env:
           - name: output.elasticsearch.hosts
-            value: http://elasticsearch-external:9200/
+            value: http://elasticsearch:9200/
         resources:
           limits:
+            memory: 2Gi
             cpu: 1000m
           requests:
-            cpu: 250m
+            memory: 2Gi
+            cpu: 1000m
         ports:
         - containerPort: 8200

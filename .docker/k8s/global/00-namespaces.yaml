@@ -1,0 +1,14 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: kube-logging
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: cubeartisan
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: cubeartisan-staging

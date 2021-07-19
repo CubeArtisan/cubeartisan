@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: elasticsearch
+spec:
+  type: ExternalName
+  externalName: elasticsearch.kube-logging.svc.cluster.local
+  ports:
+    - port: 9200
+      name: rest
+    - port: 80
+      name: http

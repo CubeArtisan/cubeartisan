@@ -10,8 +10,7 @@ spec:
       targetPort: 5000
   selector:
     name: cubeartisan
-status:
-  loadBalancer: {}
+  type: ClusterIP
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -20,8 +19,6 @@ metadata:
     name: cubeartisan
   name: cubeartisan
 spec:
-  replicas: 1
-  strategy: {}
   selector:
     matchLabels:
       name: cubeartisan
@@ -72,22 +69,20 @@ spec:
               value: "http://cubeartisan-recommender"
             - name: PORT
               value: "5000"
-            - name: HOST
-              value: "http://cubeartisan"
             - name: SITE_VERSION
               value: "<TAG>"
             - name: ELASTICSEARCH_URL
-              value: "http://elasticsearch-external:9200/"
+              value: "http://elasticsearch:9200/"
             - name: APM_SERVER_URL
               value: "http://apm-server:8200/"
             - name: APM_CONFIG_FILE
               value: "config/elastic-apm-node.cjs"
             - name: MONGODB_URL
-              value: "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/cubeartisan?replicaSet=rs0"
+              value: "mongodb://mongo:27017/cubeartisan?replicaSet=rs0"
             - name: LISTEN_ADDR
               value: "0.0.0.0"
             - name: SITE_ROOT
-              value: <ENV>
+              value: https://<ENV>
             - name: SITE_NAME
               value: CubeArtisan (beta)
             - name: SUPPORT_EMAIL_FROM
@@ -106,11 +101,13 @@ spec:
               name: cubeartisan
           resources:
             limits:
-              memory: 4Gi
-              cpu: 2000m
+              memory: 2Gi
+              cpu: 1250m
+              ephemeral-storage: 2Gi
             requests:
               memory: 2Gi
-              cpu: 1000m
+              cpu: 1250m
+              ephemeral-storage: 2Gi
           readinessProbe:
             httpGet:
               path: /version

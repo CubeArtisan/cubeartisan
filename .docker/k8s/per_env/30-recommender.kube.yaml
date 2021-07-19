@@ -40,8 +40,14 @@ spec:
           command: [/bin/sh, -c]
           args:
             - gunicorn web:app --bind=0.0.0.0
+          resources:
+            limits:
+              memory: 4Gi
+              cpu: 2000m
+            requests:
+              memory: 4Gi
+              cpu: 2000m
           imagePullPolicy: Always
       restartPolicy: Always
       imagePullSecrets:
         - name: regcred
-status: {}

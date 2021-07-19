@@ -1294,7 +1294,7 @@ const resizeCube = async (req, res) => {
     const response = await fetch(
       `${process.env.FLASKROOT}/?cube_name=${encodeURIComponent(
         req.params.id,
-      )}&num_recs=${1000}&root=${encodeURIComponent(process.env.HOST)}`,
+      )}&num_recs=${1000}&root=${encodeURIComponent(process.env.SITE_ROOT)}`,
     );
     if (!response.ok) {
       return handleRouteError(

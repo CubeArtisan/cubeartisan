@@ -377,7 +377,7 @@ const viewLanding = async (req, res) => {
 const getVersion = (req, res) => {
   return render(req, res, 'VersionPage', {
     version: process.env.SITE_VERSION,
-    host: process.env.HOST,
+    host: process.env.SITE_ROOT,
   });
 };
 
