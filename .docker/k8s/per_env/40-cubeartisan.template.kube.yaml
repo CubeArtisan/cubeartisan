@@ -90,7 +90,7 @@ spec:
             - name: LISTEN_ADDR
               value: "0.0.0.0"
             - name: SITE_ROOT
-              value: https://<ENV>
+              value: "https://<ENV>"
             - name: SITE_NAME
               value: CubeArtisan (beta)
             - name: SUPPORT_EMAIL_FROM
