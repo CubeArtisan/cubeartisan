@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'reactstrap';
 import { CSVLink } from 'react-csv';
@@ -32,20 +32,26 @@ export const valueRenderer = (value) => {
   return value.toFixed(2);
 };
 
+export const percentRenderer = (value) => <span>{valueRenderer(value * 100)}%</span>;
+
 export const compareStrings = (a, b) => a?.toString?.()?.localeCompare?.(b?.toString?.());
 
 export const SortableTable = ({ data, defaultSortConfig, sortFns, columnProps, totalRow, totalCol, ...props }) => {
   const { items, requestSort, sortConfig } = useSortableData(data, defaultSortConfig, sortFns);
 
-  const exportData = data.map((row) =>
-    fromEntries(
-      Object.entries(row).map(([key, value]) => {
-        if (value.exportValue) {
-          return [key, value.exportValue];
-        }
-        return [key, value];
-      }),
-    ),
+  const exportData = useMemo(
+    () =>
+      data.map((row) =>
+        fromEntries(
+          Object.entries(row).map(([key, value]) => {
+            if (value?.exportValue) {
+              return [key, value?.exportValue];
+            }
+            return [key, value];
+          }),
+        ),
+      ),
+    [data],
   );
 
   return (

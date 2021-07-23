@@ -1,11 +1,11 @@
 apiVersion: networking.gke.io/v1
 kind: ManagedCertificate
 metadata:
-  namespace: kube-logging
-  name: cubeartisan-kibana-cert
+  name: cubeartisan-cert
 spec:
   domains:
     - kibana.cubeartisan.net
+    -
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -13,9 +13,7 @@ metadata:
   name: kibana-ingress
   namespace: kube-logging
   annotations:
-    kubernetes.io/ingress.global-static-ip-name: cubeartisan
     networking.gke.io/v1beta1.FrontendConfig: cubeartisan-frontend-config
-    cloud.google.com/backend-config: '{"default": "cubeartisan-backend-config"}'
     networking.gke.io/managed-certificates: cubeartisan-kibana-cert
     kubernetes.io/ingress.class: gce
 spec:

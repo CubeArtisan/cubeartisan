@@ -26,6 +26,9 @@ const config = {
     },
     usedExports: false,
   },
+  experiments: {
+    asyncWebAssembly: true,
+  },
   module: {
     rules: [
       {
@@ -41,12 +44,17 @@ const config = {
         },
       },
       {
+        test: /\.wasm$/,
+        type: 'asset/resource',
+      },
+      {
         test: /\.(css|less)$/,
         sideEffects: true,
         use: ['style-loader', 'css-loader'],
       },
     ],
   },
+  plugins: [],
   resolve: {
     alias: {
       '@cubeartisan/client': path.resolve(__dirname, './'),

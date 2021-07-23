@@ -118,7 +118,7 @@ const renderCardlink = ({ name, id, dfc }) => {
   if (dfc) details.image_flip = `/card/${idURL}/flip/image`;
 
   return (
-    <AutocardLink href={`/tool/card/${idURL}`} card={{ details }} target="_blank" rel="noopener noreferrer">
+    <AutocardLink href={`/card/${idURL}`} card={{ details }} target="_blank" rel="noopener noreferrer">
       {name}
     </AutocardLink>
   );

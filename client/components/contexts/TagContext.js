@@ -22,8 +22,8 @@ import PropTypes from 'prop-types';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 export const getCardColorClass = (card) => {
-  const type = card.type_line || card.details.type;
-  const colors = card.colors || card.details.color_identity;
+  const type = card.type_line ?? card.details.type;
+  const colors = card.colors ?? card.details.color_identity;
   if (type.toLowerCase().includes('land')) {
     return 'lands';
   }
@@ -47,7 +47,7 @@ export const getCardColorClass = (card) => {
 };
 
 export const getCardTagColorClass = (tagColors, card) => {
-  const tagColor = tagColors.find(({ tag }) => (card.tags || []).includes(tag));
+  const tagColor = tagColors.find(({ tag }) => (card.tags ?? []).includes(tag));
   if (tagColor && tagColor.color) {
     return `tag-color tag-${tagColor.color}`;
   }

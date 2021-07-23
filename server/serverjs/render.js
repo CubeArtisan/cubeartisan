@@ -69,7 +69,6 @@ export const render = async (req, res, page, reactProps = {}, options = {}) => {
         cubes,
       }
     : null;
-  req.logger.info(`baseUrl: ${req.baseUrl}, path: ${req.path}`);
   reactProps.loginCallback = req.baseUrl + req.path;
   reactProps.siteCustomizations = {
     discordUrl: process.env.DISCORD_URL,

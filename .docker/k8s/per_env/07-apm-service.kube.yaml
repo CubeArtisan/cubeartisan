@@ -1,9 +1,0 @@
-kind: Service
-apiVersion: v1
-metadata:
-  name: apm-service
-spec:
-  type: ExternalName
-  externalName: apm-service.kube-logging.svc.cluster.local
-  ports:
-    - port: 8200

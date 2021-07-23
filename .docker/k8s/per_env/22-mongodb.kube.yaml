@@ -33,13 +33,6 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: mongo
-          resources:
-            limits:
-              memory: 4Gi
-              cpu: 2000m
-            requests:
-              memory: 2Gi
-              cpu: 1000m
           image: mongo:4
           command:
             - mongod

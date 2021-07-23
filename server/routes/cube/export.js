@@ -103,7 +103,6 @@ export const exportToCsv = async (req, res) => {
 export const exportToForge = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
-    req.logger.info(JSON.stringify(req.params));
     if (!cube) {
       req.flash('danger', `Cube ID ${req.params.id} not found`);
       return res.redirect('/404');

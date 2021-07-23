@@ -16,49 +16,54 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
+import { Button, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
+import { calculateBotPick } from 'mtgdraftbots';
 
 import { usePickListAndDrafterState, ACTION_LABELS } from '@cubeartisan/client/components/DecksPickBreakdown.js';
-import { SortableTable, compareStrings } from '@cubeartisan/client/components/SortableTable.js';
+import { SortableTable, compareStrings, percentRenderer } from '@cubeartisan/client/components/SortableTable.js';
 import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import { getCardColorClass } from '@cubeartisan/client/components/contexts/TagContext.js';
 import { DrafterStatePropType, DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
 import { COLOR_COMBINATIONS, cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
-import { evaluateCardsOrPool, ORACLES_BY_NAME } from '@cubeartisan/client/drafting/draftbots.js';
 import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 
-const AutocardItem = withAutocard(ListGroupItem);
+const AutocardLink = withAutocard('a');
+const AutocardButton = withAutocard(Button);
 
 const CARD_TRAIT = Object.freeze({
   title: 'Card',
   tooltip: 'The card the bot is considering',
-  compute: ({ card }) => card,
   heading: true,
   renderFn: (card) => {
     const { index, cardID } = card;
     return (
-      <AutocardItem key={index} card={card} data-in-modal index={index}>
-        <a href={`/card/${encodeName(cardID)}`} target="_blank" rel="noopener noreferrer">
-          {cardName(card)}
-        </a>
-      </AutocardItem>
+      <AutocardLink
+        href={`/card/${encodeName(cardID)}`}
+        card={card}
+        target="_blank"
+        rel="noopener noreferrer"
+        key={index}
+      >
+        {cardName(card)}
+      </AutocardLink>
     );
   },
 });
+
 const TRAITS = Object.freeze([
-  {
-    title: 'Usability Percent',
-    tooltip:
-      'What percent of the rating of the card the bot thinks it can take advantage of. Based on the probability to cast the card on curve. Applies as scaling to Rating and Pick Synergy.',
-    compute: ({ botState: { cardIndices, probabilities } }) => probabilities[cardIndices?.[0]] * 100,
-  },
+  // {
+  //   title: 'Usability Percent',
+  //   tooltip:
+  //     'What percent of the rating of the card the bot thinks it can take advantage of. Based on the probability to cast the card on curve. Applies as scaling to Rating and Pick Synergy.',
+  //   compute: ({ botState: { cardIndices, probabilities } }) => probabilities[cardIndices?.[0]] * 100,
+  // },
   {
     title: 'Lands',
     tooltip: 'This is the color combination the bot is assuming that will maximize the total score.',
-    compute: ({ botState: { lands } }) =>
+    compute: ({ lands }) =>
       JSON.stringify(
         fromEntries(COLOR_COMBINATIONS.map((c, i) => [c.length > 0 ? c : 'C', lands[i]]).filter(([, x]) => x)),
       ),
@@ -67,43 +72,48 @@ const TRAITS = Object.freeze([
     title: 'Total Score',
     tooltip: 'The total calculated score.',
     compute: ({ score }) => score,
+    renderFn: percentRenderer,
   },
 ]);
 
-const renderWithTooltip = (title) => <Tooltip text={ORACLES_BY_NAME[title].tooltip}>{title}</Tooltip>;
-
-const WEIGHT_COLUMNS = Object.freeze([
-  { title: 'Oracle', sortable: true, key: 'title', heading: true, renderFn: renderWithTooltip },
-  { title: 'Weight', sortable: true, key: 'weight' },
-]);
-
 export const DraftbotBreakdownTable = ({ drafterState }) => {
-  const botEvaluations = useMemo(
-    () =>
-      drafterState.cardsInPack.map((card) => ({
-        ...evaluateCardsOrPool(card, drafterState),
-        card: drafterState.cards[card],
-      })),
-    [drafterState],
+  const [botResult, setBotResult] = useState(null);
+  useEffect(() => {
+    (async () => {
+      const result = await calculateBotPick(drafterState);
+      setBotResult(result);
+    })();
+  }, [drafterState]);
+  const botEvaluations = useMemo(() => botResult?.scores ?? [], [botResult]);
+  const [oracles, weights] = useMemo(() => {
+    if (botEvaluations.length === 0) return [[], []];
+    const iOracles = botEvaluations[0].oracleResults.map(({ title, tooltip }) => ({
+      title,
+      tooltip,
+      renderFn: percentRenderer,
+    }));
+    const iWeights = botEvaluations[0].oracleResults.map(({ title, weight }) => ({ title, weight }));
+    return [iOracles, iWeights];
+  }, [botEvaluations]);
+  const renderWithTooltip = (iTitle) => (
+    <Tooltip text={oracles.find(({ title }) => title === iTitle)?.tooltip ?? ''}>{iTitle}</Tooltip>
   );
-  const oracles = useMemo(
-    () => botEvaluations[0].oracleResults.map(({ title, tooltip }) => ({ title, tooltip })),
-    [botEvaluations],
-  );
-  const weights = useMemo(
-    () => botEvaluations[0].oracleResults.map(({ title, weight }) => ({ title, weight })),
-    [botEvaluations],
-  );
+  const WEIGHT_COLUMNS = Object.freeze([
+    { title: 'Oracle', sortable: true, key: 'title', heading: true, renderFn: renderWithTooltip },
+    { title: 'Weight', sortable: true, key: 'weight', renderFn: percentRenderer },
+  ]);
   const rows = useMemo(
     () =>
-      botEvaluations.map((botEvaluation) =>
-        fromEntries([
-          [CARD_TRAIT.title, CARD_TRAIT.compute(botEvaluation)],
-          ...botEvaluation.oracleResults.map(({ title, value }) => [title, value]),
-          ...TRAITS.map(({ title, compute }) => [title, compute(botEvaluation)]),
-        ]),
-      ),
-    [botEvaluations],
+      botEvaluations
+        .map((botEvaluation, idx) =>
+          fromEntries([
+            [CARD_TRAIT.title, drafterState.cards[drafterState.cardsInPack[idx]]],
+            ...botEvaluation.oracleResults.map(({ title, value }) => [title, value]),
+            ...TRAITS.map(({ title, compute }) => [title, compute(botEvaluation)]),
+          ]),
+        )
+        .filter((row) => row[CARD_TRAIT.title]),
+    [botEvaluations, drafterState.cards, drafterState.cardsInPack],
   );
 
   return (
@@ -146,7 +156,7 @@ const DraftbotBreakdown = (props) => {
             <ListGroup className="list-outline">
               <ListGroupItem className="list-group-heading">{`Pack ${listindex + 1}`}</ListGroupItem>
               {list.map(({ card, action, pickNumber }) => (
-                <AutocardItem
+                <AutocardButton
                   key={card.index}
                   card={card}
                   className={`card-list-item d-flex flex-row ${getCardColorClass(card)}`}
@@ -159,7 +169,7 @@ const DraftbotBreakdown = (props) => {
                   ) : (
                     <>{`${ACTION_LABELS[action]}: ${cardName(card)}`}</>
                   )}
-                </AutocardItem>
+                </AutocardButton>
               ))}
             </ListGroup>
           </Col>

@@ -28,15 +28,15 @@ const HeaderCell = ({ label, fieldName, sortConfig, requestSort, tooltip, ...pro
   const icon = `/content/${direction}.png`;
 
   const Wrapper = useCallback(
-    ({ children }) =>
+    () =>
       tooltip ? (
         <Tooltip text={tooltip}>
-          <div style={{ width: 'min-content' }}>{children}</div>
+          <div style={{ width: 'min-content' }}>{label}</div>
         </Tooltip>
       ) : (
-        <div style={{ width: 'min-content' }}>{children}</div>
+        <div style={{ width: 'min-content' }}>{label}</div>
       ),
-    [tooltip],
+    [label, tooltip],
   );
 
   return (

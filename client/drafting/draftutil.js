@@ -17,10 +17,10 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 /* eslint-disable no-loop-func */
+import { calculateBotPick } from 'mtgdraftbots';
 import seedrandom from 'seedrandom';
 
 import { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation.js';
-import { calculateBotPick } from '@cubeartisan/client/drafting/draftbots.js';
 import { cardType } from '@cubeartisan/client/utils/Card.js';
 import { cmcColumn, toNullableInt } from '@cubeartisan/client/utils/Util.js';
 
@@ -35,7 +35,7 @@ export const defaultStepsForLength = (length) =>
     .map((action) => ({ ...action }));
 
 export const getDrafterState = ({ draft, seatNumber, pickNumber = -1, stepNumber = null }, skipAutoPass = false) => {
-  const { cards, basics } = draft;
+  const { cards, basics, seed } = draft;
   const numSeats = draft.initial_state.length;
   const seatNum = parseInt(seatNumber, 10);
   const ourPacks = draft.initial_state[seatNum];
@@ -166,6 +166,7 @@ export const getDrafterState = ({ draft, seatNumber, pickNumber = -1, stepNumber
     stepNumber: curStepNumber,
     pickNumber: pickedNum + trashedNum,
     step: { action, amount },
+    seed: toNullableInt(seed) ?? Math.floor(Math.random() * 65536),
   };
 };
 
@@ -176,7 +177,20 @@ export const getDefaultPosition = (card, picks) => {
   return [row, col, colIndex];
 };
 
-export const allBotsDraft = (draft) => {
+export const convertDrafterState = (drafterState) => ({
+  basics: drafterState.basics,
+  picked: drafterState.picked,
+  seen: drafterState.seen,
+  cardsInPack: drafterState.cardsInPack,
+  cardOracleIds: drafterState.cards.map(({ details }) => details.oracle_id),
+  packNum: drafterState.packNum,
+  numPacks: drafterState.numPacks,
+  pickNum: drafterState.pickNum,
+  numPicks: drafterState.numPicks,
+  seed: drafterState.seed ?? Math.floor(Math.random() * 65536),
+});
+
+export const allBotsDraft = async (draft) => {
   let drafterStates = draft.seats.map((_, seatNumber) => getDrafterState({ draft, seatNumber }));
   let [
     {
@@ -194,7 +208,11 @@ export const allBotsDraft = (draft) => {
     }
     if (action.match(/pick/)) {
       if (!action.match(/random/)) {
-        picks = drafterStates.map((drafterState) => calculateBotPick(drafterState, false));
+        // eslint-disable-next-line no-await-in-loop
+        picks = await drafterStates.map(async (drafterState) => {
+          const result = await calculateBotPick(convertDrafterState(drafterState));
+          return result.chosenOption;
+        });
       }
       draft = {
         ...draft,
@@ -210,7 +228,21 @@ export const allBotsDraft = (draft) => {
       };
     } else if (action.match(/trash/)) {
       if (!action.match(/random/)) {
-        picks = drafterStates.map((drafterState) => calculateBotPick(drafterState, true));
+        // eslint-disable-next-line no-await-in-loop
+        picks = await Promise.all(
+          drafterStates.map(async (drafterState) => {
+            const result = await calculateBotPick(convertDrafterState(drafterState));
+            let worstIndex = 0;
+            let worstScore = 2;
+            for (let i = 0; i < result.scores.length; i++) {
+              if (result.scores[i].score < worstScore) {
+                worstScore = result.scores[i].score;
+                worstIndex = i;
+              }
+            }
+            return worstIndex;
+          }),
+        );
       }
       draft = {
         ...draft,

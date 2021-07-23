@@ -142,5 +142,5 @@ spec:
     kind: Deployment
     name: cubeartisan
   minReplicas: 1
-  maxReplicas: 8
+  maxReplicas: 4
   targetCPUUtilizationPercentage: 50
