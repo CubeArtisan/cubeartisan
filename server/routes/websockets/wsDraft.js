@@ -83,7 +83,7 @@ const manageWebsocketDraft = async (socket) => {
     if (!drafterState) {
       drafterState = getDrafterState({ draft, seatNumber: seatIndex });
     }
-    if (!drafterState.cardsInPack.includes(cardIndex)) return null;
+    if (!drafterState.cardsInPack.includes(cardIndex)) return [{}, draft];
     target = target ?? getDefaultPosition(draft.cards[cardIndex], draft.seats[seatIndex].drafted);
     draft.seats[seatIndex].drafted = moveOrAddCard(draft.seats[seatNumber].drafted, target, cardIndex);
     draft.seats[seatIndex].pickorder.push(cardIndex);
@@ -133,7 +133,7 @@ const manageWebsocketDraft = async (socket) => {
               // eslint-disable-next-line no-await-in-loop
               [changes, draft] = await pickCard(
                 draft,
-                result.chosenIndex,
+                result.chosenOption,
                 null,
                 drafterState.seatNum,
                 changes,
