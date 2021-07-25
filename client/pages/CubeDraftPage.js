@@ -259,10 +259,8 @@ export const CubeDraftPage = ({ cube, initialDraft, loginCallback }) => {
     if (doneDrafting && !submitted) {
       setSubmitted(true);
       (async () => {
-        console.log(`/draft/${initialDraft._id}/submit/${seatNum}`);
         const response = await csrfFetch(`/draft/${initialDraft._id}/submit/${seatNum}`, { method: 'POST' });
         const json = await response.json();
-        console.log(JSON.stringify(json, null, 2));
         window.location.replace(json.url);
       })();
     }

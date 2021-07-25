@@ -17,11 +17,11 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 
-import { cardCmc, cardName } from '@cubeartisan/client/utils/Card.js';
+import { cardCmc, cardName, cardType } from '@cubeartisan/client/utils/Card.js';
 
 export const calculateBasicCounts = () => ({ lands: [], remainingLands: [], colors: [] });
 
-export const build = ({ cards }) => {
+export const buildDeck = ({ cards, picked }) => {
   const deck = [];
   const sideboard = [];
   for (let i = 0; i < 16; i += 1) {
@@ -31,10 +31,10 @@ export const build = ({ cards }) => {
     }
   }
 
-  for (const cardIndex of cards) {
+  for (const cardIndex of picked) {
     const card = cards[cardIndex];
     let index = Math.min(cardCmc(card) ?? 0, 7);
-    if (!card.details.type.toLowerCase().includes('creature') && !card.details.type.toLowerCase().includes('basic')) {
+    if (!cardType(card).toLowerCase().includes('creature') && !cardType(card).toLowerCase().includes('basic')) {
       index += 8;
     }
     deck[index].push(cardIndex);

@@ -17,12 +17,14 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 /* eslint-disable no-loop-func */
-import { calculateBotPick } from 'mtgdraftbots';
+import { calculateBotPick, initializeDraftbots } from 'mtgdraftbots';
 import seedrandom from 'seedrandom';
 
 import { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation.js';
 import { cardType } from '@cubeartisan/client/utils/Card.js';
 import { cmcColumn, toNullableInt } from '@cubeartisan/client/utils/Util.js';
+
+export const draftbotsInitialized = initializeDraftbots();
 
 export const defaultStepsForLength = (length) =>
   new Array(length)
@@ -177,18 +179,21 @@ export const getDefaultPosition = (card, picks) => {
   return [row, col, colIndex];
 };
 
-export const convertDrafterState = (drafterState) => ({
-  basics: drafterState.basics,
-  picked: drafterState.picked,
-  seen: drafterState.seen,
-  cardsInPack: drafterState.cardsInPack,
-  cardOracleIds: drafterState.cards.map(({ details }) => details.oracle_id),
-  packNum: drafterState.packNum,
-  numPacks: drafterState.numPacks,
-  pickNum: drafterState.pickNum,
-  numPicks: drafterState.numPicks,
-  seed: drafterState.seed ?? Math.floor(Math.random() * 65536),
-});
+export const convertDrafterState = (drafterState) => {
+  const newState = {
+    basics: drafterState.basics,
+    picked: drafterState.picked,
+    seen: drafterState.seen,
+    cardsInPack: drafterState.cardsInPack,
+    cardOracleIds: drafterState.cards.map(({ details }) => details.oracle_id),
+    packNum: drafterState.packNum,
+    numPacks: drafterState.numPacks,
+    pickNum: drafterState.pickNum,
+    numPicks: drafterState.packSize,
+    seed: drafterState.seed ?? Math.floor(Math.random() * 65536),
+  };
+  return newState;
+};
 
 export const allBotsDraft = async (draft) => {
   let drafterStates = draft.seats.map((_, seatNumber) => getDrafterState({ draft, seatNumber }));
@@ -209,10 +214,12 @@ export const allBotsDraft = async (draft) => {
     if (action.match(/pick/)) {
       if (!action.match(/random/)) {
         // eslint-disable-next-line no-await-in-loop
-        picks = await drafterStates.map(async (drafterState) => {
-          const result = await calculateBotPick(convertDrafterState(drafterState));
-          return result.chosenOption;
-        });
+        picks = await Promise.all(
+          drafterStates.map(async (drafterState) => {
+            const result = await calculateBotPick(convertDrafterState(drafterState));
+            return drafterState.cardsInPack[result.chosenOption];
+          }),
+        );
       }
       draft = {
         ...draft,
@@ -240,7 +247,7 @@ export const allBotsDraft = async (draft) => {
                 worstIndex = i;
               }
             }
-            return worstIndex;
+            return drafterState.cardsInPack[worstScore];
           }),
         );
       }

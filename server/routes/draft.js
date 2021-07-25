@@ -204,7 +204,7 @@ const submitDraft = async (req, res) => {
     let botNumber = 1;
     for (const seat of draft.seats) {
       // eslint-disable-next-line no-await-in-loop
-      const { sideboard, deck: newDeck, colors } = await buildDeck(draft.cards, seat.pickorder, draft.basics);
+      const { sideboard, deck: newDeck, colors } = await buildDeck({ cards: draft.cards, picked: seat.pickorder });
       const colorString =
         colors.length === 0 ? 'C' : COLOR_COMBINATIONS.find((comb) => Util.arraysAreEqualSets(comb, colors)).join('');
       if (seat.bot) {
@@ -253,14 +253,14 @@ const submitDraft = async (req, res) => {
     const cubeUpdate = cube.numDecks ? { $inc: { numDecks: 1 } } : { $set: { numDecks: 1 } };
     Cube.updateOne({ _id: cube._id }, cubeUpdate);
     cubeOwner.save();
-    saveDraftAnalytics(draft, seatNum, carddb);
-    await deckQ;
+    await Promise.all([saveDraftAnalytics(draft, seatNum, carddb), deckQ]);
     addDeckCardAnalytics(cube, deck, carddb);
     return res.status(200).send({
       success: 'true',
       url: req.query.skipDeckbuilder ? `/deck/${deck._id}` : `/deck/${deck._id}/build`,
     });
   } catch (err) {
+    req.logger.error(err);
     return res.status(500).send({
       success: 'false',
     });

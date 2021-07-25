@@ -29,6 +29,7 @@ import { getCardColorClass } from '@cubeartisan/client/components/contexts/TagCo
 import { DrafterStatePropType, DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
 import { COLOR_COMBINATIONS, cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
 import { fromEntries } from '@cubeartisan/client/utils/Util.js';
+import { convertDrafterState } from '@cubeartisan/client/drafting/draftutil.js';
 
 const AutocardLink = withAutocard('a');
 const AutocardButton = withAutocard(Button);
@@ -80,7 +81,8 @@ export const DraftbotBreakdownTable = ({ drafterState }) => {
   const [botResult, setBotResult] = useState(null);
   useEffect(() => {
     (async () => {
-      const result = await calculateBotPick(drafterState);
+      const result = await calculateBotPick(convertDrafterState(drafterState));
+      console.log(result);
       setBotResult(result);
     })();
   }, [drafterState]);
