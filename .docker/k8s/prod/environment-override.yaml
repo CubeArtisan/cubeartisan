@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cubeartisan
+spec:
+  template:
+    spec:
+      containers:
+        - name: cubeartisan
+          env:
+            - name: SITE_ROOT
+              value: https://cubeartisan.net
