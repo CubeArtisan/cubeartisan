@@ -342,7 +342,6 @@ const viewDeckbuilder = async (req, res) => {
       req.flash('danger', 'Deck not found');
       return res.redirect('/404');
     }
-
     const deckOwner = await User.findById(deck.seats[0].userid).lean();
     if (!req.user || !deckOwner._id.equals(req.user._id)) {
       req.flash('danger', 'Only logged in deck owners can build decks.');
@@ -514,7 +513,7 @@ const updateDeck = async (req, res) => {
       }
       cardsArray.push(newCard);
     }
-    const { colors } = await buildDeck(cardsArray, deck.toObject().seats[0].deck.flat(3), []);
+    const { colors } = await buildDeck({ cards: cardsArray, picked: deck.toObject().seats[0].deck.flat(3) });
     const colorString =
       colors.length === 0 ? 'C' : COLOR_COMBINATIONS.find((comb) => Util.arraysAreEqualSets(comb, colors)).join('');
 
@@ -672,7 +671,7 @@ router.get('/:id/export/:seat/cockatrice', exportToCockatrice);
 router.delete('/:id', ensureAuth, deleteDeck);
 router.get('/:id/build', viewDeckbuilder);
 router.get('/:id/rebuild/:index', ensureAuth, rebuildDeck);
-router.put('/:id', ensureAuth, updateDeck);
+router.post('/:id', ensureAuth, updateDeck);
 router.get('/:id/redraft/:seat', redraftDeck);
 router.get('/:id', viewDeck);
 export default router;

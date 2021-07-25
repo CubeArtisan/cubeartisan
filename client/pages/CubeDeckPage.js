@@ -34,10 +34,8 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  // Spinner,
 } from 'reactstrap';
 
-// import CSRFForm from '@cubeartisan/client/pages/CSRFForm.js'
 import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
 import DeckCard from '@cubeartisan/client/components/DeckCard.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
@@ -113,12 +111,7 @@ export const CubeDeckPage = ({ cube, deck, draft, loginCallback }) => {
                     )}
                   />
                 </NavItem>
-                {user && deck.owner === user.id && (
-                  <NavItem>
-                    <NavLink href={`/deck/${deck._id}/build`}>Edit</NavLink>
-                  </NavItem>
-                )}
-                {/* loading && <Spinner className="position-absolute" /> */}
+                {user && deck.owner === user.id && <NavLink href={`/deck/${deck._id}/build`}>Edit</NavLink>}
                 {draft ? (
                   <UncontrolledDropdown nav inNavbar>
                     <DropdownToggle nav caret>
@@ -126,7 +119,6 @@ export const CubeDeckPage = ({ cube, deck, draft, loginCallback }) => {
                     </DropdownToggle>
                     <DropdownMenu right>
                       <DropdownItem href={`/deck/${deck._id}/redraft/${seatIndex}`}>Redraft</DropdownItem>
-                      {/* <DropdownItem onClick={haveBotsRedraft}>Have Bots Redraft</DropdownItem> */}
                       <DropdownItem href={`/deck/${deck._id}/rebuild/${seatIndex}`}>Clone and Rebuild</DropdownItem>
                     </DropdownMenu>
                   </UncontrolledDropdown>

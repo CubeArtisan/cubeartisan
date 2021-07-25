@@ -87,7 +87,6 @@ const MaybeboardListItem = ({ card, className }) => {
         const json = await response.json();
         if (json.success === 'true') {
           removeMaybeboardCard(index);
-          /* eslint-disable-line no-undef */ autocard_hide_card();
         } else {
           setLoading(false);
           console.error(json.message);

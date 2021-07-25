@@ -73,7 +73,7 @@ spec:
             - name: SITE_VERSION
               value: "<TAG>"
             - name: ELASTICSEARCH_URL
-              value: "https://elasticsearch:9200/"
+              value: "http://elasticsearch:9200/"
             - name: ELASTICSEARCH_USER
               valueFrom:
                 secretKeyRef:
@@ -92,7 +92,7 @@ spec:
                   name: cubeartisansecrets
                   key: ELASTIC_APM_SECRET_TOKEN
             - name: ELASTIC_APM_SERVER_URL
-              value: "https://apm-server:8200/"
+              value: "http://apm-server:8200/"
             - name: ELASTIC_APM_SERVICE_VERSION
               value: "<TAG>"
             - name: ELASTIC_APM_ACTIVE

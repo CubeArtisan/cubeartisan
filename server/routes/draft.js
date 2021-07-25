@@ -230,12 +230,9 @@ const submitDraft = async (req, res) => {
         });
       }
     }
-
-    const temp = deck.seats[0];
-    deck.seats[0] = deck.seats[seatNum];
-    deck.seats[seatNum] = temp;
+    rotateArrayLeft(deck.seats, seatNum);
     const deckQ = deck.save();
-    const userq = User.findById(deck.seats[seatNum].userid);
+    const userq = User.findById(deck.seats[0].userid);
     const cubeOwnerq = User.findById(cube.owner);
 
     const [user, cubeOwner] = await Promise.all([userq, cubeOwnerq]);
@@ -253,7 +250,7 @@ const submitDraft = async (req, res) => {
     const cubeUpdate = cube.numDecks ? { $inc: { numDecks: 1 } } : { $set: { numDecks: 1 } };
     Cube.updateOne({ _id: cube._id }, cubeUpdate);
     cubeOwner.save();
-    await Promise.all([saveDraftAnalytics(draft, seatNum, carddb), deckQ]);
+    await Promise.all([saveDraftAnalytics(draft, 0, carddb), deckQ]);
     addDeckCardAnalytics(cube, deck, carddb);
     return res.status(200).send({
       success: 'true',

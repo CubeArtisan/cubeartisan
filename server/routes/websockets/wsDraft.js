@@ -38,13 +38,13 @@ const getSeat = async (draftid, user) => {
 const manageWebsocketDraft = async (socket) => {
   const { draftid } = socket.handshake.query;
 
+  const [seatNumber, initialDraft] = await getSeat(draftid, socket.request.user);
+
   const getDraft = async () => {
     const draft = await Draft.findById(draftid).lean();
     draft.cards = draft.cards.map((card) => ({ ...card, details: carddb.cardFromId(card.cardID) }));
     return draft;
   };
-
-  const [seatNumber, initialDraft] = await getSeat(draftid, socket.request.user);
 
   if (seatNumber < 0) {
     socket.emit('no seats');
@@ -83,7 +83,13 @@ const manageWebsocketDraft = async (socket) => {
     if (!drafterState) {
       drafterState = getDrafterState({ draft, seatNumber: seatIndex });
     }
-    if (!drafterState.cardsInPack.includes(cardIndex)) return [{}, draft];
+    if (!drafterState.cardsInPack.includes(cardIndex)) {
+      winston.error({
+        message: `Tried picking ${cardIndex} from ${drafterState.cardsInPack} in draft ${draftid}`,
+        request: socket.request,
+      });
+      return [{}, draft];
+    }
     target = target ?? getDefaultPosition(draft.cards[cardIndex], draft.seats[seatIndex].drafted);
     draft.seats[seatIndex].drafted = moveOrAddCard(draft.seats[seatNumber].drafted, target, cardIndex);
     draft.seats[seatIndex].pickorder.push(cardIndex);
@@ -133,7 +139,7 @@ const manageWebsocketDraft = async (socket) => {
               // eslint-disable-next-line no-await-in-loop
               [changes, draft] = await pickCard(
                 draft,
-                result.chosenOption,
+                drafterState.cardsInPack[result.chosenOption],
                 null,
                 drafterState.seatNum,
                 changes,
@@ -152,7 +158,13 @@ const manageWebsocketDraft = async (socket) => {
                 }
               }
               // eslint-disable-next-line no-await-in-loop
-              [changes, draft] = await trashCard(draft, worstIndex, drafterState.seatNum, changes, drafterState);
+              [changes, draft] = await trashCard(
+                draft,
+                drafterState.cardsInPack[worstIndex],
+                drafterState.seatNum,
+                changes,
+                drafterState,
+              );
             }
           }
         }
