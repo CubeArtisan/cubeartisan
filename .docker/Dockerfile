@@ -10,7 +10,7 @@ COPY ./server/package.json server/package.json
 COPY ./client/package.json client/package.json
 COPY ./yarn.lock ./
 COPY ./.yarnrc.yml ./
-RUN yarn install --frozen-lockfile --production=false
+RUN yarn install --frozen-lockfile --production=false || yarn install --frozen-lockfile --production=false || yarn install --frozen-lockfile --production=false
 
 COPY ./server/babel.config.cjs server/babel.config.cjs
 COPY ./server/config   server/config/
@@ -39,6 +39,6 @@ COPY ./client/res        client/res/
 COPY ./client/utils      client/utils/
 
 RUN yarn build
-RUN yarn install --frozen-lockfile --production=true
+RUN yarn install --frozen-lockfile --production=true || yarn install --frozen-lockfile --production=true || yarn install --frozen-lockfile --production=true
 
 ENTRYPOINT sh -c 'yarn server'

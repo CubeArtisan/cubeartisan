@@ -13,6 +13,6 @@ jobs:
     - name: Yarn install cache
       uses: c-hive/gha-yarn-cache@v1
     - name: Setup
-      run: yarn install --frozen-lockfile
+      run: yarn install --frozen-lockfile --production=false || yarn install --frozen-lockfile --production=false || yarn install --frozen-lockfile --production=false
     - name: Run the CI script in yarn to check code style and unit tests.
       run: yarn ci
