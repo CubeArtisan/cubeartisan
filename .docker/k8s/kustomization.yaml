@@ -4,9 +4,7 @@ resources:
   - global/00-namespaces.yaml
   - global/02-elasticsearch.kube.yaml
   - global/04-kibana.kube.yaml
-  - global/06-apm-config.kube.yaml
   - global/07-apm-server.kube.yaml
-  - global/09-fluentd.kube.yaml
   - global/20-mongo-service-account.kube.yaml
   - ./prod
   - ./staging

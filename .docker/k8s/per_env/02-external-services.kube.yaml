@@ -4,7 +4,7 @@ metadata:
   name: elasticsearch
 spec:
   type: ExternalName
-  externalName: elasticsearch.kube-logging.svc.cluster.local
+  externalName: elasticsearch-es-http.kube-logging.svc.cluster.local
   ports:
     - port: 9200
       name: rest
@@ -17,6 +17,6 @@ metadata:
   name: apm-server
 spec:
   type: ExternalName
-  externalName: apm-server.kube-logging.svc.cluster.local
+  externalName: apm-server-apm-http.kube-logging.svc.cluster.local
   ports:
     - port: 8200

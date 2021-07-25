@@ -1,51 +1,28 @@
-apiVersion: v1
-kind: Service
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
 metadata:
-  name: kibana
   namespace: kube-logging
-  annotations:
-    cloud.google.com/neg: '{"ingress": true}'
-  labels:
-    app: kibana
-spec:
-  ports:
-  - port: 5601
-  selector:
-    app: kibana
-  type: ClusterIP
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
   name: kibana
-  namespace: kube-logging
-  labels:
-    app: kibana
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: kibana
-  template:
-    metadata:
-      labels:
-        app: kibana
+  version: 7.13.4
+  count: 1
+  http:
+    tls:
+      selfSignedCertificate:
+        disabled: true
+  elasticsearchRef:
+    name: elasticsearch
+  podTemplate:
     spec:
       containers:
-      - name: kibana
-        image: docker.elastic.co/kibana/kibana:7.13.3
-        resources:
-          limits:
-            memory: 2Gi
-            cpu: 1000m
-          requests:
-            memory: 2Gi
-            cpu: 1000m
-        env:
-          - name: ELASTICSEARCH_HOSTS
-            value: http://elasticsearch:9200
-          - name: SERVER_HOST
-            value: "0.0.0.0"
-        ports:
-        - containerPort: 5601
----
+        - name: kibana
+          env:
+            - name: NODE_OPTIONS
+              value: "--max-old-space-size=2048"
+          resources:
+            limits:
+              memory: 2.5Gi
+              cpu: 1000m
+            requests:
+              memory: 2.5Gi
+              cpu: 1000m

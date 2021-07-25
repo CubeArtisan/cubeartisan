@@ -10,3 +10,5 @@ spec:
           env:
             - name: SITE_ROOT
               value: https://cubeartisan.net
+            - name: ELASTIC_APM_ENVIRONMENT
+              value: https://cubeartisan.net
