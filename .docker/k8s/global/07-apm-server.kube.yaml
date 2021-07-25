@@ -17,3 +17,14 @@ spec:
     name: elasticsearch
   kibanaRef:
     name: kibana
+  podTemplate:
+    spec:
+      containers:
+        - name: apm-server
+          resources:
+            requests:
+              memory: 1Gi
+              cpu: 500m
+            limits:
+              memory: 1Gi
+              cpu: 500m

@@ -8,3 +8,4 @@ images:
   newTag: v0.1.0
 patchesStrategicMerge:
   - environment-override.yaml
+  - storage-class-override.yaml
