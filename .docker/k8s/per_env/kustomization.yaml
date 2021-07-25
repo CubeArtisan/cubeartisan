@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - 02-elasticsearch-service.kube.yaml
+  - 07-apm-service.kube.yaml
+  - 22-mongodb.kube.yaml
+  - 30-recommender.kube.yaml
+  - 40-cubeartisan.kube.yaml

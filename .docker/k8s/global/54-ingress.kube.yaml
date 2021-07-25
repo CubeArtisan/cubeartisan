@@ -4,12 +4,15 @@ metadata:
   name: cubeartisan-cert
 spec:
   domains:
-    - <ENV>
+    - cubeartisan.net
+    - kibana.cubeartisan.net
+    - staging.cubeartisan.net
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: cubeartisan-ingress
+  namespace: cubeartisan-ingress
   annotations:
     networking.gke.io/v1beta1.FrontendConfig: cubeartisan-frontend-config
     cloud.google.com/backend-config: '{"default": "cubeartisan-backend-config"}'
@@ -17,7 +20,7 @@ metadata:
     kubernetes.io/ingress.class: gce
 spec:
   rules:
-    - host: <ENV>
+    - host: cubeartisan.net
       http:
         paths:
           - path: /
@@ -25,5 +28,25 @@ spec:
             backend:
               service:
                 name: cubeartisan
+                port:
+                  number: 80
+    - host: staging.cubeartisan.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: cubeartisan-staging
+                port:
+                  number: 80
+    - host: kibana.cubeartisan.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: kibana
                 port:
                   number: 80

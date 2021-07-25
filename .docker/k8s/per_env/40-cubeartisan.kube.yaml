@@ -28,7 +28,8 @@ spec:
         name: cubeartisan
     spec:
       containers:
-        - image: "ghcr.io/cubeartisan/cubeartisan:<TAG>"
+        - name: cubeartisan
+          image: "ghcr.io/cubeartisan/cubeartisan:latest"
           imagePullPolicy: Always
           env:
             - name: NODE_ENV
@@ -90,7 +91,7 @@ spec:
             - name: LISTEN_ADDR
               value: "0.0.0.0"
             - name: SITE_ROOT
-              value: "https://<ENV>"
+              value: https://cubeartisan.net
             - name: SITE_NAME
               value: CubeArtisan (beta)
             - name: SUPPORT_EMAIL_FROM
@@ -103,7 +104,6 @@ spec:
               value: "https://discord.gg/NKCaZRFU"
             - name: SOURCE_REPO
               value: https://github.com/CubeArtisan/cubeartisan
-          name: cubeartisan
           ports:
             - containerPort: 5000
               name: cubeartisan

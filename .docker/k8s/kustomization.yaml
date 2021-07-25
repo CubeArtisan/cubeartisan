@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./prod
+  - ./staging
+  - global/00-namespaces.yaml
+  - global/02-elasticsearch.kube.yaml
+  - global/04-kibana.kube.yaml
+  - global/06-apm-config.kube.yaml
+  - global/07-apm-server.kube.yaml
+  - global/09-fluentd.kube.yaml
+  - global/20-mongo-service-account.kube.yaml
+  - global/50-ingress-gke-configs.kube.yaml
+  - global/51-ingress-external-services.kube.yaml
+  - global/54-ingress.kube.yaml

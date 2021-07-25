@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: cubeartisan-ingress
+  name: cubeartisan
+spec:
+  type: ExternalName
+  externalName: cubeartisan.cubeartisan.svc.cluster.local
+  ports:
+    - port: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: cubeartisan-ingress
+  name: cubeartisan-staging
+spec:
+  type: ExternalName
+  externalName: cubeartisan.cubeartisan-staging.svc.cluster.local
+  ports:
+    - port: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: cubeartisan-ingress
+  name: kibana
+spec:
+  type: ExternalName
+  externalName: kibana.kube-logging.svc.cluster.local
+  ports:
+    - port: 80
