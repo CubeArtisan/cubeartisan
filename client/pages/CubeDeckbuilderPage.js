@@ -80,7 +80,6 @@ export const CubeDeckbuilderPage = ({ cube, initialDeck, loginCallback }) => {
   const handleClickCard = useCallback(
     (event) => {
       event.preventDefault();
-      /* eslint-disable-line no-undef */ autocard_hide_card();
       const eventTarget = event.currentTarget;
       const locationType = eventTarget.getAttribute('data-location-type');
       const locationData = JSON.parse(eventTarget.getAttribute('data-location-data'));

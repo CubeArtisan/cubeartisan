@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useRef, useState, useMemo } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import DeckDeleteModal from '@cubeartisan/client/components/modals/DeckDeleteModal.js';
@@ -26,7 +26,6 @@ import { Collapse, Nav, Navbar, NavbarToggler, NavItem, NavLink, Input } from 'r
 
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
-import { buildDeck } from '@cubeartisan/client/drafting/deckutil.js';
 import BasicsModal from '@cubeartisan/client/components/modals/BasicsModal.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 
@@ -56,7 +55,8 @@ const DeckbuilderNavbar = ({ deck, addBasics, name, description, className, setS
     [saveForm],
   );
 
-  const stripped = useMemo(() => {
+  let stripped = null;
+  if (deck) {
     const res = JSON.parse(JSON.stringify(deck));
 
     for (const collection of [res.playerdeck, res.playersideboard]) {
@@ -70,25 +70,11 @@ const DeckbuilderNavbar = ({ deck, addBasics, name, description, className, setS
         }
       }
     }
-    const result = JSON.stringify({
+    stripped = JSON.stringify({
       playersideboard: res.playersideboard,
       playerdeck: res.playerdeck,
     });
-
-    return result;
-  }, [deck]);
-
-  const autoBuildDeck = useCallback(async () => {
-    let main = deck.seats[0].pickorder;
-    if (main.length <= 0) {
-      main = Array.from(deck.seats[0].deck.flat(3)).concat(...deck.seats[0].sideboard.flat(3));
-    }
-    const { sideboard: side, deck: newDeck } = await buildDeck(deck.cards, main, basics);
-    const newSide = side.map((row) => row.map((col) => col.map((ci) => deck.cards[ci])));
-    const newDeckCards = newDeck.map((row) => row.map((col) => col.map((ci) => deck.cards[ci])));
-    setSideboard(newSide);
-    setDeck(newDeckCards);
-  }, [deck, basics, setDeck, setSideboard]);
+  }
 
   return (
     <Navbar expand="md" light className={`usercontrols ${className}`} {...props}>
@@ -119,11 +105,6 @@ const DeckbuilderNavbar = ({ deck, addBasics, name, description, className, setS
             >
               Add Basic Lands
             </BasicsModalLink>
-          </NavItem>
-          <NavItem>
-            <NavLink href="#" onClick={autoBuildDeck}>
-              Build for Me
-            </NavLink>
           </NavItem>
           <CustomImageToggler />
         </Nav>
