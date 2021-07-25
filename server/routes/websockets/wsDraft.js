@@ -84,7 +84,10 @@ const manageWebsocketDraft = async (socket) => {
       drafterState = getDrafterState({ draft, seatNumber: seatIndex });
     }
     if (!drafterState.cardsInPack.includes(cardIndex)) {
-      winston.error(`Tried picking ${cardIndex} from ${drafterState.cardsInPack} in draft ${drafid}`);
+      winston.error({
+        message: `Tried picking ${cardIndex} from ${drafterState.cardsInPack} in draft ${draftid}`,
+        request: socket.request,
+      });
       return [{}, draft];
     }
     target = target ?? getDefaultPosition(draft.cards[cardIndex], draft.seats[seatIndex].drafted);
