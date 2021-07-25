@@ -9,9 +9,6 @@ spec:
     service:
       spec:
         type: NodePort
-    tls:
-      selfSignedCertificate:
-        disabled: true
   nodeSets:
     - name: zone-a
       count: 1
@@ -27,7 +24,7 @@ spec:
               resources:
                 limits:
                   memory: 4Gi
-                  cpu: 2000m
+                  cpu: 1000m
                 requests:
                   memory: 4Gi
-                  cpu: 2000m
+                  cpu: 1000m

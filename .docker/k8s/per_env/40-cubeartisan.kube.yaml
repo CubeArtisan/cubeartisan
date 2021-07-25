@@ -73,7 +73,7 @@ spec:
             - name: SITE_VERSION
               value: "<TAG>"
             - name: ELASTICSEARCH_URL
-              value: "http://elasticsearch:9200/"
+              value: "https://elasticsearch:9200/"
             - name: ELASTICSEARCH_USER
               valueFrom:
                 secretKeyRef:
@@ -125,11 +125,11 @@ spec:
           resources:
             limits:
               memory: 2Gi
-              cpu: 1500m
+              cpu: 1000m
               ephemeral-storage: 2Gi
             requests:
               memory: 2Gi
-              cpu: 1500m
+              cpu: 1000m
               ephemeral-storage: 2Gi
           readinessProbe:
             httpGet:

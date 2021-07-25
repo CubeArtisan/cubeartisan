@@ -46,20 +46,20 @@ spec:
               mountPath: /data/db
           resources:
             limits:
-              memory: 4Gi
-              cpu: 2000m
+              memory: 2.1Gi
+              cpu: 1150m
             requests:
-              memory: 4Gi
-              cpu: 2000m
+              memory: 2Gi
+              cpu: 1150m
         - name: mongo-sidecar
           image: morphy/k8s-mongo-sidecar
           resources:
             limits:
-              memory: 256Mi
-              cpu: 250m
+              memory: 0.15Gi
+              cpu: 100m
             requests:
-              memory: 256Mi
-              cpu: 250m
+              memory: 0.15Gi
+              cpu: 100m
           env:
             - name: KUBERNETES_POD_LABELS
               value: "role=mongo,environment=test"

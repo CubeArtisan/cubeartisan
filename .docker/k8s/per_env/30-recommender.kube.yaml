@@ -43,10 +43,10 @@ spec:
           resources:
             limits:
               memory: 4Gi
-              cpu: 2000m
+              cpu: 1000m
             requests:
               memory: 4Gi
-              cpu: 2000m
+              cpu: 1000m
           imagePullPolicy: Always
       restartPolicy: Always
       imagePullSecrets:

@@ -7,7 +7,18 @@ spec:
   version: 7.13.4
   elasticsearchRefs:
     - name: elasticsearch
-  daemonSet: {}
+  daemonSet:
+    podTemplate:
+      spec:
+        containers:
+          - name: agent
+            resources:
+              requests:
+                memory: 256Mi
+                cpu: 250m
+              limits:
+                memory: 256Mi
+                cpu: 250m
   config:
     inputs:
       - name: system-1
