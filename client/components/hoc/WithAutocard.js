@@ -16,9 +16,12 @@ import {
 } from '@cubeartisan/client/utils/Card.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
+const placeholderClass = () => '';
+
 const withAutocard = (Tag) => {
   const WithAutocard = forwardRef(({ card, front, back, tags, ...props }, ref) => {
-    const { tagColorClass } = useContext(TagContext);
+    const tagContext = useContext(TagContext);
+    const tagColorClass = tagContext?.tagColorClass ?? placeholderClass;
     const { showCustomImages } = useContext(DisplayContext);
     const backupRef = useRef();
     card = card ?? { details: {} };

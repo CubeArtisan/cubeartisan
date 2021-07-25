@@ -125,9 +125,7 @@ LabelRow.propTypes = {
 
 const useBotsOnlyCallback = (botsOnly, cubeID) => {
   const formRef = useRef();
-  const submitDeckForm = useRef();
   const [loading, setLoading] = useState(false);
-  const [draftId, setDraftId] = useState({ _id: '' });
   const submitForm = useCallback(
     async (e) => {
       if (botsOnly) {
@@ -141,8 +139,10 @@ const useBotsOnlyCallback = (botsOnly, cubeID) => {
 
         const json = await response.json();
 
-        setDraftId(json.draft._id);
         const draft = await allBotsDraft(json.draft);
+        for (const card of draft.cards) {
+          delete card.details;
+        }
 
         await csrfFetch(`/draft/${draft._id}`, {
           method: 'PUT',
@@ -150,13 +150,16 @@ const useBotsOnlyCallback = (botsOnly, cubeID) => {
           headers: { 'Content-Type': 'application/json' },
         });
 
-        submitDeckForm.current.submit();
+        const response2 = await csrfFetch(`/draft/${draft._id}/submit/0?skipDeckbuilder=1`, { method: 'POST' });
+        const json2 = await response2.json();
+        console.debug(json2.url);
+        window.location.href = json2.url;
       }
     },
-    [botsOnly, cubeID, formRef, setDraftId, submitDeckForm],
+    [botsOnly, cubeID, formRef],
   );
 
-  return [submitForm, draftId, submitDeckForm, formRef, loading];
+  return [submitForm, formRef, loading];
 };
 
 const CustomDraftCard = ({
@@ -170,19 +173,9 @@ const CustomDraftCard = ({
   const { cubeID, canEdit } = useContext(CubeContext);
   const { index } = format;
   const [botsOnly, toggleBotsOnly] = useToggle(false);
-  const [submitForm, draftId, submitDeckForm, formRef, loading] = useBotsOnlyCallback(botsOnly, cubeID);
+  const [submitForm, formRef, loading] = useBotsOnlyCallback(botsOnly, cubeID);
   return (
     <Card {...props}>
-      <CSRFForm
-        key="submitdeck"
-        className="d-none"
-        innerRef={submitDeckForm}
-        method="POST"
-        action={`/draft/${draftId}/submit`}
-      >
-        <Input type="hidden" name="body" value={draftId} />
-        <Input type="hidden" name="skipDeckbuilder" value="true" />
-      </CSRFForm>
       <CSRFForm
         method="POST"
         key="createDraft"
@@ -270,19 +263,9 @@ CustomDraftCard.propTypes = {
 const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
   const { cubeID, canEdit } = useContext(CubeContext);
   const [botsOnly, toggleBotsOnly] = useToggle(false);
-  const [submitForm, draftId, submitDeckForm, formRef, loading] = useBotsOnlyCallback(botsOnly, cubeID);
+  const [submitForm, formRef, loading] = useBotsOnlyCallback(botsOnly, cubeID);
   return (
     <Card className="mb-3">
-      <CSRFForm
-        key="submitdeck"
-        className="d-none"
-        innerRef={submitDeckForm}
-        method="POST"
-        action={`/draft/${draftId}/submit`}
-      >
-        <Input type="hidden" name="body" value={draftId} />
-        <Input type="hidden" name="skipDeckbuilder" value="true" />
-      </CSRFForm>
       <CSRFForm method="POST" action={`/cube/${cubeID}/playtest/draft`} onSubmit={submitForm} innerRef={formRef}>
         <CardHeader>
           <CardTitleH5>{defaultDraftFormat === -1 && 'Default Format: '}Standard Draft</CardTitleH5>

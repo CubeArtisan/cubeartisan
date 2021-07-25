@@ -1,12 +1,12 @@
 import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 
+import { calculateBotPick } from 'mtgdraftbots';
 import seedrandom from 'seedrandom';
 
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import Draft from '@cubeartisan/server/models/draft.js';
-import { getDefaultPosition, getDrafterState } from '@cubeartisan/client/drafting/draftutil.js';
+import { convertDrafterState, getDefaultPosition, getDrafterState } from '@cubeartisan/client/drafting/draftutil.js';
 import { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation.js';
-import { calculateBotPick } from '@cubeartisan/client/drafting/draftbots.js';
 
 const getSeat = async (draftid, user) => {
   let draft = await Draft.findById(draftid).lean();
@@ -128,14 +128,31 @@ const manageWebsocketDraft = async (socket) => {
             }
           } else if (draft.seats[drafterState.seatNum].bot) {
             if (drafterState.step.action.match(/pick/)) {
-              const cardIndex = calculateBotPick(drafterState, false);
               // eslint-disable-next-line no-await-in-loop
-              [changes, draft] = await pickCard(draft, cardIndex, null, drafterState.seatNum, changes, drafterState);
+              const result = await calculateBotPick(convertDrafterState(drafterState));
+              // eslint-disable-next-line no-await-in-loop
+              [changes, draft] = await pickCard(
+                draft,
+                result.chosenIndex,
+                null,
+                drafterState.seatNum,
+                changes,
+                drafterState,
+              );
             }
             if (drafterState.step.action.match(/trash/)) {
-              const cardIndex = calculateBotPick(drafterState, true);
               // eslint-disable-next-line no-await-in-loop
-              [changes, draft] = await trashCard(draft, cardIndex, drafterState.seatNum, changes, drafterState);
+              const result = await calculateBotPick(convertDrafterState(drafterState));
+              let worstIndex = 0;
+              let worstScore = 2;
+              for (let i = 0; i < result.scores.length; i++) {
+                if (result.scores[i].score < worstScore) {
+                  worstScore = result.scores[i].score;
+                  worstIndex = i;
+                }
+              }
+              // eslint-disable-next-line no-await-in-loop
+              [changes, draft] = await trashCard(draft, worstIndex, drafterState.seatNum, changes, drafterState);
             }
           }
         }

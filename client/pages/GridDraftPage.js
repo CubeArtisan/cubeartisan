@@ -32,6 +32,7 @@ import {
   Input,
   Badge,
 } from 'reactstrap';
+import { calculateBotPickFromOptions } from 'mtgdraftbots';
 
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
@@ -48,8 +49,7 @@ import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { makeSubtitle } from '@cubeartisan/client/utils/Card.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import Location, { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation.js';
-import { calculateBotPickFromOptions } from '@cubeartisan/client/drafting/draftbots.js';
-import { getDefaultPosition } from '@cubeartisan/client/drafting/draftutil.js';
+import { convertDrafterState, getDefaultPosition } from '@cubeartisan/client/drafting/draftutil.js';
 import { getGridDrafterState } from '@cubeartisan/client/drafting/griddraftutils.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import { fromEntries, toNullableInt } from '@cubeartisan/client/utils/Util.js';
@@ -58,7 +58,6 @@ const GRID_DRAFT_OPTIONS = [0, 1, 2].flatMap((ind) => [
   [0, 1, 2].map((offset) => 3 * ind + offset),
   [0, 1, 2].map((offset) => ind + 3 * offset),
 ]);
-export const calculateGridBotPick = calculateBotPickFromOptions(GRID_DRAFT_OPTIONS);
 
 const Pack = ({ pack, packNumber, pickNumber, makePick, seatIndex, turn }) => (
   <Card className="mt-3">
@@ -233,15 +232,37 @@ export const GridDraftPage = ({ cube, initialDraft, seatNumber, loginCallback })
   }, [doneDrafting, gridDraft]);
 
   useEffect(() => {
-    if (botDrafterState.turn && draftType === 'bot') {
-      mutations.makePick({ cardIndices: calculateGridBotPick(botDrafterState), seatIndex: botIndex });
-    }
+    (async () => {
+      if (botDrafterState.turn && draftType === 'bot') {
+        const iCardsInPack = [];
+        const mapped = [];
+        for (const idx of botDrafterState.cardsInPack) {
+          if (idx !== null) {
+            mapped.push(iCardsInPack.length);
+            iCardsInPack.push(idx);
+          } else {
+            mapped.push(null);
+          }
+        }
+        const options = GRID_DRAFT_OPTIONS.map((option) =>
+          option.map((x) => mapped[x]).filter((x) => x !== null),
+        ).filter((option) => option.length > 0);
+        const result = await calculateBotPickFromOptions(
+          {
+            ...convertDrafterState(botDrafterState),
+            cardsInPack: iCardsInPack,
+          },
+          options,
+        );
+        mutations.makePick({ cardIndices: options[result.chosenOption], seatIndex: botIndex });
+      }
+    })();
   }, [draftType, botDrafterState, mutations, botIndex]);
 
   return (
     <MainLayout loginCallback={loginCallback}>
       <CubeLayout cube={cube} activeLink="playtest">
-        <DisplayContextProvider>
+        <DisplayContextProvider cubeID={cube._id}>
           <Navbar expand="xs" light className="usercontrols">
             <Collapse navbar>
               <Nav navbar>

@@ -19,7 +19,8 @@
 import PropTypes from 'prop-types';
 
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
-import { COLORS } from '@cubeartisan/client/drafting/draftbots.js';
+
+const COLORS = ['W', 'U', 'B', 'R', 'G'];
 
 export const StepPropType = PropTypes.shape({
   action: PropTypes.oneOf(['pass', 'pick', 'pickrandom', 'trash', 'trashrandom']).isRequired,

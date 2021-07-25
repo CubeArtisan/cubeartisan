@@ -10,3 +10,13 @@ spec:
       name: rest
     - port: 80
       name: http
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: apm-server
+spec:
+  type: ExternalName
+  externalName: apm-server.kube-logging.svc.cluster.local
+  ports:
+    - port: 8200

@@ -77,7 +77,7 @@ export function encodeName(name) {
 }
 
 export function decodeName(name) {
-  return decodeURIComponent(name.toLowerCase());
+  return decodeURIComponent(name?.toLowerCase?.() ?? 'Invalid Card');
 }
 
 export function cardsAreEquivalent(a, b) {
@@ -113,7 +113,7 @@ export const cardStatus = (card) => card.status;
 
 export const cardColorIdentity = (card) => card.colors ?? card.details.color_identity;
 
-export const cardCmc = (card) => card.cmc ?? card.details.cmc;
+export const cardCmc = (card) => card?.cmc ?? card?.details?.cmc;
 
 export const cardId = (card) => card.cardID ?? card.details._id;
 
