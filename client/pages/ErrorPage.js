@@ -25,16 +25,7 @@ import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
-export const ErrorPage = ({
-  title,
-  error,
-  requestId,
-  loginCallback,
-  details,
-  siteCustomizations: { discordUrl, siteName },
-}) => {
-  console.log(details);
-
+export const ErrorPage = ({ title, error, requestId, loginCallback, siteCustomizations: { discordUrl, siteName } }) => {
   return (
     <MainLayout loginCallback={loginCallback}>
       <DynamicFlash />
@@ -62,24 +53,19 @@ export const ErrorPage = ({
     </MainLayout>
   );
 };
-
 ErrorPage.propTypes = {
   title: PropTypes.string.isRequired,
   requestId: PropTypes.string,
   error: PropTypes.string,
-  details: PropTypes.shape({}),
   loginCallback: PropTypes.string,
   siteCustomizations: PropTypes.shape({
     discordUrl: PropTypes.string.isRequired,
     siteName: PropTypes.string.isRequired,
   }).isRequired,
 };
-
 ErrorPage.defaultProps = {
   loginCallback: '/',
   requestId: null,
   error: null,
-  details: {},
 };
-
 export default RenderToRoot(ErrorPage);

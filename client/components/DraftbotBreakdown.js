@@ -82,7 +82,6 @@ export const DraftbotBreakdownTable = ({ drafterState }) => {
   useEffect(() => {
     (async () => {
       const result = await calculateBotPick(convertDrafterState(drafterState));
-      console.log(result);
       setBotResult(result);
     })();
   }, [drafterState]);

@@ -40,7 +40,7 @@ const CreatorVideos = () => {
     const fetchData = async () => {
       const response = await csrfFetch(`/videos/${user.id}/${page}`);
       if (!response.ok) {
-        console.log(response);
+        console.warn(response);
       }
       const json = await response.json();
 
