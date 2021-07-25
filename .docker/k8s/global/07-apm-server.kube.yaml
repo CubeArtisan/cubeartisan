@@ -1,45 +1,19 @@
-apiVersion: v1
-kind: Service
+apiVersion: apm.k8s.elastic.co/v1
+kind: ApmServer
 metadata:
   name: apm-server
   namespace: kube-logging
-  labels:
-    app: apm-server
 spec:
-  ports:
-  - port: 8200
-  selector:
-    app: apm-server
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  namespace: kube-logging
-  name: apm-server
-  labels:
-    app: apm-server
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: apm-server
-  template:
-    metadata:
-      labels:
-        app: apm-server
-    spec:
-      containers:
-      - name: apm-server
-        image: docker.elastic.co/apm/apm-server:7.13.3
-        env:
-          - name: output.elasticsearch.hosts
-            value: http://elasticsearch:9200/
-        resources:
-          limits:
-            memory: 2Gi
-            cpu: 1000m
-          requests:
-            memory: 2Gi
-            cpu: 1000m
-        ports:
-        - containerPort: 8200
+  http:
+    service:
+      spec:
+        type: NodePort
+    tls:
+      selfSignedCertificate:
+        disabled: true
+  version: 7.13.4
+  count: 1
+  elasticsearchRef:
+    name: elasticsearch
+  kibanaRef:
+    name: kibana

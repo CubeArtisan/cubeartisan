@@ -12,3 +12,8 @@ kind: Namespace
 apiVersion: v1
 metadata:
   name: cubeartisan-staging
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: cubeartisan-ingress

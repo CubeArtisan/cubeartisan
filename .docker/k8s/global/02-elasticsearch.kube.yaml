@@ -1,98 +1,33 @@
-apiVersion: v1
-kind: Service
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
 metadata:
-  name: elasticsearch
   namespace: kube-logging
-  labels:
-    app: elasticsearch
-spec:
-  selector:
-    app: elasticsearch
-  clusterIP: None
-  ports:
-    - port: 9200
-      name: rest
-    - port: 9300
-      name: inter-node
----
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
   name: elasticsearch
-  namespace: kube-logging
 spec:
-  podManagementPolicy: OrderedReady
-  replicas: 1
-  revisionHistoryLimit: 10
-  selector:
-    matchLabels:
-      app: elasticsearch
-  serviceName: elasticsearch
-  template:
-    metadata:
-      creationTimestamp: null
-      labels:
-        app: elasticsearch
-        kubernetes.io/cluster-service: "true"
-    spec:
-      containers:
-        - env:
-            - name: MINIMUM_MASTER_NODES
-              value: "1"
-            - name: cluster.name
-              value: k8s-logs
-            - name: node.name
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.name
-            - name: NAMESPACE
-              valueFrom:
-                fieldRef:
-                  apiVersion: v1
-                  fieldPath: metadata.namespace
-            - name: discovery.type
-              value: single-node
-            - name: ES_JAVA_OPTS
-              value: "-Xms512m -Xmx2048m"
-          image: docker.elastic.co/elasticsearch/elasticsearch:7.13.3
-          imagePullPolicy: IfNotPresent
-          name: elasticsearch
-          ports:
-            - containerPort: 9200
-              name: rest
-              protocol: TCP
-            - containerPort: 9300
-              name: inter-node
-              protocol: TCP
-          resources:
-            limits:
-              memory: 4Gi
-              cpu: 1000m
-            requests:
-              memory: 4Gi
-              cpu: 1000m
-          terminationMessagePath: /dev/termination-log
-          terminationMessagePolicy: File
-          volumeMounts:
-            - mountPath: /usr/share/elasticsearch/data
-              name: elasticsearch
-      dnsPolicy: ClusterFirst
-      restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
-  volumeClaimTemplates:
-    - metadata:
-        name: elasticsearch
-        labels:
-          app: elasticsearch
+  version: 7.13.4
+  http:
+    service:
       spec:
-        accessModes: [ "ReadWriteOnce" ]
-        storageClassName: standard-rwo
-        resources:
-          requests:
-            storage: 50Gi
-  updateStrategy:
-    rollingUpdate:
-      partition: 0
-    type: RollingUpdate
+        type: NodePort
+    tls:
+      selfSignedCertificate:
+        disabled: true
+  nodeSets:
+    - name: zone-a
+      count: 1
+      config:
+        node.store.allow_mmap: false
+      podTemplate:
+        spec:
+          containers:
+            - name: elasticsearch
+              env:
+                - name: ES_JAVA_OPTS
+                  value: -Xms2g -Xmx2g
+              resources:
+                limits:
+                  memory: 4Gi
+                  cpu: 2000m
+                requests:
+                  memory: 4Gi
+                  cpu: 2000m
