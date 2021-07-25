@@ -1,5 +1,8 @@
 FROM node:16
 
+ENV DEBUG=false
+ENV NODE_ENV=production
+
 WORKDIR /CubeArtisan
 RUN mkdir client server
 COPY ./package.json ./
@@ -7,8 +10,7 @@ COPY ./server/package.json server/package.json
 COPY ./client/package.json client/package.json
 COPY ./yarn.lock ./
 COPY ./.yarnrc.yml ./
-ENV NODE_ENV=development
-RUN yarn install
+RUN yarn install --frozen-lockfile --production=false
 
 COPY ./server/babel.config.cjs server/babel.config.cjs
 COPY ./server/config   server/config/
@@ -36,9 +38,7 @@ COPY ./client/proptypes  client/proptypes/
 COPY ./client/res        client/res/
 COPY ./client/utils      client/utils/
 
-ENV NODE_ENV=production
-ENV DEBUG=false
 RUN yarn build
-RUN yarn upgrade
+RUN yarn install --frozen-lockfile --production=true
 
 ENTRYPOINT sh -c 'yarn server'

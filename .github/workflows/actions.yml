@@ -10,6 +10,8 @@ jobs:
         node-version: '16'
     - name: Update NPM
       run: npm install -g yarn
+    - name: Yarn install cache
+      uses: c-hive/gha-yarn-cache@v1
     - name: Setup
       run: yarn install --frozen-lockfile
     - name: Run the CI script in yarn to check code style and unit tests.
