@@ -47,5 +47,7 @@ jobs:
           cd .docker/k8s/staging
           ../../../kustomize edit set image ghcr.io/cubeartisan/cubeartisan:${GITHUB_SHA:0:8}
           ../../../kustomize build . | kubectl apply -f -
-          kubectl rollout status -n cubeartisan-staging deployment/$DEPLOYMENT_NAME
+      - name: Check Deployment
+        run: |-
+          kubectl rollout status -n cubeartisan-staging deployment/$DEPLOYMENT_NAME --timeout=300s
           kubectl get -n cubeartisan-staging services -o wide
