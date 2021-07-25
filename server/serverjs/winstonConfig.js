@@ -45,7 +45,13 @@ if (process.env.ELASTICSEARCH_URL) {
   const transportOptions = {
     level: 'info',
     dataStream: true,
-    clientOpts: { node: process.env.ELASTICSEARCH_URL },
+    clientOpts: {
+      node: process.env.ELASTICSEARCH_URL,
+      auth: {
+        username: process.env.ELASTICSEARCH_USER,
+        password: process.env.ELASTICSEARCH_PASSWORD,
+      },
+    },
     apm,
   };
   transports.push(new ElasticsearchTransport(transportOptions));
