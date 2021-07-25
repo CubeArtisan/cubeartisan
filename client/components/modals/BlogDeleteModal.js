@@ -31,7 +31,7 @@ const BlogDeleteModal = ({ isOpen, toggle, postID, cubeID }) => {
     });
 
     if (!response.ok) {
-      console.log(response);
+      console.warn(response);
     } else {
       window.location.href = '';
     }

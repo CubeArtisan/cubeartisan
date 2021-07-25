@@ -41,7 +41,7 @@ const CreatorArticles = () => {
     const fetchData = async () => {
       const response = await csrfFetch(`/articles/${user.id}/${page}`);
       if (!response.ok) {
-        console.log(response);
+        console.warn(response);
       }
       const json = await response.json();
 
