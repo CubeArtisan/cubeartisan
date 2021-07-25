@@ -173,7 +173,7 @@ const CustomDraftCard = ({
   const { cubeID, canEdit } = useContext(CubeContext);
   const { index } = format;
   const [botsOnly, toggleBotsOnly] = useToggle(false);
-  const [submitForm, draftId, submitDeckForm, formRef, loading] = useBotsOnlyCallback(botsOnly, cubeID);
+  const [submitForm, formRef, loading] = useBotsOnlyCallback(botsOnly, cubeID);
   return (
     <Card {...props}>
       <CSRFForm

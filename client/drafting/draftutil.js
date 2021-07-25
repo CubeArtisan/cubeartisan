@@ -247,7 +247,7 @@ export const allBotsDraft = async (draft) => {
                 worstIndex = i;
               }
             }
-            return drafterState.cardsInPack[worstScore];
+            return drafterState.cardsInPack[worstIndex];
           }),
         );
       }
