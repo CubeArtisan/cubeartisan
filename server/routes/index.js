@@ -82,7 +82,7 @@ const __filename = fileURLToPath(import.meta.url);
 // eslint-disable-next-line no-underscore-dangle
 const __dirname = path.dirname(__filename);
 const MongoDBStore = MongoDBStoreFactory(session);
-const connection = connectionQ();
+await connectionQ();
 const db = mongoose.connection;
 db.once('open', () => {
   winston.info('Connected to Mongo.');
@@ -731,27 +731,26 @@ app.use((_req, res) => res.redirect(303, '/404'));
 
 const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
 // Start server after carddb is initialized.
-connection.then(() => carddb.initializeCardDb().then(() => {
-  const httpServer = http.createServer(app);
-  const wsServer = new SocketIO(httpServer, { cors: { origin: process.env.SITE_ROOT } });
-  wsServer.use(wrap(sessionConfig));
-  wsServer.use(wrap(passportInitialized));
-  wsServer.use(wrap(passportSession));
-  // wsServer.use(wrap(requestLogging));
-  wsServer.use((socket, next) => {
-    if (socket.request.isAuthenticated()) return next();
-    return next(new Error("Authentication is required to use websockets."));
-  });
-  const draftingWsRoute = wsServer.of('/wsdraft');
-  draftingWsRoute.use(wrap(sessionConfig));
-  draftingWsRoute.use(wrap(passportInitialized));
-  draftingWsRoute.use(wrap(passportSession));
-  draftingWsRoute.use((socket, next) => {
-    if (socket.request.isAuthenticated()) return next();
-    return next(new Error("Authentication is required to use websockets."));
-  });
-  draftingWsRoute.on('connection', manageWebsocketDraft)
-  httpServer.listen(process.env.PORT ?? 5000, process.env.LISTEN_ADDR, () => {
-    winston.info(`Server started on port ${process.env.PORT || 5000}...`);
-  });
-}));
+await carddb.initializeCardDb();
+const httpServer = http.createServer(app);
+const wsServer = new SocketIO(httpServer, { cors: { origin: process.env.SITE_ROOT } });
+wsServer.use(wrap(sessionConfig));
+wsServer.use(wrap(passportInitialized));
+wsServer.use(wrap(passportSession));
+// wsServer.use(wrap(requestLogging));
+wsServer.use((socket, next) => {
+  if (socket.request.isAuthenticated()) return next();
+  return next(new Error("Authentication is required to use websockets."));
+});
+const draftingWsRoute = wsServer.of('/wsdraft');
+draftingWsRoute.use(wrap(sessionConfig));
+draftingWsRoute.use(wrap(passportInitialized));
+draftingWsRoute.use(wrap(passportSession));
+draftingWsRoute.use((socket, next) => {
+  if (socket.request.isAuthenticated()) return next();
+  return next(new Error("Authentication is required to use websockets."));
+});
+draftingWsRoute.on('connection', manageWebsocketDraft)
+httpServer.listen(process.env.PORT ?? 5000, process.env.LISTEN_ADDR, () => {
+  winston.info(`Server started on port ${process.env.PORT || 5000}...`);
+});
