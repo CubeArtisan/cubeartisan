@@ -94,6 +94,15 @@ const withAutocard = (Tag) => {
     back: null,
     tags: null,
   };
+  if (typeof Tag === 'string') {
+    WithAutocard.displayName = `${Tag}WithAutocard`;
+  } else if (Tag.displayName) {
+    WithAutocard.displayName = `${Tag.displayName}WithAutocard`;
+  } else if (Tag.name) {
+    WithAutocard.displayName = `${Tag.name}WithAutocard`;
+  } else {
+    WithAutocard.displayName = 'WithAutocard';
+  }
   return WithAutocard;
 };
 

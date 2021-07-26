@@ -43,7 +43,15 @@ const withFoilOverlay = (Tag) => {
   WithFoilOverlay.defaultProps = {
     finish: null,
   };
-  WithFoilOverlay.displayName = `${Tag.displayName ?? ''}WithFoilOverlay`;
+  if (typeof Tag === 'string') {
+    WithFoilOverlay.displayName = `${Tag}WithFoilOverlay`;
+  } else if (Tag.displayName) {
+    WithFoilOverlay.displayName = `${Tag.displayName}WithFoilOverlay`;
+  } else if (Tag.name) {
+    WithFoilOverlay.displayName = `${Tag.name}WithFoilOverlay`;
+  } else {
+    WithFoilOverlay.displayName = 'WithFoilOverlay';
+  }
   return WithFoilOverlay;
 };
 export default withFoilOverlay;

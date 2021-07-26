@@ -19,7 +19,6 @@
 import PropTypes from 'prop-types';
 
 const CubePropType = PropTypes.shape({
-  cube: PropTypes.string.isRequired,
   cards: PropTypes.arrayOf(
     PropTypes.shape({
       cardName: PropTypes.string,

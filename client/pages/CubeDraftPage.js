@@ -275,7 +275,10 @@ export const CubeDraftPage = ({ cube, initialDraft, loginCallback }) => {
       setPicking(null);
       setDrafterState(newDrafterState);
     });
-    socket.current.on('emptySeats', (newEmptySeats) => setEmptySeats(newEmptySeats));
+    socket.current.on('emptySeats', (newEmptySeats) => {
+      console.log('emptySeats:', newEmptySeats);
+      setEmptySeats(newEmptySeats);
+    });
     socket.current.connect();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
