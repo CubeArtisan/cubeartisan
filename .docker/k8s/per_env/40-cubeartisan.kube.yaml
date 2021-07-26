@@ -12,7 +12,7 @@ spec:
       targetPort: 5000
   selector:
     name: cubeartisan
-  type: ClusterIP
+  type: NodePort
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -86,6 +86,8 @@ spec:
                 secretKeyRef:
                   name: cubeartisansecrets
                   key: ELASTICSEARCH_PASSWORD
+            - name: ELASTIC_APM_CLOUD_PROVIDER
+              value: none
             - name: ELASTIC_APM_SERVICE_NAME
               value: CubeArtisan_beta
             - name: ELASTIC_APM_SECRET_TOKEN

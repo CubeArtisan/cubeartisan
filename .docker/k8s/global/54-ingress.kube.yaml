@@ -22,8 +22,8 @@ spec:
     - host: kibana.cubeartisan.net
       http:
         paths:
-          - path: /
-            pathType: Prefix
+          - path: /*
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: kibana-kb-http
@@ -54,8 +54,8 @@ spec:
     - host: staging.cubeartisan.net
       http:
         paths:
-          - path: /
-            pathType: Prefix
+          - path: /*
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: cubeartisan
@@ -86,8 +86,8 @@ spec:
     - host: cubeartisan.net
       http:
         paths:
-          - path: /
-            pathType: Prefix
+          - path: /*
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: cubeartisan

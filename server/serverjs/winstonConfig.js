@@ -51,6 +51,9 @@ if (process.env.ELASTICSEARCH_URL) {
         username: process.env.ELASTICSEARCH_USER,
         password: process.env.ELASTICSEARCH_PASSWORD,
       },
+      ssl: {
+        rejectUnauthorized: false,
+      },
     },
     apm,
   };
