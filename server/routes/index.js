@@ -86,7 +86,7 @@ const MongoDBStore = MongoDBStoreFactory(session);
 dotenv.config();
 
 // Connect db
-mongoose.connect(process.env.MONGODB_URL, {
+const connectionQ = mongoose.connect(process.env.MONGODB_URL, {
   useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -742,7 +742,7 @@ app.use((_req, res) => res.redirect(303, '/404'));
 
 const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
 // Start server after carddb is initialized.
-carddb.initializeCardDb().then(() => {
+connectionQ.then(() => carddb.initializeCardDb()).then(() => {
   const httpServer = http.createServer(app);
   const wsServer = new SocketIO(httpServer, { cors: { origin: process.env.SITE_ROOT } });
   wsServer.use(wrap(sessionConfig));
