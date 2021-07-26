@@ -1,11 +1,9 @@
 // Load Environment Variables
-import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import { setCubeType } from '@cubeartisan/server/serverjs/cubefn.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import Cube from '@cubeartisan/server/models/cube.js';
-
-dotenv.config();
+import connectionQ from '@cubeartisan/server/serverjs/mongoConnection';
 
 const batchSize = 100;
 
@@ -21,8 +19,7 @@ async function addVars(cube) {
 }
 
 (async () => {
-  await mongoose.connect(process.env.MONGODB_URL);
-  await carddb.initializeCardDb('private', true);
+  await Promise.all([carddb.initializeCardDb('private', true), connectionQ]);
 
   const count = await Cube.countDocuments();
   const cursor = Cube.find().cursor();

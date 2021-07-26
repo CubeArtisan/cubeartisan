@@ -34,7 +34,7 @@ import { hasProfanity, toBase36 } from '@cubeartisan/server/serverjs/util.js';
 import Cube from '@cubeartisan/server/models/cube.js';
 import { arraysEqual } from '@cubeartisan/client/utils/Util.js';
 // eslint-disable-next-line no-restricted-imports
-import cubefixture from '../fixtures/examplecube';
+import cubefixture from '../fixtures/examplecube.js';
 
 const fixturesPath = '__tests__/fixtures';
 

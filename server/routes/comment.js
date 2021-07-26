@@ -32,10 +32,6 @@ import Package from '@cubeartisan/server/models/package.js';
 import { render } from '@cubeartisan/server/serverjs/render.js';
 import { ensureAuth, csrfProtection } from '@cubeartisan/server/routes/middleware.js';
 
-import dotenv from 'dotenv';
-
-dotenv.config();
-
 const getReplyContext = {
   comment: async (id) => {
     const comment = await Comment.findById(id);

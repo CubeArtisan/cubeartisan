@@ -18,7 +18,6 @@
  */
 import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 
-import dotenv from 'dotenv';
 import express from 'express';
 import { body } from 'express-validator';
 
@@ -32,8 +31,6 @@ import CardHistory from '@cubeartisan/server/models/cardHistory.js';
 import getBlankCardHistory from '@cubeartisan/client/utils/BlankCardHistory.js';
 import generateMeta from '@cubeartisan/server/serverjs/meta.js';
 import { jsonValidationErrors } from '@cubeartisan/server/routes/middleware.js';
-
-dotenv.config();
 
 /* Page size for results */
 const PAGE_SIZE = 96;

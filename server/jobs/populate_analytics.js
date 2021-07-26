@@ -4,7 +4,6 @@
 // will oom without the added tag
 
 // Load Environment Variables
-import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
@@ -13,8 +12,7 @@ import Cube from '@cubeartisan/server/models/cube.js';
 import CardHistory from '@cubeartisan/server/models/cardHistory.js';
 import CardRating from '@cubeartisan/server/models/cardrating.js';
 import { fromEntries } from '@cubeartisan/server/serverjs/util.js';
-
-dotenv.config();
+import connectionQ from '@cubeartisan/server/serverjs/mongoConnection.js';
 
 const basics = ['mountain', 'forest', 'plains', 'island', 'swamp'];
 const RELATED_LIMIT = 24;
@@ -398,10 +396,6 @@ const run = async () => {
     vintage: 0,
   };
 
-  winston.info('Starting card db');
-
-  await carddb.initializeCardDb();
-
   winston.info('finished loading cards');
 
   const ratings = await CardRating.find({}).lean();
@@ -506,7 +500,8 @@ const run = async () => {
 };
 
 (async () => {
-  await mongoose.connect(process.env.MONGODB_URL);
+  await Promise.all([carddb.initializeCardDb('private', true), connectionQ]);
   await run();
+  await mongoose.disconnect();
   process.exit();
 })();

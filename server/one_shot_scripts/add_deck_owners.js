@@ -1,10 +1,8 @@
 // Load Environment Variables
-import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import Deck from '@cubeartisan/server/models/deck.js';
 import Cube from '@cubeartisan/server/models/cube.js';
-
-dotenv.config();
+import connectionQ from '@cubeartisan/server/serverjs/mongoConnection.js';
 
 const batchSize = 100;
 const skip = 120300;
@@ -29,7 +27,7 @@ async function addVars(deck) {
 }
 
 (async () => {
-  await mongoose.connect(process.env.MONGODB_URL);
+  await connectionQ;
   const count = await Deck.countDocuments();
   const cursor = Deck.find().skip(skip).cursor();
   // batch them by batchSize

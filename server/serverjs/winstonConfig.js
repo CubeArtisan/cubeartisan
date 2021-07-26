@@ -19,10 +19,7 @@
 // Load Environment Variables
 import apm from 'elastic-apm-node/start.js';
 import winston from 'winston';
-import dotenv from 'dotenv';
 import { ElasticsearchTransport } from 'winston-elasticsearch';
-
-dotenv.config();
 
 const linearFormat = winston.format((info) => {
   if (info.message) {

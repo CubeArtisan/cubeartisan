@@ -30,10 +30,6 @@ import PodcastEpisode from '@cubeartisan/server/models/podcastEpisode.js';
 import Video from '@cubeartisan/server/models/video.js';
 import { redirect, wrapAsyncApi } from '@cubeartisan/server/serverjs/util.js';
 
-import dotenv from 'dotenv';
-
-dotenv.config();
-
 const PAGE_SIZE = 24;
 
 const ensureContentCreator = ensureRole('ContentCreator');

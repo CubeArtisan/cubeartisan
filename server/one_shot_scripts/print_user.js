@@ -1,13 +1,11 @@
 // Load Environment Variables
-import dotenv from 'dotenv';
-import mongoose from 'mongoose';
 import User from '@cubeartisan/server/models/user.js';
+import connectionQ from '@cubeartisan/server/serverjs/mongoConnection';
 
-dotenv.config();
 const username = 'Ashok';
 
 (async () => {
-  await mongoose.connect(process.env.MONGODB_URL);
+  await connectionQ;
   const user = await User.findOne({ username });
   user.email = user.email.toLowerCase();
   await user.save();

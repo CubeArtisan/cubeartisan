@@ -19,7 +19,10 @@ settings:
     webpack:
       config: ./webpack.dev.cjs
 rules:
-  import/extensions: off
+  import/extensions:
+    - error
+    - always
+    - ignorePackages: true
   prettier/prettier:
     - error
     - endOfLine: lf

@@ -1,12 +1,9 @@
 // Load Environment Variables
-import dotenv from 'dotenv';
-import mongoose from 'mongoose';
 import CardHistory from '@cubeartisan/server/models/cardHistory.js';
-
-dotenv.config();
+import connectionQ from '@cubeartisan/server/serverjs/mongoConnection';
 
 (async () => {
-  await mongoose.connect(process.env.MONGODB_URL);
+  await connectionQ;
   const res = await CardHistory.deleteMany({ history: { $size: 1 } }).lean();
   console.log(res);
   console.log('done');
