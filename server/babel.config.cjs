@@ -17,7 +17,7 @@ module.exports = (api) => {
     plugins: [
       '@babel/plugin-proposal-nullish-coalescing-operator',
       '@babel/plugin-proposal-optional-chaining',
-      '@babel/plugin-syntax-top-level-await'
+      '@babel/plugin-syntax-top-level-await',
     ],
   };
   if (!api.env('test')) {
