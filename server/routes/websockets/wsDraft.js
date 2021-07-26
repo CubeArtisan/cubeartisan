@@ -199,7 +199,6 @@ const manageWebsocketDraft = async (socket) => {
     }
     socket.emit('drafterState', drafterState);
     const seatNumbers = draft.seats.filter(({ bot, userid }) => !bot && !userid).map((_, idx) => idx);
-    console.log(seatNumbers);
     socket.emit('emptySeats', seatNumbers.length);
     if (drafterState.packNum >= drafterState.numPacks) {
       socket.disconnect(true);

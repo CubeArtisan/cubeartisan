@@ -1106,10 +1106,8 @@ const startDraft = async (req, res) => {
         card.details.elo = eloOverrideDict[card.details.name_lower];
       }
     }
-    console.log(params);
     // setup draft
     const format = getDraftFormat(params, cube);
-    console.log(format);
 
     let draft = new Draft();
     let populated = {};

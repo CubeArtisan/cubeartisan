@@ -146,7 +146,6 @@ async function downloadDefaultCards(basePath = 'private', defaultSourcePath = nu
   const res = await fetch('https://api.scryfall.com/bulk-data');
   if (!res.ok) throw new Error(`Download of /bulk-data failed with code ${res.status}`);
   const json = await res.json();
-  console.log(JSON.stringify(json, null, 2));
 
   for (const data of json.data) {
     if (data.type === 'default_cards') {
