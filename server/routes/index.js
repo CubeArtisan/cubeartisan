@@ -86,12 +86,15 @@ const MongoDBStore = MongoDBStoreFactory(session);
 dotenv.config();
 
 // Connect db
-const connectionQ = mongoose.connect(process.env.MONGODB_URL, {
-  useCreateIndex: true,
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-});
+const connectionQ = mongoose.connect(
+  `mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.DBNAME}?replicaSet=${process.env.MONGODB_REPLICASET}&authSource=${process.env.MONGODB_AUTH_DB}`,
+  {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  },
+);
 
 const db = mongoose.connection;
 db.once('open', () => {
