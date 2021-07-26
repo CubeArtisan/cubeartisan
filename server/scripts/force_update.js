@@ -16,6 +16,7 @@ import connectionQ from '@cubeartisan/server/serverjs/mongoConnection.js';
       histories = await CardHistory.find({}, 'oracleId current.total current.picks').lean();
     }
     await updatedb.updateCardbase(ratings, histories);
+    await mongoose.disconnect();
   } catch (error) {
     winston.error(error, { error });
   }
