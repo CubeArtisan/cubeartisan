@@ -1,14 +1,12 @@
 // Load Environment Variables
-import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import User from '@cubeartisan/server/models/user.js';
-
-dotenv.config();
+import connectionQ from '@cubeartisan/server/serverjs/mongoConnection.js';
 
 const USERNAME = 'CubeArtisan';
 
 (async () => {
-  await mongoose.connect(process.env.MONGODB_URL);
+  await connectionQ;
   const user = await User.findOne({ username: USERNAME });
   if (!user.roles) {
     user.roles = [];

@@ -51,7 +51,7 @@ spec:
                   secretKeyRef:
                     name: cubeartisansecrets
                     key: SESSION_SECRET
-            - name: DBNAME
+            - name: MONGODB_DBNAME
               value: "cubeartisan"
             - name: SESSION
               valueFrom:

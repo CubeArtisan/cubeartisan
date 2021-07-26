@@ -1,5 +1,4 @@
 // Load Environment Variables
-import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import Cube from '@cubeartisan/server/models/cube.js';
 import Deck from '@cubeartisan/server/models/deck.js';
@@ -11,8 +10,7 @@ import draftMigrations from '@cubeartisan/server/models/migrations/draftMigratio
 import gridDraftMigrations from '@cubeartisan/server/models/migrations/gridDraftMigrations.js';
 import { applyPendingMigrationsPre } from '@cubeartisan/server/models/migrations/migrationMiddleware.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
-
-dotenv.config();
+import connectionQ from '@cubeartisan/server/serverjs/mongoConnection';
 
 const MIGRATABLE = Object.freeze([
   { name: 'GridDraft', model: GridDraft, migrate: applyPendingMigrationsPre(gridDraftMigrations) },
@@ -29,8 +27,7 @@ const migratableDocsQuery = (currentSchemaVersion) => {
 };
 
 (async () => {
-  await carddb.initializeCardDb('private', true);
-  await mongoose.connect(process.env.MONGODB_URL);
+  await Promise.all([carddb.initializeCardDb('private', true), connectionQ]);
   for (const { name, model, migrate } of MIGRATABLE) {
     console.log(`Starting ${name}...`);
     const query = migratableDocsQuery(model.CURRENT_SCHEMA_VERSION);

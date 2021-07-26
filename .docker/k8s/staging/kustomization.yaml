@@ -5,6 +5,6 @@ resources:
 namespace: cubeartisan-staging
 images:
 - name: ghcr.io/cubeartisan/cubeartisan
-  newTag: 6c0e82a6
+  newTag: 6ebbb014
 patchesStrategicMerge:
 - environment-override.yaml

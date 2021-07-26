@@ -3,13 +3,12 @@
 // will oom without the added tag
 
 // Load Environment Variables
-import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+
 import Cube from '@cubeartisan/server/models/cube.js';
 import { cardsNeedsCleaning, cleanCards } from '@cubeartisan/server/models/migrations/cleanCards.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
-
-dotenv.config();
+import connectionQ from '@cubeartisan/server/serverjs/mongoConnection.js';
 
 const DEFAULT_BASICS = [
   '1d7dba1c-a702-43c0-8fca-e47bbad4a00f',
@@ -56,9 +55,7 @@ const processCube = async (leanCube) => {
 
 try {
   (async () => {
-    await carddb.initializeCardDb();
-    await mongoose.connect(process.env.MONGODB_URL);
-
+    await Promise.all([carddb.initializeCardDb('private', true), connectionQ]);
     // process all cube objects
     console.log('Started');
     const count = await Cube.countDocuments();

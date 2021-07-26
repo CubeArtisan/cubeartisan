@@ -1,13 +1,11 @@
 // run with: node --max-old-space-size=8192 populate_analytics.js
 // will oom without the added tag
 // Load Environment Variables
-import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import fetch from 'node-fetch';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import CardRating from '@cubeartisan/server/models/cardrating.js';
-
-dotenv.config();
+import connectionQ from '@cubeartisan/server/serverjs/mongoConnection';
 
 const BATCH_SIZE = 1000;
 
@@ -21,8 +19,7 @@ const updateEmbeddings = async (names, embeddings) => {
 };
 
 (async () => {
-  await carddb.initializeCardDb();
-  await mongoose.connect(process.env.MONGODB_URL);
+  await Promise.all([carddb.initializeCardDb('private', true), connectionQ]);
   const ratings = await CardRating.find({}, 'name elo embedding').lean();
   for (let i = 0; i < ratings.length; i += BATCH_SIZE) {
     try {

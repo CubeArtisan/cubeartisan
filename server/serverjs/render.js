@@ -16,16 +16,13 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
-
-import dotenv from 'dotenv';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server.node.js';
 import serialize from 'serialize-javascript';
+
+import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 import Cube from '@cubeartisan/server/models/cube.js';
 import LoadingPage from '@cubeartisan/client/pages/LoadingPage.js';
-
-dotenv.config();
 
 const pageCache = { Loading: LoadingPage, LoadingPage };
 const getPage = async (page, req) => {

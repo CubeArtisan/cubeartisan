@@ -1,10 +1,8 @@
 // Load Environment Variables
-import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import Deck from '@cubeartisan/server/models/deck.js';
 import Draft from '@cubeartisan/server/models/draft.js';
-
-dotenv.config();
+import connectionQ from '@cubeartisan/server/serverjs/mongoConnection.js';
 
 const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
 const BATCH_SIZE = 1024;
@@ -25,7 +23,7 @@ const processDraft = async (draft) => {
 
 try {
   (async () => {
-    await mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+    await connectionQ;
     const count = await Draft.count();
     console.log(`There are ${count} drafts in the database.`);
     const cursor = Draft.find().lean().cursor();

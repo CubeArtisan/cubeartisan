@@ -32,9 +32,6 @@ import Video from '@cubeartisan/server/models/video.js';
 import Podcast from '@cubeartisan/server/models/podcast.js';
 import { render } from '@cubeartisan/server/serverjs/render.js';
 import { addMultipleNotifications, addNotification } from '@cubeartisan/server/serverjs/util.js';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 const ensureAdmin = ensureRole('Admin');
 
