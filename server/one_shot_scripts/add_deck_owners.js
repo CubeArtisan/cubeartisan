@@ -27,7 +27,7 @@ async function addVars(deck) {
 }
 
 (async () => {
-  await connectionQ;
+  await connectionQ();
   const count = await Deck.countDocuments();
   const cursor = Deck.find().skip(skip).cursor();
   // batch them by batchSize

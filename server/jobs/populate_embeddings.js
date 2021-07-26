@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import fetch from 'node-fetch';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import CardRating from '@cubeartisan/server/models/cardrating.js';
-import connectionQ from '@cubeartisan/server/serverjs/mongoConnection';
+import connectionQ from '@cubeartisan/server/serverjs/mongoConnection.js';
 
 const BATCH_SIZE = 1000;
 

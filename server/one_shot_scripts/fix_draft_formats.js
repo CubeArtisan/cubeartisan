@@ -5,7 +5,7 @@
 // Load Environment Variables
 import mongoose from 'mongoose';
 import Cube from '@cubeartisan/server/models/cube.js';
-import connectionQ from '@cubeartisan/server/serverjs/mongoConnection';
+import connectionQ from '@cubeartisan/server/serverjs/mongoConnection.js';
 
 const BATCH_SIZE = 1024;
 
@@ -42,7 +42,7 @@ const processCube = async (leanCube) => {
 
 try {
   (async () => {
-    await connectionQ;
+    await connectionQ();
     // process all cube objects
     console.log('Started');
     const count = await Cube.countDocuments();

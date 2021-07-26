@@ -23,7 +23,7 @@ const processDraft = async (draft) => {
 
 try {
   (async () => {
-    await connectionQ;
+    await connectionQ();
     const count = await Draft.count();
     console.log(`There are ${count} drafts in the database.`);
     const cursor = Draft.find().lean().cursor();

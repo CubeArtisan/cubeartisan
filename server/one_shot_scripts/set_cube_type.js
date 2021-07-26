@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import { setCubeType } from '@cubeartisan/server/serverjs/cubefn.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import Cube from '@cubeartisan/server/models/cube.js';
-import connectionQ from '@cubeartisan/server/serverjs/mongoConnection';
+import connectionQ from '@cubeartisan/server/serverjs/mongoConnection.js';
 
 const batchSize = 100;
 

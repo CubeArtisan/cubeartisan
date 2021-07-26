@@ -18,7 +18,7 @@ async function addVars(cube) {
 }
 
 (async () => {
-  await connectionQ;
+  await connectionQ();
   const count = await Cube.countDocuments();
   const cursor = Cube.find().cursor();
 

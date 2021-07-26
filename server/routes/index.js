@@ -82,11 +82,11 @@ const __filename = fileURLToPath(import.meta.url);
 // eslint-disable-next-line no-underscore-dangle
 const __dirname = path.dirname(__filename);
 const MongoDBStore = MongoDBStoreFactory(session);
+const connection = connectionQ();
 const db = mongoose.connection;
 db.once('open', () => {
   winston.info('Connected to Mongo.');
 });
-
 // Check for db errors
 db.on('error', (err) => {
   winston.error(err);
@@ -731,7 +731,7 @@ app.use((_req, res) => res.redirect(303, '/404'));
 
 const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
 // Start server after carddb is initialized.
-connectionQ.then(() => carddb.initializeCardDb()).then(() => {
+connection.then(() => carddb.initializeCardDb().then(() => {
   const httpServer = http.createServer(app);
   const wsServer = new SocketIO(httpServer, { cors: { origin: process.env.SITE_ROOT } });
   wsServer.use(wrap(sessionConfig));
@@ -754,4 +754,4 @@ connectionQ.then(() => carddb.initializeCardDb()).then(() => {
   httpServer.listen(process.env.PORT ?? 5000, process.env.LISTEN_ADDR, () => {
     winston.info(`Server started on port ${process.env.PORT || 5000}...`);
   });
-});
+}));

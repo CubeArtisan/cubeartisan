@@ -2,7 +2,7 @@
 import mongoose from 'mongoose';
 import Deck from '@cubeartisan/server/models/deck.js';
 import Cube from '@cubeartisan/server/models/cube.js';
-import connectionQ from '@cubeartisan/server/serverjs/mongoConnection';
+import connectionQ from '@cubeartisan/server/serverjs/mongoConnection.js';
 
 const batchSize = 100;
 
@@ -15,7 +15,7 @@ async function addVars(cube) {
 }
 
 (async () => {
-  await connectionQ;
+  await connectionQ();
   const count = await Cube.countDocuments();
   const cursor = Cube.find().cursor();
 

@@ -6,7 +6,7 @@ import connectionQ from '@cubeartisan/server/serverjs/mongoConnection.js';
 const USERNAME = 'CubeArtisan';
 
 (async () => {
-  await connectionQ;
+  await connectionQ();
   const user = await User.findOne({ username: USERNAME });
   if (!user.roles) {
     user.roles = [];
