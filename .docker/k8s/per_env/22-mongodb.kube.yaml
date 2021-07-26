@@ -8,7 +8,7 @@ spec:
   ports:
     - port: 27017
       targetPort: 27017
-  clusterIP: None
+  type: NodePort
   selector:
     role: mongo
 ---
@@ -18,7 +18,7 @@ metadata:
   name: mongo
 spec:
   serviceName: "mongo"
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       role: mongo

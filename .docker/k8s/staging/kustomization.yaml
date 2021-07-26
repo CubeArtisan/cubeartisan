@@ -1,11 +1,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ../per_env
+- ../per_env
 namespace: cubeartisan-staging
 images:
 - name: ghcr.io/cubeartisan/cubeartisan
-  newTag: v0.1.0
+  newTag: 15c86342
 patchesStrategicMerge:
-  - environment-override.yaml
-  - storage-class-override.yaml
+- environment-override.yaml
+- storage-class-override.yaml

@@ -9,5 +9,4 @@ resources:
   - ./prod
   - ./staging
   - global/50-ingress-gke-configs.kube.yaml
-  - global/51-ingress-external-services.kube.yaml
   - global/54-ingress.kube.yaml

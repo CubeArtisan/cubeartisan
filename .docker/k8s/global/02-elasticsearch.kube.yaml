@@ -9,6 +9,10 @@ spec:
     service:
       spec:
         type: NodePort
+  transport:
+    service:
+      spec:
+        type: NodePort
   nodeSets:
     - name: zone-a
       count: 1
