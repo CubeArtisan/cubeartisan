@@ -65,7 +65,7 @@ spec:
 apiVersion: networking.gke.io/v1
 kind: ManagedCertificate
 metadata:
-  namespace: cubeartisan-staging
+  namespace: cubeartisan
   name: cubeartisan-cert
 spec:
   domains:

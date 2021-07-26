@@ -15,9 +15,9 @@ const getSeat = async (draftid, user) => {
   for (
     let seatNumbers = draft.seats.filter(({ bot, userid }) => !bot && !userid).map((_, idx) => idx);
     seatNumbers.length > 0;
-    seatNumbers = draft.seats.findIndex(({ bot, userid }) => !bot && !userid)
+    seatNumbers = draft.seats.filter(({ bot, userid }) => !bot && !userid).map((_, idx) => idx)
   ) {
-    const seatNumber = Math.floor(Math.random() * seatNumbers.length);
+    const seatNumber = seatNumbers[Math.floor(Math.random() * seatNumbers.length)];
     const seat = draft.seats[seatNumber];
     seat.name = user.username;
     seat.userid = user._id;
@@ -29,7 +29,11 @@ const getSeat = async (draftid, user) => {
         $set: { [`seats.${seatNumber}.name`]: user.username, [`seats.${seatNumber}.userid`]: user._id },
       },
     );
-    if (result.nModified > 0) return [seatNumber, draft];
+    if (result.nModified > 0) {
+      draft.seats[seatNumber].name = user.username;
+      draft.seats[seatNumber].userid = user._id;
+      return [seatNumber, draft];
+    }
     // eslint-disable-next-line no-await-in-loop
     draft = await Draft.findById(draftid).lean();
   }

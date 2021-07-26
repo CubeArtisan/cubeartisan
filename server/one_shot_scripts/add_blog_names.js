@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import Blog from '@cubeartisan/server/models/blog.js';
 import Cube from '@cubeartisan/server/models/cube.js';
 import User from '@cubeartisan/server/models/user.js';
-import connectionQ from '@cubeartisan/server/serverjs/mongoConnection';
+import connectionQ from '@cubeartisan/server/serverjs/mongoConnection.js';
 
 const batchSize = 100;
 
@@ -27,7 +27,7 @@ async function addVars(blog) {
 }
 
 (async () => {
-  await connectionQ;
+  await connectionQ();
   const count = await Blog.countDocuments();
   const cursor = Blog.find().cursor();
 

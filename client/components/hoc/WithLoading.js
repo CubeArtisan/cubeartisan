@@ -23,9 +23,8 @@ import { Spinner } from 'reactstrap';
 import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 
 const withLoading = (Tag, handlers) => {
-  const LoadingWrapped = ({ loading, spinnerSize, opacity, ...props }) => {
+  const WithLoading = ({ loading, spinnerSize, opacity, ...props }) => {
     const [stateLoading, setLoading] = useState(false);
-
     const wrappedHandlers = useMemo(
       () =>
         fromEntries(
@@ -41,7 +40,6 @@ const withLoading = (Tag, handlers) => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       handlers.map((name) => props[name]),
     );
-
     const renderLoading = loading === null ? stateLoading : loading;
 
     return (
@@ -51,20 +49,26 @@ const withLoading = (Tag, handlers) => {
       </div>
     );
   };
-
-  LoadingWrapped.propTypes = {
+  WithLoading.propTypes = {
     loading: PropTypes.bool,
     opacity: PropTypes.number,
     spinnerSize: PropTypes.string,
   };
-
-  LoadingWrapped.defaultProps = {
+  WithLoading.defaultProps = {
     loading: null,
     spinnerSize: undefined,
     opacity: 0.7,
   };
-
-  return LoadingWrapped;
+  if (typeof Tag === 'string') {
+    WithLoading.displayName = `${Tag}WithLoading`;
+  } else if (Tag.displayName) {
+    WithLoading.displayName = `${Tag.displayName}WithLoading`;
+  } else if (Tag.name) {
+    WithLoading.displayName = `${Tag.name}WithLoading`;
+  } else {
+    WithLoading.displayName = 'WithLoading';
+  }
+  return WithLoading;
 };
 
 export default withLoading;

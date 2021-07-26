@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 import Cube from '@cubeartisan/server/models/cube.js';
-import connectionQ from '@cubeartisan/server/serverjs/mongoConnection';
+import connectionQ from '@cubeartisan/server/serverjs/mongoConnection.js';
 
 (async () => {
-  await connectionQ;
+  await connectionQ();
   const totalCubes = await Cube.estimatedDocumentCount();
   for (let start = 0; start < totalCubes; start += 100) {
     const cubes = await Cube.find().skip(start).limit(100);

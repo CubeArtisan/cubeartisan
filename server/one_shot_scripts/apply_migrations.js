@@ -10,7 +10,7 @@ import draftMigrations from '@cubeartisan/server/models/migrations/draftMigratio
 import gridDraftMigrations from '@cubeartisan/server/models/migrations/gridDraftMigrations.js';
 import { applyPendingMigrationsPre } from '@cubeartisan/server/models/migrations/migrationMiddleware.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
-import connectionQ from '@cubeartisan/server/serverjs/mongoConnection';
+import connectionQ from '@cubeartisan/server/serverjs/mongoConnection.js';
 
 const MIGRATABLE = Object.freeze([
   { name: 'GridDraft', model: GridDraft, migrate: applyPendingMigrationsPre(gridDraftMigrations) },

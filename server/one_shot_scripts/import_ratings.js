@@ -3,7 +3,7 @@
 import fs from 'fs';
 import mongoose from 'mongoose';
 import CardRating from '@cubeartisan/server/models/cardrating.js';
-import connectionQ from '@cubeartisan/server/serverjs/mongoConnection';
+import connectionQ from '@cubeartisan/server/serverjs/mongoConnection.js';
 
 async function saveCardRating(cardRating) {
   const existing = (await CardRating.findOne({ name: cardRating.name })) || new CardRating();
@@ -21,7 +21,7 @@ async function saveRatings(defaultPath) {
 }
 
 (async () => {
-  await connectionQ;
+  await connectionQ();
   await saveRatings(process.argv[2]);
   await mongoose.disconnect();
   console.log('done');

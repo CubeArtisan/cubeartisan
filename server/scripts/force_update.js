@@ -8,7 +8,7 @@ import connectionQ from '@cubeartisan/server/serverjs/mongoConnection.js';
 
 (async () => {
   try {
-    await connectionQ;
+    await connectionQ();
     let ratings = [];
     let histories = [];
     if (process.env.USE_S3 !== 'true') {

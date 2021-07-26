@@ -44,11 +44,21 @@ const withModal = (Tag, ModalTag) => {
   WithModal.propTypes = {
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
-    modalProps: PropTypes.shape(ModalTag.propTypes).isRequired,
+    modalProps: PropTypes.shape({}),
   };
   WithModal.defaultProps = {
     className: null,
+    modalProps: {},
   };
+  if (typeof Tag === 'string') {
+    WithModal.displayName = `${Tag}WithModal`;
+  } else if (Tag.displayName) {
+    WithModal.displayName = `${Tag.displayName}WithModal`;
+  } else if (Tag.name) {
+    WithModal.displayName = `${Tag.name}WithModal`;
+  } else {
+    WithModal.displayName = 'WithModal';
+  }
   return WithModal;
 };
 

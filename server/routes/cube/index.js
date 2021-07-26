@@ -616,7 +616,7 @@ const viewPlaytest = async (req, res) => {
       {
         cube: cube._id,
       },
-      'date seats _id cube owner cubeOwner',
+      'date seats _id cube owner cubeOwner basics',
     )
       .sort({
         date: -1,
@@ -629,8 +629,8 @@ const viewPlaytest = async (req, res) => {
       res,
       'CubePlaytestPage',
       {
-        cube,
-        decks,
+        cube: { ...cube, _id: cube._id.toString() },
+        decks: decks.map((deck) => ({ ...deck, _id: deck._id.toString() })),
       },
       {
         title: `${abbreviate(cube.name)} - Playtest`,
