@@ -5,6 +5,6 @@ resources:
 - ../per_env
 images:
 - name: ghcr.io/cubeartisan/cubeartisan
-  newTag: 6ebbb014
+  newTag: 324e3d5e
 patchesStrategicMerge:
 - environment-override.yaml

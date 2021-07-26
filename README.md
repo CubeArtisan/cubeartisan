@@ -36,7 +36,7 @@ docker run --name cubeartisan-mongodb -p 27017:27017 -d mongo:4.2
 ### Initial Setup
 
 Clone the project into a folder of your choice. Copy `.env_EXAMPLE` to `.env` and fill out your personal tokens.
-**NOTE** `TCG_PLAYER_PUBLIC_KEY` and `TCG_PLAYER_PRIVATE_KEY` can be left blank as well as the email fields.
+**NOTE** Blank variables can be left blank. 
 
 Once your `.env` file is filled out, run the following commands in the root of the cloned repository:
 
