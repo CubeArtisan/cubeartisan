@@ -3,5 +3,4 @@ kind: Kustomization
 resources:
   - 02-external-services.kube.yaml
   - 22-mongodb.kube.yaml
-  - 30-recommender.kube.yaml
   - 40-cubeartisan.kube.yaml
