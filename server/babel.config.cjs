@@ -14,7 +14,11 @@ module.exports = (api) => {
       ],
       '@babel/preset-react',
     ],
-    plugins: ['@babel/plugin-proposal-nullish-coalescing-operator', '@babel/plugin-proposal-optional-chaining', '@babel/plugin-syntax-top-level-await'],
+    plugins: [
+      '@babel/plugin-proposal-nullish-coalescing-operator',
+      '@babel/plugin-proposal-optional-chaining',
+      '@babel/plugin-syntax-top-level-await'
+    ],
   };
   if (!api.env('test')) {
     config.presets[0][1].modules = false;
