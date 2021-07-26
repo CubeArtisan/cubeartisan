@@ -13,10 +13,11 @@ const getSeat = async (draftid, user) => {
   const existingSeat = draft.seats.findIndex(({ userid }) => user._id.toString() === userid);
   if (existingSeat >= 0) return [existingSeat, draft];
   for (
-    let seatNumber = draft.seats.findIndex(({ bot, userid }) => !bot && !userid);
-    seatNumber >= 0;
-    seatNumber = draft.seats.findIndex(({ bot, userid }) => !bot && !userid)
+    let seatNumbers = draft.seats.filter(({ bot, userid }) => !bot && !userid).map((_, idx) => idx);
+    seatNumbers.length > 0;
+    seatNumbers = draft.seats.findIndex(({ bot, userid }) => !bot && !userid)
   ) {
+    const seatNumber = Math.floor(Math.random() * seatNumbers.length);
     const seat = draft.seats[seatNumber];
     seat.name = user.username;
     seat.userid = user._id;
@@ -193,6 +194,8 @@ const manageWebsocketDraft = async (socket) => {
       drafterState = getDrafterState({ draft, seatNumber });
     }
     socket.emit('drafterState', drafterState);
+    const seatNumbers = draft.seats.filter(({ bot, userid }) => !bot && !userid).map((_, idx) => idx);
+    socket.emit('emptySeats', seatNumbers.length);
     if (drafterState.packNum >= drafterState.numPacks) {
       socket.disconnect(true);
     }

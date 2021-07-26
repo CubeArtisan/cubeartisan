@@ -34,13 +34,14 @@ const TextBadge = ({ name, className, children, fill }) => (
 
 TextBadge.propTypes = {
   name: PropTypes.string,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   children: PropTypes.node.isRequired,
   fill: PropTypes.bool,
 };
 
 TextBadge.defaultProps = {
   name: 'textBade',
+  className: null,
   fill: false,
 };
 

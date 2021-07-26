@@ -19,6 +19,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardBody, CardHeader, CardTitle, Col, Collapse, Nav, Navbar, NavLink, Row, Spinner } from 'reactstrap';
+import { io } from 'socket.io-client';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
@@ -37,42 +38,74 @@ import { DrafterStatePropType, DraftPropType } from '@cubeartisan/client/proptyp
 import { makeSubtitle } from '@cubeartisan/client/utils/Card.js';
 import DraftLocation from '@cubeartisan/client/drafting/DraftLocation.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
-import { io } from 'socket.io-client';
+import TextBadge from '@cubeartisan/client/components/TextBadge.js';
+import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 
 const canDrop = (_, target) => {
   return target.type === DraftLocation.PICKS;
 };
 
-const Pack = ({ pack, packNumber, pickNumber, instructions, picking, onMoveCard, onClickCard }) => (
+const Pack = ({ pack, packNumber, pickNumber, instructions, picking, onMoveCard, onClickCard, emptySeats }) => (
   <Card className="mt-3">
     <CardHeader>
       <CardTitle className="mb-0">
         <h4 className="mb-1">
-          Pack {packNumber}, Pick {pickNumber}
-          {instructions ? `: ${instructions}` : ''}
+          {Number.isInteger(pickNumber) ? (
+            <>
+              Pack {packNumber}, Pick {pickNumber}
+              {instructions ? `: ${instructions}` : ''}
+            </>
+          ) : (
+            <>Loading Draft</>
+          )}
         </h4>
+        {emptySeats > 0 && (
+          <TextBadge
+            name={`Waiting on ${emptySeats} player${emptySeats > 1 ? 's' : ''} to join. Players can join by going to`}
+          >
+            <Tooltip text="Click to copy to clipboard">
+              <button
+                type="button"
+                className="cube-id-btn"
+                onKeyDown={() => {}}
+                onClick={async (e) => {
+                  await navigator.clipboard.writeText(window.location.href);
+                  e.currentTarget.blur();
+                }}
+              >
+                {window.location.href}
+              </button>
+            </Tooltip>
+          </TextBadge>
+        )}
       </CardTitle>
     </CardHeader>
     <CardBody>
       <Row noGutters>
-        {pack.map((card, index) => (
-          <Col
-            key={/* eslint-disable-line react/no-array-index-key */ `${packNumber}:${pickNumber}:${index}`}
-            xs={3}
-            className="col-md-1-5 col-lg-1-5 col-xl-1-5 d-flex justify-content-center align-items-center"
-          >
-            {picking === index && <Spinner className="position-absolute" />}
-            <DraggableCard
-              location={DraftLocation.pack([index])}
-              data-index={index}
-              card={card}
-              canDrop={canDrop}
-              onMoveCard={picking === null ? onMoveCard : undefined}
-              onClick={picking === null ? onClickCard : undefined}
-              className={picking === index ? 'transparent' : undefined}
-            />
-          </Col>
-        ))}
+        {pack.length > 0 ? (
+          pack.map((card, index) => (
+            <Col
+              key={/* eslint-disable-line react/no-array-index-key */ `${packNumber}:${pickNumber}:${index}`}
+              xs={3}
+              className="col-md-1-5 col-lg-1-5 col-xl-1-5 d-flex justify-content-center align-items-center"
+            >
+              {picking === index && <Spinner className="position-absolute" />}
+              <DraggableCard
+                location={DraftLocation.pack([index])}
+                data-index={index}
+                card={card}
+                canDrop={canDrop}
+                onMoveCard={picking === null ? onMoveCard : undefined}
+                onClick={picking === null ? onClickCard : undefined}
+                className={picking === index ? 'transparent' : undefined}
+              />
+            </Col>
+          ))
+        ) : (
+          <>
+            <Spinner /> <h6>Waiting for a pack.</h6>
+          </>
+        )}
       </Row>
     </CardBody>
   </Card>
@@ -86,6 +119,7 @@ Pack.propTypes = {
   picking: PropTypes.number,
   onMoveCard: PropTypes.func.isRequired,
   onClickCard: PropTypes.func.isRequired,
+  emptySeats: PropTypes.number.isRequired,
 };
 
 Pack.defaultProps = {
@@ -93,7 +127,7 @@ Pack.defaultProps = {
   instructions: null,
 };
 
-const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking }) => {
+const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking, emptySeats }) => {
   const {
     cards,
     cardsInPack,
@@ -169,6 +203,7 @@ const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking 
           <>
             <ErrorBoundary>
               <Pack
+                emptySeats={emptySeats}
                 pack={pack}
                 packNumber={packNum + 1}
                 pickNumber={pickNum + 1}
@@ -215,12 +250,14 @@ CubeDraftPlayerUI.propTypes = {
   takeCard: PropTypes.func.isRequired,
   moveCard: PropTypes.func.isRequired,
   picking: PropTypes.number,
+  emptySeats: PropTypes.number.isRequired,
 };
 CubeDraftPlayerUI.defaultProps = {
   picking: null,
 };
 export const CubeDraftPage = ({ cube, initialDraft, loginCallback }) => {
   const [picking, setPicking] = useState(null);
+  const [emptySeats, setEmptySeats] = useState(0);
   const socket = useRef();
   const [drafterState, setDrafterState] = useState({
     step: { action: 'loading' },
@@ -238,6 +275,7 @@ export const CubeDraftPage = ({ cube, initialDraft, loginCallback }) => {
       setPicking(null);
       setDrafterState(newDrafterState);
     });
+    socket.current.on('emptySeats', (newEmptySeats) => setEmptySeats(newEmptySeats));
     socket.current.connect();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -291,6 +329,7 @@ export const CubeDraftPage = ({ cube, initialDraft, loginCallback }) => {
       <CubeLayout cube={cube} activeLink="playtest">
         <DisplayContextProvider cubeID={cube._id}>
           <CubeDraftPlayerUI
+            emptySeats={emptySeats}
             picking={picking}
             drafterState={drafterState}
             sideboard={sideboard}
