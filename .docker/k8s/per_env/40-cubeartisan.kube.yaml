@@ -95,6 +95,15 @@ spec:
                 secretKeyRef:
                   name: cubeartisansecrets
                   key: ELASTIC_APM_SECRET_TOKEN
+            - name: MONGODB_USER
+              value: cubeartisan
+            - name: MONGODB_AUTH_DB
+              value: admin
+            - name: MONGODB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-password
+                  key: password
             - name: ELASTIC_APM_SERVER_URL
               value: "http://apm-server:8200/"
             - name: ELASTIC_APM_SERVICE_VERSION
@@ -105,6 +114,12 @@ spec:
               value: "<ENV>"
             - name: ELASTIC_APM_TRANSACTION_IGNORE_URLS
               value: "/version"
+            - name: MONGODB_HOST
+              value: "mongo-svc"
+            - name: MONGODB_REPLICASET
+              value: mongo
+            - name: MONGODB_PORT
+              value: "27017"
             - name: MONGODB_URL
               value: "mongodb://mongo:27017/cubeartisan?replicaSet=rs0"
             - name: LISTEN_ADDR

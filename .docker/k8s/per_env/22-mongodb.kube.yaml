@@ -1,89 +1,24 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: mongo
-  labels:
-    name: mongo
-spec:
-  ports:
-    - port: 27017
-      targetPort: 27017
-  type: NodePort
-  selector:
-    role: mongo
----
-apiVersion: apps/v1
-kind: StatefulSet
+apiVersion: mongodbcommunity.mongodb.com/v1
+kind: MongoDBCommunity
 metadata:
   name: mongo
 spec:
-  serviceName: "mongo"
-  replicas: 2
-  selector:
-    matchLabels:
-      role: mongo
-  template:
-    metadata:
-      labels:
-        role: mongo
-        environment: test
-    spec:
-      serviceAccountName: mongo
-      automountServiceAccountToken: true
-      terminationGracePeriodSeconds: 30
-      containers:
-        - name: mongo
-          image: mongo:5
-          command:
-            - mongod
-          args:
-            - "--replSet=rs0"
-            - "--bind_ip=0.0.0.0"
-          ports:
-            - containerPort: 27017
-          volumeMounts:
-            - name: mongo-persistent-storage
-              mountPath: /data/db
-          resources:
-            limits:
-              memory: 2.1Gi
-              cpu: 1150m
-            requests:
-              memory: 2Gi
-              cpu: 1150m
-        - name: mongo-sidecar
-          image: morphy/k8s-mongo-sidecar
-          resources:
-            limits:
-              memory: 0.15Gi
-              cpu: 100m
-            requests:
-              memory: 0.15Gi
-              cpu: 100m
-          env:
-            - name: KUBERNETES_POD_LABELS
-              value: "role=mongo,environment=test"
-            - name: KUBERNETES_SERVICE_NAME
-              value: "mongo"
-  volumeClaimTemplates:
-    - metadata:
-        name: mongo-persistent-storage
-      spec:
-        storageClassName: premium-rwo
-        accessModes: [ "ReadWriteOnce" ]
-        resources:
-          requests:
-            storage: 50Gi
----
-apiVersion: autoscaling/v1
-kind: HorizontalPodAutoscaler
-metadata:
-  name: cubeartisan-mongodb
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: StatefulSet
-    name: mongo
-  minReplicas: 2
-  maxReplicas: 5
-  targetCPUUtilizationPercentage: 50
+  members: 2
+  type: ReplicaSet
+  version: "5.0.1"
+  security:
+    authentication:
+      modes: ["SCRAM"]
+  users:
+    - name: cubeartisan
+      db: admin
+      passwordSecretRef: # a reference to the secret that will be used to generate the user's password
+        name: mongodb-password
+      roles:
+        - name: clusterAdmin
+          db: admin
+        - name: userAdminAnyDatabase
+          db: admin
+      scramCredentialsSecretName: my-scram
+  additionalMongodConfig:
+    storage.wiredTiger.engineConfig.journalCompressor: zlib
