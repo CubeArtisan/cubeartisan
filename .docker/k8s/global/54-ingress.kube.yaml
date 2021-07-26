@@ -1,18 +1,81 @@
 apiVersion: networking.gke.io/v1
 kind: ManagedCertificate
 metadata:
-  name: cubeartisan-cert
+  namespace: kube-logging
+  name: kibana-cert
 spec:
   domains:
-    - cubeartisan.net
     - kibana.cubeartisan.net
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kibana-ingress
+  namespace: kube-logging
+  annotations:
+    networking.gke.io/v1beta1.FrontendConfig: cubeartisan-frontend-config
+    cloud.google.com/backend-config: '{"default": "cubeartisan-backend-config"}'
+    networking.gke.io/managed-certificates: kibana-cert
+    kubernetes.io/ingress.class: gce
+spec:
+  rules:
+    - host: kibana.cubeartisan.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: kibana-kb-http
+                port:
+                  number: 5601
+---
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  namespace: cubeartisan-staging
+  name: staging-cert
+spec:
+  domains:
     - staging.cubeartisan.net
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
+  name: staging-ingress
+  namespace: cubeartisan-staging
+  annotations:
+    networking.gke.io/v1beta1.FrontendConfig: cubeartisan-frontend-config
+    cloud.google.com/backend-config: '{"default": "cubeartisan-backend-config"}'
+    networking.gke.io/managed-certificates: staging-cert
+    kubernetes.io/ingress.class: gce
+spec:
+  rules:
+    - host: staging.cubeartisan.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: cubeartisan
+                port:
+                  number: 80
+---
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  namespace: cubeartisan-staging
+  name: cubeartisan-cert
+spec:
+  domains:
+    - cubeartisan.net
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
   name: cubeartisan-ingress
-  namespace: cubeartisan-ingress
+  namespace: cubeartisan
   annotations:
     networking.gke.io/v1beta1.FrontendConfig: cubeartisan-frontend-config
     cloud.google.com/backend-config: '{"default": "cubeartisan-backend-config"}'
@@ -28,25 +91,5 @@ spec:
             backend:
               service:
                 name: cubeartisan
-                port:
-                  number: 80
-    - host: staging.cubeartisan.net
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: cubeartisan-staging
-                port:
-                  number: 80
-    - host: kibana.cubeartisan.net
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: kibana
                 port:
                   number: 80
