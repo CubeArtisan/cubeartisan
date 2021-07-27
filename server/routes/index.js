@@ -32,7 +32,7 @@ import schedule from 'node-schedule';
 import { Server as SocketIO } from 'socket.io';
 
 import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
-import connectionQ from '@cubeartisan/server/serverjs/mongoConnection.js';
+import connectionQ, { MONGODB_CONNECTION_STRING } from "@cubeartisan/server/serverjs/mongoConnection.js";
 import updatedb from '@cubeartisan/server/serverjs/updatecards.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import CardRating from '@cubeartisan/server/models/cardrating.js';
@@ -81,8 +81,8 @@ import manageWebsocketDraft from "@cubeartisan/server/routes/websockets/wsDraft.
 const __filename = fileURLToPath(import.meta.url);
 // eslint-disable-next-line no-underscore-dangle
 const __dirname = path.dirname(__filename);
-const MongoDBStore = MongoDBStoreFactory(session);
 await connectionQ();
+const MongoDBStore = MongoDBStoreFactory(session);
 const db = mongoose.connection;
 db.once('open', () => {
   winston.info('Connected to Mongo.');
@@ -94,7 +94,7 @@ db.on('error', (err) => {
 
 const store = new MongoDBStore(
   {
-    uri: process.env.MONGODB_URL,
+    uri: MONGODB_CONNECTION_STRING,
     collection: 'session_data',
   },
   (err) => {
