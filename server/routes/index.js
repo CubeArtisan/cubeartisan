@@ -16,6 +16,10 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+
+// This needs to come first for apm to work correctly.
+import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
+
 import express from 'express';
 import ConnectFlash from 'connect-flash';
 import ExpressMessages from 'express-messages';
@@ -31,7 +35,6 @@ import MongoDBStoreFactory from 'connect-mongodb-session';
 import schedule from 'node-schedule';
 import { Server as SocketIO } from 'socket.io';
 
-import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 import connectionQ, { MONGODB_CONNECTION_STRING } from "@cubeartisan/server/serverjs/mongoConnection.js";
 import updatedb from '@cubeartisan/server/serverjs/updatecards.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
