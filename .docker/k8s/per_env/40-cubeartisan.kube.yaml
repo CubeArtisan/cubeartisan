@@ -56,7 +56,10 @@ spec:
             - name: ELASTIC_APM_SERVICE_NAME
               value: CubeArtisan_beta
             - name: ELASTIC_APM_SERVICE_VERSION
-              value: "<TAG>"
+              valueFrom:
+                configMapKeyRef:
+                  name: cubeartisan-version
+                  key: TAG
             - name: ELASTICSEARCH_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -83,8 +86,6 @@ spec:
               value: "http://cubeartisan-recommender"
             - name: LISTEN_ADDR
               value: "0.0.0.0"
-            - name: MONGODB_AUTH_DB
-              value: admin
             - name: MONGODB_DBNAME
               value: "cubeartisan"
             - name: MONGODB_HOST
@@ -120,13 +121,16 @@ spec:
                   name: cubeartisansecrets
                   key: SESSION_SECRET
             - name: SITE_HOSTNAME
-              value: cubeartisan.net
+              value: <ENV>
             - name: SITE_NAME
               value: CubeArtisan (beta)
             - name: SITE_ROOT
-              value: https://cubeartisan.net
+              value: https://<ENV>
             - name: SITE_VERSION
-              value: "staging"
+              valueFrom:
+                configMapKeyRef:
+                  name: cubeartisan-version
+                  key: TAG
             - name: SOURCE_REPO
               value: https://github.com/CubeArtisan/cubeartisan
             - name: SUPPORT_EMAIL

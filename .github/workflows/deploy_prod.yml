@@ -1,25 +1,42 @@
 name: Deploy to Staging
 on:
-  workflow_run:
-    workflows:
-      - Build Docker Image
-    branches:
-      - dev
-    types: completed
+  push:
+    tags:
+      - 'v*'
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: cubeartisan    # Add your cluster name here.
   GKE_ZONE: us-central1   # Add your cluster zone here.
   DEPLOYMENT_NAME: cubeartisan # Add your deployment name here.
-
 jobs:
-  setup-build-publish-deploy:
-    name: Setup, Build, Publish, and Deploy
+  build:
+    name: Create Release, Build Docker, and Deploy
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - name: Get Tag Name
+        run: echo "TAG=`echo $(git describe --tags --abbrev=0)`" >> $GITHUB_ENV
+      - name: Get Repository Owner
+        run: echo "REPOSITORY=`echo "ghcr.io/${{ github.repository_owner }}" | tr "[:upper:]" "[:lower:]"`" >> $GITHUB_ENV
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.GIT_TAG }}
+          release_name: Release ${{ env.GIT_TAG }}
+          draft: false
+          prerelease: false
+      - name: Show tag and repo
+        run: 'echo "REPOSITORY: $REPOSITORY" && echo "TAG: $TAG"'
+      - name: Build the Docker image
+        run: docker-compose -f .docker/docker-compose.yml build
+      - name: Login to Docker
+        run: docker login -u $GITHUB_ACTOR -p ${{ secrets.GITHUB_TOKEN }} 'ghcr.io'
+      - name: Push to github package registry
+        run: docker-compose -f .docker/docker-compose.yml push
       # Setup gcloud CLI
       - name: Set up gcloud Cloud SDK environment
         uses: google-github-actions/setup-gcloud@v0.2.0
@@ -40,14 +57,15 @@ jobs:
       - name: Update Image Tag and Version
         run: |-
           cd ${GITHUB_WORKSPACE}/.docker/k8s/staging
-          ${GITHUB_WORKSPACE}/kustomize edit set image ghcr.io/cubeartisan/cubeartisan:${GITHUB_SHA:0:8}
+          ${GITHUB_WORKSPACE}/kustomize edit set image "$REPOSITORY:$TAG"
           ${GITHUB_WORKSPACE}/kustomize edit add configmap cubeartisan-version --from-literal=TAG=${GITHUB_SHA:0:8}
       # Deploy the Docker image to the GKE cluster
       - name: Deploy
         run: |-
-          cd ${GITHUB_WORKSPACE}/.docker/k8s/staging
-          ${GITHUB_WORKSPACE}/kustomize build . | kubectl apply -f -
+          cd ${GITHUB_WORKSPACE}/.docker/k8s
+          kubectl apply -f global
+          ${GITHUB_WORKSPACE}/kustomize build prod | kubectl apply -f -
       - name: Check Deployment
         run: |-
-          kubectl rollout status -n cubeartisan-staging deployment/$DEPLOYMENT_NAME --timeout=300s
-          kubectl get -n cubeartisan-staging services -o wide
+          kubectl rollout status -n cubeartisan deployment/$DEPLOYMENT_NAME --timeout=600s
+          kubectl get -n cubeartisan services -o wide
