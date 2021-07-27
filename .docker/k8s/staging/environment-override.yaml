@@ -8,7 +8,9 @@ spec:
       containers:
         - name: cubeartisan
           env:
+            - name: SITE_HOSTNAME
+              value: staging.cubeartisan.net
             - name: SITE_ROOT
               value: https://staging.cubeartisan.net
             - name: ELASTIC_APM_ENVIRONMENT
-              value: https://staging.cubeartisan.net
+              value: staging.cubeartisan.net
