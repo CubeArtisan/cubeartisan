@@ -11,7 +11,6 @@ env:
   GKE_CLUSTER: cubeartisan    # Add your cluster name here.
   GKE_ZONE: us-central1   # Add your cluster zone here.
   DEPLOYMENT_NAME: cubeartisan # Add your deployment name here.
-
 jobs:
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy
@@ -49,5 +48,5 @@ jobs:
           ${GITHUB_WORKSPACE}/kustomize build . | kubectl apply -f -
       - name: Check Deployment
         run: |-
-          kubectl rollout status -n cubeartisan-staging deployment/$DEPLOYMENT_NAME --timeout=300s
+          kubectl rollout status -n cubeartisan-staging deployment/$DEPLOYMENT_NAME --timeout=600s
           kubectl get -n cubeartisan-staging services -o wide
