@@ -248,7 +248,7 @@ export const getCardElo = async (cardname, round) => {
 export const CSVtoCards = (csvString, carddb) => {
   let { data } = Papa.parse(csvString.trim(), { header: true });
   data = data.map((row) => Object.fromEntries(Object.entries(row).map(([key, value]) => [key.toLowerCase(), value])));
-  let missing = '';
+  const missing = [];
   const newCards = [];
   const newMaybe = [];
   for (const {
@@ -306,7 +306,7 @@ export const CSVtoCards = (csvString, carddb) => {
           newCards.push(card);
         }
       } else {
-        missing += `${card.name}\n`;
+        missing.push(card.name);
       }
     }
   }
