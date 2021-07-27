@@ -89,6 +89,11 @@ spec:
               value: "cubeartisan"
             - name: MONGODB_HOST
               value: "mongo-svc"
+            - name: MONGODB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: cubeartisansecrets
+                  key: MONGODB_CONNECTION_STRING
             - name: MONGODB_PASSWORD
               valueFrom:
                 secretKeyRef:

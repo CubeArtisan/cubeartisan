@@ -34,7 +34,7 @@ import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 import CubeLayout from '@cubeartisan/client/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
-import { DrafterStatePropType, DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
+import { DrafterStatePropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
 import { makeSubtitle } from '@cubeartisan/client/utils/Card.js';
 import DraftLocation from '@cubeartisan/client/drafting/DraftLocation.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
@@ -50,7 +50,7 @@ const Pack = ({ pack, packNumber, pickNumber, instructions, picking, onMoveCard,
     <CardHeader>
       <CardTitle className="mb-0">
         <h4 className="mb-1">
-          {Number.isInteger(pickNumber) ? (
+          {Number.isInteger(pickNumber) && pickNumber ? (
             <>
               Pack {packNumber}, Pick {pickNumber}
               {instructions ? `: ${instructions}` : ''}
@@ -255,28 +255,35 @@ CubeDraftPlayerUI.propTypes = {
 CubeDraftPlayerUI.defaultProps = {
   picking: null,
 };
-export const CubeDraftPage = ({ cube, initialDraft, loginCallback }) => {
+export const CubeDraftPage = ({ cube, draftid, loginCallback }) => {
   const [picking, setPicking] = useState(null);
   const [emptySeats, setEmptySeats] = useState(0);
   const socket = useRef();
   const [drafterState, setDrafterState] = useState({
-    step: { action: 'loading' },
+    step: { action: 'pass' },
     drafted: [],
     sideboard: [],
+    picked: [],
+    trashed: [],
     seatNum: -1,
     packNum: 0,
+    pickNum: -1,
     numPacks: 1,
-    cardsInPack: [0],
-    cards: [{ details: { type: '' } }],
+    packSize: 0,
+    pickedNum: -1,
+    trashedNum: -1,
+    stepNumber: -1,
+    pickNumber: -1,
+    cardsInPack: [],
+    cards: [],
   });
   useEffect(() => {
-    socket.current = io('/wsdraft', { autoConnect: false, query: { draftid: initialDraft._id } });
+    socket.current = io('/wsdraft', { autoConnect: false, query: { draftid } });
     socket.current.on('drafterState', (newDrafterState) => {
       setPicking(null);
       setDrafterState(newDrafterState);
     });
     socket.current.on('emptySeats', (newEmptySeats) => {
-      console.log('emptySeats:', newEmptySeats);
       setEmptySeats(newEmptySeats);
     });
     socket.current.connect();
@@ -300,12 +307,12 @@ export const CubeDraftPage = ({ cube, initialDraft, loginCallback }) => {
     if (doneDrafting && !submitted) {
       setSubmitted(true);
       (async () => {
-        const response = await csrfFetch(`/draft/${initialDraft._id}/submit/${seatNum}`, { method: 'POST' });
+        const response = await csrfFetch(`/draft/${draftid}/submit/${seatNum}`, { method: 'POST' });
         const json = await response.json();
         window.location.replace(json.url);
       })();
     }
-  }, [doneDrafting, submitted, seatNum, initialDraft._id]);
+  }, [doneDrafting, submitted, seatNum, draftid]);
 
   // This has to be async to allow the loading animation to be applied while it runs.
   const takeCard = useCallback(
@@ -347,7 +354,7 @@ export const CubeDraftPage = ({ cube, initialDraft, loginCallback }) => {
 };
 CubeDraftPage.propTypes = {
   cube: CubePropType.isRequired,
-  initialDraft: DraftPropType.isRequired,
+  draftid: PropTypes.string.isRequired,
   loginCallback: PropTypes.string,
 };
 CubeDraftPage.defaultProps = {
