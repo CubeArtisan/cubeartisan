@@ -5,13 +5,13 @@ on:
       - Build Docker Image
     branches:
       - dev
-    types: completed
+    types:
+      - completed
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: cubeartisan    # Add your cluster name here.
   GKE_ZONE: us-central1   # Add your cluster zone here.
   DEPLOYMENT_NAME: cubeartisan # Add your deployment name here.
-
 jobs:
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy
@@ -37,11 +37,15 @@ jobs:
         run: |-
           curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
           chmod u+x ${GITHUB_WORKSPACE}/kustomize
+      - name: Get Tag Name
+        run: echo "TAG=${GITHUB_SHA:0:8}" >> $GITHUB_ENV
+      - name: Get Repository Owner
+        run: echo "REPOSITORY=`echo "ghcr.io/${{ github.repository_owner }}" | tr "[:upper:]" "[:lower:]"`" >> $GITHUB_ENV
       - name: Update Image Tag and Version
         run: |-
           cd ${GITHUB_WORKSPACE}/.docker/k8s/staging
-          ${GITHUB_WORKSPACE}/kustomize edit set image ghcr.io/cubeartisan/cubeartisan:${GITHUB_SHA:0:8}
-          ${GITHUB_WORKSPACE}/kustomize edit add configmap cubeartisan-version --from-literal=TAG=${GITHUB_SHA:0:8}
+          ${GITHUB_WORKSPACE}/kustomize edit set image $REPOSITORY/cubeartisan:$TAG
+          ${GITHUB_WORKSPACE}/kustomize edit add configmap cubeartisan-version --from-literal=TAG=$TAG
       # Deploy the Docker image to the GKE cluster
       - name: Deploy
         run: |-
