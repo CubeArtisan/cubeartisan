@@ -87,7 +87,9 @@ export const render = async (req, res, page, reactProps = {}, options = {}) => {
 
   const pageElement = await getPage(page, req);
   res.render('main', {
-    reactHTML: pageElement ? ReactDOMServer.renderToString(React.createElement(pageElement, reactProps)) : null,
+    reactHTML: pageElement
+      ? ReactDOMServer.renderToString(React.createElement(pageElement, JSON.parse(JSON.stringify(reactProps))))
+      : null,
     reactProps: serialize(reactProps),
     page,
     metadata: options.metadata,

@@ -78,7 +78,7 @@ const getDraftPage = async (req, res) => {
       'CubeDraftPage',
       {
         cube,
-        initialDraft: draft,
+        draftid: draft._id,
       },
       {
         title: `${abbreviate(cube.name)} - Draft`,

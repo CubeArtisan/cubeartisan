@@ -13,7 +13,10 @@ const getSeat = async (draftid, user) => {
   const existingSeat = draft.seats.findIndex(({ userid }) => user._id.toString() === userid);
   if (existingSeat >= 0) return [existingSeat, draft];
   for (
-    let seatNumbers = draft.seats.filter(({ bot, userid }) => !bot && !userid).map((_, idx) => idx);
+    let seatNumbers = draft.seats
+      .map((x, idx) => [x, idx])
+      .filter(([{ bot, userid }]) => !bot && !userid)
+      .map(([, idx]) => idx);
     seatNumbers.length > 0;
     seatNumbers = draft.seats.filter(({ bot, userid }) => !bot && !userid).map((_, idx) => idx)
   ) {
