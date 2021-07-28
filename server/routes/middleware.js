@@ -41,7 +41,7 @@ export const requestLogging = (req, res, next) => {
         request: req,
       });
     },
-    info: (message) => winston.info(message),
+    info: (message, meta) => winston.info(message, meta),
   };
 
   res.locals.requestId = req.uuid;
