@@ -80,7 +80,7 @@ const BulkUploadPageRaw = ({ cubeID, missing, blogpost, cube }) => {
           </p>
           <Row>
             <Col>
-              {missing.split('\n').map((card, index) => (
+              {missing.map((card, index) => (
                 <Fragment key={/* eslint-disable-line react/no-array-index-key */ index}>
                   {card}
                   <br />
@@ -125,7 +125,7 @@ const BulkUploadPageRaw = ({ cubeID, missing, blogpost, cube }) => {
 
 BulkUploadPageRaw.propTypes = {
   cubeID: PropTypes.string.isRequired,
-  missing: PropTypes.string.isRequired,
+  missing: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   blogpost: PropTypes.shape({
     title: PropTypes.string.isRequired,
     html: PropTypes.string.isRequired,
