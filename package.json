@@ -21,7 +21,7 @@
     "build:dev": "yarn workspace @cubeartisan/client build:dev",
     "cards": "yarn workspace @cubeartisan/server cards",
     "ci": "yarn nearley && yarn lint && yarn test:loud",
-    "list-files": "git ls-files '*.js' '*.cjs' '*.mjs'",
+    "list-files": "git ls-files '*.js' '*.cjs' '*.mjs' '*.jsx'",
     "lint:fix": "yarn workspaces run lint:fix",
     "lint": "yarn workspaces run lint",
     "lint:loud": "yarn workspaces run lint:loud",

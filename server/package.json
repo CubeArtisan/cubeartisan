@@ -5,7 +5,7 @@
   "type": "module",
   "license": "AGPL-3.0-only",
   "scripts": {
-    "list-files": "git ls-files '*.js' '*.cjs' '*.mjs' '*.jsx' '*.json'",
+    "list-files": "git ls-files '*.js' '*.cjs' '*.mjs' '*.jsx''",
     "list-files:all": "git ls-files '../*.js' '../*.cjs' '../*.mjs' '../*.jsx' '../*.json'",
     "node-options": "echo '--experimental-loader @node-loader/babel --require dotenv/config'",
     "cards": "node --max-old-space-size=4096 `yarn --silent node-options` scripts/force_update.js",
