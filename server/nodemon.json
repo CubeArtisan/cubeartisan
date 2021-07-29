@@ -1,3 +1,0 @@
-{
-    "ignore": ["*.json",  "README", "server/public/js/*.js"]
-}

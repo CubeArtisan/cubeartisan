@@ -62,8 +62,7 @@ yarn run start
 You can now open up a browser and connect to the app through: http://localhost:8080. Despite the fact that node says
 it is running on port 5000, you should use port 8080 to connect.
 
-Nodemon will restart the application anytime there is a change to a source file (currently doesn't see changes to client
-files).
+Nodemon will restart the application anytime there is a change to a source file.
 
 ### Running tests
 
