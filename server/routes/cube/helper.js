@@ -3,9 +3,10 @@ import canvas from 'canvas';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import { render } from '@cubeartisan/server/serverjs/render.js';
 import { addCardToCube, handleRouteError } from '@cubeartisan/server/serverjs/util.js';
-import { setCubeType, addCardHtml, CSVtoCards } from '@cubeartisan/server/serverjs/cubefn.js';
+import { setCubeType, CSVtoCards } from '@cubeartisan/server/serverjs/cubefn.js';
 import Cube from '@cubeartisan/server/models/cube.js';
 import Blog from '@cubeartisan/server/models/blog.js';
+import { addCardMarkdown } from '@cubeartisan/markdown';
 
 const { Canvas, Image } = canvas;
 Canvas.Image = Image;
@@ -27,7 +28,6 @@ export const updateCubeAndBlog = async (req, res, cube, changelog, added, missin
   try {
     const blogpost = new Blog();
     blogpost.title = 'Cube Bulk Import - Automatic Post';
-    blogpost.changelist = changelog;
     blogpost.owner = cube.owner;
     blogpost.date = Date.now();
     blogpost.cube = cube._id;
@@ -35,6 +35,7 @@ export const updateCubeAndBlog = async (req, res, cube, changelog, added, missin
     blogpost.date_formatted = blogpost.date.toLocaleString('en-US');
     blogpost.username = cube.owner_name;
     blogpost.cubename = cube.name;
+    blogpost.markdown = changelog.join('\n\n');
 
     if (missing.length > 0) {
       return render(req, res, 'BulkUploadPage', {
@@ -76,13 +77,15 @@ export const bulkUpload = async (req, res, list, cube) => {
   const lines = list.match(/[^\r\n]+/g);
   let missing = [];
   const added = [];
-  let changelog = '';
+  const changelog = [];
   if (lines) {
     if ((lines[0].match(/,/g) || []).length > 3) {
       let newCards;
       let newMaybe;
       ({ newCards, newMaybe, missing } = CSVtoCards(list, carddb));
-      changelog = newCards.reduce((changes, card) => changes + addCardHtml(carddb.cardFromId(card.cardID)), changelog);
+      changelog.push(
+        ...newCards.map(({ cardID }) => addCardMarkdown({ cardID, name: carddb.cardFromId(cardID).name })),
+      );
       cube.cards.push(...newCards);
       cube.maybe.push(...newMaybe);
       added.concat(newCards, newMaybe);
@@ -120,7 +123,7 @@ export const bulkUpload = async (req, res, list, cube) => {
           if (!details.error) {
             addCardToCube(cube, details);
             added.push(details);
-            changelog += addCardHtml(details);
+            changelog.push(addCardMarkdown({ cardID: selectedId, name: details.name }));
           }
         } else {
           missing.push(item);

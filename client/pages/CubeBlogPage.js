@@ -44,7 +44,7 @@ import TextEntry from '@cubeartisan/client/components/TextEntry.js';
 import CubeLayout from '@cubeartisan/client/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
-import { findUserLinks } from '@cubeartisan/client/markdown/parser.js';
+import { findUserLinks } from '@cubeartisan/markdown';
 
 const EditBlogModal = ({ isOpen, toggle, markdown, setMarkdown, post }) => {
   const { cubeID } = useContext(CubeContext);
@@ -54,15 +54,16 @@ const EditBlogModal = ({ isOpen, toggle, markdown, setMarkdown, post }) => {
     setMentions(findUserLinks(markdown).join(';'));
   }, [markdown]);
 
+  console.debug(post);
   return (
     <Modal isOpen={isOpen} toggle={toggle} labelledBy="#blogEditTitle" size="lg">
-      <CSRFForm method="POST" action={`/cube/${cubeID}/blog/post`} onSubmit={handleMentions}>
+      <CSRFForm method="POST" action={`/cube/${cubeID}/blog/post/${post?._id}`} onSubmit={handleMentions}>
         <ModalHeader toggle={toggle} id="blogEditTitle">
           Edit Blog Post
         </ModalHeader>
         <ModalBody>
           <Label>Title:</Label>
-          <Input maxLength="200" name="title" type="text" defaultValue={post ? post.title : ''} />
+          <Input maxLength="200" name="title" type="text" defaultValue={post?.title ?? ''} />
           <Label>Body:</Label>
           {post && <Input type="hidden" name="id" value={post._id} />}
           <TextEntry name="markdown" value={markdown} onChange={handleChangeMarkdown} maxLength={10000} />
@@ -91,7 +92,6 @@ EditBlogModal.propTypes = {
     title: PropTypes.string.isRequired,
   }),
 };
-
 EditBlogModal.defaultProps = {
   post: null,
 };

@@ -21,6 +21,11 @@ import PropTypes from 'prop-types';
 
 import { Spinner } from 'reactstrap';
 import { fromEntries } from '@cubeartisan/client/utils/Util.js';
+import styled from '@cubeartisan/client/utils/styledHelper.js';
+
+const TransparentSpinner = styled(Spinner)`
+  opacity: ${(props) => props.opacity};
+`;
 
 const withLoading = (Tag, handlers) => {
   const WithLoading = ({ loading, spinnerSize, opacity, ...props }) => {
@@ -44,7 +49,7 @@ const withLoading = (Tag, handlers) => {
 
     return (
       <div className="d-flex justify-content-center align-items-center flex-grow-1">
-        {renderLoading && <Spinner size={spinnerSize} className="position-absolute" style={{ opacity }} />}
+        {renderLoading && <TransparentSpinner size={spinnerSize} className="position-absolute" />}
         <Tag disabled={renderLoading} {...props} {...wrappedHandlers} />
       </div>
     );

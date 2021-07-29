@@ -21,6 +21,11 @@ import PropTypes from 'prop-types';
 
 import { NavLink } from 'reactstrap';
 import Tooltip from '@cubeartisan/client/components/Tooltip.js';
+import styled from '@cubeartisan/client/utils/styledHelper.js';
+
+const TightDiv = styled`
+width: min-content;
+`;
 
 const HeaderCell = ({ label, fieldName, sortConfig, requestSort, tooltip, ...props }) => {
   const active = sortConfig && sortConfig.key === fieldName;
@@ -31,10 +36,10 @@ const HeaderCell = ({ label, fieldName, sortConfig, requestSort, tooltip, ...pro
     () =>
       tooltip ? (
         <Tooltip text={tooltip}>
-          <div style={{ width: 'min-content' }}>{label}</div>
+          <TightDiv>{label}</TightDiv>
         </Tooltip>
       ) : (
-        <div style={{ width: 'min-content' }}>{label}</div>
+        <TightDiv>{label}</TightDiv>
       ),
     [label, tooltip],
   );

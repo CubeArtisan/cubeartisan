@@ -22,7 +22,7 @@ import PropTypes from 'prop-types';
 
 import { getTCGLink } from '@cubeartisan/client/utils/Affiliate.js';
 
-import Markdown from '@cubeartisan/client/components/Markdown.js';
+import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import MassBuyButton from '@cubeartisan/client/components/MassBuyButton.js';
 
 const compareCards = (x, y) => x.details.name.localeCompare(y.details.name);

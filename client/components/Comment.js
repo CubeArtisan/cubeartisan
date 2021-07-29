@@ -42,7 +42,7 @@ import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import useComments from '@cubeartisan/client/hooks/UseComments.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 import CommentEntry from '@cubeartisan/client/components/CommentEntry.js';
-import Markdown from '@cubeartisan/client/components/Markdown.js';
+import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 
 const maxDepth = 4;
 

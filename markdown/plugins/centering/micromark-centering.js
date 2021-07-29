@@ -3,9 +3,10 @@ import markdownLineEnding from 'micromark/dist/character/markdown-line-ending.js
 import spaceFactory from 'micromark/dist/tokenize/factory-space.js';
 import types from 'micromark/lib/constant/types.js';
 import codes from 'micromark/lib/character/codes.js';
-import { shallowEqual } from '@cubeartisan/client/markdown/utils.js';
 
-function centering() {
+import { shallowEqual } from '@cubeartisan/markdown/plugins/utils.js';
+
+const centering = () => {
   let shouldEnd = false;
   let isOneLine = false;
   let endMark;
@@ -115,7 +116,7 @@ function centering() {
     };
   };
 
-  const tokenizeCenteringContinuation = (effects, ok, nok) => {
+  function tokenizeCenteringContinuation(effects, ok, nok) {
     if (isOneLine) return nok;
     const now = this.now();
 
@@ -130,7 +131,7 @@ function centering() {
     // otherwise the second invocation on the closing fence would return nok, which we don't want
     if (shouldEnd && !shallowEqual(now, endMark)) return nok;
     return spaceFactory(effects, effects.attempt(endingConstruct, markEnd, ok), types.linePrefix, 4);
-  };
+  }
 
   const exit = (effects) => {
     effects.exit('centering');
@@ -144,7 +145,7 @@ function centering() {
     continuation: { tokenize: tokenizeCenteringContinuation },
     exit,
   };
-}
+};
 
 export default {
   document: {

@@ -163,7 +163,7 @@ CubeListPageRaw.propTypes = {
   defaultShowUnsorted: PropTypes.bool.isRequired,
 };
 
-export const CubeListPage = ({
+const CubeListPage = ({
   cube,
   defaultShowTagColors,
   defaultFilterText,

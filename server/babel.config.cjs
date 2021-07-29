@@ -4,21 +4,21 @@ module.exports = (api) => {
       [
         '@babel/preset-env',
         {
-          useBuiltIns: 'usage',
-          corejs: 3,
-          exclude: ['es.promise'],
           targets: {
             node: 'current',
           },
+          useBuiltIns: 'usage',
+          corejs: {
+            version: '3.15.2',
+            proposals: true,
+          },
+          shippedProposals: true,
         },
       ],
       '@babel/preset-react',
     ],
-    plugins: [
-      '@babel/plugin-proposal-nullish-coalescing-operator',
-      '@babel/plugin-proposal-optional-chaining',
-      '@babel/plugin-syntax-top-level-await',
-    ],
+    plugins: ['@babel/plugin-syntax-top-level-await'],
+    sourceMaps: 'both',
   };
   if (!api.env('test')) {
     config.presets[0][1].modules = false;

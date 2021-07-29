@@ -34,8 +34,7 @@ const config = {
       {
         test: /\.jsx?$/,
         type: 'javascript/auto',
-        exclude: /node_modules/,
-
+        exclude: /node_modules[\\/](?!@cubeartisan)/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -58,6 +57,7 @@ const config = {
   resolve: {
     alias: {
       '@cubeartisan/client': path.resolve(__dirname, './'),
+      '@cubeartisan/markdown': path.resolve(__dirname, '../markdown'),
       '@cubeartisan/server': path.resolve(__dirname, '../server'),
     },
   },
@@ -134,7 +134,7 @@ const clientConfig = merge(config, {
     sourceMapFilename: '[name].js.map',
     path: path.resolve(__dirname, 'dist'),
   },
-  target: 'browserslist:> 2%',
+  target: 'browserslist',
 });
 
 module.exports = { clientConfig };

@@ -33,7 +33,7 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import Affiliate from '@cubeartisan/client/utils/Affiliate.js';
+import { getTCGLink } from '@cubeartisan/client/utils/Affiliate.js';
 import { getLabels, cardGetLabels } from '@cubeartisan/client/utils/Sort.js';
 import { cardPrice, cardFoilPrice, cardPriceEur, cardTix, cardElo } from '@cubeartisan/client/utils/Card.js';
 
@@ -234,7 +234,7 @@ const CardModal = ({
           <span className="d-none d-sm-inline">View card analytics</span>
           <span className="d-sm-none">Analytics</span>
         </Button>
-        <Button color="secondary" href={Affiliate.getTCGLink(card)} target="_blank">
+        <Button color="secondary" href={getTCGLink(card)} target="_blank">
           Buy
         </Button>
         {!disabled && (

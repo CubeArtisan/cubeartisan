@@ -38,6 +38,7 @@ import {
   UncontrolledAlert,
 } from 'reactstrap';
 import PropTypes from 'prop-types';
+import styled from '@cubeartisan/client/utils/styledHelper.js';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import { arrayMove, fromEntries } from '@cubeartisan/client/utils/Util.js';
@@ -64,6 +65,15 @@ const DEFAULT_FORM_VALUES = {
   tags: [],
   tagInput: '',
 };
+
+const BoundedCol = styled(Col)`
+  max-height: 35rem;
+`;
+
+const ScrollingRow = styled(Row)`
+  overflow: scroll;
+  flex-shrink: 1;
+`;
 
 const GroupModal = ({ cubeID, canEdit, children, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -279,8 +289,8 @@ const GroupModal = ({ cubeID, canEdit, children, ...props }) => {
             <UncontrolledAlert color={color}>{message}</UncontrolledAlert>
           ))}
           <Row>
-            <Col xs="4" className="d-flex flex-column" style={{ maxHeight: '35rem' }}>
-              <Row noGutters className="w-100" style={{ overflow: 'scroll', flexShrink: 1 }}>
+            <BoundedCol xs="4" className="d-flex flex-column">
+              <ScrollingRow noGutters className="w-100">
                 <ListGroup className="list-outline w-100">
                   {cards.map((card) => (
                     <AutocardListItem key={card.index} card={card} noCardModal inModal>
@@ -288,7 +298,7 @@ const GroupModal = ({ cubeID, canEdit, children, ...props }) => {
                     </AutocardListItem>
                   ))}
                 </ListGroup>
-              </Row>
+              </ScrollingRow>
               <Row noGutters>
                 {Number.isFinite(totalPriceUsd) && (
                   <TextBadge name="Price USD" className="mt-2 mr-2">
@@ -313,7 +323,7 @@ const GroupModal = ({ cubeID, canEdit, children, ...props }) => {
                   </TextBadge>
                 )}
               </Row>
-            </Col>
+            </BoundedCol>
             <Col xs="8">
               <Form>
                 <Label for="groupStatus">

@@ -16,20 +16,53 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-const merge = require('webpack-merge');
 const path = require('path');
-
-const { serverConfig: common } = require('@cubeartisan/server/webpack.common.cjs');
+const merge = require('webpack-merge');
 
 const config = {
-  mode: 'development',
-  devtool: 'inline-source-map',
-  cache: {
-    type: 'filesystem',
-    cacheDirectory: path.resolve(__dirname, '.webpack_cache'),
-    managedPaths: [path.resolve(__dirname, 'node_modules'), path.resolve(__dirname, '../node_modules')],
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        type: 'javascript/auto',
+        exclude: /node_modules[/\\](?!react-dom[/\\]server|consolidate|@cubeartisan[/\\]client|canvas)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            configFile: path.resolve(__dirname, 'babel.config.cjs'),
+          },
+        },
+      },
+      {
+        test: /\.(css|less)$/,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  },
+  devtool: 'source-map',
+  resolve: {
+    alias: {
+      '@cubeartisan/client': path.resolve(__dirname, '../client'),
+      '@cubeartisan/markdown': path.resolve(__dirname, '../markdown'),
+      '@cubeartisan/server': path.resolve(__dirname, '.'),
+    },
+  },
+  performance: {
+    hints: 'warning',
   },
 };
 
-const clientConfig = merge(common, config);
-module.exports = [clientConfig];
+const serverConfig = merge(config, {
+  target: 'node',
+  entry: {
+    render: './serverjs/render',
+  },
+  output: {
+    filename: 'dist/[name].js',
+    sourceMapFilename: 'dist/[name].js.map',
+    path: __dirname,
+  },
+  parallelism: 8,
+});
+
+module.exports = { serverConfig };

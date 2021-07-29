@@ -19,6 +19,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ChartComponent from 'react-chartjs-2';
+import styled from '@cubeartisan/client/utils/styledHelper.js';
 
 import {
   Col,
@@ -36,10 +37,14 @@ import {
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import calculate from '@cubeartisan/client/utils/CalculateHyperGeom.js';
 
+const FixedWidthText = styled(InputGroupText)`
+  width: 20rem;
+`;
+
 const TextField = ({ name, humanName, placeholder, value, onChange, ...props }) => (
   <InputGroup className="mb-3" {...props}>
     <InputGroupAddon addonType="prepend">
-      <InputGroupText style={{ width: '20rem' }}>{humanName}</InputGroupText>
+      <FixedWidthText>{humanName}</FixedWidthText>
     </InputGroupAddon>
     <Input type="text" name={name} placeholder={placeholder} value={value} onChange={onChange} />
   </InputGroup>
@@ -56,7 +61,7 @@ TextField.propTypes = {
 const TextDisplay = ({ humanName, value }) => (
   <InputGroup className="mb-3">
     <InputGroupAddon addonType="prepend">
-      <InputGroupText style={{ width: '20rem' }}>{humanName}</InputGroupText>
+      <FixedWidthText>{humanName}</FixedWidthText>
     </InputGroupAddon>
     <Input type="text" disabled value={value} />
   </InputGroup>

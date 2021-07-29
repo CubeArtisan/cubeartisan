@@ -36,7 +36,7 @@ import {
 } from 'reactstrap';
 
 import { encodeName } from '@cubeartisan/client/utils/Card.js';
-import { findUserLinks } from '@cubeartisan/client/markdown/parser.js';
+import { findUserLinks } from '@cubeartisan/markdown';
 
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
 import Changelist from '@cubeartisan/client/components/Changelist.js';

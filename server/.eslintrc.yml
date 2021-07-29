@@ -13,7 +13,6 @@ parserOptions:
 plugins:
   - jest
   - prettier
-  - react-hooks
   - babel
   - promise
 settings:
@@ -25,7 +24,7 @@ rules:
   import/extensions:
     - error
     - always
-    - ignorePackages: true
+  import/no-extraneous-dependencies: ["error", {"devDependencies": true}]
   prettier/prettier:
     - error
     - endOfLine: lf
@@ -48,16 +47,6 @@ rules:
     - WithStatement
     - LabeledStatement
     - BinaryExpression[operator='in']
-  react/jsx-filename-extension: off
-  react/jsx-one-expression-per-line: off
-  react/jsx-props-no-spreading: off
-  react/no-unescaped-entities:
-    - error
-    - forbid: ['>', '"', '}']
-  react-hooks/rules-of-hooks: error
-  react-hooks/exhaustive-deps: error
-  react/jsx-uses-react: off
-  react/react-in-jsx-scope: off
   import/no-commonjs: error
   no-restricted-imports:
     - error

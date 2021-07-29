@@ -21,7 +21,6 @@ import mongoose from 'mongoose';
 // Blog schema
 const blogSchema = mongoose.Schema({
   title: String,
-  body: String,
   owner: String,
   date: Date,
   cube: String,

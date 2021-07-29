@@ -29,6 +29,11 @@ import CubeLayout from '@cubeartisan/client/layouts/CubeLayout.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import styled from '@cubeartisan/client/utils/styledHelper.js';
+
+const BoundedCol = styled(Col)`
+  max-width: 800px;
+`;
 
 export const SamplePackPage = ({ seed, pack, cube, loginCallback }) => {
   return (
@@ -55,7 +60,7 @@ export const SamplePackPage = ({ seed, pack, cube, loginCallback }) => {
           </div>
           <div className="card-body">
             <Row noGutters className="pack-body justify-content-center">
-              <Col style={{ maxWidth: '800px' }}>
+              <BoundedCol>
                 <CardGrid
                   cardList={pack}
                   Tag={CardImage}
@@ -63,7 +68,7 @@ export const SamplePackPage = ({ seed, pack, cube, loginCallback }) => {
                   cardProps={{ autocard: true }}
                   className="sample"
                 />
-              </Col>
+              </BoundedCol>
             </Row>
           </div>
         </div>

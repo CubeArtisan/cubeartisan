@@ -47,7 +47,7 @@ export const requestLogging = (req, res, next) => {
   res.locals.requestId = req.uuid;
   res.startTime = Date.now();
   onFinished(res, (_err, finalRes) => {
-    req.logger.info('', {
+    req.logger.info({
       level: 'info',
       type: 'request',
       remoteAddr: req.ip,

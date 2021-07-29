@@ -18,7 +18,7 @@
  */
 import { useEffect, useState } from 'react';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
-import { findUserLinks } from '@cubeartisan/client/markdown/parser.js';
+import { findUserLinks } from '@cubeartisan/markdown';
 
 const useComment = (type, parent) => {
   const [comments, setComments] = useState([]);

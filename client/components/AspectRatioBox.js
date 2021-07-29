@@ -19,6 +19,18 @@
 import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
+import styled from '@cubeartisan/client/utils/styledHelper.js';
+
+export const StretchedDiv = styled.div`
+  padding-top: ${(props) => (100 / props.ratio).toFixed(5)}%;
+`;
+
+const NoMarginsDiv = styled.div`
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+`;
 
 /** 2020-11-17 struesdell:
  * - Added classnames dependency, allowing for terse classname construction
@@ -26,24 +38,16 @@ import PropTypes from 'prop-types';
  * - Added propTypes declaration to resolve ESLint errors (issue #1601)
  * - Added defaultProps to support partial prop application
  */
-const AspectRatioBox = ({ ratio, className, style, ...props }) => (
-  <div className="position-relative w-100" style={{ paddingTop: `${(100 / ratio).toFixed(5)}%` }}>
-    <div
-      className={cx('position-absolute', 'overflow-hidden', className)}
-      style={{ ...style, left: 0, top: 0, right: 0, bottom: 0 }}
-      {...props}
-    />
-  </div>
+const AspectRatioBox = ({ ratio, className, ...props }) => (
+  <StretchedDiv className="position-relative w-100" ratio={ratio}>
+    <NoMarginsDiv className={cx('position-absolute', 'overflow-hidden', className)} {...props} />
+  </StretchedDiv>
 );
-
 AspectRatioBox.propTypes = {
   ratio: PropTypes.number.isRequired,
   className: PropTypes.string,
-  style: PropTypes.objectOf(PropTypes.string),
 };
 AspectRatioBox.defaultProps = {
   className: '',
-  style: Object.create(null),
 };
-
 export default AspectRatioBox;

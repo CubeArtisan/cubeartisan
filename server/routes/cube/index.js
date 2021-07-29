@@ -25,7 +25,6 @@ import {
 import generateMeta from '@cubeartisan/server/serverjs/meta.js';
 import {
   abbreviate,
-  addCardHtml,
   buildIdQuery,
   buildTagColors,
   cachePromise,
@@ -36,11 +35,10 @@ import {
   generateSamplepackImage,
   generateShortId,
   maybeCards,
-  removeCardHtml,
-  replaceCardHtml,
   setCubeType,
   addDeckCardAnalytics,
 } from '@cubeartisan/server/serverjs/cubefn.js';
+import { addCardMarkdown, removeCardMarkdown, replaceCardMarkdown } from '@cubeartisan/markdown';
 import {
   CARD_HEIGHT,
   CARD_WIDTH,
@@ -446,20 +444,9 @@ const getRss = async (req, res) => {
     });
 
     blogs.forEach((blog) => {
-      let content = blog.html ? blog.html : blog.content;
-
-      if (blog.changelist) {
-        const changeSetElement = `<div class="change-set">${blog.changelist}</div>`;
-        if (content) {
-          content += changeSetElement;
-        } else {
-          content = changeSetElement;
-        }
-      }
-
       feed.item({
         title: blog.title,
-        description: content,
+        description: blog.markdown,
         guid: blog.id,
         date: blog.date,
       });
@@ -993,7 +980,7 @@ const editCube = async (req, res) => {
     const edits = req.body.body.split(';');
     const removes = new Set();
     const adds = [];
-    let changelog = '';
+    const changelog = [];
 
     for (const edit of edits) {
       if (edit.charAt(0) === '+') {
@@ -1005,7 +992,7 @@ const editCube = async (req, res) => {
           });
         } else {
           adds.push(details);
-          changelog += addCardHtml(details);
+          changelog.push(addCardMarkdown({ name: details.name, cardID: details._id }));
         }
       } else if (edit.charAt(0) === '-') {
         // remove id
@@ -1018,7 +1005,7 @@ const editCube = async (req, res) => {
           const card = cube.cards[indexOut];
           if (card.cardID === outID) {
             removes.add(indexOut);
-            changelog += removeCardHtml(carddb.cardFromId(card.cardID));
+            changelog.push(removeCardMarkdown({ cardID: card.cardID, name: carddb.cardFromId(card.cardID).name }));
           } else {
             req.flash('danger', `Unable to remove card due outdated index: ${carddb.cardFromId(outID).name}`);
           }
@@ -1038,15 +1025,20 @@ const editCube = async (req, res) => {
         const indexOut = parseInt(indexOutStr, 10);
         if (!Number.isInteger(indexOut) || indexOut < 0 || indexOut >= cube.cards.length) {
           req.flash('danger', `Unable to replace card due to invalid index: ${carddb.cardFromId(outID).name}`);
-          changelog += addCardHtml(detailsIn);
+          changelog.push(addCardMarkdown({ name: detailsIn.name, cardID: detailsIn._id }));
         } else {
           const cardOut = cube.cards[indexOut];
           if (cardOut.cardID === outID) {
             removes.add(indexOut);
-            changelog += replaceCardHtml(carddb.cardFromId(cardOut.cardID), detailsIn);
+            changelog.push(
+              replaceCardMarkdown(
+                { cardID: cardOut.cardID, name: carddb.cardFromId(cardOut.cardID).name },
+                { name: detailsIn.name, cardID: detailsIn._id },
+              ),
+            );
           } else {
             req.flash('danger', `Unable to replace card due outdated index: ${carddb.cardFromId(outID).name}`);
-            changelog += addCardHtml(detailsIn);
+            changelog.push(addCardMarkdown({ name: detailsIn.name, cardID: detailsIn._id }));
           }
         }
       } else {
@@ -1062,10 +1054,11 @@ const editCube = async (req, res) => {
 
     const blogpost = new Blog();
     blogpost.title = req.body.title;
+    blogpost.markdown = changelog.join('\n\n');
     if (req.body.blog.length > 0) {
-      blogpost.markdown = req.body.blog.substring(0, 10000);
+      blogpost.markdown += '\n\n';
+      blogpost.markdown += req.body.blog.substring(0, 10000 - blogpost.markdown.length);
     }
-    blogpost.changelist = changelog;
     blogpost.owner = cube.owner;
     blogpost.date = Date.now();
     blogpost.cube = cube._id;
@@ -1172,11 +1165,11 @@ const resizeCube = async (req, res) => {
     }
     list = (filter ? list.filter(filter) : list).slice(0, Math.abs(newSize - cube.cards.length));
 
-    let changelog = '';
+    const changelog = [];
     if (newSize > cube.cards.length) {
       // we add to cube
       const toAdd = list.map((card) => {
-        changelog += addCardHtml(card.details);
+        changelog.push(addCardMarkdown({ name: card.details.name, cardID: card.cardID }));
         return newCard(card.details);
       });
       cube.cards = cube.cards.concat(toAdd);
@@ -1185,7 +1178,7 @@ const resizeCube = async (req, res) => {
       for (const card of list) {
         for (let i = 0; i < cube.cards.length; i += 1) {
           if (carddb.cardFromId(cube.cards[i].cardID).name === carddb.cardFromId(card.cardID).name) {
-            changelog += removeCardHtml(card.details);
+            changelog.push(removeCardMarkdown({ name: card.details.name, cardID: card.cardID }));
             cube.cards.splice(i, 1);
             i = cube.cards.length;
           }
@@ -1197,11 +1190,11 @@ const resizeCube = async (req, res) => {
 
     const blogpost = new Blog();
     blogpost.title = 'Resize - Automatic Post';
-    blogpost.changelist = changelog;
     blogpost.owner = cube.owner;
     blogpost.date = Date.now();
     blogpost.cube = cube._id;
     blogpost.dev = 'false';
+    blogpost.markdown = changelog.join('\n\n');
     blogpost.date_formatted = blogpost.date.toLocaleString('en-US');
     blogpost.username = cube.owner_name;
     blogpost.cubename = cube.name;
@@ -1748,8 +1741,10 @@ const addCardsToCube = async (req, res) => {
   if (tag) {
     const blogpost = new Blog();
     blogpost.title = `Added Package "${tag}"`;
-    blogpost.changelist = req.body.cards.reduce((changes, card) => changes + addCardHtml(carddb.cardFromId(card)), '');
-    blogpost.markdown = `Add from the package [${tag}](/packages/${req.body.packid})`;
+    blogpost.markdown = `Add from the package [${tag}](/packages/${req.body.packid})\n`;
+    blogpost.markdown += req.body.cards
+      .map((card) => addCardMarkdown({ cardID: card, name: carddb.cardFromId(card).name }))
+      .join('\n\n');
     blogpost.owner = cube.owner;
     blogpost.date = Date.now();
     blogpost.cube = cube._id;
@@ -2147,8 +2142,9 @@ router.get('/:id/export/plaintext', wrapAsyncApi(exportToPlaintext));
 router.get('/:id/blog/', redirectToFirstPage);
 router.get('/:id/blog/page/:page', getBlogPage);
 router.get('/:id/blog/post/:postid', getBlogPost);
-router.put('/:id/blog/post/:postid', updateBlogPost);
-router.post('/post', ensureAuth, postToBlog);
+// Has to be a POST for now since HTML forms don't support PUT.
+router.post('/:id/blog/post/:postid', updateBlogPost);
+router.post('/:id/blog/post', ensureAuth, postToBlog);
 router.delete('/post/:postid', ensureAuth, deleteBlogPost);
 router.post('/:id/clone', ensureAuth, cloneCube);
 router.get('/:id', viewOverview);

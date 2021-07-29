@@ -24,11 +24,9 @@ const BlogPostPropType = PropTypes.shape({
   owner: PropTypes.string.isRequired,
   date: PropTypes.instanceOf(Date).isRequired,
   cube: PropTypes.string.isRequired,
-  html: PropTypes.string,
-  markdown: PropTypes.string,
+  markdown: PropTypes.string.isRequired,
   dev: PropTypes.string.isRequired,
   date_formatted: PropTypes.string.isRequired,
-  changelist: PropTypes.string,
   username: PropTypes.string.isRequired,
   cubename: PropTypes.string.isRequired,
 });

@@ -42,7 +42,7 @@ const CardGrid = ({ cardList, Tag, colProps, cardProps, linkDetails, ...props })
 
 CardGrid.propTypes = {
   cardList: PropTypes.arrayOf(CardPropType).isRequired,
-  Tag: PropTypes.func.isRequired,
+  Tag: PropTypes.node.isRequired,
   colProps: PropTypes.shape({}),
   cardProps: PropTypes.shape({}),
   linkDetails: PropTypes.bool,

@@ -5,13 +5,8 @@ import carddb from '@cubeartisan/server/serverjs/cards.js';
 import { addCardToCube, handleRouteError } from '@cubeartisan/server/serverjs/util.js';
 import { bulkUpload, updateCubeAndBlog } from '@cubeartisan/server/routes/cube/helper.js';
 import Cube from '@cubeartisan/server/models/cube.js';
-import {
-  addCardHtml,
-  buildIdQuery,
-  compareCubes,
-  CSVtoCards,
-  removeCardHtml,
-} from '@cubeartisan/server/serverjs/cubefn.js';
+import { buildIdQuery, compareCubes, CSVtoCards } from '@cubeartisan/server/serverjs/cubefn.js';
+import { addCardMarkdown, removeCardMarkdown } from '@cubeartisan/markdown';
 
 export const importFromCubeTutor = async (req, res) => {
   try {
@@ -55,7 +50,7 @@ export const importFromCubeTutor = async (req, res) => {
 
     const added = [];
     const missing = [];
-    let changelog = '';
+    const changelog = [];
     for (const card of cards) {
       const potentialIds = carddb.allVersions(card);
       if (potentialIds && potentialIds.length > 0) {
@@ -66,7 +61,7 @@ export const importFromCubeTutor = async (req, res) => {
         if (!details.error) {
           added.push(details);
           addCardToCube(cube, details, card.tags);
-          changelog += addCardHtml(details);
+          changelog.push(addCardMarkdown({ cardID: selected, name: details.name }));
         } else {
           missing.push(card.name);
         }
@@ -146,7 +141,7 @@ export const replaceFromFile = async (req, res) => {
     }
     const lines = items.match(/[^\r\n]+/g);
     if (lines) {
-      let changelog = '';
+      const changelog = [];
       let missing = [];
       const added = [];
       let newCards = [];
@@ -174,8 +169,10 @@ export const replaceFromFile = async (req, res) => {
         const newDetails = addDetails(newCards);
 
         const { onlyA, onlyB } = await compareCubes(cubeCards, newDetails);
-        changelog += onlyA.map(({ cardID }) => removeCardHtml(carddb.cardFromId(cardID))).join('');
-        changelog += onlyB.map(({ cardID }) => addCardHtml(carddb.cardFromId(cardID))).join('');
+        changelog.push(
+          ...onlyA.map(({ cardID }) => removeCardMarkdown({ cardID, name: carddb.cardFromId(cardID).name })),
+        );
+        changelog.push(...onlyB.map(({ cardID }) => addCardMarkdown({ cardID, name: carddb.cardFromId(cardID).name })));
         added.push(...onlyB);
       } else {
         // Eventually add plaintext support here.
