@@ -26,6 +26,17 @@ import TagColorsModal from '@cubeartisan/client/components/modals/TagColorsModal
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import styled from '@cubeartisan/client/utils/styledHelper.js';
+
+const BrandedH5 = styled.h5`
+  color: var(--success);
+`;
+const BrandedH6 = styled.h5`
+  color: var(--success);
+`;
+const BrandedLink = styled.a`
+  color: var(--success);
+`;
 
 const CubeCompareNavbar = ({ cubeA, cubeB, cards, filter, setFilter, setOpenCollapse, openCollapse }) => {
   const [isOpen, toggleOpen] = useToggle(false);
@@ -52,17 +63,17 @@ const CubeCompareNavbar = ({ cubeA, cubeB, cards, filter, setFilter, setOpenColl
       <div className="cubenav">
         <ul className="nav nav-tabs nav-fill pt-2">
           <li className="nav-item">
-            <h5 style={{ color: '#218937' }}>Compare Cubes</h5>
-            <h6 className="my-3" style={{ color: '#218937' }}>
+            <BrandedH5>Compare Cubes</BrandedH5>
+            <BrandedH6 className="my-3">
               <span className="text-muted">Base Cube:</span>{' '}
-              <a href={`/cube/${cubeA.shortID}/list`} className="mr-3" style={{ color: '#218937' }}>
+              <BrandedLink href={`/cube/${cubeA.shortID}/list`} className="mr-3">
                 {cubeA.name} ({cubeA.card_count} cards)
-              </a>{' '}
+              </BrandedLink>{' '}
               <span className="text-muted">Comparison Cube:</span>{' '}
-              <a href={`/cube/${cubeB.shortID}/list`} style={{ color: '#218937' }}>
+              <BrandedLink href={`/cube/${cubeB.shortID}/list`}>
                 {cubeB.name} ({cubeB.card_count} cards)
-              </a>
-            </h6>
+              </BrandedLink>
+            </BrandedH6>
           </li>
         </ul>
       </div>

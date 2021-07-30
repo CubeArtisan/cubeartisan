@@ -17,15 +17,24 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 const path = require('path');
-const merge = require('webpack-merge');
 
-const config = {
+const clientConfig = {
+  optimization: {
+    splitChunks: {
+      chunks: 'async',
+    },
+    usedExports: false,
+  },
+  experiments: {
+    asyncWebAssembly: true,
+  },
   module: {
     rules: [
       {
         test: /\.jsx?$/,
         type: 'javascript/auto',
-        exclude: /node_modules[/\\](?!react-dom[/\\]server|consolidate|@cubeartisan[/\\]client|canvas)/,
+        exclude: /node_modules/,
+
         use: {
           loader: 'babel-loader',
           options: {
@@ -34,34 +43,22 @@ const config = {
         },
       },
       {
+        test: /\.wasm$/,
+        type: 'asset/resource',
+      },
+      {
         test: /\.(css|less)$/,
+        sideEffects: true,
         use: ['style-loader', 'css-loader'],
       },
     ],
   },
-  devtool: 'source-map',
+  plugins: [],
   resolve: {
     alias: {
-      '@cubeartisan/client': path.resolve(__dirname, '../client'),
-      '@cubeartisan/server': path.resolve(__dirname, '.'),
+      '@cubeartisan/markdown': path.resolve(__dirname, './'),
     },
-  },
-  performance: {
-    hints: 'warning',
   },
 };
 
-const serverConfig = merge(config, {
-  target: 'node',
-  entry: {
-    render: './serverjs/render',
-  },
-  output: {
-    filename: 'dist/[name].js',
-    sourceMapFilename: 'dist/[name].js.map',
-    path: __dirname,
-  },
-  parallelism: 8,
-});
-
-module.exports = { serverConfig };
+module.exports = { clientConfig };

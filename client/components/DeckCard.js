@@ -26,7 +26,7 @@ import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
 import DecksPickBreakdown from '@cubeartisan/client/components/DecksPickBreakdown.js';
 import DraftbotBreakdown from '@cubeartisan/client/components/DraftbotBreakdown.js';
 import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
-import Markdown from '@cubeartisan/client/components/Markdown.js';
+import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import { makeSubtitle } from '@cubeartisan/client/utils/Card.js';
 
 import { Card, CardBody, CardHeader, CardTitle, Col, Row } from 'reactstrap';

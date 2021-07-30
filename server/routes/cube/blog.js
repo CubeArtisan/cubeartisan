@@ -10,7 +10,7 @@ import User from '@cubeartisan/server/models/user.js';
 
 export const updateBlogPost = async (req, res) => {
   // update an existing blog post
-  const blog = await Blog.findById(req.parms.postid);
+  const blog = await Blog.findById(req.params.postid);
   const { user } = req;
 
   if (req.body.title.length < 5 || req.body.title.length > 100) {

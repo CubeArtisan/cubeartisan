@@ -34,6 +34,7 @@ import {
   ModalFooter,
   ModalHeader,
 } from 'reactstrap';
+import styled from '@cubeartisan/client/utils/styledHelper.js';
 
 import { makeFilter } from '@cubeartisan/client/filtering/FilterCards.js';
 import { fromEntries } from '@cubeartisan/client/utils/Util.js';
@@ -84,6 +85,27 @@ const numFields = [
   'legality',
 ];
 const colorFields = ['color', 'identity'];
+
+const NegMarginRow = styled(Row)`
+  margin: 0 -5px;
+`;
+
+const PaddedCol = styled(Col)`
+  padding: 0 5px;
+`;
+
+const WideInput = styled(Input)`
+  width: 8rem;
+`;
+
+const CmcInput = styled(Input)`
+  max-width: 3rem;
+`;
+
+const CmcOpInput = styled(CustomInput)`
+  text-align: center;
+  max-width: 3.5rem;
+`;
 
 const AdvancedFilterModal = ({ isOpen, toggle, apply, values, onChange, ...props }) => (
   <Modal isOpen={isOpen} toggle={toggle} size="lg" {...props}>
@@ -552,9 +574,9 @@ const FilterCollapse = ({ filter, setFilter, numCards, numShown, defaultFilterTe
           </Form>
         </Col>
       </Row>
-      <Row style={{ margin: '0 -5px' }}>
+      <NegMarginRow>
         <Form inline>
-          <Col xs="auto" style={{ padding: '0 5px' }}>
+          <PaddedCol xs="auto">
             <ColorChecksControl
               size="sm"
               className="mb-3"
@@ -563,75 +585,61 @@ const FilterCollapse = ({ filter, setFilter, numCards, numShown, defaultFilterTe
               values={values}
               onChange={handleChange}
             />
-          </Col>
-          <Col xs="auto" style={{ padding: '0 5px' }}>
+          </PaddedCol>
+          <PaddedCol xs="auto">
             <InputGroup size="sm" className="mb-3">
               <InputGroupAddon addonType="prepend">
                 <InputGroupText htmlFor="cmcQuick">Mana Value</InputGroupText>
               </InputGroupAddon>
-              <CustomInput
+              <CmcOpInput
                 id="cmcQickOp"
                 type="select"
                 name="cmcQuickOp"
                 value={values.cmcQuickOp}
                 onChange={handleChange}
                 bsSize="sm"
-                style={{ textAlignLast: 'center', maxWidth: '3.5rem' }}
               >
                 <option>{'>'}</option>
                 <option>{'>='}</option>
                 <option>=</option>
                 <option>{'<='}</option>
                 <option>{'<'}</option>
-              </CustomInput>
+              </CmcOpInput>
               <InputGroupAddon addonType="append">
-                <Input
+                <CmcInput
                   name="cmcQuick"
                   id="cmcQuick"
                   value={values.cmcQuick}
                   onChange={handleChange}
                   bsSize="sm"
                   className="square-left"
-                  style={{ width: '3rem' }}
                 />
               </InputGroupAddon>
             </InputGroup>
-          </Col>
-          <Col xs="auto" style={{ padding: '0 5px' }}>
+          </PaddedCol>
+          <PaddedCol xs="auto">
             <InputGroup size="sm" className="mb-3">
               <InputGroupAddon addonType="prepend">
                 <InputGroupText htmlFor="typeQuick">Type</InputGroupText>
               </InputGroupAddon>
-              <Input
-                name="typeQuick"
-                id="typeQuick"
-                value={values.typeQuick}
-                onChange={handleChange}
-                style={{ width: '8rem' }}
-              />
+              <WideInput name="typeQuick" id="typeQuick" value={values.typeQuick} onChange={handleChange} />
             </InputGroup>
-          </Col>
-          <Col xs="auto" style={{ padding: '0 5px' }}>
+          </PaddedCol>
+          <PaddedCol xs="auto">
             <InputGroup size="sm" className="mb-3">
               <InputGroupAddon addonType="prepend">
                 <InputGroupText htmlFor="textQuick">Text</InputGroupText>
               </InputGroupAddon>
-              <Input
-                name="textQuick"
-                id="textQuick"
-                value={values.textQuick}
-                onChange={handleChange}
-                style={{ width: '8rem' }}
-              />
+              <WideInput name="textQuick" id="textQuick" value={values.textQuick} onChange={handleChange} />
             </InputGroup>
-          </Col>
-          <Col xs="auto" style={{ padding: '0 5px' }}>
+          </PaddedCol>
+          <PaddedCol xs="auto">
             <Button type="submit" onClick={applyQuick} size="sm" color="success" className="mb-3">
               Quick Filter
             </Button>
-          </Col>
+          </PaddedCol>
         </Form>
-      </Row>
+      </NegMarginRow>
       <Row>
         <Col>
           {!noCount && <p>{!filter || filter.length === 0 ? <em>No filters applied.</em> : <em>{appliedText}</em>}</p>}

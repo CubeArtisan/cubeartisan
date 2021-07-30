@@ -5,6 +5,7 @@
   "private": true,
   "workspaces": [
     "client",
+    "markdown",
     "server"
   ],
   "sideEffects": [
@@ -36,9 +37,5 @@
     "test": "yarn workspaces run test",
     "test:loud": "yarn workspaces run test:loud",
     "webpack-dev-server": "yarn workspace @cubeartisan/client webpack-dev-server"
-  },
-  "dependencies": {
-    "@cubeartisan/client": "^0.1.0",
-    "@cubeartisan/server": "^0.1.0"
   }
 }

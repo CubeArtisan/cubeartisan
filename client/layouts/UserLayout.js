@@ -26,10 +26,15 @@ import FollowersModal from '@cubeartisan/client/components/modals/FollowersModal
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import CreateCubeModal from '@cubeartisan/client/components/modals/CreateCubeModal.js';
 
-import { Nav, Navbar, NavItem, NavLink, Row } from 'reactstrap';
+import { Button, Nav, Navbar, NavItem, NavLink, Row } from 'reactstrap';
+import styled from '@cubeartisan/client/utils/styledHelper.js';
 
-const FollowersModalLink = withModal('a', FollowersModal);
+const FollowersModalLink = withModal(Button, FollowersModal);
 const CreateCubeModalLink = withModal(NavLink, CreateCubeModal);
+
+const BrandedHeader = styled.h5`
+  color: var(--success);
+`;
 
 const UserLayout = ({ user, followers, activeLink, children }) => {
   const activeUser = useContext(UserContext);
@@ -45,13 +50,9 @@ const UserLayout = ({ user, followers, activeLink, children }) => {
     <>
       <Nav tabs fill className="cubenav pt-2">
         <NavItem>
-          <h5 href="#" style={{ color: '#218937' }}>
-            {user.username}
-          </h5>
+          <BrandedHeader>{user.username}</BrandedHeader>
           {numFollowers > 0 ? (
-            <FollowersModalLink href="#" modalProps={{ followers }}>
-              {followersText}
-            </FollowersModalLink>
+            <FollowersModalLink modalProps={{ followers }}>{followersText}</FollowersModalLink>
           ) : (
             followersText
           )}

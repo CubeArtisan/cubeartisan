@@ -1,6 +1,6 @@
-import syntax from '@cubeartisan/client/markdown/symbols/micromark-symbols.js';
-import { fromMarkdown } from '@cubeartisan/client/markdown/symbols/mdast-symbols.js';
-import { add } from '@cubeartisan/client/markdown/utils.js';
+import syntax from '@cubeartisan/markdown/plugins/symbols/micromark-symbols.js';
+import { fromMarkdown } from '@cubeartisan/markdown/plugins/symbols/mdast-symbols.js';
+import { add } from '@cubeartisan/markdown/plugins/utils.js';
 
 function symbols(options) {
   if (!options?.allowed) {

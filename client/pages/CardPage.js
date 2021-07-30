@@ -47,7 +47,7 @@ import CardGrid from '@cubeartisan/client/components/CardGrid.js';
 import ImageFallback from '@cubeartisan/client/components/ImageFallback.js';
 import PagedList from '@cubeartisan/client/components/PagedList.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
-import Markdown from '@cubeartisan/client/components/Markdown.js';
+import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
 import CountTableRow from '@cubeartisan/client/components/CountTableRow.js';
 import Tooltip from '@cubeartisan/client/components/Tooltip.js';
@@ -77,9 +77,14 @@ import {
   getCardKingdomLink,
 } from '@cubeartisan/client/utils/Affiliate.js';
 import { ArrowSwitchIcon, CheckIcon, ClippyIcon } from '@primer/octicons-react';
+import styled from '@cubeartisan/client/utils/styledHelper.js';
 
 const AutocardA = withAutocard('a');
 const AddModal = withModal(Button, AddToCubeModal);
+
+const AutoSizedAddon = styled(InputGroupAddon)`
+  width: auto;
+`;
 
 const formatDate = (date) => `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
 
@@ -224,11 +229,11 @@ const CardIdBadge = ({ id }) => {
         <InputGroupText>Card ID</InputGroupText>
       </InputGroupAddon>
       <Input className="bg-white" value={id} disabled />
-      <InputGroupAddon addonType="append" style={{ width: 'auto' }}>
+      <AutoSizedAddon addonType="append">
         <Button className="btn-sm input-group-button" onClick={onCopyClick}>
           {copied ? <CheckIcon size={16} /> : <ClippyIcon size={16} />}
         </Button>
-      </InputGroupAddon>
+      </AutoSizedAddon>
     </InputGroup>
   );
 };

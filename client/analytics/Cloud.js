@@ -27,20 +27,30 @@ import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import CubePropTypes from '@cubeartisan/client/proptypes/CubePropType.js';
 import TagInput from '@cubeartisan/client/components/TagInput.js';
 import { arrayMove, isTouchDevice } from '@cubeartisan/client/utils/Util.js';
+import styled from '@cubeartisan/client/utils/styledHelper.js';
 
 const trigger = isTouchDevice() ? 'click' : 'hover.js';
+
+const TagSpan = styled.span`
+  color: ${(props) => props.color};
+  font-size: ${(props) => props.size}px;
+`;
+const TagContainer = styled.div`
+  vertical-align: middle;
+  display: inline-block;
+`;
 
 const TagCloudTag = ({ tag, size, color }) => {
   const spanRef = useRef();
   return (
-    <div className="tag-cloud-tag mr-2" style={{ verticalAlign: 'middle', display: 'inline-block' }}>
-      <span style={{ color, fontSize: `${size}px` }} className="tag-cloud-tag" ref={spanRef}>
+    <TagContainer className="tag-cloud-tag mr-2">
+      <TagSpan size={size} color={color} className="tag-cloud-tag" ref={spanRef}>
         {tag.value}
-      </span>
+      </TagSpan>
       <UncontrolledTooltip trigger={trigger} placement="auto" target={spanRef}>
         {Number.isInteger(tag.count) ? tag.count : tag.count.toFixed(2)}
       </UncontrolledTooltip>
-    </div>
+    </TagContainer>
   );
 };
 

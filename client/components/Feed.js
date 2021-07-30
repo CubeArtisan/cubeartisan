@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { useContext, useState } from 'react';
-
+import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import BlogPost from '@cubeartisan/client/components/BlogPost.js';
@@ -35,7 +35,8 @@ const wait = async (ms) => {
 
 const Feed = ({ items }) => {
   const [feedItems, setFeedItems] = useState(items);
-  const { _id: userID } = useContext(UserContext);
+  const user = useContext(UserContext);
+  const userID = user._id;
 
   const fetchMoreData = async () => {
     // intentionally wait to avoid too many DB queries
@@ -79,7 +80,7 @@ const Feed = ({ items }) => {
 };
 
 Feed.propTypes = {
-  items: BlogPostPropType.isRequired,
+  items: PropTypes.arrayOf(BlogPostPropType.isRequired).isRequired,
 };
 
 export default Feed;

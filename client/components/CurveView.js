@@ -26,6 +26,7 @@ import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 
 import AutocardListGroup from '@cubeartisan/client/components/AutocardListGroup.js';
 import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
+import { StretchedDiv } from '@cubeartisan/client/components/AspectRatioBox.js';
 
 const cmc2Labels = getLabels(null, 'Mana Value 2');
 
@@ -38,13 +39,13 @@ const TypeRow = ({ cardType, group }) => {
       </h6>
       <Row className="row-low-padding mb-2">
         {cmc2Labels.map((cmc) => (
-          <div key={cmc} className="col-low-padding" style={{ width: `${100 / cmc2Labels.length}%` }}>
+          <StretchedDiv key={cmc} className="col-low-padding" ratio={cmc2Labels.length}>
             <AutocardListGroup
               heading={`${cmc} (${(sorted[cmc] || []).length})`}
               cards={sorted[cmc] || []}
               sort="Unsorted"
             />
-          </div>
+          </StretchedDiv>
         ))}
       </Row>
     </>

@@ -7,6 +7,9 @@ extends:
   - prettier
   - plugin:array-func/all
 parser: '@babel/eslint-parser'
+parserOptions:
+  ecmaVersion: 2021
+  sourceType: module
 plugins:
   - jest
   - prettier
@@ -15,14 +18,13 @@ plugins:
   - promise
 settings:
   import/resolver:
-    node: {}
     webpack:
       config: ./webpack.dev.cjs
 rules:
   import/extensions:
     - error
     - always
-    - ignorePackages: true
+  import/no-extraneous-dependencies: ["error", {"devDependencies": true}]
   prettier/prettier:
     - error
     - endOfLine: lf

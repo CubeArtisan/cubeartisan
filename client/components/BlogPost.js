@@ -23,17 +23,15 @@ import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType.js'
 
 import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
 
-import { Card, CardHeader, Row, Col, CardBody, CardText } from 'reactstrap';
+import { Card, CardHeader, Row, Col, CardBody } from 'reactstrap';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import BlogContextMenu from '@cubeartisan/client/components/BlogContextMenu.js';
 import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
-import Markdown from '@cubeartisan/client/components/Markdown.js';
+import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 
 const BlogPost = ({ post, onEdit, noScroll }) => {
   const user = useContext(UserContext);
-
-  const html = post.html === 'undefined' ? null : post.html;
 
   const scrollStyle = noScroll ? {} : { overflow: 'auto', maxHeight: '50vh' };
 
@@ -61,33 +59,17 @@ const BlogPost = ({ post, onEdit, noScroll }) => {
         </h6>
       </CardHeader>
       <div style={scrollStyle}>
-        {post.changelist && (html || post.markdown) ? (
+        {post.markdown ? (
           <Row className="no-gutters">
-            <Col className="col-12 col-l-5 col-md-4 col-sm-12 blog-post-border">
-              <CardBody className="py-2">
-                <CardText dangerouslySetInnerHTML={{ __html: post.changelist }} />
-              </CardBody>
-            </Col>
             <Col className="col-l-7 col-m-6">
               <CardBody className="py-2">
-                {post.markdown ? (
-                  <Markdown markdown={post.markdown} limited />
-                ) : (
-                  <CardText dangerouslySetInnerHTML={{ __html: html }} />
-                )}
+                <Markdown markdown={post.markdown} limited />
               </CardBody>
             </Col>
           </Row>
         ) : (
           <CardBody className="py-2">
-            {post.changelist && <CardText dangerouslySetInnerHTML={{ __html: post.changelist }} />}
-            {post.body && <CardText>{post.body}</CardText>}
-            {(html || post.markdown) &&
-              (post.markdown ? (
-                <Markdown markdown={post.markdown} limited />
-              ) : (
-                <CardText dangerouslySetInnerHTML={{ __html: html }} />
-              ))}
+            <Markdown markdown={post.markdown} limited />
           </CardBody>
         )}
       </div>

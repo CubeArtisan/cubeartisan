@@ -160,31 +160,6 @@ export const setCubeType = (cube, carddb) => {
   return cube;
 };
 
-export const cardHtml = (card) => {
-  if (card.image_flip) {
-    return `<a class="dynamic-autocard" card="${card.image_normal}" card_flip="${card.image_flip}">${card.name}</a>`;
-  }
-  return `<a class="dynamic-autocard" card="${card.image_normal}">${card.name}</a>`;
-};
-
-export const addCardHtml = (card) => {
-  return `<span style="font-family: &quot;Lucida Console&quot;, Monaco, monospace;" class="badge badge-success">+</span> ${cardHtml(
-    card,
-  )}<br/>`;
-};
-
-export const removeCardHtml = (card) => {
-  return `<span style="font-family: &quot;Lucida Console&quot;, Monaco, monospace;" class="badge badge-danger">-</span> ${cardHtml(
-    card,
-  )}<br/>`;
-};
-
-export const replaceCardHtml = (oldCard, newCard) => {
-  return `<span style="font-family: &quot;Lucida Console&quot;, Monaco, monospace;" class="badge badge-primary">→</span> ${cardHtml(
-    oldCard,
-  )} &gt; ${cardHtml(newCard)}<br/>`;
-};
-
 export const abbreviate = (name) => {
   return name.length < 20 ? name : `${name.slice(0, 20)}…`;
 };
@@ -730,35 +705,4 @@ export const generatePack = async (cubeId, carddb, seed) => {
       details: carddb.cardFromId(draft.cards[cardIndex].cardID),
     })),
   };
-};
-
-export default {
-  setCubeType,
-  cardsAreEquivalent,
-  generatePack,
-  newCardAnalytics,
-  getEloAdjustment,
-  generateShortId,
-  buildIdQuery,
-  getCubeId,
-  intToLegality,
-  legalityToInt,
-  addCardHtml,
-  removeCardHtml,
-  replaceCardHtml,
-  abbreviate,
-  buildTagColors,
-  cubeCardTags,
-  maybeCards,
-  getCardElo,
-  CSVtoCards,
-  compareCubes,
-  generateSamplepackImage,
-  removeDeckCardAnalytics,
-  addDeckCardAnalytics,
-  cachePromise,
-  saveDraftAnalytics,
-  ELO_BASE,
-  ELO_SPEED,
-  CUBE_ELO_SPEED,
 };

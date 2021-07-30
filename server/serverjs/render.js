@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-filename-extension */
 /**
  * This file is part of CubeArtisan.
  *
@@ -19,6 +20,7 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server.node.js';
 import serialize from 'serialize-javascript';
+import StyledComponents from 'styled-components';
 
 import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 import Cube from '@cubeartisan/server/models/cube.js';
@@ -52,6 +54,7 @@ export const render = async (req, res, page, reactProps = {}, options = {}) => {
   const cubes = await getCubes(req);
   reactProps.user = req.user
     ? {
+        _id: req.user._id,
         id: req.user._id,
         notifications: req.user.notifications,
         username: req.user.username,
@@ -85,12 +88,19 @@ export const render = async (req, res, page, reactProps = {}, options = {}) => {
     });
   }
 
-  const pageElement = await getPage(page, req);
+  const sheet = new StyledComponents.ServerStyleSheet();
+  const PageElement = await getPage(page, req);
+  const props = JSON.parse(JSON.stringify(reactProps));
+  const reactHTML = PageElement
+    ? // eslint-disable-next-line react/jsx-props-no-spreading
+      ReactDOMServer.renderToString(sheet.collectStyles(<PageElement {...props} />))
+    : null;
+  const cssStyles = sheet.getStyleTags();
+  sheet.seal();
   res.render('main', {
-    reactHTML: pageElement
-      ? ReactDOMServer.renderToString(React.createElement(pageElement, JSON.parse(JSON.stringify(reactProps))))
-      : null,
+    reactHTML,
     reactProps: serialize(reactProps),
+    cssStyles,
     page,
     metadata: options.metadata,
     title: options.title ? `${options.title} - ${process.env.SITE_NAME}` : process.env.SITE_NAME,

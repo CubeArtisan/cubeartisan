@@ -18,8 +18,6 @@
  */
 import React, { useCallback, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
-
 import {
   Button,
   Collapse,
@@ -49,6 +47,7 @@ import {
   FormGroup,
 } from 'reactstrap';
 
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext.js';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
@@ -62,6 +61,15 @@ import TagColorsModal from '@cubeartisan/client/components/modals/TagColorsModal
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import { QuestionIcon } from '@primer/octicons-react';
 import Tooltip from '@cubeartisan/client/components/Tooltip.js';
+import styled from '@cubeartisan/client/utils/styledHelper.js';
+
+const GrowingDiv = styled.div`
+  flex-grow: 1;
+`;
+
+const FlexGroup = styled(FormGroup)`
+  display: flex;
+`;
 
 const PasteBulkModal = ({ isOpen, toggle }) => {
   const { cubeID } = useContext(CubeContext);
@@ -377,7 +385,7 @@ const CubeListNavbar = ({
   return (
     <div className={`usercontrols${className ? ` ${className}` : ''}`}>
       <Navbar expand="md" className="navbar-light">
-        <div className="d-flex flex-row flex-nowrap justify-content-between" style={{ flexGrow: 1 }}>
+        <GrowingDiv className="d-flex flex-row flex-nowrap justify-content-between">
           <div className="view-style-select">
             <Label className="sr-only" for="viewSelect">
               Cube View Style
@@ -390,7 +398,7 @@ const CubeListNavbar = ({
             </Input>
           </div>
           <NavbarToggler onClick={toggle} />
-        </div>
+        </GrowingDiv>
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
             {!canEdit ? (
@@ -476,15 +484,15 @@ const CubeListNavbar = ({
                 <DropdownItem href={`/cube/${cubeID}/export/xmage${urlSegment}`}>XMage (.dck)</DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem toggle={false} onClick={() => setIsSortUsed((is) => !is)}>
-                  <FormGroup check style={{ display: 'flex' }}>
+                  <FlexGroup check>
                     <Input type="checkbox" checked={isSortUsed} /> Use Sort
                     <Tooltip text="Order export using current sort options." wrapperTag="span" className="ml-auto mr-0">
                       <QuestionIcon size={16} />
                     </Tooltip>
-                  </FormGroup>
+                  </FlexGroup>
                 </DropdownItem>
                 <DropdownItem toggle={false} onClick={() => setIsFilterUsed((is) => !is)}>
-                  <FormGroup check style={{ display: 'flex' }}>
+                  <FlexGroup check>
                     <Input type="checkbox" checked={isFilterUsed} /> Use Filter
                     <Tooltip
                       text="Include in export only cards matching current filter."
@@ -493,7 +501,7 @@ const CubeListNavbar = ({
                     >
                       <QuestionIcon size={16} />
                     </Tooltip>
-                  </FormGroup>
+                  </FlexGroup>
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>

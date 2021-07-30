@@ -50,7 +50,7 @@ import UserContext from '@cubeartisan/client/components/contexts/UserContext.js'
 import CustomDraftFormatModal from '@cubeartisan/client/components/modals/CustomDraftFormatModal.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import DeckPreview from '@cubeartisan/client/components/DeckPreview.js';
-import Markdown from '@cubeartisan/client/components/Markdown.js';
+import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import useAlerts, { Alerts } from '@cubeartisan/client/hooks/UseAlerts.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';

@@ -39,6 +39,7 @@ import PropTypes from 'prop-types';
 
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 import { ChevronDownIcon, ChevronUpIcon } from '@primer/octicons-react';
+import styled from '@cubeartisan/client/utils/styledHelper.js';
 
 const DEFAULT_STEP = Object.freeze([
   { action: 'pick', amount: 1 },
@@ -53,11 +54,15 @@ const ACTION_LABELS = Object.freeze({
   trashrandom: 'Randomly Trash',
 });
 
+const RightSpan = styled.span`
+  float: right;
+`;
+
 const CollapsibleCardTitle = ({ children, isOpen, ...props }) => {
   return (
     <CardTitle {...props}>
       {children}
-      <span style={{ float: 'right' }}>{isOpen ? <ChevronUpIcon size={24} /> : <ChevronDownIcon size={24} />}</span>
+      <RightSpan>{isOpen ? <ChevronUpIcon size={24} /> : <ChevronDownIcon size={24} />}</RightSpan>
     </CardTitle>
   );
 };

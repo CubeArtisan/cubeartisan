@@ -21,7 +21,7 @@ import express from 'express';
 import mailer from 'nodemailer';
 import path from 'path';
 import Email from 'email-templates';
-import parser from '@cubeartisan/client/markdown/parser.js';
+import { findUserLinks } from '@cubeartisan/markdown';
 import { ensureRole, csrfProtection } from '@cubeartisan/server/routes/middleware.js';
 import User from '@cubeartisan/server/models/user.js';
 import Report from '@cubeartisan/server/models/report.js';
@@ -170,7 +170,7 @@ router.get('/publisharticle/:id', ensureAdmin, async (req, res) => {
       `${req.user.username} has approved and published your article: ${article.title}`,
     );
 
-    const mentions = parser.findUserLinks(article.body).map((x) => x.toLowerCase());
+    const mentions = findUserLinks(article.body).map((x) => x.toLowerCase());
     if (mentions.length) {
       const query = User.find({ username_lower: mentions });
       await addMultipleNotifications(
@@ -241,7 +241,7 @@ router.get('/publishvideo/:id', ensureAdmin, async (req, res) => {
       `${req.user.username} has approved and published your video: ${video.title}`,
     );
 
-    const mentions = parser.findUserLinks(video.body).map((x) => x.toLowerCase());
+    const mentions = findUserLinks(video.body).map((x) => x.toLowerCase());
     if (mentions.length) {
       const query = User.find({ username_lower: mentions });
       await addMultipleNotifications(

@@ -17,19 +17,20 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import unified from 'unified';
-import remark from 'remark-parse';
+import headings from 'remark-autolink-headings';
+import breaks from 'remark-breaks';
 import gfm from 'remark-gfm';
 import math from 'remark-math';
+import remark from 'remark-parse';
 import slug from 'remark-slug';
-import headings from 'remark-autolink-headings';
-import cardlink from '@cubeartisan/client/markdown/cardlink/index.js';
-import cardrow from '@cubeartisan/client/markdown/cardrow/index.js';
-import centering from '@cubeartisan/client/markdown/centering/index.js';
-import breaks from 'remark-breaks';
-import symbols from '@cubeartisan/client/markdown/symbols/index.js';
-import userlink from '@cubeartisan/client/markdown/userlink/index.js';
 
-const VALID_SYMBOLS = 'wubrgcmtsqepxyz/-0123456789.js';
+import cardlink from '@cubeartisan/markdown/plugins/cardlink/index.js';
+import cardrow from '@cubeartisan/markdown/plugins/cardrow/index.js';
+import centering from '@cubeartisan/markdown/plugins/centering/index.js';
+import symbols from '@cubeartisan/markdown/plugins/symbols/index.js';
+import userlink from '@cubeartisan/markdown/plugins/userlink/index.js';
+
+const VALID_SYMBOLS = 'wubrgcmtsqepxyz/-0123456789->+→';
 
 const BASE_PLUGINS = [
   cardrow,

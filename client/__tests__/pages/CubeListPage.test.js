@@ -1,7 +1,7 @@
 import React from 'react';
 import { FetchMock } from '@react-mock/fetch';
 import { render, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom/extend-expect.js';
 
 import CubeListPage from '@cubeartisan/client/pages/CubeListPage.js';
 import { fromEntries } from '@cubeartisan/client/utils/Util.js';

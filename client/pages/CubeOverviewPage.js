@@ -18,8 +18,7 @@
  */
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
-
+import styled from '@cubeartisan/client/utils/styledHelper.js';
 import {
   Button,
   Card,
@@ -36,12 +35,11 @@ import {
   UncontrolledAlert,
   UncontrolledCollapse,
 } from 'reactstrap';
-
 import { LinkExternalIcon, QuestionIcon } from '@primer/octicons-react';
 
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import { getCubeId, getCubeDescription } from '@cubeartisan/client/utils/Util.js';
-
 import BlogPost from '@cubeartisan/client/components/BlogPost.js';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import CubeIdModal from '@cubeartisan/client/components/modals/CubeIdModal.js';
@@ -51,7 +49,7 @@ import CustomizeBasicsModal from '@cubeartisan/client/components/modals/Customiz
 import DeleteCubeModal from '@cubeartisan/client/components/modals/DeleteCubeModal.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import FollowersModal from '@cubeartisan/client/components/modals/FollowersModal.js';
-import Markdown from '@cubeartisan/client/components/Markdown.js';
+import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import TextBadge from '@cubeartisan/client/components/TextBadge.js';
 import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
@@ -65,7 +63,18 @@ const FollowersModalLink = withModal('a', FollowersModal);
 const CubeSettingsModalLink = withModal(NavLink, CubeSettingsModal);
 const DeleteCubeModalLink = withModal(NavLink, DeleteCubeModal);
 const CustomizeBasicsModalLink = withModal(NavLink, CustomizeBasicsModal);
-const CubeIdModalLink = withModal('span', CubeIdModal);
+const CubeIdModalLink = styled(withModal('span', CubeIdModal))`
+  position: relative;
+  top: 5px;
+`; // the icon needs to be pulled down.
+
+const SpacedHeader = styled.h6`
+  margin-top: 10px;
+`;
+const CubeIdContainer = styled.div`
+  padding-top: 3px;
+  margin-right: 0.25rem;
+`;
 
 const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followers, loginCallback }) => {
   const user = useContext(UserContext);
@@ -176,14 +185,14 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
                 </Row>
                 <Row>
                   <Col>
-                    <h6 className="card-subtitle mb-2" style={{ marginTop: 10 }}>
+                    <SpacedHeader className="card-subtitle mb-2">
                       <FollowersModalLink href="#" modalProps={{ followers }}>
                         {cubeState.users_following.length}{' '}
                         {cubeState.users_following.length === 1 ? 'follower' : 'followers'}
                       </FollowersModalLink>
-                    </h6>
+                    </SpacedHeader>
                   </Col>
-                  <div className="float-right" style={{ paddingTop: 3, marginRight: '0.25rem' }}>
+                  <CubeIdContainer className="float-right">
                     <TextBadge name="Cube ID">
                       <Tooltip text="Click to copy to clipboard">
                         <button
@@ -200,12 +209,11 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
                         </button>
                       </Tooltip>
                     </TextBadge>
-                  </div>
+                  </CubeIdContainer>
                   <CubeIdModalLink
                     modalProps={{ fullID: cube._id, shortID: getCubeId(cubeState), alert: addAlert }}
                     aria-label="Show Cube IDs"
                     className="mr-2"
-                    style={{ position: 'relative', top: '5px' /* the icon needs to be pulled down */ }}
                   >
                     <QuestionIcon size="18" />
                   </CubeIdModalLink>

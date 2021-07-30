@@ -28,7 +28,7 @@ const CubePropType = PropTypes.shape({
       mainboards: PropTypes.number,
       sideboards: PropTypes.number,
     }),
-  ).isRequired,
+  ),
   useCubeElo: PropTypes.bool,
 });
 

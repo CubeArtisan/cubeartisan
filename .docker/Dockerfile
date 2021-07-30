@@ -4,10 +4,11 @@ ENV DEBUG=false
 ENV NODE_ENV=production
 
 WORKDIR /CubeArtisan
-RUN mkdir client server
+RUN mkdir client server markdown
 COPY ./package.json ./
 COPY ./server/package.json server/package.json
 COPY ./client/package.json client/package.json
+COPY ./markdown/package.json markdown/package.json
 COPY ./yarn.lock ./
 COPY ./.yarnrc.yml ./
 RUN yarn install --frozen-lockfile --production=false || yarn install --frozen-lockfile --production=false || yarn install --frozen-lockfile --production=false
@@ -23,7 +24,7 @@ COPY ./server/serverjs server/serverjs/
 COPY ./server/views    server/views/
 
 COPY ./client/babel.config.cjs   client/babel.config.cjs
-COPY ./client/webpack.common.cjs client/webpack.common.cjs
+COPY ./client/webpack.common.cjs client/webpack.dev.cjs
 COPY ./client/webpack.prod.cjs   client/webpack.prod.cjs
 COPY ./client/analytics  client/analytics/
 COPY ./client/components client/components/
@@ -31,12 +32,15 @@ COPY ./client/drafting   client/drafting/
 COPY ./client/filtering  client/filtering/
 COPY ./client/hooks      client/hooks/
 COPY ./client/layouts    client/layouts/
-COPY ./client/markdown   client/markdown/
 COPY ./client/nearley    client/nearley/
 COPY ./client/pages      client/pages/
 COPY ./client/proptypes  client/proptypes/
 COPY ./client/res        client/res/
 COPY ./client/utils      client/utils/
+
+COPY ./markdown/index.js markdown/index.js
+COPY ./markdown/plugins markdown/plugins/
+COPY ./markdown/components markdown/components
 
 RUN yarn build
 RUN yarn install --frozen-lockfile --production=true || yarn install --frozen-lockfile --production=true || yarn install --frozen-lockfile --production=true

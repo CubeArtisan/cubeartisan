@@ -21,11 +21,19 @@ import PropTypes from 'prop-types';
 import { Row, Col, Card, CardHeader, CardBody } from 'reactstrap';
 
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import styled from '@cubeartisan/client/utils/styledHelper.js';
+
+const AutoSizedCol = styled(Col)`
+  margin: auto;
+`;
+const AutoSizedImage = styled.img`
+  margin: auto;
+`;
 
 export const DownTimePage = ({ siteCustomizations: { discordUrl, siteName, supportEmail } }) => (
-  <Col xs="12" md="8" xl="5" style={{ margin: 'auto' }}>
+  <AutoSizedCol xs="12" md="8" xl="5">
     <Row className="mb-5 mt-4">
-      <img src="/content/logo.png" alt={`${siteName} logo`} width="50%" style={{ margin: 'auto' }} />
+      <AutoSizedImage src="/content/logo.png" alt={`${siteName} logo`} width="50%" />
     </Row>
     <Card>
       <CardHeader>
@@ -59,7 +67,7 @@ export const DownTimePage = ({ siteCustomizations: { discordUrl, siteName, suppo
         </Row>
       </CardBody>
     </Card>
-  </Col>
+  </AutoSizedCol>
 );
 DownTimePage.propTypes = {
   siteCustomizations: PropTypes.shape({

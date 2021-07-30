@@ -19,7 +19,7 @@
 import React from 'react';
 import { Spinner } from 'reactstrap';
 
-export const LoadingPage = () => (
+const LoadingPage = () => (
   <div className="centered py-3">
     <Spinner className="position-absolute" />
   </div>

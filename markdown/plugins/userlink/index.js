@@ -1,6 +1,6 @@
-import syntax from '@cubeartisan/client/markdown/userlink/micromark-userlink.js';
-import { fromMarkdown } from '@cubeartisan/client/markdown/userlink/mdast-userlink.js';
-import { add } from '@cubeartisan/client/markdown/utils.js';
+import syntax from '@cubeartisan/markdown/plugins/userlink/micromark-userlink.js';
+import { fromMarkdown } from '@cubeartisan/markdown/plugins/userlink/mdast-userlink.js';
+import { add } from '@cubeartisan/markdown/plugins/utils.js';
 import visit from 'unist-util-visit';
 
 function userlink(options = {}) {

@@ -307,7 +307,7 @@ const viewDashboard = async (req, res) => {
       .lean()
       .limit(12);
 
-    return render(req, res, 'DashboardPage', { posts, cubes, decks, content, featured });
+    return render(req, res, 'DashboardPage', { posts, cubes: cubes.map((cube) => ({ ...cube, cards: [] })), decks, content, featured });
   } catch (err) {
     return handleRouteError(req, res, err, '/landing');
   }
