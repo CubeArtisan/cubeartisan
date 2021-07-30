@@ -24,7 +24,7 @@ COPY ./server/serverjs server/serverjs/
 COPY ./server/views    server/views/
 
 COPY ./client/babel.config.cjs   client/babel.config.cjs
-COPY ./client/webpack.common.cjs client/webpack.dev.cjs
+COPY ./client/webpack.common.cjs client/webpack.common.cjs
 COPY ./client/webpack.prod.cjs   client/webpack.prod.cjs
 COPY ./client/analytics  client/analytics/
 COPY ./client/components client/components/
