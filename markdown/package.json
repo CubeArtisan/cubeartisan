@@ -11,9 +11,9 @@
     "lint:fix": "eslint --fix `yarn --silent list-files`",
     "lint:loud": "eslint `yarn --silent list-files`",
     "list-files": "git ls-files '*.js' '*.cjs' '*.mjs'",
-    "test": "yarn test:loud --silent",
-    "test:loud": "jest --detectOpenHandles  --coverage",
-    "test:watch": "yarn test:loud --watch --verbose false"
+    "test": "echo no tests yet",
+    "test:loud": "echo no tests yet",
+    "test:watch": "echo no tests yet"
   },
   "dependencies": {
     "core-js": "^3.15.2",

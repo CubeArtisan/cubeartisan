@@ -1,6 +1,5 @@
 module.exports = (api) => {
-  api.cache(true);
-  return {
+  const config = {
     presets: [
       [
         '@babel/preset-env',
@@ -9,7 +8,6 @@ module.exports = (api) => {
             esmodules: true,
           },
           loose: true,
-          modules: false,
           useBuiltIns: 'entry',
           corejs: {
             version: '3.15.2',
@@ -29,4 +27,8 @@ module.exports = (api) => {
       ],
     ],
   };
+  if (!api.env('test')) {
+    config.presets[0][1].modules = false;
+  }
+  return config;
 };
