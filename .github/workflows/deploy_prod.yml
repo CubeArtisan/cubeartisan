@@ -1,4 +1,4 @@
-name: Deploy to Staging
+name: Deploy to Production
 on:
   push:
     tags:
@@ -24,8 +24,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.GIT_TAG }}
-          release_name: Release ${{ env.GIT_TAG }}
+          tag_name: ${{ env.TAG }}
+          release_name: Release ${{ env.TAG }}
           draft: false
           prerelease: false
       - name: Show tag and repo
