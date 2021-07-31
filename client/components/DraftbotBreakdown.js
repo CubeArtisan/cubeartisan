@@ -18,21 +18,20 @@
  */
 import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
+import { Col, Row } from 'reactstrap';
 import { calculateBotPick } from 'mtgdraftbots';
 
-import { usePickListAndDrafterState, ACTION_LABELS } from '@cubeartisan/client/components/DecksPickBreakdown.js';
+import { usePickListAndDrafterState } from '@cubeartisan/client/components/DecksPickBreakdown.js';
 import { SortableTable, compareStrings, percentRenderer } from '@cubeartisan/client/components/SortableTable.js';
 import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
-import { getCardColorClass } from '@cubeartisan/client/components/contexts/TagContext.js';
 import { DrafterStatePropType, DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
 import { COLOR_COMBINATIONS, cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
 import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 import { convertDrafterState } from '@cubeartisan/client/drafting/draftutil.js';
+import PickSelector from '@cubeartisan/client/components/PickSelector.js';
 
 const AutocardLink = withAutocard('a');
-const AutocardButton = withAutocard(Button);
 
 const CARD_TRAIT = Object.freeze({
   title: 'Card',
@@ -149,36 +148,19 @@ const DraftbotBreakdown = (props) => {
   const { picksList, drafterState, setPickNumberFromEvent } = usePickListAndDrafterState(props);
 
   return (
-    <>
-      <h4>Pick Order</h4>
-      <Row>
-        {picksList.map((list, listindex) => (
-          <Col xs={6} sm={3} key={/* eslint-disable-line react/no-array-index-key */ listindex}>
-            <ListGroup className="list-outline">
-              <ListGroupItem className="list-group-heading">{`Pack ${listindex + 1}`}</ListGroupItem>
-              {list.map(({ card, action, pickNumber }) => (
-                <AutocardButton
-                  key={card.index}
-                  card={card}
-                  className={`card-list-item d-flex flex-row ${getCardColorClass(card)}`}
-                  data-in-modal
-                  onClick={setPickNumberFromEvent}
-                  data-pick-number={pickNumber}
-                >
-                  {drafterState.pickNumber === pickNumber ? (
-                    <strong>{`${ACTION_LABELS[action]}: ${cardName(card)}`}</strong>
-                  ) : (
-                    <>{`${ACTION_LABELS[action]}: ${cardName(card)}`}</>
-                  )}
-                </AutocardButton>
-              ))}
-            </ListGroup>
-          </Col>
-        ))}
-      </Row>
-      <h4 className="mt-5 mb-2">{`Pack ${drafterState.packNum + 1}: Pick ${drafterState.pickNum + 1} Cards`}</h4>
-      <DraftbotBreakdownTable drafterState={drafterState} />
-    </>
+    <Row>
+      <Col xs={12} sm={3}>
+        <PickSelector
+          picksList={picksList}
+          curPickNumber={drafterState.pickNumber}
+          setPickNumberFromEvent={setPickNumberFromEvent}
+        />
+      </Col>
+      <Col xs={12} sm={9}>
+        <h4 className="mt-5 mb-2">{`Pack ${drafterState.packNum + 1}: Pick ${drafterState.pickNum + 1} Cards`}</h4>
+        <DraftbotBreakdownTable drafterState={drafterState} />
+      </Col>
+    </Row>
   );
 };
 

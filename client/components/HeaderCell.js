@@ -23,8 +23,8 @@ import { NavLink } from 'reactstrap';
 import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 import styled from '@cubeartisan/client/utils/styledHelper.js';
 
-const TightDiv = styled`
-width: min-content;
+const TightDiv = styled.div`
+  width: min-content;
 `;
 
 const HeaderCell = ({ label, fieldName, sortConfig, requestSort, tooltip, ...props }) => {

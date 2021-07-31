@@ -18,25 +18,15 @@
  */
 import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 
 import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
-import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
-import { getCardColorClass } from '@cubeartisan/client/components/contexts/TagContext.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import { DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
-import { cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
+import { encodeName } from '@cubeartisan/client/utils/Card.js';
 import { getDrafterState } from '@cubeartisan/client/drafting/draftutil.js';
 import { toNullableInt } from '@cubeartisan/client/utils/Util.js';
-
-const AutocardItem = withAutocard(ListGroupItem);
-
-export const ACTION_LABELS = Object.freeze({
-  pick: 'Picked ',
-  trash: 'Trash ',
-  pickrandom: 'Randomly Picked ',
-  trashrandom: 'Randomly Trashed ',
-});
+import PickSelector from '@cubeartisan/client/components/PickSelector.js';
 
 export const usePickListAndDrafterState = ({ draft, seatIndex, defaultIndex }) => {
   const [pickNumber, setPickNumber] = useQueryParam('pick', defaultIndex ?? 0);
@@ -99,28 +89,11 @@ const DecksPickBreakdownInternal = ({ draft, seatIndex, defaultIndex }) => {
   return (
     <Row>
       <Col xs={12} sm={3}>
-        <h4>Pick Order</h4>
-        {picksList.map((list, listindex) => (
-          <ListGroup key={/* eslint-disable-line react/no-array-index-key */ listindex} className="list-outline">
-            <ListGroupItem className="list-group-heading">{`Pack ${listindex + 1}`}</ListGroupItem>
-            {list.map(({ action, card, pickNumber }) => (
-              <AutocardItem
-                key={pickNumber}
-                card={card}
-                className={`card-list-item d-flex flex-row ${getCardColorClass(card)}`}
-                data-in-modal
-                onClick={setPickNumberFromEvent}
-                data-pick-number={pickNumber}
-              >
-                {drafterState.pickNumber === pickNumber ? (
-                  <strong>{`${ACTION_LABELS[action]}: ${cardName(card)}`}</strong>
-                ) : (
-                  <>{`${ACTION_LABELS[action]}: ${cardName(card)}`}</>
-                )}
-              </AutocardItem>
-            ))}
-          </ListGroup>
-        ))}
+        <PickSelector
+          picksList={picksList}
+          curPickNumber={drafterState.pickNumber}
+          setPickNumberFromEvent={setPickNumberFromEvent}
+        />
       </Col>
       <Col xs={12} sm={9}>
         <h4>{`Pack ${packNum + 1}: Pick ${pickNum + 1}`}</h4>
