@@ -134,7 +134,7 @@ const submitGridDraft = async (req, res) => {
     const botNumber = 1;
     for (const seat of draft.seats) {
       // eslint-disable-next-line no-await-in-loop
-      const { sideboard, deck: newDeck, colors } = await buildDeck(cards, seat.pickorder, draft.basics);
+      const { sideboard, deck: newDeck, colors } = await buildDeck({ cards, picked: seat.pickorder });
       const colorString =
         colors.length > 0 ? 'C' : COLOR_COMBINATIONS.find((comb) => Util.arraysAreEqualSets(comb, colors)).join('');
       if (seat.bot) {
@@ -187,6 +187,6 @@ const submitGridDraft = async (req, res) => {
 
 const router = express.Router();
 router.get('/:id', getGridDraftPage);
-router.post('/:id', wrapAsyncApi(saveGridDraft));
+router.put('/:id', wrapAsyncApi(saveGridDraft));
 router.post('/:id/submit', body('skipDeckbuilder').toBoolean(), submitGridDraft);
 export default router;

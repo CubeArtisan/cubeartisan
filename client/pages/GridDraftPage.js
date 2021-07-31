@@ -195,7 +195,7 @@ export const GridDraftPage = ({ cube, initialDraft, seatNumber, loginCallback })
   const { turn, numPacks, packNum, pickNum } = drafterStates[seatNum];
   const { cardsInPack } = drafterStates[turn ? 0 : 1];
   const doneDrafting = packNum >= numPacks;
-  const pack = useMemo(() => cardsInPack.map((cardIndex) => cards[cardIndex]), [cardsInPack, cards]);
+  const pack = useMemo(() => cardsInPack.map((cardIndex) => cards[cardIndex] ?? null), [cardsInPack, cards]);
 
   // Picks is an array with 1st key C/NC, 2d key CMC, 3d key order
   const picked = useMemo(
@@ -240,6 +240,7 @@ export const GridDraftPage = ({ cube, initialDraft, seatNumber, loginCallback })
             mapped.push(null);
           }
         }
+        const unmapped = Object.fromEntries(mapped.map((x, idx) => [x, idx]).filter(([x]) => x !== null));
         const options = GRID_DRAFT_OPTIONS.map((option) =>
           option.map((x) => mapped[x]).filter((x) => x !== null),
         ).filter((option) => option.length > 0);
@@ -250,7 +251,10 @@ export const GridDraftPage = ({ cube, initialDraft, seatNumber, loginCallback })
           },
           options,
         );
-        mutations.makePick({ cardIndices: options[result.chosenOption], seatIndex: botIndex });
+        mutations.makePick({
+          cardIndices: options[result.chosenOption].map((x) => [iCardsInPack[x], unmapped[x]]),
+          seatIndex: botIndex,
+        });
       }
     })();
   }, [draftType, botDrafterState, mutations, botIndex]);

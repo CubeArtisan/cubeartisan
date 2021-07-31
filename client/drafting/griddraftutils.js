@@ -34,6 +34,7 @@ export const getGridDrafterState = ({ gridDraft, seatNumber }) => {
   }
 
   while (packNum < numPacks && pickedIndices[currentPicker].length > pickedNums[currentPicker]) {
+    // Pack is opened and the current player picks a row or column of 3 cards.
     cardsInPack = initial_state[packNum].slice();
     cardsInPack[pickedIndices[currentPicker][pickedNums[currentPicker]]] = null;
     cardsInPack[pickedIndices[currentPicker][pickedNums[currentPicker] + 1]] = null;
