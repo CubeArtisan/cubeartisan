@@ -21,6 +21,8 @@ metadata:
     name: cubeartisan
   name: cubeartisan
 spec:
+  revisionHistoryLimit: 1
+  replicas: 1
   selector:
     matchLabels:
       name: cubeartisan
@@ -164,16 +166,3 @@ spec:
       restartPolicy: Always
       imagePullSecrets:
         - name: github-docker
----
-apiVersion: autoscaling/v1
-kind: HorizontalPodAutoscaler
-metadata:
-  name: cubeartisan
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: cubeartisan
-  minReplicas: 1
-  maxReplicas: 4
-  targetCPUUtilizationPercentage: 50

@@ -43,7 +43,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: fleet-server
-  namespace: default
+  namespace: kube-logging
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -52,56 +52,56 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: fleet-server
-    namespace: default
+    namespace: kube-logging
 roleRef:
   kind: ClusterRole
   name: fleet-server
   apiGroup: rbac.authorization.k8s.io
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-  kind: ClusterRole
-  metadata:
-    name: elastic-agent
-  rules:
-    - apiGroups: [""] # "" indicates the core API group
-      resources:
-        - namespaces
-        - pods
-      verbs:
-        - get
-        - watch
-        - list
-    - apiGroups: ["coordination.k8s.io"]
-      resources:
-        - leases
-      verbs:
-        - get
-        - create
-        - update
-    - nonResourceURLs:
-        - "/metrics"
-      verbs:
-        - get
-        - watch
-        - list
-    - apiGroups:
-        - ""
-      resources:
-        - nodes
-        - nodes/metrics
-        - nodes/proxy
-        - nodes/stats
-        - events
-      verbs:
-        - get
-        - watch
-        - list
+kind: ClusterRole
+metadata:
+  name: elastic-agent
+rules:
+  - apiGroups: [""] # "" indicates the core API group
+    resources:
+      - namespaces
+      - pods
+    verbs:
+      - get
+      - watch
+      - list
+  - apiGroups: ["coordination.k8s.io"]
+    resources:
+      - leases
+    verbs:
+      - get
+      - create
+      - update
+  - nonResourceURLs:
+      - "/metrics"
+    verbs:
+      - get
+      - watch
+      - list
+  - apiGroups:
+      - ""
+    resources:
+      - nodes
+      - nodes/metrics
+      - nodes/proxy
+      - nodes/stats
+      - events
+    verbs:
+      - get
+      - watch
+      - list
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: elastic-agent
-  namespace: default
+  namespace: kube-logging
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -110,7 +110,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: elastic-agent
-    namespace: default
+    namespace: kube-logging
 roleRef:
   kind: ClusterRole
   name: elastic-agent
@@ -138,13 +138,11 @@ spec:
           runAsUser: 0
         serviceAccountName: fleet-server
 ---
-
 apiVersion: agent.k8s.elastic.co/v1alpha1
 kind: Agent
 metadata:
+  namespace: kube-logging
   name: elastic-agent
-  labels:
-    app: app8
 spec:
   version: 7.14.0-SNAPSHOT
   kibanaRef:

@@ -4,3 +4,4 @@ resources:
   - 02-external-services.kube.yaml
   - 22-mongodb.kube.yaml
   - 40-cubeartisan.kube.yaml
+  - 52-cubeartisan-ingress.kube.yaml

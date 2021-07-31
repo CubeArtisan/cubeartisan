@@ -4,7 +4,7 @@ metadata:
   namespace: kube-logging
   name: elasticsearch
 spec:
-  version: 7.13.4
+  version: 7.14.0-SNAPSHOT
   http:
     service:
       spec:
@@ -31,4 +31,4 @@ spec:
                   cpu: 1000m
                 requests:
                   memory: 4Gi
-                  cpu: 1000m
+                  cpu: 200m

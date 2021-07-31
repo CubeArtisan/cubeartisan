@@ -22,9 +22,9 @@ spec:
       containers:
         - name: apm-server
           resources:
-            requests:
-              memory: 1Gi
-              cpu: 500m
             limits:
               memory: 1Gi
-              cpu: 500m
+              cpu: 1000m
+            requests:
+              memory: 1Gi
+              cpu: 200m

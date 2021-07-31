@@ -1,0 +1,52 @@
+apiVersion: networking.gke.io/v1beta1
+kind: FrontendConfig
+metadata:
+  namespace: kube-logging
+  name: cubeartisan-frontend-config
+spec:
+  redirectToHttps:
+    enabled: true
+    responseCodeName: MOVED_PERMANENTLY_DEFAULT
+---
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  namespace: kube-logging
+  name: cubeartisan-backend-config
+spec:
+  timeoutSec: 60
+  sessionAffinity:
+    affinityType: GENERATED_COOKIE
+    affinityCookieTtlSec: 300
+---
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  namespace: kube-logging
+  name: kibana-cert
+spec:
+  domains:
+    - kibana.cubeartisan.net
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kibana-ingress
+  namespace: kube-logging
+  annotations:
+    networking.gke.io/v1beta1.FrontendConfig: cubeartisan-frontend-config
+    cloud.google.com/backend-config: '{"default": "cubeartisan-backend-config"}'
+    networking.gke.io/managed-certificates: kibana-cert
+    kubernetes.io/ingress.class: gce
+spec:
+  rules:
+    - host: kibana.cubeartisan.net
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: kibana-kb-http
+                port:
+                  number: 5601

@@ -5,8 +5,7 @@ resources:
   - global/02-elasticsearch.kube.yaml
   - global/04-kibana.kube.yaml
   - global/07-apm-server.kube.yaml
-  - global/20-mongo-service-account.kube.yaml
+  - global/09-elastic-agent.kube.yaml
   - ./prod
   - ./staging
-  - global/50-ingress-gke-configs.kube.yaml
-  - global/54-ingress.kube.yaml
+  - global/50-kibana-ingress.kube.yaml

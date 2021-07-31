@@ -2,9 +2,18 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: cubeartisan
 resources:
+- 51-tls-certificate.kube.yaml
 - ../per_env
+- 42-horizontal-auto-scaling.kube.yaml
 images:
 - name: ghcr.io/cubeartisan/cubeartisan
   newTag: 324e3d5e
 patchesStrategicMerge:
 - environment-override.yaml
+patchesJson6902:
+  - target:
+      group: networking.k8s.io
+      kind: Ingress
+      name: cubeartisan-ingress
+      version: v1
+    path: ingress.patch.yaml

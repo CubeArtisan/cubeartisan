@@ -1,0 +1,42 @@
+apiVersion: networking.gke.io/v1beta1
+kind: FrontendConfig
+metadata:
+  namespace: cubeartisan
+  name: cubeartisan-frontend-config
+spec:
+  redirectToHttps:
+    enabled: true
+    responseCodeName: MOVED_PERMANENTLY_DEFAULT
+---
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  namespace: cubeartisan
+  name: cubeartisan-backend-config
+spec:
+  timeoutSec: 60
+  sessionAffinity:
+    affinityType: GENERATED_COOKIE
+    affinityCookieTtlSec: 300
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cubeartisan-ingress
+  annotations:
+    networking.gke.io/v1beta1.FrontendConfig: cubeartisan-frontend-config
+    cloud.google.com/backend-config: '{"default": "cubeartisan-backend-config"}'
+    networking.gke.io/managed-certificates: cubeartisan-cert
+    kubernetes.io/ingress.class: gce
+spec:
+  rules:
+    - host: <ENV>
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: cubeartisan
+                port:
+                  number: 80
