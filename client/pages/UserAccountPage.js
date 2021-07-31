@@ -45,7 +45,7 @@ import UserContext from '@cubeartisan/client/components/contexts/UserContext.js'
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import TextEntry from '@cubeartisan/client/components/TextEntry.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
@@ -145,7 +145,7 @@ export const UserAccountPage = ({ defaultNav, loginCallback }) => {
             <TabPane tabId="profile">
               <Card>
                 <CardBody>
-                  <CSRFForm method="PUT" action={`/user/${user.id}`}>
+                  <CSRFForm method="POST" action={`/user/${user.id}`}>
                     <div className="form-group">
                       <dl className="row">
                         <dt className="col-sm-3">Username</dt>
@@ -199,7 +199,7 @@ export const UserAccountPage = ({ defaultNav, loginCallback }) => {
             <TabPane tabId="password">
               <Card>
                 <CardBody>
-                  <CSRFForm method="PUT" action={`/user/${user.id}/password`}>
+                  <CSRFForm method="POST" action={`/user/${user.id}/password`}>
                     <FormGroup row>
                       <Label for="password" className="col-sm-4 col-form-Label">
                         Old password:

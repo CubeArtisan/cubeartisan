@@ -39,8 +39,8 @@ import { SortContextProvider } from '@cubeartisan/client/components/contexts/Sor
 import TableView from '@cubeartisan/client/components/TableView.js';
 import { TAG_COLORS, TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext.js';
 import VisualSpoiler from '@cubeartisan/client/components/VisualSpoiler.js';
-import CubeLayout from '@cubeartisan/client/layouts/CubeLayout.js';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';

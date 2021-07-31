@@ -42,8 +42,8 @@ import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import SampleHandModal from '@cubeartisan/client/components/modals/SampleHandModal.js';
 import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
-import CubeLayout from '@cubeartisan/client/layouts/CubeLayout.js';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 

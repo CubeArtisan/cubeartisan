@@ -25,9 +25,9 @@ import { Row, Col } from 'reactstrap';
 
 import CardGrid from '@cubeartisan/client/components/CardGrid.js';
 import CardImage from '@cubeartisan/client/components/CardImage.js';
-import CubeLayout from '@cubeartisan/client/layouts/CubeLayout.js';
+import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import styled from '@cubeartisan/client/utils/styledHelper.js';
 

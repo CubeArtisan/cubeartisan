@@ -40,7 +40,7 @@ import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import ArticlePreview from '@cubeartisan/client/components/ArticlePreview.js';
 import Tab from '@cubeartisan/client/components/Tab.js';
 import Article from '@cubeartisan/client/components/Article.js';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
@@ -97,7 +97,7 @@ export const EditArticlePage = ({ loginCallback, article, siteCustomizations }) 
           </Row>
           <Row>
             <Col xs="6">
-              <CSRFForm method="PUT" action={`/article/${article._id}`} autoComplete="off">
+              <CSRFForm method="POST" action={`/article/${article._id}`} autoComplete="off">
                 <Input type="hidden" name="articleid" value={article._id} />
                 <Input type="hidden" name="title" value={title} />
                 <Input type="hidden" name="short" value={short} />

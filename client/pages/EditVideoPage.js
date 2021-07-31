@@ -44,7 +44,7 @@ import VideoPreview from '@cubeartisan/client/components/VideoPreview.js';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 export const EditVideoPage = ({ loginCallback, video }) => {
@@ -99,7 +99,7 @@ export const EditVideoPage = ({ loginCallback, video }) => {
           </Row>
           <Row>
             <Col xs="6">
-              <CSRFForm method="PUT" action={`/video/${video._id}`} autoComplete="off">
+              <CSRFForm method="POST" action={`/video/${video._id}`} autoComplete="off">
                 <Input type="hidden" name="videoid" value={video._id} />
                 <Input type="hidden" name="title" value={title} />
                 <Input type="hidden" name="short" value={short} />

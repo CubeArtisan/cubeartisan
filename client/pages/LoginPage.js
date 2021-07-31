@@ -23,7 +23,7 @@ import { Card, CardBody, FormGroup, Label, Input, Button, Col, Row, CardHeader }
 
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 export const LoginPage = ({ loginCallback }) => (

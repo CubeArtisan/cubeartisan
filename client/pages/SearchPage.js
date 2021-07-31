@@ -26,7 +26,7 @@ import CubeSearchNavBar from '@cubeartisan/client/components/CubeSearchNavBar.js
 import CubePreview from '@cubeartisan/client/components/CubePreview.js';
 import Paginate from '@cubeartisan/client/components/Paginate.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 export const SearchPage = ({ cubes, query, count, perPage, page, order, loginCallback }) => {

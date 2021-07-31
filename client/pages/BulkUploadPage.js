@@ -29,9 +29,9 @@ import ChangelistContext, {
 } from '@cubeartisan/client/components/contexts/ChangelistContext.js';
 import { getCard } from '@cubeartisan/client/components/EditCollapse.js';
 import LoadingButton from '@cubeartisan/client/components/LoadingButton.js';
-import CubeLayout from '@cubeartisan/client/layouts/CubeLayout.js';
+import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const BulkUploadPageRaw = ({ cubeID, missing, blogpost, cube }) => {
@@ -104,7 +104,7 @@ const BulkUploadPageRaw = ({ cubeID, missing, blogpost, cube }) => {
                   Add
                 </LoadingButton>
               </Form>
-              <CSRFForm method="PUT" action={`/cube/${cubeID}`} innerRef={formRef}>
+              <CSRFForm method="POST" action={`/cube/${cubeID}`} innerRef={formRef}>
                 <Label>Changelist:</Label>
                 <div className="changelist-container mb-2">
                   <Changelist />

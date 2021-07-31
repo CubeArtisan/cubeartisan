@@ -22,7 +22,7 @@ import CardPackagePropType from '@cubeartisan/client/proptypes/CardPackagePropTy
 
 import CardPackage from '@cubeartisan/client/components/CardPackage.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 export const PackagePage = ({ pack, loginCallback }) => (
