@@ -55,7 +55,7 @@ jobs:
           chmod u+x ${GITHUB_WORKSPACE}/kustomize
       - name: Update Image Tag and Version
         run: |-
-          cd ${GITHUB_WORKSPACE}/.docker/k8s/staging
+          cd ${GITHUB_WORKSPACE}/.docker/k8s/prod
           ${GITHUB_WORKSPACE}/kustomize edit set image "$REPOSITORY/cubeartisan:$TAG"
           ${GITHUB_WORKSPACE}/kustomize edit add configmap cubeartisan-version --from-literal=TAG=$TAG
       # Deploy the Docker image to the GKE cluster
