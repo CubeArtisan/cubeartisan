@@ -33,8 +33,7 @@ html(lang='en')
 	body
 		include dynamic_flash
 		#react-root !{reactHTML}
-		script(src='/js/csrf.js', async)
 
 		script(type='text/javascript').
 			window.reactProps = !{reactProps};
-		script(src='/js/'+page+'.bundle.js')
+		script(src='/js/'+page+'.bundle.js', async)

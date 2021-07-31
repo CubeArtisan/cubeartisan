@@ -20,7 +20,6 @@ import React, { useCallback, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import DeckDeleteModal from '@cubeartisan/client/components/modals/DeckDeleteModal.js';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
 import { Collapse, Nav, Navbar, NavbarToggler, NavItem, NavLink, Input } from 'reactstrap';
 
@@ -28,6 +27,7 @@ import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
 import BasicsModal from '@cubeartisan/client/components/modals/BasicsModal.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
+import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 
 const DeleteDeckModalLink = withModal(NavLink, DeckDeleteModal);
 const BasicsModalLink = withModal(NavLink, BasicsModal);
@@ -114,22 +114,7 @@ const DeckbuilderNavbar = ({ deck, addBasics, name, description, className, setS
 };
 
 DeckbuilderNavbar.propTypes = {
-  deck: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    cube: PropTypes.string.isRequired,
-    playerdeck: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.arrayOf(CardPropType.isRequired).isRequired).isRequired)
-      .isRequired,
-    playersideboard: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)).isRequired,
-    cards: PropTypes.arrayOf(PropTypes.shape({ cardID: PropTypes.string })).isRequired,
-    basics: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
-    seats: PropTypes.arrayOf(
-      PropTypes.shape({
-        pickorder: PropTypes.arrayOf(PropTypes.number).isRequired,
-        deck: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-        sideboard: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-      }).isRequired,
-    ).isRequired,
-  }).isRequired,
+  deck: DeckPropType.isRequired,
   addBasics: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
