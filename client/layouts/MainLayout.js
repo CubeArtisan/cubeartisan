@@ -115,7 +115,7 @@ const MainLayout = ({ children, loginCallback }) => {
                   <DropdownItem href={sourceRepo}>Github</DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
-              {user?.username ? (
+              {user?._id ? (
                 <>
                   <NotificationsNav />
                   {user.cubes && user.cubes.length > 0 && (

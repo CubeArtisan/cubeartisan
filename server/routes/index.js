@@ -708,7 +708,7 @@ app.get('/leave', showLeavePage);
 app.get('/packages', browsePackages);
 app.get('/login', (req, res) => render(req, res, 'LoginPage'));
 app.post('/login', loginUser);
-app.post('/logout', logoutUser);
+app.get('/logout', logoutUser);
 app.get('/lostpassword', (req, res) => render(req, res, 'LostPasswordPage'));
 app.post('/lostpassword', body('email', 'Email is required').isEmail(), flashValidationErrors, submitLostPassword);
 app.post('/lostpassword/reset',

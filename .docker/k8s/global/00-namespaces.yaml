@@ -17,3 +17,10 @@ kind: Namespace
 apiVersion: v1
 metadata:
   name: cubeartisan-ingress
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  annotations:
+    cnrm.cloud.google.com/project-id: cubeartisan
+  name: config-connector
