@@ -21,7 +21,7 @@ import PropTypes from 'prop-types';
 import { Row, Col, Button } from 'reactstrap';
 
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
-import Footer from '@cubeartisan/client/layouts/Footer.js';
+import Footer from '@cubeartisan/client/components/layouts/Footer.js';
 import LoginModal from '@cubeartisan/client/components/modals/LoginModal.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import CardSearchBar from '@cubeartisan/client/components/CardSearchBar.js';

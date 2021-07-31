@@ -41,7 +41,7 @@ import SiteCustomizationContext from '@cubeartisan/client/components/contexts/Si
 import ThemeContext from '@cubeartisan/client/components/contexts/ThemeContext.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
-import Footer from '@cubeartisan/client/layouts/Footer.js';
+import Footer from '@cubeartisan/client/components/layouts/Footer.js';
 
 const LoginModalLink = withModal(NavLink, LoginModal);
 const CreateCubeModalLink = withModal(DropdownItem, CreateCubeModal);

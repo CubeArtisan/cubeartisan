@@ -25,7 +25,7 @@ import UserContext from '@cubeartisan/client/components/contexts/UserContext.js'
 import Paginate from '@cubeartisan/client/components/Paginate.js';
 import BlogPost from '@cubeartisan/client/components/BlogPost.js';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 

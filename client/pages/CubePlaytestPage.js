@@ -54,10 +54,10 @@ import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import useAlerts, { Alerts } from '@cubeartisan/client/hooks/UseAlerts.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
-import CubeLayout from '@cubeartisan/client/layouts/CubeLayout.js';
+import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import { allBotsDraft } from '@cubeartisan/client/drafting/draftutil.js';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const range = (lo, hi) => Array.from(Array(hi - lo).keys(), (n) => n + lo);

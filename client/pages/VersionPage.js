@@ -21,7 +21,7 @@ import PropTypes from 'prop-types';
 
 import { Card, CardHeader, CardBody } from 'reactstrap';
 
-import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 export const VersionPage = ({ version, host, loginCallback }) => {

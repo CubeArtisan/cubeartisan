@@ -27,7 +27,7 @@ import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 const TextAutocard = withAutocard('span');
 
 const CloseButton = ({ changeId, close }) => (
-  <Button href="#" className="clickx" data-change-id={changeId} onClick={close}>
+  <Button className="clickx" data-change-id={changeId} onClick={close}>
     ×
   </Button>
 );
@@ -74,6 +74,7 @@ Replace.propTypes = {
   cards: PropTypes.arrayOf(CardPropType.isRequired).isRequired,
 };
 
+const getId = (card) => card.details._id || card.cardID;
 const Changelist = () => {
   const { changes, removeChange } = useContext(ChangelistContext);
   const close = useCallback(
@@ -86,8 +87,6 @@ const Changelist = () => {
     },
     [removeChange],
   );
-
-  const getId = (card) => card.details._id || card.cardID;
 
   const changelistData = changes
     .map((change) => {
@@ -124,5 +123,4 @@ const Changelist = () => {
     </>
   );
 };
-
 export default Changelist;

@@ -24,7 +24,7 @@ import { Col, Row } from 'reactstrap';
 import CubesCard from '@cubeartisan/client/components/CubesCard.js';
 import CubeSearchNavBar from '@cubeartisan/client/components/CubeSearchNavBar.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 export const ExplorePage = ({ recents, featured, drafted, recentlyDrafted, loginCallback }) => {

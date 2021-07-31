@@ -647,9 +647,9 @@ router.get('/article/:id/edit', ensureContentCreator, wrapAsyncApi(viewEditArtic
 router.get('/podcast/:id/edit', ensureContentCreator, wrapAsyncApi(viewEditPodcast));
 router.put('/podcast/:id/fetch', ensureContentCreator, wrapAsyncApi(fetchPodcast));
 router.get('/video/edit/:id', ensureContentCreator, wrapAsyncApi(viewEditVideo));
-router.put('/article/:id', ensureContentCreator, wrapAsyncApi(editArticle));
-router.put('/podcast/:id', ensureContentCreator, wrapAsyncApi(editPodcast));
-router.put('/video/:id', ensureContentCreator, wrapAsyncApi(editVideo));
+router.post('/article/:id', ensureContentCreator, wrapAsyncApi(editArticle));
+router.post('/podcast/:id', ensureContentCreator, wrapAsyncApi(editPodcast));
+router.post('/video/:id', ensureContentCreator, wrapAsyncApi(editVideo));
 router.post('/article', ensureContentCreator, wrapAsyncApi(submitArticle));
 router.post('/podcast', ensureContentCreator, wrapAsyncApi(submitPodcast));
 router.post('/video', ensureContentCreator, wrapAsyncApi(submitVideo));

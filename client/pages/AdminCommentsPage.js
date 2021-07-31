@@ -24,7 +24,7 @@ import { Card, CardHeader } from 'reactstrap';
 
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import Paginate from '@cubeartisan/client/components/Paginate.js';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import Comment from '@cubeartisan/client/components/Comment.js';
 

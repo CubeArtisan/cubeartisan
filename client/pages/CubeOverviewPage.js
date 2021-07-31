@@ -54,8 +54,8 @@ import TextBadge from '@cubeartisan/client/components/TextBadge.js';
 import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import CubeLayout from '@cubeartisan/client/layouts/CubeLayout.js';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const CubeOverviewModalLink = withModal(NavLink, CubeOverviewModal);

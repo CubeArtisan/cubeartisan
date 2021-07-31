@@ -24,9 +24,9 @@ import { Button, Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import CubePreview from '@cubeartisan/client/components/CubePreview.js';
-import UserLayout from '@cubeartisan/client/layouts/UserLayout.js';
+import UserLayout from '@cubeartisan/client/components/layouts/UserLayout.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 

@@ -41,8 +41,8 @@ import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js'
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import Paginate from '@cubeartisan/client/components/Paginate.js';
 import TextEntry from '@cubeartisan/client/components/TextEntry.js';
-import CubeLayout from '@cubeartisan/client/layouts/CubeLayout.js';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import { findUserLinks } from '@cubeartisan/markdown';
 

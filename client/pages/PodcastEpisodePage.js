@@ -23,7 +23,7 @@ import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType.js';
 import { CardHeader, Card, Row, Col, CardBody } from 'reactstrap';
 
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox.js';
 import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';

@@ -27,7 +27,7 @@ import CreatorArticles from '@cubeartisan/client/components/CreatorArticles.js';
 import CreatorVideos from '@cubeartisan/client/components/CreatorVideos.js';
 import CreatorPodcasts from '@cubeartisan/client/components/CreatorPodcasts.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 export const CreatorsPage = ({ loginCallback }) => {

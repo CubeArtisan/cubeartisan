@@ -259,7 +259,7 @@ const EditCollapse = ({ ...props }) => {
         </Button>
       </Row>
       <Collapse isOpen={changes.length > 0} className="pt-1">
-        <CSRFForm method="PUT" action={`/cube/${cubeID}`} onSubmit={handleMentions}>
+        <CSRFForm method="POST" action={`/cube/${cubeID}`} onSubmit={handleMentions}>
           <Row>
             <Col>
               <h6>Changelist</h6>

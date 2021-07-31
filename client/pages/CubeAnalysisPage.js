@@ -21,24 +21,24 @@ import PropTypes from 'prop-types';
 
 import { Col, Nav, NavLink, Row, Card, CardBody } from 'reactstrap';
 
-import Averages from '@cubeartisan/client/analytics/Averages.js';
-import Chart from '@cubeartisan/client/analytics/Chart.js';
+import Averages from '@cubeartisan/client/components/analytics/Averages.js';
+import Chart from '@cubeartisan/client/components/analytics/Chart.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
-import Tokens from '@cubeartisan/client/analytics/Tokens.js';
-import Playtest from '@cubeartisan/client/analytics/PlaytestData.js';
-import PivotTable from '@cubeartisan/client/analytics/PivotTable.js';
-import AnalyticTable from '@cubeartisan/client/analytics/AnalyticTable.js';
-import Cloud from '@cubeartisan/client/analytics/Cloud.js';
-import HyperGeom from '@cubeartisan/client/analytics/HyperGeom.js';
-import Suggestions from '@cubeartisan/client/analytics/Suggestions.js';
-import Asfans from '@cubeartisan/client/analytics/Asfans.js';
+import Tokens from '@cubeartisan/client/components/analytics/Tokens.js';
+import Playtest from '@cubeartisan/client/components/analytics/PlaytestData.js';
+import PivotTable from '@cubeartisan/client/components/analytics/PivotTable.js';
+import AnalyticTable from '@cubeartisan/client/components/analytics/AnalyticTable.js';
+import Cloud from '@cubeartisan/client/components/analytics/Cloud.js';
+import HyperGeom from '@cubeartisan/client/components/analytics/HyperGeom.js';
+import Suggestions from '@cubeartisan/client/components/analytics/Suggestions.js';
+import Asfans from '@cubeartisan/client/components/analytics/Asfans.js';
 import FilterCollapse from '@cubeartisan/client/components/FilterCollapse.js';
 import { TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
-import CubeLayout from '@cubeartisan/client/layouts/CubeLayout.js';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import CubeAnalyticPropType from '@cubeartisan/client/proptypes/CubeAnalyticPropType.js';
 import {

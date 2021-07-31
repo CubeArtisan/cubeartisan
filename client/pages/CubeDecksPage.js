@@ -25,9 +25,9 @@ import { Card, CardBody, CardHeader } from 'reactstrap';
 
 import DeckPreview from '@cubeartisan/client/components/DeckPreview.js';
 import Paginate from '@cubeartisan/client/components/Paginate.js';
-import CubeLayout from '@cubeartisan/client/layouts/CubeLayout.js';
+import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 export const CubeDecksPage = ({ cube, decks, pages, activePage, loginCallback }) => (

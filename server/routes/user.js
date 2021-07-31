@@ -710,7 +710,7 @@ router.get('/:id/notifications', ensureAuth, (req, res) =>
 router.get('/:userid/decks/:page', viewUserDecks);
 router.get('/:userid/blog', (req, res) => res.redirect(`/user/${req.params.userid}/blog/0`));
 router.get('/:userid/blog/:page', viewUserBlog);
-router.put(
+router.post(
   '/:id/password',
   ensureAuth,
   body('password', 'Password must be between 8 and 24 characters.').isLength({

@@ -174,7 +174,7 @@ const CubeOverviewModal = ({ cube: savedCube, onError, onCubeUpdate, userID, isO
     >
       <Modal size="lg" isOpen={isOpen} toggle={toggle}>
         <ModalHeader toggle={toggle}>Edit Overview</ModalHeader>
-        <form method="PUT" action={`/cube/${cubeID}/overview`} autoComplete="off">
+        <form method="POST" action={`/cube/${cubeID}/overview`} autoComplete="off">
           <ModalBody>
             <h6>Cube Name</h6>
             <input

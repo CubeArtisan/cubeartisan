@@ -40,7 +40,7 @@ import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
 import CardGrid from '@cubeartisan/client/components/CardGrid.js';
 import CardImage from '@cubeartisan/client/components/CardImage.js';
 import FilterCollapse from '@cubeartisan/client/components/FilterCollapse.js';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import { ORDERED_SORTS } from '@cubeartisan/client/utils/Sort.js';
 

@@ -25,7 +25,7 @@ import { Row, Col } from 'reactstrap';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import ArticlePreview from '@cubeartisan/client/components/ArticlePreview.js';
 import Paginate from '@cubeartisan/client/components/Paginate.js';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const PAGE_SIZE = 24;

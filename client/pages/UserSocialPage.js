@@ -25,7 +25,7 @@ import { Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
 import CubePreview from '@cubeartisan/client/components/CubePreview.js';
 import UserPreview from '@cubeartisan/client/components/UserPreview.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 export const UserSocialPage = ({ followedCubes, followedUsers, followers, loginCallback }) => (

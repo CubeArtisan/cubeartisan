@@ -27,7 +27,7 @@ import PodcastPreview from '@cubeartisan/client/components/PodcastPreview.js';
 import Tab from '@cubeartisan/client/components/Tab.js';
 import Podcast from '@cubeartisan/client/components/Podcast.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
-import MainLayout from '@cubeartisan/client/layouts/MainLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 
@@ -53,7 +53,7 @@ export const EditPodcastPage = ({ loginCallback, podcast }) => {
           </Row>
           <Row>
             <Col xs="6">
-              <CSRFForm method="PUT" action={`/podcast/${podcast._id}`} autoComplete="off">
+              <CSRFForm method="POST" action={`/podcast/${podcast._id}`} autoComplete="off">
                 <Input type="hidden" name="podcastid" value={podcast._id} />
                 <Input type="hidden" name="rss" value={rss} />
                 <Button type="submit" color="success" block disabled={!hasChanges}>

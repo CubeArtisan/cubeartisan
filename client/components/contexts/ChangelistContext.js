@@ -131,7 +131,6 @@ export const ChangelistContextProvider = ({ cubeID, setOpenCollapse, initialChan
 
   return <ChangelistContext.Provider value={value} {...props} />;
 };
-
 ChangelistContextProvider.propTypes = {
   cubeID: PropTypes.string.isRequired,
   setOpenCollapse: PropTypes.func.isRequired,
@@ -142,5 +141,4 @@ ChangelistContextProvider.defaultProps = {
   initialChanges: [],
   noSave: false,
 };
-
 export default ChangelistContext;

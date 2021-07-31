@@ -2182,12 +2182,12 @@ router.post(
   body('humanSeats').toInt({ min: 1, max: 16 }),
   startDraft,
 );
-router.put('/:id', ensureAuth, editCube);
+router.post('/:id', ensureAuth, editCube);
 router.post('/:id/resize/:size', resizeCube);
 router.delete('/:id', ensureAuth, deleteCube);
 router.delete('/:id/format/:index', ensureAuth, param('index').toInt(), deleteFormat);
 router.put('/:id/defaultformat/:formatId', ensureAuth, wrapAsyncApi(setDefaultFormat));
-router.put(
+router.post(
   '/:id/overview',
   ensureAuth,
   body('name', 'Cube name should be between 5 and 100 characters long.').isLength({ min: 5, max: 100 }),
