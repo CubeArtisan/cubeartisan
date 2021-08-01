@@ -19,7 +19,7 @@
 import express from 'express';
 import Cube from '@cubeartisan/server/models/cube.js';
 import GridDraft from '@cubeartisan/server/models/gridDraft.js';
-import { abbreviate, addDeckCardAnalytics, buildIdQuery } from '@cubeartisan/server/serverjs/cubefn.js';
+import { abbreviate, addDeckCardAnalytics } from '@cubeartisan/server/serverjs/cubefn.js';
 import User from '@cubeartisan/server/models/user.js';
 import CubeAnalytic from '@cubeartisan/server/models/cubeAnalytic.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
@@ -40,7 +40,7 @@ const getGridDraftPage = async (req, res) => {
       return res.redirect('/404');
     }
 
-    const cube = await Cube.findOne(buildIdQuery(draft.cube)).lean();
+    const cube = await Cube.findOne(draft.cube).lean();
 
     if (!cube) {
       req.flash('danger', 'Cube not found');
@@ -108,7 +108,7 @@ const submitGridDraft = async (req, res) => {
     // req.body contains a draft
     const draftid = req.body.body;
     const draft = await GridDraft.findById(draftid).lean();
-    const cube = await Cube.findOne(buildIdQuery(draft.cube));
+    const cube = await Cube.findOne(draft.cube);
 
     const deck = new Deck();
     deck.cube = draft.cube;

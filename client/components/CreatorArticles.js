@@ -39,7 +39,7 @@ const CreatorArticles = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await csrfFetch(`/articles/${user.id}/${page}`);
+      const response = await csrfFetch(`/articles/${user._id}/${page}`);
       if (!response.ok) {
         console.warn(response);
       }

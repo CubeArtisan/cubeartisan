@@ -18,12 +18,11 @@
  */
 import mongoose from 'mongoose';
 
-// Blog schema
 const blogSchema = mongoose.Schema({
   title: String,
-  owner: String,
+  owner: mongoose.Schema.Types.ObjectId,
   date: Date,
-  cube: String,
+  cube: mongoose.Schema.Types.ObjectId,
   markdown: String,
   dev: String,
   date_formatted: String,

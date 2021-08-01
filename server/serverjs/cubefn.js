@@ -42,7 +42,7 @@ export const buildIdQuery = (id) => {
   if (!id || id.match(/^[0-9a-fA-F]{24}$/)) {
     return { _id: id };
   }
-  return { shortID: id.toLowerCase() };
+  return { shortID: encodeURIComponent(id.toLowerCase()) };
 };
 
 export const generateShortId = async () => {

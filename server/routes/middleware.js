@@ -91,7 +91,7 @@ export const ensureRole = (role) => (req, res, next) => {
     return res.redirect('/login');
   }
 
-  return User.findById(req.user.id, (_err, user) => {
+  return User.findById(req.user._id, (_err, user) => {
     if (user.roles && user.roles.includes(role)) {
       return next();
     }

@@ -23,7 +23,6 @@ import migrations from '@cubeartisan/server/models/migrations/cubeMigrations.js'
 
 const CURRENT_SCHEMA_VERSION = migrations.slice(-1)[0].version;
 
-// Cube schema
 const cubeSchema = mongoose.Schema({
   name: {
     type: String,
@@ -35,7 +34,7 @@ const cubeSchema = mongoose.Schema({
     unique: true,
   },
   owner: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
   },
   isListed: {
@@ -110,7 +109,7 @@ const cubeSchema = mongoose.Schema({
     default: [],
   },
   users_following: {
-    type: [String],
+    type: [mongoose.Schema.Types.ObjectId],
     default: [],
   },
   defaultStatus: {

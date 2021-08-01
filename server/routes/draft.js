@@ -18,12 +18,7 @@
  */
 import express from 'express';
 import { addNotification, handleRouteError } from '@cubeartisan/server/serverjs/util.js';
-import {
-  abbreviate,
-  addDeckCardAnalytics,
-  buildIdQuery,
-  saveDraftAnalytics,
-} from '@cubeartisan/server/serverjs/cubefn.js';
+import { abbreviate, addDeckCardAnalytics, saveDraftAnalytics } from '@cubeartisan/server/serverjs/cubefn.js';
 import generateMeta from '@cubeartisan/server/serverjs/meta.js';
 import Util, { fromEntries, getCubeDescription, toNullableInt } from '@cubeartisan/client/utils/Util.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
@@ -45,7 +40,7 @@ const getDraftPage = async (req, res) => {
       return res.redirect('/404');
     }
 
-    const cube = await Cube.findOne(buildIdQuery(draft.cube)).lean();
+    const cube = await Cube.findOne(draft.cube).lean();
 
     if (!cube) {
       req.flash('danger', 'Cube not found');
@@ -176,7 +171,7 @@ const submitDraft = async (req, res) => {
     const draftid = req.params.id;
     const seatNum = toNullableInt(req.params.seat) ?? 0;
     const draft = await Draft.findById(draftid).lean();
-    const cube = await Cube.findOne(buildIdQuery(draft.cube)).lean();
+    const cube = await Cube.findOne(draft.cube).lean();
     // TODO: Should have guards on if the objects aren't found in the DB.
 
     const deck = new Deck();
@@ -240,12 +235,7 @@ const submitDraft = async (req, res) => {
     if (user && !cube.disableNotifications) {
       await addNotification(cubeOwner, user, `/deck/${deck._id}`, `${user.username} drafted your cube: ${cube.name}`);
     } else if (!cube.disableNotifications) {
-      await addNotification(
-        cubeOwner,
-        { user_from_name: 'Anonymous', user_from: '404' },
-        `/deck/${deck._id}`,
-        `An anonymous user drafted your cube: ${cube.name}`,
-      );
+      await addNotification(cubeOwner, {}, `/deck/${deck._id}`, `An anonymous user drafted your cube: ${cube.name}`);
     }
     const cubeUpdate = cube.numDecks ? { $inc: { numDecks: 1 } } : { $set: { numDecks: 1 } };
     Cube.updateOne({ _id: cube._id }, cubeUpdate);

@@ -48,7 +48,7 @@ const maxDepth = 4;
 
 const Comment = ({ comment, index, depth, noReplies, editComment }) => {
   const user = useContext(UserContext);
-  const userid = user && user.id;
+  const userid = user && user._id;
 
   const [replyExpanded, toggleReply] = useToggle(false);
   const [expanded, toggle] = useToggle(false);

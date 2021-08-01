@@ -30,7 +30,7 @@ import useComments from '@cubeartisan/client/hooks/UseComments.js';
 
 const CommentsSection = ({ parent, parentType, collapse }) => {
   const user = useContext(UserContext);
-  const userid = user && user.id;
+  const userid = user && user._id;
 
   const [expanded, toggle] = useToggle(!collapse);
   const [replyExpanded, toggleReply] = useToggle(false);

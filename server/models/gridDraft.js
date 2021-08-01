@@ -26,21 +26,20 @@ const CURRENT_SCHEMA_VERSION = migrations.slice(-1)[0].version;
 const Seat = {
   bot: Boolean,
   name: String,
-  userid: String,
+  userid: mongoose.Schema.Types.ObjectId,
   drafted: [[[Number]]], // organized draft picks
   sideboard: [[[Number]]], // organized draft picks
   pickorder: [Number],
   pickedIndices: [Number],
 };
 
-// Cube schema
 const gridDraftSchema = mongoose.Schema({
   basics: {
     default: [],
     type: [Number],
   },
   cards: [cardSchema],
-  cube: String,
+  cube: mongoose.Schema.Types.ObjectId,
   draftType: {
     type: String,
     enum: ['bot', '2playerlocal'],

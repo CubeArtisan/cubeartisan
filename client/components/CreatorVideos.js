@@ -38,7 +38,7 @@ const CreatorVideos = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await csrfFetch(`/videos/${user.id}/${page}`);
+      const response = await csrfFetch(`/videos/${user._id}/${page}`);
       if (!response.ok) {
         console.warn(response);
       }

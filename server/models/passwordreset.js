@@ -18,7 +18,6 @@
  */
 import mongoose from 'mongoose';
 
-// User schema
 const PasswordResetSchema = mongoose.Schema({
   email: {
     type: String,

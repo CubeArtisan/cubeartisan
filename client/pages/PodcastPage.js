@@ -36,7 +36,7 @@ export const PodcastPage = ({ loginCallback, podcast, episodes }) => {
     <MainLayout loginCallback={loginCallback}>
       <DynamicFlash />
       <Card className="mb-3">
-        {user && user.id === podcast.owner && (
+        {user && user._id === podcast.owner && (
           <CardHeader>
             <h5>
               {podcast.status !== 'published' && (

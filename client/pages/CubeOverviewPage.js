@@ -116,7 +116,7 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
   return (
     <MainLayout loginCallback={loginCallback}>
       <CubeLayout cube={cubeState} activeLink="overview">
-        {user && cubeState.owner === user.id ? (
+        {user && cubeState.owner === user._id ? (
           <Navbar expand="md" light className="usercontrols mb-3">
             <NavbarToggler
               className="ml-auto"
@@ -270,7 +270,7 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
                 )}
               </CardBody>
               {user &&
-                cubeState.owner !== user.id &&
+                cubeState.owner !== user._id &&
                 (followedState ? (
                   <Button outline color="danger" className="rounded-0" onClick={unfollow}>
                     Unfollow

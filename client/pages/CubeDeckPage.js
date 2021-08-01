@@ -111,7 +111,7 @@ export const CubeDeckPage = ({ cube, deck, draft, loginCallback }) => {
                     )}
                   />
                 </NavItem>
-                {user && deck.owner === user.id && <NavLink href={`/deck/${deck._id}/build`}>Edit</NavLink>}
+                {user && deck.owner === user._id && <NavLink href={`/deck/${deck._id}/build`}>Edit</NavLink>}
                 {draft ? (
                   <UncontrolledDropdown nav inNavbar>
                     <DropdownToggle nav caret>

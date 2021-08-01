@@ -145,7 +145,7 @@ export const UserAccountPage = ({ defaultNav, loginCallback }) => {
             <TabPane tabId="profile">
               <Card>
                 <CardBody>
-                  <CSRFForm method="POST" action={`/user/${user.id}`}>
+                  <CSRFForm method="POST" action={`/user/${user._id}`}>
                     <div className="form-group">
                       <dl className="row">
                         <dt className="col-sm-3">Username</dt>
@@ -199,7 +199,7 @@ export const UserAccountPage = ({ defaultNav, loginCallback }) => {
             <TabPane tabId="password">
               <Card>
                 <CardBody>
-                  <CSRFForm method="POST" action={`/user/${user.id}/password`}>
+                  <CSRFForm method="POST" action={`/user/${user._id}/password`}>
                     <FormGroup row>
                       <Label for="password" className="col-sm-4 col-form-Label">
                         Old password:
@@ -228,7 +228,7 @@ export const UserAccountPage = ({ defaultNav, loginCallback }) => {
             <TabPane tabId="email">
               <Card>
                 <CardBody>
-                  <CSRFForm method="POST" action={`/user/${user.id}/email`}>
+                  <CSRFForm method="POST" action={`/user/${user._id}/email`}>
                     <FormGroup row>
                       <Label for="email" className="col-sm-4 col-form-Label">
                         New Email:
@@ -251,7 +251,7 @@ export const UserAccountPage = ({ defaultNav, loginCallback }) => {
             <TabPane tabId="display">
               <Card>
                 <CardBody>
-                  <CSRFForm method="POST" action={`/user/${user.id}/display`}>
+                  <CSRFForm method="POST" action={`/user/${user._id}/display`}>
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>Theme</InputGroupText>
