@@ -255,7 +255,7 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
                     )}
                   </Row>
                 )}
-                {user && user.roles.includes('Admin') && (
+                {user?.roles?.includes?.('Admin') && (
                   <CSRFForm
                     method={cubeState.isFeatured ? 'DELETE' : 'POST'}
                     id="featuredForm"

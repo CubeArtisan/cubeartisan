@@ -31,7 +31,7 @@ import Article from '@cubeartisan/server/models/article.js';
 import Video from '@cubeartisan/server/models/video.js';
 import Podcast from '@cubeartisan/server/models/podcast.js';
 import { render } from '@cubeartisan/server/serverjs/render.js';
-import { addMultipleNotifications, addNotification } from '@cubeartisan/server/serverjs/util.js';
+import { addMultipleNotifications, addNotification, handleRouteError } from '@cubeartisan/server/serverjs/util.js';
 
 const ensureAdmin = ensureRole('Admin');
 
@@ -40,19 +40,23 @@ const router = express.Router();
 router.use(csrfProtection);
 
 router.get('/dashboard', ensureAdmin, async (req, res) => {
-  const commentReportCount = await Report.countDocuments();
-  const applicationCount = await Application.countDocuments();
-  const articlesInReview = await Article.countDocuments({ status: 'inReview' });
-  const videosInReview = await Video.countDocuments({ status: 'inReview' });
-  const podcastsInReview = await Podcast.countDocuments({ status: 'inReview' });
+  try {
+    const commentReportCount = await Report.countDocuments();
+    const applicationCount = await Application.countDocuments();
+    const articlesInReview = await Article.countDocuments({ status: 'inReview' });
+    const videosInReview = await Video.countDocuments({ status: 'inReview' });
+    const podcastsInReview = await Podcast.countDocuments({ status: 'inReview' });
 
-  return render(req, res, 'AdminDashboardPage', {
-    commentReportCount,
-    applicationCount,
-    articlesInReview,
-    videosInReview,
-    podcastsInReview,
-  });
+    return await render(req, res, 'AdminDashboardPage', {
+      commentReportCount,
+      applicationCount,
+      articlesInReview,
+      videosInReview,
+      podcastsInReview,
+    });
+  } catch (err) {
+    return handleRouteError(req, res, err, `/404`);
+  }
 });
 
 const PAGE_SIZE = 24;
@@ -62,14 +66,18 @@ router.get('/comments', async (_req, res) => {
 });
 
 router.get('/comments/:page', ensureAdmin, async (req, res) => {
-  const count = await Comment.countDocuments();
-  const comments = await Comment.find()
-    .sort({ timePosted: -1 })
-    .skip(Math.max(req.params.page, 0) * PAGE_SIZE)
-    .limit(PAGE_SIZE)
-    .lean();
+  try {
+    const count = await Comment.countDocuments();
+    const comments = await Comment.find()
+      .sort({ timePosted: -1 })
+      .skip(Math.max(req.params.page, 0) * PAGE_SIZE)
+      .limit(PAGE_SIZE)
+      .lean();
 
-  return render(req, res, 'AdminCommentsPage', { comments, count, page: Math.max(req.params.page, 0) });
+    return await render(req, res, 'AdminCommentsPage', { comments, count, page: Math.max(req.params.page, 0) });
+  } catch (err) {
+    return handleRouteError(req, res, err, '/404');
+  }
 });
 
 router.get('/reviewarticles', async (_req, res) => {
@@ -85,36 +93,48 @@ router.get('/reviewpodcasts', async (_req, res) => {
 });
 
 router.get('/reviewarticles/:page', ensureAdmin, async (req, res) => {
-  const count = await Article.countDocuments({ status: 'inReview' });
-  const articles = await Article.find({ status: 'inReview' })
-    .sort({ date: -1 })
-    .skip(Math.max(req.params.page, 0) * PAGE_SIZE)
-    .limit(PAGE_SIZE)
-    .lean();
+  try {
+    const count = await Article.countDocuments({ status: 'inReview' });
+    const articles = await Article.find({ status: 'inReview' })
+      .sort({ date: -1 })
+      .skip(Math.max(req.params.page, 0) * PAGE_SIZE)
+      .limit(PAGE_SIZE)
+      .lean();
 
-  return render(req, res, 'ReviewArticlesPage', { articles, count, page: Math.max(req.params.page, 0) });
+    return await render(req, res, 'ReviewArticlesPage', { articles, count, page: Math.max(req.params.page, 0) });
+  } catch (err) {
+    return handleRouteError(req, res, err, '/404');
+  }
 });
 
 router.get('/reviewvideos/:page', ensureAdmin, async (req, res) => {
-  const count = await Video.countDocuments({ status: 'inReview' });
-  const videos = await Video.find({ status: 'inReview' })
-    .sort({ date: -1 })
-    .skip(Math.max(req.params.page, 0) * PAGE_SIZE)
-    .limit(PAGE_SIZE)
-    .lean();
+  try {
+    const count = await Video.countDocuments({ status: 'inReview' });
+    const videos = await Video.find({ status: 'inReview' })
+      .sort({ date: -1 })
+      .skip(Math.max(req.params.page, 0) * PAGE_SIZE)
+      .limit(PAGE_SIZE)
+      .lean();
 
-  return render(req, res, 'ReviewVideosPage', { videos, count, page: Math.max(req.params.page, 0) });
+    return await render(req, res, 'ReviewVideosPage', { videos, count, page: Math.max(req.params.page, 0) });
+  } catch (err) {
+    return handleRouteError(req, res, err, '/404');
+  }
 });
 
 router.get('/reviewpodcasts/:page', ensureAdmin, async (req, res) => {
-  const count = await Podcast.countDocuments({ status: 'inReview' });
-  const podcasts = await Podcast.find({ status: 'inReview' })
-    .sort({ date: -1 })
-    .skip(Math.max(req.params.page, 0) * PAGE_SIZE)
-    .limit(PAGE_SIZE)
-    .lean();
+  try {
+    const count = await Podcast.countDocuments({ status: 'inReview' });
+    const podcasts = await Podcast.find({ status: 'inReview' })
+      .sort({ date: -1 })
+      .skip(Math.max(req.params.page, 0) * PAGE_SIZE)
+      .limit(PAGE_SIZE)
+      .lean();
 
-  return render(req, res, 'ReviewPodcastsPage', { podcasts, count, page: Math.max(req.params.page, 0) });
+    return await render(req, res, 'ReviewPodcastsPage', { podcasts, count, page: Math.max(req.params.page, 0) });
+  } catch (err) {
+    return handleRouteError(req, res, err, '/404');
+  }
 });
 
 router.get('/commentreports', async (_req, res) => {
@@ -122,14 +142,18 @@ router.get('/commentreports', async (_req, res) => {
 });
 
 router.get('/commentreports/:page', ensureAdmin, async (req, res) => {
-  const count = await Report.countDocuments();
-  const reports = await Report.find()
-    .sort({ timePosted: -1 })
-    .skip(Math.max(req.params.page, 0) * PAGE_SIZE)
-    .limit(PAGE_SIZE)
-    .lean();
+  try {
+    const count = await Report.countDocuments();
+    const reports = await Report.find()
+      .sort({ timePosted: -1 })
+      .skip(Math.max(req.params.page, 0) * PAGE_SIZE)
+      .limit(PAGE_SIZE)
+      .lean();
 
-  return render(req, res, 'CommentReportsPage', { reports, count, page: Math.max(req.params.page, 0) });
+    return await render(req, res, 'CommentReportsPage', { reports, count, page: Math.max(req.params.page, 0) });
+  } catch (err) {
+    return handleRouteError(req, res, err, '/404');
+  }
 });
 
 router.get('/applications', async (_req, res) => {
@@ -137,14 +161,18 @@ router.get('/applications', async (_req, res) => {
 });
 
 router.get('/applications/:page', ensureAdmin, async (req, res) => {
-  const count = await Application.countDocuments();
-  const applications = await Application.find()
-    .sort({ timePosted: -1 })
-    .skip(Math.max(req.params.page, 0) * PAGE_SIZE)
-    .limit(PAGE_SIZE)
-    .lean();
+  try {
+    const count = await Application.countDocuments();
+    const applications = await Application.find()
+      .sort({ timePosted: -1 })
+      .skip(Math.max(req.params.page, 0) * PAGE_SIZE)
+      .limit(PAGE_SIZE)
+      .lean();
 
-  return render(req, res, 'ApplicationsPage', { applications, count, page: Math.max(req.params.page, 0) });
+    return await render(req, res, 'ApplicationsPage', { applications, count, page: Math.max(req.params.page, 0) });
+  } catch (err) {
+    return handleRouteError(req, res, err, '/404');
+  }
 });
 
 router.get('/publisharticle/:id', ensureAdmin, async (req, res) => {

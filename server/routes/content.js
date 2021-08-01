@@ -28,25 +28,29 @@ import Article from '@cubeartisan/server/models/article.js';
 import Podcast from '@cubeartisan/server/models/podcast.js';
 import PodcastEpisode from '@cubeartisan/server/models/podcastEpisode.js';
 import Video from '@cubeartisan/server/models/video.js';
-import { redirect, wrapAsyncApi } from '@cubeartisan/server/serverjs/util.js';
+import { handleRouteError, redirect, wrapAsyncApi } from '@cubeartisan/server/serverjs/util.js';
 
 const PAGE_SIZE = 24;
 
 const ensureContentCreator = ensureRole('ContentCreator');
 
-const applyToBeContentCreator = (req, res) => {
-  if (!req.user) {
-    req.flash('danger', 'Please log in to apply to be a content creator partner.');
-    return render(req, res, 'ContactPage');
+const applyToBeContentCreator = async (req, res) => {
+  try {
+    if (!req.user) {
+      req.flash('danger', 'Please log in to apply to be a content creator partner.');
+      return await render(req, res, 'ContactPage');
+    }
+    return await render(req, res, 'ApplicationPage');
+  } catch (err) {
+    return handleRouteError(req, res, err, '/404');
   }
-  return render(req, res, 'ApplicationPage');
 };
 
 const submitApplication = async (req, res) => {
   try {
     if (!req.user) {
       req.flash('danger', 'Please log in to apply to be a content creator partner.');
-      return render(req, res, 'ContactPage');
+      return await render(req, res, 'ContactPage');
     }
     const application = new Application();
 
@@ -57,15 +61,19 @@ const submitApplication = async (req, res) => {
     await application.save();
 
     req.flash('success', 'Your application has been submitted. We will reach out via email when a decision is made.');
-    return render(req, res, 'ApplicationPage');
+    return await render(req, res, 'ApplicationPage');
   } catch (err) {
     req.flash('danger', 'Please log in to apply to be a content creator partner.');
     return render(req, res, 'ApplicationPage');
   }
 };
 
-const viewCreatorDashboard = (req, res) => {
-  return render(req, res, 'CreatorsPage');
+const viewCreatorDashboard = async (req, res) => {
+  try {
+    return await render(req, res, 'CreatorsPage');
+  } catch (err) {
+    return handleRouteError(req, res, err, '/404');
+  }
 };
 
 const browseContent = async (req, res) => {

@@ -363,7 +363,7 @@ const viewDeckbuilder = async (req, res) => {
       }
     }
 
-    return render(
+    return await render(
       req,
       res,
       'CubeDeckbuilderPage',
@@ -632,7 +632,7 @@ const viewDeck = async (req, res) => {
       drafter = deckUser.username;
     }
 
-    return render(
+    return await render(
       req,
       res,
       'CubeDeckPage',
