@@ -92,7 +92,7 @@ export const getBlogPost = async (req, res) => {
   try {
     const post = await Blog.findById(req.params.postid);
 
-    return render(req, res, 'BlogPostPage', {
+    return await render(req, res, 'BlogPostPage', {
       post,
     });
   } catch (err) {
@@ -143,7 +143,7 @@ export const getBlogPage = async (req, res) => {
       .lean();
     const [blogs, count] = await Promise.all([blogsQ, countQ]);
 
-    return render(
+    return await render(
       req,
       res,
       'CubeBlogPage',

@@ -19,7 +19,7 @@
 import express from 'express';
 import { render } from '@cubeartisan/server/serverjs/render.js';
 import { ensureAuth, ensureRole, csrfProtection } from '@cubeartisan/server/routes/middleware.js';
-import { wrapAsyncApi } from '@cubeartisan/server/serverjs/util.js';
+import { handleRouteError, wrapAsyncApi } from '@cubeartisan/server/serverjs/util.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import Package from '@cubeartisan/server/models/package.js';
 import User from '@cubeartisan/server/models/user.js';
@@ -211,11 +211,15 @@ const deletePackage = async (req, res) => {
 };
 
 const viewPackage = async (req, res) => {
-  const pack = await Package.findById(req.params.id);
+  try {
+    const pack = await Package.findById(req.params.id);
 
-  return render(req, res, 'PackagePage', {
-    pack,
-  });
+    return await render(req, res, 'PackagePage', {
+      pack,
+    });
+  } catch (err) {
+    return handleRouteError(req, res, err, '/404');
+  }
 };
 
 const router = express.Router();

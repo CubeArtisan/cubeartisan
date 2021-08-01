@@ -38,7 +38,7 @@ export const updateCubeAndBlog = async (req, res, cube, changelog, added, missin
     blogpost.markdown = changelog.join('\n\n');
 
     if (missing.length > 0) {
-      return render(req, res, 'BulkUploadPage', {
+      return await render(req, res, 'BulkUploadPage', {
         cube,
         canEdit: true,
         cubeID: req.params.id,

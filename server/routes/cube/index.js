@@ -393,7 +393,7 @@ const viewOverview = async (req, res) => {
 
     cube.basics = cube.basics || DEFAULT_BASICS;
 
-    return render(
+    return await render(
       req,
       res,
       'CubeOverviewPage',
@@ -500,7 +500,7 @@ const viewCubeComparison = async (req, res) => {
 
     const { aNames, bNames, inBoth, allCards } = await compareCubes(cubeA.cards, cubeB.cards);
 
-    return render(
+    return await render(
       req,
       res,
       'CubeComparePage',
@@ -560,7 +560,7 @@ const viewList = async (req, res) => {
     cube.cards = addDetails(cube.cards);
     cube.maybe = addDetails(cube.maybe ? cube.maybe : []);
 
-    return render(
+    return await render(
       req,
       res,
       'CubeListPage',
@@ -612,7 +612,7 @@ const viewPlaytest = async (req, res) => {
       .limit(10)
       .lean();
 
-    return render(
+    return await render(
       req,
       res,
       'CubePlaytestPage',
@@ -684,7 +684,7 @@ const viewAnalytics = async (req, res) => {
 
     const cubeAnalytics = await CubeAnalytic.findOne({ cube: cube._id });
 
-    return render(
+    return await render(
       req,
       res,
       'CubeAnalysisPage',
@@ -730,7 +730,7 @@ const viewSamplePack = async (req, res) => {
     const width = Math.floor(Math.sqrt((5 / 3) * pack.pack.length));
     const height = Math.ceil(pack.pack.length / width);
 
-    return render(
+    return await render(
       req,
       res,
       'CubeSamplePackPage',
@@ -1998,7 +1998,7 @@ const viewDecks = async (req, res) => {
 
     const [numDecks, decks] = await Promise.all([numDecksq, decksq]);
 
-    return render(
+    return await render(
       req,
       res,
       'CubeDecksPage',
@@ -2187,7 +2187,7 @@ router.post('/:id/resize/:size', resizeCube);
 router.delete('/:id', ensureAuth, deleteCube);
 router.delete('/:id/format/:index', ensureAuth, param('index').toInt(), deleteFormat);
 router.put('/:id/defaultformat/:formatId', ensureAuth, wrapAsyncApi(setDefaultFormat));
-router.post(
+router.put(
   '/:id/overview',
   ensureAuth,
   body('name', 'Cube name should be between 5 and 100 characters long.').isLength({ min: 5, max: 100 }),

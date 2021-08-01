@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import express from 'express';
-import { redirect, wrapAsyncApi } from '@cubeartisan/server/serverjs/util.js';
+import { handleRouteError, redirect, wrapAsyncApi } from '@cubeartisan/server/serverjs/util.js';
 import { csrfProtection, ensureRole } from '@cubeartisan/server/routes/middleware.js';
 import { render } from '@cubeartisan/server/serverjs/render.js';
 
@@ -26,26 +26,30 @@ import Blog from '@cubeartisan/server/models/blog.js';
 const PAGESIZE = 10;
 
 const browseBlog = async (req, res) => {
-  const blogs = await Blog.find({
-    dev: 'true',
-  })
-    .sort({ date: -1 })
-    .skip(PAGESIZE * req.params.id)
-    .limit(PAGESIZE);
+  try {
+    const blogs = await Blog.find({
+      dev: 'true',
+    })
+      .sort({ date: -1 })
+      .skip(PAGESIZE * req.params.id)
+      .limit(PAGESIZE);
 
-  const count = await Blog.countDocuments({ dev: 'true' });
+    const count = await Blog.countDocuments({ dev: 'true' });
 
-  for (const item of blogs) {
-    if (!item.date_formatted) {
-      item.date_formatted = item.date.toLocaleString('en-US');
+    for (const item of blogs) {
+      if (!item.date_formatted) {
+        item.date_formatted = item.date.toLocaleString('en-US');
+      }
     }
-  }
 
-  return render(req, res, 'DevBlog', {
-    blogs,
-    pages: Math.ceil(count / PAGESIZE),
-    activePage: req.params.id,
-  });
+    return await render(req, res, 'DevBlog', {
+      blogs,
+      pages: Math.ceil(count / PAGESIZE),
+      activePage: req.params.id,
+    });
+  } catch (err) {
+    return handleRouteError(req, res, err, '/404');
+  }
 };
 
 const postToBlog = async (req, res) => {

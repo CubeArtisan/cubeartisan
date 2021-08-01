@@ -214,13 +214,17 @@ const unfollowUser = async (req, res) => {
 };
 
 const viewResetPassword = async (req, res) => {
-  // create a password reset page and return it here
-  const passwordReset = PasswordReset.findById(req.params.id).lean();
-  if (!passwordReset || passwordReset.expires < Date.now()) {
-    req.flash('danger', 'Password recovery link expired');
-    return res.redirect('/');
+  try {
+    // create a password reset page and return it here
+    const passwordReset = await PasswordReset.findById(req.params.id).lean();
+    if (!passwordReset || passwordReset.expires < Date.now()) {
+      req.flash('danger', 'Password recovery link expired');
+      return res.redirect('/');
+    }
+    return await render(req, res, 'PasswordResetPage');
+  } catch (err) {
+    return handleRouteError(req, res, err, '/404');
   }
-  return render(req, res, 'PasswordResetPage');
 };
 
 const changePassword = async (req, res) => {
@@ -266,93 +270,97 @@ const changePassword = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
-  const email = req.body.email.toLowerCase();
-  const { username, password } = req.body;
+  try {
+    const email = req.body.email.toLowerCase();
+    const { username, password } = req.body;
 
-  const attempt = { email, username };
+    const attempt = { email, username };
 
-  if (!req.validated) {
-    return render(req, res, 'RegisterPage', attempt);
-  }
-  const user = await User.findOne({
-    username_lower: req.body.username.toLowerCase(),
-  });
-
-  if (user) {
-    req.flash('danger', 'Username already taken.');
-    return render(req, res, 'RegisterPage', attempt);
-  }
-
-  // check if user exists
-  const user2 = await User.findOne({
-    email: req.body.email.toLowerCase(),
-  });
-
-  if (user2) {
-    req.flash('danger', 'Email already associated with an existing account.');
-    return render(req, res, 'RegisterPage', attempt);
-  }
-  const newUser = new User({
-    email,
-    username,
-    username_lower: username.toLowerCase(),
-    password,
-    confirm: 'false',
-  });
-
-  return bcrypt.genSalt(10, (_err3, salt) => {
-    bcrypt.hash(newUser.password, salt, (err4, hash) => {
-      if (err4) {
-        req.logger.error(err4);
-      } else {
-        newUser.password = hash;
-        newUser.confirmed = 'false';
-        newUser.save((err5) => {
-          if (err5) {
-            req.logger.error(err5);
-          } else {
-            const smtpTransport = mailer.createTransport({
-              name: process.env.SITE_HOSTNAME,
-              secure: true,
-              service: 'Gmail',
-              auth: {
-                user: process.env.EMAIL_CONFIG_USERNAME,
-                pass: process.env.EMAIL_CONFIG_PASSWORD,
-              },
-            });
-            const confirmEmail = new Email({
-              message: {
-                from: process.env.SUPPORT_EMAIL_FROM,
-                to: email,
-                subject: 'Confirm Account',
-              },
-              send: true,
-              juiceResources: {
-                webResources: {
-                  relativeTo: path.join(__dirname, '..', 'public'),
-                  images: true,
-                },
-              },
-              transport: smtpTransport,
-            });
-
-            confirmEmail
-              .send({
-                template: 'confirm_email',
-                locals: {
-                  id: newUser._id,
-                },
-              })
-              .then(() => {
-                // req.flash('success','Please check your email for confirmation link. It may be filtered as spam.');
-                req.flash('success', 'Account successfully created. You are now able to login.');
-                res.redirect(303, '/login');
-              });
-          }
-        });
-      }
+    if (!req.validated) {
+      return await render(req, res, 'RegisterPage', attempt);
+    }
+    const user = await User.findOne({
+      username_lower: req.body.username.toLowerCase(),
     });
-  });
+
+    if (user) {
+      req.flash('danger', 'Username already taken.');
+      return await render(req, res, 'RegisterPage', attempt);
+    }
+
+    // check if user exists
+    const user2 = await User.findOne({
+      email: req.body.email.toLowerCase(),
+    });
+
+    if (user2) {
+      req.flash('danger', 'Email already associated with an existing account.');
+      return await render(req, res, 'RegisterPage', attempt);
+    }
+    const newUser = new User({
+      email,
+      username,
+      username_lower: username.toLowerCase(),
+      password,
+      confirm: 'false',
+    });
+
+    return bcrypt.genSalt(10, (_err3, salt) => {
+      bcrypt.hash(newUser.password, salt, (err4, hash) => {
+        if (err4) {
+          req.logger.error(err4);
+        } else {
+          newUser.password = hash;
+          newUser.confirmed = 'false';
+          newUser.save((err5) => {
+            if (err5) {
+              req.logger.error(err5);
+            } else {
+              const smtpTransport = mailer.createTransport({
+                name: process.env.SITE_HOSTNAME,
+                secure: true,
+                service: 'Gmail',
+                auth: {
+                  user: process.env.EMAIL_CONFIG_USERNAME,
+                  pass: process.env.EMAIL_CONFIG_PASSWORD,
+                },
+              });
+              const confirmEmail = new Email({
+                message: {
+                  from: process.env.SUPPORT_EMAIL_FROM,
+                  to: email,
+                  subject: 'Confirm Account',
+                },
+                send: true,
+                juiceResources: {
+                  webResources: {
+                    relativeTo: path.join(__dirname, '..', 'public'),
+                    images: true,
+                  },
+                },
+                transport: smtpTransport,
+              });
+
+              confirmEmail
+                .send({
+                  template: 'confirm_email',
+                  locals: {
+                    id: newUser._id,
+                  },
+                })
+                .then(() => {
+                  // req.flash('success','Please check your email for confirmation link. It may be filtered as spam.');
+                  req.flash('success', 'Account successfully created. You are now able to login.');
+                  res.redirect(303, '/login');
+                });
+            }
+          });
+        }
+      });
+    });
+  } catch (err) {
+    return handleRouteError(req, res, err, '/404');
+  }
 };
 
 const confirmUser = async (req, res) => {
@@ -416,7 +424,7 @@ const viewUserPage = async (req, res) => {
     const following = req.user && user.users_following ? user.users_following.some((id) => id.equals(req.user._id)) : false;
     delete user.users_following;
 
-    return render(req, res, 'UserCubePage', {
+    return await render(req, res, 'UserCubePage', {
       owner: user,
       cubes,
       followers,
@@ -464,7 +472,7 @@ const viewUserDecks = async (req, res) => {
 
     delete user.users_following;
 
-    return render(req, res, 'UserDecksPage', {
+    return await render(req, res, 'UserDecksPage', {
       owner: user,
       followers,
       following: req.user && req.user.followed_users.some((id) => user._id.equals(id)),
@@ -506,7 +514,7 @@ const viewUserBlog = async (req, res) => {
 
     delete user.users_following;
 
-    return render(
+    return await render(
       req,
       res,
       'UserBlogPage',
@@ -635,7 +643,7 @@ const viewSocialPage = async (req, res) => {
 
     const [followedCubes, followedUsers, followers] = await Promise.all([followedCubesQ, followedUsersQ, followersQ]);
 
-    return render(
+    return await render(
       req,
       res,
       'UserSocialPage',
@@ -654,7 +662,8 @@ const viewSocialPage = async (req, res) => {
 };
 
 const viewAccountPage = async (req, res) => {
-  return render(
+  try {
+  return await render(
     req,
     res,
     'UserAccountPage',
@@ -665,6 +674,10 @@ const viewAccountPage = async (req, res) => {
       title: 'Account',
     },
   );
+} catch (err)
+{
+  return handleRouteError(req, res, err, '/404');
+}
 }
 
 const router = express.Router();

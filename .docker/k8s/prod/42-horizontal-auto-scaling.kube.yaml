@@ -7,9 +7,9 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: cubeartisan
-  minReplicas: 1
-  maxReplicas: 4
-  targetCPUUtilizationPercentage: 100
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 65
 ---
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
