@@ -7,13 +7,13 @@ resources:
 - 42-horizontal-auto-scaling.kube.yaml
 images:
 - name: ghcr.io/cubeartisan/cubeartisan
-  newTag: 324e3d5e
+  newTag: v1.0.0-rc0-3
 patchesStrategicMerge:
 - environment-override.yaml
 patchesJson6902:
-  - target:
-      group: networking.k8s.io
-      kind: Ingress
-      name: cubeartisan-ingress
-      version: v1
-    path: ingress.patch.yaml
+- path: ingress.patch.yaml
+  target:
+    group: networking.k8s.io
+    kind: Ingress
+    name: cubeartisan-ingress
+    version: v1
