@@ -39,7 +39,7 @@ const CreatorPodcasts = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await csrfFetch(`/podcasts/${user.id}/${page}`);
+      const response = await csrfFetch(`/podcasts/${user._id}/${page}`);
       if (!response.ok) {
         console.warn(response);
       }

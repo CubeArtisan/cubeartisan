@@ -107,7 +107,7 @@ const submitPackage = async (req, res) => {
     });
   }
 
-  const poster = await User.findById(req.user.id);
+  const poster = await User.findById(req.user._id);
   if (!poster) {
     return res.status(400).send({
       success: 'false',
@@ -148,7 +148,7 @@ const submitPackage = async (req, res) => {
 
 const upvotePackage = async (req, res) => {
   const pack = await Package.findById(req.params.id);
-  const user = await User.findById(req.user.id);
+  const user = await User.findById(req.user._id);
 
   if (!pack.voters.includes(user._id)) {
     pack.voters.push(user._id);
@@ -164,7 +164,7 @@ const upvotePackage = async (req, res) => {
 
 const downvotePackage = async (req, res) => {
   const pack = await Package.findById(req.params.id);
-  const user = await User.findById(req.user.id);
+  const user = await User.findById(req.user._id);
 
   if (pack.voters.includes(user._id)) {
     pack.voters = pack.voters.filter((uid) => !user._id.equals(uid));

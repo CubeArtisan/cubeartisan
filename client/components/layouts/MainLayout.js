@@ -139,7 +139,7 @@ const MainLayout = ({ children, loginCallback }) => {
                       {user.username}
                     </DropdownToggle>
                     <DropdownMenu right>
-                      <DropdownItem href={`/user/${user.id}`}>Your Profile</DropdownItem>
+                      <DropdownItem href={`/user/${user._id}`}>Your Profile</DropdownItem>
                       {user.roles && user.roles.includes('Admin') && (
                         <DropdownItem href="/admin/dashboard">Admin Page</DropdownItem>
                       )}
@@ -147,8 +147,8 @@ const MainLayout = ({ children, loginCallback }) => {
                         <DropdownItem href="/creators">Content Creator Dashboard</DropdownItem>
                       )}
                       <CreateCubeModalLink>Create A New Cube</CreateCubeModalLink>
-                      <DropdownItem href={`/user/${user.id}/social`}>Social</DropdownItem>
-                      <DropdownItem href={`/user/${user.id}/account`}>Account Information</DropdownItem>
+                      <DropdownItem href={`/user/${user._id}/social`}>Social</DropdownItem>
+                      <DropdownItem href={`/user/${user._id}/account`}>Account Information</DropdownItem>
                       <DropdownItem href="/logout">Logout</DropdownItem>
                     </DropdownMenu>
                   </UncontrolledDropdown>

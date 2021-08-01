@@ -57,7 +57,7 @@ const truncateToLength = (len, s) => {
 
 const DeckPreview = ({ deck, nextURL }) => {
   const user = useContext(UserContext);
-  const canEdit = user && (user.id === deck.owner || user.id === deck.cubeOwner);
+  const canEdit = user && (user._id === deck.owner || user._id === deck.cubeOwner);
 
   const { date } = deck;
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);

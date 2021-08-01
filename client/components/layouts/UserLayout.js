@@ -38,7 +38,7 @@ const BrandedHeader = styled.h5`
 
 const UserLayout = ({ user, followers, activeLink, children }) => {
   const activeUser = useContext(UserContext);
-  const canEdit = activeUser && activeUser.id === user._id;
+  const canEdit = activeUser && activeUser._id === user._id;
 
   const numFollowers = followers.length;
   const followersText = (

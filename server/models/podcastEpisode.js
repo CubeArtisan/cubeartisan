@@ -18,14 +18,13 @@
  */
 import mongoose from 'mongoose';
 
-// Blog schema
 const podcastEpisodeSchema = mongoose.Schema({
   title: String,
   podcastname: String,
   description: String,
-  podcast: String,
+  podcast: mongoose.Schema.Types.ObjectId,
   source: String,
-  owner: String,
+  owner: mongoose.Schema.Types.ObjectId,
   image: String,
   date: Date,
   guid: String,

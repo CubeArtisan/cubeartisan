@@ -35,7 +35,7 @@ const BlogPost = ({ post, onEdit, noScroll }) => {
 
   const scrollStyle = noScroll ? {} : { overflow: 'auto', maxHeight: '50vh' };
 
-  const canEdit = user && user.id === post.owner;
+  const canEdit = user && user._id === post.owner;
 
   return (
     <Card className="shadowed rounded-0 mb-3">
@@ -81,7 +81,7 @@ const BlogPost = ({ post, onEdit, noScroll }) => {
 };
 
 BlogPost.propTypes = {
-  post: PropTypes.arrayOf(BlogPostPropType).isRequired,
+  post: BlogPostPropType.isRequired,
   onEdit: PropTypes.func.isRequired,
   noScroll: PropTypes.bool,
 };

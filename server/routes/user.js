@@ -169,14 +169,14 @@ const followUser = async (req, res) => {
       return res.redirect(303, '/404');
     }
 
-    if (!other.users_following.includes(user.id)) {
-      other.users_following.push(user.id);
+    if (!other.users_following.some((id) => id.equals(user._id))) {
+      other.users_following.push(user._id);
     }
-    if (!user.followed_users.includes(other.id)) {
-      user.followed_users.push(other.id);
+    if (!user.followed_users.some((id) => id.equals(other._id))) {
+      user.followed_users.push(other._id);
     }
 
-    await addNotification(other, user, `/user/${user.id}`, `${user.username} has followed you!`);
+    await addNotification(other, user, `/user/${user._id}`, `${user.username} has followed you!`);
 
     await Promise.all([user.save(), other.save()]);
 
@@ -200,7 +200,7 @@ const unfollowUser = async (req, res) => {
     }
 
     other.users_following = other.users_following.filter((id) => !req.user._id.equals(id));
-    user.followed_users = user.followed_users.filter((id) => id !== req.params.id);
+    user.followed_users = user.followed_users.filter((id) => id.toString() !== req.params.id);
 
     await Promise.all([user.save(), other.save()]);
 
@@ -413,7 +413,7 @@ const viewUserPage = async (req, res) => {
 
     const [cubes, followers] = await Promise.all([cubesQ, followersQ]);
 
-    const following = req.user && user.users_following ? user.users_following.includes(req.user.id) : false;
+    const following = req.user && user.users_following ? user.users_following.some((id) => id.equals(req.user._id)) : false;
     delete user.users_following;
 
     return render(req, res, 'UserCubePage', {
@@ -467,7 +467,7 @@ const viewUserDecks = async (req, res) => {
     return render(req, res, 'UserDecksPage', {
       owner: user,
       followers,
-      following: req.user && req.user.followed_users.includes(user.id),
+      following: req.user && req.user.followed_users.some((id) => user._id.equals(id)),
       decks: decks || [],
       pages: Math.ceil(numDecks / pagesize),
       activePage: Math.max(req.params.page, 0),
@@ -515,7 +515,7 @@ const viewUserBlog = async (req, res) => {
         posts,
         canEdit: req.user && req.user._id.equals(user._id),
         followers,
-        following: req.user && req.user.followed_users.includes(user.id),
+        following: req.user && req.user.followed_users.some((id) => id.equals(user._id)),
         pages: Math.ceil(numBlogs / pagesize),
         activePage: Math.max(req.params.page, 0),
       },
@@ -577,7 +577,7 @@ const updateUserInfo = async (req, res) => {
 
 const updateDisplaySettings = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id);
+    const user = await User.findById(req.user._id);
 
     user.theme = req.body.theme;
     user.hide_featured = req.body.hideFeatured === 'on';
@@ -588,7 +588,7 @@ const updateDisplaySettings = async (req, res) => {
     res.redirect(`/user/${user._id}/account`);
   } catch (err) {
     req.flash('danger', `Could not save preferences: ${err.message}`);
-    res.redirect(`/user/${req.user.id}/account?nav=display`);
+    res.redirect(`/user/${req.user._id}/account?nav=display`);
   }
 };
 

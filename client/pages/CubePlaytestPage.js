@@ -512,7 +512,7 @@ export const CubePlaytestPage = ({ cube, decks, loginCallback }) => {
   return (
     <MainLayout loginCallback={loginCallback}>
       <CubeLayout cube={cube} activeLink="playtest">
-        {user && cube.owner === user.id ? (
+        {user && cube.owner === user._id ? (
           <Navbar light expand className="usercontrols mb-3">
             <Nav navbar>
               <NavItem>

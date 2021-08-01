@@ -50,18 +50,17 @@ const Pack = {
   },
 };
 
-// // data for each seat, human or bot
+// data for each seat, human or bot
 const Seat = {
   bot: Boolean, // null bot value means human player
   name: String,
-  userid: String,
+  userid: mongoose.Schema.Types.ObjectId,
   drafted: [[[Number]]], // organized draft picks
   sideboard: [[[Number]]], // organized draft picks
   pickorder: [Number], // cards this player picked in order of when they were picked
   trashorder: [Number], // cards this player trashed in order of when they were trashed
 };
 
-// Cube schema
 const draftSchema = mongoose.Schema(
   {
     basics: {
@@ -69,7 +68,7 @@ const draftSchema = mongoose.Schema(
       type: [Number],
     },
     cards: [cardSchema],
-    cube: String,
+    cube: mongoose.Schema.Types.ObjectId,
     initial_state: [[Pack]],
     schemaVersion: {
       type: Number,

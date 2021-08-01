@@ -18,12 +18,11 @@
  */
 import mongoose from 'mongoose';
 
-// Deck schema
 const reportSchema = mongoose.Schema({
-  commentid: String,
+  commentid: mongoose.Schema.Types.ObjectId,
   info: String,
   reason: String,
-  reportee: String,
+  reportee: mongoose.Schema.Types.ObjectId,
   timePosted: Date,
 });
 

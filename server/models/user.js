@@ -18,7 +18,6 @@
  */
 import mongoose from 'mongoose';
 
-// User schema
 const UserSchema = mongoose.Schema({
   username: {
     type: String,
@@ -50,21 +49,21 @@ const UserSchema = mongoose.Schema({
   },
   edit_token: String,
   followed_cubes: {
-    type: [String],
+    type: [mongoose.Schema.Types.ObjectId],
     default: [],
   },
   followed_users: {
-    type: [String],
+    type: [mongoose.Schema.Types.ObjectId],
     default: [],
   },
   users_following: {
-    type: [String],
+    type: [mongoose.Schema.Types.ObjectId],
     default: [],
   },
   notifications: {
     type: [
       {
-        user_from: String,
+        user_from: mongoose.Schema.Types.ObjectId,
         user_from_name: String,
         url: String,
         date: Date,
@@ -76,7 +75,7 @@ const UserSchema = mongoose.Schema({
   old_notifications: {
     type: [
       {
-        user_from: String,
+        user_from: mongoose.Schema.Types.ObjectId,
         user_from_name: String,
         url: String,
         date: Date,
@@ -115,10 +114,6 @@ const UserSchema = mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  patron: {
-    type: String,
-    default: null,
-  },
 });
 
 UserSchema.index({
@@ -127,10 +122,6 @@ UserSchema.index({
 
 UserSchema.index({
   email: 1,
-});
-
-UserSchema.index({
-  patron: 1,
 });
 
 export default mongoose.model('User', UserSchema);

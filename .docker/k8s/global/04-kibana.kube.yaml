@@ -25,11 +25,12 @@ spec:
               value: "--max-old-space-size=2048"
           resources:
             limits:
-              memory: 2.5Gi
+              memory: 3Gi
               cpu: 1000m
             requests:
-              memory: 2.5Gi
+              memory: 3Gi
               cpu: 200m
   config:
     xpack.fleet.agents.elasticsearch.host: https://elasticsearch-es-http.default.svc:9200
     xpack.fleet.agents.fleet_server.hosts: ["https://fleet-server-agent-http.default.svc:8220"]
+    server.publicBaseUrl: https://kibana.cubeartisan.net

@@ -53,7 +53,7 @@ const postToBlog = async (req, res) => {
     const blogpost = new Blog();
     blogpost.title = req.body.title;
     blogpost.markdown = req.body.markdown;
-    blogpost.owner = req.user.id;
+    blogpost.owner = req.user._id;
     blogpost.date = Date.now();
     blogpost.dev = 'true';
     blogpost.date_formatted = blogpost.date.toLocaleString('en-US');
