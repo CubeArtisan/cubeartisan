@@ -1,0 +1,16 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  creationTimestamp: null
+  name: cubeartisan-backup
+  namespace: velero
+spec:
+  schedule: '@daily'
+  template:
+    hooks: {}
+    includedNamespaces:
+    - cubeartisan
+    ttl: 720h0m0s
+  useOwnerReferencesInBackup: false
+status: {}
+
