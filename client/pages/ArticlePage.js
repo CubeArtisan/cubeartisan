@@ -36,7 +36,7 @@ export const ArticlePage = ({ loginCallback, article }) => {
     <MainLayout loginCallback={loginCallback}>
       <DynamicFlash />
       <Card className="mb-3">
-        {user && user.id === article.owner && article.status !== 'published' && (
+        {user && user._id === article.owner && article.status !== 'published' && (
           <CardHeader>
             <h5>
               <em className="pr-3">*Draft*</em>

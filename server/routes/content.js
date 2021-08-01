@@ -50,7 +50,7 @@ const submitApplication = async (req, res) => {
     }
     const application = new Application();
 
-    application.userid = req.user.id;
+    application.userid = req.user._id;
     application.info = req.body.info;
     application.timePosted = new Date();
 
@@ -259,7 +259,7 @@ const viewEditArticle = async (req, res) => {
     return res.redirect(404, '/404');
   }
 
-  if (article.owner !== req.user.id) {
+  if (!article.owner.equals(req.user._id)) {
     req.flash('danger', 'Unauthorized: Only article owners can edit articles.');
     return res.redirect(403, `/article/${article._id}`);
   }
@@ -280,7 +280,7 @@ const viewEditPodcast = async (req, res) => {
     return res.redirect(404, '/404');
   }
 
-  if (podcast.owner !== req.user.id) {
+  if (!podcast.owner.equals(req.user._id)) {
     req.flash('danger', 'Unauthorized: Only podcast owners can edit podcasts.');
     return res.redirect(403, `/podcast/${podcast._id}`);
   }
@@ -301,7 +301,7 @@ const fetchPodcast = async (req, res) => {
     return res.redirect(404, '/404');
   }
 
-  if (podcast.owner !== req.user.id) {
+  if (!podcast.owner.equals(req.user._id)) {
     req.flash('danger', 'Unauthorized: Only podcast owners can fetch podcast episodes.');
     return res.redirect(403, `/podcast/${podcast._id}`);
   }
@@ -326,7 +326,7 @@ const viewEditVideo = async (req, res) => {
     return res.redirect(404, '/404');
   }
 
-  if (video.owner !== req.user.id) {
+  if (!video.owner.equals(req.user._id)) {
     req.flash('danger', 'Unauthorized: Only video owners can edit videos.');
     return res.redirect(403, `/video/${video._id}`);
   }
@@ -344,7 +344,7 @@ const editArticle = async (req, res) => {
 
   const article = await Article.findById(articleid);
 
-  if (article.owner !== req.user.id) {
+  if (!article.owner.equals(req.user._id)) {
     req.flash('danger', 'Unauthorized: Only article owners can edit articles.');
     return res.redirect(403, `/article/${article._id}`);
   }
@@ -371,7 +371,7 @@ const editPodcast = async (req, res) => {
 
   const podcast = await Podcast.findById(podcastid);
 
-  if (podcast.owner !== req.user.id) {
+  if (!podcast.owner.equals(req.user._id)) {
     req.flash('danger', 'Unauthorized: Only podcast owners can edit podcasts.');
     return res.redirect(403, `/podcast/${podcast._id}`);
   }
@@ -398,7 +398,7 @@ const editVideo = async (req, res) => {
 
   const video = await Video.findById(videoid);
 
-  if (video.owner !== req.user.id) {
+  if (!video.owner.equals(req.user._id)) {
     req.flash('danger', 'Unauthorized: Only video owners can edit videos.');
     return res.redirect(403, `/video/${video._id}`);
   }
@@ -426,7 +426,7 @@ const submitArticle = async (req, res) => {
 
   const article = await Article.findById(articleid);
 
-  if (article.owner !== req.user.id) {
+  if (!article.owner.equals(req.user._id)) {
     req.flash('danger', 'Unauthorized: Only article owners can edit articles.');
     return res.redirect(403, `/article/${article._id}`);
   }
@@ -458,7 +458,7 @@ const submitPodcast = async (req, res) => {
 
   const podcast = await Podcast.findById(podcastid);
 
-  if (podcast.owner !== req.user.id) {
+  if (!podcast.owner.equals(req.user._id)) {
     req.flash('danger', 'Unauthorized: Only podcast owners can edit podcasts.');
     return res.redirect(403, `/podcast/${podcast._id}`);
   }
@@ -490,7 +490,7 @@ const submitVideo = async (req, res) => {
 
   const video = await Video.findById(videoid);
 
-  if (video.owner !== req.user.id) {
+  if (!video.owner.equals(req.user._id)) {
     req.flash('danger', 'Unauthorized: Only video owners can edit videos.');
     return res.redirect(303, `/video/${video._id}`);
   }
@@ -524,7 +524,7 @@ const createNewArticle = async (req, res) => {
   article._id = req.params.id;
   article.title = 'New Article';
   article.body = '';
-  article.owner = req.user.id;
+  article.owner = req.user._id;
   article.date = new Date();
   article.image =
     'https://c1.scryfall.com/file/scryfall-cards/art_crop/front/d/e/decb78dd-03d7-43a0-8ff5-1b97c6f515c9.jpg?1580015192';
@@ -547,7 +547,7 @@ const createNewPodcast = async (req, res) => {
   podcast.description = '';
   podcast.url = '';
   podcast.rss = '';
-  podcast.owner = req.user.id;
+  podcast.owner = req.user._id;
   podcast.image =
     'https://c1.scryfall.com/file/scryfall-cards/art_crop/front/d/e/decb78dd-03d7-43a0-8ff5-1b97c6f515c9.jpg?1580015192';
   podcast.date = new Date();
@@ -568,7 +568,7 @@ const createNewVideo = async (req, res) => {
   video.body = '';
   video.short = 'This is a brand new video!';
   video.url = '';
-  video.owner = req.user.id;
+  video.owner = req.user._id;
   video.date = new Date();
   video.image =
     'https://c1.scryfall.com/file/scryfall-cards/art_crop/front/d/e/decb78dd-03d7-43a0-8ff5-1b97c6f515c9.jpg?1580015192';
@@ -583,8 +583,8 @@ const createNewVideo = async (req, res) => {
 };
 
 const getJsonUserArticles = async (req, res) => {
-  const numResults = await Article.countDocuments({ owner: req.user.id });
-  const articles = await Article.find({ owner: req.user.id })
+  const numResults = await Article.countDocuments({ owner: req.user._id });
+  const articles = await Article.find({ owner: req.user._id })
     .sort({ date: -1 })
     .skip(Math.max(req.params.page, 0) * PAGE_SIZE)
     .limit(PAGE_SIZE)
@@ -598,8 +598,8 @@ const getJsonUserArticles = async (req, res) => {
 };
 
 const getJsonUserPodcasts = async (req, res) => {
-  const numResults = await Podcast.countDocuments({ owner: req.user.id });
-  const podcasts = await Podcast.find({ owner: req.user.id })
+  const numResults = await Podcast.countDocuments({ owner: req.user._id });
+  const podcasts = await Podcast.find({ owner: req.user._id })
     .sort({ date: -1 })
     .skip(Math.max(req.params.page, 0) * PAGE_SIZE)
     .limit(PAGE_SIZE)
@@ -613,8 +613,8 @@ const getJsonUserPodcasts = async (req, res) => {
 };
 
 const getJsonUserVideos = async (req, res) => {
-  const numResults = await Video.countDocuments({ owner: req.user.id });
-  const videos = await Video.find({ owner: req.user.id })
+  const numResults = await Video.countDocuments({ owner: req.user._id });
+  const videos = await Video.find({ owner: req.user._id })
     .sort({ date: -1 })
     .skip(Math.max(req.params.page, 0) * PAGE_SIZE)
     .limit(PAGE_SIZE)

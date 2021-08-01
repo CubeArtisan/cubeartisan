@@ -18,9 +18,8 @@
  */
 import mongoose from 'mongoose';
 
-// Deck schema
 const applicationSchema = mongoose.Schema({
-  userid: String,
+  userid: mongoose.Schema.Types.ObjectId,
   info: String,
   timePosted: Date,
 });

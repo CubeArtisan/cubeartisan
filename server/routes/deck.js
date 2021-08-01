@@ -26,12 +26,7 @@ import { render } from '@cubeartisan/server/serverjs/render.js';
 import { addNotification, handleRouteError } from '@cubeartisan/server/serverjs/util.js';
 import generateMeta from '@cubeartisan/server/serverjs/meta.js';
 import { ensureAuth } from '@cubeartisan/server/routes/middleware.js';
-import {
-  buildIdQuery,
-  abbreviate,
-  addDeckCardAnalytics,
-  removeDeckCardAnalytics,
-} from '@cubeartisan/server/serverjs/cubefn.js';
+import { abbreviate, addDeckCardAnalytics, removeDeckCardAnalytics } from '@cubeartisan/server/serverjs/cubefn.js';
 import { exportToMtgo, createPool, rotateArrayLeft } from '@cubeartisan/server/routes/cube/helper.js';
 
 import Cube from '@cubeartisan/server/models/cube.js';
@@ -348,7 +343,7 @@ const viewDeckbuilder = async (req, res) => {
       return res.redirect(`/deck/${req.params.id}`);
     }
 
-    const cube = await Cube.findOne(buildIdQuery(deck.cube), `${Cube.LAYOUT_FIELDS} basics useCubeElo`).lean();
+    const cube = await Cube.findOne(deck.cube, `${Cube.LAYOUT_FIELDS} basics useCubeElo`).lean();
     if (!cube) {
       req.flash('danger', 'Cube not found');
       return res.redirect('/404');
@@ -465,7 +460,7 @@ const rebuildDeck = async (req, res) => {
         `${user.username} rebuilt a deck from your cube: ${cube.name}`,
       );
     }
-    if (baseUser && !baseUser._id.equals(user.id)) {
+    if (baseUser && !baseUser._id.equals(user._id)) {
       await addNotification(
         baseUser,
         user,
@@ -598,7 +593,7 @@ const viewDeck = async (req, res) => {
       return res.redirect('/404');
     }
 
-    const cube = await Cube.findOne(buildIdQuery(deck.cube), Cube.LAYOUT_FIELDS).lean();
+    const cube = await Cube.findOne(deck.cube, Cube.LAYOUT_FIELDS).lean();
     if (!cube) {
       req.flash('danger', 'Cube not found');
       return res.redirect('/404');

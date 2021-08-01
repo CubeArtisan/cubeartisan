@@ -554,7 +554,7 @@ const submitLostPassword = async (req, res) => {
     await email.send({
       template: 'password_reset',
       locals: {
-        id: passwordReset.id,
+        id: passwordReset._id,
         code: passwordReset.code,
       },
     });

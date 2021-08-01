@@ -55,8 +55,8 @@ export const UserCubePage = ({ owner, followers, following, cubes, loginCallback
                 <Markdown markdown={owner.about || '_This user has not yet filled out their about section._'} />
               </Col>
             </Row>
-            {user && user.id === owner._id && (
-              <Button color="success" block outline href={`/user/${user.id}/account`}>
+            {user && user._id === owner._id && (
+              <Button color="success" block outline href={`/user/${user._id}/account`}>
                 Update
               </Button>
             )}

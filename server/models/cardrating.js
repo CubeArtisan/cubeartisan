@@ -18,7 +18,6 @@
  */
 import mongoose from 'mongoose';
 
-// Cube schema
 const cardRatingSchema = mongoose.Schema({
   value: Number,
   elo: Number,

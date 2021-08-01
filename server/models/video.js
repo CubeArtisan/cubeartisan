@@ -24,7 +24,7 @@ const videoSchema = mongoose.Schema({
   body: String,
   short: String,
   url: String,
-  owner: String,
+  owner: mongoose.Schema.Types.ObjectId,
   date: Date,
   image: String,
   imagename: String,

@@ -39,7 +39,7 @@ const AutocardA = withAutocard('a');
 const CardPackage = ({ cardPackage, refresh }) => {
   const user = useContext(UserContext);
 
-  const voted = user ? cardPackage.voters.includes(user.id) : false;
+  const voted = user ? cardPackage.voters.includes(user._id) : false;
 
   const toggleVote = async () => {
     if (voted) {

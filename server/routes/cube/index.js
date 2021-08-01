@@ -87,12 +87,12 @@ const createCube = async (req, res) => {
   try {
     if (req.body.name.length < 5 || req.body.name.length > 100) {
       req.flash('danger', 'Cube name should be at least 5 characters long, and shorter than 100 characters.');
-      return res.redirect(303, `/user/${req.user.id}`);
+      return res.redirect(303, `/user/${req.user._id}`);
     }
 
     if (hasProfanity(req.body.name)) {
       req.flash('danger', 'Cube name should not use profanity.');
-      return res.redirect(303, `/user/${req.user.id}`);
+      return res.redirect(303, `/user/${req.user._id}`);
     }
 
     const { user } = req;
@@ -105,14 +105,14 @@ const createCube = async (req, res) => {
         'danger',
         'Cannot create a cube: Users can only have 48 cubes. Please delete one or more cubes to create new cubes.',
       );
-      return res.redirect(303, `/user/${req.user.id}`);
+      return res.redirect(303, `/user/${req.user._id}`);
     }
 
     const shortID = await generateShortId();
     let cube = new Cube();
     cube.shortID = shortID;
     cube.name = req.body.name;
-    cube.owner = req.user.id;
+    cube.owner = req.user._id;
     cube.cards = [];
     cube.articles = [];
     const details = carddb.cardFromId(carddb.nameToId['doubling cube'][0]);
@@ -129,7 +129,7 @@ const createCube = async (req, res) => {
     req.flash('success', 'Cube Added');
     return res.redirect(`/cube/${cube.shortID}`);
   } catch (err) {
-    return handleRouteError(req, res, err, `/user/${req.user.id}`);
+    return handleRouteError(req, res, err, `/user/${req.user._id}`);
   }
 };
 
@@ -158,7 +158,7 @@ const cloneCube = async (req, res) => {
     let cube = new Cube();
     cube.shortID = shortID;
     cube.name = `Clone of ${source.name}`;
-    cube.owner = req.user.id;
+    cube.owner = req.user._id;
     cube.cards = source.cards;
     cube.articles = [];
     cube.image_uri = source.image_uri;
@@ -229,11 +229,11 @@ const followCube = async (req, res) => {
     });
   }
 
-  if (!cube.users_following.includes(user.id)) {
-    cube.users_following.push(user.id);
+  if (!cube.users_following.some((id) => id.equals(user._id))) {
+    cube.users_following.push(user._id);
   }
-  if (!user.followed_cubes.includes(cube.id)) {
-    user.followed_cubes.push(cube.id);
+  if (!user.followed_cubes.some((id) => id.equals(cube._id))) {
+    user.followed_cubes.push(cube._id);
   }
 
   await Promise.all([user.save(), cube.save()]);
@@ -254,7 +254,7 @@ const unfollowCube = async (req, res) => {
 
   const { user } = req;
   cube.users_following = cube.users_following.filter((id) => !req.user._id.equals(id));
-  user.followed_cubes = user.followed_cubes.filter((id) => id !== req.params.id);
+  user.followed_cubes = user.followed_cubes.filter((id) => !id.equals(cube._id));
 
   await Promise.all([user.save(), cube.save()]);
 
@@ -400,7 +400,7 @@ const viewOverview = async (req, res) => {
       {
         cube,
         post: blogs ? blogs[0] : null,
-        followed: req.user && cube.users_following ? cube.users_following.includes(req.user.id) : false,
+        followed: req.user && cube.users_following ? cube.users_following.some((id) => id.equals(req.user._id)) : false,
         followers,
         priceOwned: !cube.privatePrices ? totalPriceOwned : null,
         pricePurchase: !cube.privatePrices ? totalPricePurchase : null,
@@ -439,7 +439,7 @@ const getRss = async (req, res) => {
 
     const feed = new RSS({
       title: cube.name,
-      feed_url: `${process.env.SITE_ROOT}/cube/rss/${cube.id}`,
+      feed_url: `${process.env.SITE_ROOT}/cube/rss/${cube._id}`,
       site_url: process.env.SITE_ROOT,
     });
 
@@ -1277,7 +1277,7 @@ const setDefaultFormat = async (req, res) => {
   const cube = await Cube.findOne(buildIdQuery(cubeid));
   if (
     !cube ||
-    cube.owner !== req.user.id ||
+    !cube.owner.equals(req.user._id) ||
     !Number.isInteger(formatId) ||
     formatId >= cube.draft_formats.length ||
     formatId < -1

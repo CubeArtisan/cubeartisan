@@ -36,7 +36,7 @@ export const VideoPage = ({ loginCallback, video }) => {
     <MainLayout loginCallback={loginCallback}>
       <DynamicFlash />
       <Card className="mb-3">
-        {user && user.id === video.owner && video.status !== 'published' && (
+        {user && user._id === video.owner && video.status !== 'published' && (
           <CardHeader>
             <h5>
               <em className="pr-3">*Draft*</em>
