@@ -5,7 +5,6 @@ resources:
 - 51-tls-certificate.kube.yaml
 - ../per_env
 - 42-horizontal-auto-scaling.kube.yaml
-- 70-velero.kube.yaml
 - 72-cubeartisan-backup.kube.yaml
 images:
 - name: ghcr.io/cubeartisan/cubeartisan

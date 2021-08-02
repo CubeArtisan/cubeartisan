@@ -125,8 +125,10 @@ spec:
   version: 7.14.0-SNAPSHOT
   kibanaRef:
     name: kibana
+    namespace: kube-logging
   elasticsearchRefs:
     - name: elasticsearch
+      namespace: kube-logging
   mode: fleet
   fleetServerEnabled: true
   deployment:
@@ -147,8 +149,11 @@ spec:
   version: 7.14.0-SNAPSHOT
   kibanaRef:
     name: kibana
+    namespace: kube-logging
   fleetServerRef:
     name: fleet-server
+    namespace: kube-logging
+    serviceName: fleet-server-agent-http
   mode: fleet
   daemonSet:
     podTemplate:

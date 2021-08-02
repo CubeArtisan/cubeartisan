@@ -15,8 +15,10 @@ spec:
   count: 1
   elasticsearchRef:
     name: elasticsearch
+    namespace: kube-logging
   kibanaRef:
     name: kibana
+    namespace: kube-logging
   podTemplate:
     spec:
       containers:

@@ -1,0 +1,10 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: fleet-server-agent-http
+  namespace: default
+spec:
+  type: ExternalName
+  externalName: fleet-server-agent-http.kube-logging.svc.cluster.local
+  ports:
+    - port: 8220
