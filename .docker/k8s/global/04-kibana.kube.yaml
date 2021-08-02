@@ -16,6 +16,7 @@ spec:
         type: NodePort
   elasticsearchRef:
     name: elasticsearch
+    namespace: kube-logging
   podTemplate:
     spec:
       containers:
@@ -29,8 +30,8 @@ spec:
               cpu: 1000m
             requests:
               memory: 3Gi
-              cpu: 200m
+              cpu: 500m
   config:
-    xpack.fleet.agents.elasticsearch.host: https://elasticsearch-es-http.default.svc:9200
-    xpack.fleet.agents.fleet_server.hosts: ["https://fleet-server-agent-http.default.svc:8220"]
+    xpack.fleet.agents.elasticsearch.host: https://elasticsearch-es-http.kube-logging.svc:9200
+    xpack.fleet.agents.fleet_server.hosts: ["https://fleet-server-agent-http.kube-logging.svc:8220"]
     server.publicBaseUrl: https://kibana.cubeartisan.net

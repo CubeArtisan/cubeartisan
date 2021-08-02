@@ -56,7 +56,7 @@ spec:
             - name: ELASTIC_APM_TRANSACTION_IGNORE_URLS
               value: ""
             - name: ELASTIC_APM_SERVER_URL
-              value: "http://apm-server:8200/"
+              value: "http://apm.kube-logging.svc:8200/"
             - name: ELASTIC_APM_SERVICE_NAME
               value: CubeArtisan_beta
             - name: ELASTIC_APM_SERVICE_VERSION
@@ -70,7 +70,7 @@ spec:
                   name: cubeartisansecrets
                   key: ELASTICSEARCH_PASSWORD
             - name: ELASTICSEARCH_URL
-              value: "https://elasticsearch:9200/"
+              value: "https://elasticsearch-es-http.kube-logging.svc:9200/"
             - name: ELASTICSEARCH_USER
               valueFrom:
                 secretKeyRef:
