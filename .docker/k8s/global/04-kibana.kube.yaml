@@ -30,7 +30,7 @@ spec:
               cpu: 1000m
             requests:
               memory: 3Gi
-              cpu: 200m
+              cpu: 500m
   config:
     xpack.fleet.agents.elasticsearch.host: https://elasticsearch-es-http.kube-logging.svc:9200
     xpack.fleet.agents.fleet_server.hosts: ["https://fleet-server-agent-http.kube-logging.svc:8220"]

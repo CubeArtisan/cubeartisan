@@ -143,10 +143,10 @@ spec:
           - name: agent
             resources:
               limits:
-                memory: 300Mi
+                memory: 512Mi
                 cpu: 500m
               requests:
-                memory: 300Mi
+                memory: 512Mi
                 cpu: 100m
 ---
 apiVersion: agent.k8s.elastic.co/v1alpha1
@@ -162,7 +162,6 @@ spec:
   fleetServerRef:
     name: fleet-server
     namespace: kube-logging
-    serviceName: fleet-server-agent-http
   mode: fleet
   daemonSet:
     podTemplate:
@@ -180,3 +179,15 @@ spec:
               requests:
                 memory: 300Mi
                 cpu: 100m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apm
+  namespace: kube-logging
+spec:
+  selector:
+    agent.k8s.elastic.co/name: fleet-server
+  ports:
+    - protocol: TCP
+      port: 8200
