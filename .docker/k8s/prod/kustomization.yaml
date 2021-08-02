@@ -18,7 +18,3 @@ patchesJson6902:
     kind: Ingress
     name: cubeartisan-ingress
     version: v1
-configMapGenerator:
-- literals:
-  - TAG=v1.0.0-rc5
-  name: cubeartisan-version
