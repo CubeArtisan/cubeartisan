@@ -18,7 +18,12 @@
  */
 // Load Environment Variables
 import express from 'express';
-import { addMultipleNotifications, addNotification, wrapAsyncApi } from '@cubeartisan/server/serverjs/util.js';
+import {
+  addMultipleNotifications,
+  addNotification,
+  handleRouteError,
+  wrapAsyncApi,
+} from '@cubeartisan/server/serverjs/util.js';
 import Comment from '@cubeartisan/server/models/comment.js';
 import User from '@cubeartisan/server/models/user.js';
 import Report from '@cubeartisan/server/models/report.js';
@@ -183,19 +188,23 @@ const reportComment = async (req, res) => {
 };
 
 const viewComment = async (req, res) => {
-  const comment = await Comment.findById(req.params.id).lean();
+  try {
+    const comment = await Comment.findById(req.params.id).lean();
 
-  return render(
-    req,
-    res,
-    'CommentPage',
-    {
-      comment,
-    },
-    {
-      title: 'Comment',
-    },
-  );
+    return await render(
+      req,
+      res,
+      'CommentPage',
+      {
+        comment,
+      },
+      {
+        title: 'Comment',
+      },
+    );
+  } catch (err) {
+    return handleRouteError(req, res, err, '/404');
+  }
 };
 
 const router = express.Router();

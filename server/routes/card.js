@@ -150,7 +150,7 @@ const getInfoForId = async (req, res) => {
       );
     }
 
-    return render(
+    return await render(
       req,
       res,
       'CardPage',

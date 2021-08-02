@@ -67,7 +67,7 @@ const getGridDraftPage = async (req, res) => {
       }
     }
 
-    return render(
+    return await render(
       req,
       res,
       'GridDraftPage',

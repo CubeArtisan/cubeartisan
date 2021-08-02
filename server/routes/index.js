@@ -133,13 +133,17 @@ const getChildComments = async (req, res) => {
   });
 };
 
-const showDowntimePage = (req, res) => {
-  return render(req, res, 'DownTimePage', {
-    title: 'Down for Maintenance',
-  });
+const showDowntimePage = async (req, res) => {
+  try {
+    return await render(req, res, 'DownTimePage', {
+      title: 'Down for Maintenance',
+    });
+  } catch(err) {
+    return handleRouteError(req, res, err, '/404');
+  }
 };
 
-const exploreCubes = async (req, res) => {
+const exploreCubes = async (req, res) => { try {
   const recentsq = Cube.find(
     {
       card_count: {
@@ -190,12 +194,13 @@ const exploreCubes = async (req, res) => {
 
   const recentlyDrafted = await Cube.find({ _id: { $in: decks.map((deck) => deck.cube) } }, CUBE_PREVIEW_FIELDS).lean();
 
-  return render(req, res, 'ExplorePage', {
+  return await render(req, res, 'ExplorePage', {
     recents,
     featured,
     drafted,
     recentlyDrafted,
   });
+} catch(err) { return handleRouteError(req, res, err, '/404'); }
 };
 
 const showRandomCube = async (_, res) => {
@@ -307,7 +312,7 @@ const viewDashboard = async (req, res) => {
       .lean()
       .limit(12);
 
-    return render(req, res, 'DashboardPage', { posts, cubes: cubes.map((cube) => ({ ...cube, cards: [] })), decks, content, featured });
+    return await render(req, res, 'DashboardPage', { posts, cubes: cubes.map((cube) => ({ ...cube, cards: [] })), decks, content, featured });
   } catch (err) {
     return handleRouteError(req, res, err, '/landing');
   }
@@ -339,7 +344,7 @@ const dashboardDecks = async (req, res) => {
       .lean()
       .exec();
 
-    return render(req, res, 'RecentDraftsPage', {
+    return await render(req, res, 'RecentDraftsPage', {
       decks,
       currentPage: parseInt(page, 10),
       totalPages: Math.ceil(numDecks / pagesize),
@@ -352,32 +357,41 @@ const dashboardDecks = async (req, res) => {
 };
 
 const viewLanding = async (req, res) => {
+  try {
   const cubeq = Cube.estimatedDocumentCount().exec();
   const deckq = Deck.estimatedDocumentCount().exec();
   const userq = User.estimatedDocumentCount().exec();
 
   const [cube, deck, user] = await Promise.all([cubeq, deckq, userq]);
 
-  return render(req, res, 'LandingPage', {
+  return await render(req, res, 'LandingPage', {
     numusers: user.toLocaleString('en-US'),
     numcubes: cube.toLocaleString('en-US'),
     numdrafts: deck.toLocaleString('en-US'),
     version: process.env.SITE_VERSION,
   });
+  } catch (err) {
+    return handleRouteError(req, res, err, '/404');
+  }
 };
 
-const getVersion = (req, res) => {
-  return render(req, res, 'VersionPage', {
+const getVersion = async (req, res) => {
+  try {
+  return await render(req, res, 'VersionPage', {
     version: process.env.SITE_VERSION,
     host: process.env.SITE_ROOT,
-  });
+  });} catch (err) { return handleRouteError(req, res, err, '/404'); }
 };
 
-const viewSearchPage = (req, res) => {
-  return render(req, res, 'SearchPage', {
+const viewSearchPage = async (req, res) => {
+  try {
+  return await render(req, res, 'SearchPage', {
     query: '',
     cubes: [],
   });
+  } catch (err) {
+    return handleRouteError(req, res, err, '/404');
+  }
 };
 
 const searchResultsPage = async (req, res) => {
@@ -411,7 +425,7 @@ const searchResultsPage = async (req, res) => {
     if (query.error) {
       req.flash('danger', `Invalid Search Syntax: ${query.error}`);
 
-      return render(req, res, 'SearchPage', {
+      return await render(req, res, 'SearchPage', {
         query: req.params.query,
         cubes: [],
         count: 0,
@@ -437,7 +451,7 @@ const searchResultsPage = async (req, res) => {
       .skip(perPage * page)
       .limit(perPage);
 
-    return render(req, res, 'SearchPage', {
+    return await render(req, res, 'SearchPage', {
       query: req.params.query,
       cubes,
       count,
@@ -449,27 +463,40 @@ const searchResultsPage = async (req, res) => {
     req.logger.error(err);
     req.flash('danger', 'Invalid Search Syntax');
 
-    return render(req, res, 'SearchPage', {
-      query: req.params.query,
-      cubes: [],
-      count: 0,
-      perPage: 0,
-      page: 0,
-    });
+    try {
+      return await render(req, res, 'SearchPage', {
+        query: req.params.query,
+        cubes: [],
+        count: 0,
+        perPage: 0,
+        page: 0,
+      });
+    } catch (err2) {
+      return handleRouteError(req, res, err2, '/404');
+    }
   }
 };
 
-const showLeavePage = (req, res) => {
-  return render(req, res, 'LeaveWarningPage', {
+const showLeavePage = async (req, res) => {
+  try {
+  return await render(req, res, 'LeaveWarningPage', {
     url: req.query.url,
   });
+    } catch(err) {
+   return  handleRouteError(req, res, err, '/404');
+  }
 };
 
-const showErrorPage = (req, res) => {
-  return render(req, res, 'ErrorPage', {
-    requestId: req.uuid,
-    title: '404: Page not found',
-  });
+const showErrorPage = async (req, res) => {
+  try {
+    return await render(req, res, 'ErrorPage', {
+      requestId: req.uuid,
+      title: '404: Page not found',
+    });
+  } catch(err) {
+    res.logger.error(err);
+    return res.end();
+  }
 };
 
 const browsePackages = (req, res) => render(req, res, 'BrowsePackagesPage', {});
@@ -512,7 +539,7 @@ const addMinutes = (date, minutes)  => {
 const submitLostPassword = async (req, res) => {
   try {
     if (!req.validated) {
-      return render(req, res, 'LostPasswordPage');
+      return await render(req, res, 'LostPasswordPage');
     }
     const recoveryEmail = req.body.email.toLowerCase();
     await PasswordReset.deleteOne({
@@ -569,7 +596,7 @@ const submitLostPassword = async (req, res) => {
 const resetPassword = async (req, res) => {
   try {
     if (!req.validated) {
-      return render(req, res, 'PasswordResetPage');
+      return await render(req, res, 'PasswordResetPage');
     }
     const recoveryEmail = req.body.email.toLowerCase();
     const passwordreset = await PasswordReset.findOne({
@@ -579,7 +606,7 @@ const resetPassword = async (req, res) => {
 
     if (!passwordreset) {
       req.flash('danger', 'Incorrect email and recovery code combination.');
-      return render(req, res, 'PasswordResetPage');
+      return await render(req, res, 'PasswordResetPage');
     }
     const user = await User.findOne({
       email: recoveryEmail,
@@ -587,12 +614,12 @@ const resetPassword = async (req, res) => {
 
     if (!user) {
       req.flash('danger', 'No user with that email found! Are you sure you created an account?');
-      return render(req, res, 'PasswordResetPage');
+      return await render(req, res, 'PasswordResetPage');
     }
 
     if (req.body.password2 !== req.body.password) {
       req.flash('danger', "New passwords don't match");
-      return render(req, res, 'PasswordResetPage');
+      return await render(req, res, 'PasswordResetPage');
     }
 
     return bcrypt.genSalt(10, (err4, salt) => {
@@ -719,16 +746,20 @@ app.post('/lostpassword/reset',
 );
 app.get('/404', showErrorPage);
 // eslint-disable-next-line no-unused-vars
-app.use((err, req, res, _next) => {
-  req.logger.error(err);
-  if (!res.statusCode) {
-    res.status(500);
+app.use(async (err, req, res, _next) => {
+  try {
+    req.logger.error(err);
+    if (!res.statusCode) {
+      res.status(500);
+    }
+    return await render(req, res, 'ErrorPage', {
+      error: err.message,
+      requestId: req.uuid,
+      title: 'Oops! Something went wrong.',
+    });
+  } catch(err2) {
+    return res.end();
   }
-  return render(req, res, 'ErrorPage', {
-    error: err.message,
-    requestId: req.uuid,
-    title: 'Oops! Something went wrong.',
-  });
 });
 app.use((_req, res) => res.redirect(303, '/404'));
 
