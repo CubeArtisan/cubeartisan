@@ -43,7 +43,6 @@ const CommentsSection = ({ parent, parentType, collapse }) => {
       </div>
     );
   }
-
   return (
     <>
       {userid && (

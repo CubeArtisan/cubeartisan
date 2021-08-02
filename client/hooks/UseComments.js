@@ -76,7 +76,7 @@ const useComment = (type, parent) => {
         },
       });
       const result = await response.json();
-      setComments(result.comments);
+      setComments(result.comments ?? []);
       setLoading(false);
     })();
   }, [parent, type]);

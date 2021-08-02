@@ -19,7 +19,7 @@
 import mongoose from 'mongoose';
 
 const commentSchema = mongoose.Schema({
-  parent: mongoose.Schema.Types.ObjectId,
+  parent: String,
   parentType: {
     type: String,
     enum: ['comment', 'blog', 'deck', 'card', 'article', 'podcast', 'video', 'episode', 'package'],
