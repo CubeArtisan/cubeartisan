@@ -139,6 +139,15 @@ spec:
         securityContext:
           runAsUser: 0
         serviceAccountName: fleet-server
+        containers:
+          - name: agent
+            resources:
+              limits:
+                memory: 300Mi
+                cpu: 500m
+              requests:
+                memory: 300Mi
+                cpu: 100m
 ---
 apiVersion: agent.k8s.elastic.co/v1alpha1
 kind: Agent
@@ -162,3 +171,12 @@ spec:
         serviceAccountName: elastic-agent
         securityContext:
           runAsUser: 0
+        containers:
+          - name: agent
+            resources:
+              limits:
+                memory: 300Mi
+                cpu: 500m
+              requests:
+                memory: 300Mi
+                cpu: 100m
