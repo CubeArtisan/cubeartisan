@@ -63,7 +63,7 @@ export const CardSearchPage = ({ loginCallback }) => {
         ['d', direction],
         ['di', distinct],
       ]);
-      const response = await fetch(`cards/search/query?${params.toString()}`);
+      const response = await fetch(`/cards/search/query?${params.toString()}`);
       if (!response.ok) {
         console.error(response);
       }
@@ -88,11 +88,13 @@ export const CardSearchPage = ({ loginCallback }) => {
     }
   }, [page, filter, direction, distinct, sort]);
 
-  const updateFilter = (_, filterInput) => {
+  const updateFilter = (getFilterFunc) => {
     setLoading(true);
     setPage(0);
     setCount(0);
-    setFilter(filterInput);
+    const filterFunc = getFilterFunc();
+    setFilter(filterFunc.stringify);
+    console.log(filterFunc, filterFunc.stringify);
   };
 
   const updatePage = (index) => {
