@@ -5,7 +5,6 @@ metadata:
 rules:
   - apiGroups: [""] # "" indicates the core API group
     resources:
-      - namespaces
       - pods
     verbs:
       - get
@@ -18,26 +17,6 @@ rules:
       - get
       - create
       - update
-  - nonResourceURLs:
-      - "/metrics"
-    verbs:
-      - get
-      - watch
-      - list
-  - apiGroups:
-      - ""
-    resources:
-      - namespaces
-      - pods
-      - nodes
-      - nodes/metrics
-      - nodes/proxy
-      - nodes/stats
-      - events
-    verbs:
-      - get
-      - watch
-      - list
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -67,6 +46,15 @@ rules:
     resources:
       - namespaces
       - pods
+      - nodes
+      - events
+      - services
+      - configmaps
+      - nodes
+      - nodes/metrics
+      - nodes/proxy
+      - nodes/stats
+      - events
     verbs:
       - get
       - watch
@@ -84,18 +72,29 @@ rules:
       - get
       - watch
       - list
-  - apiGroups:
-      - ""
+  - apiGroups: ["extensions"]
     resources:
-      - nodes
-      - nodes/metrics
-      - nodes/proxy
-      - nodes/stats
-      - events
+      - replicasets
+    verbs: 
+      - "get"
+      - "list"
+      - "watch"
+  - apiGroups: ["apps"]
+    resources:
+      - statefulsets
+      - deployments
+      - replicasets
+    verbs:
+      - "get"
+      - "list"
+      - "watch"
+  - apiGroups: ["batch"]
+    resources:
+      - jobs
     verbs:
       - get
-      - watch
       - list
+      - watch
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -179,6 +178,23 @@ spec:
               requests:
                 memory: 300Mi
                 cpu: 100m
+            volumeMounts:
+            - mountPath: /var/lib/docker/containers
+              name: varlibdockercontainers
+            - mountPath: /var/log/containers
+              name: varlogcontainers
+            - mountPath: /var/log/pods
+              name: varlogpods
+        volumes:
+        - name: varlibdockercontainers
+          hostPath:
+            path: /var/lib/docker/containers
+        - name: varlogcontainers
+          hostPath:
+            path: /var/log/containers
+        - name: varlogpods
+          hostPath:
+            path: /var/log/pods
 ---
 apiVersion: v1
 kind: Service

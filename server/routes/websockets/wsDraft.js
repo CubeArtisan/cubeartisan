@@ -10,7 +10,7 @@ import { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation.js';
 
 const getSeat = async (draftid, user) => {
   let draft = await Draft.findById(draftid).lean();
-  const existingSeat = draft.seats.findIndex(({ userid }) => user._id.toString() === userid);
+  const existingSeat = draft.seats.findIndex(({ userid }) => user._id.equals(userid));
   if (existingSeat >= 0) return [existingSeat, draft];
   for (
     let seatNumbers = draft.seats
