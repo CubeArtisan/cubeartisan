@@ -141,13 +141,13 @@ spec:
               name: http
           resources:
             limits:
-              memory: 2Gi
+              memory: 4Gi
               cpu: 1000m
-              ephemeral-storage: 2Gi
+              ephemeral-storage: 4Gi
             requests:
-              memory: 2Gi
+              memory: 4Gi
               cpu: 1000m
-              ephemeral-storage: 2Gi
+              ephemeral-storage: 4Gi
           livenessProbe:
             httpGet:
               path: /version

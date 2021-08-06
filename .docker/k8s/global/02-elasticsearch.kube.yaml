@@ -31,4 +31,15 @@ spec:
                   cpu: 1000m
                 requests:
                   memory: 4Gi
-                  cpu: 200m
+                  cpu: 500m
+      volumeClaimTemplates:
+        - metadata:
+            name: elasticsearch-data
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 16Gi
+            storageClassName: standard-rwo
+
