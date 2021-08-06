@@ -50,7 +50,7 @@ import TextEntry from '@cubeartisan/client/components/TextEntry.js';
 export const getCard = async (cubeID, name, setAlerts) => {
   if (name && name.length > 0) {
     const normalized = encodeName(name);
-    const response = await fetch(`/cube/${cubeID}/card/${normalized}`);
+    const response = await fetch(`/card/${normalized}/details`);
     if (!response.ok) {
       const message = `Couldn't get card: ${response.status}.`;
       if (setAlerts) {

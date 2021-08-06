@@ -77,22 +77,25 @@ const searchCards = (filter, sort = 'elo', page = 0, direction = 'descending', d
 };
 
 const getCardFromId = (id) => {
+  // if id is an oracle id, redirect to most reasonable scryfall
+  if (carddb.oracleToId[id]) {
+    id = carddb.getMostReasonableById(carddb.oracleToId[id][0])._id;
+  }
+  
   // if id is a cardname, redirect to the default version for that card
   const possibleName = decodeName(id);
+  console.log(possibleName);
   const ids = carddb.getIdsFromName(possibleName);
+  console.log(ids);
   if (ids) {
     id = carddb.getMostReasonable(possibleName)._id;
   }
 
   // if id is a foreign id, redirect to english version
   const english = carddb.getEnglishVersion(id);
+  console.log(english);
   if (english) {
     id = english;
-  }
-
-  // if id is an oracle id, redirect to most reasonable scryfall
-  if (carddb.oracleToId[id]) {
-    id = carddb.getMostReasonableById(carddb.oracleToId[id][0])._id;
   }
 
   // if id is not a scryfall ID, error
@@ -109,8 +112,8 @@ const getImageForId = (req, res) => {
 };
 
 const getCardObj = (req, res) => {
-  const card = getCardFromId(req, res);
-  if (!card.error) {
+  const card = getCardFromId(req.params.id);
+  if (card.error) {
     return res.status(404).send({ success: 'false' });
   }
   return res.status(200).send({ success: 'true', card });
