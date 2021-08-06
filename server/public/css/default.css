@@ -7,9 +7,10 @@
   --bg: hsl(270, 0%, 100%);
   --bg-dark: hsl(270, 15%, 94%);
   --bg-darker: hsl(270, 10%, 80%);
-  --bg-secondary: hsl(290, 15%, 25%);
+  --bg-secondary: hsl(200, 55%, 10%);
   --bg-hover: hsl(270, 60%, 91%);
   --bg-advert: hsl(300, 80%, 85%);
+  --bg-accent: hsl(300, 25%, 25%);
   --success: hsl(268, 95%, 70%);
   --secondary: hsl(220, 70%, 65%);
   --danger: hsl(330, 95%, 60%);
@@ -38,7 +39,7 @@
   --preview-podcast:hsla(310, 85%, 65%, 0.5);
   --preview-video:  hsla(180, 60%, 70%, 0.5);
   --nav-link: hsl(265, 64%, 80%);
-  --button-green: hsl(160, 60%, 50%);
+  --button-green: hsl(180, 60%, 50%);
   --button-red: hsl(344, 80%, 54%);
   --secondary-nav-link:hsla(210, 65% , 20%, .5);
   --secondary-nav-link-hover:hsla(190, 85% , 30%, .7);

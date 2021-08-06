@@ -26,7 +26,7 @@ const Footer = () => {
   const { discordUrl, siteName, sourceRepo } = useContext(SiteCustomizationContext);
   return (
     <footer>
-      <Container className="pt-3">
+      <Container className="pt-3 bg-accent">
         <Row>
           <Col xs="6" sm="3">
             <small>
