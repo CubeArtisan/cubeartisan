@@ -4,7 +4,6 @@ resources:
   - global/00-namespaces.yaml
   - global/02-elasticsearch.kube.yaml
   - global/04-kibana.kube.yaml
-  - global/07-apm-server.kube.yaml
   - global/09-elastic-agent.kube.yaml
   - ./prod
   - ./staging

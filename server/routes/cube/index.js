@@ -2217,7 +2217,7 @@ router.put('/:id/tags/colors', wrapAsyncApi(updateTagColors));
 router.get('/:id/tags/colors', wrapAsyncApi(getTagColors));
 router.get('/:id/card/:name', wrapAsyncApi(getCardByName));
 // TODO: -This uses a different meaning for the id field for put requests vs get. I'm not sure that's good.
-router.put('/:id/card/:index', ensureAuth, wrapAsyncApi(updateCardInCube));
+router.put('/:id/card/:cardid', ensureAuth, wrapAsyncApi(updateCardInCube));
 router.get('/:id/card/:name/default', wrapAsyncApi(getDefaultPrinting));
 router.put('/:id/basics', wrapAsyncApi(updateCubeBasics));
 router.put('/:id/cards', ensureAuth, wrapAsyncApi(updateCardsInCube));

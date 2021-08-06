@@ -5,11 +5,10 @@ resources:
 - 51-tls-certificate.kube.yaml
 - ../per_env
 - 42-horizontal-auto-scaling.kube.yaml
-- 70-velero.kube.yaml
 - 72-cubeartisan-backup.kube.yaml
 images:
 - name: ghcr.io/cubeartisan/cubeartisan
-  newTag: v1.0.0-rc0-3
+  newTag: v1.0.0-rc5
 patchesStrategicMerge:
 - environment-override.yaml
 patchesJson6902:
@@ -19,3 +18,7 @@ patchesJson6902:
     kind: Ingress
     name: cubeartisan-ingress
     version: v1
+configMapGenerator:
+- literals:
+  - TAG=v1.0.0-rc5
+  name: cubeartisan-version

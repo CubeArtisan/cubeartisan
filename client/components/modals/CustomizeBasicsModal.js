@@ -33,7 +33,7 @@ const CustomizeBasicsModal = ({ isOpen, toggle, cube, updateBasics, onError }) =
 
   useEffect(() => {
     (async () => {
-      const response = await fetch('/cube/api/imagedict');
+      const response = await fetch('/cards/images/dict');
       const json = await response.json();
       setImageDict(json.dict);
     })();

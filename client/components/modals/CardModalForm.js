@@ -142,7 +142,7 @@ const CardModalForm = ({ children, ...props }) => {
 
     try {
       if (!maybe) {
-        const response = await csrfFetch(`/cube//${cubeID}/card/${card.index}`, {
+        const response = await csrfFetch(`/cube//${cubeID}/card/${card._id}`, {
           method: 'PUT',
           body: JSON.stringify({ src: card, updated }),
           headers: {
@@ -151,7 +151,7 @@ const CardModalForm = ({ children, ...props }) => {
         });
         const json = await response.json();
         if (json.success === 'true') {
-          const cardResponse = await fetch(`/card/${updated.cardID}`);
+          const cardResponse = await fetch(`/card/${updated.cardID}/details`);
           const cardJson = await cardResponse.json();
 
           const newCard = {
