@@ -93,9 +93,11 @@ const BasicsModal = ({ isOpen, toggle, addBasics, deck, basics, cards }) => {
         <Button type="submit" color="success" onClick={handleAddBasics}>
           Add
         </Button>
-        <Button color="success" onClick={calculateBasics}>
-          Calculate
-        </Button>
+        {false && (
+          <Button color="success" onClick={calculateBasics}>
+            Calculate
+          </Button>
+        )}
         <Button color="secondary" onClick={toggle}>
           Close
         </Button>

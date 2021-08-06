@@ -130,8 +130,6 @@ const CubeOverviewModal = ({ cube: savedCube, onError, onCubeUpdate, userID, isO
     [cube.categoryPrefixes],
   );
 
-  const cubeID = getCubeId(savedCube);
-
   const handleApply = useCallback(
     async (event) => {
       event.preventDefault();
@@ -149,7 +147,7 @@ const CubeOverviewModal = ({ cube: savedCube, onError, onCubeUpdate, userID, isO
       const json = await response.json();
       if (response.ok) {
         if (urlChanged) {
-          window.location.href = `/cube/${encodeURIComponent(cubeID)}`;
+          window.location.href = `/cube/${encodeURIComponent(getCubeId(newCube))}`;
         }
         onCubeUpdate(cube);
       } else if (json.message) {
@@ -161,7 +159,7 @@ const CubeOverviewModal = ({ cube: savedCube, onError, onCubeUpdate, userID, isO
       }
       toggle();
     },
-    [toggle, onError, cube, tags, urlChanged, cubeID, onCubeUpdate],
+    [toggle, onError, cube, tags, urlChanged, onCubeUpdate],
   );
 
   return (
@@ -174,7 +172,7 @@ const CubeOverviewModal = ({ cube: savedCube, onError, onCubeUpdate, userID, isO
     >
       <Modal size="lg" isOpen={isOpen} toggle={toggle}>
         <ModalHeader toggle={toggle}>Edit Overview</ModalHeader>
-        <form method="POST" action={`/cube/${cubeID}/overview`} autoComplete="off">
+        <form autoComplete="off">
           <ModalBody>
             <h6>Cube Name</h6>
             <input
