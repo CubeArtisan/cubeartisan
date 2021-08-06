@@ -130,8 +130,6 @@ const CubeOverviewModal = ({ cube: savedCube, onError, onCubeUpdate, userID, isO
     [cube.categoryPrefixes],
   );
 
-  const cubeID = getCubeId(savedCube);
-
   const handleApply = useCallback(
     async (event) => {
       event.preventDefault();
@@ -161,7 +159,7 @@ const CubeOverviewModal = ({ cube: savedCube, onError, onCubeUpdate, userID, isO
       }
       toggle();
     },
-    [toggle, onError, cube, tags, urlChanged, cubeID, onCubeUpdate],
+    [toggle, onError, cube, tags, urlChanged, onCubeUpdate],
   );
 
   return (

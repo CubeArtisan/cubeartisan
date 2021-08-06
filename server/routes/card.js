@@ -81,19 +81,16 @@ const getCardFromId = (id) => {
   if (carddb.oracleToId[id]) {
     id = carddb.getMostReasonableById(carddb.oracleToId[id][0])._id;
   }
-  
+
   // if id is a cardname, redirect to the default version for that card
   const possibleName = decodeName(id);
-  console.log(possibleName);
   const ids = carddb.getIdsFromName(possibleName);
-  console.log(ids);
   if (ids) {
     id = carddb.getMostReasonable(possibleName)._id;
   }
 
   // if id is a foreign id, redirect to english version
   const english = carddb.getEnglishVersion(id);
-  console.log(english);
   if (english) {
     id = english;
   }

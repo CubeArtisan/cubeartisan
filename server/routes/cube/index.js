@@ -1557,8 +1557,6 @@ const getDefaultPrinting = async (req, res) => {
 
 const updateCardInCube = async (req, res) => {
   const { src, updated } = req.body;
-  console.log(src);
-  console.log(updated);
   if (
     !src ||
     (src && typeof src.index !== 'number') ||
