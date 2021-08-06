@@ -62,7 +62,7 @@ body {
 
 .pagination > .active > a,
 .pagination > .active > button {
-	color: #fff !important;
+	color: var(--white) !important;
 	background-color: var(--success) !important;
 	border: solid 1px var(--success) !important;
 }
@@ -583,7 +583,7 @@ body.busy-cursor {
 .cube-preview-card.hover {
 	background: var(--bg-dark);
 	cursor: pointer;
-	border: 1px solid #000000;
+	border: 1px solid var(--black);
 }
 .cube-preview-element {
 	height: 73%;
@@ -594,8 +594,8 @@ body.busy-cursor {
 	position: absolute;
 	bottom: 0;
 	right: 2px;
-	color: #fff;
-	text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+	color: var(--white);
+	text-shadow: -1px 0 var(--black), 0 1px var(--black), 1px 0 var(--black), 0 -1px var(--black);
 }
 
 .content-preview-banner {
@@ -1011,11 +1011,15 @@ div.viewport {
 
 /* these fields are only used on landing, when logged off. no point to overwrite colors */ 
 .bg-green{
-	background-color: #498007;
+	background-color: var(--button-green);
+}
+
+.bg-accent{
+	background-color: var(--bg-accent);
 }
 
 .bg-light{
-	background-color: #F7F7F7;
+	background-color: var(--bg-advert);
 }
 
 
@@ -1297,9 +1301,14 @@ thead th.corner[scope=col] {
 }
 
 .qr-code-area {
-	background-color: #FFFFFF !important
+	background-color: var(--white) !important
 }
 
 div.advertisement-div > div {
 	height: 100% !important
   }
+
+.btn-outline-success {
+	color: var(--bg-hover);
+	border-color: var(--bg-hover)
+}
