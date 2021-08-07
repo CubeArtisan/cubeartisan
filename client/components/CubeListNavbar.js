@@ -49,6 +49,7 @@ import {
 
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext.js';
+import CustomizeBasicsModal from '@cubeartisan/client/components/modals/CustomizeBasicsModal.js';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
@@ -62,6 +63,8 @@ import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import { QuestionIcon } from '@primer/octicons-react';
 import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 import styled from '@cubeartisan/client/utils/styledHelper.js';
+
+const CustomizeBasicsModalLink = withModal(NavLink, CustomizeBasicsModal);
 
 const GrowingDiv = styled.div`
   flex-grow: 1;
@@ -310,6 +313,8 @@ const CubeListNavbar = ({
   filter,
   setFilter,
   className,
+  alerts,
+  setAlerts,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [tagColorsModalOpen, setTagColorsModalOpen] = useState(false);
@@ -317,7 +322,11 @@ const CubeListNavbar = ({
   const [isSortUsed, setIsSortUsed] = useState(true);
   const [isFilterUsed, setIsFilterUsed] = useState(true);
 
-  const { canEdit, cubeID, hasCustomImages } = useContext(CubeContext);
+  const addAlert = (color, message) => {
+    setAlerts([...alerts, { color, message }]);
+  };
+
+  const { cube, canEdit, cubeID, hasCustomImages, setCube } = useContext(CubeContext);
   const { groupModalCards, openGroupModal } = useContext(GroupModalContext);
   const { primary, secondary, tertiary, quaternary, showOther, changeSort } = useContext(SortContext);
   const openCardModal = useContext(CardModalContext);
@@ -329,6 +338,11 @@ const CubeListNavbar = ({
     showMaybeboard,
     toggleShowMaybeboard,
   } = useContext(DisplayContext);
+
+  const onCubeUpdate = (updated) => {
+    addAlert('success', 'Update Successful');
+    setCube(updated);
+  };
 
   const toggle = useCallback(() => setIsOpen((open) => !open), []);
 
@@ -428,11 +442,30 @@ const CubeListNavbar = ({
             {!canEdit ? (
               ''
             ) : (
-              <NavItem className={cubeView === 'list' ? undefined : 'd-none d-lg-block'}>
-                <NavLink href="#" onClick={handleMassEdit}>
-                  {cubeView === 'list' ? 'Edit Selected' : 'Mass Edit'}
-                </NavLink>
-              </NavItem>
+              <>
+                <NavItem className={cubeView === 'list' ? undefined : 'd-none d-lg-block'}>
+                  <NavLink href="#" onClick={handleMassEdit}>
+                    {cubeView === 'list' ? 'Edit Selected' : 'Mass Edit'}
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <CustomizeBasicsModalLink
+                    modalProps={{
+                      cube,
+                      onError: (message) => {
+                        addAlert('danger', message);
+                      },
+                      updateBasics: (basics) => {
+                        const deepClone = JSON.parse(JSON.stringify(cube));
+                        deepClone.basics = basics;
+                        onCubeUpdate(deepClone);
+                      },
+                    }}
+                  >
+                    Customize Basics
+                  </CustomizeBasicsModalLink>
+                </NavItem>
+              </>
             )}
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
@@ -554,6 +587,9 @@ CubeListNavbar.propTypes = {
   filter: PropTypes.func,
   setFilter: PropTypes.func.isRequired,
   className: PropTypes.string,
+  alerts: PropTypes.arrayOf(PropTypes.shape({ color: PropTypes.string, message: PropTypes.string.isRequired }))
+    .isRequired,
+  setAlerts: PropTypes.func.isRequired,
 };
 
 CubeListNavbar.defaultProps = {
