@@ -21,7 +21,7 @@ import carddb from '@cubeartisan/server/serverjs/cards.js';
 
 function getBlankCardHistory(id) {
   const card = carddb.cardFromId(id);
-  const cardVersions = carddb.getVersionsByOracleId(card.oracle_id);
+  const cardVersions = carddb.getVersionsByOracleId(card.oracle_id) ?? [];
 
   const data = {
     current: {
