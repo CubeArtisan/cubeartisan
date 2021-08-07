@@ -37,7 +37,7 @@ import TableView from '@cubeartisan/client/components/TableView.js';
 import { getCardColorClass } from '@cubeartisan/client/components/contexts/TagContext.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 
-const AutocardItem = withAutocard(ListGroupItem);
+const AutocardDiv = withAutocard('div');
 
 const MaybeboardListItem = ({ card, className }) => {
   const { canEdit, cubeID } = useContext(CubeContext);
@@ -97,14 +97,15 @@ const MaybeboardListItem = ({ card, className }) => {
   );
 
   return (
-    <AutocardItem
-      className={`d-flex card-list-item ${getCardColorClass(card)} ${className || ''}`}
-      card={card}
+    <ListGroupItem
+      className={`d-flex card-list-item ${className || ''} ${getCardColorClass(card)}`}
       data-index={card.index}
       onClick={handleEdit}
       role="button"
     >
-      <div className="name">{card.details.name}</div>
+      <AutocardDiv className="name" card={card}>
+        {card.details.name}
+      </AutocardDiv>
       {canEdit &&
         (loading ? (
           <Spinner size="sm" className="ml-auto" />
@@ -129,7 +130,7 @@ const MaybeboardListItem = ({ card, className }) => {
             />
           </>
         ))}
-    </AutocardItem>
+    </ListGroupItem>
   );
 };
 
