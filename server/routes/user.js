@@ -692,7 +692,7 @@ router.put(
   wrapAsyncApi(saveShowTagColors),
 );
 router.get('/:id/notification/:index', ensureAuth, viewNotification);
-router.delete('/:id/notification', ensureAuth, clearNotifications);
+router.delete('/:id/notifications', ensureAuth, clearNotifications);
 router.put('/:id/follow', ensureAuth, followUser);
 router.delete('/:id/follow', ensureAuth, unfollowUser);
 router.get('/:id/password/reset', viewResetPassword);
