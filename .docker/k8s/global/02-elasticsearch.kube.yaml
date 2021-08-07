@@ -15,7 +15,7 @@ spec:
         type: NodePort
   nodeSets:
     - name: zone-a
-      count: 1
+      count: 2
       config:
         node.store.allow_mmap: false
       podTemplate:
@@ -24,14 +24,14 @@ spec:
             - name: elasticsearch
               env:
                 - name: ES_JAVA_OPTS
-                  value: -Xms2g -Xmx2g
+                  value: -Xms2g -Xmx4g
               resources:
                 limits:
                   memory: 4Gi
                   cpu: 1000m
                 requests:
                   memory: 4Gi
-                  cpu: 500m
+                  cpu: 1000m
       volumeClaimTemplates:
         - metadata:
             name: elasticsearch-data
@@ -40,6 +40,6 @@ spec:
               - ReadWriteOnce
             resources:
               requests:
-                storage: 16Gi
+                storage: 64Gi
             storageClassName: standard-rwo
 

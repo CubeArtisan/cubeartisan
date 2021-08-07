@@ -776,12 +776,6 @@ wsServer.use((socket, next) => {
   if (socket.request.isAuthenticated()) return next();
   return next(new Error("Authentication is required to use websockets."));
 });
-wsServer.on('connect_error', (err) => 
-  winston.err({
-    message: err.message,
-    stack: err.stack,
-  })
-);
 const draftingWsRoute = wsServer.of('/wsdraft');
 draftingWsRoute.use(wrap(sessionConfig));
 draftingWsRoute.use(wrap(passportInitialized));
