@@ -18,12 +18,14 @@ const cube = {
   cards: exampleCardsFull,
   maybe: exampleCardsFull,
   default_sorts: ['Color Category', 'Types-Multicolor'],
+  basics: [],
 };
 
 const element = () => (
   <FetchMock
     mocks={[
       { matcher: '/cards/names', response: { success: 'true' } },
+      { matcher: '/cards/images/dict', response: { success: 'true', dict: {} }},
       { matcher: '/cube/1/cards/names', response: { success: 'true' } },
       {
         matcher: '/cards/versions',
