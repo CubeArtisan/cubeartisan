@@ -29,6 +29,11 @@ export const setCorsUnrestricted = (_req, res, next) => {
   next();
 };
 
+export const cacheResponse = (_req, res, next) => {
+  res.set('Cache-Control', 'public, max_age=3600');
+  next();
+};
+
 export const requestLogging = (req, res, next) => {
   req.uuid = uuid();
 
