@@ -92,6 +92,7 @@ export const TagContextProvider = ({
   userID,
 }) => {
   const [tagColors, setTagColors] = useState(Array.from(defaultTagColors ?? []));
+  console.debug(tagColors);
   const [showTagColors, setShowTagColors] = useState(!!defaultShowTagColors);
   const [tags, setTags] = useState(defaultTags ?? []);
 
