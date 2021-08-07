@@ -58,7 +58,7 @@ spec:
             - name: ELASTIC_APM_SERVER_URL
               value: "http://apm.kube-logging.svc:8200/"
             - name: ELASTIC_APM_SERVICE_NAME
-              value: CubeArtisan_beta
+              value: CubeArtisan
             - name: ELASTIC_APM_SERVICE_VERSION
               valueFrom:
                 configMapKeyRef:
@@ -122,7 +122,7 @@ spec:
             - name: SITE_HOSTNAME
               value: <ENV>
             - name: SITE_NAME
-              value: CubeArtisan (beta)
+              value: CubeArtisan
             - name: SITE_ROOT
               value: https://<ENV>
             - name: SITE_VERSION
