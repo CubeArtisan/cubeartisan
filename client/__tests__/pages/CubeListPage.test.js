@@ -25,7 +25,7 @@ const element = () => (
   <FetchMock
     mocks={[
       { matcher: '/cards/names', response: { success: 'true' } },
-      { matcher: '/cards/images/dict', response: { success: 'true', dict: {} }},
+      { matcher: '/cards/images/dict', response: { success: 'true', dict: {} } },
       { matcher: '/cube/1/cards/names', response: { success: 'true' } },
       {
         matcher: '/cards/versions',
