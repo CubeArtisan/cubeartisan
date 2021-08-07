@@ -18,10 +18,10 @@
  */
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
+import { UncontrolledAlert } from 'reactstrap';
 
 import LocalStorage from '@cubeartisan/client/utils/LocalStorage.js';
 import Query from '@cubeartisan/client/utils/Query.js';
-
 import CardModalForm from '@cubeartisan/client/components/modals/CardModalForm.js';
 import { ChangelistContextProvider } from '@cubeartisan/client/components/contexts/ChangelistContext.js';
 import ClientOnly from '@cubeartisan/client/components/ClientOnly.js';
@@ -62,6 +62,7 @@ const CubeListPageRaw = ({
   const [openCollapse, setOpenCollapse] = useState(null);
   const [filter, setFilter] = useState(null);
   const [sorts, setSorts] = useState(null);
+  const [alerts, setAlerts] = useState([]);
 
   useEffect(() => {
     const savedChanges = cube._id && LocalStorage.get(`changelist-${cube._id}`);
@@ -119,8 +120,15 @@ const CubeListPageRaw = ({
                   setFilter={setFilter}
                   cards={filteredCards}
                   className="mb-3"
+                  alerts={alerts}
+                  setAlerts={setAlerts}
                 />
                 <DynamicFlash />
+                {alerts.map(({ color, message }, index) => (
+                  <UncontrolledAlert color={color} key={/* eslint-disable-line react/no-array-index-key */ index}>
+                    {message}
+                  </UncontrolledAlert>
+                ))}
                 <ErrorBoundary>
                   <ClientOnly>
                     <DisplayContext.Consumer>

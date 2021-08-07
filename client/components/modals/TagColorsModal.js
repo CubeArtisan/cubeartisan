@@ -46,7 +46,7 @@ const TagColorRow = ({ tag, tagClass, value, onChange }) => (
     <Col className="d-flex flex-column justify-content-center">
       <Input type="select" bsSize="sm" name={`tagcolor-${tag}`} value={value || 'none'} onChange={onChange}>
         {TAG_COLORS.map(([name, ivalue]) => (
-          <option key={value || 'none'} value={ivalue || 'none'}>
+          <option key={ivalue ?? 'none'} value={ivalue ?? 'none'}>
             {name}
           </option>
         ))}
@@ -106,9 +106,7 @@ const TagColorsModal = ({ canEdit, isOpen, toggle }) => {
       } else {
         result.push({ tag, color });
       }
-      return {
-        tagColors: result,
-      };
+      return result;
     });
   }, []);
 
@@ -143,7 +141,7 @@ const TagColorsModal = ({ canEdit, isOpen, toggle }) => {
       orderedTags.map(({ tag, color }) => {
         const tagClass = `tag ${getTagColorClass(tagColors, tag)}`;
         return {
-          element: <TagColorRow tag={tag} tagClass={tagClass} value={color} onChange={changeColor} />,
+          element: <TagColorRow tag={tag} tagClass={tagClass} value={color} key={tag} onChange={changeColor} />,
           key: tag,
         };
       }),
