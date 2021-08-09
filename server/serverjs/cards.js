@@ -201,13 +201,15 @@ function getIdsFromName(name) {
       .map((card) => card._id);
   }
 
-  return data.nameToId[
-    name
-      .trim()
-      .normalize('NFD') // convert to consistent unicode format
-      .replace(/[\u0300-\u036f]/g, '') // remove unicode
-      .toLowerCase()
-  ];
+  return (
+    data.nameToId[
+      name
+        .trim()
+        .normalize('NFD') // convert to consistent unicode format
+        .replace(/[\u0300-\u036f]/g, '') // remove unicode
+        .toLowerCase()
+    ] ?? []
+  );
 }
 
 // Printing = 'recent' or 'first'
