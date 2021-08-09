@@ -37,13 +37,21 @@ export const cacheResponse = (_req, res, next) => {
 export const requestLogging = (req, res, next) => {
   req.uuid = uuid();
 
+  const requestData = {
+    requestId: req.uuid,
+    method: req.method,
+    path: req.path,
+    ...getApmCurrentTraceIds(),
+  };
+
   req.logger = {
     error: (err) => {
-      logApmError(err);
-      winston.error({
+      logApmError(err, req);
+      winston.error(err.message, {
+        level: 'error',
         message: err.message,
         stack: err.stack,
-        request: req,
+        ...requestData,
       });
     },
     info: (message, meta) => winston.info(message, meta),
@@ -55,14 +63,10 @@ export const requestLogging = (req, res, next) => {
     req.logger.info('', {
       level: 'info',
       type: 'request',
-      remoteAddr: req.ip,
-      requestId: req.uuid,
-      method: req.method,
-      path: req.path,
       status: finalRes.statusCode,
       length: finalRes.getHeader('content-length'),
       elapsed: Date.now() - finalRes.startTime,
-      ...getApmCurrentTraceIds(),
+      ...requestData,
     });
   });
   next();

@@ -15,7 +15,7 @@ spec:
         type: NodePort
   nodeSets:
     - name: zone-a
-      count: 2
+      count: 1
       config:
         node.store.allow_mmap: false
       podTemplate:

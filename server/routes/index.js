@@ -18,7 +18,7 @@
  */
 
 // This needs to come first for apm to work correctly.
-import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
+import winston, { connectMiddleware } from '@cubeartisan/server/serverjs/winstonConfig.js';
 
 import express from 'express';
 import ConnectFlash from 'connect-flash';
@@ -710,6 +710,7 @@ app.use('/', InfoRoutes);
 if (process.env.DOWNTIME_ACTIVE === 'true') {
   app.use(showDowntimePage);
 }
+connectMiddleware(app);
 app.use('/', CardRoutes);
 app.use('/', ContentRoutes);
 app.use('/admin', AdminRoutes);

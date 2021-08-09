@@ -142,11 +142,11 @@ spec:
           - name: agent
             resources:
               limits:
-                memory: 512Mi
-                cpu: 500m
+                memory: 1024Mi
+                cpu: 1000m
               requests:
-                memory: 512Mi
-                cpu: 100m
+                memory: 1024Mi
+                cpu: 500m
 ---
 apiVersion: agent.k8s.elastic.co/v1alpha1
 kind: Agent
