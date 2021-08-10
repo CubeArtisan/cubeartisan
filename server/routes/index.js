@@ -680,8 +680,8 @@ app.use(
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'pug');
 // Set Public Folder
-app.use(express.static(path.join(__dirname, '../public')));
-app.use('/js', express.static(path.join(__dirname, '../../client/dist')));
+app.use(express.static(path.join(__dirname, '../public'), { maxAge: 86400, immutable: true }));
+app.use('/js', express.static(path.join(__dirname, '../../client/dist'), { maxAge: 3600 }));
 // Express session middleware
 const sessionConfig = session({
       secret: process.env.SESSION,

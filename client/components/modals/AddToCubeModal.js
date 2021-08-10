@@ -38,7 +38,7 @@ import {
 
 const AddToCubeModal = ({ card, isOpen, toggle, hideAnalytics, cubeContext }) => {
   const user = useContext(UserContext);
-  const cubes = user ? user.cubes : [];
+  const cubes = user?.cubes ?? [];
 
   let def = cubeContext;
   if (cubes.length > 0) {

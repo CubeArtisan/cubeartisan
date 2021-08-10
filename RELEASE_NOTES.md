@@ -32,6 +32,21 @@
  - Remove a missed piece of CubeCobra branding from the FAQ
  - Officially remove the beta moniker from the site name.
 
+#### v1.0.3
+
+ - PR: #135
+
+##### Bug Fixes
+
+ - Handle cases where a card name isn't found in the card database.
+
+#### v1.0.4
+
+##### Bug Fixes
+ 
+ - Have the Add to Cube Modal handle when the user doesn't have any cubes.
+ - Fix caching to more precisely specify how to cache.
+
 ## Known Issues
 
  - On Firefox Drag and Drop in the DraftPage and the DeckbuilderPage causes the browser to navigate to the image url for the card. 

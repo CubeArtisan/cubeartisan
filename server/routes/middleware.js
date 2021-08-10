@@ -30,7 +30,12 @@ export const setCorsUnrestricted = (_req, res, next) => {
 };
 
 export const cacheResponse = (_req, res, next) => {
-  res.set('Cache-Control', 'public, max_age=3600');
+  res.set('Cache-Control', 'public, max-age=3600');
+  next();
+};
+
+export const cacheImmutableResponse = (_req, res, next) => {
+  res.set('Cache-Control', 'public, max-age=3600, immutable');
   next();
 };
 

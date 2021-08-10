@@ -30,7 +30,7 @@ import { decodeName, normalizeName } from '@cubeartisan/client/utils/Card.js';
 import CardHistory from '@cubeartisan/server/models/cardHistory.js';
 import getBlankCardHistory from '@cubeartisan/server/serverjs/BlankCardHistory.js';
 import generateMeta from '@cubeartisan/server/serverjs/meta.js';
-import { cacheResponse, jsonValidationErrors } from '@cubeartisan/server/routes/middleware.js';
+import { cacheImmutableResponse, jsonValidationErrors } from '@cubeartisan/server/routes/middleware.js';
 
 /* Page size for results */
 const PAGE_SIZE = 96;
@@ -302,12 +302,12 @@ const getFullNames = (_, res) => {
 };
 
 const router = express.Router();
-router.get('/card/:id/details', cacheResponse, getCardObj);
-router.get('/card/:id/image', cacheResponse, getImageForId);
-router.get('/card/:id/image/redirect', cacheResponse, getImageRedirectForId);
-router.get('/card/:id', cacheResponse, getInfoForId);
-router.get('/card/:id/flip/image', cacheResponse, getFlipImageById);
-router.get('/card/:id/versions', cacheResponse, wrapAsyncApi(getAllVersionsForId));
+router.get('/card/:id/details', cacheImmutableResponse, getCardObj);
+router.get('/card/:id/image', cacheImmutableResponse, getImageForId);
+router.get('/card/:id/image/redirect', cacheImmutableResponse, getImageRedirectForId);
+router.get('/card/:id', cacheImmutableResponse, getInfoForId);
+router.get('/card/:id/flip/image', cacheImmutableResponse, getFlipImageById);
+router.get('/card/:id/versions', cacheImmutableResponse, wrapAsyncApi(getAllVersionsForId));
 router.post(
   '/cards/versions',
   body([], 'Body must be an array.').isArray(),
@@ -315,17 +315,17 @@ router.post(
     /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}2?$/,
   ),
   jsonValidationErrors,
-  cacheResponse,
+  cacheImmutableResponse,
   getVersionsFromIds,
 );
-router.get('/cards/search', cacheResponse, (req, res) =>
+router.get('/cards/search', cacheImmutableResponse, (req, res) =>
   render(req, res, 'CardSearchPage', {}, { title: 'Search Cards' }),
 );
-router.get('/cards/search/query', cacheResponse, doCardSearch);
+router.get('/cards/search/query', cacheImmutableResponse, doCardSearch);
 router.get('/cards/random', redirectToRandomCard);
-router.post('/cards/details', cacheResponse, getDetailsForCards);
-router.get('/cards/names', cacheResponse, listCardNames);
-router.get('/cards/images', cacheResponse, getCardImageUrls);
-router.get('/cards/images/dict', cacheResponse, getImageDict);
-router.get('/cards/names/full', cacheResponse, getFullNames);
+router.post('/cards/details', cacheImmutableResponse, getDetailsForCards);
+router.get('/cards/names', cacheImmutableResponse, listCardNames);
+router.get('/cards/images', cacheImmutableResponse, getCardImageUrls);
+router.get('/cards/images/dict', cacheImmutableResponse, getImageDict);
+router.get('/cards/names/full', cacheImmutableResponse, getFullNames);
 export default router;
