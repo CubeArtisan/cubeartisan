@@ -45,6 +45,7 @@
 ##### Bug Fixes
  
  - Have the Add to Cube Modal handle when the user doesn't have any cubes.
+ - Fix caching to more precisely specify how to cache.
 
 ## Known Issues
 
