@@ -24,14 +24,14 @@ spec:
             - name: elasticsearch
               env:
                 - name: ES_JAVA_OPTS
-                  value: -Xms2g -Xmx2g
+                  value: -Xms3g -Xmx3g
               resources:
                 limits:
                   memory: 4Gi
                   cpu: 1000m
                 requests:
                   memory: 4Gi
-                  cpu: 500m
+                  cpu: 1000m
       volumeClaimTemplates:
         - metadata:
             name: elasticsearch-data
@@ -40,6 +40,6 @@ spec:
               - ReadWriteOnce
             resources:
               requests:
-                storage: 16Gi
+                storage: 64Gi
             storageClassName: standard-rwo
 

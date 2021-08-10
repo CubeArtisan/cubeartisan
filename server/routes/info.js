@@ -533,8 +533,8 @@ const viewFaq = (req, res) =>
         text:
           `${process.env.SITE_NAME} offers the most tools catered specifically towards cube construction. The website is powered by Scryfall,` +
           ` which means that newly spoiled cards will be available to use up to 48 hours after being spoiled. The biggest advantage` +
-          ` ${process.env.SITE_NAME} has right now is a more modern and maintainable technology stack compared to other tools. This means Cube` +
-          ` Cobra is updated frequently and is committed to adding features that the community asks for.`,
+          ` ${process.env.SITE_NAME} has right now is a more modern and maintainable technology stack compared to other tools. This means ${process.env.SITE_NAME}` +
+          ` is updated frequently and is committed to adding features that the community asks for.`,
       },
       {
         label: `What tech stack does ${process.env.SITE_NAME} use?`,

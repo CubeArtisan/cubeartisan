@@ -58,7 +58,8 @@ if (process.env.ELASTICSEARCH_URL) {
 }
 
 export const getApmCurrentTraceIds = () => apm.currentTraceIds;
-export const logApmError = (err) => apm.captureError(err);
+export const logApmError = (err, request) => apm.captureError(err, { request });
+export const connectMiddleware = (app) => app.use(apm.middleware.connect());
 
 winston.configure({
   level: 'info',

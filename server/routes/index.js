@@ -18,7 +18,7 @@
  */
 
 // This needs to come first for apm to work correctly.
-import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
+import winston, { connectMiddleware } from '@cubeartisan/server/serverjs/winstonConfig.js';
 
 import express from 'express';
 import ConnectFlash from 'connect-flash';
@@ -680,8 +680,8 @@ app.use(
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'pug');
 // Set Public Folder
-app.use(express.static(path.join(__dirname, '../public')));
-app.use('/js', express.static(path.join(__dirname, '../../client/dist')));
+app.use(express.static(path.join(__dirname, '../public'), { maxAge: 86400, immutable: true }));
+app.use('/js', express.static(path.join(__dirname, '../../client/dist'), { maxAge: 3600 }));
 // Express session middleware
 const sessionConfig = session({
       secret: process.env.SESSION,
@@ -710,6 +710,7 @@ app.use('/', InfoRoutes);
 if (process.env.DOWNTIME_ACTIVE === 'true') {
   app.use(showDowntimePage);
 }
+connectMiddleware(app);
 app.use('/', CardRoutes);
 app.use('/', ContentRoutes);
 app.use('/admin', AdminRoutes);
@@ -776,12 +777,6 @@ wsServer.use((socket, next) => {
   if (socket.request.isAuthenticated()) return next();
   return next(new Error("Authentication is required to use websockets."));
 });
-wsServer.on('connect_error', (err) => 
-  winston.err({
-    message: err.message,
-    stack: err.stack,
-  })
-);
 const draftingWsRoute = wsServer.of('/wsdraft');
 draftingWsRoute.use(wrap(sessionConfig));
 draftingWsRoute.use(wrap(passportInitialized));

@@ -537,7 +537,7 @@ const viewCubeComparison = async (req, res) => {
 const viewList = async (req, res) => {
   try {
     const fields =
-      'cards maybe card_count name owner type tag_colors default_sorts default_show_unsorted overrideCategory categoryOverride categoryPrefixes image_uri shortID';
+      'cards maybe basics card_count name owner type tag_colors default_sorts default_show_unsorted overrideCategory categoryOverride categoryPrefixes image_uri shortID';
     const cube = await Cube.findOne(buildIdQuery(req.params.id), fields).lean();
     if (!cube) {
       req.flash('danger', 'Cube not found');
