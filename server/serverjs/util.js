@@ -167,26 +167,6 @@ export const addMultipleNotifications = async (users, from, url, text) => {
   }
 };
 
-export const wrapAsyncApi = (route) => {
-  return async (req, res, next) => {
-    try {
-      return await route(req, res, next);
-    } catch (err) {
-      req.logger.error(err);
-      return res.status(500).send({
-        success: 'false',
-        message: 'Internal server error',
-      });
-    }
-  };
-};
-
-export const handleRouteError = (req, res, err, reroute) => {
-  req.logger.error(err);
-  req.flash('danger', err.message);
-  res.redirect(reroute);
-};
-
 export const toNonNullArray = (arr) => {
   if (!arr) return [];
   if (!Array.isArray(arr)) return typeof arr === 'object' ? Object.values(arr) : [];

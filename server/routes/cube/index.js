@@ -9,7 +9,12 @@ import { makeFilter } from '@cubeartisan/client/filtering/FilterCards.js';
 import { decodeName, normalizeName } from '@cubeartisan/client/utils/Card.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import { render } from '@cubeartisan/server/serverjs/render.js';
-import { ensureAuth, flashValidationErrors, jsonValidationErrors } from '@cubeartisan/server/routes/middleware.js';
+import {
+  cacheImmutableResponse,
+  ensureAuth,
+  flashValidationErrors,
+  jsonValidationErrors,
+} from '@cubeartisan/server/routes/middleware.js';
 import {
   addMultipleNotifications,
   addNotification,
@@ -2161,7 +2166,7 @@ router.get('/:id/playtest', viewPlaytest);
 router.get('/:id/analytics', viewAnalytics);
 router.get('/:id/playtest/sample', redirectToSamplePackWithSeed);
 router.get('/:id/playtest/sample/:seed', viewSamplePack);
-router.get('/:id/playtest/sample/:seed/image', viewSamplePackImage);
+router.get('/:id/playtest/sample/:seed/image', cacheImmutableResponse, viewSamplePackImage);
 router.post('/:id/import/cubetutor', ensureAuth, body('cubeid').toInt(), flashValidationErrors, importFromCubeTutor);
 router.post('/:id/import/paste', ensureAuth, importFromPaste);
 router.post('/:id/import/file', ensureAuth, importFromFile);

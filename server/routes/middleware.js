@@ -152,3 +152,33 @@ export const timeoutMiddleware = (req, res, next) => {
   });
   next();
 };
+
+export const wrapAsyncApi = (route) => {
+  return async (req, res, next) => {
+    try {
+      return await route(req, res, next);
+    } catch (err) {
+      req.logger.error(err);
+      return res.status(500).send({
+        success: 'false',
+        message: 'Internal server error',
+      });
+    }
+  };
+};
+
+export const handleRouteError = (req, res, err, reroute) => {
+  req.logger.error(err);
+  req.flash('danger', err.message);
+  res.redirect(reroute);
+};
+
+export const wrapAsyncPage = (route) => {
+  return async (req, res, next) => {
+    try {
+      return await route(req, res, next);
+    } catch (err) {
+      return handleRouteError(req, res, err, '/404');
+    }
+  };
+};

@@ -85,8 +85,8 @@ const getCardFromId = (id) => {
   // if id is a cardname, redirect to the default version for that card
   const possibleName = decodeName(id);
   const ids = carddb.getIdsFromName(possibleName);
-  if (ids) {
-    id = carddb.getMostReasonable(possibleName)._id;
+  if ((ids?.length ?? 0) > 0) {
+    id = carddb.getMostReasonable(possibleName)?._id ?? carddb.getPlaceholderCard(id);
   }
 
   // if id is a foreign id, redirect to english version
@@ -305,7 +305,7 @@ const router = express.Router();
 router.get('/card/:id/details', cacheImmutableResponse, getCardObj);
 router.get('/card/:id/image', cacheImmutableResponse, getImageForId);
 router.get('/card/:id/image/redirect', cacheImmutableResponse, getImageRedirectForId);
-router.get('/card/:id', cacheImmutableResponse, getInfoForId);
+router.get('/card/:id', getInfoForId);
 router.get('/card/:id/flip/image', cacheImmutableResponse, getFlipImageById);
 router.get('/card/:id/versions', cacheImmutableResponse, wrapAsyncApi(getAllVersionsForId));
 router.post(
@@ -318,9 +318,7 @@ router.post(
   cacheImmutableResponse,
   getVersionsFromIds,
 );
-router.get('/cards/search', cacheImmutableResponse, (req, res) =>
-  render(req, res, 'CardSearchPage', {}, { title: 'Search Cards' }),
-);
+router.get('/cards/search', (req, res) => render(req, res, 'CardSearchPage', {}, { title: 'Search Cards' }));
 router.get('/cards/search/query', cacheImmutableResponse, doCardSearch);
 router.get('/cards/random', redirectToRandomCard);
 router.post('/cards/details', cacheImmutableResponse, getDetailsForCards);
