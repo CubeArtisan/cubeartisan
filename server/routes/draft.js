@@ -16,8 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import express from 'express';
-import { addNotification, handleRouteError } from '@cubeartisan/server/serverjs/util.js';
+import { addNotification } from '@cubeartisan/server/serverjs/util.js';
 import { abbreviate, addDeckCardAnalytics, saveDraftAnalytics } from '@cubeartisan/server/serverjs/cubefn.js';
 import generateMeta from '@cubeartisan/server/serverjs/meta.js';
 import Util, { fromEntries, getCubeDescription, toNullableInt } from '@cubeartisan/client/utils/Util.js';
@@ -31,8 +30,9 @@ import { createPool, rotateArrayLeft } from '@cubeartisan/server/routes/cube/hel
 import Deck from '@cubeartisan/server/models/deck.js';
 import { buildDeck } from '@cubeartisan/client/drafting/deckutil.js';
 import { COLOR_COMBINATIONS } from '@cubeartisan/client/utils/Card.js';
+import { handleRouteError } from '@cubeartisan/server/routes/middleware.js';
 
-const getDraftPage = async (req, res) => {
+export const getDraftPage = async (req, res) => {
   try {
     const draft = await Draft.findById(req.params.id).lean();
     if (!draft) {
@@ -90,7 +90,7 @@ const getDraftPage = async (req, res) => {
   }
 };
 
-const redraftDraft = async (req, res) => {
+export const redraftDraft = async (req, res) => {
   try {
     const srcDraft = await Draft.findById(req.params.id).lean();
     const seat = parseInt(req.params.seat, 10);
@@ -154,7 +154,7 @@ const redraftDraft = async (req, res) => {
   }
 };
 
-const saveDraft = async (req, res) => {
+export const saveDraft = async (req, res) => {
   const draft = await Draft.findOne({
     _id: req.body._id,
   });
@@ -166,7 +166,7 @@ const saveDraft = async (req, res) => {
   });
 };
 
-const submitDraft = async (req, res) => {
+export const submitDraft = async (req, res) => {
   try {
     const draftid = req.params.id;
     const seatNum = toNullableInt(req.params.seat) ?? 0;
@@ -253,10 +253,3 @@ const submitDraft = async (req, res) => {
     });
   }
 };
-
-const router = express.Router();
-router.get('/:id', getDraftPage);
-router.put('/:id', saveDraft);
-router.post('/:id/:seat/redraft', redraftDraft);
-router.post('/:id/submit/:seat', submitDraft);
-export default router;

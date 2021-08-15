@@ -16,7 +16,6 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import express from 'express';
 import Cube from '@cubeartisan/server/models/cube.js';
 import GridDraft from '@cubeartisan/server/models/gridDraft.js';
 import { abbreviate, addDeckCardAnalytics } from '@cubeartisan/server/serverjs/cubefn.js';
@@ -26,13 +25,14 @@ import carddb from '@cubeartisan/server/serverjs/cards.js';
 import { render } from '@cubeartisan/server/serverjs/render.js';
 import generateMeta from '@cubeartisan/server/serverjs/meta.js';
 import Util, { getCubeDescription } from '@cubeartisan/client/utils/Util.js';
-import { addNotification, handleRouteError, wrapAsyncApi } from '@cubeartisan/server/serverjs/util.js';
+import { addNotification } from '@cubeartisan/server/serverjs/util.js';
 import { body } from 'express-validator';
 import Deck from '@cubeartisan/server/models/deck.js';
 import { buildDeck } from '@cubeartisan/client/drafting/deckutil.js';
 import { COLOR_COMBINATIONS } from '@cubeartisan/client/utils/Card.js';
+import { handleRouteError, wrapAsyncApi } from '@cubeartisan/server/routes/middleware.js';
 
-const getGridDraftPage = async (req, res) => {
+export const getGridDraftPage = async (req, res) => {
   try {
     const draft = await GridDraft.findById(req.params.id).lean();
     if (!draft) {
@@ -90,7 +90,7 @@ const getGridDraftPage = async (req, res) => {
   }
 };
 
-const saveGridDraft = async (req, res) => {
+const saveGridDraftHandler = async (req, res) => {
   await GridDraft.updateOne(
     {
       _id: req.body._id,
@@ -102,8 +102,9 @@ const saveGridDraft = async (req, res) => {
     success: 'true',
   });
 };
+export const saveGridDraft = wrapAsyncApi(saveGridDraftHandler);
 
-const submitGridDraft = async (req, res) => {
+const submitGridDraftHandler = async (req, res) => {
   try {
     // req.body contains a draft
     const draftid = req.body.body;
@@ -184,9 +185,4 @@ const submitGridDraft = async (req, res) => {
     return handleRouteError(req, res, err, `/cube/${encodeURIComponent(req.params.id)}/playtest`);
   }
 };
-
-const router = express.Router();
-router.get('/:id', getGridDraftPage);
-router.put('/:id', wrapAsyncApi(saveGridDraft));
-router.post('/:id/submit', body('skipDeckbuilder').toBoolean(), submitGridDraft);
-export default router;
+export const submitGridDraft = [body('skipDeckbuilder').toBoolean(), submitGridDraftHandler];

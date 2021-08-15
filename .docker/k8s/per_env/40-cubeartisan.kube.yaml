@@ -65,7 +65,7 @@ spec:
                   name: cubeartisan-version
                   key: TAG
             - name: ELASTIC_APM_TRANSACTION_IGNORE_URLS
-              value: "/socket.io/"
+              value: "/socket*"
             - name: ELASTICSEARCH_PASSWORD
               valueFrom:
                 secretKeyRef:

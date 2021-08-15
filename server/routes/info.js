@@ -16,10 +16,9 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import express from 'express';
 import { render } from '@cubeartisan/server/serverjs/render.js';
 
-const viewTos = (req, res) =>
+export const viewTos = (req, res) =>
   render(req, res, 'InfoPage', {
     title: 'Terms and Conditions',
     content: [
@@ -112,7 +111,7 @@ const viewTos = (req, res) =>
     ],
   });
 
-const viewCookiePolicy = (req, res) =>
+export const viewCookiePolicy = (req, res) =>
   render(req, res, 'InfoPage', {
     title: 'Cookies Policy',
     content: [
@@ -143,11 +142,11 @@ const viewCookiePolicy = (req, res) =>
     ],
   });
 
-const viewContactPage = (req, res) => render(req, res, 'ContactPage');
-const viewFiltersPage = (req, res) => render(req, res, 'FiltersPage');
-const viewMarkdownPage = (req, res) => render(req, res, 'MarkdownPage');
+export const viewContactPage = (req, res) => render(req, res, 'ContactPage');
+export const viewFiltersPage = (req, res) => render(req, res, 'FiltersPage');
+export const viewMarkdownPage = (req, res) => render(req, res, 'MarkdownPage');
 
-const viewPrivacyPolicy = (req, res) =>
+export const viewPrivacyPolicy = (req, res) =>
   render(req, res, 'InfoPage', {
     title: 'Privacy Policy',
     content: [
@@ -508,7 +507,7 @@ const viewPrivacyPolicy = (req, res) =>
     ],
   });
 
-const viewStoryPage = (req, res) => {
+export const viewStoryPage = (req, res) => {
   return render(req, res, 'InfoPage', {
     title: 'Our Story',
     content: [
@@ -524,7 +523,7 @@ const viewStoryPage = (req, res) => {
   });
 };
 
-const viewFaq = (req, res) =>
+export const viewFaq = (req, res) =>
   render(req, res, 'InfoPage', {
     title: 'Frequently Asked Questions',
     content: [
@@ -558,14 +557,3 @@ const viewFaq = (req, res) =>
       },
     ],
   });
-
-const router = express.Router();
-router.get('/contact', viewContactPage);
-router.get('/tos', viewTos);
-router.get('/filters', viewFiltersPage);
-router.get('/markdown', viewMarkdownPage);
-router.get('/privacy', viewPrivacyPolicy);
-router.get('/cookies', viewCookiePolicy);
-router.get('/ourstory', viewStoryPage);
-router.get('/faq', viewFaq);
-export default router;

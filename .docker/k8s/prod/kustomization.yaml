@@ -8,7 +8,7 @@ resources:
 - 72-cubeartisan-backup.kube.yaml
 images:
 - name: ghcr.io/cubeartisan/cubeartisan
-  newTag: v1.0.2
+  newTag: v1.0.4
 patchesStrategicMerge:
 - environment-override.yaml
 patchesJson6902:
@@ -18,3 +18,7 @@ patchesJson6902:
     kind: Ingress
     name: cubeartisan-ingress
     version: v1
+configMapGenerator:
+- literals:
+  - TAG=v1.0.4
+  name: cubeartisan-version

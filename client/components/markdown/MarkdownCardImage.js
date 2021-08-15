@@ -7,7 +7,7 @@ import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
 const MarkdownCardImage = ({ id, dfc }) => {
   const idURL = encodeURIComponent(id);
   const details = { image_normal: `/card/${idURL}image/redirect` };
-  if (dfc) details.image_flip = `/card/${idURL}/flip/image`;
+  if (dfc) details.image_flip = `/card/${idURL}/image/flip`;
 
   return (
     <Col className="card-image" xs="6" md="4" lg="3">
