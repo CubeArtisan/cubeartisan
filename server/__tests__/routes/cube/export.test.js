@@ -5,10 +5,18 @@ import express from 'express';
 
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import Cube from '@cubeartisan/server/models/cube.js';
-import router from '@cubeartisan/server/routes/cube/index.js';
 import { requestLogging } from '@cubeartisan/server/routes/middleware.js';
 import dbSetup from '@cubeartisan/server/__tests__/helpers/dbTestSetup.js';
 import cubefixture from '@cubeartisan/server/__tests__/fixtures/examplecube.js';
+import {
+  exportCubeToMtgo,
+  exportCubeToCsv,
+  exportCubeToCubeCobra,
+  exportCubeToForge,
+  exportCubeToJson,
+  exportCubeToPlaintext,
+  exportCubeToXmage,
+} from '@cubeartisan/server/routes/cube/export.js';
 
 const splitText = (text) =>
   text
@@ -34,7 +42,13 @@ app.use((req, res, next) => {
   req.flash = (kind, message) => req.logger.info(`${kind}: ${message}`);
   next();
 });
-app.use('/', router);
+app.get('/cube/:id/export/csv', exportCubeToCsv);
+app.get('/cube/:id/export/cubecobra', exportCubeToCubeCobra);
+app.get('/cube/:id/export/forge', exportCubeToForge);
+app.get('/cube/:id/export/json', exportCubeToJson);
+app.get('/cube/:id/export/mtgo', exportCubeToMtgo);
+app.get('/cube/:id/export/plaintext', exportCubeToPlaintext);
+app.get('/cube/:id/export/xmage', exportCubeToXmage);
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, _next) => {
   req.logger.error(err);
@@ -58,7 +72,7 @@ afterAll(async () => {
 
 test('cubecobra text download', () => {
   return request(app)
-    .get(`/${cubeID}/export/cubecobra`)
+    .get(`/cube/${cubeID}/export/cubecobra`)
     .expect(200)
     .expect('Content-Type', 'text/plain')
     .expect('Content-disposition', `attachment; filename=${sanitizedCubeName}.txt`)
@@ -71,7 +85,7 @@ test('cubecobra text download', () => {
 
 test('plaintext download', () => {
   return request(app)
-    .get(`/${cubeID}/export/plaintext`)
+    .get(`/cube/${cubeID}/export/plaintext`)
     .expect(200)
     .expect('Content-Type', 'text/plain; charset=utf-8')
     .expect('Content-disposition', `attachment; filename=${sanitizedCubeName}.txt`)
@@ -84,7 +98,7 @@ test('plaintext download', () => {
 
 test('MTGO download', () => {
   return request(app)
-    .get(`/${cubeID}/export/mtgo`)
+    .get(`/cube/${cubeID}/export/mtgo`)
     .expect(200)
     .expect('Content-Type', 'text/plain')
     .expect('Content-disposition', `attachment; filename=${sanitizedCubeName}.txt`)
@@ -137,7 +151,7 @@ test('csv download', () => {
   };
 
   return request(app)
-    .get(`/${cubeID}/export/csv`)
+    .get(`/cube/${cubeID}/export/csv`)
     .expect(200)
     .expect('Content-Type', 'text/plain')
     .expect('Content-disposition', `attachment; filename=${sanitizedCubeName}.csv`)
@@ -152,7 +166,7 @@ test('csv download', () => {
 
 test('forge download', () => {
   return request(app)
-    .get(`/${cubeID}/export/forge`)
+    .get(`/cube/${cubeID}/export/forge`)
     .expect(200)
     .expect('Content-Type', 'text/plain')
     .expect('Content-disposition', `attachment; filename=${sanitizedCubeName}.dck`)
@@ -169,7 +183,7 @@ test('forge download', () => {
 
 test('xmage download', () => {
   return request(app)
-    .get(`/${cubeID}/export/xmage`)
+    .get(`/cube/${cubeID}/export/xmage`)
     .expect(200)
     .expect('Content-Type', 'text/plain')
     .expect('Content-disposition', `attachment; filename=${sanitizedCubeName}.dck`)

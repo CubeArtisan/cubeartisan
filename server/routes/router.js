@@ -109,13 +109,13 @@ import {
   viewSocialPage,
 } from '@cubeartisan/server/routes/user.js';
 import {
-  exportForMtgo,
-  exportToCsv,
-  exportToCubeCobra,
-  exportToForge,
-  exportToJson,
-  exportToPlaintext,
-  exportToXmage,
+  exportCubeToMtgo,
+  exportCubeToCsv,
+  exportCubeToCubeCobra,
+  exportCubeToForge,
+  exportCubeToJson,
+  exportCubeToPlaintext,
+  exportCubeToXmage,
 } from '@cubeartisan/server/routes/cube/export.js';
 import {
   deleteBlogPost,
@@ -239,13 +239,13 @@ router.post('/cube/:id/clone', cloneCube);
 router.get('/cube/:id/compare/:idB', viewCubeComparison);
 router.get('/cube/:id/date_updated', getDateCubeUpdated);
 router.put('/cube/:id/defaultformat/:formatId', setDefaultFormat);
-router.get('/cube/:id/export/csv', exportToCsv);
-router.get('/cube/:id/export/cubecobra', exportToCubeCobra);
-router.get('/cube/:id/export/forge', exportToForge);
-router.get('/cube/:id/export/json', exportToJson);
-router.get('/cube/:id/export/mtgo', exportForMtgo);
-router.get('/cube/:id/export/plaintext', exportToPlaintext);
-router.get('/cube/:id/export/xmage', exportToXmage);
+router.get('/cube/:id/export/csv', exportCubeToCsv);
+router.get('/cube/:id/export/cubecobra', exportCubeToCubeCobra);
+router.get('/cube/:id/export/forge', exportCubeToForge);
+router.get('/cube/:id/export/json', exportCubeToJson);
+router.get('/cube/:id/export/mtgo', exportCubeToMtgo);
+router.get('/cube/:id/export/plaintext', exportCubeToPlaintext);
+router.get('/cube/:id/export/xmage', exportCubeToXmage);
 router.delete('/cube/:id/feature', unfeatureCube);
 router.post('/cube/:id/feature', featureCube);
 router.delete('/cube/:id/follow', unfollowCube);

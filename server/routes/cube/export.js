@@ -27,7 +27,7 @@ export const sortCardsByQuery = (req, cards) => {
   );
 };
 
-export const exportToJson = async (req, res) => {
+export const exportCubeToJson = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
 
@@ -42,7 +42,7 @@ export const exportToJson = async (req, res) => {
   }
 };
 
-export const exportToCubeCobra = async (req, res) => {
+export const exportCubeToCubeCobra = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
     if (!cube) {
@@ -69,7 +69,7 @@ export const exportToCubeCobra = async (req, res) => {
   }
 };
 
-export const exportToCsv = async (req, res) => {
+export const exportCubeToCsv = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
 
@@ -104,7 +104,7 @@ export const exportToCsv = async (req, res) => {
   }
 };
 
-export const exportToForge = async (req, res) => {
+export const exportCubeToForge = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
     if (!cube) {
@@ -134,7 +134,7 @@ export const exportToForge = async (req, res) => {
   }
 };
 
-export const exportForMtgo = async (req, res) => {
+export const exportCubeToMtgo = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
     if (!cube) {
@@ -155,7 +155,7 @@ export const exportForMtgo = async (req, res) => {
   }
 };
 
-export const exportToXmage = async (req, res) => {
+export const exportCubeToXmage = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
     if (!cube) {
@@ -182,7 +182,7 @@ export const exportToXmage = async (req, res) => {
   }
 };
 
-export const exportToPlaintext = async (req, res) => {
+export const exportCubeToPlaintext = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
     if (!cube) {
