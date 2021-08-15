@@ -76,9 +76,8 @@ const store = new MongoDBStore(
     }
   },
 );
-
-// scryfall updates this data at 9, so his will minimize staleness
-schedule.scheduleJob('0 10 * * *', async () => {
+// scryfall updates this data at 9, so this will minimize staleness
+schedule.scheduleJob(`${Math.floor(Math.random() * 60)} 10 * * *`, async () => {
   winston.info('String midnight cardbase update...');
 
   const ratings = await CardRating.find({}, 'name elo embedding').lean();
@@ -140,7 +139,7 @@ app.use(passportInitialized);
 app.use(passportSession);
 connectMiddleware(app);
 app.use('/', router);
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line no-unused-vars, promise/prefer-await-to-callbacks
 app.use(async (err, req, res, _next) => {
   try {
     req.logger.error(err);

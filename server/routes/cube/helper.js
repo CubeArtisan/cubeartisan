@@ -2,7 +2,8 @@ import canvas from 'canvas';
 
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import { render } from '@cubeartisan/server/serverjs/render.js';
-import { addCardToCube, handleRouteError } from '@cubeartisan/server/serverjs/util.js';
+import { addCardToCube } from '@cubeartisan/server/serverjs/util.js';
+import { handleRouteError } from '@cubeartisan/server/routes/middleware.js';
 import { setCubeType, CSVtoCards } from '@cubeartisan/server/serverjs/cubefn.js';
 import Cube from '@cubeartisan/server/models/cube.js';
 import Blog from '@cubeartisan/server/models/blog.js';

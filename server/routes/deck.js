@@ -22,9 +22,9 @@ import Util from '@cubeartisan/client/utils/Util.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import { buildDeck } from '@cubeartisan/client/drafting/deckutil.js';
 import { render } from '@cubeartisan/server/serverjs/render.js';
-import { addNotification, handleRouteError } from '@cubeartisan/server/serverjs/util.js';
+import { addNotification } from '@cubeartisan/server/serverjs/util.js';
 import generateMeta from '@cubeartisan/server/serverjs/meta.js';
-import { ensureAuth } from '@cubeartisan/server/routes/middleware.js';
+import { ensureAuth, handleRouteError } from '@cubeartisan/server/routes/middleware.js';
 import { abbreviate, addDeckCardAnalytics, removeDeckCardAnalytics } from '@cubeartisan/server/serverjs/cubefn.js';
 import { exportToMtgo, createPool, rotateArrayLeft } from '@cubeartisan/server/routes/cube/helper.js';
 
@@ -38,7 +38,7 @@ import { COLOR_COMBINATIONS } from '@cubeartisan/client/utils/Card.js';
 const { Canvas, Image } = canvas;
 Canvas.Image = Image;
 
-export const exportToXmage = async (req, res) => {
+export const exportDeckToXmage = async (req, res) => {
   try {
     const deck = await Deck.findById(req.params.id).lean();
 
@@ -94,7 +94,7 @@ export const exportToXmage = async (req, res) => {
   }
 };
 
-export const exportToForge = async (req, res) => {
+export const exportDeckToForge = async (req, res) => {
   try {
     const deck = await Deck.findById(req.params.id).lean();
     if (!deck) {
@@ -152,7 +152,7 @@ export const exportToForge = async (req, res) => {
   }
 };
 
-export const exportToPlaintext = async (req, res) => {
+export const exportDeckToPlaintext = async (req, res) => {
   try {
     const deck = await Deck.findById(req.params.id).lean();
     if (!deck) {
@@ -178,7 +178,7 @@ export const exportToPlaintext = async (req, res) => {
   }
 };
 
-export const exportForMtgo = async (req, res) => {
+export const exportDeckToMtgo = async (req, res) => {
   try {
     const deck = await Deck.findById(req.params.id).lean();
     if (!deck) {
@@ -192,7 +192,7 @@ export const exportForMtgo = async (req, res) => {
   }
 };
 
-export const exportToArena = async (req, res) => {
+export const exportDeckToArena = async (req, res) => {
   try {
     const deck = await Deck.findById(req.params.id).lean();
     if (!deck) {
@@ -248,7 +248,7 @@ export const exportToArena = async (req, res) => {
   }
 };
 
-export const exportToCockatrice = async (req, res) => {
+export const exportDeckToCockatrice = async (req, res) => {
   try {
     const deck = await Deck.findById(req.params.id).lean();
     if (!deck) {

@@ -18,7 +18,13 @@
  */
 // Load Environment Variables
 import express from 'express';
-import { ensureAuth, ensureRole, csrfProtection } from '@cubeartisan/server/routes/middleware.js';
+import {
+  ensureAuth,
+  ensureRole,
+  csrfProtection,
+  handleRouteError,
+  wrapAsyncApi,
+} from '@cubeartisan/server/routes/middleware.js';
 import { render } from '@cubeartisan/server/serverjs/render.js';
 import { getFeedData } from '@cubeartisan/server/serverjs/rss.js';
 import { updatePodcast } from '@cubeartisan/server/serverjs/podcast.js';
@@ -28,7 +34,7 @@ import Article from '@cubeartisan/server/models/article.js';
 import Podcast from '@cubeartisan/server/models/podcast.js';
 import PodcastEpisode from '@cubeartisan/server/models/podcastEpisode.js';
 import Video from '@cubeartisan/server/models/video.js';
-import { handleRouteError, redirect, wrapAsyncApi } from '@cubeartisan/server/serverjs/util.js';
+import { redirect } from '@cubeartisan/server/serverjs/util.js';
 
 const PAGE_SIZE = 24;
 

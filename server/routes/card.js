@@ -18,19 +18,23 @@
  */
 import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 
-import express from 'express';
 import { body } from 'express-validator';
 
 import { filterCardsDetails, makeFilter } from '@cubeartisan/client/filtering/FilterCards.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import { ORDERED_SORTS, SortFunctionsOnDetails } from '@cubeartisan/client/utils/Sort.js';
 import { render } from '@cubeartisan/server/serverjs/render.js';
-import { handleRouteError, wrapAsyncApi } from '@cubeartisan/server/serverjs/util.js';
 import { decodeName, normalizeName } from '@cubeartisan/client/utils/Card.js';
 import CardHistory from '@cubeartisan/server/models/cardHistory.js';
 import getBlankCardHistory from '@cubeartisan/server/serverjs/BlankCardHistory.js';
 import generateMeta from '@cubeartisan/server/serverjs/meta.js';
-import { cacheImmutableResponse, jsonValidationErrors } from '@cubeartisan/server/routes/middleware.js';
+import {
+  cacheImmutableResponse,
+  jsonValidationErrors,
+  wrapAsyncPage,
+  handleRouteError,
+  wrapAsyncApi,
+} from '@cubeartisan/server/routes/middleware.js';
 
 /* Page size for results */
 const PAGE_SIZE = 96;
@@ -99,7 +103,7 @@ const getCardFromId = (id) => {
   return carddb.cardFromId(id);
 };
 
-const getImageForId = (req, res) => {
+const getImageForIdHandler = (req, res) => {
   const reasonable = getCardFromId(req.params.id);
   const img = !reasonable.error ? carddb.imagedict[reasonable.name] : null;
   if (!img) {
@@ -107,16 +111,18 @@ const getImageForId = (req, res) => {
   }
   return res.status(200).send({ success: 'true', img });
 };
+export const getImageForId = [cacheImmutableResponse, getImageForIdHandler];
 
-const getCardObj = (req, res) => {
+const getCardObjHandler = (req, res) => {
   const card = getCardFromId(req.params.id);
   if (card.error) {
     return res.status(404).send({ success: 'false' });
   }
   return res.status(200).send({ success: 'true', card });
 };
+export const getCardObj = [cacheImmutableResponse, getCardObjHandler];
 
-const getImageRedirectForId = (req, res) => {
+const getImageRedirectForIdHandler = (req, res) => {
   try {
     const card = getCardFromId(req.params.id);
     if (card.error) {
@@ -128,8 +134,9 @@ const getImageRedirectForId = (req, res) => {
     return handleRouteError(req, res, err, carddb.getPlaceholderCard(req.params.id).image_normal);
   }
 };
+export const getImageRedirectForId = [cacheImmutableResponse, getImageRedirectForIdHandler];
 
-const getInfoForId = async (req, res) => {
+export const getCardPageForId = async (req, res) => {
   try {
     const card = getCardFromId(req.params.id);
     if (card.error) {
@@ -187,14 +194,15 @@ const findAllVersionsForId = (id) => {
   return cardIds.map((newid) => Object.assign({}, carddb.cardFromId(newid)));
 };
 
-const getAllVersionsForId = (req, res) => {
+const getAllVersionsForIdHandler = (req, res) => {
   return res.status(200).send({
     success: 'true',
     cards: findAllVersionsForId(req.params.id),
   });
 };
+export const getAllVersionsForId = [cacheImmutableResponse, wrapAsyncApi(getAllVersionsForIdHandler)];
 
-const getVersionsFromIds = (req, res) => {
+const getVersionsFromIdsHandler = (req, res) => {
   const allVersions = req.body
     .map((cardID) => findAllVersionsForId(cardID).sort((a, b) => -a.released_at.localeCompare(b.released_at)))
     .filter((versions) => versions.length > 0);
@@ -219,8 +227,16 @@ const getVersionsFromIds = (req, res) => {
     dict: result,
   });
 };
+export const getVersionsFromIds = [
+  body([], 'Body must be an array.').isArray(),
+  body('*', 'Each ID must be a valid UUID.').matches(
+    /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}2?$/,
+  ),
+  jsonValidationErrors,
+  getVersionsFromIdsHandler,
+];
 
-const doCardSearch = (req, res) => {
+const doCardSearchHandler = (req, res) => {
   try {
     const { err, filter } = makeFilter(req.query.f);
     if (err) {
@@ -245,85 +261,63 @@ const doCardSearch = (req, res) => {
     });
   }
 };
+export const doCardSearch = [cacheImmutableResponse, doCardSearchHandler];
 
-const redirectToRandomCard = (req, res) => {
+const viewCardSearchPageHandler = (req, res) => render(req, res, 'CardSearchPage', {}, { title: 'Search Cards' });
+export const viewCardSearchPage = wrapAsyncPage(viewCardSearchPageHandler);
+
+export const redirectToRandomCard = (req, res) => {
   const card = carddb.allCards()[Math.floor(Math.random() * carddb.allCards().length)];
   return res.redirect(`/card/${card.oracle_id}`);
 };
 
-const getFlipImageById = async (req, res) => {
-  try {
-    const card = getCardFromId(req.params.id);
-    if (card.error) {
-      req.flash('danger', `Card with id ${req.params.id} not found.`);
-      return res.redirect('/404');
-    }
-
-    return res.redirect(card.image_flip);
-  } catch (err) {
-    return handleRouteError(req, res, err, '/404');
+const getFlipImageByIdHandler = async (req, res) => {
+  const card = getCardFromId(req.params.id);
+  if (card.error) {
+    req.flash('danger', `Card with id ${req.params.id} not found.`);
+    return res.redirect('/404');
   }
+  return res.redirect(card.image_flip);
 };
+export const getFlipImageById = [cacheImmutableResponse, wrapAsyncApi(getFlipImageByIdHandler)];
 
-const getDetailsForCards = async (req, res) => {
+const getDetailsForCardsHandler = async (req, res) => {
   return res.status(200).send({
     success: 'true',
     details: req.body.cards.map(getCardFromId),
   });
 };
+export const getDetailsForCards = wrapAsyncApi(getDetailsForCardsHandler);
 
-const listCardNames = (_, res) => {
+const listCardNamesHandler = (_, res) => {
   return res.status(200).send({
     success: 'true',
     cardnames: carddb.cardtree,
   });
 };
+export const listCardNames = [cacheImmutableResponse, wrapAsyncApi(listCardNamesHandler)];
 
 // Get the full card images including image_normal and image_flip
-const getCardImageUrls = (_, res) => {
+const getCardImageUrlsHandler = (_, res) => {
   return res.status(200).send({
     success: 'true',
     cardimages: carddb.cardimages,
   });
 };
+export const getCardImageUrls = [cacheImmutableResponse, wrapAsyncApi(getCardImageUrlsHandler)];
 
-const getImageDict = (_, res) => {
+const getImageDictHandler = (_, res) => {
   return res.status(200).send({
     success: 'true',
     dict: carddb.imagedict,
   });
 };
+export const getImageDict = [cacheImmutableResponse, wrapAsyncApi(getImageDictHandler)];
 
-const getFullNames = (_, res) => {
+const getFullNamesHandler = (_, res) => {
   return res.status(200).send({
     success: 'true',
     cardnames: carddb.full_names,
   });
 };
-
-const router = express.Router();
-router.get('/card/:id/details', cacheImmutableResponse, getCardObj);
-router.get('/card/:id/image', cacheImmutableResponse, getImageForId);
-router.get('/card/:id/image/redirect', cacheImmutableResponse, getImageRedirectForId);
-router.get('/card/:id', getInfoForId);
-router.get('/card/:id/flip/image', cacheImmutableResponse, getFlipImageById);
-router.get('/card/:id/versions', cacheImmutableResponse, wrapAsyncApi(getAllVersionsForId));
-router.post(
-  '/cards/versions',
-  body([], 'Body must be an array.').isArray(),
-  body('*', 'Each ID must be a valid UUID.').matches(
-    /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}2?$/,
-  ),
-  jsonValidationErrors,
-  cacheImmutableResponse,
-  getVersionsFromIds,
-);
-router.get('/cards/search', (req, res) => render(req, res, 'CardSearchPage', {}, { title: 'Search Cards' }));
-router.get('/cards/search/query', cacheImmutableResponse, doCardSearch);
-router.get('/cards/random', redirectToRandomCard);
-router.post('/cards/details', cacheImmutableResponse, getDetailsForCards);
-router.get('/cards/names', cacheImmutableResponse, listCardNames);
-router.get('/cards/images', cacheImmutableResponse, getCardImageUrls);
-router.get('/cards/images/dict', cacheImmutableResponse, getImageDict);
-router.get('/cards/names/full', cacheImmutableResponse, getFullNames);
-export default router;
+export const getFullNames = [cacheImmutableResponse, wrapAsyncApi(getFullNamesHandler)];
