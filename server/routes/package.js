@@ -16,19 +16,18 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import express from 'express';
 import { render } from '@cubeartisan/server/serverjs/render.js';
-import { ensureAuth, ensureRole, csrfProtection } from '@cubeartisan/server/routes/middleware.js';
-import { handleRouteError, wrapAsyncApi } from '@cubeartisan/server/serverjs/util.js';
+import { ensureAuth, ensureRole, wrapAsyncApi, wrapAsyncPage } from '@cubeartisan/server/routes/middleware.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import Package from '@cubeartisan/server/models/package.js';
 import User from '@cubeartisan/server/models/user.js';
 
 const PAGE_SIZE = 20;
+const ALLOWED_SORTS = ['votes', 'date'];
 
 export const getPackages = async (req, res, filter) => {
   try {
-    if (!['votes', 'date'].includes(req.params.sort)) {
+    if (!ALLOWED_SORTS.includes(req.params.sort)) {
       return res.status(400).send({
         success: 'false',
         message: 'Invalid Sort, please use either "votes" or "date"',
@@ -37,12 +36,12 @@ export const getPackages = async (req, res, filter) => {
       });
     }
 
-    if (req.params.filter && req.params.filter.length > 0) {
+    if ((req.query.filter?.length ?? 0) > 0) {
       filter = {
         $and: [
           filter,
           {
-            $or: req.params.filter
+            $or: req.query.filter
               .toLowerCase()
               .split(' ')
               .map((f) => ({ keywords: f })),
@@ -76,7 +75,11 @@ export const getPackages = async (req, res, filter) => {
   }
 };
 
-const submitPackage = async (req, res) => {
+export const getApprovedPackages = async (req, res) => getPackages(req, res, { approved: true });
+export const getPendingPackages = async (req, res) => getPackages(req, res, { approved: false });
+export const getAllPackages = async (req, res) => getPackages(req, res, {});
+
+const submitPackageHandler = async (req, res) => {
   const { cards, packageName } = req.body;
 
   if (typeof packageName !== 'string' || packageName.length === 0) {
@@ -145,8 +148,9 @@ const submitPackage = async (req, res) => {
     success: 'true',
   });
 };
+export const submitPackage = [ensureAuth, wrapAsyncApi(submitPackageHandler)];
 
-const upvotePackage = async (req, res) => {
+const upvotePackageHandler = async (req, res) => {
   const pack = await Package.findById(req.params.id);
   const user = await User.findById(req.user._id);
 
@@ -161,8 +165,9 @@ const upvotePackage = async (req, res) => {
     votes: pack.votes,
   });
 };
+export const upvotePackage = [ensureAuth, wrapAsyncApi(upvotePackageHandler)];
 
-const downvotePackage = async (req, res) => {
+const downvotePackageHandler = async (req, res) => {
   const pack = await Package.findById(req.params.id);
   const user = await User.findById(req.user._id);
 
@@ -177,8 +182,9 @@ const downvotePackage = async (req, res) => {
     votes: pack.votes,
   });
 };
+export const downvotePackage = [ensureAuth, wrapAsyncApi(downvotePackageHandler)];
 
-const approvePackage = async (req, res) => {
+const approvePackageHandler = async (req, res) => {
   const pack = await Package.findById(req.params.id);
 
   pack.approved = true;
@@ -189,8 +195,9 @@ const approvePackage = async (req, res) => {
     success: 'true',
   });
 };
+export const approvePackage = [ensureRole('Admin'), wrapAsyncApi(approvePackageHandler)];
 
-const unapprovePackage = async (req, res) => {
+const unapprovePackageHandler = async (req, res) => {
   const pack = await Package.findById(req.params.id);
 
   pack.approved = false;
@@ -201,42 +208,22 @@ const unapprovePackage = async (req, res) => {
     success: 'true',
   });
 };
+export const unapprovePackage = [ensureRole('Admin'), wrapAsyncApi(unapprovePackageHandler)];
 
-const deletePackage = async (req, res) => {
+const deletePackageHandler = async (req, res) => {
   await Package.deleteOne({ _id: req.params.id });
 
   return res.status(200).send({
     success: 'true',
   });
 };
+export const deletePackage = [ensureRole('Admin'), wrapAsyncApi(deletePackageHandler)];
 
-const viewPackage = async (req, res) => {
-  try {
-    const pack = await Package.findById(req.params.id);
+const viewPackageHandler = async (req, res) => {
+  const pack = await Package.findById(req.params.id);
 
-    return await render(req, res, 'PackagePage', {
-      pack,
-    });
-  } catch (err) {
-    return handleRouteError(req, res, err, '/404');
-  }
+  return render(req, res, 'PackagePage', {
+    pack,
+  });
 };
-
-const router = express.Router();
-router.use(csrfProtection);
-router.get('/packages/approved/:page/:sort/:direction/:filter', async (req, res) =>
-  getPackages(req, res, { approved: true }),
-);
-router.get('/packages/pending/:page/:sort/:direction/:filter', async (req, res) =>
-  getPackages(req, res, { approved: false }),
-);
-router.get('/packages/approved/:page/:sort/:direction', async (req, res) => getPackages(req, res, { approved: true }));
-router.get('/packages/pending/:page/:sort/:direction', async (req, res) => getPackages(req, res, { approved: false }));
-router.post('/package', ensureAuth, wrapAsyncApi(submitPackage));
-router.post('/package/:id/vote', ensureAuth, wrapAsyncApi(upvotePackage));
-router.delete('/package/:id/vote', ensureAuth, wrapAsyncApi(downvotePackage));
-router.post('/package/:id/approve', ensureRole('Admin'), wrapAsyncApi(approvePackage));
-router.delete('/package/:id/approve', ensureRole('Admin'), wrapAsyncApi(unapprovePackage));
-router.delete('/package/:id', ensureRole('Admin'), wrapAsyncApi(deletePackage));
-router.get('/package/:id', wrapAsyncApi(viewPackage));
-export default router;
+export const viewPackage = wrapAsyncPage(viewPackageHandler);

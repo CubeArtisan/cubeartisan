@@ -16,13 +16,12 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import express from 'express';
 import bcrypt from 'bcryptjs';
 import mailer from 'nodemailer';
 import { body } from 'express-validator';
 import Email from 'email-templates';
 import path from 'path';
-import { addNotification, handleRouteError, hasProfanity, wrapAsyncApi } from '@cubeartisan/server/serverjs/util.js';
+import { addNotification, hasProfanity } from '@cubeartisan/server/serverjs/util.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import { render } from '@cubeartisan/server/serverjs/render.js';
 
@@ -36,9 +35,11 @@ import Blog from '@cubeartisan/server/models/blog.js';
 
 import {
   ensureAuth,
-  csrfProtection,
   flashValidationErrors,
   jsonValidationErrors,
+  wrapAsyncApi,
+  wrapAsyncPage,
+  handleRouteError,
 } from '@cubeartisan/server/routes/middleware.js';
 import { getPackages } from '@cubeartisan/server/routes/package.js';
 import { fileURLToPath } from 'url';
@@ -48,7 +49,7 @@ const __filename = fileURLToPath(import.meta.url);
 // eslint-disable-next-line no-underscore-dangle
 const __dirname = path.dirname(__filename);
 
-const getFeedItems = async (req, res) => {
+const getFeedItemsHandler = async (req, res) => {
   const items = await Blog.find({
     $or: [
       {
@@ -77,6 +78,7 @@ const getFeedItems = async (req, res) => {
     items,
   });
 };
+export const getFeedItems = [ensureAuth, wrapAsyncApi(getFeedItemsHandler)];
 
 // For consistency between different forms, validate username through this function.
 const usernameValid = [
@@ -89,10 +91,10 @@ const usernameValid = [
   body('username', 'Username may not use profanity.').custom((value) => !hasProfanity(value)),
 ];
 
-const getUserCubes = async (req, res) => {
+const getUserCubesHandler = async (req, res) => {
   const cubes = await Cube.find({
-    owner: req.params.id,
-    ...(req.user && req.user._id.equals(req.params.id)
+    owner: req.params.userid,
+    ...(req.user && req.user._id.equals(req.params.userid)
       ? {}
       : {
           isListed: true,
@@ -104,8 +106,9 @@ const getUserCubes = async (req, res) => {
     cubes,
   });
 };
+export const getUserCubes = wrapAsyncApi(getUserCubesHandler);
 
-const saveShowTagColors = async (req, res) => {
+const saveShowTagColorsHandler = async (req, res) => {
   req.user.hide_tag_colors = !req.body.show_tag_colors;
   await req.user.save();
 
@@ -113,9 +116,14 @@ const saveShowTagColors = async (req, res) => {
     success: 'true',
   });
 };
+export const saveShowTagColors = [
+  ensureAuth,
+  body('show_tag_colors').toBoolean(),
+  jsonValidationErrors,
+  wrapAsyncApi(saveShowTagColorsHandler),
+];
 
-const viewNotification = async (req, res) => {
-  try {
+const viewNotificationHandler = async (req, res) => {
     const { user } = req;
 
     if (req.params.index > user.notifications.length) {
@@ -132,17 +140,10 @@ const viewNotification = async (req, res) => {
     }
 
     return res.redirect(notification.url);
-  } catch (err) {
-    req.logger.error(err);
-    return res.status(500).send({
-      success: 'false',
-      message: err,
-    });
-  }
 };
+export const viewNotification = [ensureAuth, wrapAsyncApi(viewNotificationHandler)];
 
-const clearNotifications = async (req, res) => {
-  try {
+const clearNotificationsHandler = async (req, res) => {
     const { user } = req;
 
     user.notifications = [];
@@ -151,18 +152,12 @@ const clearNotifications = async (req, res) => {
     return res.status(200).send({
       success: 'true',
     });
-  } catch (err) {
-    req.logger.error(err);
-    return res.status(500).send({
-      success: 'false',
-    });
-  }
 };
+export const clearNotifications = [ensureAuth, wrapAsyncApi(clearNotificationsHandler)];
 
-const followUser = async (req, res) => {
-  try {
+const followUserHandler = async (req, res) => {
     const { user } = req;
-    const other = await User.findById(req.params.id).exec();
+    const other = await User.findById(req.params.userid).exec();
 
     if (!other) {
       req.flash('danger', 'User not found');
@@ -180,19 +175,13 @@ const followUser = async (req, res) => {
 
     await Promise.all([user.save(), other.save()]);
 
-    return res.redirect(303, `/user/${req.params.id}`);
-  } catch (err) {
-    req.logger.error(err);
-    return res.status(500).send({
-      success: 'false',
-    });
-  }
+    return res.redirect(303, `/user/${req.params.userid}`);
 };
+export const followUser = [ensureAuth, wrapAsyncApi(followUserHandler)];
 
-const unfollowUser = async (req, res) => {
-  try {
+const unfollowUserHandler = async (req, res) => {
     const { user } = req;
-    const other = await User.findById(req.params.id).exec();
+    const other = await User.findById(req.params.userid).exec();
 
     if (!other) {
       req.flash('danger', 'User not found');
@@ -200,34 +189,26 @@ const unfollowUser = async (req, res) => {
     }
 
     other.users_following = other.users_following.filter((id) => !req.user._id.equals(id));
-    user.followed_users = user.followed_users.filter((id) => id.toString() !== req.params.id);
+    user.followed_users = user.followed_users.filter((id) => id.toString() !== req.params.userid);
 
     await Promise.all([user.save(), other.save()]);
 
-    return res.redirect(303, `/user/${req.params.id}`);
-  } catch (err) {
-    req.logger.error(err);
-    return res.status(500).send({
-      success: 'false',
-    });
-  }
+    return res.redirect(303, `/user/${req.params.userid}`);
 };
+export const unfollowUser = [ensureAuth, wrapAsyncApi(unfollowUserHandler)];
 
-const viewResetPassword = async (req, res) => {
-  try {
+const viewResetPasswordHandler = async (req, res) => {
     // create a password reset page and return it here
-    const passwordReset = await PasswordReset.findById(req.params.id).lean();
+    const passwordReset = await PasswordReset.findById(req.params.userid).lean();
     if (!passwordReset || passwordReset.expires < Date.now()) {
       req.flash('danger', 'Password recovery link expired');
       return res.redirect('/');
     }
-    return await render(req, res, 'PasswordResetPage');
-  } catch (err) {
-    return handleRouteError(req, res, err, '/404');
-  }
+    return render(req, res, 'PasswordResetPage');
 };
+export const viewResetPassword = wrapAsyncPage(viewResetPasswordHandler);
 
-const changePassword = async (req, res) => {
+const changePasswordHandler = async (req, res) => {
   if (!req.validated) {
     User.findById(req.user._id, () => {
       res.redirect(`/user/${req.user._id}/account`);
@@ -268,104 +249,125 @@ const changePassword = async (req, res) => {
     });
   }
 };
+export const changePassword = [
+  ensureAuth,
+  body('password', 'Password must be between 8 and 24 characters.').isLength({
+    min: 8,
+    max: 24,
+  }),
+  flashValidationErrors,
+  changePasswordHandler,
+];
 
-const createUser = async (req, res) => {
-  try {
-    const email = req.body.email.toLowerCase();
-    const { username, password } = req.body;
+const createUserHandler = async (req, res) => {
+  const email = req.body.email.toLowerCase();
+  const { username, password } = req.body;
 
-    const attempt = { email, username };
+  const attempt = { email, username };
 
-    if (!req.validated) {
-      return await render(req, res, 'RegisterPage', attempt);
-    }
-    const user = await User.findOne({
-      username_lower: req.body.username.toLowerCase(),
-    });
-
-    if (user) {
-      req.flash('danger', 'Username already taken.');
-      return await render(req, res, 'RegisterPage', attempt);
-    }
-
-    // check if user exists
-    const user2 = await User.findOne({
-      email: req.body.email.toLowerCase(),
-    });
-
-    if (user2) {
-      req.flash('danger', 'Email already associated with an existing account.');
-      return await render(req, res, 'RegisterPage', attempt);
-    }
-    const newUser = new User({
-      email,
-      username,
-      username_lower: username.toLowerCase(),
-      password,
-      confirm: 'false',
-    });
-
-    return bcrypt.genSalt(10, (_err3, salt) => {
-      bcrypt.hash(newUser.password, salt, (err4, hash) => {
-        if (err4) {
-          req.logger.error(err4);
-        } else {
-          newUser.password = hash;
-          newUser.confirmed = 'false';
-          newUser.save((err5) => {
-            if (err5) {
-              req.logger.error(err5);
-            } else {
-              const smtpTransport = mailer.createTransport({
-                name: process.env.SITE_HOSTNAME,
-                secure: true,
-                service: 'Gmail',
-                auth: {
-                  user: process.env.EMAIL_CONFIG_USERNAME,
-                  pass: process.env.EMAIL_CONFIG_PASSWORD,
-                },
-              });
-              const confirmEmail = new Email({
-                message: {
-                  from: process.env.SUPPORT_EMAIL_FROM,
-                  to: email,
-                  subject: 'Confirm Account',
-                },
-                send: true,
-                juiceResources: {
-                  webResources: {
-                    relativeTo: path.join(__dirname, '..', 'public'),
-                    images: true,
-                  },
-                },
-                transport: smtpTransport,
-              });
-
-              confirmEmail
-                .send({
-                  template: 'confirm_email',
-                  locals: {
-                    id: newUser._id,
-                  },
-                })
-                .then(() => {
-                  // req.flash('success','Please check your email for confirmation link. It may be filtered as spam.');
-                  req.flash('success', 'Account successfully created. You are now able to login.');
-                  res.redirect(303, '/login');
-                });
-            }
-          });
-        }
-      });
-    });
-  } catch (err) {
-    return handleRouteError(req, res, err, '/404');
+  if (!req.validated) {
+    return render(req, res, 'RegisterPage', attempt);
   }
-};
+  const user = await User.findOne({
+    username_lower: req.body.username.toLowerCase(),
+  });
 
-const confirmUser = async (req, res) => {
+  if (user) {
+    req.flash('danger', 'Username already taken.');
+    return render(req, res, 'RegisterPage', attempt);
+  }
+
+  // check if user exists
+  const user2 = await User.findOne({
+    email: req.body.email.toLowerCase(),
+  });
+
+  if (user2) {
+    req.flash('danger', 'Email already associated with an existing account.');
+    return render(req, res, 'RegisterPage', attempt);
+  }
+  const newUser = new User({
+    email,
+    username,
+    username_lower: username.toLowerCase(),
+    password,
+    confirm: 'false',
+  });
+
+  return bcrypt.genSalt(10, (_err3, salt) => {
+    bcrypt.hash(newUser.password, salt, (err4, hash) => {
+      if (err4) {
+        req.logger.error(err4);
+      } else {
+        newUser.password = hash;
+        newUser.confirmed = 'false';
+        newUser.save((err5) => {
+          if (err5) {
+            req.logger.error(err5);
+          } else {
+            const smtpTransport = mailer.createTransport({
+              name: process.env.SITE_HOSTNAME,
+              secure: true,
+              service: 'Gmail',
+              auth: {
+                user: process.env.EMAIL_CONFIG_USERNAME,
+                pass: process.env.EMAIL_CONFIG_PASSWORD,
+              },
+            });
+            const confirmEmail = new Email({
+              message: {
+                from: process.env.SUPPORT_EMAIL_FROM,
+                to: email,
+                subject: 'Confirm Account',
+              },
+              send: true,
+              juiceResources: {
+                webResources: {
+                  relativeTo: path.join(__dirname, '..', 'public'),
+                  images: true,
+                },
+              },
+              transport: smtpTransport,
+            });
+
+            confirmEmail
+              .send({
+                template: 'confirm_email',
+                locals: {
+                  id: newUser._id,
+                },
+              })
+              .then(() => {
+                // req.flash('success','Please check your email for confirmation link. It may be filtered as spam.');
+                req.flash('success', 'Account successfully created. You are now able to login.');
+                res.redirect(303, '/login');
+              });
+          }
+        });
+      }
+    });
+  });
+};
+export const createUser = [
+  body('email', 'Email is required').notEmpty(),
+  body('email', 'Email is not valid').isEmail(),
+  body('email', 'Email must be between 5 and 100 characters.').isLength({
+    min: 5,
+    max: 100,
+  }),
+  body('password', 'Password is required').notEmpty(),
+  body('password', 'Password must be between 8 and 24 characters.').isLength({
+    min: 8,
+    max: 24,
+  }),
+  ...usernameValid,
+  flashValidationErrors,
+  wrapAsyncPage(createUserHandler),
+];
+
+export const confirmUser = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.userid);
     if (user.confirmed === 'true') {
       req.flash('success', 'User already confirmed.');
       return res.redirect('/login');
@@ -385,18 +387,17 @@ const confirmUser = async (req, res) => {
   }
 };
 
-const viewUserPage = async (req, res) => {
-  try {
+const viewUserPageHandler = async (req, res) => {
     let user = null;
     try {
-      user = await User.findById(req.params.id, '_id username about users_following image_name image artist').lean();
+      user = await User.findById(req.params.userid, '_id username about users_following image_name image artist').lean();
       // eslint-disable-next-line no-empty
     } catch (err) {}
 
     if (!user) {
       user = await User.findOne(
         {
-          username_lower: req.params.id.toLowerCase(),
+          username_lower: req.params.userid.toLowerCase(),
         },
         '_id username about users_following image_name image artist',
       ).lean();
@@ -424,19 +425,16 @@ const viewUserPage = async (req, res) => {
     const following = req.user && user.users_following ? user.users_following.some((id) => id.equals(req.user._id)) : false;
     delete user.users_following;
 
-    return await render(req, res, 'UserCubePage', {
+    return render(req, res, 'UserCubePage', {
       owner: user,
       cubes,
       followers,
       following,
     });
-  } catch (err) {
-    return handleRouteError(req, res, err, '/404');
-  }
 };
+export const viewUserPage = wrapAsyncPage(viewUserPageHandler);
 
-const viewUserDecks = async (req, res) => {
-  try {
+const viewUserDecksHandler = async (req, res) => {
     const { userid } = req.params;
     const pagesize = 30;
 
@@ -472,7 +470,7 @@ const viewUserDecks = async (req, res) => {
 
     delete user.users_following;
 
-    return await render(req, res, 'UserDecksPage', {
+    return render(req, res, 'UserDecksPage', {
       owner: user,
       followers,
       following: req.user && req.user.followed_users.some((id) => user._id.equals(id)),
@@ -480,16 +478,17 @@ const viewUserDecks = async (req, res) => {
       pages: Math.ceil(numDecks / pagesize),
       activePage: Math.max(req.params.page, 0),
     });
-  } catch (err) {
-    return handleRouteError(req, res, err, '/404');
-  }
 };
+export const viewUserDecks = wrapAsyncPage(viewUserDecksHandler);
 
-const viewUserBlog = async (req, res) => {
+export const viewUserBlog = async (req, res) => {
   try {
     const pagesize = 30;
 
     const user = await User.findById(req.params.userid, '_id username users_following').lean();
+    if (!user) {
+      return res.redirect('/404');
+    }
 
     const postsq = Blog.find({
       owner: user._id,
@@ -536,7 +535,7 @@ const viewUserBlog = async (req, res) => {
   }
 };
 
-const updateUserInfo = async (req, res) => {
+const updateUserInfoHandler = async (req, res) => {
   try {
     const { user } = req;
     if (!req.validated) {
@@ -582,8 +581,9 @@ const updateUserInfo = async (req, res) => {
     return handleRouteError(req, res, err, `/user/${req.user._id}/account`);
   }
 };
+export const updateUserInfo = [ensureAuth, ...usernameValid, flashValidationErrors, updateUserInfoHandler];
 
-const updateDisplaySettings = async (req, res) => {
+const updateDisplaySettingsHandler = async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
 
@@ -599,8 +599,9 @@ const updateDisplaySettings = async (req, res) => {
     res.redirect(`/user/${req.user._id}/account?nav=display`);
   }
 };
+export const updateDisplaySettings = [ensureAuth, updateDisplaySettingsHandler];
 
-const updateEmail = (req, res) => {
+const updateEmailHandler = (req, res) => {
   User.findOne(
     {
       email: req.body.email.toLowerCase(),
@@ -628,8 +629,9 @@ const updateEmail = (req, res) => {
     },
   );
 };
+export const updateEmail = [ensureAuth, wrapAsyncPage(updateEmailHandler)];
 
-const viewSocialPage = async (req, res) => {
+const viewSocialPageHandler = async (req, res) => {
   try {
     const followedCubesQ = Cube.find({ _id: { $in: req.user.followed_cubes } }, Cube.PREVIEW_FIELDS).lean();
     const followedUsersQ = User.find(
@@ -657,13 +659,12 @@ const viewSocialPage = async (req, res) => {
       },
     );
   } catch (err) {
-    return handleRouteError(req, res, err, '/');
+    return handleRouteError(req, res, err, '/dashboard');
   }
 };
+export const viewSocialPage = [ensureAuth, viewSocialPageHandler];
 
-const viewAccountPage = async (req, res) => {
-  try {
-  return await render(
+const viewAccountPageHandler = async (req, res) => render(
     req,
     res,
     'UserAccountPage',
@@ -674,69 +675,15 @@ const viewAccountPage = async (req, res) => {
       title: 'Account',
     },
   );
-} catch (err)
-{
-  return handleRouteError(req, res, err, '/404');
-}
-}
+export const viewAccountPage = [ensureAuth, wrapAsyncPage(viewAccountPageHandler)];
 
-const router = express.Router();
-router.use(csrfProtection);
-router.get('/:id/cubes', getUserCubes);
-router.get('/:id/feeditems/:skip', ensureAuth, getFeedItems);
-router.put(
-  '/:id/showtagcolors',
-  ensureAuth,
-  body('show_tag_colors').toBoolean(),
-  jsonValidationErrors,
-  wrapAsyncApi(saveShowTagColors),
-);
-router.get('/:id/notification/:index', ensureAuth, viewNotification);
-router.delete('/:id/notifications', ensureAuth, clearNotifications);
-router.put('/:id/follow', ensureAuth, followUser);
-router.delete('/:id/follow', ensureAuth, unfollowUser);
-router.get('/:id/password/reset', viewResetPassword);
-router.get('/', (req, res) => render(req, res, 'RegisterPage'));
-router.post(
-  '/',
-  body('email', 'Email is required').notEmpty(),
-  body('email', 'Email is not valid').isEmail(),
-  body('email', 'Email must be between 5 and 100 characters.').isLength({
-    min: 5,
-    max: 100,
-  }),
-  body('password', 'Password is required').notEmpty(),
-  body('password', 'Password must be between 8 and 24 characters.').isLength({
-    min: 8,
-    max: 24,
-  }),
-  ...usernameValid,
-  flashValidationErrors,
-  createUser,
-);
-router.get('/:id/confirm', confirmUser);
-router.get('/:id', viewUserPage);
-router.get('/:id/decks', (req, res) => res.redirect(`/user/${req.params.id}/decks/0`));
-router.get('/:id/notifications', ensureAuth, (req, res) =>
-  render(req, res, 'NotificationsPage', { notifications: req.user.old_notifications }),
-);
-router.get('/:userid/decks/:page', viewUserDecks);
-router.get('/:userid/blog', (req, res) => res.redirect(`/user/${req.params.userid}/blog/0`));
-router.get('/:userid/blog/:page', viewUserBlog);
-router.post(
-  '/:id/password',
-  ensureAuth,
-  body('password', 'Password must be between 8 and 24 characters.').isLength({
-    min: 8,
-    max: 24,
-  }),
-  flashValidationErrors,
-  changePassword,
-);
-router.post('/:id', ensureAuth, ...usernameValid, flashValidationErrors, updateUserInfo);
-router.post('/:id/email', ensureAuth, updateEmail);
-router.post('/:id/display', ensureAuth, updateDisplaySettings);
-router.get('/:id/social', ensureAuth, viewSocialPage);
-router.get('/:id/packages/:page/:sort/:direction', (req, res) => getPackages(req, res, { userid: req.params.id }));
-router.get('/:id/account', ensureAuth, viewAccountPage);
-export default router;
+export const viewRegisterPage = (req, res) => render(req, res, 'RegisterPage');
+
+const viewNotificationsHandler = (req, res) => render(req, res, 'NotificationsPage', { notifications: req.user.old_notifications })
+export const viewNotifications = [ensureAuth, wrapAsyncPage(viewNotificationsHandler)];
+
+export const redirectToFirstPageOfUserDecks = (req, res) => res.redirect(`/user/${req.params.userid}/decks/0`);
+
+export const redirectToFirstPageOfUserBlogPosts = (req, res) => res.redirect(`/user/${req.params.userid}/blog/0`);
+
+export const getUserPackages = (req, res) => getPackages(req, res, { userid: req.params.userid });

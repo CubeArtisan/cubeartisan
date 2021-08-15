@@ -1,7 +1,7 @@
 import { sortForDownload } from '@cubeartisan/client/utils/Sort.js';
 import { makeFilter } from '@cubeartisan/client/filtering/FilterCards.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
-import { handleRouteError } from '@cubeartisan/server/serverjs/util.js';
+import { handleRouteError } from '@cubeartisan/server/routes/middleware.js';
 import { buildIdQuery } from '@cubeartisan/server/serverjs/cubefn.js';
 import { writeCard, CSV_HEADER, exportToMtgo } from '@cubeartisan/server/routes/cube/helper.js';
 import Cube from '@cubeartisan/server/models/cube.js';
@@ -27,18 +27,22 @@ export const sortCardsByQuery = (req, cards) => {
   );
 };
 
-export const exportToJson = async (req, res) => {
-  const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
+export const exportCubeToJson = async (req, res) => {
+  try {
+    const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
 
-  if (!cube) {
-    return res.status(404).send('Cube not found.');
+    if (!cube) {
+      return res.status(404).send('Cube not found.');
+    }
+
+    res.contentType('application/json');
+    return res.status(200).send(JSON.stringify(cube));
+  } catch (err) {
+    return handleRouteError(req, res, err, `/cube/${req.params.id}/list`);
   }
-
-  res.contentType('application/json');
-  return res.status(200).send(JSON.stringify(cube));
 };
 
-export const exportToCubeCobra = async (req, res) => {
+export const exportCubeToCubeCobra = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
     if (!cube) {
@@ -61,11 +65,11 @@ export const exportToCubeCobra = async (req, res) => {
     }
     return res.end();
   } catch (err) {
-    return handleRouteError(req, res, err, '/404');
+    return handleRouteError(req, res, err, `/cube/${req.params.id}/list`);
   }
 };
 
-export const exportToCsv = async (req, res) => {
+export const exportCubeToCsv = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
 
@@ -96,11 +100,11 @@ export const exportToCsv = async (req, res) => {
     }
     return res.end();
   } catch (err) {
-    return handleRouteError(req, res, err, '/404');
+    return handleRouteError(req, res, err, `/cube/${req.params.id}/list`);
   }
 };
 
-export const exportToForge = async (req, res) => {
+export const exportCubeToForge = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
     if (!cube) {
@@ -126,11 +130,11 @@ export const exportToForge = async (req, res) => {
     }
     return res.end();
   } catch (err) {
-    return handleRouteError(req, res, err, '/404');
+    return handleRouteError(req, res, err, `/cube/${req.params.id}/list`);
   }
 };
 
-export const exportForMtgo = async (req, res) => {
+export const exportCubeToMtgo = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
     if (!cube) {
@@ -147,11 +151,11 @@ export const exportForMtgo = async (req, res) => {
 
     return exportToMtgo(res, cube.name, cube.cards, cube.maybe);
   } catch (err) {
-    return handleRouteError(req, res, err, '/404');
+    return handleRouteError(req, res, err, `/cube/${req.params.id}/list`);
   }
 };
 
-export const exportToXmage = async (req, res) => {
+export const exportCubeToXmage = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
     if (!cube) {
@@ -174,11 +178,11 @@ export const exportToXmage = async (req, res) => {
     }
     return res.end();
   } catch (err) {
-    return handleRouteError(req, res, err, '/404');
+    return handleRouteError(req, res, err, `/cube/${req.params.id}/list`);
   }
 };
 
-export const exportToPlaintext = async (req, res) => {
+export const exportCubeToPlaintext = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
     if (!cube) {
@@ -201,6 +205,6 @@ export const exportToPlaintext = async (req, res) => {
     }
     return res.end();
   } catch (err) {
-    return handleRouteError(req, res, err, '/404');
+    return handleRouteError(req, res, err, `/cube/${req.params.id}/list`);
   }
 };

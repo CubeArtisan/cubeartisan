@@ -1,14 +1,16 @@
+import { body } from 'express-validator';
 import fetch from 'node-fetch';
 import cheerio from 'cheerio';
 
 import carddb from '@cubeartisan/server/serverjs/cards.js';
-import { addCardToCube, handleRouteError } from '@cubeartisan/server/serverjs/util.js';
+import { addCardToCube } from '@cubeartisan/server/serverjs/util.js';
 import { bulkUpload, updateCubeAndBlog } from '@cubeartisan/server/routes/cube/helper.js';
 import Cube from '@cubeartisan/server/models/cube.js';
 import { buildIdQuery, compareCubes, CSVtoCards } from '@cubeartisan/server/serverjs/cubefn.js';
 import { addCardMarkdown, removeCardMarkdown } from '@cubeartisan/markdown';
+import { ensureAuth, flashValidationErrors, handleRouteError } from '@cubeartisan/server/routes/middleware.js';
 
-export const importFromCubeTutor = async (req, res) => {
+export const importFromCubeTutorHandler = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id));
     if (!req.user._id.equals(cube.owner)) {
@@ -75,8 +77,14 @@ export const importFromCubeTutor = async (req, res) => {
     return handleRouteError(req, res, err, `/cube/${encodeURIComponent(req.params.id)}/list`);
   }
 };
+export const importFromCubeTutor = [
+  ensureAuth,
+  body('cubeid').toInt(),
+  flashValidationErrors,
+  importFromCubeTutorHandler,
+];
 
-export const importFromPaste = async (req, res) => {
+const importFromPasteHandler = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id));
     if (!cube) {
@@ -94,8 +102,9 @@ export const importFromPaste = async (req, res) => {
     return handleRouteError(req, res, err, `/cube/${req.params.id}/list`);
   }
 };
+export const importFromPaste = [ensureAuth, importFromPasteHandler];
 
-export const importFromFile = async (req, res) => {
+const importFromFileHandler = async (req, res) => {
   try {
     if (!req.files) {
       req.flash('danger', 'Please attach a file');
@@ -120,8 +129,9 @@ export const importFromFile = async (req, res) => {
     return handleRouteError(req, res, err, `/cube/${encodeURIComponent(req.params.id)}/list`);
   }
 };
+export const importFromFile = [ensureAuth, importFromFileHandler];
 
-export const replaceFromFile = async (req, res) => {
+export const replaceFromFileHandler = async (req, res) => {
   try {
     if (!req.files) {
       req.flash('danger', 'Please attach a file');
@@ -186,3 +196,4 @@ export const replaceFromFile = async (req, res) => {
     return handleRouteError(req, res, err, `/cube/${req.params.id}/list`);
   }
 };
+export const replaceFromFile = [ensureAuth, replaceFromFileHandler];

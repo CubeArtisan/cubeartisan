@@ -17,13 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 // Load Environment Variables
-import express from 'express';
-import {
-  addMultipleNotifications,
-  addNotification,
-  handleRouteError,
-  wrapAsyncApi,
-} from '@cubeartisan/server/serverjs/util.js';
+import { addMultipleNotifications, addNotification } from '@cubeartisan/server/serverjs/util.js';
 import Comment from '@cubeartisan/server/models/comment.js';
 import User from '@cubeartisan/server/models/user.js';
 import Report from '@cubeartisan/server/models/report.js';
@@ -35,7 +29,7 @@ import PodcastEpisode from '@cubeartisan/server/models/podcastEpisode.js';
 import Blog from '@cubeartisan/server/models/blog.js';
 import Package from '@cubeartisan/server/models/package.js';
 import { render } from '@cubeartisan/server/serverjs/render.js';
-import { ensureAuth, csrfProtection } from '@cubeartisan/server/routes/middleware.js';
+import { ensureAuth, wrapAsyncApi, wrapAsyncPage } from '@cubeartisan/server/routes/middleware.js';
 
 const getReplyContext = {
   comment: async (id) => {
@@ -73,7 +67,7 @@ const getReplyContext = {
   default: async () => null, // nobody gets a notification for this
 };
 
-const postComment = async (req, res) => {
+const postCommentHandler = async (req, res) => {
   const poster = await User.findById(req.user._id);
 
   if (
@@ -130,8 +124,9 @@ const postComment = async (req, res) => {
     comment,
   });
 };
+export const postComment = [ensureAuth, wrapAsyncApi(postCommentHandler)];
 
-const editComment = async (req, res) => {
+const editCommentHandler = async (req, res) => {
   const newComment = req.body.comment;
 
   const comment = await Comment.findById(newComment._id);
@@ -167,8 +162,9 @@ const editComment = async (req, res) => {
     success: 'true',
   });
 };
+export const editComment = [ensureAuth, wrapAsyncApi(editCommentHandler)];
 
-const reportComment = async (req, res) => {
+export const reportComment = async (req, res) => {
   const { info, reason } = req.body;
 
   const report = new Report();
@@ -187,31 +183,19 @@ const reportComment = async (req, res) => {
   return res.redirect(`/comment/${req.params.id}`);
 };
 
-const viewComment = async (req, res) => {
-  try {
-    const comment = await Comment.findById(req.params.id).lean();
+const viewCommentHandler = async (req, res) => {
+  const comment = await Comment.findById(req.params.id).lean();
 
-    return await render(
-      req,
-      res,
-      'CommentPage',
-      {
-        comment,
-      },
-      {
-        title: 'Comment',
-      },
-    );
-  } catch (err) {
-    return handleRouteError(req, res, err, '/404');
-  }
+  return render(
+    req,
+    res,
+    'CommentPage',
+    {
+      comment,
+    },
+    {
+      title: 'Comment',
+    },
+  );
 };
-
-const router = express.Router();
-router.use(csrfProtection);
-router.post('/', ensureAuth, wrapAsyncApi(postComment));
-router.get('/:id', wrapAsyncApi(viewComment));
-router.put('/:id', ensureAuth, wrapAsyncApi(editComment));
-router.post('/:id/report', wrapAsyncApi(reportComment));
-
-export default router;
+export const viewComment = wrapAsyncPage(viewCommentHandler);

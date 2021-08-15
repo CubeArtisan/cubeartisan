@@ -1,5 +1,5 @@
 import carddb from '@cubeartisan/server/serverjs/cards.js';
-import { addMultipleNotifications, handleRouteError } from '@cubeartisan/server/serverjs/util.js';
+import { addMultipleNotifications } from '@cubeartisan/server/serverjs/util.js';
 import { render } from '@cubeartisan/server/serverjs/render.js';
 import generateMeta from '@cubeartisan/server/serverjs/meta.js';
 import miscutil from '@cubeartisan/client/utils/Util.js';
@@ -7,6 +7,7 @@ import { setCubeType, buildIdQuery, abbreviate } from '@cubeartisan/server/serve
 import Cube from '@cubeartisan/server/models/cube.js';
 import Blog from '@cubeartisan/server/models/blog.js';
 import User from '@cubeartisan/server/models/user.js';
+import { ensureAuth, handleRouteError } from '@cubeartisan/server/routes/middleware.js';
 
 export const updateBlogPost = async (req, res) => {
   // update an existing blog post
@@ -31,7 +32,7 @@ export const updateBlogPost = async (req, res) => {
   return res.redirect(303, `/cube/${encodeURIComponent(req.params.id)}/blog`);
 };
 
-export const postToBlog = async (req, res) => {
+const postToBlogHandler = async (req, res) => {
   try {
     if (req.body.title.length < 5 || req.body.title.length > 100) {
       req.flash('danger', 'Blog title length must be between 5 and 100 characters.');
@@ -87,6 +88,7 @@ export const postToBlog = async (req, res) => {
     return handleRouteError(req, res, err, `/cube/${encodeURIComponent(req.params.id)}/blog`);
   }
 };
+export const postToBlog = [ensureAuth, postToBlogHandler];
 
 export const getBlogPost = async (req, res) => {
   try {
