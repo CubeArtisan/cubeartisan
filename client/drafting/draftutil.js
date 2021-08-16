@@ -58,6 +58,8 @@ export const getDrafterState = ({ draft, seatNumber, pickNumber = -1, stepNumber
   let offset = 0;
   let stepIndex = 1;
   let steps = [];
+  let pickedIdx = null;
+  let trashedIdx = null;
 
   // loop through each pack
   while (packNum < numPacks) {
@@ -106,6 +108,16 @@ export const getDrafterState = ({ draft, seatNumber, pickNumber = -1, stepNumber
 
             const cardsInPackForSeat = packsWithCards[offsetSeatIndex];
             const indexToRemove = cardsInPackForSeat.indexOf(takenCardIndex);
+
+            if (seatIndex === seatNum) {
+              if (action.match(/pick/)) {
+                pickedIdx = indexToRemove;
+                trashedIdx = null;
+              } else if (action.match(/trash/)) {
+                trashedIdx = indexToRemove;
+                pickedIdx = null;
+              }
+            }
 
             if (indexToRemove < 0) {
               if (seatIndex === seatNum) {
@@ -169,6 +181,8 @@ export const getDrafterState = ({ draft, seatNumber, pickNumber = -1, stepNumber
     pickNumber: pickedNum + trashedNum,
     step: { action, amount },
     seed: toNullableInt(seed) ?? Math.floor(Math.random() * 65536),
+    trashedIdx,
+    pickedIdx,
   };
 };
 

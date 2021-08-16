@@ -2,7 +2,7 @@ server/private/
 server/dist/
 client/dist/
 client/generated/
-server/jobs/export/
+jobs/data/
 client/coverage/
 server/coverage/
 .webpack_cache/
@@ -80,7 +80,7 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-server/.env
+.env
 .env.test
 
 # parcel-bundler cache (https://parceljs.org/)
