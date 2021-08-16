@@ -168,17 +168,22 @@ export const addMultipleNotifications = async (users, from, url, text) => {
 };
 
 export const wrapAsyncApi = (route) => {
-  return async (req, res, next) => {
+  const wrappedAsyncApi = async (req, res, next) => {
     try {
       return await route(req, res, next);
     } catch (err) {
       req.logger.error(err);
-      return res.status(500).send({
-        success: 'false',
-        message: 'Internal server error',
-      });
+      try {
+        return res.status(500).send({
+          success: 'false',
+          message: 'Internal server error',
+        });
+      } catch (err2) {
+        return req.logger.error(err2);
+      }
     }
   };
+  return wrappedAsyncApi;
 };
 
 export const handleRouteError = (req, res, err, reroute) => {
