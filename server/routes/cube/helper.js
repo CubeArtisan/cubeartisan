@@ -180,8 +180,8 @@ export const exportToMtgo = (res, fileName, mainCards, sideCards, cards) => {
   res.setHeader('Content-type', 'text/plain');
   const main = {};
   for (const cardIndex of mainCards.flat()) {
-    const cardID = cardIndex.cardID || cards[cardIndex].cardID;
-    const { name } = carddb.cardFromId(cardID);
+    const cardID = cardIndex.cardID ?? cards?.[cardIndex]?.cardID;
+    const name = carddb.cardFromId(cardID)?.name ?? 'Unknown Card';
     if (main[name]) {
       main[name] += 1;
     } else {
@@ -190,9 +190,9 @@ export const exportToMtgo = (res, fileName, mainCards, sideCards, cards) => {
   }
   for (const [key, value] of Object.entries(main)) {
     const name = key.replace(' // ', '/');
-    res.write(`${value} ${name}\r\n`);
+    res.write(`${value} ${name}\n`);
   }
-  res.write('\r\n\r\n');
+  res.write('\n\n');
 
   const side = {};
   for (const cardIndex of sideCards.flat()) {
@@ -205,7 +205,7 @@ export const exportToMtgo = (res, fileName, mainCards, sideCards, cards) => {
   }
   for (const [key, value] of Object.entries(side)) {
     const name = key.replace(' // ', '/');
-    res.write(`${value} ${name}\r\n`);
+    res.write(`${value} ${name}\n`);
   }
   return res.end();
 };
