@@ -18,7 +18,7 @@
  */
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardBody, CardHeader, CardTitle, Col, Collapse, Nav, Navbar, NavLink, Row, Spinner } from 'reactstrap';
+import { Card, CardBody, CardHeader, CardTitle, Collapse, Nav, Navbar, NavLink, Row, Spinner } from 'reactstrap';
 import { io } from 'socket.io-client';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
