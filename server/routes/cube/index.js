@@ -710,8 +710,8 @@ const viewSamplePackImageHandler = async (req, res) => {
 
       const imgScale = 0.9;
       // Try to make it roughly 5 times as wide as it is tall in cards.
-      const width = Math.floor(Math.sqrt((5 / 3) * pack.pack.length));
-      const height = Math.ceil(pack.pack.length / width);
+      const height = Math.floor(Math.sqrt(pack.pack.length));
+      const width = Math.ceil(pack.pack.length / height);
 
       const srcArray = pack.pack.map((card, index) => {
         return {

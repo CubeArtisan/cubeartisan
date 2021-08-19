@@ -16,9 +16,9 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardBody, CardHeader, CardTitle, Col, Collapse, Nav, Navbar, NavLink, Row, Spinner } from 'reactstrap';
+import { Card, CardBody, CardHeader, CardTitle, Collapse, Nav, Navbar, NavLink, Row, Spinner } from 'reactstrap';
 import { io } from 'socket.io-client';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
@@ -29,7 +29,7 @@ import { DraftbotBreakdownTable } from '@cubeartisan/client/components/DraftbotB
 import DraggableCard from '@cubeartisan/client/components/DraggableCard.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
-import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import DisplayContext, { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
@@ -40,76 +40,82 @@ import DraftLocation from '@cubeartisan/client/drafting/DraftLocation.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import TextBadge from '@cubeartisan/client/components/TextBadge.js';
 import Tooltip from '@cubeartisan/client/components/Tooltip.js';
+import { FixedCol } from '@cubeartisan/client/components/CardGrid.js';
+import SetCardsInRow from '@cubeartisan/client/components/SetCardsInRow.js';
 
 const canDrop = (_, target) => {
   return target.type === DraftLocation.PICKS;
 };
 
-const Pack = ({ pack, packNumber, pickNumber, instructions, picking, onMoveCard, onClickCard, emptySeats }) => (
-  <Card className="mt-3">
-    <CardHeader>
-      <CardTitle className="mb-0">
-        <h4 className="mb-1">
-          {Number.isInteger(pickNumber) && pickNumber ? (
-            <>
-              Pack {packNumber}, Pick {pickNumber}
-              {instructions ? `: ${instructions}` : ''}
-            </>
-          ) : (
-            <>Loading Draft</>
-          )}
-        </h4>
-        {emptySeats > 0 && (
-          <TextBadge
-            name={`Waiting on ${emptySeats} player${emptySeats > 1 ? 's' : ''} to join. Players can join by going to`}
-          >
-            <Tooltip text="Click to copy to clipboard">
-              <button
-                type="button"
-                className="cube-id-btn"
-                onKeyDown={() => {}}
-                onClick={async (e) => {
-                  await navigator.clipboard.writeText(window.location.href);
-                  e.currentTarget.blur();
-                }}
-              >
-                {window.location.href}
-              </button>
-            </Tooltip>
-          </TextBadge>
-        )}
-      </CardTitle>
-    </CardHeader>
-    <CardBody>
-      <Row noGutters>
-        {pack.length > 0 ? (
-          pack.map((card, index) => (
-            <Col
-              key={/* eslint-disable-line react/no-array-index-key */ `${packNumber}:${pickNumber}:${index}`}
-              xs={3}
-              className="col-md-1-5 col-lg-1-5 col-xl-1-5 d-flex justify-content-center align-items-center"
+const Pack = ({ pack, packNumber, pickNumber, instructions, picking, onMoveCard, onClickCard, emptySeats }) => {
+  const { cardsInRow } = useContext(DisplayContext);
+  return (
+    <Card className="mt-3">
+      <CardHeader>
+        <CardTitle className="mb-0">
+          <h4 className="mb-1">
+            {Number.isInteger(pickNumber) && pickNumber ? (
+              <>
+                Pack {packNumber}, Pick {pickNumber}
+                {instructions ? `: ${instructions}` : ''}
+              </>
+            ) : (
+              <>Loading Draft</>
+            )}
+          </h4>
+          {emptySeats > 0 && (
+            <TextBadge
+              name={`Waiting on ${emptySeats} player${emptySeats > 1 ? 's' : ''} to join. Players can join by going to`}
             >
-              {picking === index && <Spinner className="position-absolute" />}
-              <DraggableCard
-                location={DraftLocation.pack([index])}
-                data-index={index}
-                card={card}
-                canDrop={canDrop}
-                onMoveCard={picking === null ? onMoveCard : undefined}
-                onClick={picking === null ? onClickCard : undefined}
-                className={picking === index ? 'transparent' : undefined}
-              />
-            </Col>
-          ))
-        ) : (
-          <>
-            <Spinner /> <h6>Waiting for a pack.</h6>
-          </>
-        )}
-      </Row>
-    </CardBody>
-  </Card>
-);
+              <Tooltip text="Click to copy to clipboard">
+                <button
+                  type="button"
+                  className="cube-id-btn"
+                  onKeyDown={() => {}}
+                  onClick={async (e) => {
+                    await navigator.clipboard.writeText(window.location.href);
+                    e.currentTarget.blur();
+                  }}
+                >
+                  {window.location.href}
+                </button>
+              </Tooltip>
+            </TextBadge>
+          )}
+        </CardTitle>
+      </CardHeader>
+      <CardBody>
+        <SetCardsInRow />
+        <Row noGutters>
+          {pack.length > 0 ? (
+            pack.map((card, index) => (
+              <FixedCol
+                key={/* eslint-disable-line react/no-array-index-key */ `${packNumber}:${pickNumber}:${index}`}
+                cardsinrow={cardsInRow}
+                className="justify-content-center align-items-center"
+              >
+                {picking === index && <Spinner className="position-absolute" />}
+                <DraggableCard
+                  location={DraftLocation.pack([index])}
+                  data-index={index}
+                  card={card}
+                  canDrop={canDrop}
+                  onMoveCard={picking === null ? onMoveCard : undefined}
+                  onClick={picking === null ? onClickCard : undefined}
+                  className={picking === index ? 'transparent' : undefined}
+                />
+              </FixedCol>
+            ))
+          ) : (
+            <>
+              <Spinner /> <h6>Waiting for a pack.</h6>
+            </>
+          )}
+        </Row>
+      </CardBody>
+    </Card>
+  );
+};
 
 Pack.propTypes = {
   pack: PropTypes.arrayOf(PropTypes.object).isRequired,

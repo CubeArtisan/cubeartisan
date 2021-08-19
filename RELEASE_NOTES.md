@@ -47,6 +47,23 @@
  - Have the Add to Cube Modal handle when the user doesn't have any cubes.
  - Fix caching to more precisely specify how to cache.
 
+#### v1.0.5
+
+ - PR: #143
+
+##### Bug Fixes
+
+ - Fix an occasional crash when exporting a built deck or cube to MTGO.
+
+### v1.1.0
+
+ - PR: #147
+
+#### Features
+  
+  - Allow fine-grained specifications of how many cards to show in a single row.
+  - Allow the site to use more horizontal space on high resolution monitors.
+
 ## Known Issues
 
  - On Firefox Drag and Drop in the DraftPage and the DeckbuilderPage causes the browser to navigate to the image url for the card. 
