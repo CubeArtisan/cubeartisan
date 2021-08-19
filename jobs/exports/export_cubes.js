@@ -28,15 +28,15 @@ const processCube = (cube, cardToInt) => ({
   dateUpdated: cube.date_updated,
   cards: cube.cards
     .filter((c) => c)
-    .map((card) => cardToInt[carddb.cardFromId(card.cardID).name_lower])
+    .map((card) => cardToInt[carddb.cardFromId(card.cardID).oracle_id])
     .filter((c) => c || c === 0),
   maybe: (cube.maybe || [])
     .filter((c) => c)
-    .map((card) => cardToInt[carddb.cardFromId(card.cardID).name_lower])
+    .map((card) => cardToInt[carddb.cardFromId(card.cardID).oracle_id])
     .filter((c) => c || c === 0),
   basics: (cube.basics || [])
     .filter((c) => c)
-    .map((card) => cardToInt[carddb.cardFromId(card).name_lower])
+    .map((card) => cardToInt[carddb.cardFromId(card).oracle_id])
     .filter((c) => c || c === 0),
   numUsersFollowing: (cube.users_following || []).length,
   imageUri: cube.image_uri,

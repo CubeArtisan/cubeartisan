@@ -57,12 +57,21 @@
 
 ### v1.1.0
 
+ - PR: #141
  - PR: #147
 
 #### Features
   
-  - Allow fine-grained specifications of how many cards to show in a single row.
-  - Allow the site to use more horizontal space on high resolution monitors.
+ - Allow fine-grained specifications of how many cards to show in a single row.
+ - Allow the site to use more horizontal space on high resolution monitors.
+
+#### Bug Fixes
+
+ - Fix occasional bug when an invalid card appears in a url. 
+
+#### Infrastructure
+
+- Update how routes are stored in the code to be easier to debug, find, and change.
 
 ## Known Issues
 

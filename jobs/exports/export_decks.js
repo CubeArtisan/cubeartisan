@@ -17,9 +17,10 @@ const processDeck = (deck, cardToInt) => {
 
   if (deck.seats[0] && deck.seats[0].deck) {
     for (const col of deck.seats[0].deck) {
-      for (const card of col) {
+      for (const cardIdx of col) {
+        const card = deck.cards[cardIdx];
         if (card && card.cardID) {
-          main.push(cardToInt[carddb.cardFromId(card.cardID).name_lower]);
+          main.push(cardToInt[carddb.cardFromId(card.cardID).oracle_id]);
         }
       }
     }
@@ -27,8 +28,11 @@ const processDeck = (deck, cardToInt) => {
 
   if (deck.seats[0] && deck.seats[0].sideboard) {
     for (const col of deck.seats[0].sideboard) {
-      for (const card of col) {
-        side.push(cardToInt[carddb.cardFromId(card.cardID).name_lower]);
+      for (const cardIdx of col) {
+        const card = deck.cards[cardIdx];
+        if (card && card.cardID) {
+          side.push(cardToInt[carddb.cardFromId(card.cardID).oracle_id]);
+        }
       }
     }
   }
