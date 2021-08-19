@@ -30,50 +30,56 @@ import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import styled from '@cubeartisan/client/utils/styledHelper.js';
+import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import SetCardsInRow from '@cubeartisan/client/components/SetCardsInRow.js';
 
 const BoundedCol = styled(Col)`
   max-width: 800px;
 `;
 
 export const SamplePackPage = ({ seed, pack, cube, loginCallback }) => {
+  const defaultNumCols = Math.ceil(pack.length / Math.floor(Math.sqrt(pack.length)));
   return (
-    <MainLayout loginCallback={loginCallback}>
-      <CubeLayout cube={cube} activeLink="playtest">
-        <DynamicFlash />
-        <div className="container" />
-        <br />
-        <div className="card">
-          <div className="card-header">
-            <Row>
-              <Col md={6}>
-                <h5 className="card-title">Sample Pack</h5>
-              </Col>
-              <Col md={6} className="text-right">
-                <a className="btn btn-success mr-2" href={`/cube/${cube._id}/playtest/sample`}>
-                  New Pack
-                </a>
-                <a className="btn btn-success" href={`/cube/${cube._id}/playtest/sample/${seed}/image`}>
-                  Get Image
-                </a>
-              </Col>
-            </Row>
+    <DisplayContextProvider cubeID={cube._id} defaultNumCols={defaultNumCols}>
+      <MainLayout loginCallback={loginCallback}>
+        <CubeLayout cube={cube} activeLink="playtest">
+          <DynamicFlash />
+          <div className="container" />
+          <br />
+          <div className="card">
+            <div className="card-header">
+              <Row>
+                <Col md={6}>
+                  <h5 className="card-title">Sample Pack</h5>
+                </Col>
+                <Col md={6} className="text-right">
+                  <a className="btn btn-success mr-2" href={`/cube/${cube._id}/playtest/sample`}>
+                    New Pack
+                  </a>
+                  <a className="btn btn-success" href={`/cube/${cube._id}/playtest/sample/${seed}/image`}>
+                    Get Image
+                  </a>
+                </Col>
+              </Row>
+            </div>
+            <div className="card-body">
+              <SetCardsInRow />
+              <Row noGutters className="justify-content-center">
+                <BoundedCol>
+                  <CardGrid
+                    cardList={pack}
+                    Tag={CardImage}
+                    colProps={{}}
+                    cardProps={{ autocard: true }}
+                    className="sample"
+                  />
+                </BoundedCol>
+              </Row>
+            </div>
           </div>
-          <div className="card-body">
-            <Row noGutters className="pack-body justify-content-center">
-              <BoundedCol>
-                <CardGrid
-                  cardList={pack}
-                  Tag={CardImage}
-                  colProps={{ className: 'col-md-2-4 col-lg-2-4 col-xl-2-4', sm: '3', xs: '4' }}
-                  cardProps={{ autocard: true }}
-                  className="sample"
-                />
-              </BoundedCol>
-            </Row>
-          </div>
-        </div>
-      </CubeLayout>
-    </MainLayout>
+        </CubeLayout>
+      </MainLayout>
+    </DisplayContextProvider>
   );
 };
 

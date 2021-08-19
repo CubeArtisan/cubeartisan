@@ -23,9 +23,10 @@ const DisplayContext = createContext({
   showCustomImages: true,
   compressedView: false,
   showMaybeboard: false,
+  cardsInRow: 4,
 });
 
-export const DisplayContextProvider = ({ cubeID, ...props }) => {
+export const DisplayContextProvider = ({ cubeID, defaultNumCols, ...props }) => {
   const [showCustomImages, setShowCustomImages] = useState(true);
   const toggleShowCustomImages = useCallback(() => {
     setShowCustomImages(!showCustomImages);
@@ -47,6 +48,14 @@ export const DisplayContextProvider = ({ cubeID, ...props }) => {
     setShowMaybeboard(!showMaybeboard);
   }, [cubeID, showMaybeboard]);
 
+  const [cardsInRow, setCardsInRow] = useState(
+    () => (typeof localStorage !== 'undefined' && localStorage.getItem('cardsInRow')) || defaultNumCols,
+  );
+  const updateCardsInRow = useCallback((newCardsInRow) => {
+    localStorage.setItem('cardsInRow', newCardsInRow);
+    setCardsInRow(newCardsInRow);
+  }, []);
+
   const value = {
     showCustomImages,
     toggleShowCustomImages,
@@ -54,12 +63,16 @@ export const DisplayContextProvider = ({ cubeID, ...props }) => {
     toggleCompressedView,
     showMaybeboard,
     toggleShowMaybeboard,
+    cardsInRow,
+    setCardsInRow: updateCardsInRow,
   };
   return <DisplayContext.Provider value={value} {...props} />;
 };
-
 DisplayContextProvider.propTypes = {
   cubeID: PropTypes.string.isRequired,
+  defaultNumCols: PropTypes.number,
 };
-
+DisplayContextProvider.defaultProps = {
+  defaultNumCols: 4,
+};
 export default DisplayContext;
