@@ -8,7 +8,7 @@ import connectionQ from '@cubeartisan/server/serverjs/mongoConnection.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import Draft from '@cubeartisan/server/models/draft.js';
 import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
-import { convertDrafterState, getDrafterState } from '@cubeartisan/client/drafting/draftutil.js';
+import { convertDrafterState, getAllDrafterStates } from "@cubeartisan/client/drafting/draftutil.js";
 
 import { getObjectCreatedAt, loadCardToInt, writeFile } from "@cubeartisan/jobs/exports/utils.js";
 
@@ -21,52 +21,52 @@ let totalPicks = 0;
 
 const processSeat = (seatNumber, draft, cardToInt) => {
   const picks = [];
-  let drafterState;
+  let drafterStates;
   try {
-    drafterState = getDrafterState({ draft, seatNumber, pickNumber: 0 });
+    drafterStates = getAllDrafterStates({ draft, seatNumber });
   } catch (err) {
-    winston.error('Failed to get initial drafterState.', err);
+    winston.error('Failed to get drafterStates.', err);
     return {};
   }
-  let nextDrafterState;
-  for (let pickNumber = 0; drafterState.packNum < drafterState.numPacks; pickNumber++) {
-    winston.info('Getting next pick.');
-    try {
-      nextDrafterState = getDrafterState({ draft, seatNumber, pickNumber: pickNumber + 1 });
-    } catch (err) {
-      winston.error('Failed to get next drafter state.', err);
-      return {
-        picks,
-        cubeid: draft.cube,
-        username: draft.seats[0].username,
-        date: draft.date,
-        draftid: draft._id,
-        createdAt: getObjectCreatedAt(draft._id),
-      };
+  if (drafterStates.length < 3) return {};
+  for (let pickNumber = 1; pickNumber < drafterStates.length; pickNumber++) {
+    const nextDrafterState = drafterStates[pickNumber];
+    const {action} = nextDrafterState.step;
+    if (action === 'pick' || action === 'trash') {
+      // This will be the pack before we made our pick.
+      const pick = convertDrafterState(drafterStates[pickNumber - 1]);
+      if (nextDrafterState.action === 'pick' && (pick.pickedIdx ?? null) !== null) {
+        pick.pickedIdx = nextDrafterState.pickedIdx;
+      } else if (nextDrafterState.action === 'trash' && (pick.trashedIdx ?? null) !== null) {
+        pick.trashedIdx = nextDrafterState.trashedIdx;
+      }
+      const updateIndex = (cardIdx) => cardToInt[pick.cardOracleIds[cardIdx]]
+      pick.picked = pick.picked.map(updateIndex);
+      if (pick.picked.some((x) => (x ?? null) === null)) {
+        winston.warn(`picked contained invalid indices ${JSON.stringify(pick.picked)}`);
+        return [];
+      }
+      pick.seen = pick.seen.map(updateIndex);
+      if (pick.seen.some((x) => (x ?? null) === null)) {
+        winston.warn(`seen contained invalid indices ${JSON.stringify(pick.seen)}`);
+        return [];
+      }
+      pick.cardsInPack = pick.cardsInPack.map(updateIndex);
+      if (pick.cardsInPack.some((x) => (x ?? null) === null)) {
+        winston.warn(`cardsInPack contained invalid indices ${JSON.stringify(pick.cardsInPack)}`);
+        return [];
+      }
+      delete pick.cardOracleIds;
+      delete pick.seed;
+      delete pick.basics;
+      picks.push(pick);
+      totalPicks += 1;
     }
-    const pick = {
-      ...convertDrafterState(drafterState),
-      trashedIdx: nextDrafterState.trashedIdx,
-      pickedIdx: nextDrafterState.pickedIdx,
-    };
-    const updateIndex = (cardIdx) => cardToInt[pick.cardOracleIds[cardIdx]]
-    pick.picked = pick.picked.map(updateIndex);
-    if (pick.picked.some((x) => (x ?? null) === null)) return [];
-    pick.seen = pick.seen.map(updateIndex);
-    if (pick.seen.some((x) => (x ?? null) === null)) return [];
-    pick.cardsInPack = pick.cardsInPack.map(updateIndex);
-    if (pick.cardsInPack.some((x) => (x ?? null) === null)) return [];
-    pick.basics = pick.basics.map(updateIndex);
-    if (pick.basics.some((x) => (x ?? null) === null)) return [];
-    delete pick.cardOracleIds;
-    delete pick.seed;
-    picks.push(pick);
-    totalPicks += 1;
-    drafterState = nextDrafterState;
   }
   return {
     picks,
     cubeid: draft.cube,
+    basics: draft.basics.map((cardIdx) => cardToInt[carddb.cardFromId(draft.cards[cardIdx].cardID).oracle_id]),
     username: draft.seats[0].username,
     date: draft.date,
     draftid: draft._id,

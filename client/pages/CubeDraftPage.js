@@ -284,7 +284,10 @@ export const CubeDraftPage = ({ cube, draftid, loginCallback }) => {
     cards: [],
   });
   useEffect(() => {
-    socket.current = io('/wsdraft', { autoConnect: true, query: { draftid } });
+    socket.current = io('/wsdraft', {
+      autoConnect: true,
+      query: { draftid },
+    });
     socket.current.on('drafterState', (newDrafterState) => {
       setPicking(null);
       setDrafterState(newDrafterState);
