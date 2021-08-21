@@ -13,7 +13,7 @@
     "test": "echo no tests yet",
     "test:loud": "echo no tests yet",
     "test:watch": "echo no tests yet",
-    "exports": "sh scripts/run_exports.sh",
+    "export": "sh scripts/run_exports.sh",
     "clean-cubes": "node `yarn --silent node-options` maintenance/clean_cubes.js",
     "embeddings": "node `yarn --silent node-options` maintenance/populate_embeddings.js",
     "cards": "cd ../ && yarn cards && gsutil rsync -dr server/private gs://cubeartisan/private",
