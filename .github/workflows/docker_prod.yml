@@ -33,7 +33,10 @@ jobs:
           prerelease: false
       - name: Trigger deploy
         run: |
-          curl -X POST https://api.github.com/repos/CubeArtisan/cubeartisan-infrastructure/dispatches \
-          -H 'Accept: application/json' \
-          -u ${{ secrets.ACCESS_TOKEN }} \
-          --data '{"event_type": "deploy_staging", "client_payload": { "repository": "'"$REPOSITORY"'", "tag": "'"$TAG"'" }}'
+          curl \
+            -X POST
+            -H 'Accept: application/vnd.github.v3+json' \
+            -H 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+            -H 'content-type: application/json' \
+            https://api.github.com/repos/CubeArtisan/cubeartisan-infrastructure/dispatches \
+            --data '{"event_type": "deploy_prod", "client_payload": { "repository": "'"$REPOSITORY"'", "tag": "'"$TAG"'" }}'

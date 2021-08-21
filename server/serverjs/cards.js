@@ -20,8 +20,6 @@ import fs from 'fs';
 import winston from 'winston';
 import { SortFunctions, ORDERED_SORTS } from '@cubeartisan/client/utils/Sort.js';
 import updatecards from '@cubeartisan/server/serverjs/updatecards.js';
-import CardRating from '@cubeartisan/server/models/cardrating.js';
-import CardHistory from '@cubeartisan/server/models/cardHistory.js';
 
 // eslint-disable-next-line
 let data = {
@@ -136,14 +134,12 @@ function registerFileWatcher(filename, attribute) {
 async function initializeCardDb(dataRoot, skipWatchers) {
   winston.info('LoadingPage carddb...');
   if (dataRoot === undefined) {
-    dataRoot = 'private';
+    dataRoot = './private';
   }
   if (!Object.keys(fileToAttribute).every((filename) => fs.existsSync(`${dataRoot}/${filename}`))) {
     winston.info('String midnight cardbase update...');
 
-    const ratings = await CardRating.find({}, 'name elo embedding').lean();
-    const histories = await CardHistory.find({}, 'oracleId current.total current.picks').lean();
-    await updatecards.updateCardbase(ratings, histories);
+    await updatecards.downloadCardbase(dataRoot);
   }
   const promises = [];
   for (const [filename, attribute] of Object.entries(fileToAttribute)) {

@@ -40,8 +40,6 @@ import { render } from '@cubeartisan/server/serverjs/render.js';
 import connectionQ, { MONGODB_CONNECTION_STRING } from "@cubeartisan/server/serverjs/mongoConnection.js";
 import updatedb from '@cubeartisan/server/serverjs/updatecards.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
-import CardRating from '@cubeartisan/server/models/cardrating.js';
-import CardHistory from '@cubeartisan/server/models/cardHistory.js';
 import passportConfig from '@cubeartisan/server/config/passport.js';
 import {
   requestLogging,
@@ -77,12 +75,9 @@ const store = new MongoDBStore(
   },
 );
 // scryfall updates this data at 9, so this will minimize staleness
-schedule.scheduleJob(`${Math.floor(Math.random() * 60)} 10 * * *`, async () => {
+schedule.scheduleJob(`${Math.floor(Math.random() * 60)} 11 * * *`, async () => {
   winston.info('String midnight cardbase update...');
-
-  const ratings = await CardRating.find({}, 'name elo embedding').lean();
-  const histories = await CardHistory.find({}, 'oracleId current.total current.picks').lean();
-  updatedb.updateCardbase(ratings, histories);
+  updatedb.downloadCardbase();
 });
 
 // Init app

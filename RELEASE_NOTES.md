@@ -60,6 +60,7 @@
  - PR: #141
  - PR: #147
  - PR: #150
+ - PR: #151
 
 #### Features
   
@@ -77,6 +78,7 @@
  - Update how routes are stored in the code to be easier to debug, find, and change.
  - Update the export scripts so that they can be used on CubeArtisan to retrain the models.
  - Move kubernetes configs to a separate repository.
+ - Speedup recovery from a crash.
 
 ## Known Issues
 
