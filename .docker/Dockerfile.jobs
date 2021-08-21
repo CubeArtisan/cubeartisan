@@ -12,10 +12,6 @@ COPY ./markdown/package.json markdown/package.json
 COPY ./jobs/package.json jobs/package.json
 COPY ./yarn.lock ./
 COPY ./.yarnrc.yml ./
-RUN yarn install --frozen-lockfile --production=true || yarn install --frozen-lockfile --production=true || yarn install --frozen-lockfile --production=true
-
-COPY ./client/nearley    client/nearley/
-RUN yarn nearley
 
 COPY ./server/babel.config.cjs server/babel.config.cjs
 COPY ./server/config   server/config/
@@ -26,6 +22,7 @@ COPY ./server/routes   server/routes/
 COPY ./server/scripts  server/scripts/
 COPY ./server/serverjs server/serverjs/
 COPY ./server/views    server/views/
+
 COPY ./client/babel.config.cjs   client/babel.config.cjs
 COPY ./client/webpack.common.cjs client/webpack.common.cjs
 COPY ./client/webpack.prod.cjs   client/webpack.prod.cjs
@@ -33,15 +30,20 @@ COPY ./client/components client/components/
 COPY ./client/drafting   client/drafting/
 COPY ./client/filtering  client/filtering/
 COPY ./client/hooks      client/hooks/
+COPY ./client/nearley    client/nearley/
 COPY ./client/pages      client/pages/
 COPY ./client/proptypes  client/proptypes/
 COPY ./client/res        client/res/
 COPY ./client/utils      client/utils/
+
 COPY ./markdown/index.js markdown/index.js
 COPY ./markdown/plugins markdown/plugins/
 COPY ./markdown/components markdown/components
+
 COPY ./jobs/babel.config.cjs jobs/babel.config.cjs
 COPY ./jobs/exports jobs/exports
 COPY ./jobs/maintenance jobs/maintenance
 COPY ./jobs/scripts jobs/scripts
-WORKDIR /CubeArtisan/jobs
+
+RUN yarn install --frozen-lockfile --production=true || yarn install --frozen-lockfile --production=true || yarn install --frozen-lockfile --production=true
+RUN yarn nearley

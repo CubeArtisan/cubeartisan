@@ -12,7 +12,6 @@ COPY ./markdown/package.json markdown/package.json
 COPY ./jobs/package.json jobs/package.json
 COPY ./yarn.lock ./
 COPY ./.yarnrc.yml ./
-RUN yarn install --frozen-lockfile --production=false || yarn install --frozen-lockfile --production=false || yarn install --frozen-lockfile --production=false
 
 COPY ./server/babel.config.cjs server/babel.config.cjs
 COPY ./server/config   server/config/
@@ -46,6 +45,7 @@ COPY ./jobs/exports jobs/exports
 COPY ./jobs/maintenance jobs/maintenance
 COPY ./jobs/scripts jobs/scripts
 
+RUN yarn install --frozen-lockfile --production=false || yarn install --frozen-lockfile --production=false || yarn install --frozen-lockfile --production=false
 RUN yarn build
 RUN yarn install --frozen-lockfile --production=true || yarn install --frozen-lockfile --production=true || yarn install --frozen-lockfile --production=true
 
