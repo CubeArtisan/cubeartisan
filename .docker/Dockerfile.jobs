@@ -44,5 +44,3 @@ COPY ./jobs/babel.config.cjs jobs/babel.config.cjs
 COPY ./jobs/exports jobs/exports
 COPY ./jobs/maintenance jobs/maintenance
 COPY ./jobs/scripts jobs/scripts
-
-ENTRYPOINT sh -c 'yarn server'

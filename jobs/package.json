@@ -16,7 +16,7 @@
     "exports": "sh scripts/run_exports.sh",
     "clean-cubes": "node `yarn --silent node-options` maintenance/clean_cubes.js",
     "embeddings": "node `yarn --silent node-options` maintenance/populate_embeddings.js",
-    "cards": "cd ../ && yarn cards && cd jobs && node `yarn --silent node-options` maintenance/upload_cards.js",
+    "cards": "cd ../ && yarn cards && gsutil rsync -dr server/private gs://cubeartisan/private",
     "analytics": "node `yarn --silent node-options` maintenance/populate_embeddings.js",
     "maintenance": "yarn clean-cubes; yarn embeddings; yarn cards; yarn analytics"
   },
