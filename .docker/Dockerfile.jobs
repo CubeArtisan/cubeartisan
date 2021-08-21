@@ -45,7 +45,7 @@ COPY ./jobs/exports jobs/exports
 COPY ./jobs/maintenance jobs/maintenance
 COPY ./jobs/scripts jobs/scripts
 
-RUN apk add --update \
+RUN apt add --update \
  python \
  curl \
  which \
