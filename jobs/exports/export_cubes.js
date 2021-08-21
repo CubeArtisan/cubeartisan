@@ -50,7 +50,6 @@ try {
   // eslint-disable-next-line prettier/prettier
   await connectionQ();
   const { cardToInt } = await loadCardToInt();
-  await mongoose.connect(process.env.MONGODB_URL);
   // process all cube objects
   const count = await Cube.countDocuments({ isListed: true });
   const cursor = Cube.find({ isListed: true }).lean().cursor();
@@ -80,13 +79,13 @@ try {
       const filename = `cubes/${counter.toString().padStart(6, '0')}.json`;
       writeFile(filename, cubes);
       counter += 1;
-      winston.log(`Wrote file ${filename} with ${cubes.length} cubes.`);
+      winston.info(`Wrote file ${filename} with ${cubes.length} cubes.`);
     }
   }
   await mongoose.disconnect();
-  winston.log('Done with export_cubes');
+  winston.info('Done with export_cubes');
   process.exit();
 } catch (err) {
-  winston.error(err.message, err);
+  winston.error('Failed to export decks.', err);
   process.exit();
 }

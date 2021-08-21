@@ -17,14 +17,21 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 /* eslint-disable no-loop-func */
-import { calculateBotPick, initializeDraftbots } from 'mtgdraftbots';
 import seedrandom from 'seedrandom';
 
 import { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation.js';
 import { cardType } from '@cubeartisan/client/utils/Card.js';
 import { cmcColumn, toNullableInt } from '@cubeartisan/client/utils/Util.js';
 
-export const draftbotsInitialized = initializeDraftbots();
+let draftbotsInitialized = false;
+export const areDraftbotsInitialized = () => draftbotsInitialized;
+export const initializeMtgDraftbots = async () => {
+  if (draftbotsInitialized) return false;
+  const { initializeDraftbots } = await import('mtgdraftbots');
+  await initializeDraftbots();
+  draftbotsInitialized = true;
+  return true;
+};
 
 export const defaultStepsForLength = (length) =>
   new Array(length)
@@ -122,7 +129,7 @@ export const getDrafterState = ({ draft, seatNumber, pickNumber = -1, stepNumber
             if (indexToRemove < 0) {
               if (seatIndex === seatNum) {
                 // We needed the missing card.
-                console.error(
+                throw new Error(
                   `Seat ${seatIndex} should have picked/trashed ${takenCardIndex} at pickNumber ${
                     pickedNum + trashedNum
                   }, but the pack contains only [${packsWithCards[offsetSeatIndex].join(', ')}].`,
@@ -210,6 +217,7 @@ export const convertDrafterState = (drafterState) => {
 };
 
 export const allBotsDraft = async (draft) => {
+  const { calculateBotPick } = await import('mtgdraftbots');
   let drafterStates = draft.seats.map((_, seatNumber) => getDrafterState({ draft, seatNumber }));
   let [
     {

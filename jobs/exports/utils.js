@@ -13,7 +13,7 @@ export const writeFile = (filename, object) => {
 };
 
 export const loadCardToInt = async () => {
-  await carddb.initializeCardDb('private', true);
+  await carddb.initializeCardDb('../server/private', true);
   const cardToIntFile = 'card_to_int.json';
   const intToCardFile = 'int_to_card.json';
   if (fs.existsSync(`${folder}/${cardToIntFile}`) && fs.existsSync(`${folder}/${intToCardFile}`)) {

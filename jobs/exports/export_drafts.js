@@ -4,24 +4,46 @@
 // Load Environment Variables
 import mongoose from 'mongoose';
 
+import connectionQ from '@cubeartisan/server/serverjs/mongoConnection.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import Draft from '@cubeartisan/server/models/draft.js';
 import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 import { convertDrafterState, getDrafterState } from '@cubeartisan/client/drafting/draftutil.js';
 
 import { getObjectCreatedAt, loadCardToInt, writeFile } from "@cubeartisan/jobs/exports/utils.js";
-import { cardOracleId } from "@cubeartisan/client/utils/Card";
 
 // Number of documents to process at a time
 const batchSize = 256;
 // Minimum size in bytes of the output files (last file may be smaller).
 const minFileSize = 128 * 1024 * 1024; // 128 MB
 
+let totalPicks = 0;
+
 const processSeat = (seatNumber, draft, cardToInt) => {
   const picks = [];
-  let drafterState = getDrafterState({ draft, seatNumber, pickNumber: 0 });
+  let drafterState;
+  try {
+    drafterState = getDrafterState({ draft, seatNumber, pickNumber: 0 });
+  } catch (err) {
+    winston.error('Failed to get initial drafterState.', err);
+    return {};
+  }
+  let nextDrafterState;
   for (let pickNumber = 0; drafterState.packNum < drafterState.numPacks; pickNumber++) {
-    const nextDrafterState = getDrafterState({ draft, seatNumber });
+    winston.info('Getting next pick.');
+    try {
+      nextDrafterState = getDrafterState({ draft, seatNumber, pickNumber: pickNumber + 1 });
+    } catch (err) {
+      winston.error('Failed to get next drafter state.', err);
+      return {
+        picks,
+        cubeid: draft.cube,
+        username: draft.seats[0].username,
+        date: draft.date,
+        draftid: draft._id,
+        createdAt: getObjectCreatedAt(draft._id),
+      };
+    }
     const pick = {
       ...convertDrafterState(drafterState),
       trashedIdx: nextDrafterState.trashedIdx,
@@ -39,6 +61,7 @@ const processSeat = (seatNumber, draft, cardToInt) => {
     delete pick.cardOracleIds;
     delete pick.seed;
     picks.push(pick);
+    totalPicks += 1;
     drafterState = nextDrafterState;
   }
   return {
@@ -51,19 +74,24 @@ const processSeat = (seatNumber, draft, cardToInt) => {
   };
 };
 
-const processDraft = async (draft, cardToInt) => {
+const processDraft = (draft, cardToInt) => {
+  for (const card of draft.cards) {
+    card.details = carddb.cardFromId(card.cardID);
+  }
   return draft.seats
     .map((x, idx) => [x, idx])
     .filter(([{ bot }]) => !bot)
     .map(([, idx]) => processSeat(idx, draft, cardToInt));
-};
+}
 
-const isValidDraft = (draft) => draft?.initial_state?.[0]?.[0]?.cards?.length;
+const isValidDraft = (draft) => draft?.cards?.length;
 
 try {
+  // eslint-disable-next-line prettier/prettier
+  await connectionQ();
   const { cardToInt } = await loadCardToInt();
   const count = await Draft.countDocuments();
-  winston.log(`Counted ${count} documents`);
+  winston.info(`Counted ${count} documents`);
   const cursor = Draft.find().lean().cursor();
   let counter = 0;
   let i = 0;
@@ -89,13 +117,13 @@ try {
       const filename = `drafts/${counter.toString().padStart(6, '0')}.json`;
       writeFile(filename, processedDrafts);
       counter += 1;
-      winston.log(`Wrote file ${filename} with ${processedDrafts.length} drafts * players.`);
+      winston.info(`Wrote file ${filename} with ${processedDrafts.length} drafts * players.`);
     }
   }
   await mongoose.disconnect();
-  winston.log('done');
+  winston.info(`Done exporting drafts. Exported ${totalPicks} total picks.`);
   process.exit();
 } catch (err) {
-  winston.error(err);
+  winston.error('Received an error when processing drafts.', err);
   process.exit();
 }

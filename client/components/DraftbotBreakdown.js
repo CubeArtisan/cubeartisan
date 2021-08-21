@@ -19,7 +19,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Col, Row } from 'reactstrap';
-import { calculateBotPick } from 'mtgdraftbots';
 
 import { usePickListAndDrafterState } from '@cubeartisan/client/components/DecksPickBreakdown.js';
 import { SortableTable, compareStrings, percentRenderer } from '@cubeartisan/client/components/SortableTable.js';
@@ -28,7 +27,7 @@ import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import { DrafterStatePropType, DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
 import { COLOR_COMBINATIONS, cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
 import { fromEntries } from '@cubeartisan/client/utils/Util.js';
-import { convertDrafterState } from '@cubeartisan/client/drafting/draftutil.js';
+import { convertDrafterState, initializeMtgDraftbots } from '@cubeartisan/client/drafting/draftutil.js';
 import PickSelector from '@cubeartisan/client/components/PickSelector.js';
 
 const AutocardLink = withAutocard('a');
@@ -80,6 +79,8 @@ export const DraftbotBreakdownTable = ({ drafterState }) => {
   const [botResult, setBotResult] = useState(null);
   useEffect(() => {
     (async () => {
+      const { calculateBotPick } = await import('mtgdraftbots');
+      await initializeMtgDraftbots();
       const result = await calculateBotPick(convertDrafterState(drafterState));
       setBotResult(result);
     })();

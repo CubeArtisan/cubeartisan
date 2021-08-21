@@ -52,11 +52,10 @@ try {
   // eslint-disable-next-line prettier/prettier
   await connectionQ();
   const { cardToInt } = await loadCardToInt();
-  await mongoose.connect(process.env.MONGODB_URL);
 
   // process all deck objects
   const count = await Deck.countDocuments();
-  winston.log(`Counted ${count} documents`);
+  winston.info(`Counted ${count} documents`);
   const cursor = Deck.find().lean().cursor();
 
   let counter = 0;
@@ -82,14 +81,14 @@ try {
       const filename = `decks/${counter.toString().padStart(6, '0')}.json`;
       writeFile(filename, decks);
       counter += 1;
-      winston.log(`Wrote file ${filename} with ${decks.length} decks.`);
+      winston.info(`Wrote file ${filename} with ${decks.length} decks.`);
       decks.length = 0;
     }
   }
-  mongoose.disconnect();
-  winston.log('done');
+  await mongoose.disconnect();
+  winston.info('Done exporting decks.');
   process.exit();
 } catch (err) {
-  winston.error(err);
+  winston.error('Failed to export decks.', err);
   process.exit();
 }

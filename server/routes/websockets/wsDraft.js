@@ -1,12 +1,18 @@
 import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 
-import { calculateBotPick } from 'mtgdraftbots';
 import seedrandom from 'seedrandom';
 
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import Draft from '@cubeartisan/server/models/draft.js';
-import { convertDrafterState, getDefaultPosition, getDrafterState } from '@cubeartisan/client/drafting/draftutil.js';
+import {
+  convertDrafterState,
+  getDefaultPosition,
+  getDrafterState,
+  initializeMtgDraftbots,
+} from '@cubeartisan/client/drafting/draftutil.js';
 import { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation.js';
+
+const mtgdraftbotsQ = import('mtgdraftbots');
 
 const getSeat = async (draftid, user) => {
   let draft = await Draft.findById(draftid).lean();
@@ -123,6 +129,9 @@ const manageWebsocketDraft = async (socket) => {
           cardsInPack.length > 0 && (action.match(/random/) || draft.seats[seatNum].bot),
       );
 
+  const { calculateBotPick } = await mtgdraftbotsQ;
+  await initializeMtgDraftbots();
+
   advancePack = async (draft, changes = {}) => {
     for (
       let drafterStates = getAdvanceableDrafterStates(draft);
@@ -197,7 +206,7 @@ const manageWebsocketDraft = async (socket) => {
     const { action } = drafterState.step;
     const doneDrafting = drafterState.packNum >= drafterState.numPacks;
     if (drafterState.stepNumber > stepNumber && action.match(/random/) && !doneDrafting) {
-      [, draft] = await advancePack(draft, seatNumber, {});
+      [, draft] = await advancePack(draft, {});
       drafterState = getDrafterState({ draft, seatNumber });
     }
     socket.emit('drafterState', drafterState);

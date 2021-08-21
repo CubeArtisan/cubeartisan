@@ -284,7 +284,7 @@ export const CubeDraftPage = ({ cube, draftid, loginCallback }) => {
     cards: [],
   });
   useEffect(() => {
-    socket.current = io('/wsdraft', { autoConnect: false, query: { draftid } });
+    socket.current = io('/wsdraft', { autoConnect: true, query: { draftid } });
     socket.current.on('drafterState', (newDrafterState) => {
       setPicking(null);
       setDrafterState(newDrafterState);
@@ -292,7 +292,6 @@ export const CubeDraftPage = ({ cube, draftid, loginCallback }) => {
     socket.current.on('emptySeats', (newEmptySeats) => {
       setEmptySeats(newEmptySeats);
     });
-    socket.current.connect();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -312,6 +311,7 @@ export const CubeDraftPage = ({ cube, draftid, loginCallback }) => {
   useEffect(() => {
     if (doneDrafting && !submitted) {
       setSubmitted(true);
+      socket.current.disconnect();
       (async () => {
         const response = await csrfFetch(`/draft/${draftid}/submit/${seatNum}`, { method: 'POST' });
         const json = await response.json();

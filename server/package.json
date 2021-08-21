@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "list-files": "git ls-files '*.js' '*.cjs' '*.mjs' '*.jsx'",
-    "list-files:all": "git ls-files '../*.js' '../*.cjs' '../*.mjs' '../*.jsx' '../*.json'",
+    "list-files:all": "git ls-files {'../client', '../server', '../markdown'}/{'*.js', '*.cjs', '*.mjs', '*.jsx', '*.json'}",
     "node-options": "echo '--experimental-loader @node-loader/babel --require dotenv/config'",
     "cards": "node --max-old-space-size=4096 `yarn --silent node-options` scripts/force_update.js",
     "lint": "eslint --quiet `yarn --silent list-files`",
