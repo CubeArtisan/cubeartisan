@@ -32,7 +32,6 @@ import {
   Input,
   Badge,
 } from 'reactstrap';
-import { calculateBotPickFromOptions } from 'mtgdraftbots';
 
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
@@ -230,6 +229,7 @@ export const GridDraftPage = ({ cube, initialDraft, seatNumber, loginCallback })
   useEffect(() => {
     (async () => {
       if (botDrafterState.turn && draftType === 'bot') {
+        const { calculateBotPickFromOptions } = await import('mtgdraftbots');
         const iCardsInPack = [];
         const mapped = [];
         for (const idx of botDrafterState.cardsInPack) {

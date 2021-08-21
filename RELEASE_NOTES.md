@@ -57,12 +57,26 @@
 
 ### v1.1.0
 
+ - PR: #141
  - PR: #147
+ - PR: #150
 
 #### Features
   
-  - Allow fine-grained specifications of how many cards to show in a single row.
-  - Allow the site to use more horizontal space on high resolution monitors.
+ - Allow fine-grained specifications of how many cards to show in a single row.
+ - Allow the site to use more horizontal space on high resolution monitors.
+
+#### Bug Fixes
+
+ - Fix occasional error when an invalid card appears in a url.
+ - Make Customize Basics show the correct basic lands.
+ - Fix occasional error where the site would get confused on draft state.
+
+#### Infrastructure
+
+ - Update how routes are stored in the code to be easier to debug, find, and change.
+ - Update the export scripts so that they can be used on CubeArtisan to retrain the models.
+ - Move kubernetes configs to a separate repository.
 
 ## Known Issues
 

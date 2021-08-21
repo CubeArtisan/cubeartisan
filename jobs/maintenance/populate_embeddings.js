@@ -3,6 +3,8 @@
 // Load Environment Variables
 import mongoose from 'mongoose';
 import fetch from 'node-fetch';
+
+import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import CardRating from '@cubeartisan/server/models/cardrating.js';
 import connectionQ from '@cubeartisan/server/serverjs/mongoConnection.js';
@@ -19,7 +21,8 @@ const updateEmbeddings = async (names, embeddings) => {
 };
 
 (async () => {
-  await Promise.all([carddb.initializeCardDb('private', true), connectionQ]);
+  await connectionQ();
+  await carddb.initializeCardDb('../server/private', true);
   const ratings = await CardRating.find({}, 'name elo embedding').lean();
   for (let i = 0; i < ratings.length; i += BATCH_SIZE) {
     try {
@@ -38,15 +41,15 @@ const updateEmbeddings = async (names, embeddings) => {
           ratings.slice(i, i + BATCH_SIZE).map((card) => card.name),
           synergies,
         );
-        console.log(`Finished ${Math.min(ratings.length, i + BATCH_SIZE)} of ${ratings.length} embeddings.`);
+        winston.info(`Finished ${Math.min(ratings.length, i + BATCH_SIZE)} of ${ratings.length} embeddings.`);
       } else {
-        console.log(`Could not get embeddings batch ${i / BATCH_SIZE}`);
+        winston.info(`Could not get embeddings batch ${i / BATCH_SIZE}`);
       }
     } catch (err) {
-      console.error(err);
+      winston.error(err);
     }
   }
   await mongoose.disconnect();
-  console.log('done');
+  winston.info('done');
   process.exit();
 })();

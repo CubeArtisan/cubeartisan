@@ -500,7 +500,8 @@ const run = async () => {
 };
 
 (async () => {
-  await Promise.all([carddb.initializeCardDb('private', true), connectionQ]);
+  await connectionQ();
+  await carddb.initializeCardDb('../server/private', true);
   await run();
   await mongoose.disconnect();
   process.exit();
