@@ -40,8 +40,6 @@ import { render } from '@cubeartisan/server/serverjs/render.js';
 import connectionQ, { MONGODB_CONNECTION_STRING } from "@cubeartisan/server/serverjs/mongoConnection.js";
 import updatedb from '@cubeartisan/server/serverjs/updatecards.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
-import CardRating from '@cubeartisan/server/models/cardrating.js';
-import CardHistory from '@cubeartisan/server/models/cardHistory.js';
 import passportConfig from '@cubeartisan/server/config/passport.js';
 import {
   requestLogging,
