@@ -45,6 +45,8 @@ COPY ./jobs/exports jobs/exports
 COPY ./jobs/maintenance jobs/maintenance
 COPY ./jobs/scripts jobs/scripts
 
+RUN curl -sSL https://sdk.cloud.google.com | bash
+
 RUN yarn install --frozen-lockfile --production=false || yarn install --frozen-lockfile --production=false || yarn install --frozen-lockfile --production=false
 RUN yarn build
 RUN yarn install --frozen-lockfile --production=true || yarn install --frozen-lockfile --production=true || yarn install --frozen-lockfile --production=true

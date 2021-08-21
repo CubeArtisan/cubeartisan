@@ -6,7 +6,7 @@
   "scripts": {
     "list-files": "git ls-files '*.js' '*.cjs' '*.mjs' '*.jsx'",
     "list-files:all": "git ls-files '../*.js' '../*.cjs' '../*.mjs' '../*.jsx' '../*.json'",
-    "node-options": "echo '--experimental-loader @node-loader/babel --require dotenv/config --max-old-space-size=8192'",
+    "node-options": "echo '--experimental-loader @node-loader/babel --require dotenv/config --max-old-space-size=8192 --enable-source-maps'",
     "lint": "eslint --quiet `yarn --silent list-files`",
     "lint:loud": "eslint `yarn --silent list-files`",
     "lint:fix": "eslint --fix `yarn --silent list-files`",

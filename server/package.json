@@ -7,7 +7,7 @@
   "scripts": {
     "list-files": "git ls-files '*.js' '*.cjs' '*.mjs' '*.jsx'",
     "list-files:all": "git ls-files '../client/*.js' '../client/*.jsx' '../client/*.mjs' '../client/*.cjs' '*.js' '*.jsx' '*.cjs' '*.mjs' '../markdown/*.js'",
-    "node-options": "echo '--experimental-loader @node-loader/babel --require dotenv/config --max-old-space-size=3800'",
+    "node-options": "echo '--experimental-loader @node-loader/babel --require dotenv/config --max-old-space-size=3800 --enable-source-maps'",
     "cards": "node --max-old-space-size=4096 `yarn --silent node-options` scripts/force_update.js",
     "lint": "eslint --quiet `yarn --silent list-files`",
     "lint:loud": "eslint `yarn --silent list-files`",

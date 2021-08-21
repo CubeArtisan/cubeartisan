@@ -77,12 +77,9 @@ const store = new MongoDBStore(
   },
 );
 // scryfall updates this data at 9, so this will minimize staleness
-schedule.scheduleJob(`${Math.floor(Math.random() * 60)} 10 * * *`, async () => {
+schedule.scheduleJob(`${Math.floor(Math.random() * 60)} 11 * * *`, async () => {
   winston.info('String midnight cardbase update...');
-
-  const ratings = await CardRating.find({}, 'name elo embedding').lean();
-  const histories = await CardHistory.find({}, 'oracleId current.total current.picks').lean();
-  updatedb.updateCardbase(ratings, histories);
+  updatedb.downloadCardbase();
 });
 
 // Init app
