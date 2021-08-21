@@ -12,7 +12,13 @@
     "lint:fix": "eslint --fix `yarn --silent list-files`",
     "test": "echo no tests yet",
     "test:loud": "echo no tests yet",
-    "test:watch": "echo no tests yet"
+    "test:watch": "echo no tests yet",
+    "exports": "sh scripts/run_exports.sh",
+    "clean-cubes": "node `yarn --silent node-options` maintenance/clean_cubes.js",
+    "embeddings": "node `yarn --silent node-options` maintenance/populate_embeddings.js",
+    "cards": "cd ../ && yarn cards && cd jobs && node `yarn --silent node-options` maintenance/upload_cards.js",
+    "analytics": "node `yarn --silent node-options` maintenance/populate_embeddings.js",
+    "maintenance": "yarn clean-cubes; yarn embeddings; yarn cards; yarn analytics"
   },
   "dependencies": {
     "@babel/core": "^7.14.6",

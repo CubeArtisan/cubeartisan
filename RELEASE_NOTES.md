@@ -59,6 +59,7 @@
 
  - PR: #141
  - PR: #147
+ - PR: #150
 
 #### Features
   
@@ -67,11 +68,15 @@
 
 #### Bug Fixes
 
- - Fix occasional bug when an invalid card appears in a url. 
+ - Fix occasional error when an invalid card appears in a url.
+ - Make Customize Basics show the correct basic lands.
+ - Fix occasional error where the site would get confused on draft state.
 
 #### Infrastructure
 
-- Update how routes are stored in the code to be easier to debug, find, and change.
+ - Update how routes are stored in the code to be easier to debug, find, and change.
+ - Update the export scripts so that they can be used on CubeArtisan to retrain the models.
+ - Move kubernetes configs to a separate repository.
 
 ## Known Issues
 

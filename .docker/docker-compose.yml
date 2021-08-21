@@ -15,5 +15,12 @@ services:
       - "5000:8080"
     depends_on:
       - "cubeartisan-mongodb"
+  cubeartisan-jobs:
+    build:
+      dockerfile: .docker/Dockerfile.jobs
+      context: ../
+    image: ${REPOSITORY}/cubeartisan-jobs:${TAG}
+    depends_on:
+      - "cubeartisan-mongodb"
 volumes:
   cubeartisan-mongodb-volume:

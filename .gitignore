@@ -1,10 +1,9 @@
-server/private/
-server/dist/
-client/dist/
-client/generated/
-jobs/data/
-client/coverage/
-server/coverage/
+private/
+dist/
+generated/
+data/
+coverage/
+tmp/
 .webpack_cache/
 *.old
 
