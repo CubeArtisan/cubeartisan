@@ -115,6 +115,7 @@ import {
   exportCubeToForge,
   exportCubeToJson,
   exportCubeToPlaintext,
+  exportCubeToPlaintextLower,
   exportCubeToXmage,
 } from '@cubeartisan/server/routes/cube/export.js';
 import {
@@ -245,6 +246,7 @@ router.get('/cube/:id/export/forge', exportCubeToForge);
 router.get('/cube/:id/export/json', exportCubeToJson);
 router.get('/cube/:id/export/mtgo', exportCubeToMtgo);
 router.get('/cube/:id/export/plaintext', exportCubeToPlaintext);
+router.get('/cube/:id/export/plaintext/lower', exportCubeToPlaintextLower);
 router.get('/cube/:id/export/xmage', exportCubeToXmage);
 router.delete('/cube/:id/feature', unfeatureCube);
 router.post('/cube/:id/feature', featureCube);

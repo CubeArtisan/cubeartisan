@@ -208,3 +208,31 @@ export const exportCubeToPlaintext = async (req, res) => {
     return handleRouteError(req, res, err, `/cube/${req.params.id}/list`);
   }
 };
+
+export const exportCubeToPlaintextLower = async (req, res) => {
+  try {
+    const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
+    if (!cube) {
+      req.flash('danger', `Cube ID ${req.params.id} not found/`);
+      return res.redirect('/404');
+    }
+
+    for (const card of cube.cards) {
+      const details = carddb.cardFromId(card.cardID);
+      card.details = details;
+    }
+
+    cube.cards = sortCardsByQuery(req, cube.cards);
+
+    res.charset = 'UTF-8';
+    res.setHeader('Content-disposition', `attachment; filename=${cube.name.replace(/\W/g, '')}.txt`);
+    res.set('Access-Control-Allow-Origin', '*');
+    res.type('text/plain');
+    for (const card of cube.cards) {
+      res.write(`${card.details.name}\n`);
+    }
+    return res.end();
+  } catch (err) {
+    return handleRouteError(req, res, err, `/cube/${req.params.id}/list`);
+  }
+};
