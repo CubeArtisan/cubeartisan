@@ -48,9 +48,9 @@ COPY ./jobs/scripts jobs/scripts
 RUN curl -sSL https://sdk.cloud.google.com | bash
 ENV PATH $PATH:/root/google-cloud-sdk/bin
 RUN apt-get update
-RUN apt-get install -y gcc python3-dev python3-setuptools
-RUN pip uninstall crcmod
-RUN pip install --no-cache-dir -U crcmod
+RUN apt-get install -y gcc python3-dev python3-setuptools python3-pip
+RUN pip3 uninstall crcmod
+RUN pip3 install --no-cache-dir -U crcmod
 
 RUN yarn install --frozen-lockfile --production=false || yarn install --frozen-lockfile --production=false || yarn install --frozen-lockfile --production=false
 RUN yarn build
