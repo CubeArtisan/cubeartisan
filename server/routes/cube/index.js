@@ -1,3 +1,5 @@
+import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
+
 import { body, param } from 'express-validator';
 import fetch from 'node-fetch';
 import RSS from 'rss';
@@ -1883,14 +1885,10 @@ export const getDateCubeUpdated = wrapAsyncApi(getDateCubeUpdatedHandler);
 
 const getRecommendationsHandler = async (req, res) => {
   const response = await fetch(
-    `${process.env.FLASKROOT}/?cube_name=${encodeURIComponent(
-      req.params.id,
-    )}&num_recs=${1000}&root=${encodeURIComponent(process.env.SITE_ROOT)}`,
+    `${process.env.FLASKROOT}/?cube_name=${encodeURIComponent(req.params.id)}&num_recs=${1000}`,
   );
   if (!response.ok) {
-    req.logger.error({
-      message: 'Flask server response not OK.',
-    });
+    winston.error('Flask server response not OK.', response);
     return res.status(500).send({
       success: 'false',
       result: {},
