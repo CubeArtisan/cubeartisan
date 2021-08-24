@@ -16,23 +16,13 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { lazy, useContext, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { Col, Nav, NavLink, Row, Card, CardBody } from 'reactstrap';
+import { Col, Nav, NavLink, Row, Card, CardBody, Spinner } from 'reactstrap';
 
-import Averages from '@cubeartisan/client/components/analytics/Averages.js';
-import Chart from '@cubeartisan/client/components/analytics/Chart.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
-import Tokens from '@cubeartisan/client/components/analytics/Tokens.js';
-import Playtest from '@cubeartisan/client/components/analytics/PlaytestData.js';
-import PivotTable from '@cubeartisan/client/components/analytics/PivotTable.js';
-import AnalyticTable from '@cubeartisan/client/components/analytics/AnalyticTable.js';
-import Cloud from '@cubeartisan/client/components/analytics/Cloud.js';
-import HyperGeom from '@cubeartisan/client/components/analytics/HyperGeom.js';
-import Suggestions from '@cubeartisan/client/components/analytics/Suggestions.js';
-import Asfans from '@cubeartisan/client/components/analytics/Asfans.js';
 import FilterCollapse from '@cubeartisan/client/components/FilterCollapse.js';
 import { TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
@@ -59,8 +49,20 @@ import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 import { getLabels, cardIsLabel } from '@cubeartisan/client/utils/Sort.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 
-export const CubeAnalysisPage = ({
+const Averages = lazy(() => import('@cubeartisan/client/components/analytics/Averages.js'));
+const Chart = lazy(() => import('@cubeartisan/client/components/analytics/Chart.js'));
+const Tokens = lazy(() => import('@cubeartisan/client/components/analytics/Tokens.js'));
+const Playtest = lazy(() => import('@cubeartisan/client/components/analytics/PlaytestData.js'));
+const PivotTable = lazy(() => import('@cubeartisan/client/components/analytics/PivotTable.js'));
+const AnalyticTable = lazy(() => import('@cubeartisan/client/components/analytics/AnalyticTable.js'));
+const Cloud = lazy(() => import('@cubeartisan/client/components/analytics/Cloud.js'));
+const HyperGeom = lazy(() => import('@cubeartisan/client/components/analytics/HyperGeom.js'));
+const Suggestions = lazy(() => import('@cubeartisan/client/components/analytics/Suggestions.js'));
+const Asfans = lazy(() => import('@cubeartisan/client/components/analytics/Asfans.js'));
+
+export const CubeAnalyticsPage = ({
   cube,
   cubeID,
   defaultFilterText,
@@ -278,13 +280,7 @@ export const CubeAnalysisPage = ({
 
   async function getData(url = '') {
     // Default options are marked with *
-    const response = await csrfFetch(url, {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        'Content-Type': 'application/json',
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
+    const response = await csrfFetch(url, { method: 'GET' });
     const val = await response.json(); // parses JSON response into native JavaScript objects
     return val.result;
   }
@@ -355,7 +351,11 @@ export const CubeAnalysisPage = ({
                 </Card>
                 <Card>
                   <CardBody>
-                    <ErrorBoundary>{analytics[activeTab].component(cards, cube, adds, cuts, loading)}</ErrorBoundary>
+                    <ErrorBoundary>
+                      <Suspense fallback={<Spinner />}>
+                        {analytics[activeTab].component(cards, cube, adds, cuts, loading)}
+                      </Suspense>
+                    </ErrorBoundary>
                   </CardBody>
                 </Card>
               </Col>
@@ -367,7 +367,7 @@ export const CubeAnalysisPage = ({
   );
 };
 
-CubeAnalysisPage.propTypes = {
+CubeAnalyticsPage.propTypes = {
   cube: CubePropType.isRequired,
   cubeID: PropTypes.string.isRequired,
   defaultFilterText: PropTypes.string,
@@ -378,7 +378,7 @@ CubeAnalysisPage.propTypes = {
   cubeAnalytics: CubeAnalyticPropType.isRequired,
 };
 
-CubeAnalysisPage.defaultProps = {
+CubeAnalyticsPage.defaultProps = {
   defaultFilterText: '',
   defaultTab: 0,
   defaultFormatId: null,
@@ -386,4 +386,4 @@ CubeAnalysisPage.defaultProps = {
   loginCallback: '/',
 };
 
-export default RenderToRoot(CubeAnalysisPage);
+export default RenderToRoot(CubeAnalyticsPage);

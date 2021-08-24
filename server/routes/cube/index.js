@@ -627,7 +627,7 @@ export const viewAnalytics = async (req, res) => {
     return await render(
       req,
       res,
-      'CubeAnalysisPage',
+      'CubeAnalyticsPage',
       {
         cube,
         cubeAnalytics: cubeAnalytics || { cards: [] },

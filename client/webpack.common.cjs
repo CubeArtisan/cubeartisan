@@ -68,7 +68,7 @@ const clientConfig = merge(config, {
     BlogPostPage: './pages/BlogPostPage.js',
     BulkUploadPage: './pages/BulkUploadPage.js',
     CubeSamplePackPage: './pages/CubeSamplePackPage.js',
-    CubeAnalysisPage: './pages/CubeAnalysisPage.js',
+    CubeAnalyticsPage: './pages/CubeAnalyticsPage.js',
     CubeBlogPage: './pages/CubeBlogPage.js',
     CubeComparePage: './pages/CubeComparePage.js',
     CubeDeckPage: './pages/CubeDeckPage.js',
