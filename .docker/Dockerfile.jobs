@@ -1,10 +1,10 @@
-﻿FROM node:16
+FROM node:16
 
 ENV DEBUG=false
 ENV NODE_ENV=production
 
 WORKDIR /CubeArtisan
-RUN mkdir client server markdown jobs
+RUN mkdir client server markdown jobs jobs/private
 COPY ./package.json ./
 COPY ./server/package.json server/package.json
 COPY ./client/package.json client/package.json

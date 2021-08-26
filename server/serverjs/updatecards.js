@@ -884,7 +884,9 @@ const execPromise = async (cmd) =>
   new Promise((resolve) => exec(cmd, (error, stdout, stderr) => resolve([error, stdout, stderr])));
 
 async function downloadCardbase(basePath = './private') {
-  fs.mkdirSync(basePath, { recursive: true });
+  if (!fs.existsSync(basePath)) {
+    fs.mkdirSync(basePath);
+  }
   const [error, stdout, stderr] = await execPromise(`gsutil -m rsync -rd gs://cubeartisan/private ${basePath}`);
   if (error) {
     winston.error('Failed to run command to download card database. Make sure gsutil is available.', error);

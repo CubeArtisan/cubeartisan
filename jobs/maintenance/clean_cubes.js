@@ -31,7 +31,7 @@ const processCube = async (leanCube) => {
 try {
   // eslint-disable-next-line prettier/prettier
   await connectionQ();
-  await carddb.initializeCardDb();
+  await carddb.initializeCardDb('./private', true);
 
   // process all cube objects
   winston.log('Started clean_cubes');

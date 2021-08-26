@@ -22,7 +22,7 @@ const updateEmbeddings = async (names, embeddings) => {
 
 (async () => {
   await connectionQ();
-  await carddb.initializeCardDb('../server/private', true);
+  await carddb.initializeCardDb('./private', true);
   const ratings = await CardRating.find({}, 'name elo embedding').lean();
   for (let i = 0; i < ratings.length; i += BATCH_SIZE) {
     try {
