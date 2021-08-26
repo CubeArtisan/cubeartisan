@@ -501,7 +501,7 @@ const run = async () => {
 
 (async () => {
   await connectionQ();
-  await carddb.initializeCardDb('../server/private', true);
+  await carddb.initializeCardDb('./private', true);
   await run();
   await mongoose.disconnect();
   process.exit();
