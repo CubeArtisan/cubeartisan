@@ -60,7 +60,7 @@ db.once('open', () => {
 });
 // Check for db errors
 db.on('error', (err) => {
-  winston.error(err);
+  winston.error('Error connecting to Mongo.', err);
 });
 
 const store = new MongoDBStore(

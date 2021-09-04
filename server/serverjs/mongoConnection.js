@@ -8,6 +8,8 @@ const queryParams = `replicaSet=${process.env.MONGODB_REPLICASET}`;
 
 export const MONGODB_CONNECTION_STRING = `mongodb://${credentials}${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_DBNAME}?${queryParams}`;
 
+console.log(MONGODB_CONNECTION_STRING);
+
 // Connect db
 export default () =>
   mongoose.connect(MONGODB_CONNECTION_STRING, {
