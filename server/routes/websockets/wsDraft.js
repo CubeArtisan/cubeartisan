@@ -144,7 +144,7 @@ const manageWebsocketDraft = async (socket) => {
       })
       .filter(
         ({ step: { action }, cardsInPack, seatNum }) =>
-          cardsInPack.length > 0 && (action.match(/random/) || draft.seats[seatNum].bot),
+          cardsInPack.length > 0 && (action.match(/random/) || draft.seats[seatNum].bot) && !action.match(/done/),
       );
 
   const { calculateBotPick } = await mtgdraftbotsQ;
@@ -243,7 +243,7 @@ const manageWebsocketDraft = async (socket) => {
     socket.emit('drafterState', drafterState);
     const seatNumbers = draft.seats.filter(({ bot, userid }) => !bot && !userid).map((_, idx) => idx);
     socket.emit('emptySeats', seatNumbers.length);
-    if (drafterState.packNum >= drafterState.numPacks) {
+    if (drafterState.packNum >= drafterState.numPacks || drafterState.step.action === 'done') {
       socket.disconnect(true);
     }
   };

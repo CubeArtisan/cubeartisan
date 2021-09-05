@@ -230,6 +230,10 @@ export const getAllDrafterStates = ({ draft, seatNumber, pickNumber = -1, stepNu
     drafterStates.push({ ...drafterState, step: { action: actions[actionIndex], amount: i - 1 } });
     if (internalState.done) break;
   }
+  if (drafterStates.length >= actions.length) {
+    drafterStates[drafterStates.length - 1].cardsInPack = [];
+    drafterStates[drafterStates.length - 1].step = { action: 'done', amount: 1 };
+  }
   return drafterStates;
 };
 
@@ -325,6 +329,8 @@ export const allBotsDraft = async (draft) => {
           trashorder: [...trashorder, picks[seatIndex]],
         })),
       };
+    } else if (action.match(/done/)) {
+      break;
     } else {
       const errorStr = `Unrecognized action '${action}' in allBotsDraft`;
       console.warn(errorStr);
