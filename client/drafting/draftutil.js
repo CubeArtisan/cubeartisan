@@ -231,8 +231,8 @@ export const getAllDrafterStates = ({ draft, seatNumber, pickNumber = -1, stepNu
     if (internalState.done) break;
   }
   if (drafterStates.length >= actions.length) {
-      drafterStates[drafterStates.length - 1].cardsInPack = [];
-      drafterStates[drafterStates.length - 1].step = { action: 'done', amount: 1 };
+    drafterStates[drafterStates.length - 1].cardsInPack = [];
+    drafterStates[drafterStates.length - 1].step = { action: 'done', amount: 1 };
   }
   return drafterStates;
 };

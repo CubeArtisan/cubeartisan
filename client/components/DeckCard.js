@@ -71,7 +71,7 @@ DeckStacksStatic.propTypes = {
 
 const DeckCard = ({ seat, deck, seatIndex, draft, view }) => {
   const [username] = deck.seats[seatIndex].username.split(':');
-  const draftSeatIndex = draft.seats.findIndex((seat) => seat.name === username);
+  const draftSeatIndex = draft.seats.findIndex(({ name }) => name === username);
   console.log('draftSeatIndex', draftSeatIndex);
   const stackedDeck = seat.deck.slice();
   const stackedSideboard = seat.sideboard.slice();
@@ -179,7 +179,10 @@ const DeckCard = ({ seat, deck, seatIndex, draft, view }) => {
 DeckCard.propTypes = {
   seat: DraftSeatPropType.isRequired,
   view: PropTypes.string,
-  draft: PropTypes.shape({ cards: PropTypes.arrayOf(CardPropType).isRequired }).isRequired,
+  draft: PropTypes.shape({
+    cards: PropTypes.arrayOf(CardPropType).isRequired,
+    seats: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string.isRequired }).isRequired).isRequired,
+  }).isRequired,
   deck: DeckPropType.isRequired,
   seatIndex: PropTypes.string.isRequired,
 };
