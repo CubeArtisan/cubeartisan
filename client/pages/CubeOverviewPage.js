@@ -112,6 +112,8 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
       console.error(response);
     }
   };
+
+  const method = cubeState.isFeatured ? 'DELETE' : 'POST';
   return (
     <MainLayout loginCallback={loginCallback}>
       <CubeLayout cube={cubeState} activeLink="overview">
@@ -255,7 +257,7 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
                   </Row>
                 )}
                 {user?.roles?.includes?.('Admin') && (
-                  <Button color="success" onClick={() => csrfFetch(`/cube/${cubeState._id}/feature`, { method: cubeState.isFeatured ? 'DELETE' : 'POST'})}>
+                  <Button color="success" onClick={() => csrfFetch(`/cube/${cubeState._id}/feature`, { method })}>
                     {' '}
                     {cubeState.isFeatured ? 'Remove from Featured' : 'Add to Featured'}
                   </Button>

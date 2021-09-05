@@ -20,7 +20,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Modal, ModalBody, ModalHeader, Input, Button, ModalFooter } from 'reactstrap';
-import {csrfFetch} from '@cubeartisan/client/utils/CSRF.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 const deleteCube = async (cubeid) => {
   await csrfFetch(`/cube/${cubeid}`, { method: 'DELETE' });
@@ -32,17 +32,17 @@ const DeleteCubeModal = ({ isOpen, toggle, cubeid }) => {
   return (
     <Modal size="lg" isOpen={isOpen} toggle={toggle}>
       <ModalHeader toggle={toggle}>Confirm Cube Delete</ModalHeader>
-        <ModalBody>
-          <p>Are you sure you wish to delete this cube? This action cannot be undone.</p>
-          <p>Please type 'Delete' in order to confirm</p>
-          <Input value={deleteText} onChange={(e) => setDeleteText(e.target.value)} />
-        </ModalBody>
-        <ModalFooter>
+      <ModalBody>
+        <p>Are you sure you wish to delete this cube? This action cannot be undone.</p>
+        <p>Please type 'Delete' in order to confirm</p>
+        <Input value={deleteText} onChange={(e) => setDeleteText(e.target.value)} />
+      </ModalBody>
+      <ModalFooter>
         <Button onClick={() => deleteCube(cubeid)} color="danger" outline disabled={deleteText !== 'Delete'}>
-            Delete
-          </Button>
-          <Button onClick={toggle}>Close</Button>
-        </ModalFooter>
+          Delete
+        </Button>
+        <Button onClick={toggle}>Close</Button>
+      </ModalFooter>
     </Modal>
   );
 };
