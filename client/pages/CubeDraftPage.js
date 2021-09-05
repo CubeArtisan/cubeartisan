@@ -305,7 +305,7 @@ export const CubeDraftPage = ({ cube, draftid, loginCallback }) => {
       sideboard: drafterState.sideboard,
       seatNum: drafterState.seatNum,
       cardsInPack: drafterState.cardsInPack,
-      doneDrafting: drafterState.packNum >= drafterState.numPacks,
+      doneDrafting: drafterState.packNum >= drafterState.numPacks || drafterState.step.action === 'done',
     }),
     [drafterState],
   );

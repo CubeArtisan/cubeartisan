@@ -467,7 +467,7 @@ export const CubePlaytestPage = ({ cube, decks, loginCallback }) => {
     async (event) => {
       const formatIndex = parseInt(event.target.getAttribute('data-index'), 10);
       try {
-        const response = await csrfFetch(`/cube/${cube._id}/defaultformat/${formatIndex}`, {
+        const response = await csrfFetch(`/cube/${cube.shortID}/defaultformat/${formatIndex}`, {
           method: 'PUT',
         });
 
