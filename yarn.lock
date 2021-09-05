@@ -11272,7 +11272,7 @@ text-table@^0.2.0:
 
 "threads@https://github.com/ruler501/threads.js.git#fix-windows":
   version "1.6.5"
-  resolved "https://github.com/ruler501/threads.js.git#d71e7827c4a0f3efe2d602ac4488b99e8c41d0f2"
+  resolved "https://github.com/ruler501/threads.js.git#5c7aafba4e7a86771618240dacaea8ce19aefffe"
   dependencies:
     callsites "^3.1.0"
     debug "^4.2.0"
