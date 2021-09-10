@@ -16,16 +16,15 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import express from 'express';
-import { handleRouteError, redirect, wrapAsyncApi } from '@cubeartisan/server/serverjs/util.js';
-import { csrfProtection, ensureRole } from '@cubeartisan/server/routes/middleware.js';
+import { redirect } from '@cubeartisan/server/serverjs/util.js';
+import { ensureRole, handleRouteError, wrapAsyncApi } from '@cubeartisan/server/routes/middleware.js';
 import { render } from '@cubeartisan/server/serverjs/render.js';
 
 import Blog from '@cubeartisan/server/models/blog.js';
 
 const PAGESIZE = 10;
 
-const browseBlog = async (req, res) => {
+export const browseDevBlog = async (req, res) => {
   try {
     const blogs = await Blog.find({
       dev: 'true',
@@ -52,32 +51,20 @@ const browseBlog = async (req, res) => {
   }
 };
 
-const postToBlog = async (req, res) => {
-  try {
-    const blogpost = new Blog();
-    blogpost.title = req.body.title;
-    blogpost.markdown = req.body.markdown;
-    blogpost.owner = req.user._id;
-    blogpost.date = Date.now();
-    blogpost.dev = 'true';
-    blogpost.date_formatted = blogpost.date.toLocaleString('en-US');
+export const postToDevBlogHandler = async (req, res) => {
+  const blogpost = new Blog();
+  blogpost.title = req.body.title;
+  blogpost.markdown = req.body.markdown;
+  blogpost.owner = req.user._id;
+  blogpost.date = Date.now();
+  blogpost.dev = 'true';
+  blogpost.date_formatted = blogpost.date.toLocaleString('en-US');
 
-    await blogpost.save();
+  await blogpost.save();
 
-    req.flash('success', 'Blog post successful');
-    res.redirect('/dev/blog');
-  } catch (err) {
-    res.status(500).send({
-      success: 'false',
-      message: err,
-    });
-    req.logger.error(err);
-  }
+  req.flash('success', 'Blog post successful');
+  res.redirect('/dev/blog');
 };
+export const postToDevBlog = [ensureRole('admin'), wrapAsyncApi(postToDevBlogHandler)];
 
-const router = express.Router();
-router.use(csrfProtection);
-router.get('/blog', redirect('/dev/blog/0'));
-router.get('/blog/:id', wrapAsyncApi(browseBlog));
-router.post('/blog', ensureRole('admin'), wrapAsyncApi(postToBlog));
-export default router;
+export const redirectToFirstDevBlogPage = redirect('/dev/blog/0');

@@ -8,7 +8,7 @@ const AutocardLink = withAutocard('a');
 const MarkdownCardLink = ({ name, cardID, dfc }) => {
   const idURL = encodeURIComponent(cardID ?? name);
   const details = { image_normal: `/card/${idURL}/image/redirect` };
-  if (dfc) details.image_flip = `/card/${idURL}/flip/image`;
+  if (dfc) details.image_flip = `/card/${idURL}/image/flip`;
 
   return (
     <AutocardLink href={`/card/${idURL}`} card={{ details }} target="_blank" rel="noopener noreferrer">

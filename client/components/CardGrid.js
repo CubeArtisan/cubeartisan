@@ -16,11 +16,13 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
-
 import { Row, Col } from 'reactstrap';
+
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import styled from '@cubeartisan/client/utils/styledHelper.js';
+import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 
 function cardImage(Tag, card, cardProps, linkDetails) {
   const cardTag = <Tag card={card} {...cardProps} />;
@@ -28,13 +30,23 @@ function cardImage(Tag, card, cardProps, linkDetails) {
   return cardTag;
 }
 
+export const FixedCol = styled(Col)`
+  flex: 0 0 ${({ cardsinrow }) => 100 / cardsinrow}%;
+  max-width: ${({ cardsinrow }) => 100 / cardsinrow}%;
+`;
+
 const CardGrid = ({ cardList, Tag, colProps, cardProps, linkDetails, ...props }) => {
+  const { cardsInRow } = useContext(DisplayContext);
   return (
     <Row noGutters className="justify-content-center" {...props}>
       {cardList.map((card, cardIndex) => (
-        <Col key={/* eslint-disable-line react/no-array-index-key */ cardIndex} {...colProps}>
+        <FixedCol
+          key={/* eslint-disable-line react/no-array-index-key */ cardIndex}
+          {...colProps}
+          cardsinrow={cardsInRow}
+        >
           {cardImage(Tag, card, cardProps, linkDetails)}
-        </Col>
+        </FixedCol>
       ))}
     </Row>
   );

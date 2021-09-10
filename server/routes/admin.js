@@ -22,7 +22,7 @@ import mailer from 'nodemailer';
 import path from 'path';
 import Email from 'email-templates';
 import { findUserLinks } from '@cubeartisan/markdown';
-import { ensureRole, csrfProtection } from '@cubeartisan/server/routes/middleware.js';
+import { ensureRole, csrfProtection, handleRouteError } from '@cubeartisan/server/routes/middleware.js';
 import User from '@cubeartisan/server/models/user.js';
 import Report from '@cubeartisan/server/models/report.js';
 import Application from '@cubeartisan/server/models/application.js';
@@ -31,7 +31,7 @@ import Article from '@cubeartisan/server/models/article.js';
 import Video from '@cubeartisan/server/models/video.js';
 import Podcast from '@cubeartisan/server/models/podcast.js';
 import { render } from '@cubeartisan/server/serverjs/render.js';
-import { addMultipleNotifications, addNotification, handleRouteError } from '@cubeartisan/server/serverjs/util.js';
+import { addMultipleNotifications, addNotification } from '@cubeartisan/server/serverjs/util.js';
 
 const ensureAdmin = ensureRole('Admin');
 

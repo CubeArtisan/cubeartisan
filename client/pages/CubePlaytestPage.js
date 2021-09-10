@@ -467,7 +467,7 @@ export const CubePlaytestPage = ({ cube, decks, loginCallback }) => {
     async (event) => {
       const formatIndex = parseInt(event.target.getAttribute('data-index'), 10);
       try {
-        const response = await csrfFetch(`/cube/${cube._id}/defaultformat/${formatIndex}`, {
+        const response = await csrfFetch(`/cube/${cube.shortID}/defaultformat/${formatIndex}`, {
           method: 'PUT',
         });
 
@@ -482,7 +482,7 @@ export const CubePlaytestPage = ({ cube, decks, loginCallback }) => {
         addAlert('danger', 'Failed to set format as default.');
       }
     },
-    [addAlert, cube._id],
+    [addAlert, cube.shortID],
   );
 
   // Sort formats alphabetically.
@@ -569,6 +569,7 @@ CubePlaytestPage.propTypes = {
     cards: PropTypes.arrayOf(PropTypes.object),
     defaultDraftFormat: PropTypes.number,
     _id: PropTypes.string.isRequired,
+    shortID: PropTypes.string.isRequired,
     owner: PropTypes.string.isRequired,
     draft_formats: PropTypes.arrayOf(
       PropTypes.shape({

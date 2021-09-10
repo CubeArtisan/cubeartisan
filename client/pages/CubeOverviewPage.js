@@ -41,7 +41,6 @@ import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import { getCubeId, getCubeDescription } from '@cubeartisan/client/utils/Util.js';
 import BlogPost from '@cubeartisan/client/components/BlogPost.js';
-import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import CubeIdModal from '@cubeartisan/client/components/modals/CubeIdModal.js';
 import CubeOverviewModal from '@cubeartisan/client/components/modals/CubeOverviewModal.js';
 import CubeSettingsModal from '@cubeartisan/client/components/modals/CubeSettingsModal.js';
@@ -113,6 +112,8 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
       console.error(response);
     }
   };
+
+  const method = cubeState.isFeatured ? 'DELETE' : 'POST';
   return (
     <MainLayout loginCallback={loginCallback}>
       <CubeLayout cube={cubeState} activeLink="overview">
@@ -256,17 +257,10 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
                   </Row>
                 )}
                 {user?.roles?.includes?.('Admin') && (
-                  <CSRFForm
-                    method={cubeState.isFeatured ? 'DELETE' : 'POST'}
-                    id="featuredForm"
-                    action={`/cube/${cubeState._id}/feature`}
-                    className="mt-2"
-                  >
-                    <Button color="success" type="submit">
-                      {' '}
-                      {cubeState.isFeatured ? 'Remove from Featured' : 'Add to Featured'}
-                    </Button>
-                  </CSRFForm>
+                  <Button color="success" onClick={() => csrfFetch(`/cube/${cubeState._id}/feature`, { method })}>
+                    {' '}
+                    {cubeState.isFeatured ? 'Remove from Featured' : 'Add to Featured'}
+                  </Button>
                 )}
               </CardBody>
               {user &&

@@ -1,12 +1,18 @@
 import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 
-import { calculateBotPick } from 'mtgdraftbots';
 import seedrandom from 'seedrandom';
 
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import Draft from '@cubeartisan/server/models/draft.js';
-import { convertDrafterState, getDefaultPosition, getDrafterState } from '@cubeartisan/client/drafting/draftutil.js';
+import {
+  convertDrafterState,
+  getDefaultPosition,
+  getDrafterState,
+  initializeMtgDraftbots,
+} from '@cubeartisan/client/drafting/draftutil.js';
 import { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation.js';
+
+const mtgdraftbotsQ = import('mtgdraftbots');
 
 const getSeat = async (draftid, user) => {
   let draft = await Draft.findById(draftid).lean();
@@ -67,7 +73,13 @@ const manageWebsocketDraft = async (socket) => {
   const trashCard = async (draft, cardIndex, seatIndex = seatNumber, changes = {}, drafterState = null) => {
     const fromClient = !drafterState;
     if (!drafterState) {
-      drafterState = getDrafterState({ draft, seatNumber: seatIndex });
+      try {
+        drafterState = getDrafterState({ draft, seatNumber: seatIndex });
+      } catch (err) {
+        winston.error('Failed to get drafterState', err);
+        socket.disconnect();
+        return null;
+      }
     }
     if (!drafterState.cardsInPack.includes(cardIndex)) return null;
     draft.seats[seatIndex].trashorder.push(cardIndex);
@@ -89,7 +101,13 @@ const manageWebsocketDraft = async (socket) => {
   ) => {
     const fromClient = !drafterState;
     if (!drafterState) {
-      drafterState = getDrafterState({ draft, seatNumber: seatIndex });
+      try {
+        drafterState = getDrafterState({ draft, seatNumber: seatIndex });
+      } catch (err) {
+        winston.error('Failed to get drafterState', err);
+        socket.disconnect();
+        return null;
+      }
     }
     if (!drafterState.cardsInPack.includes(cardIndex)) {
       winston.error({
@@ -117,11 +135,20 @@ const manageWebsocketDraft = async (socket) => {
 
   const getAdvanceableDrafterStates = (draft) =>
     draft.seats
-      .map((_, i) => getDrafterState({ draft, seatNumber: i }))
+      .map((_, i) => {
+        try {
+          return getDrafterState({ draft, seatNumber: i });
+        } catch (err) {
+          return { step: {}, cardsInPack: [] };
+        }
+      })
       .filter(
         ({ step: { action }, cardsInPack, seatNum }) =>
-          cardsInPack.length > 0 && (action.match(/random/) || draft.seats[seatNum].bot),
+          cardsInPack.length > 0 && (action.match(/random/) || draft.seats[seatNum].bot) && !action.match(/done/),
       );
+
+  const { calculateBotPick } = await mtgdraftbotsQ;
+  await initializeMtgDraftbots();
 
   advancePack = async (draft, changes = {}) => {
     for (
@@ -192,18 +219,31 @@ const manageWebsocketDraft = async (socket) => {
   socket.on('move card', async (...args) => moveCard(await getDraft(), ...args));
   let stepNumber = -1;
   const updateState = async (draft) => {
-    let drafterState = getDrafterState({ draft, seatNumber });
+    let drafterState;
+    try {
+      drafterState = getDrafterState({ draft, seatNumber });
+    } catch (err) {
+      winston.error('Failed to get drafterState', err);
+      socket.disconnect();
+      return;
+    }
     stepNumber = drafterState.stepNumber;
     const { action } = drafterState.step;
     const doneDrafting = drafterState.packNum >= drafterState.numPacks;
     if (drafterState.stepNumber > stepNumber && action.match(/random/) && !doneDrafting) {
-      [, draft] = await advancePack(draft, seatNumber, {});
-      drafterState = getDrafterState({ draft, seatNumber });
+      [, draft] = await advancePack(draft, {});
+      try {
+        drafterState = getDrafterState({ draft, seatNumber });
+      } catch (err) {
+        winston.error('Failed to get drafterState', err);
+        socket.disconnect();
+        return;
+      }
     }
     socket.emit('drafterState', drafterState);
     const seatNumbers = draft.seats.filter(({ bot, userid }) => !bot && !userid).map((_, idx) => idx);
     socket.emit('emptySeats', seatNumbers.length);
-    if (drafterState.packNum >= drafterState.numPacks) {
+    if (drafterState.packNum >= drafterState.numPacks || drafterState.step.action === 'done') {
       socket.disconnect(true);
     }
   };

@@ -1268,6 +1268,23 @@ thead th.corner[scope=col] {
 	background-color: var(--bg-dark);
 }
 
+@media (min-width: 1152px) {
+	.container, .container-lg, .container-md, .container-sm, .container-xl {
+		max-width: 86.4%;
+	}
+}
+@media (min-width: 2000px) {
+	.container, .container-lg, .container-md, .container-sm, .container-xl {
+		max-width: 1728px;
+	}
+}
+
+@media (max-width: 1152px) {
+	.container, .container-lg, .container-md, .container-sm, .container-xl {
+		max-width: 995px;
+	}
+}
+
 .bg-advert {
 	background-color: var(--bg-advert);
 }

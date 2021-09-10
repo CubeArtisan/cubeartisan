@@ -24,6 +24,7 @@ import https from 'https'; // eslint-disable-line import/no-extraneous-dependenc
 import JSONStream from 'JSONStream';
 import es from 'event-stream';
 import fetch from 'node-fetch';
+import { exec } from 'child_process';
 
 import cardutil from '@cubeartisan/client/utils/Card.js';
 import { binaryInsert, turnToTree } from '@cubeartisan/server/serverjs/util.js';
@@ -879,12 +880,32 @@ async function updateCardbase(ratings, histories, basePath = 'private', defaultP
   await downloadFromScryfall(ratings, histories, basePath, defaultPath, allPath);
 }
 
+const execPromise = async (cmd) =>
+  new Promise((resolve) => exec(cmd, (error, stdout, stderr) => resolve([error, stdout, stderr])));
+
+async function downloadCardbase(basePath = './private') {
+  if (!fs.existsSync(basePath)) {
+    fs.mkdirSync(basePath);
+  }
+  const [error, stdout, stderr] = await execPromise(`gsutil -m rsync -rd gs://cubeartisan/private ${basePath}`);
+  if (error) {
+    winston.error('Failed to run command to download card database. Make sure gsutil is available.', error);
+    return false;
+  }
+  winston.info(stdout);
+  if (stderr) {
+    winston.error(stderr);
+  }
+  return true;
+}
+
 export default {
   initializeCatalog,
   catalog,
   addCardToCatalog,
   addLanguageMapping,
   updateCardbase,
+  downloadCardbase,
   downloadDefaultCards,
   saveAllCards,
   writeCatalog,

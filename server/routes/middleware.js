@@ -30,12 +30,12 @@ export const setCorsUnrestricted = (_req, res, next) => {
 };
 
 export const cacheResponse = (_req, res, next) => {
-  res.set('Cache-Control', 'public, max-age=3600');
+  res.set('Cache-Control', 'public, max-age=3600'); // 1 hour
   next();
 };
 
 export const cacheImmutableResponse = (_req, res, next) => {
-  res.set('Cache-Control', 'public, max-age=3600, immutable');
+  res.set('Cache-Control', 'public, max-age=21600, immutable'); // 6 hours
   next();
 };
 
@@ -151,4 +151,40 @@ export const timeoutMiddleware = (req, res, next) => {
     next(err);
   });
   next();
+};
+
+export const wrapAsyncApi = (route) => {
+  const wrappedAsyncApi = async (req, res, next) => {
+    try {
+      return await route(req, res, next);
+    } catch (err) {
+      req.logger.error(err);
+      try {
+        return res.status(500).send({
+          success: 'false',
+          message: 'Internal server error',
+        });
+      } catch (err2) {
+        return req.logger.error(err2);
+      }
+    }
+  };
+  return wrappedAsyncApi;
+};
+
+export const handleRouteError = (req, res, err, reroute) => {
+  req.logger.error(err);
+  req.flash('danger', err.message);
+  res.redirect(reroute);
+};
+
+export const wrapAsyncPage = (route) => {
+  const wrappedAsyncPage = async (req, res, next) => {
+    try {
+      return await route(req, res, next);
+    } catch (err) {
+      return handleRouteError(req, res, err, '/404');
+    }
+  };
+  return wrappedAsyncPage;
 };

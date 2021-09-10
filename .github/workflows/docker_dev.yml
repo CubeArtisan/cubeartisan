@@ -27,3 +27,12 @@ jobs:
         run: docker login -u $GITHUB_ACTOR -p ${{ secrets.GITHUB_TOKEN }} 'ghcr.io'
       - name: Push to github package registry
         run: docker-compose -f .docker/docker-compose.yml push
+      - name: Trigger deploy
+        run: |
+          curl \
+            -X POST \
+            -H 'Accept: application/vnd.github.v3+json' \
+            -H 'authorization: Bearer ${{ secrets.DEPLOY_TOKEN }}' \
+            -H 'content-type: application/json' \
+            --data '{"event_type": "deploy_staging", "client_payload": { "repository": "'"$REPOSITORY"'", "tag": "'"$TAG"'" }}' \
+            https://api.github.com/repos/CubeArtisan/cubeartisan-infrastructure/dispatches

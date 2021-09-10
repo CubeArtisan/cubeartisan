@@ -4,14 +4,14 @@ ENV DEBUG=false
 ENV NODE_ENV=production
 
 WORKDIR /CubeArtisan
-RUN mkdir client server markdown
+RUN mkdir client server markdown jobs
 COPY ./package.json ./
 COPY ./server/package.json server/package.json
 COPY ./client/package.json client/package.json
 COPY ./markdown/package.json markdown/package.json
+COPY ./jobs/package.json jobs/package.json
 COPY ./yarn.lock ./
 COPY ./.yarnrc.yml ./
-RUN yarn install --frozen-lockfile --production=false || yarn install --frozen-lockfile --production=false || yarn install --frozen-lockfile --production=false
 
 COPY ./server/babel.config.cjs server/babel.config.cjs
 COPY ./server/config   server/config/
@@ -40,6 +40,19 @@ COPY ./markdown/index.js markdown/index.js
 COPY ./markdown/plugins markdown/plugins/
 COPY ./markdown/components markdown/components
 
+COPY ./jobs/babel.config.cjs jobs/babel.config.cjs
+COPY ./jobs/exports jobs/exports
+COPY ./jobs/maintenance jobs/maintenance
+COPY ./jobs/scripts jobs/scripts
+
+RUN curl -sSL https://sdk.cloud.google.com | bash
+ENV PATH $PATH:/root/google-cloud-sdk/bin
+RUN apt-get update
+RUN apt-get install -y gcc python3-dev python3-setuptools python3-pip
+RUN pip3 uninstall crcmod
+RUN pip3 install --no-cache-dir -U crcmod
+
+RUN yarn install --frozen-lockfile --production=false || yarn install --frozen-lockfile --production=false || yarn install --frozen-lockfile --production=false
 RUN yarn build
 RUN yarn install --frozen-lockfile --production=true || yarn install --frozen-lockfile --production=true || yarn install --frozen-lockfile --production=true
 

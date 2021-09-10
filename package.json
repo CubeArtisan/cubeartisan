@@ -5,6 +5,7 @@
   "private": true,
   "workspaces": [
     "client",
+    "jobs",
     "markdown",
     "server"
   ],
@@ -28,10 +29,6 @@
     "lint:loud": "yarn workspaces run lint:loud",
     "nearley": "yarn workspace @cubeartisan/client nearley",
     "nodemon": "yarn workspace @cubeartisan/server nodemon",
-    "run-continuous-jobs": "yarn workspace @cubeartisan/server run-continuous-jobs",
-    "run-daily-jobs": "yarn workspace @cubeartisan/server run-daily-jobs",
-    "run-monthly-jobs": "yarn workspace @cubeartisan/server run-monthly-jobs",
-    "run-weekly-jobs": "yarn workspace @cubeartisan/server run-weekly-jobs",
     "server": "yarn workspace @cubeartisan/server server",
     "start": "yarn webpack-dev-server & yarn nodemon",
     "test": "yarn workspaces run test",

@@ -1,10 +1,9 @@
-server/private/
-server/dist/
-client/dist/
-client/generated/
-server/jobs/export/
-client/coverage/
-server/coverage/
+private/
+dist/
+generated/
+data/
+coverage/
+tmp/
 .webpack_cache/
 *.old
 
@@ -80,7 +79,7 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-server/.env
+.env
 .env.test
 
 # parcel-bundler cache (https://parceljs.org/)
@@ -548,3 +547,4 @@ MigrationBackup/
 
 # End of https://www.gitignore.io/api/node,komodoedit,webstorm+all,visualstudio,visualstudiocode
 push-docker.ps1
+.direnv/

@@ -16,16 +16,15 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import express from 'express';
 import canvas from 'canvas';
 
 import Util from '@cubeartisan/client/utils/Util.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import { buildDeck } from '@cubeartisan/client/drafting/deckutil.js';
 import { render } from '@cubeartisan/server/serverjs/render.js';
-import { addNotification, handleRouteError } from '@cubeartisan/server/serverjs/util.js';
+import { addNotification } from '@cubeartisan/server/serverjs/util.js';
 import generateMeta from '@cubeartisan/server/serverjs/meta.js';
-import { ensureAuth } from '@cubeartisan/server/routes/middleware.js';
+import { ensureAuth, handleRouteError } from '@cubeartisan/server/routes/middleware.js';
 import { abbreviate, addDeckCardAnalytics, removeDeckCardAnalytics } from '@cubeartisan/server/serverjs/cubefn.js';
 import { exportToMtgo, createPool, rotateArrayLeft } from '@cubeartisan/server/routes/cube/helper.js';
 
@@ -39,7 +38,7 @@ import { COLOR_COMBINATIONS } from '@cubeartisan/client/utils/Card.js';
 const { Canvas, Image } = canvas;
 Canvas.Image = Image;
 
-const exportToXmage = async (req, res) => {
+export const exportDeckToXmage = async (req, res) => {
   try {
     const deck = await Deck.findById(req.params.id).lean();
 
@@ -95,7 +94,7 @@ const exportToXmage = async (req, res) => {
   }
 };
 
-const exportToForge = async (req, res) => {
+export const exportDeckToForge = async (req, res) => {
   try {
     const deck = await Deck.findById(req.params.id).lean();
     if (!deck) {
@@ -153,7 +152,7 @@ const exportToForge = async (req, res) => {
   }
 };
 
-const exportToPlaintext = async (req, res) => {
+export const exportDeckToPlaintext = async (req, res) => {
   try {
     const deck = await Deck.findById(req.params.id).lean();
     if (!deck) {
@@ -179,7 +178,7 @@ const exportToPlaintext = async (req, res) => {
   }
 };
 
-const exportForMtgo = async (req, res) => {
+export const exportDeckToMtgo = async (req, res) => {
   try {
     const deck = await Deck.findById(req.params.id).lean();
     if (!deck) {
@@ -193,7 +192,7 @@ const exportForMtgo = async (req, res) => {
   }
 };
 
-const exportToArena = async (req, res) => {
+export const exportDeckToArena = async (req, res) => {
   try {
     const deck = await Deck.findById(req.params.id).lean();
     if (!deck) {
@@ -249,7 +248,7 @@ const exportToArena = async (req, res) => {
   }
 };
 
-const exportToCockatrice = async (req, res) => {
+export const exportDeckToCockatrice = async (req, res) => {
   try {
     const deck = await Deck.findById(req.params.id).lean();
     if (!deck) {
@@ -304,7 +303,7 @@ const exportToCockatrice = async (req, res) => {
   }
 };
 
-const deleteDeck = async (req, res) => {
+const deleteDeckHandler = async (req, res) => {
   try {
     const query = {
       _id: req.params.id,
@@ -329,8 +328,9 @@ const deleteDeck = async (req, res) => {
     });
   }
 };
+export const deleteDeck = [ensureAuth, deleteDeckHandler];
 
-const viewDeckbuilder = async (req, res) => {
+export const viewDeckbuilder = async (req, res) => {
   try {
     const deck = await Deck.findById(req.params.id).lean();
     if (!deck) {
@@ -386,7 +386,7 @@ const viewDeckbuilder = async (req, res) => {
   }
 };
 
-const rebuildDeck = async (req, res) => {
+export const rebuildDeckHandler = async (req, res) => {
   try {
     const index = parseInt(req.params.index, 10);
     const base = await Deck.findById(req.params.id).lean();
@@ -476,8 +476,9 @@ const rebuildDeck = async (req, res) => {
     return handleRouteError(req, res, err, `/404`);
   }
 };
+export const rebuildDeck = [ensureAuth, rebuildDeckHandler];
 
-const updateDeck = async (req, res) => {
+const updateDeckHandler = async (req, res) => {
   try {
     const deck = await Deck.findById(req.params.id);
     const deckOwner = await User.findById(deck.seats[0].userid);
@@ -528,8 +529,9 @@ const updateDeck = async (req, res) => {
     return handleRouteError(req, res, err, '/404');
   }
 };
+export const updateDeck = [ensureAuth, updateDeckHandler];
 
-const redraftDeck = async (req, res) => {
+export const redraftDeck = async (req, res) => {
   try {
     const base = await Deck.findById(req.params.id).lean();
     if (!(base && base.draft)) {
@@ -579,7 +581,7 @@ const redraftDeck = async (req, res) => {
   }
 };
 
-const viewDeck = async (req, res) => {
+export const viewDeck = async (req, res) => {
   try {
     if (!req.params.id || req.params.id === 'null' || req.params.id === 'false') {
       req.flash('danger', 'Invalid deck ID.');
@@ -655,18 +657,3 @@ const viewDeck = async (req, res) => {
     return handleRouteError(req, res, err, '/404');
   }
 };
-
-const router = express.Router();
-router.get('/:id/export/:seat/xmage', exportToXmage);
-router.get('/:id/export/:seat/forge', exportToForge);
-router.get('/:id/export/:seat/plaintext', exportToPlaintext);
-router.get('/:id/export/:seat/mtgo', exportForMtgo);
-router.get('/:id/export/:seat/arena', exportToArena);
-router.get('/:id/export/:seat/cockatrice', exportToCockatrice);
-router.delete('/:id', ensureAuth, deleteDeck);
-router.get('/:id/build', viewDeckbuilder);
-router.get('/:id/rebuild/:index', ensureAuth, rebuildDeck);
-router.post('/:id', ensureAuth, updateDeck);
-router.get('/:id/redraft/:seat', redraftDeck);
-router.get('/:id', viewDeck);
-export default router;
