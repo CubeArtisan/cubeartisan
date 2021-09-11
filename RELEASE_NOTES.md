@@ -88,12 +88,20 @@
  - Update card analytics each night
  - Anonymously export drafts, decks, and cubes weekly.
 
-#### v1.1.1
+#### v1.1.2
 
 ##### Bug Fixes
 
  - Allow editing individual cards in cubes.
  - Allow cloning cubes.
+
+#### v1.1.3
+
+##### Bug Fixes
+
+ - Fix crash caused by invalid P1P1 links.
+ - Make server more resistant to errors.
+ - Prevent Markdown errors from cascading so it doesn't break the OverviewPage.
 
 ## Known Issues
 
