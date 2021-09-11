@@ -88,6 +88,13 @@
  - Update card analytics each night
  - Anonymously export drafts, decks, and cubes weekly.
 
+#### v1.1.1
+
+##### Bug Fixes
+
+ - Allow editing individual cards in cubes.
+ - Allow cloning cubes.
+
 ## Known Issues
 
  - On Firefox Drag and Drop in the DraftPage and the DeckbuilderPage causes the browser to navigate to the image url for the card. 

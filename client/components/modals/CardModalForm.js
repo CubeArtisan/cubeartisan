@@ -142,7 +142,7 @@ const CardModalForm = ({ children, ...props }) => {
 
     try {
       if (!maybe) {
-        const response = await csrfFetch(`/cube//${cubeID}/card/${card._id}`, {
+        const response = await csrfFetch(`/cube/${cubeID}/card/${card._id}`, {
           method: 'PUT',
           body: JSON.stringify({ src: card, updated }),
           headers: {
