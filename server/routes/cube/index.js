@@ -702,7 +702,8 @@ const viewSamplePackImageHandler = async (req, res) => {
         pack = await generatePack(req.params.id, carddb, req.params.seed);
       } catch (err) {
         req.flash('danger', err.message);
-        return res.redirect(`/cube/${encodeURIComponent(req.params.id)}/playtest`);
+        res.redirect(`/cube/${encodeURIComponent(req.params.id)}/playtest`);
+        return null;
       }
 
       const imgScale = 0.9;
@@ -731,6 +732,7 @@ const viewSamplePackImageHandler = async (req, res) => {
       return Buffer.from(image.replace(/^data:image\/png;base64,/, ''), 'base64');
     },
   );
+  if (imageBuffer) return null;
 
   res.writeHead(200, {
     'Content-Type': 'image/png',
