@@ -91,7 +91,9 @@
 #### v1.1.1
 
 ##### Bug Fixes
+
  - Allow editing individual cards in cubes.
+ - Allow cloning cubes.
 
 ## Known Issues
 
