@@ -167,7 +167,7 @@ const cloneCubeHandler = async (req, res) => {
     );
   }
 
-  return res.send({ success: 'true', newCube: `/cube/${cube.shortID}`});
+  return res.send({ success: 'true', newCube: `/cube/${cube.shortID}` });
 };
 export const cloneCube = [ensureAuth, wrapAsyncApi(cloneCubeHandler)];
 
