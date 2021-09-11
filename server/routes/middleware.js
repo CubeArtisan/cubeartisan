@@ -174,8 +174,12 @@ export const wrapAsyncApi = (route) => {
 
 export const handleRouteError = (req, res, err, reroute) => {
   req.logger.error(err);
-  req.flash('danger', err.message);
-  res.redirect(reroute);
+  try {
+    req.flash('danger', err.message);
+    res.redirect(reroute);
+  } catch (err2) {
+    req.logger.error(err2);
+  }
 };
 
 export const wrapAsyncPage = (route) => {
