@@ -63,6 +63,7 @@ import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import { QuestionIcon } from '@primer/octicons-react';
 import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 import styled from '@cubeartisan/client/utils/styledHelper.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 const CustomizeBasicsModalLink = withModal(NavLink, CustomizeBasicsModal);
 
@@ -73,6 +74,16 @@ const GrowingDiv = styled.div`
 const FlexGroup = styled(FormGroup)`
   display: flex;
 `;
+
+const cloneCube = async (cubeID) => {
+  const response = await csrfFetch(`/cube/${cubeID}/clone`, { method: 'POST' });
+  const json = await response.json();
+  if (json.success === 'false') {
+    window.location.href = '/404';
+  } else {
+    window.location.href = json.newCube;
+  }
+};
 
 const PasteBulkModal = ({ isOpen, toggle }) => {
   const { cubeID } = useContext(CubeContext);
@@ -508,7 +519,7 @@ const CubeListNavbar = ({
                   </>
                 )}
                 {/* TODO: Needs to be a POST request. */}
-                <DropdownItem href={`/cube/${cubeID}/clone`}>Clone Cube</DropdownItem>
+                <DropdownItem onClick={() => cloneCube(cubeID)}>Clone Cube</DropdownItem>
                 <DropdownItem href={`/cube/${cubeID}/export/cubecobra?${urlSegment}`}>CubeCobra (.txt)</DropdownItem>
                 <DropdownItem href={`/cube/${cubeID}/export/plaintext?${urlSegment}`}>Card Names (.txt)</DropdownItem>
                 <DropdownItem href={`/cube/${cubeID}/export/csv?${urlSegment}`}>Comma-Separated (.csv)</DropdownItem>

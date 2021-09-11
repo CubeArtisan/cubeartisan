@@ -120,61 +120,56 @@ const createCubeHandler = async (req, res) => {
 export const createCube = [ensureAuth, createCubeHandler];
 
 const cloneCubeHandler = async (req, res) => {
-  try {
-    if (!req.user) {
-      req.flash('danger', 'Please log on to clone this cube.');
-      return res.redirect(303, `/cube/${encodeURIComponent(req.params.id)}/list`);
-    }
-
-    const cubes = await Cube.find({
-      owner: req.user._id,
-    }).lean();
-
-    if (cubes.length >= 48) {
-      req.flash(
-        'danger',
-        'Cannot clone this cube: Users can only have 48 cubes. Please delete one or more cubes to create new cubes.',
-      );
-      return res.redirect(303, `/cube/${encodeURIComponent(req.params.id)}/list`);
-    }
-
-    const source = await Cube.findOne(buildIdQuery(req.params.id)).lean();
-
-    const shortID = await generateShortId();
-    let cube = new Cube();
-    cube.shortID = shortID;
-    cube.name = `Clone of ${source.name}`;
-    cube.owner = req.user._id;
-    cube.cards = source.cards;
-    cube.articles = [];
-    cube.image_uri = source.image_uri;
-    cube.image_name = source.image_name;
-    cube.image_artist = source.image_artist;
-    cube.description = source.description;
-    cube.owner_name = req.user.username;
-    cube.date_updated = Date.now();
-    cube.updated_string = cube.date_updated.toLocaleString('en-US');
-    cube = setCubeType(cube, carddb);
-    await cube.save();
-
-    const sourceOwner = await User.findById(source.owner);
-
-    if (!source.disableNotifications) {
-      await addNotification(
-        sourceOwner,
-        req.user,
-        `/cube/${cube._id}`,
-        `${req.user.username} made a cube by cloning yours: ${cube.name}`,
-      );
-    }
-
-    req.flash('success', 'Cube Cloned');
-    return res.redirect(303, `/cube/${cube.shortID}`);
-  } catch (err) {
-    return handleRouteError(req, res, err, `/cube/${encodeURIComponent(req.params.id)}/list`);
+  if (!req.user) {
+    req.flash('danger', 'Please log on to clone this cube.');
+    return res.send({ success: 'false' });
   }
+
+  const cubes = await Cube.find({
+    owner: req.user._id,
+  }).lean();
+
+  if (cubes.length >= 48) {
+    req.flash(
+      'danger',
+      'Cannot clone this cube: Users can only have 48 cubes. Please delete one or more cubes to create new cubes.',
+    );
+    return res.send({ success: 'false' });
+  }
+
+  const source = await Cube.findOne(buildIdQuery(req.params.id)).lean();
+
+  const shortID = await generateShortId();
+  let cube = new Cube();
+  cube.shortID = shortID;
+  cube.name = `Clone of ${source.name}`;
+  cube.owner = req.user._id;
+  cube.cards = source.cards;
+  cube.articles = [];
+  cube.image_uri = source.image_uri;
+  cube.image_name = source.image_name;
+  cube.image_artist = source.image_artist;
+  cube.description = source.description;
+  cube.owner_name = req.user.username;
+  cube.date_updated = Date.now();
+  cube.updated_string = cube.date_updated.toLocaleString('en-US');
+  cube = setCubeType(cube, carddb);
+  await cube.save();
+
+  const sourceOwner = await User.findById(source.owner);
+
+  if (!source.disableNotifications) {
+    await addNotification(
+      sourceOwner,
+      req.user,
+      `/cube/${cube._id}`,
+      `${req.user.username} made a cube by cloning yours: ${cube.name}`,
+    );
+  }
+
+  return res.send({ success: 'true', newCube: `/cube/${cube.shortID}` });
 };
-export const cloneCube = [ensureAuth, cloneCubeHandler];
+export const cloneCube = [ensureAuth, wrapAsyncApi(cloneCubeHandler)];
 
 const addFormatHandler = async (req, res) => {
   try {
