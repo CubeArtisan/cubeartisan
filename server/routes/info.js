@@ -513,11 +513,15 @@ export const viewStoryPage = (req, res) => {
     content: [
       {
         label: 'Project Goals',
-        text: `The main goal of ${process.env.SITE_NAME} is to create a cube management tool that doesn't need to be supplemented with any other tool such as excel, gatherer, or another cube management app. We want to create a platform that is easy to use, that still has advanced enough features that allow users a high degree of freedom to organize and analyze their cube in a way that makes sense to them. I want to create the best possible platform for users to build, playtest, and share their cube.`,
+        text: `The main goal of ${process.env.SITE_NAME} is to create a cube management tool that doesn't need to be supplemented with any other tool. We want to create a platform that is easy to use most of the time, but also has the most advanced features available to allow analysis and editing of user's cubes to reach a whole new level. We want to create the best possible platform for users to build, playtest, and share their cube.`,
       },
       {
         label: 'Moving Forward',
         text: `${process.env.SITE_NAME} is an ongoing collaborative effort. We have a ton of feature requests, and passionate developers working through to constantly improve the platform. We're have several large, long-term features that are in the pipeline, that we're very excited about. Make sure to follow us on Twitter, and/or Discord to stay up to date on all ${process.env.SITE_NAME} updates.`,
+      },
+      {
+        label: 'Forking From CubeCobra',
+        text: 'This project started as a fork of CubeCobra with a focus on providing powerful tools and transparency that the CubeCobra team was not interested in.',
       },
     ],
   });
