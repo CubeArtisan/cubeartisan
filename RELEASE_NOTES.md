@@ -97,6 +97,18 @@
 
 - Add a note about being a fork of CubeCobra to the Our Story page.
 
+#### v1.1.5
+
+
+##### Features
+
+- Speed up p1p1 image generation.
+
+##### Bug Fixes
+
+- Increase the response timeout time to try and help out p1p1 requests.
+- Fix server crash from error saving a draft.
+
 ## Known Issues
 
 - On Firefox Drag and Drop in the DraftPage and the DeckbuilderPage causes the browser to navigate to the image url for the card. 

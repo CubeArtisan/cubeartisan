@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { addNotification } from '@cubeartisan/server/serverjs/util.js';
+import { addNotification, wrapAsyncApi } from '@cubeartisan/server/serverjs/util.js';
 import { abbreviate, addDeckCardAnalytics, saveDraftAnalytics } from '@cubeartisan/server/serverjs/cubefn.js';
 import generateMeta from '@cubeartisan/server/serverjs/meta.js';
 import Util, { fromEntries, getCubeDescription, toNullableInt } from '@cubeartisan/client/utils/Util.js';
@@ -154,7 +154,7 @@ export const redraftDraft = async (req, res) => {
   }
 };
 
-export const saveDraft = async (req, res) => {
+const saveDraftHandler = async (req, res) => {
   const draft = await Draft.findOne({
     _id: req.body._id,
   });
@@ -165,6 +165,7 @@ export const saveDraft = async (req, res) => {
     success: 'true',
   });
 };
+export const saveDraft = wrapAsyncApi(saveDraftHandler);
 
 export const submitDraft = async (req, res) => {
   try {
