@@ -102,6 +102,7 @@
 ##### Bug Fixes
 
 - Increase the response timeout time to try and help out p1p1 requests.
+- Fix server crash from error saving a draft.
 
 ## Known Issues
 
