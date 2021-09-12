@@ -549,12 +549,13 @@ export const saveDraftAnalytics = async (draft, seatNumber, carddb) => {
 };
 
 const loadImage = async (url) => {
-  return (await axios({ url, responseType: "arraybuffer" })).data
+  return (await axios({ url, responseType: 'arraybuffer' })).data;
 };
 
 export const generateSamplepackImageSharp = async (sources = [], options = {}) => {
-  const imageSources = await Promise.all(sources.map(async (srcObj) => ({ ...srcObj, src: await loadImage(srcObj.src) })));
-  console.log(imageSources);
+  const imageSources = await Promise.all(
+    sources.map(async (srcObj) => ({ ...srcObj, src: await loadImage(srcObj.src) })),
+  );
   return sharp({
     create: {
       width: options.width,
@@ -562,7 +563,10 @@ export const generateSamplepackImageSharp = async (sources = [], options = {}) =
       channels: 3,
       background: { r: 0, g: 0, b: 0 },
     },
-  }).composite(imageSources.map(({ src, x, y }) => ({ input: src, top: y, left: x }))).png().toBuffer();
+  })
+    .composite(imageSources.map(({ src, x, y }) => ({ input: src, top: y, left: x })))
+    .png()
+    .toBuffer();
 };
 
 /*

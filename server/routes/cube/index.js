@@ -4,7 +4,6 @@ import { body, param } from 'express-validator';
 import fetch from 'node-fetch';
 import RSS from 'rss';
 import canvas from 'canvas';
-import sharp from 'sharp';
 
 import { createDraft, getDraftFormat } from '@cubeartisan/client/drafting/createdraft.js';
 import { makeFilter } from '@cubeartisan/client/filtering/FilterCards.js';
@@ -35,7 +34,6 @@ import {
   abbreviate,
   buildIdQuery,
   buildTagColors,
-  cachePromise,
   cardsAreEquivalent,
   compareCubes,
   cubeCardTags,
@@ -704,7 +702,6 @@ const viewSamplePackImageHandler = async (req, res) => {
     return null;
   }
 
-  const imgScale = 0.9;
   const height = Math.floor(Math.sqrt(pack.pack.length));
   const width = Math.ceil(pack.pack.length / height);
 
