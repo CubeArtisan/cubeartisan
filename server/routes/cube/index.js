@@ -4,6 +4,7 @@ import { body, param } from 'express-validator';
 import fetch from 'node-fetch';
 import RSS from 'rss';
 import canvas from 'canvas';
+import sharp from 'sharp';
 
 import { createDraft, getDraftFormat } from '@cubeartisan/client/drafting/createdraft.js';
 import { makeFilter } from '@cubeartisan/client/filtering/FilterCards.js';
@@ -39,7 +40,7 @@ import {
   compareCubes,
   cubeCardTags,
   generatePack,
-  generateSamplepackImage,
+  generateSamplepackImageSharp,
   generateShortId,
   maybeCards,
   setCubeType,
@@ -704,29 +705,22 @@ const viewSamplePackImageHandler = async (req, res) => {
   }
 
   const imgScale = 0.9;
-  // Try to make it roughly 5 times as wide as it is tall in cards.
   const height = Math.floor(Math.sqrt(pack.pack.length));
   const width = Math.ceil(pack.pack.length / height);
 
   const srcArray = pack.pack.map((card, index) => {
     return {
       src: card.imgUrl || card.details.image_normal,
-      x: imgScale * CARD_WIDTH * (index % width),
-      y: imgScale * CARD_HEIGHT * Math.floor(index / width),
-      w: imgScale * CARD_WIDTH,
-      h: imgScale * CARD_HEIGHT,
-      rX: imgScale * 0.065 * CARD_WIDTH,
-      rY: imgScale * 0.0464 * CARD_HEIGHT,
+      x: CARD_WIDTH * (index % width),
+      y: CARD_HEIGHT * Math.floor(index / width),
     };
   });
 
-  const image = await generateSamplepackImage(srcArray, {
-    width: imgScale * CARD_WIDTH * width,
-    height: imgScale * CARD_HEIGHT * height,
+  const imageBuffer = await generateSamplepackImageSharp(srcArray, {
+    width: CARD_WIDTH * width,
+    height: CARD_HEIGHT * height,
     Canvas,
   });
-
-  const imageBuffer = Buffer.from(image.replace(/^data:image\/png;base64,/, ''), 'base64');
 
   res.writeHead(200, {
     'Content-Type': 'image/png',

@@ -99,6 +99,11 @@
 
 #### v1.1.5
 
+
+##### Features
+
+- Speed up p1p1 image generation.
+
 ##### Bug Fixes
 
 - Increase the response timeout time to try and help out p1p1 requests.
