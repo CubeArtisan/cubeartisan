@@ -277,7 +277,7 @@ export const CSVtoCards = (csvString, carddb) => {
         const nonPromo = potentialIds.find(carddb.reasonableId);
         const first = potentialIds[0];
         card.cardID = matchingSetAndNumber || matchingSet || nonPromo || first;
-        if (maybeboard === 'true') {
+        if (maybeboard.toLowerCase() === 'true') {
           newMaybe.push(card);
         } else {
           newCards.push(card);
