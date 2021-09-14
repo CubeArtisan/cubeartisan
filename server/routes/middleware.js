@@ -30,12 +30,12 @@ export const setCorsUnrestricted = (_req, res, next) => {
 };
 
 export const cacheResponse = (_req, res, next) => {
-  res.set('Cache-Control', 'public, max-age=3600'); // 1 hour
+  res.set('Cache-Control', `public, max-age=${1 * 60 * 60}`); // 1 hour
   next();
 };
 
 export const cacheImmutableResponse = (_req, res, next) => {
-  res.set('Cache-Control', 'public, max-age=21600, immutable'); // 6 hours
+  res.set('Cache-Control', `public, max-age=${24 * 60 * 60}, immutable`); // 24 hours
   next();
 };
 
@@ -145,8 +145,8 @@ export const timeoutMiddleware = (req, res, next) => {
     err.status = 408;
     next(err);
   });
-  res.setTimeout(60 * 1000, () => {
-    const err = new Error('Service Unavailable');
+  res.setTimeout(300 * 1000, () => {
+    const err = new Error('Response Timeout');
     err.status = 503;
     next(err);
   });
@@ -174,8 +174,12 @@ export const wrapAsyncApi = (route) => {
 
 export const handleRouteError = (req, res, err, reroute) => {
   req.logger.error(err);
-  req.flash('danger', err.message);
-  res.redirect(reroute);
+  try {
+    req.flash('danger', err.message);
+    res.redirect(reroute);
+  } catch (err2) {
+    req.logger.error(err2);
+  }
 };
 
 export const wrapAsyncPage = (route) => {
