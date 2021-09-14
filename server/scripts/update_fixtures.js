@@ -4,7 +4,7 @@ import carddb from '@cubeartisan/server/serverjs/cards.js';
 import updatecards from '@cubeartisan/server/serverjs/updatecards.js';
 
 const dataPath = 'private';
-const fixturesPath = 'fixtures';
+const fixturesPath = '__tests__/fixtures';
 const cardsPath = path.join(dataPath, 'cards.json');
 const emptyPath = path.join(fixturesPath, 'empty.json');
 const cardsFixturePath = path.join(fixturesPath, 'cards_small.json');
@@ -66,12 +66,13 @@ const err = 1;
   await updatecards.writeCatalog(fixturesPath);
 
   console.log('Writing:', cardsFixturePath);
-  await fs.writeFileSync(cardsFixturePath, JSON.stringify(updatedCards, null, 2));
+  fs.writeFileSync(cardsFixturePath, JSON.stringify(updatedCards, null, 2));
 
   console.log('Writing:', cardsConvertedPath);
-  await fs.writeFileSync(cardsConvertedPath, JSON.stringify(convertedCards, null, 2));
+  fs.writeFileSync(cardsConvertedPath, JSON.stringify(convertedCards, null, 2));
 
-  await fs.writeFileSync(emptyPath, '{}\n');
+  console.log('Writing:', emptyPath);
+  fs.writeFileSync(emptyPath, '{}\n');
 
   // fixExampleCube();
 

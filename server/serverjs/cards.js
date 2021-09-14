@@ -61,6 +61,7 @@ function getPlaceholderCard(_id) {
     artist: '',
     scryfall_uri: '',
     rarity: '',
+    reprint: false,
     legalities: {},
     oracle_text: '',
     image_normal: 'https://img.scryfall.com/errors/missing.jpg',
