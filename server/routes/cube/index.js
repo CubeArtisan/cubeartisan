@@ -1523,7 +1523,7 @@ const updateCardInCubeHandler = async (req, res) => {
     !src ||
     (src && typeof src.index !== 'number') ||
     (updated.cardID && typeof updated.cardID !== 'string') ||
-    (updated.cmc && (typeof updated.cmc !== 'number' || updated.cmc < 0)) ||
+    (updated.cmc && (typeof updated.cmc !== 'number' || updated.cmc < 0 || !Number.isInteger(updated.cmc * 2))) ||
     (updated.status && typeof updated.status !== 'string') ||
     (updated.type_line && typeof updated.type_line !== 'string') ||
     (updated.colors && !Array.isArray(updated.colors)) ||
