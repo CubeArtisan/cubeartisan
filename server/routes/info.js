@@ -521,7 +521,7 @@ export const viewStoryPage = (req, res) => {
       },
       {
         label: 'Forking From CubeCobra',
-        text: 'This project started as a fork of CubeCobra with a focus on providing powerful tools and transparency that the CubeCobra team was not interested in.',
+        text: `${process.env.SITE_NAME} split off from CubeCobra due to creative differences and a desire to focus more on powerful tools and transparency.`,
       },
     ],
   });
@@ -532,12 +532,21 @@ export const viewFaq = (req, res) =>
     title: 'Frequently Asked Questions',
     content: [
       {
-        label: `What does ${process.env.SITE_NAME} provide that other tools do not?`,
+        label: `What do ${process.env.SITE_NAME} and CubeCobra provide that other tools do not?`,
         text:
-          `${process.env.SITE_NAME} offers the most tools catered specifically towards cube construction. The website is powered by Scryfall,` +
+          `${process.env.SITE_NAME} and CubeCobra offer the most tools catered specifically towards cube construction. The websites are powered by Scryfall,` +
           ` which means that newly spoiled cards will be available to use up to 48 hours after being spoiled. The biggest advantage` +
           ` ${process.env.SITE_NAME} has right now is a more modern and maintainable technology stack compared to other tools. This means ${process.env.SITE_NAME}` +
           ` is updated frequently and is committed to adding features that the community asks for.`,
+      },
+      {
+        label: `How does ${process.env.SITE_NAME} differ from CubeCobra?`,
+        text:
+          `CubeCobra offers QR codes for cubes and a patreon integration. It also runs on AWS infrastructure with Elastic Beanstalk.` +
+          ` CubeArtisan provides multiplayer drafting, the latest and greatest draftbots available,` +
+          ` the latest cube recommender, and more. The site also has numerous infrastructure and techincal changes` +
+          ` such as using kubernetes on google cloud to optimize costs and availability to ease development and maintenace. All this is` +
+          ` made public on our GitHub and Discord (see the Aboud menu for links).`,
       },
       {
         label: `What tech stack does ${process.env.SITE_NAME} use?`,
