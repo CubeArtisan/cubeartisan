@@ -44,6 +44,8 @@ const ck = (str) =>
     .replace(/[:,."']/g, '')
     .toLowerCase();
 
+export const nameToDashedUrlComponent = ck;
+
 export const getCardKingdomLink = (card) =>
   `https://www.cardkingdom.com/mtg/${ck(card.details.set_name)}/${ck(card.details.name)}`;
 
