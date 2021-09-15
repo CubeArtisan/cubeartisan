@@ -202,7 +202,7 @@ const CustomDraftCard = ({
           )}
 
           <LabelRow htmlFor={`seats-${index}`} label="Total Seats">
-            <Input type="select" name="seats" id={`seats-${index}`} defaultValue="8">
+            <Input type="select" name="seats" id={`seats-${index}`} defaultValue={format.defaultSeats ?? 8}>
               {rangeOptions(2, 17)}
             </Input>
           </LabelRow>
@@ -258,6 +258,7 @@ CustomDraftCard.propTypes = {
     title: PropTypes.string.isRequired,
     html: PropTypes.string,
     markdown: PropTypes.string,
+    defaultSeats: PropTypes.number,
   }).isRequired,
   onEditFormat: PropTypes.func.isRequired,
   onDeleteFormat: PropTypes.func.isRequired,
@@ -576,6 +577,7 @@ CubePlaytestPage.propTypes = {
         title: PropTypes.string,
         multiples: PropTypes.bool,
         markdown: PropTypes.string.isRequired,
+        defaultSeats: PropTypes.number,
         packs: PropTypes.arrayOf(
           PropTypes.shape({
             slots: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
