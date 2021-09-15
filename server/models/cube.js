@@ -104,6 +104,7 @@ const cubeSchema = mongoose.Schema({
         packs: {
           type: [{ slots: [String], steps: stepsSchema }],
         },
+        defaultSeats: Number,
       },
     ],
     default: [],

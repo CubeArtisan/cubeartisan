@@ -181,6 +181,14 @@ const addFormatHandler = async (req, res) => {
     let message = '';
     const { id, serializedFormat } = req.body;
     const format = JSON.parse(serializedFormat);
+
+    format.defaultSeats = Number.parseInt(format.defaultSeats, 10);
+    if (Number.isNaN(format.defaultSeats)) format.defaultSeats = 8;
+    if (format.defaultSeats < 2 || format.defaultSeats > 16) {
+      req.flash('danger', 'Default seat count must be between 2 and 16');
+      return res.redirect(`/cube/${encodeURIComponent(req.params.id)}/playtest`);
+    }
+
     if (id === '-1') {
       if (!cube.draft_formats) {
         cube.draft_formats = [];
@@ -194,9 +202,9 @@ const addFormatHandler = async (req, res) => {
 
     await cube.save();
     req.flash('success', message);
-    return res.redirect(`/cube/${req.params.id}/playtest`);
+    return res.redirect(`/cube/${encodeURIComponent(req.params.id)}/playtest`);
   } catch (err) {
-    return handleRouteError(req, res, err, `/cube/${req.params.id}/playtest`);
+    return handleRouteError(req, res, err, `/cube/${encodeURIComponent(req.params.id)}/playtest`);
   }
 };
 export const addFormat = [ensureAuth, addFormatHandler];
