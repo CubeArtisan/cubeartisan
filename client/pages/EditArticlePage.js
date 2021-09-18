@@ -97,7 +97,7 @@ export const EditArticlePage = ({ loginCallback, article, siteCustomizations }) 
           </Row>
           <Row>
             <Col xs="6">
-              <CSRFForm method="POST" action={`/article/${article._id}`} autoComplete="off">
+              <CSRFForm method="POST" action={`/creators/article/${article._id}`} autoComplete="off">
                 <Input type="hidden" name="articleid" value={article._id} />
                 <Input type="hidden" name="title" value={title} />
                 <Input type="hidden" name="short" value={short} />
@@ -111,7 +111,7 @@ export const EditArticlePage = ({ loginCallback, article, siteCustomizations }) 
               </CSRFForm>
             </Col>
             <Col xs="6">
-              <CSRFForm method="POST" action={`/article/${article._id}/submit`} autoComplete="off">
+              <CSRFForm method="POST" action={`/creators/article/${article._id}/submit`} autoComplete="off">
                 <Input type="hidden" name="articleid" value={article._id} />
                 <Input type="hidden" name="title" value={title} />
                 <Input type="hidden" name="short" value={short} />
@@ -119,7 +119,7 @@ export const EditArticlePage = ({ loginCallback, article, siteCustomizations }) 
                 <Input type="hidden" name="imagename" value={imageName} />
                 <Input type="hidden" name="artist" value={imageArtist} />
                 <Input type="hidden" name="body" value={body} />
-                <Button type="submit" outline color="success" block>
+                <Button type="submit" color="success" block>
                   Submit for Review
                 </Button>
               </CSRFForm>

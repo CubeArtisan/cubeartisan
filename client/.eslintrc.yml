@@ -10,6 +10,8 @@ parser: '@babel/eslint-parser'
 parserOptions:
   ecmaVersion: 2021
   sourceType: module
+  babelOptions:
+    configFile: '@cubeartisan/client/babel.config.cjs'
 plugins:
   - jest
   - prettier
@@ -19,7 +21,7 @@ plugins:
 settings:
   import/resolver:
     webpack:
-      config: ./webpack.dev.cjs
+      config: 'webpack.dev.cjs'
 rules:
   import/extensions:
     - error

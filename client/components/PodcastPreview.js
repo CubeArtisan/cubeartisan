@@ -29,7 +29,7 @@ const PodcastPreview = ({ podcast }) => {
   const handleClick = useCallback(
     (event) => {
       if (!event.target.getAttribute('data-sublink')) {
-        window.location.href = `/podcast/${podcast._id}`;
+        window.location.href = `/creators/podcast/${podcast._id}`;
       }
     },
     [podcast],

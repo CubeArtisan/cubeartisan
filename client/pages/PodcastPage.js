@@ -39,16 +39,11 @@ export const PodcastPage = ({ loginCallback, podcast, episodes }) => {
         {user && user._id === podcast.owner && (
           <CardHeader>
             <h5>
-              {podcast.status !== 'published' && (
-                <>
-                  <em className="pr-3">*Draft*</em>
-                  <ButtonLink color="success" outline href={`/podcast/${podcast._id}/edit`}>
-                    Edit
-                  </ButtonLink>
-                </>
-              )}
-              {/* TODO: Does this need to be a POST request? */}
-              <ButtonLink color="primary" outline href={`/podcast/${podcast._id}/fetch`}>
+              {podcast.status !== 'published' && <em className="pr-3">*Draft*</em>}
+              <ButtonLink color="success" href={`/creators/podcast/${podcast._id}/edit`}>
+                Edit
+              </ButtonLink>
+              <ButtonLink color="primary" href={`/creators/podcast/${podcast._id}/fetch`}>
                 Fetch Episodes
               </ButtonLink>
             </h5>

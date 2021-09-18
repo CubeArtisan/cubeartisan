@@ -18,7 +18,7 @@
  */
 import React, { useState, useEffect, useContext } from 'react';
 
-import { Navbar, Nav, NavItem, NavLink, Row, Col, CardBody } from 'reactstrap';
+import { Button, Navbar, Nav, NavItem, Row, Col, CardBody } from 'reactstrap';
 
 import LoadingPage from '@cubeartisan/client/pages/LoadingPage.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
@@ -39,7 +39,7 @@ const CreatorArticles = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await csrfFetch(`/articles/${user._id}/${page}`);
+      const response = await csrfFetch(`/user/${user._id}/articles/${page}`);
       if (!response.ok) {
         console.warn(response);
       }
@@ -57,15 +57,16 @@ const CreatorArticles = () => {
     setPage(index);
   };
 
-  // TODO: Rework article creation needs to be a POST request.
   return (
     <>
       <Navbar light expand className="usercontrols mb-3">
         <Nav navbar>
           <NavItem>
-            <NavLink href="/article" className="clickable">
-              Create New Article
-            </NavLink>
+            <form method="POST" action="/creators/article">
+              <Button type="submit" color="primary">
+                Create New Article
+              </Button>
+            </form>
           </NavItem>
         </Nav>
       </Navbar>

@@ -16,19 +16,21 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
+import React, { lazy } from 'react';
 import PropTypes from 'prop-types';
 
-import { Nav, CardHeader, Card, TabContent, TabPane } from 'reactstrap';
+import { Nav, CardHeader, Card, TabContent, TabPane, Spinner } from 'reactstrap';
 
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import Tab from '@cubeartisan/client/components/Tab.js';
-import CreatorArticles from '@cubeartisan/client/components/CreatorArticles.js';
-import CreatorVideos from '@cubeartisan/client/components/CreatorVideos.js';
-import CreatorPodcasts from '@cubeartisan/client/components/CreatorPodcasts.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+
+const CreatorArticles = lazy(() => import('@cubeartisan/client/components/CreatorArticles.js'));
+const CreatorPodcasts = lazy(() => import('@cubeartisan/client/components/CreatorPodcasts.js'));
+const CreatorVideos = lazy(() => import('@cubeartisan/client/components/CreatorVideos.js'));
 
 export const CreatorsPage = ({ loginCallback }) => {
   const [tab, setTab] = useQueryParam('tab', '0');
@@ -53,13 +55,19 @@ export const CreatorsPage = ({ loginCallback }) => {
         <DynamicFlash />
         <TabContent activeTab={tab}>
           <TabPane tabId="0">
-            <CreatorArticles />
+            <Suspense fallback={<Spinner />}>
+              <CreatorArticles />
+            </Suspense>
           </TabPane>
           <TabPane tabId="1">
-            <CreatorPodcasts />
+            <Suspense fallback={<Spinner />}>
+              <CreatorPodcasts />
+            </Suspense>
           </TabPane>
           <TabPane tabId="2">
-            <CreatorVideos />
+            <Suspense fallback={<Spinner />}>
+              <CreatorVideos />
+            </Suspense>
           </TabPane>
         </TabContent>
       </Card>

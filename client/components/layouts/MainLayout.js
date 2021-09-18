@@ -143,9 +143,7 @@ const MainLayout = ({ children, loginCallback }) => {
                       {user.roles && user.roles.includes('Admin') && (
                         <DropdownItem href="/admin/dashboard">Admin Page</DropdownItem>
                       )}
-                      {user.roles && user.roles.includes('ContentCreator') && (
-                        <DropdownItem href="/creators">Content Creator Dashboard</DropdownItem>
-                      )}
+                      <DropdownItem href="/creators/dashboard">Content Creator Dashboard</DropdownItem>
                       <CreateCubeModalLink>Create A New Cube</CreateCubeModalLink>
                       <DropdownItem href={`/user/${user._id}/social`}>Social</DropdownItem>
                       <DropdownItem href={`/user/${user._id}/account`}>Account Information</DropdownItem>
