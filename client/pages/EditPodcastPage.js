@@ -66,7 +66,7 @@ export const EditPodcastPage = ({ loginCallback, podcast }) => {
                 <Input type="hidden" name="podcastid" value={podcast._id} />
                 <Input type="hidden" name="rss" value={rss} />
                 <Button type="submit" outline color="success" block>
-                  Submit for Review
+                  Publish
                 </Button>
               </CSRFForm>
             </Col>

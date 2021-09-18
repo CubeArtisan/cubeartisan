@@ -30,7 +30,7 @@ const ArticlePreview = ({ article }) => {
   const handleClick = useCallback(
     (event) => {
       if (!event.target.getAttribute('data-sublink')) {
-        window.location.href = `/article/${article._id}`;
+        window.location.href = `/creators/article/${article._id}`;
       }
     },
     [article],

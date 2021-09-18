@@ -18,7 +18,7 @@
  */
 import React, { useState, useEffect, useContext } from 'react';
 
-import { Navbar, Nav, NavItem, NavLink, Row, Col, CardBody } from 'reactstrap';
+import { Button, Navbar, Nav, NavItem, Row, Col, CardBody } from 'reactstrap';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import LoadingPage from '@cubeartisan/client/pages/LoadingPage.js';
@@ -39,7 +39,7 @@ const CreatorPodcasts = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await csrfFetch(`/podcasts/${user._id}/${page}`);
+      const response = await csrfFetch(`/user/${user._id}/podcasts/${page}`);
       if (!response.ok) {
         console.warn(response);
       }
@@ -62,9 +62,11 @@ const CreatorPodcasts = () => {
       <Navbar light expand className="usercontrols mb-3">
         <Nav navbar>
           <NavItem>
-            <NavLink href="/podcast" className="clickable">
-              Create New Podcast
-            </NavLink>
+            <form method="POST" action="/creators/podcast">
+              <Button type="submit" color="primary">
+                Create New Podcast
+              </Button>
+            </form>
           </NavItem>
         </Nav>
       </Navbar>

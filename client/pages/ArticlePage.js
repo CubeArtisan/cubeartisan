@@ -36,11 +36,11 @@ export const ArticlePage = ({ loginCallback, article }) => {
     <MainLayout loginCallback={loginCallback}>
       <DynamicFlash />
       <Card className="mb-3">
-        {user && user._id === article.owner && article.status !== 'published' && (
+        {user && user._id === article.owner && (
           <CardHeader>
             <h5>
-              <em className="pr-3">*Draft*</em>
-              <ButtonLink color="success" outline href={`/article/${article._id}/edit`}>
+              {article.status !== 'published' && <em className="pr-3">*Draft*</em>}
+              <ButtonLink color="primary" href={`/creators/article/${article._id}/edit`}>
                 Edit
               </ButtonLink>
             </h5>

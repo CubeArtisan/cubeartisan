@@ -38,7 +38,7 @@ export const PodcastEpisodePage = ({ loginCallback, episode }) => {
         <CardHeader>
           <h1>{episode.title}</h1>
           <h6>
-            From <a href={`/podcast/${episode.podcast}`}>{episode.podcastname}</a>
+            From <a href={`/creators/podcast/${episode.podcast}`}>{episode.podcastname}</a>
             {' - '}
             <TimeAgo date={episode.date} />
           </h6>

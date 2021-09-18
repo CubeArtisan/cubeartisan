@@ -5,8 +5,12 @@
         "baseUrl": "./",
         "paths": {
             "@cubeartisan/server/*": ["./server/*"],
-            "@cubeartisan/client/*": ["./client/*"]
-        }
+            "@cubeartisan/client/*": ["./client/*"],
+            "@cubeartisan/markdown/*": ["./markdown/*"],
+            "@cubeartisan/jobs/*": ["./jobs/*"]
+        },
+        "moduleResolution": "node",
+        "checkJs": false
     },
     "include": ["server/**/*", "client/**/*"]
 }
