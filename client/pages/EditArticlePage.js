@@ -120,7 +120,7 @@ export const EditArticlePage = ({ loginCallback, article, siteCustomizations }) 
                 <Input type="hidden" name="artist" value={imageArtist} />
                 <Input type="hidden" name="body" value={body} />
                 <Button type="submit" color="success" block>
-                  Submit for Review
+                  Publish
                 </Button>
               </CSRFForm>
             </Col>

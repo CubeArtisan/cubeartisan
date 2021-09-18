@@ -124,7 +124,7 @@ export const EditVideoPage = ({ loginCallback, video }) => {
                 <Input type="hidden" name="body" value={body} />
                 <Input type="hidden" name="url" value={url} />
                 <Button type="submit" outline color="success" block>
-                  Submit for Review
+                  Publish
                 </Button>
               </CSRFForm>
             </Col>
