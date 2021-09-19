@@ -1,6 +1,6 @@
 import markdownLineEndingOrSpace from 'micromark/dist/character/markdown-line-ending-or-space.js';
 
-const tokenizeUserlink = (effects, ok, nok) => {
+function tokenizeUserlink(effects, ok, nok) {
   const self = this;
 
   const more = (code) => {
@@ -38,7 +38,7 @@ const tokenizeUserlink = (effects, ok, nok) => {
 
     return nok(code);
   };
-};
+}
 
 const userlink = {
   tokenize: tokenizeUserlink,

@@ -25,13 +25,21 @@ import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
+import ExternalLink from '@cubeartisan/client/components/markdown/ExternalLink.js';
+import MarkdownCardImage from '@cubeartisan/client/components/markdown/MarkdownCardImage.js';
+import MarkdownCardLink from '@cubeartisan/client/components/markdown/MarkdownCardLink.js';
 
 export const MarkdownPage = ({ loginCallback }) => {
   const { siteName } = useContext(SiteCustomizationContext);
   return (
     <MainLayout loginCallback={loginCallback}>
       <DynamicFlash />
-      <MarkdownHelp siteName={siteName} />
+      <MarkdownHelp
+        siteName={siteName}
+        ExternalLink={ExternalLink}
+        CardImage={MarkdownCardImage}
+        CardLink={MarkdownCardLink}
+      />
     </MainLayout>
   );
 };
