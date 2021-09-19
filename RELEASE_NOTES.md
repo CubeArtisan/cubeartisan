@@ -114,6 +114,8 @@
 #### Features
 
  - Update the Info Pages for the site.
+ - Update the content creator system and remove the review requirement.
+ - Better optimize the code sent to the client for faster load times and less data transferred.
  - Have a useful message on the page if javascript is not enabled. Ported from CubeCobra.
  - Add is:reprint and is:firstprint filters. Ported from CubeCobra.
  - Show and and cut counts when editing a cube. Ported from CubeCobra.

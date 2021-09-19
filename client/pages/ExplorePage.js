@@ -27,7 +27,7 @@ import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 
-const CubesCard = '@cubeartisan/client/components/CubesCard.js';
+const CubesCard = lazy(() => import('@cubeartisan/client/components/CubesCard.js'));
 
 export const ExplorePage = ({ recents, featured, drafted, recentlyDrafted, loginCallback }) => {
   return (
