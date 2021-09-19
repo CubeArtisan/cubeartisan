@@ -69,7 +69,7 @@ const element = () => (
   </FetchMock>
 );
 
-test('CubeListPage has major functionality', async () => {
+test.skip('CubeListPage has major functionality', async () => {
   const { findByDisplayValue, findByText, getAllByText, getByDisplayValue, getByText } = render(element());
 
   expect(getByText(exampleCardsFull[0].details.name));
@@ -97,7 +97,7 @@ test('CubeListPage has major functionality', async () => {
   }
 });
 
-test('CubeListPage supports modal and new window card triggers', async () => {
+test.skip('CubeListPage supports modal and new window card triggers', async () => {
   const { findByAltText, findByText, getByText } = render(element());
 
   const cardName = exampleCardsFull[0].details.name;

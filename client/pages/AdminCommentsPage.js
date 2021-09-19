@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
+import React, { lazy } from 'react';
 import PropTypes from 'prop-types';
 import CommentPropType from '@cubeartisan/client/proptypes/CommentPropType.js';
 
@@ -26,7 +26,9 @@ import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import Paginate from '@cubeartisan/client/components/Paginate.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
-import Comment from '@cubeartisan/client/components/Comment.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+
+const Comment = lazy(() => import('@cubeartisan/client/components/Comment.js'));
 
 const PAGE_SIZE = 24;
 
@@ -52,9 +54,11 @@ export const AdminCommentsPage = ({ loginCallback, comments, count, page }) => {
             <h6>{`Displaying all ${count} Comments`}</h6>
           )}
         </CardHeader>
-        {comments.map((comment) => (
-          <Comment comment={comment} index={0} noReplies editComment={() => {}} />
-        ))}
+        <Suspense>
+          {comments.map((comment) => (
+            <Comment comment={comment} index={0} noReplies editComment={() => {}} />
+          ))}
+        </Suspense>
       </Card>
     </MainLayout>
   );

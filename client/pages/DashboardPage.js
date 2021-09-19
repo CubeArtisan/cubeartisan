@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useContext } from 'react';
+import React, { lazy, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card, Col, Row, CardHeader, CardBody, CardFooter } from 'reactstrap';
 
@@ -24,19 +24,21 @@ import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import CubePreview from '@cubeartisan/client/components/CubePreview.js';
-import ArticlePreview from '@cubeartisan/client/components/ArticlePreview.js';
-import DeckPreview from '@cubeartisan/client/components/DeckPreview.js';
-import VideoPreview from '@cubeartisan/client/components/VideoPreview.js';
-import PodcastEpisodePreview from '@cubeartisan/client/components/PodcastEpisodePreview.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
-import CreateCubeModal from '@cubeartisan/client/components/modals/CreateCubeModal.js';
-import Feed from '@cubeartisan/client/components/Feed.js';
-import CubesCard from '@cubeartisan/client/components/CubesCard.js';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+
+const CreateCubeModal = lazy(() => import('@cubeartisan/client/components/modals/CreateCubeModal.js'));
+const CubesCard = lazy(() => import('@cubeartisan/client/components/CubesCard.js'));
+const Feed = lazy(() => import('@cubeartisan/client/components/Feed.js'));
+const CubePreview = lazy(() => import('@cubeartisan/client/components/CubePreview.js'));
+const ArticlePreview = lazy(() => import('@cubeartisan/client/components/ArticlePreview.js'));
+const DeckPreview = lazy(() => import('@cubeartisan/client/components/DeckPreview.js'));
+const VideoPreview = lazy(() => import('@cubeartisan/client/components/VideoPreview.js'));
+const PodcastEpisodePreview = lazy(() => import('@cubeartisan/client/components/PodcastEpisodePreview.js'));
 
 const CreateCubeModalButton = withModal(Button, CreateCubeModal);
 
@@ -68,36 +70,50 @@ export const DashboardPage = ({ posts, cubes, decks, loginCallback, content, fea
               <h5>Your Cubes</h5>
             </CardHeader>
             <CardBody className="p-0">
-              <Row className="no-gutters">
-                {cubes.length > 0 ? (
-                  cubes.slice(0, 4).map((cube) => (
-                    <Col key={cube._id} xs="12" sm="12" md="12" lg="6">
-                      <CubePreview cube={cube} />
-                    </Col>
-                  ))
-                ) : (
-                  <p className="m-2">
-                    You don't have any cubes.{' '}
-                    <CreateCubeModalButton color="success">Add a new cube?</CreateCubeModalButton>
-                  </p>
-                )}
-              </Row>
+              <Suspense>
+                <Row className="no-gutters">
+                  {cubes.length > 0 ? (
+                    cubes.slice(0, 4).map((cube) => (
+                      <Col key={cube._id} xs="12" sm="12" md="12" lg="6">
+                        <CubePreview cube={cube} />
+                      </Col>
+                    ))
+                  ) : (
+                    <p className="m-2">
+                      You don't have any cubes.{' '}
+                      <CreateCubeModalButton color="success">Add a new cube?</CreateCubeModalButton>
+                    </p>
+                  )}
+                </Row>
+              </Suspense>
             </CardBody>
             {featuredPosition !== 'left' && (
               <CardFooter>{cubes.length > 2 && <a href={`/user/${cubes[0].owner}`}>View All</a>}</CardFooter>
             )}
           </Card>
-          {featuredPosition === 'left' && <CubesCard title="Featured Cubes" cubes={featured} lean />}
+          {featuredPosition === 'left' && (
+            <Suspense>
+              <CubesCard title="Featured Cubes" cubes={featured} lean />
+            </Suspense>
+          )}
         </Col>
         <Col xs="12" md="6">
-          {featuredPosition === 'right' && <CubesCard className="mb-4" title="Featured Cubes" cubes={featured} lean />}
+          {featuredPosition === 'right' && (
+            <Suspense>
+              <CubesCard className="mb-4" title="Featured Cubes" cubes={featured} lean />
+            </Suspense>
+          )}
           <Card>
             <CardHeader>
               <h5>Recent Drafts of Your Cubes</h5>
             </CardHeader>
             <CardBody className="p-0">
               {decks.length > 0 ? (
-                filteredDecks.map((deck) => <DeckPreview key={deck._id} deck={deck} nextURL="/dashboard" canEdit />)
+                filteredDecks.map((deck) => (
+                  <Suspense>
+                    <DeckPreview key={deck._id} deck={deck} nextURL="/dashboard" canEdit />
+                  </Suspense>
+                ))
               ) : (
                 <p className="m-2">
                   Nobody has drafted your cubes! Perhaps try reaching out on the{' '}
@@ -114,7 +130,9 @@ export const DashboardPage = ({ posts, cubes, decks, loginCallback, content, fea
       <Row>
         <Col xs="12" md="8">
           <h5 className="mt-3">Feed</h5>
-          <Feed items={posts} />
+          <Suspense>
+            <Feed items={posts} />
+          </Suspense>
         </Col>
         <Col className="d-none d-md-block mt-3" md="4">
           <Row>
@@ -130,13 +148,15 @@ export const DashboardPage = ({ posts, cubes, decks, loginCallback, content, fea
                 </Col>
               </Row>
             </Col>
-            {content.map((item) => (
-              <Col className="mb-3" xs="12">
-                {item.type === 'article' && <ArticlePreview article={item.content} />}
-                {item.type === 'video' && <VideoPreview video={item.content} />}
-                {item.type === 'episode' && <PodcastEpisodePreview episode={item.content} />}
-              </Col>
-            ))}
+            <Suspense>
+              {content.map((item) => (
+                <Col className="mb-3" xs="12">
+                  {item.type === 'article' && <ArticlePreview article={item.content} />}
+                  {item.type === 'video' && <VideoPreview video={item.content} />}
+                  {item.type === 'episode' && <PodcastEpisodePreview episode={item.content} />}
+                </Col>
+              ))}
+            </Suspense>
           </Row>
         </Col>
       </Row>

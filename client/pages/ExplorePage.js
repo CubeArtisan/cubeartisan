@@ -16,16 +16,18 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
+import React, { lazy } from 'react';
 import PropTypes from 'prop-types';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
-
 import { Col, Row } from 'reactstrap';
-import CubesCard from '@cubeartisan/client/components/CubesCard.js';
+
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import CubeSearchNavBar from '@cubeartisan/client/components/CubeSearchNavBar.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+
+const CubesCard = lazy(() => import('@cubeartisan/client/components/CubesCard.js'));
 
 export const ExplorePage = ({ recents, featured, drafted, recentlyDrafted, loginCallback }) => {
   return (
@@ -33,14 +35,16 @@ export const ExplorePage = ({ recents, featured, drafted, recentlyDrafted, login
       <CubeSearchNavBar />
       <DynamicFlash />
       <Row>
-        <Col lg={6} md={6} sm={12} xs={12}>
-          <CubesCard title="Featured Cubes" className="mt-4" cubes={featured} />
-          <CubesCard title="Recently Updated Cubes" className="mt-4" cubes={recents} />
-        </Col>
-        <Col lg={6} md={6} sm={12} xs={12}>
-          <CubesCard title="Most Drafted Cubes" className="mt-4" cubes={drafted} />
-          <CubesCard title="Recently Drafted Cubes" className="mt-4" cubes={recentlyDrafted} />
-        </Col>
+        <Suspense>
+          <Col lg={6} md={6} sm={12} xs={12}>
+            <CubesCard title="Featured Cubes" className="mt-4" cubes={featured} />
+            <CubesCard title="Recently Updated Cubes" className="mt-4" cubes={recents} />
+          </Col>
+          <Col lg={6} md={6} sm={12} xs={12}>
+            <CubesCard title="Most Drafted Cubes" className="mt-4" cubes={drafted} />
+            <CubesCard title="Recently Drafted Cubes" className="mt-4" cubes={recentlyDrafted} />
+          </Col>
+        </Suspense>
       </Row>
     </MainLayout>
   );

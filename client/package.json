@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "build": "yarn build:base --mode production --config webpack.prod.cjs",
-    "build:base": "export NODE_OPTIONS=--max_old_space_size=8192 && yarn nearley && webpack",
+    "build:base": "export NODE_OPTIONS=--max_old_space_size=4096 && yarn nearley && webpack",
     "build:dev": "yarn build:base --mode development --config webpack.dev.cjs",
     "lint": "eslint --quiet `yarn --silent list-files`",
     "lint:fix": "eslint --fix `yarn --silent list-files`",
