@@ -18,7 +18,6 @@
  */
 import React, { useCallback, useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-
 import {
   Button,
   Col,
@@ -40,7 +39,6 @@ import {
 } from 'reactstrap';
 
 import Query from '@cubeartisan/client/utils/Query.js';
-
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';

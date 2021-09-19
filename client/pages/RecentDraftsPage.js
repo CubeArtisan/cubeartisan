@@ -16,17 +16,18 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
+import React, { lazy } from 'react';
 import PropTypes from 'prop-types';
-import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
+import { Card, Col, Row, CardHeader, CardBody, CardFooter } from 'reactstrap';
 
-import DeckPreview from '@cubeartisan/client/components/DeckPreview.js';
+import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 import Paginate from '@cubeartisan/client/components/Paginate.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 
-import { Card, Col, Row, CardHeader, CardBody, CardFooter } from 'reactstrap';
+const DeckPreview = lazy(() => import('@cubeartisan/client/components/DeckPreview.js'));
 
 const PER_PAGE = 30;
 
@@ -52,14 +53,16 @@ export const RecentDraftsPage = ({ decks, currentPage, totalPages, count, loginC
             )}
           </CardHeader>
           <CardBody className="p-0">
-            {decks.length > 0 ? (
-              decks.map((deck) => <DeckPreview key={deck._id} deck={deck} nextURL="/dashboard" canEdit />)
-            ) : (
-              <p className="m-2">
-                Nobody has drafted your cubes! Perhaps try reaching out on the{' '}
-                <a href="https://discord.gg/Hn39bCU">Discord draft exchange?</a>
-              </p>
-            )}
+            <Suspense>
+              {decks.length > 0 ? (
+                decks.map((deck) => <DeckPreview key={deck._id} deck={deck} nextURL="/dashboard" canEdit />)
+              ) : (
+                <p className="m-2">
+                  Nobody has drafted your cubes! Perhaps try reaching out on the{' '}
+                  <a href="https://discord.gg/Hn39bCU">Discord draft exchange?</a>
+                </p>
+              )}
+            </Suspense>
           </CardBody>
           <CardFooter>
             <Paginate count={totalPages} active={currentPage} urlF={(i) => `/dashboard/decks/${i}`} />

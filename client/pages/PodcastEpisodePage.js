@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
+import React, { lazy } from 'react';
 import PropTypes from 'prop-types';
 import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType.js';
 
@@ -26,9 +26,11 @@ import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox.js';
-import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
 import ReactAudioPlayer from 'react-audio-player';
 import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+
+const CommentsSection = lazy(() => import('@cubeartisan/client/components/CommentsSection.js'));
 
 export const PodcastEpisodePage = ({ loginCallback, episode }) => {
   return (
@@ -57,7 +59,9 @@ export const PodcastEpisodePage = ({ loginCallback, episode }) => {
           </Col>
         </Row>
         <div className="border-top">
-          <CommentsSection parentType="episode" parent={episode._id} collapse={false} />
+          <Suspense>
+            <CommentsSection parentType="episode" parent={episode._id} collapse={false} />
+          </Suspense>
         </div>
       </Card>
     </MainLayout>

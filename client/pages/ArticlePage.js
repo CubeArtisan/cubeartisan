@@ -16,18 +16,20 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useContext } from 'react';
+import React, { lazy, useContext } from 'react';
 import PropTypes from 'prop-types';
-import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType.js';
 
 import { CardHeader, Card } from 'reactstrap';
 
+import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import Article from '@cubeartisan/client/components/Article.js';
 import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+
+const Article = lazy(() => import('@cubeartisan/client/components/Article.js'));
 
 export const ArticlePage = ({ loginCallback, article }) => {
   const user = useContext(UserContext);
@@ -46,7 +48,9 @@ export const ArticlePage = ({ loginCallback, article }) => {
             </h5>
           </CardHeader>
         )}
-        <Article article={article} />
+        <Suspense>
+          <Article article={article} />
+        </Suspense>
       </Card>
     </MainLayout>
   );

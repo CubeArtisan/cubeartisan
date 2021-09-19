@@ -16,17 +16,19 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
+import React, { lazy } from 'react';
 import PropTypes from 'prop-types';
 
 import { CardHeader, Card, Row, Col } from 'reactstrap';
 
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import PodcastPreview from '@cubeartisan/client/components/PodcastPreview.js';
 import Paginate from '@cubeartisan/client/components/Paginate.js';
-import PodcastEpisodePreview from '@cubeartisan/client/components/PodcastEpisodePreview.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+
+const PodcastPreview = lazy(() => import('@cubeartisan/client/components/PodcastPreview.js'));
+const PodcastEpisodePreview = lazy(() => import('@cubeartisan/client/components/PodcastEpisodePreview.js'));
 
 const PAGE_SIZE = 24;
 
@@ -38,21 +40,25 @@ export const PodcastsPage = ({ loginCallback, podcasts, episodes, count, page })
         <h5>Podcasts</h5>
       </CardHeader>
       <Row>
-        {podcasts.map((podcast) => (
-          <Col xs="12" sm="6" lg="3">
-            <PodcastPreview podcast={podcast} />
-          </Col>
-        ))}
+        <Suspense>
+          {podcasts.map((podcast) => (
+            <Col xs="12" sm="6" lg="3">
+              <PodcastPreview podcast={podcast} />
+            </Col>
+          ))}
+        </Suspense>
       </Row>
     </Card>
     <h4>Podcast Episodes</h4>
     <DynamicFlash />
     <Row>
-      {episodes.map((episode) => (
-        <Col className="mb-3" xs="12" sm="6" lg="4">
-          <PodcastEpisodePreview episode={episode} />
-        </Col>
-      ))}
+      <Suspense>
+        {episodes.map((episode) => (
+          <Col className="mb-3" xs="12" sm="6" lg="4">
+            <PodcastEpisodePreview episode={episode} />
+          </Col>
+        ))}
+      </Suspense>
     </Row>
     {count > PAGE_SIZE && (
       <Paginate count={Math.ceil(count / PAGE_SIZE)} active={parseInt(page, 10)} urlF={(i) => `/podcasts/${i}`} />

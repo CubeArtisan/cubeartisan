@@ -16,17 +16,19 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
+import React, { lazy } from 'react';
 import PropTypes from 'prop-types';
-import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType.js';
 
 import { Row, Col } from 'reactstrap';
 
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import ArticlePreview from '@cubeartisan/client/components/ArticlePreview.js';
+import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType.js';
 import Paginate from '@cubeartisan/client/components/Paginate.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+
+const ArticlePreview = lazy(() => import('@cubeartisan/client/components/ArticlePreview.js'));
 
 const PAGE_SIZE = 24;
 
@@ -35,11 +37,13 @@ export const ArticlesPage = ({ loginCallback, articles, count, page }) => (
     <DynamicFlash />
     <h4>Articles</h4>
     <Row>
-      {articles.map((article) => (
-        <Col className="mb-3" xs="12" sm="6" lg="4">
-          <ArticlePreview article={article} />
-        </Col>
-      ))}
+      <Suspense>
+        {articles.map((article) => (
+          <Col className="mb-3" xs="12" sm="6" lg="4">
+            <ArticlePreview article={article} />
+          </Col>
+        ))}
+      </Suspense>
     </Row>
     {count > PAGE_SIZE && (
       <Paginate count={Math.ceil(count / PAGE_SIZE)} active={parseInt(page, 10)} urlF={(i) => `/articles/${i}`} />

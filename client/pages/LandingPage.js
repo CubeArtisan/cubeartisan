@@ -16,8 +16,8 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-
 import { Row, Col, Button } from 'reactstrap';
 
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
@@ -25,7 +25,6 @@ import Footer from '@cubeartisan/client/components/layouts/Footer.js';
 import LoginModal from '@cubeartisan/client/components/modals/LoginModal.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import CardSearchBar from '@cubeartisan/client/components/CardSearchBar.js';
-import React, { useContext } from 'react';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 
