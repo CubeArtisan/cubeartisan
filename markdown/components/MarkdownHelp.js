@@ -841,4 +841,7 @@ MarkdownHelp.propTypes = {
   CardImage: PropTypes.oneOfType([PropTypes.func, PropTypes.string]).isRequired,
   ExternalLink: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 };
+MarkdownHelp.defaultProps = {
+  ExternalLink: 'a',
+};
 export default MarkdownHelp;
