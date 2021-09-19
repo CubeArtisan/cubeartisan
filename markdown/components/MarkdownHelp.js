@@ -23,7 +23,7 @@ import { Card, CardHeader, Row, Col, CardBody } from 'reactstrap';
 
 import Markdown from '@cubeartisan/markdown/components/Markdown.js';
 
-export const MarkdownHelp = ({ siteName }) => (
+export const MarkdownHelp = ({ siteName, CardLink, CardImage, ExternalLink }) => (
   <Card className="my-3 mx-4">
     <CardHeader>
       <h4>Markdown Guide</h4>
@@ -95,7 +95,7 @@ export const MarkdownHelp = ({ siteName }) => (
           <Card>
             <CardHeader>Result</CardHeader>
             <CardBody>
-              <Markdown markdown="[[Ambush Viper]]" />
+              <Markdown markdown="[[Ambush Viper]]" CardLink={CardLink} CardImage={CardImage} ExternalLink={ExternalLink} />
             </CardBody>
           </Card>
         </Col>
@@ -127,9 +127,9 @@ export const MarkdownHelp = ({ siteName }) => (
           <Card>
             <CardHeader>Result</CardHeader>
             <CardBody>
-              <Markdown
+              <Markdown CardLink={CardLink} CardImage={CardImage} ExternalLink={ExternalLink}
                 markdown={
-                  '[[Old Border Mystic Snake|f098a28c-5f9b-4a2c-b109-c342365eb948]]\n[[New Borer Mystic Snake|38810fe4-dc72-439e-adf7-362af772b8f8]]'
+                  '[[Old Border Mystic Snake|f098a28c-5f9b-4a2c-b109-c342365eb948]]\n[[New Border Mystic Snake|38810fe4-dc72-439e-adf7-362af772b8f8]]'
                 }
               />
             </CardBody>
@@ -158,7 +158,7 @@ export const MarkdownHelp = ({ siteName }) => (
           <Card>
             <CardHeader>Result</CardHeader>
             <CardBody>
-              <Markdown
+              <Markdown CardLink={CardLink} CardImage={CardImage} ExternalLink={ExternalLink}
                 markdown={'[[/Delver of Secrets]]\n[[/Delver of Secrets|28059d09-2c7d-4c61-af55-8942107a7c1f]]'}
               />
             </CardBody>
@@ -183,7 +183,7 @@ export const MarkdownHelp = ({ siteName }) => (
           <Card>
             <CardHeader>Result</CardHeader>
             <CardBody>
-              <Markdown markdown="[[!Hexdrinker]]" />
+              <Markdown markdown="[[!Hexdrinker]]" CardLink={CardLink} CardImage={CardImage} ExternalLink={ExternalLink} />
             </CardBody>
           </Card>
         </Col>
@@ -205,7 +205,7 @@ export const MarkdownHelp = ({ siteName }) => (
           <Card>
             <CardHeader>Result</CardHeader>
             <CardBody>
-              <Markdown markdown="[[!/Delver of Secrets]]" />
+              <Markdown markdown="[[!/Delver of Secrets]]" CardLink={CardLink} CardImage={CardImage} ExternalLink={ExternalLink} />
             </CardBody>
           </Card>
         </Col>
@@ -230,7 +230,7 @@ export const MarkdownHelp = ({ siteName }) => (
           <Card>
             <CardHeader>Result</CardHeader>
             <CardBody>
-              <Markdown markdown="[[!Hexdrinker]][[!Lotus Cobra]][[!Snake]]" />
+              <Markdown markdown="[[!Hexdrinker]][[!Lotus Cobra]][[!Snake]]" CardLink={CardLink} CardImage={CardImage} ExternalLink={ExternalLink} />
             </CardBody>
           </Card>
         </Col>
@@ -251,7 +251,7 @@ export const MarkdownHelp = ({ siteName }) => (
           <Card>
             <CardHeader>Result</CardHeader>
             <CardBody>
-              <Markdown markdown="<<[[!Hexdrinker]][[!Lotus Cobra]][[!Snake]]>>" />
+              <Markdown markdown="<<[[!Hexdrinker]][[!Lotus Cobra]][[!Snake]]>>" CardLink={CardLink} CardImage={CardImage} ExternalLink={ExternalLink} />
             </CardBody>
           </Card>
         </Col>
@@ -276,7 +276,7 @@ export const MarkdownHelp = ({ siteName }) => (
           <Card>
             <CardHeader>Result</CardHeader>
             <CardBody>
-              <Markdown markdown="{W}{U}{B}{R}{G}" />
+              <Markdown markdown="{W}{U}{B}{R}{G}" CardLink={CardLink} CardImage={CardImage} ExternalLink={ExternalLink} />
             </CardBody>
           </Card>
         </Col>
@@ -298,7 +298,7 @@ export const MarkdownHelp = ({ siteName }) => (
           <Card>
             <CardHeader>Result</CardHeader>
             <CardBody>
-              <Markdown markdown="{W/U}{G/U}{B/R}{R/W}{B/G}" />
+              <Markdown markdown="{W/U}{G/U}{B/R}{R/W}{B/G}" CardLink={CardLink} CardImage={CardImage} ExternalLink={ExternalLink} />
             </CardBody>
           </Card>
         </Col>
@@ -322,7 +322,7 @@ export const MarkdownHelp = ({ siteName }) => (
           <Card>
             <CardHeader>Result</CardHeader>
             <CardBody>
-              <Markdown markdown={'{2/W}{2/U}{2/B}{2/R}{2/G}\n{W/P}{U/P}{B/P}{R/P}{G/P}\n'} />
+              <Markdown markdown={'{2/W}{2/U}{2/B}{2/R}{2/G}\n{W/P}{U/P}{B/P}{R/P}{G/P}\n'} CardLink={CardLink} CardImage={CardImage} ExternalLink={ExternalLink} />
             </CardBody>
           </Card>
         </Col>
@@ -344,7 +344,7 @@ export const MarkdownHelp = ({ siteName }) => (
           <Card>
             <CardHeader>Result</CardHeader>
             <CardBody>
-              <Markdown markdown="{e}{T}{q}{s}{X}{Y}{15}" />
+              <Markdown markdown="{e}{T}{q}{s}{X}{Y}{15}" CardLink={CardLink} CardImage={CardImage} ExternalLink={ExternalLink} />
             </CardBody>
           </Card>
         </Col>
@@ -369,7 +369,7 @@ export const MarkdownHelp = ({ siteName }) => (
           <Card>
             <CardHeader>Result</CardHeader>
             <CardBody>
-              <Markdown markdown="This suggestion was made by @dekkaru" />
+              <Markdown markdown="This suggestion was made by @dekkaru" CardLink={CardLink} CardImage={CardImage} ExternalLink={ExternalLink} />
             </CardBody>
           </Card>
         </Col>
@@ -397,7 +397,7 @@ export const MarkdownHelp = ({ siteName }) => (
           <Card>
             <CardHeader>Result</CardHeader>
             <CardBody>
-              <Markdown markdown={'Some inline latex here $\\frac{\\sum_{i=1}^N x_i}{N}$ text after'} />
+              <Markdown markdown={'Some inline latex here $\\frac{\\sum_{i=1}^N x_i}{N}$ text after'} CardLink={CardLink} CardImage={CardImage} ExternalLink={ExternalLink} />
             </CardBody>
           </Card>
         </Col>
@@ -422,7 +422,7 @@ export const MarkdownHelp = ({ siteName }) => (
           <Card>
             <CardHeader>Result</CardHeader>
             <CardBody>
-              <Markdown markdown={'$$\n\\frac{\\sum_{i=1}^N x_i}{N}\n$$'} />
+              <Markdown markdown={'$$\n\\frac{\\sum_{i=1}^N x_i}{N}\n$$'} CardLink={CardLink} CardImage={CardImage} ExternalLink={ExternalLink} />
             </CardBody>
           </Card>
         </Col>
@@ -446,9 +446,9 @@ export const MarkdownHelp = ({ siteName }) => (
           <Card>
             <CardHeader>Result</CardHeader>
             <CardBody>
-              <Markdown markdown={'> $\\frac{\\sum_{i=1}^N x_i}{N}$'} />
+              <Markdown markdown={'> $\\frac{\\sum_{i=1}^N x_i}{N}$'} CardLink={CardLink} CardImage={CardImage} ExternalLink={ExternalLink} />
               <br />
-              <Markdown markdown={'### $\\frac{\\sum_{i=1}^N x_i}{N}$'} />
+              <Markdown markdown={'### $\\frac{\\sum_{i=1}^N x_i}{N}$'} CardLink={CardLink} CardImage={CardImage} ExternalLink={ExternalLink} />
             </CardBody>
           </Card>
         </Col>
@@ -472,7 +472,7 @@ export const MarkdownHelp = ({ siteName }) => (
           <Card>
             <CardHeader>Result</CardHeader>
             <CardBody>
-              <Markdown markdown="~~This text is strikethrough~~" />
+              <Markdown markdown="~~This text is strikethrough~~" CardLink={CardLink} CardImage={CardImage} ExternalLink={ExternalLink} />
             </CardBody>
           </Card>
         </Col>
@@ -496,7 +496,7 @@ export const MarkdownHelp = ({ siteName }) => (
           <Card>
             <CardHeader>Result</CardHeader>
             <CardBody>
-              <Markdown markdown=">>> This text is centered <<<" />
+              <Markdown markdown=">>> This text is centered <<<" CardLink={CardLink} CardImage={CardImage} ExternalLink={ExternalLink} />
             </CardBody>
           </Card>
         </Col>
@@ -521,7 +521,7 @@ export const MarkdownHelp = ({ siteName }) => (
           <Card>
             <CardHeader>Result</CardHeader>
             <CardBody>
-              <Markdown markdown=">>> Centered Card: [[!Hexdrinker]] <<<" />
+              <Markdown markdown=">>> Centered Card: [[!Hexdrinker]] <<<" CardLink={CardLink} CardImage={CardImage} ExternalLink={ExternalLink} />
             </CardBody>
           </Card>
         </Col>
@@ -545,7 +545,7 @@ export const MarkdownHelp = ({ siteName }) => (
           <Card>
             <CardHeader>Result</CardHeader>
             <CardBody>
-              <Markdown markdown={`>>>\n#### Centered heading\n<<<`} />
+              <Markdown markdown={`>>>\n#### Centered heading\n<<<`} CardLink={CardLink} CardImage={CardImage} ExternalLink={ExternalLink} />
             </CardBody>
           </Card>
         </Col>
@@ -572,7 +572,7 @@ export const MarkdownHelp = ({ siteName }) => (
           <Card>
             <CardHeader>Result</CardHeader>
             <CardBody>
-              <Markdown markdown={`>>>\nCentered paragraph\nspanning\nmultiple\nlines\n<<<`} />
+              <Markdown markdown={`>>>\nCentered paragraph\nspanning\nmultiple\nlines\n<<<`} CardLink={CardLink} CardImage={CardImage} ExternalLink={ExternalLink} />
             </CardBody>
           </Card>
         </Col>
@@ -603,7 +603,7 @@ export const MarkdownHelp = ({ siteName }) => (
           <Card>
             <CardHeader>Result</CardHeader>
             <CardBody>
-              <Markdown markdown={'| W | U | B | R | G |\n|---|---|---|---|---|\n| 15| 7 | 12| 35| 0 |'} />
+              <Markdown markdown={'| W | U | B | R | G |\n|---|---|---|---|---|\n| 15| 7 | 12| 35| 0 |'} CardLink={CardLink} CardImage={CardImage} ExternalLink={ExternalLink} />
             </CardBody>
           </Card>
         </Col>
@@ -634,7 +634,7 @@ export const MarkdownHelp = ({ siteName }) => (
           <Card>
             <CardHeader>Result</CardHeader>
             <CardBody>
-              <Markdown
+              <Markdown CardLink={CardLink} CardImage={CardImage} ExternalLink={ExternalLink}
                 markdown={
                   '| Left align | Center align | Right align |\n| :--------- | :----------: | ----------: |\n|Aligned left|Aligned center|Aligned right|\n|{W}{U}{B}{R}|[[Hexdrinker]]| *emphasized*|'
                 }
@@ -670,7 +670,7 @@ export const MarkdownHelp = ({ siteName }) => (
           <Card>
             <CardHeader>Result</CardHeader>
             <CardBody>
-              <Markdown
+              <Markdown CardLink={CardLink} CardImage={CardImage} ExternalLink={ExternalLink}
                 markdown={
                   '- [x] Completed item.\n- [ ] Not completed item.\n  - [x] Task lists can be nested.\n\n1. [x] Numbered task.\n2. [ ] Unfinished numbered task.'
                 }
@@ -710,7 +710,7 @@ export const MarkdownHelp = ({ siteName }) => (
           <Card>
             <CardHeader>Result</CardHeader>
             <CardBody>
-              <Markdown markdown={'```js\nconst x = { a: b+1 };\nconsole.log(this);\n```'} />
+              <Markdown markdown={'```js\nconst x = { a: b+1 };\nconsole.log(this);\n```'} CardLink={CardLink} CardImage={CardImage} ExternalLink={ExternalLink} />
             </CardBody>
           </Card>
         </Col>

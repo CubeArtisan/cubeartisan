@@ -94,7 +94,7 @@ const tokenizeCardrow = (effects, ok, nok) => {
   };
 
   return (code) => {
-    if (code === 60) {
+    if (code !== 60) {
       throw new Error('expected `<`');
     }
     effects.enter('cardrow');
