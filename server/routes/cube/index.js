@@ -728,7 +728,7 @@ const viewSamplePackImageHandler = async (req, res) => {
   });
 
   res.writeHead(200, {
-    'Content-Type': 'image/png',
+    'Content-Type': 'image/webp',
   });
   return res.end(imageBuffer);
 };
