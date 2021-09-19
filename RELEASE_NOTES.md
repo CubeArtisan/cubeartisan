@@ -116,6 +116,7 @@
  - Update the Info Pages for the site.
  - Update the content creator system and remove the review requirement.
  - Better optimize the code sent to the client for faster load times and less data transferred.
+ - Significantly optimize the images created for p1p1.
  - Have a useful message on the page if javascript is not enabled. Ported from CubeCobra.
  - Add is:reprint and is:firstprint filters. Ported from CubeCobra.
  - Show and and cut counts when editing a cube. Ported from CubeCobra.
@@ -123,6 +124,7 @@
 
 #### Bug Fixes
 
+ - Fix occasional error when rendering markdown.
  - Handle excel formatting maybeboard values as TRUE not true. Ported from CubeCobra.
  - Fix mass editing CMC values and display errors better. Ported from CubeCobra.
  - Correctly escape card urls. Ported from CubeCobra.
