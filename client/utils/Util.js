@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-export function arraysEqual(a, b) {
+export const arraysEqual = (a, b) => {
   if (a === b) return true;
   if (!Array.isArray(a) || !Array.isArray(b)) return false;
   if (a.length !== b.length) return false;
@@ -25,15 +25,15 @@ export function arraysEqual(a, b) {
     if (a[i] !== b[i]) return false;
   }
   return true;
-}
+};
 
-export function arrayRotate(arr, reverse) {
+export const arrayRotate = (arr, reverse) => {
   if (reverse) arr.unshift(arr.pop());
   else arr.push(arr.shift());
   return arr;
-}
+};
 
-export function arrayShuffle(array) {
+export const arrayShuffle = (array) => {
   let currentIndex = array.length;
   let temporaryValue;
   let randomIndex;
@@ -51,29 +51,29 @@ export function arrayShuffle(array) {
   }
 
   return array;
-}
+};
 
-export function arrayMove(arr, oldIndex, newIndex) {
+export const arrayMove = (arr, oldIndex, newIndex) => {
   const result = Array.from(arr);
   const [element] = result.splice(oldIndex, 1);
   result.splice(newIndex, 0, element);
   return result;
-}
+};
 
-export function arrayDelete(arr, index) {
+export const arrayDelete = (arr, index) => {
   const result = Array.from(arr);
   result.splice(index, 1);
   return result;
-}
+};
 
-export function arrayIsSubset(needles, haystack, comparison) {
+export const arrayIsSubset = (needles, haystack, comparison) => {
   if (comparison) {
     return needles.every((elem) => haystack.some((elem2) => comparison(elem, elem2)));
   }
   return needles.every((x) => haystack.includes(x));
-}
+};
 
-export function arraysAreEqualSets(a1, a2, comparison) {
+export const arraysAreEqualSets = (a1, a2, comparison) => {
   if (a1.length !== a2.length) {
     return false;
   }
@@ -86,28 +86,20 @@ export function arraysAreEqualSets(a1, a2, comparison) {
   const set1 = new Set(a1);
   const set2 = new Set(a2);
   return a1.every((x) => set2.has(x)) && a2.every((x) => set1.has(x));
-}
+};
 
-export function randomElement(array) {
+export const randomElement = (array) => {
   const randomIndex = Math.floor(Math.random() * array.length);
   return array[randomIndex];
-}
+};
 
-export function fromEntries(entries) {
-  const obj = {};
-  for (const [k, v] of entries) {
-    obj[k] = v;
-  }
-  return obj;
-}
-
-export function alphaCompare(a, b) {
+export const alphaCompare = (a, b) => {
   const textA = a.details.name.toUpperCase();
   const textB = b.details.name.toUpperCase();
   return textA.localeCompare(textB);
-}
+};
 
-export function cmcColumn(card) {
+export const cmcColumn = (card) => {
   let cmc = Object.prototype.hasOwnProperty.call(card, 'cmc') ? card.cmc : card.details.cmc;
   // double equals also handles undefined
   if (cmc == null) {
@@ -126,7 +118,7 @@ export function cmcColumn(card) {
     cmcInt = 7;
   }
   return cmcInt;
-}
+};
 
 function sortInto(card, result) {
   const typeLine = (card.type_line || card.details.type).toLowerCase();
@@ -139,7 +131,7 @@ function sortInto(card, result) {
   }
 }
 
-export function sortDeck(deck) {
+export const sortDeck = (deck) => {
   const result = [new Array(8).fill([]), new Array(8).fill([])];
   for (const item of deck) {
     if (Array.isArray(item)) {
@@ -151,7 +143,7 @@ export function sortDeck(deck) {
     }
   }
   return result;
-}
+};
 
 export const COLORS = [
   ['White', 'W'],
@@ -185,11 +177,11 @@ export function isTouchDevice() {
   return mq(query);
 }
 
-export function getCubeId(cube) {
+export const getCubeId = (cube) => {
   return cube.shortID || cube._id;
-}
+};
 
-export function getCubeDescription(cube) {
+export const getCubeDescription = (cube) => {
   if (cube.overrideCategory) {
     const overridePrefixes =
       cube.categoryPrefixes && cube.categoryPrefixes.length > 0 ? `${cube.categoryPrefixes.join(' ')} ` : '';
@@ -197,23 +189,23 @@ export function getCubeDescription(cube) {
   }
 
   return `${cube.card_count} Card ${cube.type} Cube`;
-}
+};
 
-export function isInternalURL(to) {
+export const isInternalURL = (to) => {
   try {
     const url = new URL(to, window.location.origin);
     return url.hostname === window.location.hostname;
   } catch {
     return false;
   }
-}
+};
 
-export function toNullableInt(str) {
+export const toNullableInt = (str) => {
   const val = parseInt(str, 10);
   return Number.isInteger(val) ? val : null;
-}
+};
 
-export function isSamePageURL(to) {
+export const isSamePageURL = (to) => {
   try {
     const url = new URL(to, window.location.href);
     return (
@@ -224,25 +216,41 @@ export function isSamePageURL(to) {
   } catch {
     return false;
   }
-}
+};
+
+export const isObject = (obj) => obj && typeof object === 'object';
+
+export const areDeepEqual = (obj1, obj2) => {
+  if (isObject(obj1) && isObject(obj2)) {
+    const keys1 = Object.keys(obj1);
+    const keys2 = Object.keys(obj2);
+    if (keys1.length !== keys2.length) return false;
+    for (const key of keys1) {
+      if (!keys2.includes(key) || !areDeepEqual(obj1[key], obj2[key])) return false;
+    }
+    return true;
+  }
+  return obj1 === obj2;
+};
 
 export default {
-  arraysEqual,
-  arrayRotate,
-  arrayShuffle,
-  arrayMove,
+  COLORS,
+  alphaCompare,
+  areDeepEqual,
   arrayDelete,
   arrayIsSubset,
+  arrayMove,
+  arrayRotate,
+  arrayShuffle,
   arraysAreEqualSets,
-  randomElement,
-  fromEntries,
-  alphaCompare,
+  arraysEqual,
   cmcColumn,
-  sortDeck,
-  COLORS,
-  getCubeId,
   getCubeDescription,
+  getCubeId,
   isInternalURL,
-  toNullableInt,
+  isObject,
   isSamePageURL,
+  randomElement,
+  sortDeck,
+  toNullableInt,
 };

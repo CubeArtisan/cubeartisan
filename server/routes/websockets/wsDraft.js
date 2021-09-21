@@ -11,6 +11,7 @@ import {
   initializeMtgDraftbots,
 } from '@cubeartisan/client/drafting/draftutil.js';
 import { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation.js';
+import { areDeepEqual } from '@cubeartisan/client/utils/Util';
 
 const mtgdraftbotsQ = import('mtgdraftbots');
 
@@ -218,6 +219,7 @@ const manageWebsocketDraft = async (socket) => {
   socket.on('trash card', async (...args) => trashCard(await getDraft(), ...args));
   socket.on('move card', async (...args) => moveCard(await getDraft(), ...args));
   let stepNumber = -1;
+  let prevState = null;
   const updateState = async (draft) => {
     let drafterState;
     try {
@@ -230,21 +232,24 @@ const manageWebsocketDraft = async (socket) => {
     stepNumber = drafterState.stepNumber;
     const { action } = drafterState.step;
     const doneDrafting = drafterState.packNum >= drafterState.numPacks;
-    if (drafterState.stepNumber > stepNumber && action.match(/random/) && !doneDrafting) {
-      [, draft] = await advancePack(draft, {});
-      try {
-        drafterState = getDrafterState({ draft, seatNumber });
-      } catch (err) {
-        winston.error('Failed to get drafterState', err);
-        socket.disconnect();
-        return;
-      }
-    }
-    socket.emit('drafterState', drafterState);
     const seatNumbers = draft.seats.filter(({ bot, userid }) => !bot && !userid).map((_, idx) => idx);
     socket.emit('emptySeats', seatNumbers.length);
-    if (drafterState.packNum >= drafterState.numPacks || drafterState.step.action === 'done') {
-      socket.disconnect(true);
+    if (!prevState || !areDeepEqual(drafterState, prevState)) {
+      if (drafterState.stepNumber > stepNumber && action.match(/random/) && !doneDrafting) {
+        [, draft] = await advancePack(draft, {});
+        try {
+          drafterState = getDrafterState({ draft, seatNumber });
+        } catch (err) {
+          winston.error('Failed to get drafterState', err);
+          socket.disconnect();
+          return;
+        }
+      }
+      prevState = drafterState;
+      socket.emit('drafterState', drafterState);
+      if (drafterState.packNum >= drafterState.numPacks || drafterState.step.action === 'done') {
+        socket.disconnect(true);
+      }
     }
   };
 
