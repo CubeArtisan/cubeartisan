@@ -11,7 +11,7 @@ import {
   initializeMtgDraftbots,
 } from '@cubeartisan/client/drafting/draftutil.js';
 import { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation.js';
-import { areDeepEqual } from '@cubeartisan/client/utils/Util';
+import { areDeepEqual } from '@cubeartisan/client/utils/Util.js';
 
 const mtgdraftbotsQ = import('mtgdraftbots');
 
