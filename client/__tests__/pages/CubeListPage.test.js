@@ -4,7 +4,6 @@ import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect.js';
 
 import CubeListPage from '@cubeartisan/client/pages/CubeListPage.js';
-import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 import exampleCube from '@cubeartisan/client/__tests__/fixtures/examplecube.js';
 import exampleCardsFull from '@cubeartisan/client/__tests__/fixtures/examplecardsdetails.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
@@ -31,7 +30,7 @@ const element = () => (
         matcher: '/cards/versions',
         response: {
           success: 'true',
-          dict: fromEntries(
+          dict: Object.fromEntries(
             exampleCardsFull.map((card) => [
               card.cardID,
               [

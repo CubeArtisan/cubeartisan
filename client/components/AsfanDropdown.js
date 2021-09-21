@@ -22,7 +22,6 @@ import { Col, DropdownItem, DropdownMenu, DropdownToggle, Form, Label, Row, Unco
 
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import { calculateAsfans } from '@cubeartisan/client/drafting/createdraft.js';
-import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 
 const AsfanDropdown = ({ cube, defaultFormatId, setAsfans }) => {
   const [draftFormat, setDraftFormat] = useQueryParam('formatId', null);
@@ -48,10 +47,10 @@ const AsfanDropdown = ({ cube, defaultFormatId, setAsfans }) => {
         setAsfans(asfans);
       } catch (e) {
         console.error('Invalid Draft Format', draftFormat, cube.draft_formats[draftFormat], e);
-        setAsfans(fromEntries(cube.cards.map((card) => [card.cardID, 0])));
+        setAsfans(Object.fromEntries(cube.cards.map((card) => [card.cardID, 0])));
       }
     } else {
-      setAsfans(fromEntries(cube.cards.map((card) => [card.cardID, 1])));
+      setAsfans(Object.fromEntries(cube.cards.map((card) => [card.cardID, 1])));
     }
   }, [cube, draftFormat, setAsfans]);
 

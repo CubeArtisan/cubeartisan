@@ -23,7 +23,6 @@ import { CSVLink } from 'react-csv';
 
 import HeaderCell from '@cubeartisan/client/components/HeaderCell.js';
 import useSortableData from '@cubeartisan/client/hooks/UseSortableData.js';
-import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 
 export const valueRenderer = (value) => {
   if (!Number.isFinite(value) || Number.isInteger(value)) {
@@ -42,7 +41,7 @@ export const SortableTable = ({ data, defaultSortConfig, sortFns, columnProps, t
   const exportData = useMemo(
     () =>
       data.map((row) =>
-        fromEntries(
+        Object.fromEntries(
           Object.entries(row).map(([key, value]) => {
             if (value?.exportValue) {
               return [key, value?.exportValue];

@@ -37,7 +37,7 @@ import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import CustomPackCard from '@cubeartisan/client/components/CustomPackCard.js';
 import TextEntry from '@cubeartisan/client/components/TextEntry.js';
-import { fromEntries, toNullableInt } from '@cubeartisan/client/utils/Util.js';
+import { toNullableInt } from '@cubeartisan/client/utils/Util.js';
 
 export const DEFAULT_PACK = Object.freeze({ slots: [''], steps: null });
 
@@ -189,7 +189,7 @@ const CustomDraftFormatModal = ({ isOpen, toggle, formatIndex, format, setFormat
       [setFormat, mutation],
     );
   // eslint-disable-next-line
-  const mutations = fromEntries(Object.entries(MUTATIONS).map(([name, mutation]) => [name, useMutateFormat(mutation)]));
+  const mutations = Object.fromEntries(Object.entries(MUTATIONS).map(([name, mutation]) => [name, useMutateFormat(mutation)]));
   const { cubeID } = useContext(CubeContext);
 
   const errorsInFormat = useMemo(() => getErrorsInFormat(format), [format]);

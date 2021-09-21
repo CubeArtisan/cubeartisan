@@ -23,7 +23,6 @@ import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { Button, Row, Col, Modal, ModalBody, ModalFooter, ModalHeader, Input, Card } from 'reactstrap';
 
 import { buildDeck } from '@cubeartisan/client/drafting/deckutil.js';
-import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 
 const MAX_BASICS = 21;
 
@@ -38,7 +37,7 @@ const BasicsModal = ({ isOpen, toggle, addBasics, deck, basics, cards }) => {
 
   const calculateBasics = useCallback(async () => {
     const { deck: newDeck } = await buildDeck(cards, deck, basics);
-    const basicIds = fromEntries(basics.map((ci, idx) => [ci, idx]));
+    const basicIds = Object.fromEntries(basics.map((ci, idx) => [ci, idx]));
 
     const newCounts = basics.map(() => 0);
 
