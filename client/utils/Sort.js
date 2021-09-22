@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { alphaCompare, arrayIsSubset, fromEntries } from '@cubeartisan/client/utils/Util.js';
+import { alphaCompare, arrayIsSubset } from '@cubeartisan/client/utils/Util.js';
 import {
   cardColorIdentity,
   cardDevotion,
@@ -762,7 +762,7 @@ export function sortGroupsOrdered(cards, sort, showOther) {
 }
 
 export function sortIntoGroups(cards, sort, showOther) {
-  return fromEntries(sortGroupsOrdered(cards, sort, showOther));
+  return Object.fromEntries(sortGroupsOrdered(cards, sort, showOther));
 }
 
 export function sortDeep(cards, showOther, last, ...sorts) {

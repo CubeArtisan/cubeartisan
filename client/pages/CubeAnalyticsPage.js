@@ -46,7 +46,6 @@ import {
 } from '@cubeartisan/client/utils/Card.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
-import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 import { getLabels, cardIsLabel } from '@cubeartisan/client/utils/Sort.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
@@ -86,7 +85,7 @@ export const CubeAnalyticsPage = ({
     return (filter ? cube.cards.filter(filter) : cube.cards).map((card) => ({ ...card, asfan: asfans[card.cardID] }));
   }, [asfans, cube, filter]);
 
-  const cardAnalyticsDict = fromEntries(
+  const cardAnalyticsDict = Object.fromEntries(
     cubeAnalytics.cards.map((cardAnalytic) => [cardAnalytic.cardName, cardAnalytic]),
   );
 

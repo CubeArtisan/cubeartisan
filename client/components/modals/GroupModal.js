@@ -41,7 +41,7 @@ import PropTypes from 'prop-types';
 import styled from '@cubeartisan/client/utils/styledHelper.js';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
-import { arrayMove, fromEntries } from '@cubeartisan/client/utils/Util.js';
+import { arrayMove } from '@cubeartisan/client/utils/Util.js';
 import { cardPrice, cardFoilPrice, cardPriceEur, cardTix } from '@cubeartisan/client/utils/Card.js';
 import AutocardListItem from '@cubeartisan/client/components/AutocardListItem.js';
 import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';
@@ -59,7 +59,7 @@ const DEFAULT_FORM_VALUES = {
   finish: '',
   cmc: '',
   type_line: '',
-  ...fromEntries(Array.from('WUBRGC', (c) => [`color${c}`, false])),
+  ...Object.fromEntries(Array.from('WUBRGC', (c) => [`color${c}`, false])),
   addTags: true,
   deleteTags: false,
   tags: [],

@@ -37,7 +37,6 @@ import {
 import styled from '@cubeartisan/client/utils/styledHelper.js';
 
 import { makeFilter } from '@cubeartisan/client/filtering/FilterCards.js';
-import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 import { ColorChecksAddon, ColorChecksControl } from '@cubeartisan/client/components/ColorCheck.js';
 import LoadingButton from '@cubeartisan/client/components/LoadingButton.js';
 import TextField from '@cubeartisan/client/components/TextField.js';
@@ -420,10 +419,10 @@ const FilterCollapse = ({ filter, setFilter, numCards, numShown, defaultFilterTe
   const [advancedOpen, toggleAdvancedOpen, , closeAdvanced] = useToggle(false);
   const [filterInput, setFilterInput] = useQueryParam('filter', defaultFilterText ?? '');
   const [values, setValues] = useState({
-    ...fromEntries(allFields.map((n) => [n, ''])),
-    ...fromEntries(numFields.map((n) => [`${n}Op`, '='])),
-    ...fromEntries(colorFields.map((n) => [`${n}Op`, '='])),
-    ...fromEntries(colorFields.flatMap((n) => Array.from('WUBRG', (c) => [n + c, false]))),
+    ...Object.fromEntries(allFields.map((n) => [n, ''])),
+    ...Object.fromEntries(numFields.map((n) => [`${n}Op`, '='])),
+    ...Object.fromEntries(colorFields.map((n) => [`${n}Op`, '='])),
+    ...Object.fromEntries(colorFields.flatMap((n) => Array.from('WUBRG', (c) => [n + c, false]))),
     typeQuick: '',
     cmcQuick: '',
     cmcQuickOp: '<=',

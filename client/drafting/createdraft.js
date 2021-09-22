@@ -20,7 +20,6 @@ import seedrandom from 'seedrandom';
 import shuffleSeed from 'shuffle-seed';
 
 import { filterToString, makeFilter, operatorsRegex } from '@cubeartisan/client/filtering/FilterCards.js';
-import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 
 export const matchingCards = (cards, filter) => {
   if (filter) {
@@ -419,5 +418,5 @@ export const calculateAsfans = (cube, draftFormat) => {
     throw new Error(`Could not create draft:\n${result.messages.join('\n')}`);
   }
 
-  return fromEntries(cards.map((card) => [card.cardID, card.asfan]));
+  return Object.fromEntries(cards.map((card) => [card.cardID, card.asfan]));
 };

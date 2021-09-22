@@ -51,7 +51,7 @@ import Location, { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocat
 import { convertDrafterState, getDefaultPosition } from '@cubeartisan/client/drafting/draftutil.js';
 import { getGridDrafterState } from '@cubeartisan/client/drafting/griddraftutils.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
-import { fromEntries, toNullableInt } from '@cubeartisan/client/utils/Util.js';
+import { toNullableInt } from '@cubeartisan/client/utils/Util.js';
 
 const GRID_DRAFT_OPTIONS = [0, 1, 2].flatMap((ind) => [
   [0, 1, 2].map((offset) => 3 * ind + offset),
@@ -162,7 +162,7 @@ const MUTATIONS = {
 const useMutatableGridDraft = (initialGridDraft) => {
   const { cards } = initialGridDraft;
   const [gridDraft, setGridDraft] = useState(initialGridDraft);
-  const mutations = fromEntries(
+  const mutations = Object.fromEntries(
     Object.entries(MUTATIONS).map(([name, mutation]) => [
       name,
       // eslint-disable-next-line

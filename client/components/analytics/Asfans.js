@@ -26,7 +26,6 @@ import { compareStrings, SortableTable } from '@cubeartisan/client/components/So
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import { calculateAsfans } from '@cubeartisan/client/drafting/createdraft.js';
 import { SORTS, sortIntoGroups } from '@cubeartisan/client/utils/Sort.js';
-import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 
 const Asfans = ({ cards: cardsNoAsfan, cube }) => {
   const [sort, setSort] = useQueryParam('sort', 'Color');
@@ -41,7 +40,7 @@ const Asfans = ({ cards: cardsNoAsfan, cube }) => {
         console.error('Invalid Draft Format', draftFormat, cube.draft_formats[draftFormat], e);
       }
     }
-    return fromEntries(cube.cards.map((card) => [card.cardID, 0]));
+    return Object.fromEntries(cube.cards.map((card) => [card.cardID, 0]));
   }, [cube, draftFormat, cardsNoAsfan]);
 
   const asfans = useMemo(

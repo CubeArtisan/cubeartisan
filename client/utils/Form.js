@@ -16,11 +16,11 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { fromEntries } from '@cubeartisan/client/utils/Util.js';
-
 export const formDataObject = (formElement) => {
   const inputs = Array.from(formElement.querySelectorAll('[name]'));
-  return fromEntries(inputs.map((input) => [input.name, input.type === 'checkbox' ? input.checked : input.value]));
+  return Object.fromEntries(
+    inputs.map((input) => [input.name, input.type === 'checkbox' ? input.checked : input.value]),
+  );
 };
 
 export default { formDataObject };

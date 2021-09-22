@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { arraysEqual, fromEntries, arrayIsSubset } from '@cubeartisan/client/utils/Util.js';
+import { arraysEqual, arrayIsSubset } from '@cubeartisan/client/utils/Util.js';
 import LandCategories from '@cubeartisan/client/res/LandCategories.js';
 
 export const COLOR_COMBINATIONS = [
@@ -54,10 +54,10 @@ export const COLOR_COMBINATIONS = [
   ['W', 'U', 'B', 'R', 'G'],
 ];
 
-export const COLOR_INCLUSION_MAP = fromEntries(
+export const COLOR_INCLUSION_MAP = Object.fromEntries(
   COLOR_COMBINATIONS.map((colors) => [
     colors.join(''),
-    fromEntries(COLOR_COMBINATIONS.map((comb) => [comb.join(''), arrayIsSubset(comb, colors)])),
+    Object.fromEntries(COLOR_COMBINATIONS.map((comb) => [comb.join(''), arrayIsSubset(comb, colors)])),
   ]),
 );
 for (const colorsIncluded of Object.values(COLOR_INCLUSION_MAP)) {

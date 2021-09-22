@@ -24,7 +24,6 @@ import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import CubeAnalyticPropType from '@cubeartisan/client/proptypes/CubeAnalyticPropType.js';
 
 import { compareStrings, SortableTable } from '@cubeartisan/client/components/SortableTable.js';
-import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
 import { mainboardRate, pickRate, encodeName } from '@cubeartisan/client/utils/Card.js';
 
@@ -46,7 +45,7 @@ const renderPercent = (val) => {
 
 const PlaytestData = ({ cards: allCards, cubeAnalytics }) => {
   const cardDict = useMemo(
-    () => fromEntries(allCards.map((card) => [card.details.name.toLowerCase(), card])),
+    () => Object.fromEntries(allCards.map((card) => [card.details.name.toLowerCase(), card])),
     [allCards],
   );
 
