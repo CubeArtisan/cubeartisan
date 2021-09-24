@@ -23,7 +23,6 @@ import {
   addMultipleNotifications,
   addNotification,
   binaryInsert,
-  fromEntries,
   hasProfanity,
   isAdmin,
   newCard,
@@ -838,7 +837,7 @@ const startDraftHandler = async (req, res) => {
     if (cube.useCubeElo) {
       const analytic = await CubeAnalytic.findOne({ cube: cube._id });
       if (analytic) {
-        eloOverrideDict = fromEntries(analytic.cards.map((c) => [c.cardName, c.elo]));
+        eloOverrideDict = Object.fromEntries(analytic.cards.map((c) => [c.cardName, c.elo]));
       }
     }
 
