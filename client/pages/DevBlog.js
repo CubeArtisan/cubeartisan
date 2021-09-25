@@ -16,18 +16,20 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useContext } from 'react';
+import React, { lazy, useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import { Card, CardBody, FormGroup, Label, Input, Button } from 'reactstrap';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import Paginate from '@cubeartisan/client/components/Paginate.js';
-import BlogPost from '@cubeartisan/client/components/BlogPost.js';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+
+const BlogPost = lazy(() => import('@cubeartisan/client/components/BlogPost.js'));
 
 const DevBlog = ({ blogs, pages, activePage, loginCallback }) => {
   const user = useContext(UserContext);
@@ -60,11 +62,13 @@ const DevBlog = ({ blogs, pages, activePage, loginCallback }) => {
         {pages > 1 && (
           <Paginate count={parseInt(pages, 10)} active={parseInt(activePage, 10)} urlF={(i) => `/dev/blog/${i}`} />
         )}
-        {blogs.length > 0 ? (
-          blogs.map((post) => <BlogPost key={post._id} post={post} />)
-        ) : (
-          <h5>No developer blogs have been posted.</h5>
-        )}
+        <Suspense>
+          {blogs.length > 0 ? (
+            blogs.map((post) => <BlogPost key={post._id} post={post} />)
+          ) : (
+            <h5>No developer blogs have been posted.</h5>
+          )}
+        </Suspense>
         {pages > 1 && (
           <Paginate count={parseInt(pages, 10)} active={parseInt(activePage, 10)} urlF={(i) => `/dev/blog/${i}`} />
         )}

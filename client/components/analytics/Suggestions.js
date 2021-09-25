@@ -25,7 +25,7 @@ import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
-import { encodeName } from '@cubeartisan/client/utils/Card.js';
+import { cardName, cardNameLower, encodeName } from '@cubeartisan/client/utils/Card.js';
 import {
   Card,
   CardBody,
@@ -55,7 +55,7 @@ const Suggestion = ({ card, index, cube }) => {
           href={`/card/${encodeName(card.cardID)}`}
           modalProps={{ card: card.details, hideAnalytics: false, cubeContext: cube._id }}
         >
-          {card.details.name}
+          {cardName(card)}
         </AddModal>
       </h6>
     </ListGroupItem>
@@ -88,7 +88,7 @@ const Suggestions = ({ adds, cuts, loadState, cube, filter }) => {
     let withIndex = adds?.map((add, index) => [add, index]) ?? [];
     if (maybeOnly) {
       withIndex = withIndex.filter(([card]) =>
-        cube.maybe.some((maybe) => maybe.details.name_lower === card.details.name_lower),
+        cube.maybe.some((maybe) => cardNameLower(maybe) === cardNameLower(card)),
       );
     }
     return filter ? withIndex.filter(([card]) => filter(card)) : withIndex;

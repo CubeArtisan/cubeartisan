@@ -99,7 +99,6 @@
 
 #### v1.1.5
 
-
 ##### Features
 
 - Speed up p1p1 image generation.
@@ -109,6 +108,33 @@
 - Increase the response timeout time to try and help out p1p1 requests.
 - Fix server crash from error saving a draft.
 
+### v1.2.0
+
+#### Features
+
+- Add optional draft timers for drafts.
+- Allow updating card names to make custom cubes work better.
+- Update the content creator system and remove the review requirement.
+- Update the Info Pages for the site.
+- Better optimize the code sent to the client to improve load times and data usage.
+- Significantly optimize the images created for p1p1.
+- Have a useful message on the page if javascript is not enabled. Ported from CubeCobra.
+- Add is:reprint and is:firstprint filters. Ported from CubeCobra.
+- Show and and cut counts when editing a cube. Ported from CubeCobra.
+- Allow setting default seat count for a custom draft format. Ported from CubeCobra.
+- Reduce data usage for drafting.
+
+#### Bug Fixes
+
+- Fix occasional error when rendering markdown.
+- Handle excel formatting maybeboard values as TRUE not true. Ported from CubeCobra.
+- Fix mass editing CMC values and display errors better. Ported from CubeCobra.
+- Correctly escape card urls. Ported from CubeCobra.
+
 ## Known Issues
 
-- On Firefox Drag and Drop in the DraftPage and the DeckbuilderPage causes the browser to navigate to the image url for the card. 
+- On Firefox Drag and Drop in the DraftPage and the DeckbuilderPage causes the
+  browser to navigate to the image url for the card.
+- Artist name is not shown correctly when selecting card arts for cube overview.
+- Last pick of a draft is getting skipped.
+- Pick by pick breakdown shows the last pick of a pack under the next pack's section.

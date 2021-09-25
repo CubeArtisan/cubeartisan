@@ -16,17 +16,19 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
+import React, { lazy } from 'react';
 import PropTypes from 'prop-types';
+
+import { Card, CardBody, CardHeader, Col, Row, Spinner } from 'reactstrap';
+
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
-
-import { Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
-
-import CubePreview from '@cubeartisan/client/components/CubePreview.js';
-import UserPreview from '@cubeartisan/client/components/UserPreview.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+
+const CubePreview = lazy(() => import('@cubeartisan/client/components/CubePreview.js'));
+const UserPreview = lazy(() => import('@cubeartisan/client/components/UserPreview.js'));
 
 export const UserSocialPage = ({ followedCubes, followedUsers, followers, loginCallback }) => (
   <MainLayout loginCallback={loginCallback}>
@@ -39,13 +41,15 @@ export const UserSocialPage = ({ followedCubes, followedUsers, followers, loginC
           </CardHeader>
           {followedCubes.length > 0 ? (
             <CardBody className="p-0">
-              <Row noGutters>
-                {followedCubes.map((cube) => (
-                  <Col key={cube._id} xs={12} sm={6}>
-                    <CubePreview cube={cube} />
-                  </Col>
-                ))}
-              </Row>
+              <Suspense fallback={<Spinner />}>
+                <Row noGutters>
+                  {followedCubes.map((cube) => (
+                    <Col key={cube._id} xs={12} sm={6}>
+                      <CubePreview cube={cube} />
+                    </Col>
+                  ))}
+                </Row>
+              </Suspense>
             </CardBody>
           ) : (
             <CardBody>You aren't following any cubes.</CardBody>
@@ -59,13 +63,15 @@ export const UserSocialPage = ({ followedCubes, followedUsers, followers, loginC
           </CardHeader>
           {followedUsers.length > 0 ? (
             <CardBody className="p-0">
-              <Row noGutters>
-                {followedUsers.map((item) => (
-                  <Col key={item._id} xs={12} sm={6}>
-                    <UserPreview user={item} />
-                  </Col>
-                ))}
-              </Row>
+              <Suspense fallback={<Spinner />}>
+                <Row noGutters>
+                  {followedUsers.map((item) => (
+                    <Col key={item._id} xs={12} sm={6}>
+                      <UserPreview user={item} />
+                    </Col>
+                  ))}
+                </Row>
+              </Suspense>
             </CardBody>
           ) : (
             <CardBody>You aren't following any users.</CardBody>
@@ -79,13 +85,15 @@ export const UserSocialPage = ({ followedCubes, followedUsers, followers, loginC
               <h5 className="mb-0">Followers</h5>
             </CardHeader>
             <CardBody className="p-0">
-              <Row noGutters>
-                {followers.map((item) => (
-                  <Col key={item._id} xs={6} sm={3}>
-                    <UserPreview user={item} />
-                  </Col>
-                ))}
-              </Row>
+              <Suspense fallback={<Spinner />}>
+                <Row noGutters>
+                  {followers.map((item) => (
+                    <Col key={item._id} xs={6} sm={3}>
+                      <UserPreview user={item} />
+                    </Col>
+                  ))}
+                </Row>
+              </Suspense>
             </CardBody>
           </Card>
         </Col>

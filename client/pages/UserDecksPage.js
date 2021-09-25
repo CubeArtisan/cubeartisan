@@ -16,18 +16,20 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
+import React, { lazy } from 'react';
 import PropTypes from 'prop-types';
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 
 import { Card, CardBody, CardHeader } from 'reactstrap';
 
-import DeckPreview from '@cubeartisan/client/components/DeckPreview.js';
 import Paginate from '@cubeartisan/client/components/Paginate.js';
 import UserLayout from '@cubeartisan/client/components/layouts/UserLayout.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+
+const DeckPreview = lazy(() => import('@cubeartisan/client/components/DeckPreview.js'));
 
 export const UserDecksPage = ({ owner, followers, following, decks, pages, activePage, loginCallback }) => (
   <MainLayout loginCallback={loginCallback}>
@@ -40,9 +42,11 @@ export const UserDecksPage = ({ owner, followers, following, decks, pages, activ
         </CardHeader>
         {decks.length > 0 ? (
           <CardBody className="p-0">
-            {decks.map((deck) => (
-              <DeckPreview key={deck._id} deck={deck} nextURL={`/user/${owner._id}/decks/${activePage}`} />
-            ))}
+            <Suspense>
+              {decks.map((deck) => (
+                <DeckPreview key={deck._id} deck={deck} nextURL={`/user/${owner._id}/decks/${activePage}`} />
+              ))}
+            </Suspense>
           </CardBody>
         ) : (
           <CardBody>No decks to show.</CardBody>

@@ -26,11 +26,11 @@ import { cmcColumn, toNullableInt } from '@cubeartisan/client/utils/Util.js';
 let draftbotsInitialized = false;
 export const areDraftbotsInitialized = () => draftbotsInitialized;
 export const initializeMtgDraftbots = async () => {
-  if (draftbotsInitialized) return false;
-  const { initializeDraftbots } = await import('mtgdraftbots');
-  await initializeDraftbots();
+  const mtgdraftbots = await import('mtgdraftbots');
+  if (draftbotsInitialized) return mtgdraftbots;
+  await mtgdraftbots.initializeDraftbots();
   draftbotsInitialized = true;
-  return true;
+  return mtgdraftbots;
 };
 
 export const defaultStepsForLength = (length) =>
@@ -187,7 +187,7 @@ const toActionsArray = (packs) => [
 ];
 
 export const getAllDrafterStates = ({ draft, seatNumber, pickNumber = -1, stepNumber = null }) => {
-  const { cards, basics, seed } = draft;
+  const { cards, basics, seed, timeout } = draft;
   const numSeats = draft.initial_state.length;
   const seatNum = parseInt(seatNumber, 10);
   const ourSeat = draft.seats[seatNum];
@@ -219,6 +219,7 @@ export const getAllDrafterStates = ({ draft, seatNumber, pickNumber = -1, stepNu
     stepNumber: 0,
     pickNumber: 0,
     seed: toNullableInt(seed) ?? Math.floor(Math.random() * 65536),
+    timeout,
   };
   const drafterStates = [];
   const actions = toActionsArray(draft.initial_state[0]);
@@ -265,8 +266,20 @@ export const convertDrafterState = (drafterState) => {
   return newState;
 };
 
+export const getWorstScore = (result) => {
+  let worstIndex = 0;
+  let worstScore = 2;
+  for (let i = 0; i < result.scores.length; i++) {
+    if (result.scores[i].score < worstScore) {
+      worstScore = result.scores[i].score;
+      worstIndex = i;
+    }
+  }
+  return worstIndex;
+};
+
 export const allBotsDraft = async (draft) => {
-  const { calculateBotPick } = await import('mtgdraftbots');
+  const { calculateBotPick } = await initializeMtgDraftbots();
   let drafterStates = draft.seats.map((_, seatNumber) => getDrafterState({ draft, seatNumber }));
   let [
     {
@@ -310,15 +323,7 @@ export const allBotsDraft = async (draft) => {
         picks = await Promise.all(
           drafterStates.map(async (drafterState) => {
             const result = await calculateBotPick(convertDrafterState(drafterState));
-            let worstIndex = 0;
-            let worstScore = 2;
-            for (let i = 0; i < result.scores.length; i++) {
-              if (result.scores[i].score < worstScore) {
-                worstScore = result.scores[i].score;
-                worstIndex = i;
-              }
-            }
-            return drafterState.cardsInPack[worstIndex];
+            return drafterState.cardsInPack[getWorstScore(result)];
           }),
         );
       }

@@ -18,12 +18,11 @@
  */
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
-
 import { Button, Row, Col, Modal, ModalBody, ModalFooter, ModalHeader, Input, Card } from 'reactstrap';
 
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { buildDeck } from '@cubeartisan/client/drafting/deckutil.js';
-import { fromEntries } from '@cubeartisan/client/utils/Util.js';
+import { cardName } from '@cubeartisan/client/utils/Card.js';
 
 const MAX_BASICS = 21;
 
@@ -38,7 +37,7 @@ const BasicsModal = ({ isOpen, toggle, addBasics, deck, basics, cards }) => {
 
   const calculateBasics = useCallback(async () => {
     const { deck: newDeck } = await buildDeck(cards, deck, basics);
-    const basicIds = fromEntries(basics.map((ci, idx) => [ci, idx]));
+    const basicIds = Object.fromEntries(basics.map((ci, idx) => [ci, idx]));
 
     const newCounts = basics.map(() => 0);
 
@@ -63,11 +62,7 @@ const BasicsModal = ({ isOpen, toggle, addBasics, deck, basics, cards }) => {
           {basics.map((cardIndex, index) => (
             <Col className="col-6 col-md-2-4 col-lg-2-4 col-xl-2-4" key={`basics-${cards[cardIndex].details._id}`}>
               <Card className="mb-3">
-                <img
-                  className="w-100"
-                  src={cards[cardIndex].details.image_normal}
-                  alt={cards[cardIndex].details.name}
-                />
+                <img className="w-100" src={cards[cardIndex].details.image_normal} alt={cardName(cards[cardIndex])} />
                 <Input
                   className="mt-1"
                   type="select"

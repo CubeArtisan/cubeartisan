@@ -31,7 +31,7 @@ const PodcastEpisodePreview = ({ episode }) => {
   const handleClick = useCallback(
     (event) => {
       if (!event.target.getAttribute('data-sublink')) {
-        window.location.href = `/podcast/${episode.podcast}/episode/${episode._id}`;
+        window.location.href = `/creators/podcast/${episode.podcast}/episode/${episode._id}`;
       }
     },
     [episode],

@@ -75,6 +75,7 @@ import {
   getCardMarketLink,
   getCardHoarderLink,
   getCardKingdomLink,
+  nameToDashedUrlComponent,
 } from '@cubeartisan/client/utils/Affiliate.js';
 import { ArrowSwitchIcon, CheckIcon, ClippyIcon } from '@primer/octicons-react';
 import styled from '@cubeartisan/client/utils/styledHelper.js';
@@ -565,7 +566,7 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
                         outline
                         color="success"
                         block
-                        href={`https://edhrec.com/cards/${card.name}`}
+                        href={`https://edhrec.com/cards/${nameToDashedUrlComponent(card.name)}`}
                         target="_blank"
                       >
                         View on EDHRec

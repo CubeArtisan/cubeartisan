@@ -35,7 +35,7 @@ import PropTypes from 'prop-types';
 
 import { getTCGLink } from '@cubeartisan/client/utils/Affiliate.js';
 import { getLabels, cardGetLabels } from '@cubeartisan/client/utils/Sort.js';
-import { cardPrice, cardFoilPrice, cardPriceEur, cardTix, cardElo } from '@cubeartisan/client/utils/Card.js';
+import { cardName, cardPrice, cardFoilPrice, cardPriceEur, cardTix, cardElo } from '@cubeartisan/client/utils/Card.js';
 
 import { ColorChecksAddon } from '@cubeartisan/client/components/ColorCheck.js';
 import LoadingButton from '@cubeartisan/client/components/LoadingButton.js';
@@ -67,7 +67,7 @@ const CardModal = ({
   return (
     <Modal size="lg" labelledby="cardModalHeader" toggle={toggle} {...props}>
       <ModalHeader id="cardModalHeader" toggle={toggle}>
-        {card.details.name}
+        {cardName(card)}
       </ModalHeader>
       <ModalBody>
         <Row>
@@ -104,6 +104,12 @@ const CardModal = ({
           <Col xs="12" sm="8">
             <h5>Card Attributes</h5>
             <fieldset disabled={disabled}>
+              <InputGroup className="mb-3">
+                <InputGroupAddon addonType="prepend">
+                  <InputGroupText>Overriden Name</InputGroupText>
+                </InputGroupAddon>
+                <Input type="text" name="name" value={values.name} onChange={onChange} />
+              </InputGroup>
               <InputGroup className="mb-3">
                 <InputGroupAddon addonType="prepend">
                   <InputGroupText>Version (Set and #)</InputGroupText>

@@ -16,9 +16,8 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useContext } from 'react';
+import React, { lazy, useContext } from 'react';
 import PropTypes from 'prop-types';
-
 import {
   Container,
   Collapse,
@@ -32,9 +31,7 @@ import {
   DropdownMenu,
 } from 'reactstrap';
 
-import CreateCubeModal from '@cubeartisan/client/components/modals/CreateCubeModal.js';
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
-import LoginModal from '@cubeartisan/client/components/modals/LoginModal.js';
 import NotificationsNav from '@cubeartisan/client/components/NotificationsNav.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
@@ -42,6 +39,10 @@ import ThemeContext from '@cubeartisan/client/components/contexts/ThemeContext.j
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 import Footer from '@cubeartisan/client/components/layouts/Footer.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+
+const LoginModal = lazy(() => import('@cubeartisan/client/components/modals/LoginModal.js'));
+const CreateCubeModal = lazy(() => import('@cubeartisan/client/components/modals/CreateCubeModal.js'));
 
 const LoginModalLink = withModal(NavLink, LoginModal);
 const CreateCubeModalLink = withModal(DropdownItem, CreateCubeModal);
@@ -130,7 +131,9 @@ const MainLayout = ({ children, loginCallback }) => {
                           </DropdownItem>
                         ))}
                         <DropdownItem divider />
-                        <CreateCubeModalLink>Create A New Cube</CreateCubeModalLink>
+                        <Suspense>
+                          <CreateCubeModalLink>Create A New Cube</CreateCubeModalLink>
+                        </Suspense>
                       </DropdownMenu>
                     </UncontrolledDropdown>
                   )}
@@ -143,10 +146,10 @@ const MainLayout = ({ children, loginCallback }) => {
                       {user.roles && user.roles.includes('Admin') && (
                         <DropdownItem href="/admin/dashboard">Admin Page</DropdownItem>
                       )}
-                      {user.roles && user.roles.includes('ContentCreator') && (
-                        <DropdownItem href="/creators">Content Creator Dashboard</DropdownItem>
-                      )}
-                      <CreateCubeModalLink>Create A New Cube</CreateCubeModalLink>
+                      <DropdownItem href="/creators/dashboard">Content Creator Dashboard</DropdownItem>
+                      <Suspense>
+                        <CreateCubeModalLink>Create A New Cube</CreateCubeModalLink>
+                      </Suspense>
                       <DropdownItem href={`/user/${user._id}/social`}>Social</DropdownItem>
                       <DropdownItem href={`/user/${user._id}/account`}>Account Information</DropdownItem>
                       <DropdownItem href="/logout">Logout</DropdownItem>
@@ -159,7 +162,9 @@ const MainLayout = ({ children, loginCallback }) => {
                     <NavLink href="/user">Register</NavLink>
                   </NavItem>
                   <NavItem>
-                    <LoginModalLink modalProps={{ loginCallback }}>Login</LoginModalLink>
+                    <Suspense>
+                      <LoginModalLink modalProps={{ loginCallback }}>Login</LoginModalLink>
+                    </Suspense>
                   </NavItem>
                 </>
               )}

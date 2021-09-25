@@ -35,6 +35,7 @@ import {
   cardCmc,
   cardDevotion,
   cardFoilPrice,
+  cardName,
   cardNormalPrice,
   cardPower,
   cardPrice,
@@ -46,7 +47,6 @@ import {
 } from '@cubeartisan/client/utils/Card.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
-import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 import { getLabels, cardIsLabel } from '@cubeartisan/client/utils/Sort.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
@@ -86,7 +86,7 @@ export const CubeAnalyticsPage = ({
     return (filter ? cube.cards.filter(filter) : cube.cards).map((card) => ({ ...card, asfan: asfans[card.cardID] }));
   }, [asfans, cube, filter]);
 
-  const cardAnalyticsDict = fromEntries(
+  const cardAnalyticsDict = Object.fromEntries(
     cubeAnalytics.cards.map((cardAnalytic) => [cardAnalytic.cardName, cardAnalytic]),
   );
 
@@ -97,29 +97,23 @@ export const CubeAnalyticsPage = ({
   });
 
   const getCubeElo = (card) =>
-    cardAnalyticsDict[card.details.name.toLowerCase()]
-      ? Math.round(cardAnalyticsDict[card.details.name.toLowerCase()].elo)
+    cardAnalyticsDict[cardName(card).toLowerCase()]
+      ? Math.round(cardAnalyticsDict[cardName(card).toLowerCase()].elo)
       : null;
 
   const getPickRate = (card) =>
-    cardAnalyticsDict[card.details.name.toLowerCase()]
-      ? pickRate(cardAnalyticsDict[card.details.name.toLowerCase()])
-      : null;
+    cardAnalyticsDict[cardName(card).toLowerCase()] ? pickRate(cardAnalyticsDict[cardName(card).toLowerCase()]) : null;
 
   const getPickCount = (card) =>
-    cardAnalyticsDict[card.details.name.toLowerCase()]
-      ? cardAnalyticsDict[card.details.name.toLowerCase()].picks
-      : null;
+    cardAnalyticsDict[cardName(card).toLowerCase()] ? cardAnalyticsDict[cardName(card).toLowerCase()].picks : null;
 
   const getMainboardRate = (card) =>
-    cardAnalyticsDict[card.details.name.toLowerCase()]
-      ? mainboardRate(cardAnalyticsDict[card.details.name.toLowerCase()])
+    cardAnalyticsDict[cardName(card).toLowerCase()]
+      ? mainboardRate(cardAnalyticsDict[cardName(card).toLowerCase()])
       : null;
 
   const getMainboardCount = (card) =>
-    cardAnalyticsDict[card.details.name.toLowerCase()]
-      ? cardAnalyticsDict[card.details.name.toLowerCase()].mainboards
-      : null;
+    cardAnalyticsDict[cardName(card).toLowerCase()] ? cardAnalyticsDict[cardName(card).toLowerCase()].mainboards : null;
 
   const characteristics = {
     'Mana Value': convertToCharacteristic('Mana Value', cardCmc),

@@ -16,18 +16,20 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
+import React, { lazy } from 'react';
 import PropTypes from 'prop-types';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 
 import { Card, CardHeader, Row, Col, CardBody } from 'reactstrap';
 
 import CubeSearchNavBar from '@cubeartisan/client/components/CubeSearchNavBar.js';
-import CubePreview from '@cubeartisan/client/components/CubePreview.js';
 import Paginate from '@cubeartisan/client/components/Paginate.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+
+const CubePreview = lazy(() => import('@cubeartisan/client/components/CubePreview.js'));
 
 export const SearchPage = ({ cubes, query, count, perPage, page, order, loginCallback }) => {
   const pages = Math.ceil(count / perPage);
@@ -52,11 +54,13 @@ export const SearchPage = ({ cubes, query, count, perPage, page, order, loginCal
             )}
           </CardHeader>
           <Row>
-            {cubes.slice(0, 36).map((cube) => (
-              <Col className="pb-4" xl={3} lg={3} md={4} sm={6} xs={12}>
-                <CubePreview cube={cube} />
-              </Col>
-            ))}
+            <Suspense>
+              {cubes.slice(0, 36).map((cube) => (
+                <Col className="pb-4" xl={3} lg={3} md={4} sm={6} xs={12}>
+                  <CubePreview cube={cube} />
+                </Col>
+              ))}
+            </Suspense>
           </Row>
           {pages > 1 && (
             <CardBody>

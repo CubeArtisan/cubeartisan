@@ -19,11 +19,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import PivotTableUI from 'react-pivottable/PivotTableUI.js';
-import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 
 const PivotTable = ({ cards, characteristics }) => {
   const data = cards.map((card) =>
-    fromEntries(
+    Object.fromEntries(
       [['Color', (card.colors || []).join()]].concat(
         Object.entries(characteristics).map(([key, value]) => [key, value.get(card)]),
       ),

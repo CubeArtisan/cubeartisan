@@ -16,9 +16,8 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useState, useContext } from 'react';
+import React, { lazy, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import styled from '@cubeartisan/client/utils/styledHelper.js';
 import {
   Button,
   Card,
@@ -37,17 +36,11 @@ import {
 } from 'reactstrap';
 import { LinkExternalIcon, QuestionIcon } from '@primer/octicons-react';
 
+import styled from '@cubeartisan/client/utils/styledHelper.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import { getCubeId, getCubeDescription } from '@cubeartisan/client/utils/Util.js';
-import BlogPost from '@cubeartisan/client/components/BlogPost.js';
-import CubeIdModal from '@cubeartisan/client/components/modals/CubeIdModal.js';
-import CubeOverviewModal from '@cubeartisan/client/components/modals/CubeOverviewModal.js';
-import CubeSettingsModal from '@cubeartisan/client/components/modals/CubeSettingsModal.js';
-import CustomizeBasicsModal from '@cubeartisan/client/components/modals/CustomizeBasicsModal.js';
-import DeleteCubeModal from '@cubeartisan/client/components/modals/DeleteCubeModal.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import FollowersModal from '@cubeartisan/client/components/modals/FollowersModal.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import TextBadge from '@cubeartisan/client/components/TextBadge.js';
 import Tooltip from '@cubeartisan/client/components/Tooltip.js';
@@ -56,6 +49,15 @@ import UserContext from '@cubeartisan/client/components/contexts/UserContext.js'
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+
+const BlogPost = lazy(() => import('@cubeartisan/client/components/BlogPost.js'));
+const CubeIdModal = lazy(() => import('@cubeartisan/client/components/modals/CubeIdModal.js'));
+const CubeOverviewModal = lazy(() => import('@cubeartisan/client/components/modals/CubeOverviewModal.js'));
+const CubeSettingsModal = lazy(() => import('@cubeartisan/client/components/modals/CubeSettingsModal.js'));
+const CustomizeBasicsModal = lazy(() => import('@cubeartisan/client/components/modals/CustomizeBasicsModal.js'));
+const DeleteCubeModal = lazy(() => import('@cubeartisan/client/components/modals/DeleteCubeModal.js'));
+const FollowersModal = lazy(() => import('@cubeartisan/client/components/modals/FollowersModal.js'));
 
 const CubeOverviewModalLink = withModal(NavLink, CubeOverviewModal);
 const FollowersModalLink = withModal('a', FollowersModal);
@@ -127,41 +129,49 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
             <UncontrolledCollapse navbar id="cubeOverviewNavbarCollapse" toggler="#cubeOverviewNavbarToggler">
               <Nav navbar>
                 <NavItem>
-                  <CubeOverviewModalLink
-                    modalProps={{
-                      cube: cubeState,
-                      cubeID: cubeState._id,
-                      onError: (message) => addAlert('danger', message),
-                      onCubeUpdate,
-                    }}
-                  >
-                    Edit Overview
-                  </CubeOverviewModalLink>
+                  <Suspense>
+                    <CubeOverviewModalLink
+                      modalProps={{
+                        cube: cubeState,
+                        cubeID: cubeState._id,
+                        onError: (message) => addAlert('danger', message),
+                        onCubeUpdate,
+                      }}
+                    >
+                      Edit Overview
+                    </CubeOverviewModalLink>
+                  </Suspense>
                 </NavItem>
                 <NavItem>
-                  <CubeSettingsModalLink cube={cubeState} modalProps={{ addAlert, onCubeUpdate }}>
-                    Edit Settings
-                  </CubeSettingsModalLink>
+                  <Suspense>
+                    <CubeSettingsModalLink cube={cubeState} modalProps={{ addAlert, onCubeUpdate }}>
+                      Edit Settings
+                    </CubeSettingsModalLink>
+                  </Suspense>
                 </NavItem>
                 <NavItem>
-                  <CustomizeBasicsModalLink
-                    modalProps={{
-                      cube: cubeState,
-                      onError: (message) => {
-                        addAlert('danger', message);
-                      },
-                      updateBasics: (basics) => {
-                        const deepClone = JSON.parse(JSON.stringify(cubeState));
-                        deepClone.basics = basics;
-                        onCubeUpdate(deepClone);
-                      },
-                    }}
-                  >
-                    Customize Basics
-                  </CustomizeBasicsModalLink>
+                  <Suspense>
+                    <CustomizeBasicsModalLink
+                      modalProps={{
+                        cube: cubeState,
+                        onError: (message) => {
+                          addAlert('danger', message);
+                        },
+                        updateBasics: (basics) => {
+                          const deepClone = JSON.parse(JSON.stringify(cubeState));
+                          deepClone.basics = basics;
+                          onCubeUpdate(deepClone);
+                        },
+                      }}
+                    >
+                      Customize Basics
+                    </CustomizeBasicsModalLink>
+                  </Suspense>
                 </NavItem>
                 <NavItem>
-                  <DeleteCubeModalLink modalProps={{ cubeid: cubeState._id }}>Delete Cube</DeleteCubeModalLink>
+                  <Suspense>
+                    <DeleteCubeModalLink modalProps={{ cubeid: cubeState._id }}>Delete Cube</DeleteCubeModalLink>
+                  </Suspense>
                 </NavItem>
               </Nav>
             </UncontrolledCollapse>
@@ -187,10 +197,12 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
                 <Row>
                   <Col>
                     <SpacedHeader className="card-subtitle mb-2">
-                      <FollowersModalLink href="#" modalProps={{ followers }}>
-                        {cubeState.users_following.length}{' '}
-                        {cubeState.users_following.length === 1 ? 'follower' : 'followers'}
-                      </FollowersModalLink>
+                      <Suspense>
+                        <FollowersModalLink href="#" modalProps={{ followers }}>
+                          {cubeState.users_following.length}{' '}
+                          {cubeState.users_following.length === 1 ? 'follower' : 'followers'}
+                        </FollowersModalLink>
+                      </Suspense>
                     </SpacedHeader>
                   </Col>
                   <CubeIdContainer className="float-right">
@@ -211,13 +223,15 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
                       </Tooltip>
                     </TextBadge>
                   </CubeIdContainer>
-                  <CubeIdModalLink
-                    modalProps={{ fullID: cube._id, shortID: getCubeId(cubeState), alert: addAlert }}
-                    aria-label="Show Cube IDs"
-                    className="mr-2"
-                  >
-                    <QuestionIcon size="18" />
-                  </CubeIdModalLink>
+                  <Suspense>
+                    <CubeIdModalLink
+                      modalProps={{ fullID: cube._id, shortID: getCubeId(cubeState), alert: addAlert }}
+                      aria-label="Show Cube IDs"
+                      className="mr-2"
+                    >
+                      <QuestionIcon size="18" />
+                    </CubeIdModalLink>
+                  </Suspense>
                 </Row>
               </CardHeader>
               <div className="position-relative">
@@ -300,7 +314,13 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
             </Card>
           </Col>
         </Row>
-        <div className="mb-3">{post && <BlogPost key={post._id} post={post} loggedIn={user !== null} />}</div>
+        <div className="mb-3">
+          {post && (
+            <Suspense>
+              <BlogPost key={post._id} post={post} loggedIn={user !== null} />
+            </Suspense>
+          )}
+        </div>
       </CubeLayout>
     </MainLayout>
   );

@@ -122,7 +122,7 @@ const AdvancedSearchModal = ({ isOpen, toggle }) => {
     }
 
     if (queryText.length > 0) {
-      window.location.href = `/cubes/search/${queryText.trim()}/0`;
+      window.location.href = `/cubes/search/${encodeURIComponent(queryText.trim())}/0`;
     } else {
       window.location.href = '/cubes/search';
     }

@@ -30,7 +30,7 @@ const VideoPreview = ({ video }) => {
   const handleClick = useCallback(
     (event) => {
       if (!event.target.getAttribute('data-sublink')) {
-        window.location.href = `/video/${video._id}`;
+        window.location.href = `/creators/video/${video._id}`;
       }
     },
     [video],

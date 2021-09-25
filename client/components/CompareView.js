@@ -24,6 +24,7 @@ import { getLabels, sortIntoGroups } from '@cubeartisan/client/utils/Sort.js';
 import AutocardListItem from '@cubeartisan/client/components/AutocardListItem.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import React, { useContext } from 'react';
+import { cardName } from '@cubeartisan/client/utils/Card.js';
 
 const CompareGroup = ({ heading, both, onlyA, onlyB }) => {
   const bothCmc = sortIntoGroups(both, 'Mana Value');
@@ -85,15 +86,15 @@ const CompareView = ({ cards, both, onlyA, onlyB, ...props }) => {
     let onlyBCount = 0;
     let bothCount = 0;
     for (const card of columns[columnLabel]) {
-      if (bothCopy.includes(card.details.name)) {
+      if (bothCopy.includes(cardName(card))) {
         bothCount += 1;
-        bothCopy.splice(bothCopy.indexOf(card.details.name), 1);
-      } else if (onlyACopy.includes(card.details.name)) {
+        bothCopy.splice(bothCopy.indexOf(cardName(card)), 1);
+      } else if (onlyACopy.includes(cardName(card))) {
         onlyACount += 1;
-        onlyACopy.splice(onlyACopy.indexOf(card.details.name), 1);
-      } else if (onlyBCopy.includes(card.details.name)) {
+        onlyACopy.splice(onlyACopy.indexOf(cardName(card)), 1);
+      } else if (onlyBCopy.includes(cardName(card))) {
         onlyBCount += 1;
-        onlyBCopy.splice(onlyBCopy.indexOf(card.details.name), 1);
+        onlyBCopy.splice(onlyBCopy.indexOf(cardName(card)), 1);
       }
     }
 
@@ -182,15 +183,15 @@ const CompareView = ({ cards, both, onlyA, onlyB, ...props }) => {
                     const onlyBGroup = [];
 
                     for (const card of group) {
-                      if (bothCopy2.includes(card.details.name)) {
+                      if (bothCopy2.includes(cardName(card))) {
                         bothGroup.push(card);
-                        bothCopy2.splice(bothCopy2.indexOf(card.details.name), 1);
-                      } else if (onlyACopy2.includes(card.details.name)) {
+                        bothCopy2.splice(bothCopy2.indexOf(cardName(card)), 1);
+                      } else if (onlyACopy2.includes(cardName(card))) {
                         onlyAGroup.push(card);
-                        onlyACopy2.splice(onlyACopy2.indexOf(card.details.name), 1);
-                      } else if (onlyBCopy2.includes(card.details.name)) {
+                        onlyACopy2.splice(onlyACopy2.indexOf(cardName(card)), 1);
+                      } else if (onlyBCopy2.includes(cardName(card))) {
                         onlyBGroup.push(card);
-                        onlyBCopy2.splice(onlyBCopy2.indexOf(card.details.name), 1);
+                        onlyBCopy2.splice(onlyBCopy2.indexOf(cardName(card)), 1);
                       }
                     }
                     return (

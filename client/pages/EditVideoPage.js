@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useState, useEffect, useContext } from 'react';
+import React, { lazy, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import VideoPropType from '@cubeartisan/client/proptypes/VideoPropType.js';
 
@@ -35,17 +35,19 @@ import {
   Button,
 } from 'reactstrap';
 
-import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import Tab from '@cubeartisan/client/components/Tab.js';
-import Video from '@cubeartisan/client/components/Video.js';
-import VideoPreview from '@cubeartisan/client/components/VideoPreview.js';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+
+const AutocompleteInput = lazy(() => import('@cubeartisan/client/components/AutocompleteInput.js'));
+const Video = lazy(() => import('@cubeartisan/client/components/Video.js'));
+const VideoPreview = lazy(() => import('@cubeartisan/client/components/VideoPreview.js'));
 
 export const EditVideoPage = ({ loginCallback, video }) => {
   const user = useContext(UserContext);
@@ -124,7 +126,7 @@ export const EditVideoPage = ({ loginCallback, video }) => {
                 <Input type="hidden" name="body" value={body} />
                 <Input type="hidden" name="url" value={url} />
                 <Button type="submit" outline color="success" block>
-                  Submit for Review
+                  Publish
                 </Button>
               </CSRFForm>
             </Col>
@@ -189,19 +191,21 @@ export const EditVideoPage = ({ loginCallback, video }) => {
                     <Label>Thumbnail:</Label>
                   </Col>
                   <Col sm="5">
-                    <AutocompleteInput
-                      treeUrl="/cards/names/full"
-                      treePath="cardnames"
-                      type="text"
-                      className="mr-2"
-                      name="remove"
-                      value={imageName}
-                      onChange={(event) => setImageName(event.target.value)}
-                      onSubmit={(event) => event.preventDefault()}
-                      placeholder="Cardname for Image"
-                      autoComplete="off"
-                      data-lpignore
-                    />
+                    <Suspense>
+                      <AutocompleteInput
+                        treeUrl="/cards/names/full"
+                        treePath="cardnames"
+                        type="text"
+                        className="mr-2"
+                        name="remove"
+                        value={imageName}
+                        onChange={(event) => setImageName(event.target.value)}
+                        onSubmit={(event) => event.preventDefault()}
+                        placeholder="Cardname for Image"
+                        autoComplete="off"
+                        data-lpignore
+                      />
+                    </Suspense>
                   </Col>
                   <Col sm="5">
                     <Card>
@@ -238,49 +242,53 @@ export const EditVideoPage = ({ loginCallback, video }) => {
           <TabPane tabId="1">
             <CardBody>
               <Row className="px-3">
-                <Col xs="12" sm="6" md="4" className="mb-3">
-                  <VideoPreview
-                    video={{
-                      username: user.username,
-                      title,
-                      body,
-                      short,
-                      artist: imageArtist,
-                      imagename: imageName,
-                      image: imageUri,
-                      date: video.date,
-                    }}
-                  />
-                </Col>
-                <Col xs="12" sm="6" md="4" lg="3" className="mb-3">
-                  <VideoPreview
-                    video={{
-                      username: user.username,
-                      title,
-                      body,
-                      short,
-                      artist: imageArtist,
-                      imagename: imageName,
-                      image: imageUri,
-                      date: video.date,
-                    }}
-                  />
-                </Col>
+                <Suspense>
+                  <Col xs="12" sm="6" md="4" className="mb-3">
+                    <VideoPreview
+                      video={{
+                        username: user.username,
+                        title,
+                        body,
+                        short,
+                        artist: imageArtist,
+                        imagename: imageName,
+                        image: imageUri,
+                        date: video.date,
+                      }}
+                    />
+                  </Col>
+                  <Col xs="12" sm="6" md="4" lg="3" className="mb-3">
+                    <VideoPreview
+                      video={{
+                        username: user.username,
+                        title,
+                        body,
+                        short,
+                        artist: imageArtist,
+                        imagename: imageName,
+                        image: imageUri,
+                        date: video.date,
+                      }}
+                    />
+                  </Col>
+                </Suspense>
               </Row>
             </CardBody>
-            <Video
-              video={{
-                username: user.username,
-                title,
-                body,
-                short,
-                artist: imageArtist,
-                imagename: imageName,
-                image: imageUri,
-                date: video.date,
-                url,
-              }}
-            />
+            <Suspense>
+              <Video
+                video={{
+                  username: user.username,
+                  title,
+                  body,
+                  short,
+                  artist: imageArtist,
+                  imagename: imageName,
+                  image: imageUri,
+                  date: video.date,
+                  url,
+                }}
+              />
+            </Suspense>
           </TabPane>
         </TabContent>
       </Card>

@@ -16,10 +16,8 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useState, useEffect, useContext } from 'react';
+import React, { lazy, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType.js';
-
 import {
   Spinner,
   Nav,
@@ -35,16 +33,19 @@ import {
   Button,
 } from 'reactstrap';
 
+import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import ArticlePreview from '@cubeartisan/client/components/ArticlePreview.js';
 import Tab from '@cubeartisan/client/components/Tab.js';
-import Article from '@cubeartisan/client/components/Article.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
-import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+
+const ArticlePreview = lazy(() => import('@cubeartisan/client/components/ArticlePreview.js'));
+const Article = lazy(() => import('@cubeartisan/client/components/Article.js'));
+const AutocompleteInput = lazy(() => import('@cubeartisan/client/components/AutocompleteInput.js'));
 
 export const EditArticlePage = ({ loginCallback, article, siteCustomizations }) => {
   const user = useContext(UserContext);
@@ -97,7 +98,7 @@ export const EditArticlePage = ({ loginCallback, article, siteCustomizations }) 
           </Row>
           <Row>
             <Col xs="6">
-              <CSRFForm method="POST" action={`/article/${article._id}`} autoComplete="off">
+              <CSRFForm method="POST" action={`/creators/article/${article._id}`} autoComplete="off">
                 <Input type="hidden" name="articleid" value={article._id} />
                 <Input type="hidden" name="title" value={title} />
                 <Input type="hidden" name="short" value={short} />
@@ -111,7 +112,7 @@ export const EditArticlePage = ({ loginCallback, article, siteCustomizations }) 
               </CSRFForm>
             </Col>
             <Col xs="6">
-              <CSRFForm method="POST" action={`/article/${article._id}/submit`} autoComplete="off">
+              <CSRFForm method="POST" action={`/creators/article/${article._id}/submit`} autoComplete="off">
                 <Input type="hidden" name="articleid" value={article._id} />
                 <Input type="hidden" name="title" value={title} />
                 <Input type="hidden" name="short" value={short} />
@@ -119,8 +120,8 @@ export const EditArticlePage = ({ loginCallback, article, siteCustomizations }) 
                 <Input type="hidden" name="imagename" value={imageName} />
                 <Input type="hidden" name="artist" value={imageArtist} />
                 <Input type="hidden" name="body" value={body} />
-                <Button type="submit" outline color="success" block>
-                  Submit for Review
+                <Button type="submit" color="success" block>
+                  Publish
                 </Button>
               </CSRFForm>
             </Col>
@@ -175,19 +176,21 @@ export const EditArticlePage = ({ loginCallback, article, siteCustomizations }) 
                     <Label>Thumbnail:</Label>
                   </Col>
                   <Col sm="5">
-                    <AutocompleteInput
-                      treeUrl="/cards/names/full"
-                      treePath="cardnames"
-                      type="text"
-                      className="mr-2"
-                      name="remove"
-                      value={imageName}
-                      onChange={(event) => setImageName(event.target.value)}
-                      onSubmit={(event) => event.preventDefault()}
-                      placeholder="Cardname for Image"
-                      autoComplete="off"
-                      data-lpignore
-                    />
+                    <Suspense>
+                      <AutocompleteInput
+                        treeUrl="/cards/names/full"
+                        treePath="cardnames"
+                        type="text"
+                        className="mr-2"
+                        name="remove"
+                        value={imageName}
+                        onChange={(event) => setImageName(event.target.value)}
+                        onSubmit={(event) => event.preventDefault()}
+                        placeholder="Cardname for Image"
+                        autoComplete="off"
+                        data-lpignore
+                      />
+                    </Suspense>
                   </Col>
                   <Col sm="5">
                     <Card>
@@ -226,47 +229,51 @@ export const EditArticlePage = ({ loginCallback, article, siteCustomizations }) 
             <CardBody>
               <h5>Article Previews</h5>
               <Row>
-                <Col xs="12" sm="6" md="4" className="mb-3">
-                  <ArticlePreview
-                    article={{
-                      username: user.username,
-                      title,
-                      body,
-                      short,
-                      artist: imageArtist,
-                      imagename: imageName,
-                      image: imageUri,
-                      date: article.date,
-                    }}
-                  />
-                </Col>
-                <Col xs="12" sm="6" md="4" lg="3" className="mb-3">
-                  <ArticlePreview
-                    article={{
-                      username: user.username,
-                      title,
-                      body,
-                      short,
-                      artist: imageArtist,
-                      imagename: imageName,
-                      image: imageUri,
-                      date: article.date,
-                    }}
-                  />
-                </Col>
+                <Suspense>
+                  <Col xs="12" sm="6" md="4" className="mb-3">
+                    <ArticlePreview
+                      article={{
+                        username: user.username,
+                        title,
+                        body,
+                        short,
+                        artist: imageArtist,
+                        imagename: imageName,
+                        image: imageUri,
+                        date: article.date,
+                      }}
+                    />
+                  </Col>
+                  <Col xs="12" sm="6" md="4" lg="3" className="mb-3">
+                    <ArticlePreview
+                      article={{
+                        username: user.username,
+                        title,
+                        body,
+                        short,
+                        artist: imageArtist,
+                        imagename: imageName,
+                        image: imageUri,
+                        date: article.date,
+                      }}
+                    />
+                  </Col>
+                </Suspense>
               </Row>
             </CardBody>
-            <Article
-              article={{
-                username: user.username,
-                title,
-                body,
-                artist: imageArtist,
-                imagename: imageName,
-                image: imageUri,
-                date: article.date,
-              }}
-            />
+            <Suspense>
+              <Article
+                article={{
+                  username: user.username,
+                  title,
+                  body,
+                  artist: imageArtist,
+                  imagename: imageName,
+                  image: imageUri,
+                  date: article.date,
+                }}
+              />
+            </Suspense>
           </TabPane>
         </TabContent>
       </Card>

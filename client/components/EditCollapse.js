@@ -35,7 +35,7 @@ import {
   InputGroupText,
 } from 'reactstrap';
 
-import { encodeName } from '@cubeartisan/client/utils/Card.js';
+import { cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
 import { findUserLinks } from '@cubeartisan/markdown';
 
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
@@ -96,6 +96,10 @@ const EditCollapse = ({ ...props }) => {
   const { cube, cubeID } = useContext(CubeContext);
   const { toggleShowMaybeboard } = useContext(DisplayContext);
 
+  const additions = changes.filter((change) => change.add || change.replace).length;
+  const removals = changes.filter((change) => change.remove || change.replace).length;
+  const newTotal = cube.cards.length + additions - removals;
+
   const handleChange = useCallback(
     (event) => {
       return {
@@ -135,7 +139,7 @@ const EditCollapse = ({ ...props }) => {
       try {
         const cardOut = cube.cards.find(
           (card) =>
-            card.details.name.toLowerCase() === (newValue || removeValue).toLowerCase() &&
+            cardName(card).toLowerCase() === (newValue || removeValue).toLowerCase() &&
             !changes.some(
               (change) =>
                 (change.remove && change.remove.index === card.index) ||
@@ -262,7 +266,16 @@ const EditCollapse = ({ ...props }) => {
         <CSRFForm method="POST" action={`/cube/${cubeID}`} onSubmit={handleMentions}>
           <Row>
             <Col>
-              <h6>Changelist</h6>
+              <h6>
+                <Row>
+                  <Col>Changelist</Col>
+                  <Col className="col-sm-auto">
+                    <div className="text-secondary">
+                      +{additions}, -{removals}, {newTotal} Total
+                    </div>
+                  </Col>
+                </Row>
+              </h6>
               <div className="changelist-container mb-2">
                 <Changelist />
               </div>

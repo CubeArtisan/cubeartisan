@@ -16,8 +16,6 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import canvas from 'canvas';
-
 import Util from '@cubeartisan/client/utils/Util.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import { buildDeck } from '@cubeartisan/client/drafting/deckutil.js';
@@ -33,10 +31,7 @@ import Deck from '@cubeartisan/server/models/deck.js';
 import User from '@cubeartisan/server/models/user.js';
 import CubeAnalytic from '@cubeartisan/server/models/cubeAnalytic.js';
 import Draft from '@cubeartisan/server/models/draft.js';
-import { COLOR_COMBINATIONS } from '@cubeartisan/client/utils/Card.js';
-
-const { Canvas, Image } = canvas;
-Canvas.Image = Image;
+import { COLOR_COMBINATIONS, cardNameLower } from '@cubeartisan/client/utils/Card.js';
 
 export const exportDeckToXmage = async (req, res) => {
   try {
@@ -58,7 +53,9 @@ export const exportDeckToXmage = async (req, res) => {
       for (const col of row) {
         for (const cardIndex of col) {
           const details = carddb.cardFromId(deck.cards[cardIndex].cardID);
-          const name = `[${details.set.toUpperCase()}:${details.collector_number}] ${details.name}`;
+          const name = `[${details.set.toUpperCase()}:${details.collector_number}] ${
+            deck.cards[cardIndex]?.name ?? details.name
+          }`;
           if (main[name]) {
             main[name] += 1;
           } else {
@@ -76,7 +73,9 @@ export const exportDeckToXmage = async (req, res) => {
       for (const col of row) {
         for (const cardIndex of col) {
           const details = carddb.cardFromId(deck.cards[cardIndex].cardID);
-          const name = `[${details.set.toUpperCase()}:${details.collector_number}] ${details.name}`;
+          const name = `[${details.set.toUpperCase()}:${details.collector_number}] ${
+            deck.cards[cardIndex]?.name ?? details.name
+          }`;
           if (side[name]) {
             side[name] += 1;
           } else {
@@ -114,7 +113,7 @@ export const exportDeckToForge = async (req, res) => {
       for (const col of row) {
         for (const cardIndex of col) {
           const details = carddb.cardFromId(deck.cards[cardIndex].cardID);
-          const name = `${details.name}|${details.set.toUpperCase()}`;
+          const name = `${deck.cards[cardIndex]?.name ?? details.name}|${details.set.toUpperCase()}`;
           if (main[name]) {
             main[name] += 1;
           } else {
@@ -133,7 +132,7 @@ export const exportDeckToForge = async (req, res) => {
       for (const col of row) {
         for (const cardIndex of col) {
           const details = carddb.cardFromId(deck.cards[cardIndex].cardID);
-          const name = `${details.name}|${details.set.toUpperCase()}`;
+          const name = `${deck.cards[cardIndex]?.name ?? details.name}|${details.set.toUpperCase()}`;
           if (side[name]) {
             side[name] += 1;
           } else {
@@ -210,7 +209,9 @@ export const exportDeckToArena = async (req, res) => {
       for (const col of row) {
         for (const cardIndex of col) {
           const details = carddb.cardFromId(deck.cards[cardIndex].cardID);
-          const name = `${details.name} (${details.set.toUpperCase()}) ${details.collector_number}`;
+          const name = `${deck.cards[cardIndex]?.name ?? details.name} (${details.set.toUpperCase()}) ${
+            details.collector_number
+          }`;
           if (main[name]) {
             main[name] += 1;
           } else {
@@ -229,7 +230,9 @@ export const exportDeckToArena = async (req, res) => {
       for (const col of row) {
         for (const cardIndex of col) {
           const details = carddb.cardFromId(deck.cards[cardIndex].cardID);
-          const name = `${details.name} (${details.set.toUpperCase()}) ${details.collector_number}`;
+          const name = `${deck.cards[cardIndex]?.name ?? details.name} (${details.set.toUpperCase()}) ${
+            details.collector_number
+          }`;
           if (side[name]) {
             side[name] += 1;
           } else {
@@ -265,7 +268,7 @@ export const exportDeckToCockatrice = async (req, res) => {
       for (const col of row) {
         for (const cardIndex of col) {
           const details = carddb.cardFromId(deck.cards[cardIndex].cardID);
-          const name = `${details.name}`;
+          const name = `${deck.cards[cardIndex]?.name ?? details.name}`;
           if (main[name]) {
             main[name] += 1;
           } else {
@@ -284,7 +287,7 @@ export const exportDeckToCockatrice = async (req, res) => {
       for (const col of row) {
         for (const cardIndex of col) {
           const details = carddb.cardFromId(deck.cards[cardIndex].cardID);
-          const name = `${details.name}`;
+          const name = `${deck.cards[cardIndex]?.name ?? details.name}`;
           if (side[name]) {
             side[name] += 1;
           } else {
@@ -358,8 +361,8 @@ export const viewDeckbuilder = async (req, res) => {
     // add details to cards
     for (const card of deck.cards) {
       card.details = carddb.cardFromId(card.cardID);
-      if (eloOverrideDict[card.details.name_lower]) {
-        card.details.elo = eloOverrideDict[card.details.name_lower];
+      if (eloOverrideDict[cardNameLower(card)]) {
+        card.details.elo = eloOverrideDict[cardNameLower(card)];
       }
     }
 
@@ -405,8 +408,8 @@ export const rebuildDeckHandler = async (req, res) => {
     const cardsArray = [];
     for (const card of base.cards) {
       const newCard = { ...card, details: carddb.cardFromId(card.cardID) };
-      if (eloOverrideDict[newCard.details.name_lower]) {
-        newCard.details.elo = eloOverrideDict[newCard.details.name_lower];
+      if (eloOverrideDict[cardNameLower(newCard)]) {
+        newCard.details.elo = eloOverrideDict[cardNameLower(newCard)];
       }
       cardsArray.push(newCard);
     }
@@ -504,8 +507,8 @@ const updateDeckHandler = async (req, res) => {
     const cardsArray = [];
     for (const card of deck.toObject().cards) {
       const newCard = { ...card, details: carddb.cardFromId(card.cardID) };
-      if (eloOverrideDict[newCard.details.name_lower]) {
-        newCard.details.elo = eloOverrideDict[newCard.details.name_lower];
+      if (eloOverrideDict[cardNameLower(newCard)]) {
+        newCard.details.elo = eloOverrideDict[cardNameLower(newCard)];
       }
       cardsArray.push(newCard);
     }
@@ -608,8 +611,8 @@ export const viewDeck = async (req, res) => {
 
     for (const card of deck.cards) {
       card.details = carddb.cardFromId(card.cardID);
-      if (eloOverrideDict[card.details.name_lower]) {
-        card.details.elo = eloOverrideDict[card.details.name_lower];
+      if (eloOverrideDict[cardNameLower(card)]) {
+        card.details.elo = eloOverrideDict[cardNameLower(card)];
       }
     }
 
@@ -619,8 +622,8 @@ export const viewDeck = async (req, res) => {
       if (draft && draft.cards) {
         for (const card of draft.cards) {
           card.details = carddb.cardFromId(card.cardID);
-          if (eloOverrideDict[card.details.name_lower]) {
-            card.details.elo = eloOverrideDict[card.details.name_lower];
+          if (eloOverrideDict[cardNameLower(card)]) {
+            card.details.elo = eloOverrideDict[cardNameLower(card)];
           }
         }
       }

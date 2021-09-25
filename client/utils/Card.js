@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { arraysEqual, fromEntries, arrayIsSubset } from '@cubeartisan/client/utils/Util.js';
+import { arraysEqual, arrayIsSubset } from '@cubeartisan/client/utils/Util.js';
 import LandCategories from '@cubeartisan/client/res/LandCategories.js';
 
 export const COLOR_COMBINATIONS = [
@@ -54,10 +54,10 @@ export const COLOR_COMBINATIONS = [
   ['W', 'U', 'B', 'R', 'G'],
 ];
 
-export const COLOR_INCLUSION_MAP = fromEntries(
+export const COLOR_INCLUSION_MAP = Object.fromEntries(
   COLOR_COMBINATIONS.map((colors) => [
     colors.join(''),
-    fromEntries(COLOR_COMBINATIONS.map((comb) => [comb.join(''), arrayIsSubset(comb, colors)])),
+    Object.fromEntries(COLOR_COMBINATIONS.map((comb) => [comb.join(''), arrayIsSubset(comb, colors)])),
   ]),
 );
 for (const colorsIncluded of Object.values(COLOR_INCLUSION_MAP)) {
@@ -162,9 +162,9 @@ export const cardIsToken = (card) => card.details.is_token;
 
 export const cardBorderColor = (card) => card.details.border_color;
 
-export const cardName = (card) => card.details.name;
+export const cardName = (card) => card?.name ?? card?.details?.name;
 
-export const cardNameLower = (card) => card.details.name_lower;
+export const cardNameLower = (card) => card?.name?.toLowerCase?.() ?? card?.details?.name_lower;
 
 export const cardFullName = (card) => card.details.full_name;
 
@@ -238,6 +238,9 @@ export const CARD_CATEGORY_DETECTORS = {
     details.colors.length > 1 && details.parsed_cost.some((symbol) => symbol.includes('-') && !symbol.includes('-p')),
   phyrexian: (details) => details.parsed_cost.some((symbol) => symbol.includes('-p')),
   promo: (details) => details.promo,
+  reprint: (details) => details.reprint,
+  firstprint: (details) => !details.reprint,
+  firtprinting: (details) => !details.reprint,
   digital: (details) => details.digital,
   reasonable: (details) =>
     !details.promo &&
@@ -296,7 +299,7 @@ export const CARD_CATEGORY_DETECTORS = {
   battleland: (details) => LandCategories.TANGO.includes(details.name),
 
   // Others from Scryfall:
-  //   reserved, reprint, new, old, hires,
+  //   reserved, new, old, hires,
   //   spotlight, unique, masterpiece,
   //   funny,
   //   booster, datestamped, prerelease, planeswalker_deck,

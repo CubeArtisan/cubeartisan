@@ -16,20 +16,22 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useState } from 'react';
+import React, { lazy, useState } from 'react';
 import PropTypes from 'prop-types';
 import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType.js';
 
 import { Nav, CardBody, Card, TabContent, TabPane, Input, FormGroup, Row, Col, Label, Button } from 'reactstrap';
 
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import PodcastPreview from '@cubeartisan/client/components/PodcastPreview.js';
 import Tab from '@cubeartisan/client/components/Tab.js';
-import Podcast from '@cubeartisan/client/components/Podcast.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+
+const PodcastPreview = lazy(() => import('@cubeartisan/client/components/PodcastPreview.js'));
+const Podcast = lazy(() => import('@cubeartisan/client/components/Podcast.js'));
 
 export const EditPodcastPage = ({ loginCallback, podcast }) => {
   const [tab, setTab] = useQueryParam('tab', '0');
@@ -66,7 +68,7 @@ export const EditPodcastPage = ({ loginCallback, podcast }) => {
                 <Input type="hidden" name="podcastid" value={podcast._id} />
                 <Input type="hidden" name="rss" value={rss} />
                 <Button type="submit" outline color="success" block>
-                  Submit for Review
+                  Publish
                 </Button>
               </CSRFForm>
             </Col>
@@ -110,11 +112,15 @@ export const EditPodcastPage = ({ loginCallback, podcast }) => {
             <CardBody>
               <Row>
                 <Col xs="12" sm="6" md="4" lg="3" className="mb-3">
-                  <PodcastPreview podcast={podcast} />
+                  <Suspense>
+                    <PodcastPreview podcast={podcast} />
+                  </Suspense>
                 </Col>
               </Row>
             </CardBody>
-            <Podcast podcast={podcast} />
+            <Suspense>
+              <Podcast podcast={podcast} />
+            </Suspense>
           </TabPane>
         </TabContent>
       </Card>

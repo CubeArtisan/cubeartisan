@@ -19,7 +19,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import { Navbar, Nav, NavItem, NavLink, Row, Col, CardBody } from 'reactstrap';
+import { Button, Navbar, Nav, NavItem, Row, Col, CardBody } from 'reactstrap';
 import LoadingPage from '@cubeartisan/client/pages/LoadingPage.js';
 import VideoPreview from '@cubeartisan/client/components/VideoPreview.js';
 import Paginate from '@cubeartisan/client/components/Paginate.js';
@@ -38,7 +38,7 @@ const CreatorVideos = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await csrfFetch(`/videos/${user._id}/${page}`);
+      const response = await csrfFetch(`/user/${user._id}/videos/${page}`);
       if (!response.ok) {
         console.warn(response);
       }
@@ -62,9 +62,11 @@ const CreatorVideos = () => {
       <Navbar light expand className="usercontrols mb-3">
         <Nav navbar>
           <NavItem>
-            <NavLink href="/video" className="clickable">
-              Create New Video
-            </NavLink>
+            <form method="POST" action="/creators/video">
+              <Button type="submit" color="primary">
+                Create New Video
+              </Button>
+            </form>
           </NavItem>
         </Nav>
       </Navbar>

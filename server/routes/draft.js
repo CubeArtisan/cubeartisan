@@ -19,7 +19,7 @@
 import { addNotification, wrapAsyncApi } from '@cubeartisan/server/serverjs/util.js';
 import { abbreviate, addDeckCardAnalytics, saveDraftAnalytics } from '@cubeartisan/server/serverjs/cubefn.js';
 import generateMeta from '@cubeartisan/server/serverjs/meta.js';
-import Util, { fromEntries, getCubeDescription, toNullableInt } from '@cubeartisan/client/utils/Util.js';
+import { arraysAreEqualSets, getCubeDescription, toNullableInt } from '@cubeartisan/client/utils/Util.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import Draft from '@cubeartisan/server/models/draft.js';
 import Cube from '@cubeartisan/server/models/cube.js';
@@ -134,7 +134,7 @@ export const redraftDraft = async (req, res) => {
     let eloOverrideDict = {};
     if (cube.useCubeElo) {
       const analytic = await CubeAnalytic.findOne({ cube: cube._id });
-      eloOverrideDict = fromEntries(analytic.cards.map((c) => [c.cardName, c.elo]));
+      eloOverrideDict = Object.fromEntries(analytic.cards.map((c) => [c.cardName, c.elo]));
     }
 
     draft = await Draft.findById(draft._id).lean();
@@ -202,7 +202,7 @@ export const submitDraft = async (req, res) => {
       // eslint-disable-next-line no-await-in-loop
       const { sideboard, deck: newDeck, colors } = await buildDeck({ cards: draft.cards, picked: seat.pickorder });
       const colorString =
-        colors.length === 0 ? 'C' : COLOR_COMBINATIONS.find((comb) => Util.arraysAreEqualSets(comb, colors)).join('');
+        colors.length === 0 ? 'C' : COLOR_COMBINATIONS.find((comb) => arraysAreEqualSets(comb, colors)).join('');
       if (seat.bot) {
         deck.seats.push({
           bot: seat.bot,

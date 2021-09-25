@@ -24,9 +24,8 @@ import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import CubeAnalyticPropType from '@cubeartisan/client/proptypes/CubeAnalyticPropType.js';
 
 import { compareStrings, SortableTable } from '@cubeartisan/client/components/SortableTable.js';
-import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
-import { mainboardRate, pickRate, encodeName } from '@cubeartisan/client/utils/Card.js';
+import { cardName, mainboardRate, pickRate, encodeName } from '@cubeartisan/client/utils/Card.js';
 
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 
@@ -35,7 +34,7 @@ const AutocardItem = withAutocard(ListGroupItem);
 const renderCardLink = (card) => (
   <AutocardItem className="p-0" key={card.index} card={card} data-in-modal index={card.index}>
     <a href={`/card/${encodeName(card.cardID)}`} target="_blank" rel="noopener noreferrer">
-      {card.details.name}
+      {cardName(card)}
     </a>
   </AutocardItem>
 );
@@ -46,7 +45,7 @@ const renderPercent = (val) => {
 
 const PlaytestData = ({ cards: allCards, cubeAnalytics }) => {
   const cardDict = useMemo(
-    () => fromEntries(allCards.map((card) => [card.details.name.toLowerCase(), card])),
+    () => Object.fromEntries(allCards.map((card) => [cardName(card).toLowerCase(), card])),
     [allCards],
   );
 
@@ -54,16 +53,16 @@ const PlaytestData = ({ cards: allCards, cubeAnalytics }) => {
     () =>
       cubeAnalytics.cards
         .filter((cardAnalytic) => cardDict[cardAnalytic.cardName])
-        .map(({ cardName, elo, mainboards, sideboards, picks, passes }) => ({
+        .map((analytic) => ({
           card: {
-            exportValue: cardName,
-            ...cardDict[cardName],
+            exportValue: analytic.cardName,
+            ...cardDict[analytic.cardName],
           },
-          elo: Math.round(elo),
-          mainboard: mainboardRate({ mainboards, sideboards }),
-          pickrate: pickRate({ picks, passes }),
-          picks,
-          mainboards,
+          elo: Math.round(analytic.elo),
+          mainboard: mainboardRate({ mainboards: analytic.mainboards, sideboards: analytic.sideboards }),
+          pickrate: pickRate({ picks: analytic.picks, passes: analytic.passes }),
+          picks: analytic.picks,
+          mainboards: analytic.mainboards,
         })),
     [cubeAnalytics, cardDict],
   );

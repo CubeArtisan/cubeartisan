@@ -25,7 +25,7 @@ const config = {
       {
         test: /\.jsx?$/,
         type: 'javascript/auto',
-        exclude: /node_modules[/\\](?!react-dom[/\\]server|consolidate|@cubeartisan[/\\]client|canvas)/,
+        exclude: /node_modules[/\\](?!react-dom[/\\]server|consolidate|@cubeartisan[/\\]client)/,
         use: {
           loader: 'babel-loader',
           options: {

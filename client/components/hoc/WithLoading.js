@@ -20,7 +20,6 @@ import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Spinner } from 'reactstrap';
-import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 import styled from '@cubeartisan/client/utils/styledHelper.js';
 
 const TransparentSpinner = styled(Spinner)`
@@ -32,7 +31,7 @@ const withLoading = (Tag, handlers) => {
     const [stateLoading, setLoading] = useState(false);
     const wrappedHandlers = useMemo(
       () =>
-        fromEntries(
+        Object.fromEntries(
           (handlers || []).map((name) => [
             name,
             async (event) => {

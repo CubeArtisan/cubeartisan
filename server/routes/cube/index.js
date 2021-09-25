@@ -3,7 +3,6 @@ import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 import { body, param } from 'express-validator';
 import fetch from 'node-fetch';
 import RSS from 'rss';
-import canvas from 'canvas';
 
 import { createDraft, getDraftFormat } from '@cubeartisan/client/drafting/createdraft.js';
 import { makeFilter } from '@cubeartisan/client/filtering/FilterCards.js';
@@ -23,7 +22,6 @@ import {
   addMultipleNotifications,
   addNotification,
   binaryInsert,
-  fromEntries,
   hasProfanity,
   isAdmin,
   newCard,
@@ -63,9 +61,6 @@ import Package from '@cubeartisan/server/models/package.js';
 import GridDraft from '@cubeartisan/server/models/gridDraft.js';
 import CubeAnalytic from '@cubeartisan/server/models/cubeAnalytic.js';
 import { getCubeDescription } from '@cubeartisan/client/utils/Util.js';
-
-const { Canvas, Image } = canvas;
-Canvas.Image = Image;
 
 const createCubeHandler = async (req, res) => {
   try {
@@ -181,6 +176,14 @@ const addFormatHandler = async (req, res) => {
     let message = '';
     const { id, serializedFormat } = req.body;
     const format = JSON.parse(serializedFormat);
+
+    format.defaultSeats = Number.parseInt(format.defaultSeats, 10);
+    if (Number.isNaN(format.defaultSeats)) format.defaultSeats = 8;
+    if (format.defaultSeats < 2 || format.defaultSeats > 16) {
+      req.flash('danger', 'Default seat count must be between 2 and 16');
+      return res.redirect(`/cube/${encodeURIComponent(req.params.id)}/playtest`);
+    }
+
     if (id === '-1') {
       if (!cube.draft_formats) {
         cube.draft_formats = [];
@@ -194,9 +197,9 @@ const addFormatHandler = async (req, res) => {
 
     await cube.save();
     req.flash('success', message);
-    return res.redirect(`/cube/${req.params.id}/playtest`);
+    return res.redirect(`/cube/${encodeURIComponent(req.params.id)}/playtest`);
   } catch (err) {
-    return handleRouteError(req, res, err, `/cube/${req.params.id}/playtest`);
+    return handleRouteError(req, res, err, `/cube/${encodeURIComponent(req.params.id)}/playtest`);
   }
 };
 export const addFormat = [ensureAuth, addFormatHandler];
@@ -716,11 +719,10 @@ const viewSamplePackImageHandler = async (req, res) => {
   const imageBuffer = await generateSamplepackImageSharp(srcArray, {
     width: CARD_WIDTH * width,
     height: CARD_HEIGHT * height,
-    Canvas,
   });
 
   res.writeHead(200, {
-    'Content-Type': 'image/png',
+    'Content-Type': 'image/webp',
   });
   return res.end(imageBuffer);
 };
@@ -830,7 +832,7 @@ const startDraftHandler = async (req, res) => {
     if (cube.useCubeElo) {
       const analytic = await CubeAnalytic.findOne({ cube: cube._id });
       if (analytic) {
-        eloOverrideDict = fromEntries(analytic.cards.map((c) => [c.cardName, c.elo]));
+        eloOverrideDict = Object.fromEntries(analytic.cards.map((c) => [c.cardName, c.elo]));
       }
     }
 
@@ -866,6 +868,7 @@ const startDraftHandler = async (req, res) => {
 
     draft.initial_state = populated.initial_state;
     draft.seats = populated.seats;
+    draft.timeout = populated.timeout;
     draft.cube = cube._id;
     addBasics(populated.cards, cube.basics, draft);
     draft.cards = populated.cards;
@@ -895,6 +898,7 @@ export const startDraft = [
   body('packs').toInt({ min: 1, max: 36 }),
   body('cards').toInt({ min: 1, max: 90 }),
   body('humanSeats').toInt({ min: 1, max: 16 }),
+  body('timeout').toInt({ min: 0, max: 30 }),
   startDraftHandler,
 ];
 
@@ -1523,7 +1527,8 @@ const updateCardInCubeHandler = async (req, res) => {
     !src ||
     (src && typeof src.index !== 'number') ||
     (updated.cardID && typeof updated.cardID !== 'string') ||
-    (updated.cmc && (typeof updated.cmc !== 'number' || updated.cmc < 0)) ||
+    (updated.name && typeof updated.name !== 'string') ||
+    (updated.cmc && (typeof updated.cmc !== 'number' || updated.cmc < 0 || !Number.isInteger(updated.cmc * 2))) ||
     (updated.status && typeof updated.status !== 'string') ||
     (updated.type_line && typeof updated.type_line !== 'string') ||
     (updated.colors && !Array.isArray(updated.colors)) ||

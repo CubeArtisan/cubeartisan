@@ -16,19 +16,18 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useContext } from 'react';
-
+import React, { lazy, useContext } from 'react';
 import PropTypes from 'prop-types';
-import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType.js';
-
-import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
-
 import { Card, CardHeader, Row, Col, CardBody } from 'reactstrap';
 
+import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType.js';
+import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import BlogContextMenu from '@cubeartisan/client/components/BlogContextMenu.js';
-import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+
+const CommentsSection = lazy(() => import('@cubeartisan/client/components/CommentsSection.js'));
 
 const BlogPost = ({ post, onEdit, noScroll }) => {
   const user = useContext(UserContext);
@@ -74,7 +73,9 @@ const BlogPost = ({ post, onEdit, noScroll }) => {
         )}
       </div>
       <div className="border-top">
-        <CommentsSection parentType="blog" parent={post._id} collapse={false} />
+        <Suspense>
+          <CommentsSection parentType="blog" parent={post._id} collapse={false} />
+        </Suspense>
       </div>
     </Card>
   );

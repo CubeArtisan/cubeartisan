@@ -22,7 +22,7 @@ import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
 import { Form, Input } from 'reactstrap';
 
-import { cardsAreEquivalent, normalizeName } from '@cubeartisan/client/utils/Card.js';
+import { cardName, cardsAreEquivalent, normalizeName } from '@cubeartisan/client/utils/Card.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import { getLabels, sortDeep } from '@cubeartisan/client/utils/Sort.js';
 
@@ -135,7 +135,14 @@ const ListViewRow = ({ card, versions, versionsLoading, checked, onCheck, addAle
           },
         });
         if (!response.ok) {
-          addAlert('danger', `Failed to update ${card.details.name} (status ${response.statusCode})`);
+          let message;
+          try {
+            const json = await response.json();
+            message = json.message;
+          } catch {
+            message = `status ${response.status}`;
+          }
+          addAlert('danger', `Failed to update ${cardName(card)} (${message})`);
           return;
         }
 
@@ -248,7 +255,8 @@ const ListViewRow = ({ card, versions, versionsLoading, checked, onCheck, addAle
   const handleBlur = useCallback(
     async (event) => {
       const { target } = event;
-      const { name, value, tagName } = target;
+      const { name, tagName } = target;
+      const value = name === 'cmc' ? parseFloat(target.value) : target.value;
 
       // <select>s handled in handleChange above.
       if (tagName.toLowerCase() !== 'select') {
@@ -289,7 +297,7 @@ const ListViewRow = ({ card, versions, versionsLoading, checked, onCheck, addAle
         />
       </td>
       <AutocardTd className="align-middle text-truncate" card={card}>
-        {card.details.name}
+        {cardName(card)}
       </AutocardTd>
       <td>
         <VersionInput {...inputProps('cardID')} type="select" className="w-100" loading={versionsLoading ? true : null}>
@@ -437,7 +445,7 @@ const ListView = ({ cards }) => {
           <ListViewRow
             key={card._id}
             card={card}
-            versions={versionDict[normalizeName(card.details.name)] || defaultVersions(card)}
+            versions={versionDict[normalizeName(cardName(card))] || defaultVersions(card)}
             versionsLoading={versionsLoading}
             checked={checked.includes(card.index)}
             onCheck={handleCheck}

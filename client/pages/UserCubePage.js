@@ -16,19 +16,20 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useContext } from 'react';
+import React, { lazy, useContext } from 'react';
 import PropTypes from 'prop-types';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
-
 import { Button, Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
 
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import CubePreview from '@cubeartisan/client/components/CubePreview.js';
 import UserLayout from '@cubeartisan/client/components/layouts/UserLayout.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+
+const CubePreview = lazy(() => import('@cubeartisan/client/components/CubePreview.js'));
 
 export const UserCubePage = ({ owner, followers, following, cubes, loginCallback }) => {
   const user = useContext(UserContext);
@@ -63,11 +64,13 @@ export const UserCubePage = ({ owner, followers, following, cubes, loginCallback
           </CardBody>
         </Card>
         <Row className="my-3">
-          {cubes.map((cube) => (
-            <Col key={cube._id} className="mt-3" xs={6} sm={4} md={3}>
-              <CubePreview cube={cube} />
-            </Col>
-          ))}
+          <Suspense>
+            {cubes.map((cube) => (
+              <Col key={cube._id} className="mt-3" xs={6} sm={4} md={3}>
+                <CubePreview cube={cube} />
+              </Col>
+            ))}
+          </Suspense>
         </Row>
       </UserLayout>
     </MainLayout>

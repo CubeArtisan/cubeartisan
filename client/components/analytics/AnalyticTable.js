@@ -28,7 +28,6 @@ import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { SORTS, cardCanBeSorted, sortGroupsOrdered } from '@cubeartisan/client/utils/Sort.js';
-import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 
 const sortWithTotal = (pool, sort) =>
   [...sortGroupsOrdered(pool, sort), ['Total', pool]].map(([label, cards]) => [
@@ -48,15 +47,15 @@ const AnalyticTable = ({ cards: allCards, cube, defaultFormatId, setAsfans }) =>
   );
   const [columnCounts, columnLabels] = useMemo(() => {
     const counts = sortWithTotal(cards, column).filter(([label, count]) => label === 'Total' || count > 0);
-    return [fromEntries(counts), counts.map(([label]) => label)];
+    return [Object.fromEntries(counts), counts.map(([label]) => label)];
   }, [cards, column]);
   const rows = useMemo(
     () =>
       [...sortGroupsOrdered(cards, row), ['Total', cards]]
-        .map(([label, groupCards]) => [label, fromEntries(sortWithTotal(groupCards, column))])
+        .map(([label, groupCards]) => [label, Object.fromEntries(sortWithTotal(groupCards, column))])
         .map(([rowLabel, columnValues]) => ({
           rowLabel,
-          ...fromEntries(columnLabels.map((label) => [label, columnValues[label] ?? 0])),
+          ...Object.fromEntries(columnLabels.map((label) => [label, columnValues[label] ?? 0])),
         })),
     [cards, column, row, columnLabels],
   );

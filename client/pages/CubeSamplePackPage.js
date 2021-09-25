@@ -16,15 +16,13 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
+import React, { lazy } from 'react';
 import PropTypes from 'prop-types';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 
 import { Row, Col } from 'reactstrap';
 
-import CardGrid from '@cubeartisan/client/components/CardGrid.js';
-import CardImage from '@cubeartisan/client/components/CardImage.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
@@ -32,6 +30,10 @@ import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import styled from '@cubeartisan/client/utils/styledHelper.js';
 import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import SetCardsInRow from '@cubeartisan/client/components/SetCardsInRow.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+
+const CardGrid = lazy(() => import('@cubeartisan/client/components/CardGrid.js'));
+const CardImage = lazy(() => import('@cubeartisan/client/components/CardImage.js'));
 
 const BoundedCol = styled(Col)`
   max-width: 800px;
@@ -66,13 +68,15 @@ export const SamplePackPage = ({ seed, pack, cube, loginCallback }) => {
               <SetCardsInRow />
               <Row noGutters className="justify-content-center">
                 <BoundedCol>
-                  <CardGrid
-                    cardList={pack}
-                    Tag={CardImage}
-                    colProps={{}}
-                    cardProps={{ autocard: true }}
-                    className="sample"
-                  />
+                  <Suspense>
+                    <CardGrid
+                      cardList={pack}
+                      Tag={CardImage}
+                      colProps={{}}
+                      cardProps={{ autocard: true }}
+                      className="sample"
+                    />
+                  </Suspense>
                 </BoundedCol>
               </Row>
             </div>

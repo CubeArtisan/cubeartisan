@@ -20,7 +20,6 @@ import seedrandom from 'seedrandom';
 import shuffleSeed from 'shuffle-seed';
 
 import { filterToString, makeFilter, operatorsRegex } from '@cubeartisan/client/filtering/FilterCards.js';
-import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 
 export const matchingCards = (cards, filter) => {
   if (filter) {
@@ -180,13 +179,11 @@ export const getDraftFormat = (params, cube) => {
     format = parseDraftFormat(cube.draft_formats[params.id].packs);
     format.custom = true;
     format.multiples = cube.draft_formats[params.id].multiples;
-    format.humanSeats = params.humanSeats;
   } else {
     // default format
     format = [];
     format.custom = false;
     format.multiples = false;
-    format.humanSeats = params.humanSeats;
     for (let pack = 0; pack < params.packs; pack++) {
       format[pack] = { slots: [], steps: null };
       for (let card = 0; card < params.cards; card++) {
@@ -194,6 +191,8 @@ export const getDraftFormat = (params, cube) => {
       }
     }
   }
+  format.timeout = params.timeout;
+  format.humanSeats = params.humanSeats;
   return format;
 };
 
@@ -237,6 +236,7 @@ export const createDraft = (format, cubeCards, seats, user, botsOnly = false, se
   const draft = {
     seats: [],
     cards: [],
+    timeout: format.timeout,
     seed,
   };
 
@@ -419,5 +419,5 @@ export const calculateAsfans = (cube, draftFormat) => {
     throw new Error(`Could not create draft:\n${result.messages.join('\n')}`);
   }
 
-  return fromEntries(cards.map((card) => [card.cardID, card.asfan]));
+  return Object.fromEntries(cards.map((card) => [card.cardID, card.asfan]));
 };

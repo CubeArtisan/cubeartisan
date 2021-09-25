@@ -29,6 +29,10 @@ export default {
     type: Boolean,
     default: false,
   },
+  name: {
+    type: String,
+    default: null,
+  },
   notes: String,
   rarity: {
     type: String,

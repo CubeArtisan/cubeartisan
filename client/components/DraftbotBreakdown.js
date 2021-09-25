@@ -26,7 +26,6 @@ import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import { DrafterStatePropType, DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
 import { COLOR_COMBINATIONS, cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
-import { fromEntries } from '@cubeartisan/client/utils/Util.js';
 import { convertDrafterState, initializeMtgDraftbots } from '@cubeartisan/client/drafting/draftutil.js';
 import PickSelector from '@cubeartisan/client/components/PickSelector.js';
 
@@ -64,7 +63,7 @@ const TRAITS = Object.freeze([
     tooltip: 'This is the color combination the bot is assuming that will maximize the total score.',
     compute: ({ lands }) =>
       JSON.stringify(
-        fromEntries(COLOR_COMBINATIONS.map((c, i) => [c.length > 0 ? c : 'C', lands[i]]).filter(([, x]) => x)),
+        Object.fromEntries(COLOR_COMBINATIONS.map((c, i) => [c.length > 0 ? c : 'C', lands[i]]).filter(([, x]) => x)),
       ),
   },
   {
@@ -107,7 +106,7 @@ export const DraftbotBreakdownTable = ({ drafterState }) => {
     () =>
       botEvaluations
         .map((botEvaluation, idx) =>
-          fromEntries([
+          Object.fromEntries([
             [CARD_TRAIT.title, drafterState.cards[drafterState.cardsInPack[idx]]],
             ...botEvaluation.oracleResults.map(({ title, value }) => [title, value]),
             ...TRAITS.map(({ title, compute }) => [title, compute(botEvaluation)]),
@@ -128,7 +127,7 @@ export const DraftbotBreakdownTable = ({ drafterState }) => {
         }))}
         data={rows}
         defaultSortConfig={{ key: 'Total Score', direction: 'descending' }}
-        sortFns={{ Lands: compareStrings, Card: (a, b) => compareStrings(a.details.name, b.details.name) }}
+        sortFns={{ Lands: compareStrings, Card: (a, b) => compareStrings(cardName(a), cardName(b)) }}
       />
       <h4 className="mt-4 mb-2">{`Pack ${drafterState.packNum + 1}: Pick ${drafterState.pickNum + 1} Weights`}</h4>
       <SortableTable

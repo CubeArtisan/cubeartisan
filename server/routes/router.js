@@ -1,7 +1,33 @@
 import express from 'express';
 
 import AdminRoutes from '@cubeartisan/server/routes/admin.js';
-import ContentRoutes from '@cubeartisan/server/routes/content.js';
+import {
+  browseArticles,
+  browseContent,
+  browsePodcastEpisodes,
+  browsePodcasts,
+  browseVideos,
+  createNewArticle,
+  createNewPodcast,
+  createNewVideo,
+  editArticle,
+  editPodcast,
+  editVideo,
+  fetchPodcast,
+  getJsonUserArticles,
+  getJsonUserPodcasts,
+  getJsonUserVideos,
+  submitArticle,
+  submitPodcast,
+  submitVideo,
+  viewArticle,
+  viewCreatorDashboard,
+  viewEditArticle,
+  viewEditPodcast,
+  viewEditVideo,
+  viewPodcastEpisode,
+  viewVideo,
+} from '@cubeartisan/server/routes/content.js';
 
 import {
   showDowntimePage,
@@ -180,6 +206,7 @@ import {
   updateTagColors,
 } from '@cubeartisan/server/routes/cube/index.js';
 import { followCube, unfollowCube } from '@cubeartisan/server/routes/cube/social.js';
+import { redirect } from '@cubeartisan/server/serverjs/util.js';
 
 const router = express.Router();
 
@@ -187,8 +214,6 @@ const router = express.Router();
 if (process.env.DOWNTIME_ACTIVE === 'true') {
   router.use(showDowntimePage);
 }
-
-router.use('/', ContentRoutes);
 
 router.get('/', redirectToLandingOrDash);
 router.get('/404', showErrorPage);
@@ -215,6 +240,31 @@ router.post('/comment/:id/report', reportComment);
 router.get('/comments/:parent/:type', getChildComments);
 router.get('/contact', viewContactPage);
 router.get('/cookies', viewCookiePolicy);
+router.post('/creators/article', createNewArticle);
+router.get('/creators/article/:id', viewArticle);
+router.post('/creators/article/:id', editArticle);
+router.get('/creators/article/:id/edit', viewEditArticle);
+router.post('/creators/article/:id/submit', submitArticle);
+router.get('/creators/articles', redirect('/articles/0'));
+router.get('/creators/articles/:page', browseArticles);
+router.get('/creators/browse', browseContent);
+router.get('/creators/dashboard', viewCreatorDashboard);
+router.post('/creators/podcast', createNewPodcast);
+router.get('/creators/podcast/:id', browsePodcastEpisodes);
+router.post('/creators/podcast/:id', editPodcast);
+router.get('/creators/podcast/:id/edit', viewEditPodcast);
+router.get('/creators/podcast/:podcastid/episode/:episodeid', viewPodcastEpisode);
+router.put('/creators/podcast/:id/fetch', fetchPodcast);
+router.post('/creators/podcast/:id/submit', submitPodcast);
+router.get('/creators/podcasts', redirect('/podcasts/0'));
+router.get('/creators/podcasts/:page', browsePodcasts);
+router.post('/creators/video', createNewVideo);
+router.get('/creators/video/:id', viewVideo);
+router.post('/creators/video/:id', editVideo);
+router.get('/creators/video/:id/edit', viewEditVideo);
+router.post('/creators/video/:id/submit', submitVideo);
+router.get('/creators/videos', redirect('/videos/0'));
+router.get('/creators/videos/:page', browseVideos);
 router.post('/cube', createCube);
 router.delete('/cube/:id', deleteCube);
 router.get('/cube/:id', viewOverview);
@@ -341,6 +391,7 @@ router.get('/user', viewRegisterPage);
 router.get('/user/:userid', viewUserPage);
 router.post('/user/:userid', updateUserInfo);
 router.get('/user/:userid/account', viewAccountPage);
+router.get('/user/:user/articles/:page', getJsonUserArticles);
 router.get('/user/:userid/blog', redirectToFirstPageOfUserBlogPosts);
 router.get('/user/:userid/blog/:page', viewUserBlog);
 router.get('/user/:userid/confirm', confirmUser);
@@ -358,8 +409,10 @@ router.get('/user/:userid/notifications', viewNotifications);
 router.get('/user/:userid/packages/:page/:sort/:direction', getUserPackages);
 router.post('/user/:userid/password', changePassword);
 router.get('/user/:userid/password/reset', viewResetPassword);
+router.get('/user/:user/podcasts/:page', getJsonUserPodcasts);
 router.put('/user/:userid/showtagcolors', saveShowTagColors);
 router.get('/user/:userid/social', viewSocialPage);
+router.get('/user/:user/videos/:page', getJsonUserVideos);
 router.get('/version', getVersion);
 
 export default router;

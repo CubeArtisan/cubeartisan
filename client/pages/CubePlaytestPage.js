@@ -16,10 +16,8 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useContext, useCallback, useMemo, useState, useRef } from 'react';
+import React, { lazy, useContext, useCallback, useMemo, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
-
 import {
   Button,
   Card,
@@ -44,12 +42,11 @@ import {
   UncontrolledCollapse,
 } from 'reactstrap';
 
+import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import CustomDraftFormatModal from '@cubeartisan/client/components/modals/CustomDraftFormatModal.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import DeckPreview from '@cubeartisan/client/components/DeckPreview.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import useAlerts, { Alerts } from '@cubeartisan/client/hooks/UseAlerts.js';
@@ -59,6 +56,10 @@ import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import { allBotsDraft } from '@cubeartisan/client/drafting/draftutil.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+
+const DeckPreview = lazy(() => import('@cubeartisan/client/components/DeckPreview.js'));
+const CustomDraftFormatModal = lazy(() => import('@cubeartisan/client/components/modals/CustomDraftFormatModal.js'));
 
 const range = (lo, hi) => Array.from(Array(hi - lo).keys(), (n) => n + lo);
 const rangeOptions = (lo, hi) => range(lo, hi).map((n) => <option key={n}>{n}</option>);
@@ -202,13 +203,18 @@ const CustomDraftCard = ({
           )}
 
           <LabelRow htmlFor={`seats-${index}`} label="Total Seats">
-            <Input type="select" name="seats" id={`seats-${index}`} defaultValue="8">
+            <Input type="select" name="seats" id={`seats-${index}`} defaultValue={format.defaultSeats ?? 8}>
               {rangeOptions(2, 17)}
             </Input>
           </LabelRow>
           <LabelRow htmlFor="humanSeats" label="Number of Human Seats">
             <Input type="select" name="humanSeats" id="humanSeats" defaultValue="1">
               {rangeOptions(1, 16)}
+            </Input>
+          </LabelRow>
+          <LabelRow htmlFor="timeout" label="Timer: Seconds Per Card In Pack (Use 0 to disable timer).">
+            <Input type="select" name="timeout" id="timeout" defaultValue="0">
+              {rangeOptions(0, 31)}
             </Input>
           </LabelRow>
           <FormGroup check>
@@ -258,6 +264,7 @@ CustomDraftCard.propTypes = {
     title: PropTypes.string.isRequired,
     html: PropTypes.string,
     markdown: PropTypes.string,
+    defaultSeats: PropTypes.number,
   }).isRequired,
   onEditFormat: PropTypes.func.isRequired,
   onDeleteFormat: PropTypes.func.isRequired,
@@ -294,6 +301,11 @@ const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
           <LabelRow htmlFor="humanSeats" label="Number of Human Seats">
             <Input type="select" name="humanSeats" id="humanSeats" defaultValue="1">
               {rangeOptions(1, 16)}
+            </Input>
+          </LabelRow>
+          <LabelRow htmlFor="timeout" label="Timer: Seconds Per Card In Pack (Use 0 to disable timer).">
+            <Input type="select" name="timeout" id="timeout" defaultValue="0">
+              {rangeOptions(0, 31)}
             </Input>
           </LabelRow>
           <FormGroup check>
@@ -366,9 +378,11 @@ const DecksCard = ({ decks, ...props }) => {
         <CardTitleH5>Recent Decks</CardTitleH5>
       </CardHeader>
       <CardBody className="p-0">
-        {decks.map((deck) => (
-          <DeckPreview key={deck._id} deck={deck} />
-        ))}
+        <Suspense>
+          {decks.map((deck) => (
+            <DeckPreview key={deck._id} deck={deck} />
+          ))}
+        </Suspense>
       </CardBody>
       <CardFooter>
         <a href={`/cube/${cubeID}/playtest/decks`}>View all</a>
@@ -552,13 +566,15 @@ export const CubePlaytestPage = ({ cube, decks, loginCallback }) => {
             <SamplePackCard className="mb-3" />
           </Col>
         </Row>
-        <CustomDraftFormatModal
-          isOpen={editModalOpen}
-          toggle={toggleEditModal}
-          formatIndex={editFormatIndex}
-          format={editFormat}
-          setFormat={setEditFormat}
-        />
+        <Suspense>
+          <CustomDraftFormatModal
+            isOpen={editModalOpen}
+            toggle={toggleEditModal}
+            formatIndex={editFormatIndex}
+            format={editFormat}
+            setFormat={setEditFormat}
+          />
+        </Suspense>
       </CubeLayout>
     </MainLayout>
   );
@@ -576,6 +592,7 @@ CubePlaytestPage.propTypes = {
         title: PropTypes.string,
         multiples: PropTypes.bool,
         markdown: PropTypes.string.isRequired,
+        defaultSeats: PropTypes.number,
         packs: PropTypes.arrayOf(
           PropTypes.shape({
             slots: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
