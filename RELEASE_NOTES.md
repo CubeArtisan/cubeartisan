@@ -113,8 +113,9 @@
 #### Features
 
 - Add optional draft timers for drafts.
-- Update the Info Pages for the site.
+- Allow updating card names to make custom cubes work better.
 - Update the content creator system and remove the review requirement.
+- Update the Info Pages for the site.
 - Better optimize the code sent to the client to improve load times and data usage.
 - Significantly optimize the images created for p1p1.
 - Have a useful message on the page if javascript is not enabled. Ported from CubeCobra.

@@ -23,6 +23,7 @@ import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import ImageFallback from '@cubeartisan/client/components/ImageFallback.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
+import { cardName } from '@cubeartisan/client/utils/Card.js';
 
 const ImageAutocard = withAutocard(ImageFallback);
 
@@ -37,7 +38,7 @@ const CardImage = forwardRef(({ card, autocard, className, width, height, ...pro
       card={autocard ? card : undefined}
       src={imageSrc}
       fallbackSrc="/content/default_card.png"
-      alt={card.details.name}
+      alt={cardName(card)}
       width={width || '100%'}
       height={height || 'auto'}
       className={className ? `${className} card-border` : 'card-border'}

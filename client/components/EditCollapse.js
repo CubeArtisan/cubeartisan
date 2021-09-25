@@ -35,7 +35,7 @@ import {
   InputGroupText,
 } from 'reactstrap';
 
-import { encodeName } from '@cubeartisan/client/utils/Card.js';
+import { cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
 import { findUserLinks } from '@cubeartisan/markdown';
 
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
@@ -139,7 +139,7 @@ const EditCollapse = ({ ...props }) => {
       try {
         const cardOut = cube.cards.find(
           (card) =>
-            card.details.name.toLowerCase() === (newValue || removeValue).toLowerCase() &&
+            cardName(card).toLowerCase() === (newValue || removeValue).toLowerCase() &&
             !changes.some(
               (change) =>
                 (change.remove && change.remove.index === card.index) ||

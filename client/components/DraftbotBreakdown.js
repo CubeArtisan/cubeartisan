@@ -127,7 +127,7 @@ export const DraftbotBreakdownTable = ({ drafterState }) => {
         }))}
         data={rows}
         defaultSortConfig={{ key: 'Total Score', direction: 'descending' }}
-        sortFns={{ Lands: compareStrings, Card: (a, b) => compareStrings(a.details.name, b.details.name) }}
+        sortFns={{ Lands: compareStrings, Card: (a, b) => compareStrings(cardName(a), cardName(b)) }}
       />
       <h4 className="mt-4 mb-2">{`Pack ${drafterState.packNum + 1}: Pick ${drafterState.pickNum + 1} Weights`}</h4>
       <SortableTable

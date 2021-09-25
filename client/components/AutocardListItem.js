@@ -24,6 +24,7 @@ import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext.js';
 import TagContext from '@cubeartisan/client/components/contexts/TagContext.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
+import { cardName } from '@cubeartisan/client/utils/Card.js';
 
 const AutocardDiv = withAutocard('li');
 
@@ -51,8 +52,8 @@ const AutocardListItem = ({ card, noCardModal, inModal, className, children }) =
   /** 2020-11-18 struesdell:
    *  Replaced destructuring with `useMemo` tuple to minimize rerenders
    */
-  const [cardName, cardId] = useMemo(
-    () => (card && card.details ? [card.details.name, card.details._id] : [CARD_NAME_FALLBACK, CARD_ID_FALLBACK]),
+  const [name, cardId] = useMemo(
+    () => [cardName(card) ?? CARD_NAME_FALLBACK, card?.details?._id ?? CARD_ID_FALLBACK],
     [card],
   );
 
@@ -97,7 +98,7 @@ const AutocardListItem = ({ card, noCardModal, inModal, className, children }) =
       inModal={inModal}
       role="button"
     >
-      <span className={styles.name}>{cardName}</span>
+      <span className={styles.name}>{name}</span>
       <span className={styles.children}>{children}</span>
     </AutocardDiv>
   );

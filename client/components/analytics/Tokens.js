@@ -24,14 +24,15 @@ import { getTCGLink } from '@cubeartisan/client/utils/Affiliate.js';
 
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import MassBuyButton from '@cubeartisan/client/components/MassBuyButton.js';
+import { cardName } from '@cubeartisan/client/utils/Card.js';
 
-const compareCards = (x, y) => x.details.name.localeCompare(y.details.name);
+const compareCards = (x, y) => cardName(x).localeCompare(cardName(y));
 const sortCards = (cards) => Array.from(cards).sort(compareCards);
 
 const dedupeCards = (cards) => {
   const map = new Map();
   for (const card of Array.from(cards).reverse()) {
-    map.set(card.details.name, card);
+    map.set(cardName(card), card);
   }
   return Array.from(map.values());
 };
@@ -58,7 +59,7 @@ const Tokens = ({ cube }) => {
   const data = sorted.map(([, tokenData]) => ({
     card: tokenData.token,
     cardDescription: sortCards(dedupeCards(tokenData.cards))
-      .map(({ position }) => `[[${cube.cards[position].details.name}|${cube.cards[position].details._id}]]`)
+      .map(({ position }) => `[[${cardName(cube.cards[position])}|${cube.cards[position].details._id}]]`)
       .join('\n\n'),
   }));
 
@@ -78,7 +79,7 @@ const Tokens = ({ cube }) => {
           <Col key={card.cardID} xs={6} md={4} lg={3}>
             <Card className="mb-3">
               <a href={getTCGLink(card)}>
-                <img src={card.details.image_normal} className="card-img-top" alt={card.details.name} />
+                <img src={card.details.image_normal} className="card-img-top" alt={cardName(card)} />
               </a>
               <CardBody>
                 <p className="card-text">

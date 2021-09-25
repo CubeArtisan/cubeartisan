@@ -23,7 +23,7 @@ import { Row, Col } from 'reactstrap';
 import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import { DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
-import { encodeName } from '@cubeartisan/client/utils/Card.js';
+import { cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
 import { getDrafterState } from '@cubeartisan/client/drafting/draftutil.js';
 import { toNullableInt } from '@cubeartisan/client/utils/Util.js';
 import PickSelector from '@cubeartisan/client/components/PickSelector.js';
@@ -100,7 +100,7 @@ const DecksPickBreakdownInternal = ({ draft, seatIndex, defaultIndex }) => {
         <Row noGutters>
           {cardsInPack.map((cardIndex) => (
             <Col key={/* eslint-disable-line react/no-array-index-key */ cardIndex} xs={4} sm={2}>
-              <a href={`/card/${encodeName(cards[cardIndex].details.name)}`}>
+              <a href={`/card/${encodeName(cardName(cards[cardIndex]))}`}>
                 <FoilCardImage autocard data-in-modal card={cards[cardIndex]} className="clickable" />
               </a>
             </Col>

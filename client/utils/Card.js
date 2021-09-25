@@ -162,9 +162,9 @@ export const cardIsToken = (card) => card.details.is_token;
 
 export const cardBorderColor = (card) => card.details.border_color;
 
-export const cardName = (card) => card.details.name;
+export const cardName = (card) => card?.name ?? card?.details?.name;
 
-export const cardNameLower = (card) => card.details.name_lower;
+export const cardNameLower = (card) => card?.name?.toLowerCase?.() ?? card?.details?.name_lower;
 
 export const cardFullName = (card) => card.details.full_name;
 
