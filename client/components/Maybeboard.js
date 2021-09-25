@@ -36,6 +36,7 @@ import MaybeboardContext from '@cubeartisan/client/components/contexts/Maybeboar
 import TableView from '@cubeartisan/client/components/TableView.js';
 import { getCardColorClass } from '@cubeartisan/client/components/contexts/TagContext.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
+import { cardName } from '@cubeartisan/client/utils/Card.js';
 
 const AutocardDiv = withAutocard('div');
 
@@ -104,7 +105,7 @@ const MaybeboardListItem = ({ card, className }) => {
       role="button"
     >
       <AutocardDiv className="name" card={card}>
-        {card.details.name}
+        {cardName(card)}
       </AutocardDiv>
       {canEdit &&
         (loading ? (

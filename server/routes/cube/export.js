@@ -5,6 +5,7 @@ import { handleRouteError } from '@cubeartisan/server/routes/middleware.js';
 import { buildIdQuery } from '@cubeartisan/server/serverjs/cubefn.js';
 import { writeCard, CSV_HEADER, exportToMtgo } from '@cubeartisan/server/routes/cube/helper.js';
 import Cube from '@cubeartisan/server/models/cube.js';
+import { cardName } from '@cubeartisan/client/utils/Card.js';
 
 export const sortCardsByQuery = (req, cards) => {
   if (req.query.filter) {
@@ -126,7 +127,7 @@ export const exportCubeToForge = async (req, res) => {
     res.write(`Name=${cube.name}\n`);
     res.write('[Main]\n');
     for (const card of cube.cards) {
-      res.write(`1 ${card.details.name}|${card.details.set.toUpperCase()}\n`);
+      res.write(`1 ${cardName(card)}|${card.details.set.toUpperCase()}\n`);
     }
     return res.end();
   } catch (err) {
@@ -174,7 +175,7 @@ export const exportCubeToXmage = async (req, res) => {
     res.setHeader('Content-type', 'text/plain');
     res.charset = 'UTF-8';
     for (const card of cube.cards) {
-      res.write(`1 [${card.details.set.toUpperCase()}:${card.details.collector_number}] ${card.details.name}\n`);
+      res.write(`1 [${card.details.set.toUpperCase()}:${card.details.collector_number}] ${cardName(card)}\n`);
     }
     return res.end();
   } catch (err) {
@@ -201,7 +202,7 @@ export const exportCubeToPlaintext = async (req, res) => {
     res.setHeader('Content-disposition', `attachment; filename=${cube.name.replace(/\W/g, '')}.txt`);
     res.type('text/plain');
     for (const card of cube.cards) {
-      res.write(`${card.details.name}\n`);
+      res.write(`${cardName(card)}\n`);
     }
     return res.end();
   } catch (err) {
@@ -229,7 +230,7 @@ export const exportCubeToPlaintextLower = async (req, res) => {
     res.set('Access-Control-Allow-Origin', '*');
     res.type('text/plain');
     for (const card of cube.cards) {
-      res.write(`${card.details.name}\n`);
+      res.write(`${cardName(card)}\n`);
     }
     return res.end();
   } catch (err) {

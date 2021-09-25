@@ -23,6 +23,7 @@ import PropTypes from 'prop-types';
 import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import { cardName } from '@cubeartisan/client/utils/Card.js';
 
 const TextAutocard = withAutocard('span');
 
@@ -39,7 +40,7 @@ CloseButton.propTypes = {
 const Add = ({ card, changeId, close }) => (
   <li>
     <CloseButton changeId={changeId} close={close} /> <Badge color="success">+</Badge>{' '}
-    <TextAutocard card={card}>{card.details.name}</TextAutocard>
+    <TextAutocard card={card}>{cardName(card)}</TextAutocard>
   </li>
 );
 Add.propTypes = {
@@ -51,7 +52,7 @@ Add.propTypes = {
 const Remove = ({ card, changeId, close }) => (
   <li>
     <CloseButton changeId={changeId} close={close} /> <Badge color="danger">-</Badge>{' '}
-    <TextAutocard card={card}>{card.details.name}</TextAutocard>
+    <TextAutocard card={card}>{cardName(card)}</TextAutocard>
   </li>
 );
 Remove.propTypes = {
@@ -63,9 +64,9 @@ Remove.propTypes = {
 const Replace = ({ cards, changeId, close }) => (
   <li>
     <CloseButton changeId={changeId} close={close} /> <Badge color="primary">→</Badge>{' '}
-    <TextAutocard card={cards[0]}>{cards[0].details.name}</TextAutocard>
+    <TextAutocard card={cards[0]}>{cardName(cards[0])}</TextAutocard>
     {' > '}
-    <TextAutocard card={cards[1]}>{cards[1].details.name}</TextAutocard>
+    <TextAutocard card={cards[1]}>{cardName(cards[1])}</TextAutocard>
   </li>
 );
 Replace.propTypes = {

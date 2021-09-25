@@ -19,7 +19,7 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { cardsAreEquivalent, normalizeName } from '@cubeartisan/client/utils/Card.js';
+import { cardName, cardsAreEquivalent, normalizeName } from '@cubeartisan/client/utils/Card.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import { arrayMove } from '@cubeartisan/client/utils/Util.js';
 import CardModal from '@cubeartisan/client/components/modals/CardModal.js';
@@ -208,6 +208,7 @@ const CardModalForm = ({ children, ...props }) => {
     setCard(newCard);
     setMaybe(!!newMaybe);
     setFormValues({
+      name: newCard.name,
       version: newCard.cardID,
       status: newCard.status,
       finish: newCard.finish,
@@ -228,7 +229,7 @@ const CardModalForm = ({ children, ...props }) => {
     setIsOpen(true);
   }, []);
 
-  const versions = card.details.name ? versionDict[normalizeName(card.details.name)] || [card.details] : [];
+  const versions = cardName(card) ? versionDict[normalizeName(cardName(card))] || [card.details] : [];
   const details = versions.find((version) => version._id === formValues.version) || card.details;
   const renderCard = {
     ...card,
