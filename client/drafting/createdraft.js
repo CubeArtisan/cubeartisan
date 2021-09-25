@@ -179,13 +179,11 @@ export const getDraftFormat = (params, cube) => {
     format = parseDraftFormat(cube.draft_formats[params.id].packs);
     format.custom = true;
     format.multiples = cube.draft_formats[params.id].multiples;
-    format.humanSeats = params.humanSeats;
   } else {
     // default format
     format = [];
     format.custom = false;
     format.multiples = false;
-    format.humanSeats = params.humanSeats;
     for (let pack = 0; pack < params.packs; pack++) {
       format[pack] = { slots: [], steps: null };
       for (let card = 0; card < params.cards; card++) {
@@ -193,6 +191,8 @@ export const getDraftFormat = (params, cube) => {
       }
     }
   }
+  format.timeout = params.timeout;
+  format.humanSeats = params.humanSeats;
   return format;
 };
 
@@ -236,6 +236,7 @@ export const createDraft = (format, cubeCards, seats, user, botsOnly = false, se
   const draft = {
     seats: [],
     cards: [],
+    timeout: format.timeout,
     seed,
   };
 

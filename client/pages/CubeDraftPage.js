@@ -42,12 +42,29 @@ import TextBadge from '@cubeartisan/client/components/TextBadge.js';
 import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 import { FixedCol } from '@cubeartisan/client/components/CardGrid.js';
 import SetCardsInRow from '@cubeartisan/client/components/SetCardsInRow.js';
+import useTimer from '@cubeartisan/client/hooks/UseTimer.js';
+import {
+  getDefaultPosition,
+  getWorstScore,
+  convertDrafterState,
+  initializeMtgDraftbots,
+} from '@cubeartisan/client/drafting/draftutil.js';
 
 const canDrop = (_, target) => {
   return target.type === DraftLocation.PICKS;
 };
 
-const Pack = ({ pack, packNumber, pickNumber, instructions, picking, onMoveCard, onClickCard, emptySeats }) => {
+const Pack = ({
+  pack,
+  packNumber,
+  pickNumber,
+  instructions,
+  picking,
+  onMoveCard,
+  onClickCard,
+  emptySeats,
+  seconds,
+}) => {
   const { cardsInRow } = useContext(DisplayContext);
   return (
     <Card className="mt-3">
@@ -81,6 +98,11 @@ const Pack = ({ pack, packNumber, pickNumber, instructions, picking, onMoveCard,
                 </button>
               </Tooltip>
             </TextBadge>
+          )}
+          {(seconds || null) && (
+            <p>
+              {seconds} second{seconds > 1 ? 's' : ''} remaining to choose.
+            </p>
           )}
         </CardTitle>
       </CardHeader>
@@ -126,14 +148,16 @@ Pack.propTypes = {
   onMoveCard: PropTypes.func.isRequired,
   onClickCard: PropTypes.func.isRequired,
   emptySeats: PropTypes.number.isRequired,
+  seconds: PropTypes.number,
 };
 
 Pack.defaultProps = {
   picking: null,
   instructions: null,
+  seconds: 0,
 };
 
-const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking, emptySeats }) => {
+const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking, emptySeats, seconds }) => {
   const {
     cards,
     cardsInPack,
@@ -142,7 +166,6 @@ const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking,
     pickNum,
     numPacks,
   } = drafterState;
-
   const [showBotBreakdown, toggleShowBotBreakdown] = useToggle(false);
   const pack = useMemo(() => cardsInPack.map((cardIndex) => cards[cardIndex]), [cardsInPack, cards]);
   // Picks is an array with 1st key C/NC, 2d key CMC, 3d key order
@@ -217,6 +240,7 @@ const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking,
                 picking={picking}
                 onMoveCard={handleMoveCard}
                 onClickCard={handleClickCard}
+                seconds={seconds}
               />
             </ErrorBoundary>
             {showBotBreakdown && (
@@ -257,9 +281,11 @@ CubeDraftPlayerUI.propTypes = {
   moveCard: PropTypes.func.isRequired,
   picking: PropTypes.number,
   emptySeats: PropTypes.number.isRequired,
+  seconds: PropTypes.number,
 };
 CubeDraftPlayerUI.defaultProps = {
   picking: null,
+  seconds: 0,
 };
 export const CubeDraftPage = ({ cube, draftid, loginCallback }) => {
   const [picking, setPicking] = useState(null);
@@ -282,7 +308,25 @@ export const CubeDraftPage = ({ cube, draftid, loginCallback }) => {
     pickNumber: -1,
     cardsInPack: [],
     cards: [],
+    timeout: 0,
   });
+  const makePick = useCallback(async () => {
+    if (picking || !drafterState.timeout) return;
+    if (drafterState.step.action === 'pick') {
+      const { calculateBotPick } = await initializeMtgDraftbots();
+      const choice = await calculateBotPick(convertDrafterState(drafterState));
+      const chosen = drafterState.cardsInPack[choice.chosenOption];
+      setPicking(chosen);
+      socket.current.emit('pick card', chosen, getDefaultPosition(drafterState.cards[chosen], drafterState.drafted));
+    } else if (drafterState.step.action === 'trash') {
+      const { calculateBotPick } = await initializeMtgDraftbots();
+      const choice = await calculateBotPick(convertDrafterState(drafterState));
+      const chosen = drafterState.cardsInPack[getWorstScore(choice)];
+      setPicking(chosen);
+      socket.current.emit('trash card', chosen);
+    }
+  }, [drafterState, picking]);
+  const [seconds, setSeconds] = useTimer(makePick);
   useEffect(() => {
     socket.current = io('/wsdraft', {
       autoConnect: true,
@@ -290,7 +334,14 @@ export const CubeDraftPage = ({ cube, draftid, loginCallback }) => {
     });
     socket.current.on('drafterState', (newDrafterState) => {
       setPicking(null);
-      setDrafterState(newDrafterState);
+      setDrafterState((oldDrafterState) => {
+        console.log(newDrafterState);
+        console.log(newDrafterState.cardsInPack.length, oldDrafterState.cardsInPack.length);
+        if (oldDrafterState.cardsInPack.length !== newDrafterState.cardsInPack.length && newDrafterState.timeout) {
+          setSeconds(newDrafterState.timeout * newDrafterState.cardsInPack.length);
+        }
+        return newDrafterState;
+      });
     });
     socket.current.on('emptySeats', (newEmptySeats) => {
       setEmptySeats(newEmptySeats);
@@ -355,6 +406,7 @@ export const CubeDraftPage = ({ cube, draftid, loginCallback }) => {
             drafted={drafted}
             takeCard={takeCard}
             moveCard={moveCard}
+            seconds={seconds}
           />
         </DisplayContextProvider>
       </CubeLayout>

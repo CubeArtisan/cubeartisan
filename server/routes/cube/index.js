@@ -3,7 +3,6 @@ import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 import { body, param } from 'express-validator';
 import fetch from 'node-fetch';
 import RSS from 'rss';
-import canvas from 'canvas';
 
 import { createDraft, getDraftFormat } from '@cubeartisan/client/drafting/createdraft.js';
 import { makeFilter } from '@cubeartisan/client/filtering/FilterCards.js';
@@ -62,9 +61,6 @@ import Package from '@cubeartisan/server/models/package.js';
 import GridDraft from '@cubeartisan/server/models/gridDraft.js';
 import CubeAnalytic from '@cubeartisan/server/models/cubeAnalytic.js';
 import { getCubeDescription } from '@cubeartisan/client/utils/Util.js';
-
-const { Canvas, Image } = canvas;
-Canvas.Image = Image;
 
 const createCubeHandler = async (req, res) => {
   try {
@@ -723,7 +719,6 @@ const viewSamplePackImageHandler = async (req, res) => {
   const imageBuffer = await generateSamplepackImageSharp(srcArray, {
     width: CARD_WIDTH * width,
     height: CARD_HEIGHT * height,
-    Canvas,
   });
 
   res.writeHead(200, {
@@ -873,6 +868,7 @@ const startDraftHandler = async (req, res) => {
 
     draft.initial_state = populated.initial_state;
     draft.seats = populated.seats;
+    draft.timeout = populated.timeout;
     draft.cube = cube._id;
     addBasics(populated.cards, cube.basics, draft);
     draft.cards = populated.cards;
@@ -902,6 +898,7 @@ export const startDraft = [
   body('packs').toInt({ min: 1, max: 36 }),
   body('cards').toInt({ min: 1, max: 90 }),
   body('humanSeats').toInt({ min: 1, max: 16 }),
+  body('timeout').toInt({ min: 0, max: 30 }),
   startDraftHandler,
 ];
 

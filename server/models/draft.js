@@ -81,6 +81,7 @@ const draftSchema = mongoose.Schema(
     },
     seats: [Seat],
     seed: String,
+    timeout: Number,
     cas: {
       type: Number,
       default: 0,

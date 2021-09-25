@@ -16,8 +16,6 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import canvas from 'canvas';
-
 import Util from '@cubeartisan/client/utils/Util.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import { buildDeck } from '@cubeartisan/client/drafting/deckutil.js';
@@ -34,9 +32,6 @@ import User from '@cubeartisan/server/models/user.js';
 import CubeAnalytic from '@cubeartisan/server/models/cubeAnalytic.js';
 import Draft from '@cubeartisan/server/models/draft.js';
 import { COLOR_COMBINATIONS } from '@cubeartisan/client/utils/Card.js';
-
-const { Canvas, Image } = canvas;
-Canvas.Image = Image;
 
 export const exportDeckToXmage = async (req, res) => {
   try {
