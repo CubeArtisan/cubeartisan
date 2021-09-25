@@ -112,6 +112,7 @@
 
 #### Features
 
+- Add optional draft timers for drafts.
 - Update the Info Pages for the site.
 - Update the content creator system and remove the review requirement.
 - Better optimize the code sent to the client to improve load times and data usage.

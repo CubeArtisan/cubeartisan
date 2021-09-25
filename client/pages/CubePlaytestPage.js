@@ -212,6 +212,11 @@ const CustomDraftCard = ({
               {rangeOptions(1, 16)}
             </Input>
           </LabelRow>
+          <LabelRow htmlFor="timeout" label="Timer: Seconds Per Card In Pack (Use 0 to disable timer).">
+            <Input type="select" name="timeout" id="timeout" defaultValue="0">
+              {rangeOptions(0, 31)}
+            </Input>
+          </LabelRow>
           <FormGroup check>
             <Label check>
               <Input type="checkbox" name="botsOnly" value={botsOnly} onClick={toggleBotsOnly} /> Have just bots draft.
@@ -296,6 +301,11 @@ const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
           <LabelRow htmlFor="humanSeats" label="Number of Human Seats">
             <Input type="select" name="humanSeats" id="humanSeats" defaultValue="1">
               {rangeOptions(1, 16)}
+            </Input>
+          </LabelRow>
+          <LabelRow htmlFor="timeout" label="Timer: Seconds Per Card In Pack (Use 0 to disable timer).">
+            <Input type="select" name="timeout" id="timeout" defaultValue="0">
+              {rangeOptions(0, 31)}
             </Input>
           </LabelRow>
           <FormGroup check>
