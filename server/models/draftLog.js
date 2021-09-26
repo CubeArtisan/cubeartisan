@@ -18,15 +18,17 @@ import mongoose from 'mongoose';
 
 const draftLogSchema = mongoose.Schema({
   players: [
-    {
-      pack: [String],
-      picks: [Number],
-      trash: [Number],
-      packNum: Number,
-      numPacks: Number,
-      pickNum: Number,
-      numPicks: Number,
-    },
+    [
+      {
+        pack: [String],
+        picks: [Number],
+        trash: [Number],
+        packNum: Number,
+        numPacks: Number,
+        pickNum: Number,
+        numPicks: Number,
+      },
+    ],
   ],
   basics: {
     type: [String],

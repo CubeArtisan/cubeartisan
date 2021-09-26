@@ -25,6 +25,9 @@ const importDraftLogHandler = async (req, res) => {
     return res.status(401).send({ success: 'false' });
   }
   draftLog.players = req.body.players;
+  if (req.body.basics) {
+    draftLog.basics = req.body.basics;
+  }
   await draftLog.save();
   return res.status(201).send({ success: 'true', id: draftLog.id, timestamp: draftLog.createdAt });
 };
