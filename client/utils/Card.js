@@ -166,7 +166,7 @@ export const cardName = (card) => card?.name ?? card?.details?.name;
 
 export const cardNameLower = (card) => card?.name?.toLowerCase?.() ?? card?.details?.name_lower;
 
-export const cardFullName = (card) => card.details.full_name;
+export const cardFullName = (card) => card?.name ?? card.details.full_name;
 
 export const cardArtist = (card) => card.details.artist;
 
