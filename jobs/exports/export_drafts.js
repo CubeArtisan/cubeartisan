@@ -9,13 +9,12 @@ import carddb from '@cubeartisan/server/serverjs/cards.js';
 import Draft from '@cubeartisan/server/models/draft.js';
 import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 import { convertDrafterState, getAllDrafterStates } from "@cubeartisan/client/drafting/draftutil.js";
-
 import { getObjectCreatedAt, loadCardToInt, writeFile } from "@cubeartisan/jobs/exports/utils.js";
 
 // Number of documents to process at a time
 const batchSize = 256;
 // Minimum size in bytes of the output files (last file may be smaller).
-const minFileSize = 128 * 1024 * 1024; // 128 MB
+const minFileSize = 128 * 1024 * 1024; // 128 MiB
 
 let totalPicks = 0;
 
