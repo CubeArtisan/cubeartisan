@@ -7,6 +7,7 @@ rm -rf $TEMP $OUTPUT_DIR
 mkdir -p $TEMP
 mkdir -p $OUTPUT_DIR
 node `yarn --silent node-options` exports/export_drafts.js $TEMP
+node `yarn --silent node-options` exports/export_draft_logs.js $TEMP
 node `yarn --silent node-options` exports/export_cubes.js  $TEMP
 node `yarn --silent node-options` exports/export_decks.js  $TEMP
 tar -cJf $OUTPUT_FILE $TEMP
