@@ -33,20 +33,21 @@ const processSeat = (choices, basics, createdAt, cardToInt) => {
     const cardsInPack = choice.pack.map((oracleId) => cardToInt[oracleId]);
     seen.push(...cardsInPack);
     let { pickNum } = choice;
+    const { numPicks, packNum, numPacks } = choice;
     for (const pickedIdx of choice.picks) {
       picks.push({
         picked: picked.slice(),
         seen: seen.slice(),
         cardsInPack: cardsInPack.slice(),
-        packNum: choice.packNum,
-        numPacks: choice.numPacks,
+        packNum,
+        numPacks,
         pickNum,
-        numPicks: choice.numPicks,
+        numPicks,
         pickedIdx,
       });
       pickNum += 1;
-      picked.push(cardsInPack[pickedIdx]);
-      picked.splice(pickedIdx, 1);
+      // Move the card from the pack to the picked array.
+      picked.push(cardsInPack.splice(pickedIdx, 1)[0]);
       totalPicks += 1;
     }
     for (const trashedIdx of choice.picks) {
@@ -54,12 +55,13 @@ const processSeat = (choices, basics, createdAt, cardToInt) => {
         picked: picked.slice(),
         seen: seen.slice(),
         cardsInPack: cardsInPack.slice(),
-        packNum: choice.packNum,
-        numPacks: choice.numPacks,
+        packNum,
+        numPacks,
         pickNum,
-        numPicks: choice.numPicks,
+        numPicks,
         trashedIdx,
       });
+      cardsInPack.splice(trashedIdx, 1)
       pickNum += 1;
       totalPicks += 1;
     }
@@ -102,7 +104,7 @@ try {
       );
     }
     if (processedDrafts.length > 0) {
-      const filename = `drafts/${counter.toString().padStart(6, '0')}.json`;
+      const filename = `draftlogs/${counter.toString().padStart(6, '0')}.json`;
       writeFile(filename, processedDrafts);
       counter += 1;
       winston.info(`Wrote file ${filename} with ${processedDrafts.length} drafts * players.`);
