@@ -102,7 +102,7 @@ try {
       );
     }
     if (processedDrafts.length > 0) {
-      const filename = `drafts/${counter.toString().padStart(6, '0')}.json`;
+      const filename = `draftlogs/${counter.toString().padStart(6, '0')}.json`;
       writeFile(filename, processedDrafts);
       counter += 1;
       winston.info(`Wrote file ${filename} with ${processedDrafts.length} drafts * players.`);
