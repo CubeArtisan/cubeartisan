@@ -50,7 +50,7 @@ const processSeat = (choices, basics, createdAt, cardToInt) => {
       picked.push(cardsInPack.splice(pickedIdx, 1)[0]);
       totalPicks += 1;
     }
-    for (const trashedIdx of choice.picks) {
+    for (const trashedIdx of choice.trash) {
       picks.push({
         picked: picked.slice(),
         seen: seen.slice(),
