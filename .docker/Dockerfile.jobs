@@ -3,15 +3,21 @@ FROM node:16
 ENV DEBUG=false
 ENV NODE_ENV=production
 
+RUN curl -sSL https://sdk.cloud.google.com | bash
+ENV PATH $PATH:/root/google-cloud-sdk/bin
+RUN apt-get update && apt-get install -y gcc python3-dev python3-setuptools python3-pip
+RUN pip3 uninstall crcmod; pip3 install --no-cache-dir -U crcmod
+
 WORKDIR /CubeArtisan
-RUN mkdir client server markdown jobs jobs/private
-COPY ./package.json ./
+RUN mkdir client server markdown jobs
+
+COPY ./package.json package.json
 COPY ./server/package.json server/package.json
 COPY ./client/package.json client/package.json
 COPY ./markdown/package.json markdown/package.json
 COPY ./jobs/package.json jobs/package.json
-COPY ./yarn.lock ./
-COPY ./.yarnrc.yml ./
+COPY ./yarn.lock yarn.lock
+COPY ./.yarnrc.yml .yarnrc.yml
 
 COPY ./server/babel.config.cjs server/babel.config.cjs
 COPY ./server/config   server/config/
@@ -45,12 +51,5 @@ COPY ./jobs/exports jobs/exports
 COPY ./jobs/maintenance jobs/maintenance
 COPY ./jobs/scripts jobs/scripts
 
-RUN curl -sSL https://sdk.cloud.google.com | bash
-ENV PATH $PATH:/root/google-cloud-sdk/bin
-RUN apt-get update
-RUN apt-get install -y gcc python3-dev python3-setuptools python3-pip
-RUN pip3 uninstall crcmod
-RUN pip3 install --no-cache-dir -U crcmod
-
-RUN yarn install --frozen-lockfile --production=true || yarn install --frozen-lockfile --production=true || yarn install --frozen-lockfile --production=true
+RUN yarn install --frozen-lockfile --production=false || yarn install --frozen-lockfile --production=false || yarn install --frozen-lockfile --production=false; yarn cache clean
 RUN yarn nearley
