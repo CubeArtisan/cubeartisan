@@ -68,7 +68,7 @@ const processSeat = (choices, basics, createdAt, cardToInt) => {
   }
   return {
     picks,
-    basics,
+    basics: basics.map((oracleId) => cardToInt[oracleId]),
     date: createdAt,
     createdAt,
   };
