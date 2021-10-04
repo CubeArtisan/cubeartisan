@@ -34,9 +34,9 @@ const processSeat = (seatNumber, draft, cardToInt) => {
     if (action === 'pick' || action === 'trash') {
       // This will be the pack before we made our pick.
       const pick = convertDrafterState(drafterStates[pickNumber - 1]);
-      if (nextDrafterState.action === 'pick' && (pick.pickedIdx ?? null) !== null) {
+      if (nextDrafterState.action === 'pick' && (nextDrafterState.pickedIdx ?? null) !== null) {
         pick.pickedIdx = nextDrafterState.pickedIdx;
-      } else if (nextDrafterState.action === 'trash' && (pick.trashedIdx ?? null) !== null) {
+      } else if (nextDrafterState.action === 'trash' && (nextDrafterState.trashedIdx ?? null) !== null) {
         pick.trashedIdx = nextDrafterState.trashedIdx;
       }
       const updateIndex = (cardIdx) => cardToInt[pick.cardOracleIds[cardIdx]]
@@ -66,7 +66,6 @@ const processSeat = (seatNumber, draft, cardToInt) => {
     picks,
     cubeid: draft.cube,
     basics: draft.basics.map((cardIdx) => cardToInt[carddb.cardFromId(draft.cards[cardIdx].cardID).oracle_id]),
-    username: draft.seats[0].username,
     date: draft.date,
     draftid: draft._id,
     createdAt: getObjectCreatedAt(draft._id),
