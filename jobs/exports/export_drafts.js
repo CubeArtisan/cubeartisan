@@ -32,12 +32,15 @@ const processSeat = (seatNumber, draft, cardToInt) => {
     const nextDrafterState = drafterStates[pickNumber];
     const {action} = nextDrafterState.step;
     if (action === 'pick' || action === 'trash') {
-      // This will be the pack before we made our pick.
       const pick = convertDrafterState(drafterStates[pickNumber - 1]);
-      if (nextDrafterState.action === 'pick' && (nextDrafterState.pickedIdx ?? null) !== null) {
+      // This will be the pack before we made our pick.
+      if (action === 'pick' && nextDrafterState.pickedIdx >= 0) {
         pick.pickedIdx = nextDrafterState.pickedIdx;
-      } else if (nextDrafterState.action === 'trash' && (nextDrafterState.trashedIdx ?? null) !== null) {
+      } else if (action === 'trash' && nextDrafterState.trashedIdx >= 0) {
         pick.trashedIdx = nextDrafterState.trashedIdx;
+      } else {
+        // eslint-disable-next-line no-continue
+        continue;
       }
       const updateIndex = (cardIdx) => cardToInt[pick.cardOracleIds[cardIdx]]
       pick.picked = pick.picked.map(updateIndex);

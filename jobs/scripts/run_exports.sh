@@ -1,4 +1,5 @@
 #!/bin/sh
+set -x
 export TEMP=tmpdata
 export OUTPUT_DIR=data/
 export OUTPUT_FILE=$(date +"%Y%m%d").tar.xz
