@@ -46,6 +46,8 @@ export const defaultStepsForLength = (length) =>
 const trash = ([oldDrafterState, internalState]) => {
   const { pickEnd, stepEnd, numSeats, offset, packsWithCards, seatNum, draft } = internalState;
   const drafterState = { ...oldDrafterState };
+  delete drafterState.pickedIdx;
+  delete drafterState.trashedIdx;
   if (
     drafterState.pickedNum + drafterState.trashedNum >= pickEnd ||
     drafterState.stepNumber > (stepEnd ?? drafterState.stepNumber)
@@ -94,6 +96,8 @@ const trash = ([oldDrafterState, internalState]) => {
 const pick = ([oldDrafterState, internalState]) => {
   const { pickEnd, stepEnd, numSeats, offset, packsWithCards, seatNum, draft } = internalState;
   const drafterState = { ...oldDrafterState };
+  delete drafterState.pickedIdx;
+  delete drafterState.trashedIdx;
   if (
     drafterState.pickedNum + drafterState.trashedNum >= pickEnd ||
     drafterState.stepNumber > (stepEnd ?? drafterState.stepNumber)
@@ -140,6 +144,8 @@ const pick = ([oldDrafterState, internalState]) => {
 
 const newpack = ([oldDrafterState, internalState]) => {
   const drafterState = { ...oldDrafterState };
+  delete drafterState.pickedIdx;
+  delete drafterState.trashedIdx;
   const { draft, seatNum } = internalState;
   drafterState.packNum += 1;
   internalState.packsWithCards = draft.initial_state.map((packsForSeat) =>
@@ -156,6 +162,8 @@ const newpack = ([oldDrafterState, internalState]) => {
 const pass = ([oldDrafterState, internalState]) => {
   const { stepEnd, numSeats, packsWithCards, seatNum } = internalState;
   const drafterState = { ...oldDrafterState };
+  delete drafterState.pickedIdx;
+  delete drafterState.trashedIdx;
   if (drafterState.stepNumber > (stepEnd ?? drafterState.stepNumber)) {
     internalState.done = true;
     return [drafterState, internalState];
