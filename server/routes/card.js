@@ -233,7 +233,7 @@ export const getVersionsFromIds = [
     /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}2?$/,
   ),
   jsonValidationErrors,
-  getVersionsFromIdsHandler,
+  wrapAsyncApi(getVersionsFromIdsHandler),
 ];
 
 const doCardSearchHandler = (req, res) => {
