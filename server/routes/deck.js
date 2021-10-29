@@ -263,6 +263,10 @@ export const exportDeckToCockatrice = async (req, res) => {
     res.setHeader('Content-disposition', `attachment; filename=${seat.name.replace(/\W/g, '')}.txt`);
     res.setHeader('Content-type', 'text/plain');
     res.charset = 'UTF-8';
+    res.write('<?xml version="1.0" encoding="UTF-8"?>');
+    res.write('<cockatrice_deck version="1">');
+    res.write(`<deckname>${deck.name}</deckname>`);
+    res.write('<zone name="main">');
     const main = {};
     for (const row of seat.deck) {
       for (const col of row) {
@@ -278,10 +282,11 @@ export const exportDeckToCockatrice = async (req, res) => {
       }
     }
     for (const [key, value] of Object.entries(main)) {
-      res.write(`${value}x ${key}\r\n`);
+      res.write(`<card number="${value}" name="${key}"/>\r\n`);
     }
+    res.write('</zone>');
 
-    res.write('Sideboard\r\n');
+    res.write('<zone name="sideboard">');
     const side = {};
     for (const row of seat.sideboard) {
       for (const col of row) {
@@ -297,9 +302,10 @@ export const exportDeckToCockatrice = async (req, res) => {
       }
     }
     for (const [key, value] of Object.entries(side)) {
-      res.write(`${value}x ${key}\r\n`);
+      res.write(`<card number="${value}" name="${key}"/>\r\n`);
     }
-
+    res.write('</zone>');
+    res.write('</cockatrice_deck>');
     return res.end();
   } catch (err) {
     return handleRouteError(req, res, err, '/404');
