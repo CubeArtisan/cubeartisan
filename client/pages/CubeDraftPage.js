@@ -43,11 +43,13 @@ import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 import { FixedCol } from '@cubeartisan/client/components/CardGrid.js';
 import SetCardsInRow from '@cubeartisan/client/components/SetCardsInRow.js';
 import useTimer from '@cubeartisan/client/hooks/UseTimer.js';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import {
   getDefaultPosition,
   getWorstScore,
   convertDrafterState,
   initializeMtgDraftbots,
+  validActions,
 } from '@cubeartisan/client/drafting/draftutil.js';
 
 const canDrop = (_, target) => {
@@ -64,6 +66,7 @@ const Pack = ({
   onClickCard,
   emptySeats,
   seconds,
+  waitingMessage,
 }) => {
   const { cardsInRow } = useContext(DisplayContext);
   return (
@@ -130,7 +133,7 @@ const Pack = ({
             ))
           ) : (
             <>
-              <Spinner /> <h6>Waiting for a pack.</h6>
+              <Spinner /> <h6>{waitingMessage}</h6>
             </>
           )}
         </Row>
@@ -149,6 +152,7 @@ Pack.propTypes = {
   onClickCard: PropTypes.func.isRequired,
   emptySeats: PropTypes.number.isRequired,
   seconds: PropTypes.number,
+  waitingMessage: PropTypes.string.isRequired,
 };
 
 Pack.defaultProps = {
@@ -158,6 +162,7 @@ Pack.defaultProps = {
 };
 
 const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking, emptySeats, seconds }) => {
+  const user = useContext(UserContext);
   const {
     cards,
     cardsInPack,
@@ -182,6 +187,21 @@ const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking,
     }
     return null;
   }, [action, amount]);
+  const waitingMessage = useMemo(() => {
+    if (!user?._id) {
+      return 'Login to connect to the draft.';
+    }
+    if (cards.length === 0) {
+      return 'Connecting to draft.';
+    }
+    if (action === 'done') {
+      return 'Waiting for draft to finish.';
+    }
+    if (validActions.includes(action)) {
+      return 'Waiting for pack.';
+    }
+    return 'Something went wrong. Please reconnect.';
+  }, [user, cards, action]);
 
   const handleMoveCard = useCallback(
     async (source, target) => {
@@ -235,12 +255,13 @@ const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking,
                 emptySeats={emptySeats}
                 pack={pack}
                 packNumber={packNum + 1}
-                pickNumber={pickNum + 1}
+                pickNumber={action === 'done' ? pickNum : pickNum + 1}
                 instructions={instructions}
                 picking={picking}
                 onMoveCard={handleMoveCard}
                 onClickCard={handleClickCard}
                 seconds={seconds}
+                waitingMessage={waitingMessage}
               />
             </ErrorBoundary>
             {showBotBreakdown && (

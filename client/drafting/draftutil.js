@@ -176,6 +176,14 @@ const pass = ([oldDrafterState, internalState]) => {
   return [drafterState, internalState];
 };
 
+const done = ([oldDrafterState, internalState]) => {
+  const drafterState = { ...oldDrafterState };
+  delete drafterState.pickedIdx;
+  delete drafterState.trashedIdx;
+  internalState.done = true;
+  return [drafterState, internalState];
+};
+
 const transitions = {
   trash,
   pick,
@@ -183,7 +191,10 @@ const transitions = {
   pickrandom: pick,
   newpack,
   pass,
+  done,
 };
+
+export const validActions = Object.keys(transitions);
 
 const toActionsArray = (packs) => [
   'newpack',
@@ -192,6 +203,7 @@ const toActionsArray = (packs) => [
       .flatMap(({ action, amount }) => new Array(amount ?? 1).fill(action))
       .concat(idx < packs.length - 1 ? ['newpack'] : []),
   ),
+  'done',
 ];
 
 export const getAllDrafterStates = ({ draft, seatNumber, pickNumber = -1, stepNumber = null }) => {
@@ -238,10 +250,6 @@ export const getAllDrafterStates = ({ draft, seatNumber, pickNumber = -1, stepNu
     for (; actions[actionIndex + i] === actions[actionIndex]; i++) {}
     drafterStates.push({ ...drafterState, step: { action: actions[actionIndex], amount: i - 1 } });
     if (internalState.done) break;
-  }
-  if (drafterStates.length >= actions.length) {
-    drafterStates[drafterStates.length - 1].cardsInPack = [];
-    drafterStates[drafterStates.length - 1].step = { action: 'done', amount: 1 };
   }
   return drafterStates;
 };
