@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import winston, { getApmCurrentTraceIds, logApmError } from '@cubeartisan/server/serverjs/winstonConfig.js';
+import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 // import csurf from 'csurf';
 import { validationResult } from 'express-validator';
 import onFinished from 'on-finished';
@@ -46,12 +46,10 @@ export const requestLogging = (req, res, next) => {
     requestId: req.uuid,
     method: req.method,
     path: req.path,
-    ...getApmCurrentTraceIds(),
   };
 
   req.logger = {
     error: (err) => {
-      logApmError(err, req);
       winston.error(err.message, {
         level: 'error',
         message: err.message,
