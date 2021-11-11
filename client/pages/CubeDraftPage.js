@@ -43,6 +43,7 @@ import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 import { FixedCol } from '@cubeartisan/client/components/CardGrid.js';
 import SetCardsInRow from '@cubeartisan/client/components/SetCardsInRow.js';
 import useTimer from '@cubeartisan/client/hooks/UseTimer.js';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import {
   getDefaultPosition,
   getWorstScore,
@@ -161,6 +162,7 @@ Pack.defaultProps = {
 };
 
 const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking, emptySeats, seconds }) => {
+  const user = useContext(UserContext);
   const {
     cards,
     cardsInPack,
@@ -186,6 +188,9 @@ const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking,
     return null;
   }, [action, amount]);
   const waitingMessage = useMemo(() => {
+    if (!user?._id) {
+      return 'Login to connect to the draft.';
+    }
     if (cards.length === 0) {
       return 'Connecting to draft.';
     }
@@ -196,7 +201,7 @@ const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking,
       return 'Waiting for pack.';
     }
     return 'Something went wrong. Please reconnect.';
-  }, [cards, action]);
+  }, [user, cards, action]);
 
   const handleMoveCard = useCallback(
     async (source, target) => {
