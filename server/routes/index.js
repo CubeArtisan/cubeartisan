@@ -18,7 +18,7 @@
  */
 
 // This needs to come first for apm to work correctly.
-import winston, { connectMiddleware } from '@cubeartisan/server/serverjs/winstonConfig.js';
+import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 
 import express from 'express';
 import ConnectFlash from 'connect-flash';
@@ -132,7 +132,6 @@ const passportInitialized = passport.initialize();
 const passportSession = passport.session();
 app.use(passportInitialized);
 app.use(passportSession);
-connectMiddleware(app);
 app.use('/', router);
 // eslint-disable-next-line no-unused-vars, promise/prefer-await-to-callbacks
 app.use(async (err, req, res, _next) => {

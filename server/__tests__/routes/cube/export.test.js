@@ -62,7 +62,7 @@ let mongoServer;
 beforeAll(async () => {
   mongoServer = await dbSetup.connect();
   await carddb.initializeCardDb(fixturesPath, true);
-  return exampleCube.save();
+  await exampleCube.save();
 }, 60000);
 
 afterAll(async () => {
