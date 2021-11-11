@@ -64,6 +64,7 @@ const Pack = ({
   onClickCard,
   emptySeats,
   seconds,
+  waitingFor,
 }) => {
   const { cardsInRow } = useContext(DisplayContext);
   return (
@@ -130,7 +131,11 @@ const Pack = ({
             ))
           ) : (
             <>
-              <Spinner /> <h6>Waiting for a pack.</h6>
+              <Spinner /> <h6>{ 
+                (waitingFor === 'pack') ? 'Waiting for a pack.' : 
+                (waitingFor === 'draft') ? 'Waiting for draft to finish.' :
+                "Something went wrong. Please reconnect."
+              }</h6>
             </>
           )}
         </Row>
@@ -149,6 +154,7 @@ Pack.propTypes = {
   onClickCard: PropTypes.func.isRequired,
   emptySeats: PropTypes.number.isRequired,
   seconds: PropTypes.number,
+  waitingFor: PropTypes.oneOf(['pack', 'draft']),
 };
 
 Pack.defaultProps = {
@@ -235,12 +241,13 @@ const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking,
                 emptySeats={emptySeats}
                 pack={pack}
                 packNumber={packNum + 1}
-                pickNumber={pickNum + 1}
+                pickNumber={(action === 'done') ? pickNum : pickNum + 1}
                 instructions={instructions}
                 picking={picking}
                 onMoveCard={handleMoveCard}
                 onClickCard={handleClickCard}
                 seconds={seconds}
+                waitingFor={(action === 'done') ? 'draft' : 'pack'}
               />
             </ErrorBoundary>
             {showBotBreakdown && (
