@@ -48,6 +48,7 @@ import {
   getWorstScore,
   convertDrafterState,
   initializeMtgDraftbots,
+  validActions,
 } from '@cubeartisan/client/drafting/draftutil.js';
 
 const canDrop = (_, target) => {
@@ -64,7 +65,7 @@ const Pack = ({
   onClickCard,
   emptySeats,
   seconds,
-  waitingFor,
+  waitingMessage,
 }) => {
   const { cardsInRow } = useContext(DisplayContext);
   return (
@@ -131,11 +132,7 @@ const Pack = ({
             ))
           ) : (
             <>
-              <Spinner /> <h6>{ 
-                (waitingFor === 'pack') ? 'Waiting for a pack.' : 
-                (waitingFor === 'draft') ? 'Waiting for draft to finish.' :
-                "Something went wrong. Please reconnect."
-              }</h6>
+              <Spinner /> <h6>{waitingMessage}</h6>
             </>
           )}
         </Row>
@@ -154,7 +151,7 @@ Pack.propTypes = {
   onClickCard: PropTypes.func.isRequired,
   emptySeats: PropTypes.number.isRequired,
   seconds: PropTypes.number,
-  waitingFor: PropTypes.oneOf(['pack', 'draft']),
+  waitingMessage: PropTypes.string.isRequired,
 };
 
 Pack.defaultProps = {
@@ -188,6 +185,18 @@ const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking,
     }
     return null;
   }, [action, amount]);
+  const waitingMessage = useMemo(() => {
+    if (cards.length === 0) {
+      return 'Connecting to draft.';
+    }
+    if (action === 'done') {
+      return 'Waiting for draft to finish.';
+    }
+    if (validActions.includes(action)) {
+      return 'Waiting for pack.';
+    }
+    return 'Something went wrong. Please reconnect.';
+  }, [cards, action]);
 
   const handleMoveCard = useCallback(
     async (source, target) => {
@@ -241,13 +250,13 @@ const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking,
                 emptySeats={emptySeats}
                 pack={pack}
                 packNumber={packNum + 1}
-                pickNumber={(action === 'done') ? pickNum : pickNum + 1}
+                pickNumber={action === 'done' ? pickNum : pickNum + 1}
                 instructions={instructions}
                 picking={picking}
                 onMoveCard={handleMoveCard}
                 onClickCard={handleClickCard}
                 seconds={seconds}
-                waitingFor={(action === 'done') ? 'draft' : 'pack'}
+                waitingMessage={waitingMessage}
               />
             </ErrorBoundary>
             {showBotBreakdown && (

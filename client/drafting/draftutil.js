@@ -182,7 +182,7 @@ const done = ([oldDrafterState, internalState]) => {
   delete drafterState.trashedIdx;
   internalState.done = true;
   return [drafterState, internalState];
-}
+};
 
 const transitions = {
   trash,
@@ -193,6 +193,8 @@ const transitions = {
   pass,
   done,
 };
+
+export const validActions = Object.keys(transitions);
 
 const toActionsArray = (packs) => [
   'newpack',
