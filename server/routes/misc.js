@@ -4,6 +4,7 @@ import passport from 'passport';
 import mailer from 'nodemailer';
 import Email from 'email-templates';
 import bcrypt from 'bcryptjs';
+import { fileURLToPath } from 'url';
 
 import { render } from '@cubeartisan/server/serverjs/render.js';
 import Blog from '@cubeartisan/server/models/blog.js';
@@ -25,6 +26,11 @@ import {
   wrapAsyncApi,
   wrapAsyncPage,
 } from '@cubeartisan/server/routes/middleware.js';
+
+// eslint-disable-next-line no-underscore-dangle,prettier/prettier
+const __filename = fileURLToPath(import.meta.url);
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = path.dirname(__filename);
 
 export const CUBE_PREVIEW_FIELDS =
   '_id shortID image_uri image_name image_artist name owner owner_name type card_count overrideCategory categoryPrefixes categoryOverride';
