@@ -53,13 +53,14 @@ const sdk = new opentelemetry.NodeSDK({
   ],
 });
 
-await sdk.start();
-process.on("SIGTERM", () => {
+// Start the opentelemetry server.
+sdk.start();
+process.on('SIGTERM', () => {
   sdk
     .shutdown()
     .then(
-      () => winston.log("SDK shut down successfully"),
-      (err) => winston.log("Error shutting down SDK", err)
+      () => winston.log('SDK shut down successfully'),
+      (err) => winston.log('Error shutting down SDK', err),
     )
     .finally(() => process.exit(0));
 });
@@ -70,10 +71,7 @@ const linearFormat = winston.format((info) => {
       info.message = `request: ${info.message.path}`;
     } else if (info.level === 'error') {
       info.message = `${info.message} ${info.stack}`;
-      delete info.stack;
-      delete info.request;
     }
-    delete info.type;
   }
   return info;
 });
