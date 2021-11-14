@@ -28,7 +28,7 @@ import { HttpInstrumentation } from '@opentelemetry/instrumentation-http';
 import { ExpressInstrumentation } from '@opentelemetry/instrumentation-express';
 import { MongoDBInstrumentation } from '@opentelemetry/instrumentation-mongodb';
 
-if (process.env.GCLOUD_PROJECT) {
+if (process.env.TELMETRY == 'true') {
   const traceExporter = new TraceExporter({});
   const metricExporter = new MetricExporter({});
   const httpInstrumentation = new HttpInstrumentation();
