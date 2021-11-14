@@ -50,8 +50,13 @@ winston.configure({
 });
 
 if (process.env.TELMETRY === 'true') {
-  const traceExporter = new TraceExporter({});
-  const metricExporter = new MetricExporter({});
+  const traceExporter = new TraceExporter({
+    projectId: 'cubeartisan',
+  });
+  const metricExporter = new MetricExporter({
+    prefix: 'cubeartisan',
+    projectId: 'cubeartisan',
+  });
   const httpInstrumentation = new HttpInstrumentation();
 
   const sdk = new opentelemetry.NodeSDK({
@@ -78,7 +83,13 @@ if (process.env.TELMETRY === 'true') {
   // Start the opentelemetry server.
   sdk
     .start()
-    .then(() => winston.info('Telemetry started.'))
+    .then(async () => {
+      winston.info('Telemetry started.');
+      // eslint-disable-next-line no-underscore-dangle
+      winston.info(`ProjectID detected as ${await traceExporter._projectId} and ${await metricExporter._projectId}`);
+      // eslint-disable-next-line no-underscore-dangle
+      winston.info(`Auth is ${await traceExporter._auth.getClient()}.`);
+    })
     .catch((error) => winston.error('Error initializing tracing', error));
   process.on('SIGTERM', () => {
     sdk
