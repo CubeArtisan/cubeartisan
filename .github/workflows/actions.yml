@@ -1,17 +1,14 @@
 name: Continuous Integration Checks
 on: [push, pull_request]
 jobs:
-  build:
+  "Continuous_Integration_Checks":
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v2
       with:
-        node-version: '16.8'
-    - name: Update NPM
-      run: npm install -g yarn
-    - name: Yarn install cache
-      uses: c-hive/gha-yarn-cache@v1
+        node-version: '16.10'
+        cache: 'yarn'
     - name: Setup
       run: yarn install --frozen-lockfile --production=false || yarn install --frozen-lockfile --production=false || yarn install --frozen-lockfile --production=false
     - name: Run the CI script in yarn to check code style and unit tests.

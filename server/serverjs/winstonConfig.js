@@ -16,10 +16,17 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-// Load Environment Variables
-import apm from 'elastic-apm-node/start.js';
+import process from 'process';
 import winston from 'winston';
-import { ElasticsearchTransport } from 'winston-elasticsearch';
+import opentelemetry from '@opentelemetry/sdk-node';
+import { SocketIoInstrumentation } from 'opentelemetry-instrumentation-socket.io';
+import { WinstonInstrumentation } from '@opentelemetry/instrumentation-winston';
+import { TraceExporter } from '@google-cloud/opentelemetry-cloud-trace-exporter';
+import { MetricExporter } from '@google-cloud/opentelemetry-cloud-monitoring-exporter';
+import { DnsInstrumentation } from '@opentelemetry/instrumentation-dns';
+import { HttpInstrumentation } from '@opentelemetry/instrumentation-http';
+import { ExpressInstrumentation } from '@opentelemetry/instrumentation-express';
+import { MongoDBInstrumentation } from '@opentelemetry/instrumentation-mongodb';
 
 const linearFormat = winston.format((info) => {
   if (info.message) {
@@ -27,10 +34,7 @@ const linearFormat = winston.format((info) => {
       info.message = `request: ${info.message.path}`;
     } else if (info.level === 'error') {
       info.message = `${info.message} ${info.stack}`;
-      delete info.stack;
-      delete info.request;
     }
-    delete info.type;
   }
   return info;
 });
@@ -38,33 +42,64 @@ const linearFormat = winston.format((info) => {
 const consoleFormat = winston.format.combine(linearFormat(), winston.format.simple());
 const transports = [new winston.transports.Console({ format: consoleFormat })];
 
-if (process.env.ELASTICSEARCH_URL) {
-  const transportOptions = {
-    level: 'info',
-    dataStream: true,
-    clientOpts: {
-      node: process.env.ELASTICSEARCH_URL,
-      auth: {
-        username: process.env.ELASTICSEARCH_USER,
-        password: process.env.ELASTICSEARCH_PASSWORD,
-      },
-      ssl: {
-        rejectUnauthorized: false,
-      },
-    },
-    apm,
-  };
-  transports.push(new ElasticsearchTransport(transportOptions));
-}
-
-export const getApmCurrentTraceIds = () => apm.currentTraceIds;
-export const logApmError = (err, request) => apm.captureError(err, { request });
-export const connectMiddleware = (app) => app.use(apm.middleware.connect());
-
 winston.configure({
   level: 'info',
   format: winston.format.json(),
   exitOnError: false,
   transports,
 });
+
+if (process.env.TELMETRY === 'true') {
+  const traceExporter = new TraceExporter({
+    projectId: 'cubeartisan',
+  });
+  const metricExporter = new MetricExporter({
+    prefix: 'cubeartisan',
+    projectId: 'cubeartisan',
+  });
+  const httpInstrumentation = new HttpInstrumentation();
+
+  const sdk = new opentelemetry.NodeSDK({
+    autoDetectResources: true,
+    traceExporter,
+    metricExporter,
+    metricInterval: 60 * 1000, // 60 seconds
+    instrumentations: [
+      httpInstrumentation,
+      new ExpressInstrumentation(),
+      new WinstonInstrumentation({}),
+      new SocketIoInstrumentation({
+        filterHttpTransport: {
+          httpInstrumentation,
+        },
+      }),
+      new DnsInstrumentation({}),
+      new MongoDBInstrumentation({
+        enhancedDatabaseReporting: 'true',
+      }),
+    ],
+  });
+
+  // Start the opentelemetry server.
+  sdk
+    .start()
+    .then(async () => {
+      winston.info('Telemetry started.');
+      // eslint-disable-next-line no-underscore-dangle
+      winston.info(`ProjectID detected as ${await traceExporter._projectId} and ${await metricExporter._projectId}`);
+      // eslint-disable-next-line no-underscore-dangle
+      winston.info(`Auth is ${await traceExporter._auth.getClient()}.`);
+    })
+    .catch((error) => winston.error('Error initializing tracing', error));
+  process.on('SIGTERM', () => {
+    sdk
+      .shutdown()
+      .then(
+        () => winston.info('SDK shut down successfully'),
+        (err) => winston.error('Error shutting down SDK', err),
+      )
+      .finally(() => process.exit(0));
+  });
+}
+
 export default winston;
