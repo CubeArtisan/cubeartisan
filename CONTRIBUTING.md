@@ -1,24 +1,37 @@
 # Introduction
 
-### What is Cube Cobra?
+### What is CubeArtisan?
 
-The main goal with Cube Cobra is to create a cube management tool that doesn't need to be supplemented with any other tool such as excel, gatherer, or another cube management app. I want to create a platform that is easy to use, that still has advanced features that allow users a high degree of freedom to organize and analyze their cube in a way that makes sense to them. I want to create the best possible platform for users to build, playtest, and share their cube.
+The main goal with CubeArtisan is to create a cube management site that provides the most powerful
+tools available to our users with the best UX we can design.
 
 ### Why contribute?
 
-One of the best ways to create a sustainable software project is open source it. For cubecobra to become the best possible tool for cube managment it needs help from the community. By contributing to the project, you are giving back to the magic community. Maybe there's a lower priority feature you want to use or maybe there's just a bug that's been bothering you, either way contributing yourself is a great way to get it into the project. Open source software is often more reliable (more eyes on the code).
+Maybe there is some bug that bothers you or some feature you wish was on the site. You can just build
+that and it'll almost definitely get merged in and deployed with the next release. You may also just
+want to contribute to give back to the community or solve interesting problems. We welcome all kinds
+of developers and other interested contributors. We'd love to have some people experienced with UX to
+help improve the site so whatever your skill set please reach out on (Discord)[https://discord.gg/qWPjyACs32]
 
-
-Don't feel nervous about making your first contribution, we accept developers with all levels of knowledge and will happily work with and help with whatever you need to make your first contribution. We are not code snobs, so don't be afraid to reach out with questions of any kind.
+Don't feel nervous about making your first contribution, we accept developers with all levels of
+knowledge and will happily work with and help with whatever you need to make your first contribution.
+We are not code snobs, so don't be afraid to reach out with questions of any kind. Your feedback will
+help improve the onboarding process for those developers that come after you.
 
 ### What kind of contributions do we need?
 
-The issues tab in github is kept up to date and tagged, but any contribution is appriciated from code comments to experimental features. Just keep in mind completing a feature does not guarantee it will be merged. If you want to complete a feature that you don't see in the backlog, communicate with dekkerglen to make sure you don't waste any effort.
+The issues tab in github is kept up to date and tagged, but any contribution is appriciated from
+code comments to experimental features. Also see the #proposals channel in Discord.
 
 # Ground Rules
 ### Code of conduct.
 
-Be a decent person. Copy pasted from the linux code of conduct: In the interest of fostering an open and welcoming environment, we as contributors and maintainers pledge to making participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.
+Be a decent person. Copy pasted from the linux code of conduct: In the interest of fostering an
+open and welcoming environment, we as contributors and maintainers pledge to making participation in
+our project and our community a harassment-free experience for everyone, regardless of age, body
+size, disability, ethnicity, sex characteristics, gender identity and expression, level of
+experience, education, socio-economic status, nationality, personal appearance, race, religion, or
+sexual identity and orientation.
 
 > Characteristics of an ideal contributor
 > * Creates issues for changes and enhancements they wish to make.
@@ -26,18 +39,23 @@ Be a decent person. Copy pasted from the linux code of conduct: In the interest 
 > * Keeps pull requests small.
 > * Is welcoming to newcomers and encourages diverse new contributors from all backgrounds. See the [Python Community Code of Conduct](https://www.python.org/psf/codeofconduct/).
 
-Contributing to Cube Cobra does not entitle any contributor to compensation of any kind. Contributions are made at will, with the goal of improving the tool for the entire community. Cube Cobra's hosting costs are paid through donations and affiliate links. These funds are managed solely by Gwen Dekker, who is solely in charge of hosting and managing the live site.
-
+Contributing to CubeArtisan does not entitle any contributor to compensation of any kind.
+Contributions are made at will, with the goal of improving the tool for the entire community.
+CubeArtisan's hosting costs are paid through donations and affiliate links with the rest coming from
+ruler501. These funds are managed solely by ruler501 (Devon Richards), who is solely in charge of
+hosting and managing the live site, though is always open to additional help. You can see the
+CubeArtisan/cubeartisan-infrastructure project to see how our infrastructure is deployed.
 
 # Your First Contribution
 
-Issues are tagged with 'good first issue' if we think it's a good beginner task to tackle. Complete a few small changes to become familar with the codebase before diving into a huge feature.
-
+Issues are tagged with 'good first issue' if we think it's a good beginner task to tackle. Completing
+a few small changes to become familar with the codebase before diving into a huge feature is usually
+a good idea, but we'll help you if you want to start with something larger.
 
 # How we collaborate - asynchronous communication
 
 Our community of contributors is large, and growing fast. We don't have regularly
-scheduled working hours dedicated to Cube Cobra. Thus, we can't simply message each
+scheduled working hours dedicated to CubeArtisan. Thus, we can't simply message each
 other on Discord to understand the current state of the project. Discord is
 a great tool for synchronous communication, but it falls short at allowing
 community members to discover conversations they didn't participate in. Our project
@@ -97,17 +115,16 @@ sometimes we open `[WIP]` (work in progress) pull requests. We clearly
 indicate that these are WIP in the description to avoid premature code reviews
 from the community. When we do this, we're communicating that we'd like others
 to be aware of the details of our progress without requesting a detailed code
-review just yet.
+review just yet. The easiest way to do this is to mark the PR as a Draft PR in
+the GitHub UI.
 
-When we feel that a feature we're working on is "code complete", we open pull
-requests. These pull requests have titles that reference the substantive
-changes they contain, descriptions that briefly summarize the
-changes, and sometimes include more detailed breakdowns of the architectural
-or coding approach. The goal of these descriptions is to aid in the code
-review process, making it easier for a community member with no prior
-knowledge of the pull request to perform a review. We also comment on our own
-pull requests asking for code review, sometimes even tagging specific
-individuals from whom we'd like a review.
+When we feel that a feature we're working on is far enough along for feedback, we open pull
+requests. If it isn't ready for deployment mark it as a Draft. These pull requests have titles that
+describe what was changed and why. Some of this will likely overflow into the description and that's
+okay. The goal of these descriptions is to aid in the code review process, making it easier for a
+contributor with no prior knowledge of the pull request to perform a review. We also comment on our
+own pull requests asking for code review, sometimes even tagging specific individuals from whom we'd
+like a review.
 
 Our pull requests have automated checks run against them, including code style
 linting and unit tests. When we request reviews on pull requests, we ensure
@@ -115,14 +132,14 @@ that these checks are passing beforehand. When we add new functionality in a
 pull request, we also add new tests exercising that functionality in the same
 pull request. When we fix a bug in a pull request, we also add a unit test or
 adjust an existing one in the same pull request to prove that the bug has been
-fixed.
+fixed. When possible please add Unit Tests to new code, but they are not strictly required.
+We'd love help filling out the unit testing framework if someone is interested.
 
-When we notice open pull requests with comments indicating they're ready for
-review, we review each other's code. The primary goal of our code reviews is
-to ensure that the code does not break existing functionality. Some secondary
-goals include ensuring that the code fully satisfies the related feature
-request or fixes the related bug, or that it conforms to best practices for
-code efficiency and style.
+When we notice open pull requests  we review each other's code. The primary goal of code reviews is
+to help ensure that the code does not have any potential issues or unintended interactions. We also
+check that the code fully satisfies the related feature request or fixes the related bug. Secondary
+goals are to cleanup code and make it easy for new contributors to understand conforms to best
+practices for code efficiency and style.
 
 We review each other's code using the GitHub "review" workflow, especially its
 line-commenting feature. We leave comments on specific lines that we notice
@@ -138,7 +155,17 @@ tracking that remaining work.
 
 ## How we use git branches
 
-The `master` branch is the branch with changes that are pending for the next update. The release branches are forked from the `master` branch, and the latest release branch is the branch the server runs off of. First, assign yourself to an issue, and create a fork of the code. When you are finished with the feature, create a pull request back into the master branch. An admin will review your code and merge if it is accepted. Expect some comments and feedback.
+The `dev` branch is the branch which is currently deployed to staging (or in the process of deploying).
+CI must always pass on `dev`. `prod` is the branch that should always represent the version currently on
+production. There is a slight subtlety here in that it's actually the latest tag of the form `vX.Y.Z`
+that is deployed. If that doesn't match the current commit on `prod` please let us know since that
+means something got done incorrectly.
+
+For contributing you first, ask to be assigned to an issue, and create a fork of the repository on
+GitHub. When you are finished with the feature, create a pull request back into the `dev` branch or for
+urgent fixes for production into `prod`. An admin will review your code and merge when all issues are
+resolved. Expect some comments and feedback, a second or third set of eyes usually finds small things
+we miss.
 
 ## How we use Discord
 
@@ -149,13 +176,14 @@ Even so, there are some times when it's useful to have access to synchronous
 communication with other community members.
 
 Our community's most important use for Discord is interaction with
-non-technical users of Cube Cobra. Discord is a great way to get to know the
+non-technical users of CubeArtisan. Discord is a great way to get to know the
 needs and wants of the user base, and can inform plans for features and
-bugfixes.
+bugfixes. It also has the #proposals polls for new features.
 
 Another good use of Discord for contributors is staying abreast of the current
-state of the production server. If there are new bugs being reported
-frequently that require rapid response, a Discord "war room" can be the best
+state of the production server. Though this is usually best handled by requesting someone with prod
+access to give you access to the GCP dashboards monitoring production/staging. If there are new bugs
+being reported frequently that require rapid response, a Discord "war room" can be the best
 way to handle these reports.
 
 Our community does not treat Discord as a system of record. Though it's not
@@ -166,34 +194,41 @@ a GitHub issue, comment, or pull request.
 
 ### Code Style
 
-Cube Cobra currently uses 4 languages: Javascript, Jade/PUG, CSS, and JSX. Before creating your pull request, you can fix any style errors by running `npm run-script beautify`.
+CubeArtisan currently uses 4 languages: Javascript (specifically React flavored JSX with ES2020
+support), Jade/PUG (as little as possible), and CSS. Before creating your pull request, you can fix
+any style errors by running `yarn lint:fix` from the project root.
 
 
-### Development Server
+### Staging Deployment
 
-The development server can be accessed at: http://cubecobradev.com/
-This server usually runs on a more up to date, experimental branch than the production server. The development server is a great way to test new features in an environment closer to the live server. Please report any bugs you see on the development server as an issue. The development server database is not wiped periodically, but it is subject to instability, so don't use it as a reliable way to store any data.
+The current staging deployment can be accessed at: http://staging.cubeartisan.net/
+This deployment runs the latest commits from the `dev` branch. The staging deployment is a great way to
+test new features in an environment nearly identical to the prod deployment. Please report any bugs
+you see on the development server as an issue. The development server database is not wiped
+periodically, but it is subject to instability, so don't use it as a reliable way to store any data.
+It shares almost no services with Production so it is pretty safe to try more experimental changes
+on.
 
 # Release Schedule
 
-Releases are created every two weeks, on friday night. There is a feature freeze 3 days before the release where no feature pull requests will be approved, only bugfixes. This goes into affect the Tuesday before a release. This is to prevent regression on the live server. 
+Releases are created roughly once a month on a Saturday morning (this is usual but it can vary).
+There is a feature freeze 3 days before the release where no feature pull requests will be approved,
+only bugfixes. This will be announced in Discord. This is to reduce the change of regressions on the
+live server.
 
 # How to report a bug
 
-If you find a security vulnerability, do NOT open an issue. Send a private message to DEKKARU#2784 on discord instead. You can also email support@cubecobra.com. Bugs not related to security can be reported through GitHub issues.
+If you find a security vulnerability, do NOT open an issue. Send a private message to
+ruler501#5217 or another site manager on Discord instead. You can also email admin@cubeartisan.new.
+Bugs not related to security should be reported through GitHub issues if possible.
 
 
 # How to suggest a feature or enhancement
-### Join the discord disscussion.
 
- https://discord.gg/Hn39bCU
+## Join the discord disscussion.
+
+https://discord.gg/qWPjyACs32
 
 # Community
 
-We have a fairly active discord and would love for you to join the discussion.  https://discord.gg/Hn39bCU
-
-Private Message 'DEKKARU', the admin on Discord, to gain the contributor role and unlock the contributor-only channels.
-
-# Community feedback / product ideas
-
-Feedback from the community is collected and synthesized into roadmap ideas in a shared document [here](https://www.notion.so/CubeCobra-community-feedback-142b06cd81994a61bd850fb5bc817cc8). To gain read/write access, PM 'DEKKARU' on Discord.
+We have a somewhat active Discord and would love for you to join the discussion. 

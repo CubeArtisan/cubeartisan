@@ -28,44 +28,6 @@ import { HttpInstrumentation } from '@opentelemetry/instrumentation-http';
 import { ExpressInstrumentation } from '@opentelemetry/instrumentation-express';
 import { MongoDBInstrumentation } from '@opentelemetry/instrumentation-mongodb';
 
-if (process.env.GCLOUD_PROJECT) {
-  const traceExporter = new TraceExporter({});
-  const metricExporter = new MetricExporter({});
-  const httpInstrumentation = new HttpInstrumentation();
-
-  const sdk = new opentelemetry.NodeSDK({
-    traceExporter,
-    metricExporter,
-    metricInterval: 60 * 1000, // 60 seconds
-    instrumentations: [
-      httpInstrumentation,
-      new ExpressInstrumentation(),
-      new WinstonInstrumentation({}),
-      new SocketIoInstrumentation({
-        filterHttpTransport: {
-          httpInstrumentation,
-        },
-      }),
-      new DnsInstrumentation({}),
-      new MongoDBInstrumentation({
-        enhancedDatabaseReporting: 'true',
-      }),
-    ],
-  });
-
-  // Start the opentelemetry server.
-  sdk.start();
-  process.on('SIGTERM', () => {
-    sdk
-      .shutdown()
-      .then(
-        () => winston.log('SDK shut down successfully'),
-        (err) => winston.log('Error shutting down SDK', err),
-      )
-      .finally(() => process.exit(0));
-  });
-}
-
 const linearFormat = winston.format((info) => {
   if (info.message) {
     if (info.message.type === 'request') {
@@ -86,4 +48,47 @@ winston.configure({
   exitOnError: false,
   transports,
 });
+
+if (process.env.TELMETRY === 'true') {
+  const traceExporter = new TraceExporter({});
+  const metricExporter = new MetricExporter({});
+  const httpInstrumentation = new HttpInstrumentation();
+
+  const sdk = new opentelemetry.NodeSDK({
+    autoDetectResources: true,
+    traceExporter,
+    metricExporter,
+    metricInterval: 60 * 1000, // 60 seconds
+    instrumentations: [
+      httpInstrumentation,
+      new ExpressInstrumentation(),
+      new WinstonInstrumentation({}),
+      new SocketIoInstrumentation({
+        filterHttpTransport: {
+          httpInstrumentation,
+        },
+      }),
+      new DnsInstrumentation({}),
+      new MongoDBInstrumentation({
+        enhancedDatabaseReporting: 'true',
+      }),
+    ],
+  });
+
+  // Start the opentelemetry server.
+  sdk
+    .start()
+    .then(() => winston.info('Telemetry started.'))
+    .catch((error) => winston.error('Error initializing tracing', error));
+  process.on('SIGTERM', () => {
+    sdk
+      .shutdown()
+      .then(
+        () => winston.info('SDK shut down successfully'),
+        (err) => winston.error('Error shutting down SDK', err),
+      )
+      .finally(() => process.exit(0));
+  });
+}
+
 export default winston;
