@@ -32,8 +32,13 @@ import Video from '@cubeartisan/server/models/video.js';
 import Podcast from '@cubeartisan/server/models/podcast.js';
 import { render } from '@cubeartisan/server/serverjs/render.js';
 import { addMultipleNotifications, addNotification } from '@cubeartisan/server/serverjs/util.js';
+import { fileURLToPath } from 'url';
 
 const ensureAdmin = ensureRole('Admin');
+// eslint-disable-next-line no-underscore-dangle,prettier/prettier
+const __filename = fileURLToPath(import.meta.url);
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = path.dirname(__filename);
 
 const router = express.Router();
 

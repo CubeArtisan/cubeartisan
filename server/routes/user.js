@@ -24,6 +24,7 @@ import path from 'path';
 import { addNotification, hasProfanity } from '@cubeartisan/server/serverjs/util.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import { render } from '@cubeartisan/server/serverjs/render.js';
+import { fileURLToPath } from 'url';
 
 // Bring in models
 import User from '@cubeartisan/server/models/user.js';
@@ -42,7 +43,6 @@ import {
   handleRouteError,
 } from '@cubeartisan/server/routes/middleware.js';
 import { getPackages } from '@cubeartisan/server/routes/package.js';
-import { fileURLToPath } from 'url';
 
 // eslint-disable-next-line no-underscore-dangle,prettier/prettier
 const __filename = fileURLToPath(import.meta.url);
