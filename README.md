@@ -13,7 +13,7 @@ If you are interested in contributing towards CubeArtisan, please read the [Cont
 
 ### Install Prerequisites
 
-You will need to install NodeJS 16.x, Yarn and MongoDB. You can find the necessary resources here:
+You will need to install NodeJS 16.10, Yarn and MongoDB 4.4.10. You can find the necessary resources here:
 
 NodeJS: https://nodejs.org/en/download/
 
@@ -25,18 +25,21 @@ npm install -g yarn
 
 MongoDB: https://docs.mongodb.com/manual/installation/
 
-You will need to either start MongoDB background process, or manually start and stop the process in a separate console.
-Refer to the official documentation for directions on how to set this up for your OS.
-Optionally, you can also run MongoDB using docker
+You will need to either start MongoDB background process, or manually start and stop the process in
+a separate console. Refer to the official documentation for directions on how to set this up for
+your OS. Optionally, you can also run MongoDB using docker
 
 ```sh
-docker run --name cubeartisan-mongodb -p 27017:27017 -d mongo:4.2
-```
+docker run --name cubeartisan-mongodb -p 27017:27017 -d mongo:4.4.10```
+
+
+You must setup a replicaset named rs0 (or a different name if you adjust it in .env). See the MongoDB
+docs for how to set this up.
 
 ### Initial Setup
 
 Clone the project into a folder of your choice. Copy `.env_EXAMPLE` to `.env` and fill out your personal tokens.
-**NOTE** Blank variables can be left blank. 
+**NOTE** Blank variables can be left blank. The defaults should work if you don't want to fill out anything.
 
 Once your `.env` file is filled out, run the following commands in the root of the cloned repository:
 
@@ -47,7 +50,7 @@ yarn cards                  # This will bundle modules and download Scryfall ass
 
 If you are on Windows, you will need to set bash as your script shell first:
 You will need to make sure you have `bash` installed somewhere and run the following command
-[with your `bash` path in place of the path below].
+[with your `bash` path in place of the path below as needed].
 
 ```sh
 yarn config set script-shell "C:\\Program Files\\git\\bin\\bash.exe"
@@ -56,11 +59,12 @@ yarn config set script-shell "C:\\Program Files\\git\\bin\\bash.exe"
 Then you can start the development server like so:
 
 ```sh
-yarn run start
+yarn start
 ```
 
-You can now open up a browser and connect to the app through: http://localhost:8080. Despite the fact that node says
-it is running on port 5000, you should use port 8080 to connect.
+You can now open up a browser and connect to the app through: http://127.0.0.1:8080. Despite the fact that node says
+it is running on port 5000, you should use port 8080 to connect since we want to talk to the webpack
+dev server.
 
 Nodemon will restart the application anytime there is a change to a source file.
 
@@ -69,7 +73,7 @@ Nodemon will restart the application anytime there is a change to a source file.
 To run the test suite, run `yarn test`.
 
 If you make changes to `updatecards.js` or other code that will require remaking the fixture files in `fixtures/`
-you can use the helper: `node server/scripts/update_fixtures.js` after getting the lastest card info using
+you can use the helper: `cd server && node scripts/update_fixtures.js` after getting the lastest card info using
 `yarn cards`. This will retain the same cards in the fixtures but with updated card details and fixture files.
 
 ### Updating Card Definitions
