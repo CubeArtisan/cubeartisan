@@ -31,7 +31,7 @@ import Deck from '@cubeartisan/server/models/deck.js';
 import User from '@cubeartisan/server/models/user.js';
 import CubeAnalytic from '@cubeartisan/server/models/cubeAnalytic.js';
 import Draft from '@cubeartisan/server/models/draft.js';
-import { COLOR_COMBINATIONS, cardNameLower } from '@cubeartisan/client/utils/Card.js';
+import { COLOR_COMBINATIONS, cardName, cardNameLower } from '@cubeartisan/client/utils/Card.js';
 
 export const exportDeckToXmage = async (req, res) => {
   try {
@@ -260,19 +260,22 @@ export const exportDeckToCockatrice = async (req, res) => {
     }
     const seat = deck.seats[req.params.seat];
 
-    res.setHeader('Content-disposition', `attachment; filename=${seat.name.replace(/\W/g, '')}.txt`);
+    res.setHeader('Content-disposition', `attachment; filename=${seat.name.replace(/\W/g, '')}.cod`);
     res.setHeader('Content-type', 'text/plain');
     res.charset = 'UTF-8';
-    res.write('<?xml version="1.0" encoding="UTF-8"?>');
-    res.write('<cockatrice_deck version="1">');
-    res.write(`<deckname>${deck.name}</deckname>`);
-    res.write('<zone name="main">');
+    res.write('<?xml version="1.0" encoding="UTF-8"?>\n');
+    res.write('<cockatrice_deck version="1">\n');
+    res.write(`  <deckname>${seat.name}</deckname>\n`);
+    res.write('  <zone name="main">\n');
     const main = {};
     for (const row of seat.deck) {
       for (const col of row) {
         for (const cardIndex of col) {
-          const details = carddb.cardFromId(deck.cards[cardIndex].cardID);
-          const name = `${deck.cards[cardIndex]?.name ?? details.name}`;
+          const card = {
+            ...deck.cards[cardIndex],
+            details: carddb.cardFromId(deck.cards[cardIndex].cardID),
+          };
+          const name = cardName(card);
           if (main[name]) {
             main[name] += 1;
           } else {
@@ -282,11 +285,10 @@ export const exportDeckToCockatrice = async (req, res) => {
       }
     }
     for (const [key, value] of Object.entries(main)) {
-      res.write(`<card number="${value}" name="${key}"/>\r\n`);
+      res.write(`    <card number="${value}" name="${key}"/>\n`);
     }
-    res.write('</zone>');
-
-    res.write('<zone name="sideboard">');
+    res.write('  </zone>\n');
+    res.write('  <zone name="side">\n');
     const side = {};
     for (const row of seat.sideboard) {
       for (const col of row) {
@@ -302,9 +304,9 @@ export const exportDeckToCockatrice = async (req, res) => {
       }
     }
     for (const [key, value] of Object.entries(side)) {
-      res.write(`<card number="${value}" name="${key}"/>\r\n`);
+      res.write(`    <card number="${value}" name="${key}"/>\n`);
     }
-    res.write('</zone>');
+    res.write('  </zone>\n');
     res.write('</cockatrice_deck>');
     return res.end();
   } catch (err) {
