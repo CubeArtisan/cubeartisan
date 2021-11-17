@@ -17,12 +17,11 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { useCallback, useMemo, useState, useContext } from 'react';
-
 import PropTypes from 'prop-types';
+import Button from '@mui/material/Button.js';
+
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
-
 import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
-
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import useKeyHandlers from '@cubeartisan/client/hooks/UseKeyHandlers.js';
 import DeckDeleteModal from '@cubeartisan/client/components/modals/DeckDeleteModal.js';
@@ -34,7 +33,7 @@ import styled from '@cubeartisan/client/utils/styledHelper.js';
 const MAX_LENGTH = 35;
 const DEFAULT_DECK_NAME = 'Untitled Deck.js';
 
-const DeleteButton = styled.button`
+const DeleteButton = styled(Button)`
   font-size: 0.8rem;
   text-align: center;
   width: 19px;

@@ -18,15 +18,15 @@
  */
 import React, { useCallback, useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
-
-import { Button, CustomInput, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
+import { Button } from '@mui/material';
+import { LoadingButton } from '@mui/labs';
+import { CustomInput, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
 import { putJson } from '@cubeartisan/client/utils/CSRF.js';
 import { formDataObject } from '@cubeartisan/client/utils/Form.js';
 
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
-import LoadingButton from '@cubeartisan/client/components/LoadingButton.js';
 
 const CubeSettingsModal = ({ addAlert, onCubeUpdate, isOpen, toggle }) => {
   const { cube, cubeID, setCube } = useContext(CubeContext);

@@ -18,7 +18,9 @@
  */
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { Button, ButtonGroup, FormGroup, Input, InputGroupAddon, Label } from 'reactstrap';
+import Button from '@mui/material/Button.js';
+import ButtonGroup from '@mui/material/ButtonGroup.js';
+import { FormGroup, Input, InputGroupAddon, Label } from 'reactstrap';
 
 import { COLORS } from '@cubeartisan/client/utils/Util.js';
 
@@ -71,7 +73,7 @@ export const ColorCheckButton = ({ prefix, size, color, short, value, onChange }
   return (
     <Button
       className={`color-check-button${value ? ' active' : ''}`}
-      outline={!value}
+      variant={value ? "text" : "outlined"}
       size={size}
       onClick={handleClick}
       aria-label={color}
@@ -105,7 +107,7 @@ export const ColorChecksControl = ({ colorless, prefix, size, values, onChange, 
     adjustedStyle.fontSize = '0.875rem';
   }
   return (
-    <ButtonGroup size={size} style={adjustedStyle} {...props}>
+    <ButtonGroup variant="text" size={size} style={adjustedStyle} {...props}>
       {colors.map(([color, short]) => (
         <ColorCheckButton
           key={short}

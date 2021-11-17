@@ -18,23 +18,22 @@
  */
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-
-import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import ImageFallback from '@cubeartisan/client/components/ImageFallback.js';
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
-
+import Button from '@mui/material/Button.js';
 import {
   Modal,
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Button,
   InputGroup,
   InputGroupAddon,
   InputGroupText,
   CustomInput,
   UncontrolledAlert,
 } from 'reactstrap';
+
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import ImageFallback from '@cubeartisan/client/components/ImageFallback.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 const AddToCubeModal = ({ card, isOpen, toggle, hideAnalytics, cubeContext }) => {
   const user = useContext(UserContext);

@@ -21,6 +21,7 @@ import PropTypes from 'prop-types';
 import CommentPropType from '@cubeartisan/client/proptypes/CommentPropType.js';
 import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
 
+import Button from '@mui/material/Button.js';
 import {
   Collapse,
   Modal,
@@ -31,7 +32,6 @@ import {
   InputGroupText,
   CustomInput,
   ModalFooter,
-  Button,
   Input,
 } from 'reactstrap';
 

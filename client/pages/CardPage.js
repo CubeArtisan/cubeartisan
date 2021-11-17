@@ -20,7 +20,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import CardPricePropType from '@cubeartisan/client/proptypes/CardPricePropType.js';
 import CardDataPointPropType from '@cubeartisan/client/proptypes/CardDataPointPropType.js';
-
+import { Badge, Button } from '@mui/material';
 import {
   Card,
   CardHeader,
@@ -35,8 +35,6 @@ import {
   InputGroupText,
   CustomInput,
   Table,
-  Badge,
-  Button,
   Input,
 } from 'reactstrap';
 
@@ -231,7 +229,7 @@ const CardIdBadge = ({ id }) => {
       </InputGroupAddon>
       <Input className="bg-white" value={id} disabled />
       <AutoSizedAddon addonType="append">
-        <Button className="btn-sm input-group-button" onClick={onCopyClick}>
+        <Button size="small" onClick={onCopyClick}>
           {copied ? <CheckIcon size={16} /> : <ClippyIcon size={16} />}
         </Button>
       </AutoSizedAddon>
@@ -286,10 +284,9 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
             <ImageFallback className="w-100" src={imageUsed} fallbackSrc="/content/default_card.png" alt={card.name} />
             {card.image_flip && (
               <Button
-                className="mt-1"
                 color="success"
-                outline
-                block
+                variant="outlined"
+                fullWidth
                 onClick={() => {
                   if (imageUsed === card.image_normal) {
                     setImageUsed(card.image_flip);
@@ -306,7 +303,7 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
                 Played in {cardPopularity({ details: card })}%
                 <span className="percent">{cardCubeCount({ details: card })}</span> Cubes total.
               </p>
-              <AddModal color="success" block outline className="mb-1 mr-2" modalProps={{ card, hideAnalytics: true }}>
+              <AddModal color="success" fullWidth variant="outlined" modalProps={{ card, hideAnalytics: true }}>
                 Add to Cube...
               </AddModal>
               <CardIdBadge id={card._id} />

@@ -18,8 +18,9 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Card, CardHeader, CardBody, CardFooter } from 'reactstrap';
+import { Button } from '@mui/material';
 
-import { Card, CardHeader, CardBody, Button, CardFooter } from 'reactstrap';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
@@ -44,7 +45,7 @@ export const LeaveWarningPage = ({ url, loginCallback, siteCustomizations: { sit
         <ButtonLink href={url} color="danger">
           Yes, continue
         </ButtonLink>
-        <Button className="ml-2" color="secondary" onClick={back}>
+        <Button color="secondary" onClick={back}>
           Go back
         </Button>
       </CardFooter>

@@ -19,11 +19,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
-
-import { Modal, ModalBody, ModalHeader, Button, ModalFooter, Row, Col, Card } from 'reactstrap';
+import { Button } from '@mui/material';
+import { LoadingButton } from '@mui/labs';
+import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Card } from 'reactstrap';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
-import LoadingButton from '@cubeartisan/client/components/LoadingButton.js';
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
 
 const CustomizeBasicsModal = ({ isOpen, toggle, cube, updateBasics, onError }) => {
@@ -94,7 +94,7 @@ const CustomizeBasicsModal = ({ isOpen, toggle, cube, updateBasics, onError }) =
           <Col xs="12" md="4">
             <Button
               color="success"
-              block
+              fullWidth
               onClick={submitCard}
               disabled={!(imageDict && imageDict[cardName.toLowerCase()])}
             >
@@ -110,8 +110,8 @@ const CustomizeBasicsModal = ({ isOpen, toggle, cube, updateBasics, onError }) =
                 <Button
                   className="mt-1"
                   color="danger"
-                  outline
-                  block
+                  variant="outlined"
+              fullWidth
                   onClick={() => {
                     const temp = basics.slice();
                     temp.splice(index, 1);
@@ -126,7 +126,7 @@ const CustomizeBasicsModal = ({ isOpen, toggle, cube, updateBasics, onError }) =
         </Row>
       </ModalBody>
       <ModalFooter>
-        <LoadingButton color="success" outline onClick={save}>
+        <LoadingButton color="success" variant="outlined" onClick={save}>
           Save Changes
         </LoadingButton>
         <Button onClick={toggle}>Close</Button>

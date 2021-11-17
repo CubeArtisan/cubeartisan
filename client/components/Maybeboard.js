@@ -19,8 +19,9 @@
 import React, { useCallback, useContext, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
-
-import { Button, Col, Form, ListGroupItem, Row, Spinner } from 'reactstrap';
+import Button from '@mui/material/Button.js';
+import LoadingButton from '@mui/lab/LoadingButton.js';
+import { Col, Form, ListGroupItem, Row, Spinner } from 'reactstrap';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
@@ -31,7 +32,6 @@ import ChangelistContext from '@cubeartisan/client/components/contexts/Changelis
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import { getCard } from '@cubeartisan/client/components/EditCollapse.js';
-import LoadingButton from '@cubeartisan/client/components/LoadingButton.js';
 import MaybeboardContext from '@cubeartisan/client/components/contexts/MaybeboardContext.js';
 import TableView from '@cubeartisan/client/components/TableView.js';
 import { getCardColorClass } from '@cubeartisan/client/components/contexts/TagContext.js';
@@ -122,13 +122,12 @@ const MaybeboardListItem = ({ card, className }) => {
               <span aria-hidden="true">+</span>
             </button>
             <Button
-              size="sm"
-              close
+              size="small"
               className="float-none"
               data-index={card.index}
               onClick={handleRemove}
               aria-label="Remove"
-            />
+            >X</Button>
           </>
         ))}
     </ListGroupItem>
@@ -204,7 +203,7 @@ const Maybeboard = ({ filter, ...props }) => {
           <h4>Maybeboard</h4>
         </Col>
         <Col xs="auto">
-          <Button color="primary" size="sm" onClick={toggleShowMaybeboard}>
+          <Button color="primary" size="small" onClick={toggleShowMaybeboard}>
             Hide <span className="d-none d-sm-inline">Maybeboard</span>
           </Button>
         </Col>
@@ -227,7 +226,7 @@ const Maybeboard = ({ filter, ...props }) => {
               />
             </Col>
             <Col xs="3" sm="auto">
-              <LoadingButton color="success" type="submit" className="w-100" loading={loading}>
+              <LoadingButton color="success" type="submit" loading={loading}>
                 Add
               </LoadingButton>
             </Col>

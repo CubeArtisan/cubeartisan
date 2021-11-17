@@ -18,16 +18,12 @@
  */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
-import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
-import { getCardColorClass } from '@cubeartisan/client/components/contexts/TagContext.js';
+import Button from '@mui/material/Button.js';
 import {
   Modal,
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Button,
   InputGroup,
   InputGroupAddon,
   InputGroupText,
@@ -37,6 +33,11 @@ import {
   ListGroup,
   ListGroupItem,
 } from 'reactstrap';
+
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
+import { getCardColorClass } from '@cubeartisan/client/components/contexts/TagContext.js';
 
 const AutocardItem = withAutocard(ListGroupItem);
 

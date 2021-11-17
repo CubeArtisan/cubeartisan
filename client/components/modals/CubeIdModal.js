@@ -17,11 +17,11 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React from 'react';
+import { Button } from '@mui/material';
 import {
   Modal,
   ModalHeader,
   ModalBody,
-  Button,
   ModalFooter,
   Input,
   Label,
@@ -47,7 +47,7 @@ const CubeIdModal = ({ toggle, isOpen, shortID, fullID, alert }) => {
           <Input className="bg-white monospaced" value={shortID} readonly />
           <InputGroupAddon addonType="append">
             <Button
-              className="btn-sm input-group-button"
+              size="small"
               onClick={() => onCopyClick(shortID, 'Short ID')}
               aria-label="Copy Short ID"
             >
@@ -62,7 +62,7 @@ const CubeIdModal = ({ toggle, isOpen, shortID, fullID, alert }) => {
           <Input className="bg-white monospaced" value={fullID} readonly />
           <InputGroupAddon addonType="append">
             <Button
-              className="btn-sm input-group-button"
+              size="small"
               onClick={() => onCopyClick(fullID, 'Full ID')}
               aria-label="Copy Full ID"
             >

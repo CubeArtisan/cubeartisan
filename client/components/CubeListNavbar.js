@@ -18,8 +18,8 @@
  */
 import React, { useCallback, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
+import Button from '@mui/material/Button.js';
 import {
-  Button,
   Collapse,
   Col,
   Container,
@@ -294,7 +294,7 @@ const CompareCollapse = (props) => {
                 value={compareID}
                 onChange={handleChange}
               />
-              <Button color="success" className="mb-2" href={targetUrl}>
+              <Button color="success" size="medium" href={targetUrl}>
                 Compare Cubes
               </Button>
             </Form>

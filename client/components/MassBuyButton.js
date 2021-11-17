@@ -20,7 +20,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
-import { Button, Form, Input } from 'reactstrap';
+import Button from '@mui/material/Button.js';
+import { Form, Input } from 'reactstrap';
 
 import { tcgMassEntryUrl } from '@cubeartisan/client/utils/Affiliate.js';
 

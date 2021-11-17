@@ -17,13 +17,13 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Button } from '@mui/material';
+import { Modal, ModalBody, ModalFooter, ModalHeader, NavLink } from 'reactstrap';
 
 import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
 import CardGrid from '@cubeartisan/client/components/CardGrid.js';
-import PropTypes from 'prop-types';
 import { arrayShuffle } from '@cubeartisan/client/utils/Util.js';
-
-import { Modal, ModalBody, ModalFooter, ModalHeader, Button, NavLink } from 'reactstrap';
 
 class SampleHandModal extends Component {
   constructor(props) {

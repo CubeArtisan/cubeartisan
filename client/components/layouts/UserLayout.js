@@ -26,7 +26,8 @@ import FollowersModal from '@cubeartisan/client/components/modals/FollowersModal
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import CreateCubeModal from '@cubeartisan/client/components/modals/CreateCubeModal.js';
 
-import { Button, Nav, Navbar, NavItem, NavLink, Row } from 'reactstrap';
+import Button from '@mui/material/Button.js';
+import { Nav, Navbar, NavItem, NavLink, Row } from 'reactstrap';
 import styled from '@cubeartisan/client/utils/styledHelper.js';
 
 const FollowersModalLink = withModal(Button, FollowersModal);

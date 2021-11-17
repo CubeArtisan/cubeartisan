@@ -17,8 +17,9 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React from 'react';
+import { Button } from '@mui/material';
+import { LoadingButton } from '@mui/labs';
 import {
-  Button,
   Col,
   CustomInput,
   Input,
@@ -38,7 +39,6 @@ import { getLabels, cardGetLabels } from '@cubeartisan/client/utils/Sort.js';
 import { cardName, cardPrice, cardFoilPrice, cardPriceEur, cardTix, cardElo } from '@cubeartisan/client/utils/Card.js';
 
 import { ColorChecksAddon } from '@cubeartisan/client/components/ColorCheck.js';
-import LoadingButton from '@cubeartisan/client/components/LoadingButton.js';
 import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
 import TagInput from '@cubeartisan/client/components/TagInput.js';
 import TextBadge from '@cubeartisan/client/components/TextBadge.js';

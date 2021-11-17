@@ -18,8 +18,8 @@
  */
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import Button from '@mui/material/Button.js';
 import {
-  Button,
   Col,
   Row,
   Collapse,
@@ -633,7 +633,7 @@ const FilterCollapse = ({ filter, setFilter, numCards, numShown, defaultFilterTe
             </InputGroup>
           </PaddedCol>
           <PaddedCol xs="auto">
-            <Button type="submit" onClick={applyQuick} size="sm" color="success" className="mb-3">
+            <Button type="submit" onClick={applyQuick} size="small" color="success">
               Quick Filter
             </Button>
           </PaddedCol>
@@ -646,13 +646,13 @@ const FilterCollapse = ({ filter, setFilter, numCards, numShown, defaultFilterTe
       </Row>
       <Row>
         <Col>
-          <Button color="danger" className="mr-2 mb-3" onClick={reset}>
+          <Button color="danger" onClick={reset}>
             Reset Filters
           </Button>
-          <Button color="primary" className="mr-2 mb-3" onClick={toggleAdvancedOpen}>
+          <Button color="primary" onClick={toggleAdvancedOpen}>
             Advanced...
           </Button>
-          <Button color="secondary" className="mr-2 mb-3" href="/filters">
+          <Button color="secondary" href="/filters">
             Syntax Guide
           </Button>
         </Col>

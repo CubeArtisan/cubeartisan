@@ -18,8 +18,8 @@
  */
 import React, { lazy, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { Button } from '@mui/material';
 import {
-  Button,
   Card,
   CardHeader,
   CardBody,
@@ -280,11 +280,11 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
               {user &&
                 cubeState.owner !== user._id &&
                 (followedState ? (
-                  <Button outline color="danger" className="rounded-0" onClick={unfollow}>
+                  <Button variant="outlined" color="danger" onClick={unfollow}>
                     Unfollow
                   </Button>
                 ) : (
-                  <Button color="success" className="rounded-0" onClick={follow}>
+                  <Button color="success" onClick={follow}>
                     Follow
                   </Button>
                 ))}

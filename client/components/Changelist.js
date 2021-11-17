@@ -17,7 +17,9 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { useCallback, useContext } from 'react';
-import { Badge, Button, Input } from 'reactstrap';
+import Badge from '@mui/material/Badge.js';
+import Button from '@mui/material/Button';
+import { Input } from 'reactstrap';
 import PropTypes from 'prop-types';
 
 import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';
@@ -28,7 +30,7 @@ import { cardName } from '@cubeartisan/client/utils/Card.js';
 const TextAutocard = withAutocard('span');
 
 const CloseButton = ({ changeId, close }) => (
-  <Button className="clickx" data-change-id={changeId} onClick={close}>
+  <Button className="clickx" variant="contained" data-change-id={changeId} onClick={close}>
     ×
   </Button>
 );

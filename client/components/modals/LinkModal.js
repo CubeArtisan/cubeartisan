@@ -18,7 +18,8 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
+import { Button } from '@mui/material';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
 

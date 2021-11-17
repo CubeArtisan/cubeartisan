@@ -19,7 +19,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader, Navbar, Input, CardBody } from 'reactstrap';
+import Button from '@mui/material/Button.js';
+import { Modal, ModalBody, ModalFooter, ModalHeader, Navbar, Input, CardBody } from 'reactstrap';
 
 import TextField from '@cubeartisan/client/components/TextField.js';
 import NumericField from '@cubeartisan/client/components/NumericField.js';

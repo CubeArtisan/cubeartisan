@@ -28,8 +28,8 @@ import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import TextBadge from '@cubeartisan/client/components/TextBadge.js';
 import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
-
-import { CardHeader, Card, CardBody, Row, Col, Button } from 'reactstrap';
+import Button from '@mui/material/Button.js';
+import { CardHeader, Card, CardBody, Row, Col } from 'reactstrap';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
@@ -118,7 +118,7 @@ const CardPackage = ({ cardPackage, refresh }) => {
                 </TextBadge>
 
                 <AddGroupToCubeModalLink
-                  outline
+                  variant="outlined"
                   color="success"
                   modalProps={{ cards: cardPackage.cards, cubes: user ? user.cubes : [], packid: cardPackage._id }}
                 >
@@ -127,15 +127,15 @@ const CardPackage = ({ cardPackage, refresh }) => {
                 {user.roles.includes('Admin') && (
                   <>
                     {cardPackage.approved ? (
-                      <Button outline color="danger" className="mx-2" onClick={unapprove}>
+                      <Button variant="outlined" color="danger" className="mx-2" onClick={unapprove}>
                         Remove Approval
                       </Button>
                     ) : (
-                      <Button outline color="success" className="mx-2" onClick={approve}>
+                      <Button variant="outlined" color="success" className="mx-2" onClick={approve}>
                         Approve
                       </Button>
                     )}
-                    <Button outline color="danger" onClick={remove}>
+                    <Button variant="outlined" color="danger" onClick={remove}>
                       Delete
                     </Button>
                   </>

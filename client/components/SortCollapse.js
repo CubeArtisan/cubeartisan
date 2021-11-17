@@ -17,7 +17,8 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { useCallback, useContext, useState, useRef, useEffect } from 'react';
-import { Button, Col, Collapse, Container, Input, Row, UncontrolledAlert } from 'reactstrap';
+import Button from '@mui/material/Button.js';
+import { Col, Collapse, Container, Input, Row, UncontrolledAlert } from 'reactstrap';
 import PropTypes from 'prop-types';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
@@ -274,19 +275,18 @@ const SortCollapse = ({
         </Row>
         <Row className="mb-3">
           <Col>
-            <Button color="success" className="mr-sm-2 mb-3" onClick={handleReset}>
+            <Button color="success" onClick={handleReset}>
               Reset Sort
             </Button>
             {!canEdit ? (
               false
             ) : (
-              <Button color="success" className="mr-sm-2 mb-3" onClick={handleSave}>
+              <Button color="success" onClick={handleSave}>
                 Save as Default Sort
               </Button>
             )}
             <Button
               color={showOther ? 'danger' : 'primary'}
-              className="mr-sm-2 mb-3"
               onClick={() => {
                 const newShowOther = !showOther;
                 if (newShowOther.toString() === defShow) {

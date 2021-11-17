@@ -19,9 +19,8 @@
 import React, { useContext, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
-
+import { Button } from '@mui/material';
 import {
-  Button,
   Collapse,
   Input,
   Label,

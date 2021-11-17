@@ -17,8 +17,8 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { useMemo } from 'react';
+import Button from '@mui/material/Button.js';
 import {
-  Button,
   Card,
   CardBody,
   CardFooter,
@@ -84,7 +84,7 @@ const CustomPackCard = ({ packIndex, pack, canRemove, mutations }) => {
       <CardHeader>
         <CardTitle className="mb-0">
           Pack {packIndex + 1} - {pack.slots.length} Cards
-          {canRemove && <Button close onClick={mutations.removePack} data-pack-index={packIndex} />}
+            {canRemove && <Button onClick={mutations.removePack} data-pack-index={packIndex}>X</Button>}
         </CardTitle>
       </CardHeader>
       <CardBody className="p-1">
@@ -113,7 +113,7 @@ const CustomPackCard = ({ packIndex, pack, canRemove, mutations }) => {
                     <InputGroupAddon addonType="append">
                       <Button
                         color="secondary"
-                        outline
+                        variant="outlined"
                         onClick={mutations.removeSlot}
                         data-pack-index={packIndex}
                         data-slot-index={slotIndex}
@@ -126,7 +126,7 @@ const CustomPackCard = ({ packIndex, pack, canRemove, mutations }) => {
               ))}
             </CardBody>
             <CardFooter>
-              <Button className="mr-2" color="success" onClick={mutations.addSlot} data-pack-index={packIndex}>
+              <Button size="medium" color="success" onClick={mutations.addSlot} data-pack-index={packIndex}>
                 Add Card Slot
               </Button>
             </CardFooter>
@@ -177,7 +177,7 @@ const CustomPackCard = ({ packIndex, pack, canRemove, mutations }) => {
                   <InputGroupAddon addonType="append">
                     <Button
                       color="secondary"
-                      outline
+                      variant="outlined"
                       onClick={mutations.removeStep}
                       data-pack-index={packIndex}
                       data-step-index={stepIndex}
@@ -189,7 +189,7 @@ const CustomPackCard = ({ packIndex, pack, canRemove, mutations }) => {
               ))}
             </CardBody>
             <CardFooter>
-              <Button className="mr-2" color="success" onClick={mutations.addStep} data-pack-index={packIndex}>
+              <Button size="medium" color="success" onClick={mutations.addStep} data-pack-index={packIndex}>
                 Add Step
               </Button>
             </CardFooter>

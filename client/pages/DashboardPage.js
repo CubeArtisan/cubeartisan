@@ -18,7 +18,8 @@
  */
 import React, { lazy, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Card, Col, Row, CardHeader, CardBody, CardFooter } from 'reactstrap';
+import { Card, Col, Row, CardHeader, CardBody, CardFooter } from 'reactstrap';
+import { Button } from '@mui/material';
 
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
