@@ -52,8 +52,8 @@ import {
   validActions,
 } from '@cubeartisan/client/drafting/draftutil.js';
 
-const canDrop = (_, target) => {
-  return target.type === DraftLocation.PICKS;
+const canDrop = (source, target) => {
+  return target.type === DraftLocation.PICKS || (target.type === DraftLocation.SIDEBOARD && source.type !== DraftLocation.PACK);
 };
 
 const Pack = ({
@@ -161,12 +161,13 @@ Pack.defaultProps = {
   seconds: 0,
 };
 
-const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking, emptySeats, seconds }) => {
+const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveMainboardCard, moveSideboardCard, mainboardCard, sideboardCard, picking, emptySeats, seconds }) => {
   const user = useContext(UserContext);
   const {
     cards,
     cardsInPack,
     step: { action, amount },
+    sideboard,
     packNum,
     pickNum,
     numPacks,
@@ -177,6 +178,10 @@ const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking,
   const picks = useMemo(
     () => drafted.map((row) => row.map((col) => col.map((cardIndex) => cards[cardIndex]))),
     [drafted, cards],
+  );
+  const sideboardedPicks = useMemo(
+    () => sideboard.map((row) => row.map((col) => col.map((cardIndex) => cards[cardIndex]))),
+    [sideboard, cards],
   );
   const instructions = useMemo(() => {
     if (action === 'pick') {
@@ -213,17 +218,27 @@ const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking,
           console.error("Can't move cards inside pack.");
         }
       } else if (source.type === DraftLocation.PICKS) {
-        if (target.type === DraftLocation.PICKS) {
-          moveCard({ target: target.data, source: source.data });
+        if (target.type === DraftLocation.SIDEBOARD) {
+          sideboardCard({ target: target.data, source: source.data });
+        } else if (target.type === DraftLocation.PICKS) {
+          moveMainboardCard({ target: target.data, source: source.data });
+        } else {
+          console.error("Can't move cards from picks back to pack.");
+        }
+      } else if (source.type === DraftLocation.SIDEBOARD) {
+        if (target.type === DraftLocation.SIDEBOARD) {
+          moveSideboardCard({ target: target.data, source: source.data });
+        } else if (target.type === DraftLocation.PICKS) {
+          mainboardCard({ target: target.data, source: source.data });
         } else {
           console.error("Can't move cards from picks back to pack.");
         }
       }
     },
-    [takeCard, cardsInPack, moveCard],
+    [takeCard, cardsInPack, moveMainboardCard, moveSideboardCard, mainboardCard, sideboardCard],
   );
 
-  const handleClickCard = useCallback(
+  const handleClickPackCard = useCallback(
     async (event) => {
       event.preventDefault();
       const cardPackIndex = parseInt(event.currentTarget.getAttribute('data-index'), 10);
@@ -259,7 +274,7 @@ const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking,
                 instructions={instructions}
                 picking={picking}
                 onMoveCard={handleMoveCard}
-                onClickCard={handleClickCard}
+                onClickCard={handleClickPackCard}
                 seconds={seconds}
                 waitingMessage={waitingMessage}
               />
@@ -288,6 +303,16 @@ const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking,
               canDrop={canDrop}
               onMoveCard={handleMoveCard}
             />
+            <Card className="my-3">
+              <DeckStacks
+                cards={sideboardedPicks}
+                title="Sideboard"
+                subtitle={makeSubtitle(sideboardedPicks.flat(3))}
+                locationType={DraftLocation.SIDEBOARD}
+                canDrop={canDrop}
+                onMoveCard={handleMoveCard}
+              />
+            </Card>
           </Card>
         </ErrorBoundary>
       </DndProvider>
@@ -299,7 +324,10 @@ CubeDraftPlayerUI.propTypes = {
   drafted: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number.isRequired).isRequired).isRequired)
     .isRequired,
   takeCard: PropTypes.func.isRequired,
-  moveCard: PropTypes.func.isRequired,
+  moveMainboardCard: PropTypes.func.isRequired,
+  moveSideboardCard: PropTypes.func.isRequired,
+  sideboardCard: PropTypes.func.isRequired,
+  mainboardCard: PropTypes.func.isRequired,
   picking: PropTypes.number,
   emptySeats: PropTypes.number.isRequired,
   seconds: PropTypes.number,
@@ -410,11 +438,30 @@ export const CubeDraftPage = ({ cube, draftid, loginCallback }) => {
     [action, picking, cardsInPack],
   );
 
-  const moveCard = useCallback(({ source, target }) => {
+  const moveMainboardCard = useCallback(({ source, target }) => {
     if (socket.current) {
-      socket.current.emit('move card', source, target);
+      socket.current.emit('move mainboard card', source, target);
     }
   }, []);
+
+  const moveSideboardCard = useCallback(({ source, target }) => {
+    if (socket.current) {
+      socket.current.emit('move sideboard card', source, target);
+    }
+  }, []);
+
+  const sideboardCard = useCallback(({ source, target }) => {
+    if (socket.current) {
+      socket.current.emit('move to sideboard', source, target);
+    }
+  }, []);
+
+  const mainboardCard = useCallback(({ source, target }) => {
+    if (socket.current) {
+      socket.current.emit('move to mainboard', source, target);
+    }
+  }, []);
+
   return (
     <MainLayout loginCallback={loginCallback}>
       <CubeLayout cube={cube} activeLink="playtest">
@@ -426,7 +473,10 @@ export const CubeDraftPage = ({ cube, draftid, loginCallback }) => {
             sideboard={sideboard}
             drafted={drafted}
             takeCard={takeCard}
-            moveCard={moveCard}
+            moveMainboardCard={moveMainboardCard}
+            moveSideboardCard={moveSideboardCard}
+            sideboardCard={sideboardCard}
+            mainboardCard={mainboardCard}
             seconds={seconds}
           />
         </DisplayContextProvider>

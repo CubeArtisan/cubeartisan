@@ -10,7 +10,7 @@ import {
   getDrafterState,
   initializeMtgDraftbots,
 } from '@cubeartisan/client/drafting/draftutil.js';
-import { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation.js';
+import { moveOrAddCard, removeCard } from '@cubeartisan/client/drafting/DraftLocation.js';
 import { areDeepEqual } from '@cubeartisan/client/utils/Util.js';
 
 const mtgdraftbotsQ = import('mtgdraftbots');
@@ -210,14 +210,30 @@ const manageWebsocketDraft = async (socket) => {
     return [changes, draft];
   };
 
-  const moveCard = async (draft, source, target) =>
+  const moveCardInZone = async (draft, zone, source, target) =>{
     applyChanges({
-      $set: { [`seats.${seatNumber}.drafted`]: moveOrAddCard(draft.seats[seatNumber].drafted, target, source) },
+      $set: { [`seats.${seatNumber}.${zone}`]: moveOrAddCard(draft.seats[seatNumber][zone], target, source) },
     });
+  };
+
+  const moveCardToZone = async (draft, sourceZone, targetZone, source, target) => {
+    console.log(source, target);
+    const [card, removed] = removeCard(draft.seats[seatNumber][sourceZone], source);
+    console.log(removed, sourceZone);
+    applyChanges({
+      $set: {
+        [`seats.${seatNumber}.${sourceZone}`]: removed,
+        [`seats.${seatNumber}.${targetZone}`]: moveOrAddCard(draft.seats[seatNumber][targetZone], target, card),
+      },
+    });
+  };
 
   socket.on('pick card', async (...args) => pickCard(await getDraft(), ...args));
   socket.on('trash card', async (...args) => trashCard(await getDraft(), ...args));
-  socket.on('move card', async (...args) => moveCard(await getDraft(), ...args));
+  socket.on('move mainboard card', async (...args) => moveCardInZone(await getDraft(), 'drafted', ...args));
+  socket.on('move sideboard card', async (...args) => moveCardInZone(await getDraft(), 'sideboard', ...args));
+  socket.on('move to sideboard', async (...args) => moveCardToZone(await getDraft(), 'drafted', 'sideboard', ...args));
+  socket.on('move to mainboard', async (...args) => moveCardToZone(await getDraft(), 'sideboard', 'drafted', ...args));
   let stepNumber = -1;
   let prevState = null;
   const updateState = async (draft) => {
