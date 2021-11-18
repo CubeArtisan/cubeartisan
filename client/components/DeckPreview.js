@@ -18,7 +18,7 @@
  */
 import React, { useCallback, useMemo, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import Button from '@mui/material/Button.js';
+import { Button } from '@mui/material';
 
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';

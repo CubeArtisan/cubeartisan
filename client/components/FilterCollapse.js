@@ -18,7 +18,7 @@
  */
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import Button from '@mui/material/Button.js';
+import { Button } from '@mui/material';
 import {
   Col,
   Row,
@@ -38,7 +38,7 @@ import styled from '@cubeartisan/client/utils/styledHelper.js';
 
 import { makeFilter } from '@cubeartisan/client/filtering/FilterCards.js';
 import { ColorChecksAddon, ColorChecksControl } from '@cubeartisan/client/components/ColorCheck.js';
-import LoadingButton from '@cubeartisan/client/components/LoadingButton.js';
+import { LoadingButton } from '@mui/lab';
 import TextField from '@cubeartisan/client/components/TextField.js';
 import NumericField from '@cubeartisan/client/components/NumericField.js';
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';

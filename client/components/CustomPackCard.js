@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { useMemo } from 'react';
-import Button from '@mui/material/Button.js';
+import { Button } from '@mui/material';
 import {
   Card,
   CardBody,
@@ -84,7 +84,11 @@ const CustomPackCard = ({ packIndex, pack, canRemove, mutations }) => {
       <CardHeader>
         <CardTitle className="mb-0">
           Pack {packIndex + 1} - {pack.slots.length} Cards
-            {canRemove && <Button onClick={mutations.removePack} data-pack-index={packIndex}>X</Button>}
+          {canRemove && (
+            <Button onClick={mutations.removePack} data-pack-index={packIndex}>
+              X
+            </Button>
+          )}
         </CardTitle>
       </CardHeader>
       <CardBody className="p-1">

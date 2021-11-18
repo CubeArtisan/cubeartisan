@@ -18,7 +18,7 @@
  */
 import React from 'react';
 import { Button } from '@mui/material';
-import { LoadingButton } from '@mui/labs';
+import { LoadingButton } from '@mui/lab';
 import {
   Col,
   CustomInput,

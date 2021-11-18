@@ -18,16 +18,14 @@
  */
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { Button } from '@mui/material';
+import { Nav, Navbar, NavItem, NavLink, Row } from 'reactstrap';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
 import FollowersModal from '@cubeartisan/client/components/modals/FollowersModal.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import CreateCubeModal from '@cubeartisan/client/components/modals/CreateCubeModal.js';
-
-import Button from '@mui/material/Button.js';
-import { Nav, Navbar, NavItem, NavLink, Row } from 'reactstrap';
 import styled from '@cubeartisan/client/utils/styledHelper.js';
 
 const FollowersModalLink = withModal(Button, FollowersModal);

@@ -19,7 +19,7 @@
 import React, { Fragment, useCallback, useContext, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
-import { LoadingButton } from '@mui/labs';
+import { LoadingButton } from '@mui/lab';
 import { Col, Form, Input, Label, Row, Card, CardBody, CardHeader } from 'reactstrap';
 
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';

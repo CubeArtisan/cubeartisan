@@ -17,8 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { useCallback, useContext } from 'react';
-import Badge from '@mui/material/Badge.js';
-import Button from '@mui/material/Button';
+import { Badge, Button } from '@mui/material';
 import { Input } from 'reactstrap';
 import PropTypes from 'prop-types';
 

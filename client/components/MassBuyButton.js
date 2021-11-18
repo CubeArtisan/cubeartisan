@@ -18,11 +18,10 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
-
-import Button from '@mui/material/Button.js';
+import { Button } from '@mui/material';
 import { Form, Input } from 'reactstrap';
 
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { tcgMassEntryUrl } from '@cubeartisan/client/utils/Affiliate.js';
 
 const exclude = ['Copy'];

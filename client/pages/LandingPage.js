@@ -62,7 +62,7 @@ export const LandingPage = ({ numusers, numcubes, numdrafts }) => {
               modalProps={{ loginCallback: '/' }}
               className="landing-btn mb-3"
               color="success"
-      variant="outlined"
+              variant="outlined"
               isOpen={loginIsOpen}
               toggle={toggleLoginModal}
             >

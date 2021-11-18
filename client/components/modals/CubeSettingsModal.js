@@ -19,7 +19,7 @@
 import React, { useCallback, useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
-import { LoadingButton } from '@mui/labs';
+import { LoadingButton } from '@mui/lab';
 import { CustomInput, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
 import { putJson } from '@cubeartisan/client/utils/CSRF.js';

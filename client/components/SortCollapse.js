@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { useCallback, useContext, useState, useRef, useEffect } from 'react';
-import Button from '@mui/material/Button.js';
+import { Button } from '@mui/material';
 import { Col, Collapse, Container, Input, Row, UncontrolledAlert } from 'reactstrap';
 import PropTypes from 'prop-types';
 

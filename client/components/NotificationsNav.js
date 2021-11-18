@@ -19,7 +19,7 @@
 import React, { useState, useContext } from 'react';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import Badge from '@mui/material/Badge.js';
+import { Badge } from '@mui/material';
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu, CardHeader, CardFooter } from 'reactstrap';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';

@@ -17,8 +17,8 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { useState, useEffect, useContext } from 'react';
-import Button from '@mui/material/Button.js';
-import {Navbar, Nav, NavItem, Row, Col, CardBody } from 'reactstrap';
+import { Button } from '@mui/material';
+import { Navbar, Nav, NavItem, Row, Col, CardBody } from 'reactstrap';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import LoadingPage from '@cubeartisan/client/pages/LoadingPage.js';

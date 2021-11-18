@@ -18,7 +18,7 @@
  */
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import Button from '@mui/material/Button.js';
+import { Button } from '@mui/material';
 import {
   Modal,
   ModalHeader,

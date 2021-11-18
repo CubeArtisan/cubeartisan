@@ -19,8 +19,8 @@
 import React, { useCallback, useContext, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
-import Button from '@mui/material/Button.js';
-import LoadingButton from '@mui/lab/LoadingButton.js';
+import { Button } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import { Col, Form, ListGroupItem, Row, Spinner } from 'reactstrap';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
@@ -127,7 +127,9 @@ const MaybeboardListItem = ({ card, className }) => {
               data-index={card.index}
               onClick={handleRemove}
               aria-label="Remove"
-            >X</Button>
+            >
+              X
+            </Button>
           </>
         ))}
     </ListGroupItem>

@@ -18,10 +18,7 @@
  */
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import CommentPropType from '@cubeartisan/client/proptypes/CommentPropType.js';
-import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
-
-import Button from '@mui/material/Button.js';
+import { Button } from '@mui/material';
 import {
   Collapse,
   Modal,
@@ -35,6 +32,8 @@ import {
   Input,
 } from 'reactstrap';
 
+import CommentPropType from '@cubeartisan/client/proptypes/CommentPropType.js';
+import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import LinkButton from '@cubeartisan/client/components/LinkButton.js';
 import CommentContextMenu from '@cubeartisan/client/components/CommentContextMenu.js';

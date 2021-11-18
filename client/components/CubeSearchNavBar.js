@@ -19,7 +19,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import Button from '@mui/material/Button.js';
+import { Button } from '@mui/material';
 import { Modal, ModalBody, ModalFooter, ModalHeader, Navbar, Input, CardBody } from 'reactstrap';
 
 import TextField from '@cubeartisan/client/components/TextField.js';

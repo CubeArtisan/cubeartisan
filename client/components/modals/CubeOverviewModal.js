@@ -18,7 +18,7 @@
  */
 import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
-import { LoadingButton } from '@mui/labs';
+import { LoadingButton } from '@mui/lab';
 import {
   Modal,
   ModalBody,

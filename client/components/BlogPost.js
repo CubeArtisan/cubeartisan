@@ -18,7 +18,7 @@
  */
 import React, { lazy, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardHeader, Row, Col, CardBody } from 'reactstrap';
+import { Box, Divider, Grid, Link, Paper, Stack, Typography } from '@mui/material';
 
 import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType.js';
 import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
@@ -29,66 +29,47 @@ import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 
 const CommentsSection = lazy(() => import('@cubeartisan/client/components/CommentsSection.js'));
 
-const BlogPost = ({ post, onEdit, noScroll }) => {
+const BlogPost = ({ post, onEdit }) => {
   const user = useContext(UserContext);
-
-  const scrollStyle = noScroll ? {} : { overflow: 'auto', maxHeight: '50vh' };
-
   const canEdit = user && user._id === post.owner;
 
   return (
-    <Card className="shadowed rounded-0 mb-3">
-      <CardHeader className="pl-4 pr-0 pt-2 pb-0">
-        <h5 className="card-title">
-          <a href={`/cube/${post.cube}/blog/post/${post._id}`}>{post.title}</a>
-          <div className="float-sm-right">
-            {canEdit && <BlogContextMenu className="float-sm-right" post={post} value="..." onEdit={onEdit} />}
-          </div>
-        </h5>
-        <h6 className="card-subtitle mb-2 text-muted">
-          <a href={`/user/${post.owner}`}>{post.dev === 'true' ? 'Dekkaru' : post.username}</a>
-          {' posted to '}
-          {post.dev === 'true' ? (
-            <a href="/dev/blog/0">Developer Blog</a>
-          ) : (
-            <a href={`/cube/${post.cube}`}>{post.cubename}</a>
-          )}
-          {' - '}
-          <TimeAgo date={post.date} />
-        </h6>
-      </CardHeader>
-      <div style={scrollStyle}>
-        {post.markdown ? (
-          <Row className="no-gutters">
-            <Col className="col-l-7 col-m-6">
-              <CardBody className="py-2">
-                <Markdown markdown={post.markdown} limited />
-              </CardBody>
-            </Col>
-          </Row>
-        ) : (
-          <CardBody className="py-2">
-            <Markdown markdown={post.markdown} limited />
-          </CardBody>
-        )}
-      </div>
-      <div className="border-top">
+    <Paper elevation={3}>
+      <Stack divider={<Divider orientation="horizontal" flexItem />} spacing={1}>
+        <Box sx={{ backgroundColor: 'var(--bg-darker)' }}>
+          <Grid container spacing={1}>
+            <Grid item xs={11}>
+              <Link variant="h5" href={`/cube/${post.cube}/blog/post/${post._id}`}>
+                {post.title}
+              </Link>
+            </Grid>
+            <Grid item xs={1}>
+              {canEdit && <BlogContextMenu className="float-sm-right" post={post} value="..." onEdit={onEdit} />}
+            </Grid>
+          </Grid>
+          <Typography variant="h6">
+            <Link href={`/user/${post.owner}`}>{post.username}</Link>
+            {' posted to '}
+            {post.dev === 'true' ? (
+              <Link href="/dev/blog/0">Developer Blog</Link>
+            ) : (
+              <Link href={`/cube/${post.cube}`}>{post.cubename}</Link>
+            )}
+            {' - '}
+            <TimeAgo date={post.date} />
+          </Typography>
+        </Box>
+        <Markdown markdown={post.markdown} limited />
         <Suspense>
           <CommentsSection parentType="blog" parent={post._id} collapse={false} />
         </Suspense>
-      </div>
-    </Card>
+      </Stack>
+    </Paper>
   );
 };
-
 BlogPost.propTypes = {
   post: BlogPostPropType.isRequired,
   onEdit: PropTypes.func.isRequired,
-  noScroll: PropTypes.bool,
-};
-
-BlogPost.defaultProps = {
-  noScroll: false,
 };
 
 export default BlogPost;

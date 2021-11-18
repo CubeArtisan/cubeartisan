@@ -17,34 +17,25 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React from 'react';
-import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType.js';
+import { Typography } from '@mui/material';
 
+import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
 import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
 
-import { CardBody, CardHeader } from 'reactstrap';
-
-const Article = ({ article }) => {
-  return (
-    <>
-      <CardHeader>
-        <h1>{article.title}</h1>
-        <h6>
-          By <a href={`/user/${article.owner}`}>{article.username}</a>
-          {' | '}
-          <TimeAgo date={article.date} />
-        </h6>
-      </CardHeader>
-      <CardBody>
-        <Markdown markdown={article.body} />
-      </CardBody>
-      <div className="border-top">
-        <CommentsSection parentType="article" parent={article._id} collapse={false} />
-      </div>
-    </>
-  );
-};
+const Article = ({ article }) => (
+  <>
+    <Typography variant="h1">{article.title}</Typography>
+    <Typography variant="h6">
+      By <a href={`/user/${article.owner}`}>{article.username}</a>
+      {' | '}
+      <TimeAgo date={article.date} />
+    </Typography>
+    <Markdown markdown={article.body} />
+    <CommentsSection parentType="article" parent={article._id} collapse={false} />
+  </>
+);
 Article.propTypes = {
   article: ArticlePropType.isRequired,
 };

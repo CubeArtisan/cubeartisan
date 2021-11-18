@@ -20,18 +20,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ChartComponent from 'react-chartjs-2';
 import styled from '@cubeartisan/client/utils/styledHelper.js';
-import Button from '@mui/material/Button.js';
-import {
-  Col,
-  Row,
-  Table,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  CustomInput,
-  Input,
-  Form,
-} from 'reactstrap';
+import { Button } from '@mui/material';
+import { Col, Row, Table, InputGroup, InputGroupAddon, InputGroupText, CustomInput, Input, Form } from 'reactstrap';
 
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import calculate from '@cubeartisan/client/utils/CalculateHyperGeom.js';

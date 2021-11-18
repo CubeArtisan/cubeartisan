@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { useCallback, useContext, useState } from 'react';
-import Button from '@mui/material/Button.js';
+import { Button } from '@mui/material';
 import {
   Col,
   Collapse,

@@ -20,7 +20,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { Button } from '@mui/material';
-import { LoadingButton } from '@mui/labs';
+import { LoadingButton } from '@mui/lab';
 import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Card } from 'reactstrap';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
@@ -111,7 +111,7 @@ const CustomizeBasicsModal = ({ isOpen, toggle, cube, updateBasics, onError }) =
                   className="mt-1"
                   color="danger"
                   variant="outlined"
-              fullWidth
+                  fullWidth
                   onClick={() => {
                     const temp = basics.slice();
                     temp.splice(index, 1);

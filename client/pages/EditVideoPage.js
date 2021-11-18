@@ -18,19 +18,7 @@
  */
 import React, { lazy, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Spinner,
-  Nav,
-  CardBody,
-  Card,
-  TabContent,
-  TabPane,
-  Input,
-  FormGroup,
-  Row,
-  Col,
-  Label,
-} from 'reactstrap';
+import { Spinner, Nav, CardBody, Card, TabContent, TabPane, Input, FormGroup, Row, Col, Label } from 'reactstrap';
 import { Button } from '@mui/material';
 
 import VideoPropType from '@cubeartisan/client/proptypes/VideoPropType.js';

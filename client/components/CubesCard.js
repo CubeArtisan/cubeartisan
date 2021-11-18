@@ -18,7 +18,7 @@
  */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Button from '@mui/material/Button.js';
+import { Button } from '@mui/material';
 import { Col, Row, Card, CardHeader, CardBody, Collapse } from 'reactstrap';
 
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';

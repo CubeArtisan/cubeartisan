@@ -18,20 +18,8 @@
  */
 import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import Badge from '@mui/material/Badge.js';
-import Button from '@mui/material/Button.js';
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  CardTitle,
-  Collapse,
-  Nav,
-  Navbar,
-  Col,
-  Row,
-  Input,
-} from 'reactstrap';
+import { Badge, Button } from '@mui/material';
+import { Card, CardBody, CardHeader, CardTitle, Collapse, Nav, Navbar, Col, Row, Input } from 'reactstrap';
 
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';

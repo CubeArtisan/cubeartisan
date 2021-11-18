@@ -18,7 +18,7 @@
  */
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { Button } from '@mui/material';
-import { LoadingButton } from '@mui/labs';
+import { LoadingButton } from '@mui/lab';
 import {
   Row,
   Col,
@@ -294,7 +294,9 @@ const GroupModal = ({ cubeID, canEdit, children, ...props }) => {
                 <ListGroup className="list-outline w-100">
                   {cards.map((card) => (
                     <AutocardListItem key={card.index} card={card} noCardModal inModal>
-                      <Button data-index={card.index} onClick={handleRemoveCard} >X</Button>
+                      <Button data-index={card.index} onClick={handleRemoveCard}>
+                        X
+                      </Button>
                     </AutocardListItem>
                   ))}
                 </ListGroup>
