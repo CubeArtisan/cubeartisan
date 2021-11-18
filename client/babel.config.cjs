@@ -28,11 +28,8 @@ module.exports = (api) => {
       [
         'babel-plugin-direct-import',
         {
-          modules: [
-            "@mui/lab",
-            "@mui/material",
-          ],
-        }
+          modules: ['@mui/lab', '@mui/material'],
+        },
       ],
     ],
   };

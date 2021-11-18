@@ -35,30 +35,30 @@ const BlogPost = ({ post, onEdit }) => {
 
   return (
     <Paper elevation={3}>
-      <Stack divider={<Divider orientation="horizontal" flexItem />} spacing={1}>
-        <Box sx={{ backgroundColor: 'var(--bg-darker)' }}>
-          <Grid container spacing={1}>
-            <Grid item xs={11}>
-              <Link variant="h5" href={`/cube/${post.cube}/blog/post/${post._id}`}>
-                {post.title}
-              </Link>
-            </Grid>
-            <Grid item xs={1}>
-              {canEdit && <BlogContextMenu className="float-sm-right" post={post} value="..." onEdit={onEdit} />}
-            </Grid>
+      <Box sx={{ backgroundColor: 'var(--bg-darker)' }}>
+        <Grid container spacing={1}>
+          <Grid item xs={11}>
+            <Link variant="h4" underline="hover" color="inherit" href={`/cube/${post.cube}/blog/post/${post._id}`}>
+              {post.title}
+            </Link>
           </Grid>
-          <Typography variant="h6">
-            <Link href={`/user/${post.owner}`}>{post.username}</Link>
-            {' posted to '}
-            {post.dev === 'true' ? (
-              <Link href="/dev/blog/0">Developer Blog</Link>
-            ) : (
-              <Link href={`/cube/${post.cube}`}>{post.cubename}</Link>
-            )}
-            {' - '}
-            <TimeAgo date={post.date} />
-          </Typography>
-        </Box>
+          <Grid item xs={1}>
+            {canEdit && <BlogContextMenu className="float-sm-right" post={post} value="..." onEdit={onEdit} />}
+          </Grid>
+        </Grid>
+        <Typography variant="subtitle">
+          <Link href={`/user/${post.owner}`}>{post.username}</Link>
+          {' posted to '}
+          {post.dev === 'true' ? (
+            <Link href="/dev/blog/0">Developer Blog</Link>
+          ) : (
+            <Link href={`/cube/${post.cube}`}>{post.cubename}</Link>
+          )}
+          {' — '}
+          <TimeAgo date={post.date} />
+        </Typography>
+      </Box>
+      <Stack divider={<Divider orientation="horizontal" flexItem />} spacing={1}>
         <Markdown markdown={post.markdown} limited />
         <Suspense>
           <CommentsSection parentType="blog" parent={post._id} collapse={false} />

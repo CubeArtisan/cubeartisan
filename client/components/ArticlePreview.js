@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { useCallback } from 'react';
-import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
+import { Card, CardActionArea, CardContent, CardMedia, Link, Typography } from '@mui/material';
 
 import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType.js';
 import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
@@ -34,19 +34,20 @@ const ArticlePreview = ({ article }) => {
   return (
     <Card>
       <CardActionArea onClick={handleClick}>
-        <CardMedia component="img" height="140" alt={article.title} img={article.image} />
+        <CardMedia component="img" height="140" alt={article.title} src={article.image} />
         <CardContent>
           <Typography variant="h6">{article.title}</Typography>
           <Typography variant="subtitle2">{article.short}</Typography>
-          <Typography variant="caption">
-            Written by{' '}
-            <a data-sublink href={`/user/${article.owner}`}>
-              {article.username}
-            </a>
-          </Typography>
-          <TimeAgo date={article.date} />
         </CardContent>
       </CardActionArea>
+      <Typography variant="caption">
+        Written by{' '}
+        <Link data-sublink href={`/user/${article.owner}`}>
+          {article.username}
+        </Link>
+        {' — '}
+        <TimeAgo date={article.date} />
+      </Typography>
     </Card>
   );
 };
