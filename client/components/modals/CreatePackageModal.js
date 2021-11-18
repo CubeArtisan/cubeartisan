@@ -137,7 +137,7 @@ const CreatePackageModal = ({ isOpen, toggle, onError, onSuccess }) => {
                 <img className="w-100" src={`/card/${cardId}/image/redirect`} alt={cardId} />
                 <Button
                   className="mt-1"
-                  color="danger"
+                  color="warning"
                   variant="outline"
                   fullWidth
                   onClick={() => {
@@ -157,7 +157,7 @@ const CreatePackageModal = ({ isOpen, toggle, onError, onSuccess }) => {
         <LoadingButton color="success" variant="outlined" onClick={save}>
           Submit Package
         </LoadingButton>
-        <Button color="danger" variant="outlined" onClick={toggle}>
+        <Button color="warning" variant="outlined" onClick={toggle}>
           Cancel
         </Button>
       </ModalFooter>

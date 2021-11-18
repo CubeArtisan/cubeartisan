@@ -306,7 +306,7 @@ const EditCollapse = ({ ...props }) => {
               <Button color="success" size="medium" type="submit">
                 Save Changes
               </Button>
-              <Button color="danger" onClick={handleDiscardAll}>
+              <Button color="warning" onClick={handleDiscardAll}>
                 Discard All
               </Button>
             </Col>

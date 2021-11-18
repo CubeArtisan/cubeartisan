@@ -333,7 +333,7 @@ const HyperGeom = () => {
                 </Col>
               ))}
             </Row>
-            <Button color="danger" fullWidth onClick={clear}>
+            <Button color="warning" fullWidth onClick={clear}>
               Reset
             </Button>
           </>

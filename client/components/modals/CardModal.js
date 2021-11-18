@@ -227,7 +227,7 @@ const CardModal = ({
       </ModalBody>
       <ModalFooter>
         {!disabled && !maybe && (
-          <Button color="danger" onClick={queueRemoveCard}>
+          <Button color="warning" onClick={queueRemoveCard}>
             <span className="d-none d-sm-inline">Remove from cube</span>
             <span className="d-sm-none">Remove</span>
           </Button>

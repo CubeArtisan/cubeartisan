@@ -39,7 +39,7 @@ const NotificationsNav = () => {
     <UncontrolledDropdown nav inNavbar>
       <DropdownToggle nav caret>
         {notifications.length > 0 && (
-          <Badge color="danger">{notifications.length > 100 ? '100+' : notifications.length}</Badge>
+          <Badge color="warning">{notifications.length > 100 ? '100+' : notifications.length}</Badge>
         )}
         <img className="notification-icon" src="/content/notification.png" alt="notifications" />
       </DropdownToggle>

@@ -25,7 +25,6 @@ import { Form, Input } from 'reactstrap';
 import { cardName, cardsAreEquivalent, normalizeName } from '@cubeartisan/client/utils/Card.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import { getLabels, sortDeep } from '@cubeartisan/client/utils/Sort.js';
-
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext.js';
 import PagedTable from '@cubeartisan/client/components/PagedTable.js';

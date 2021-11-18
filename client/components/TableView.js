@@ -18,12 +18,10 @@
  */
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { Container, Grid, Typography } from '@mui/material';
+
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
-
-import { Row, Col } from 'reactstrap';
-
 import { countGroup, sortDeep } from '@cubeartisan/client/utils/Sort.js';
-
 import AutocardListGroup from '@cubeartisan/client/components/AutocardListGroup.js';
 import AutocardListItem from '@cubeartisan/client/components/AutocardListItem.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
@@ -33,25 +31,22 @@ const TableView = ({ cards, rowTag, noGroupModal, className, ...props }) => {
   const { primary, secondary, tertiary, quaternary, showOther } = useContext(SortContext);
   const { compressedView } = useContext(DisplayContext);
 
-  const sorted = sortDeep(cards, showOther, quaternary, primary, secondary);
 
+  const sorted = sortDeep(cards, showOther, quaternary, primary, secondary);
+  const columns = { xs: Math.min(sorted.length, 2), md: Math.min(sorted.length, 9) }
   return (
-    <div className={`table-view-container${className ? ` ${className}` : ''}`}>
-      <Row className={`table-view${compressedView ? ' compressed' : ''}`} {...props}>
+    <Container maxWidth={false} disableGutters>
+      <Grid container spacing={1} columns={columns}>
         {sorted.map(([columnLabel, column]) => (
-          <Col
+          <Grid item
             key={columnLabel}
-            md={compressedView ? undefined : 'auto'}
+            xs={1}
+            md={1}
             className="table-col"
-            style={{
-              width: `${100 / Math.min(sorted.length, 9)}%`,
-              flexBasis: compressedView ? `${100 / Math.min(sorted.length, 9)}%` : undefined,
-            }}
           >
-            <h6 className="text-center card-list-heading">
-              {columnLabel}
-              <br />({countGroup(column)})
-            </h6>
+            <Typography variant="h6">
+            <>{columnLabel}{': '}{countGroup(column)}</>
+            </Typography>
             {column.map(([label, row]) => (
               <AutocardListGroup
                 key={label}
@@ -64,10 +59,10 @@ const TableView = ({ cards, rowTag, noGroupModal, className, ...props }) => {
                 showOther={showOther}
               />
             ))}
-          </Col>
+          </Grid>
         ))}
-      </Row>
-    </div>
+      </Grid>
+    </Container>
   );
 };
 

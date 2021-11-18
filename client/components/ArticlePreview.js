@@ -34,7 +34,7 @@ const ArticlePreview = ({ article }) => {
   return (
     <Card>
       <CardActionArea onClick={handleClick}>
-        <CardMedia component="img" height="140" alt={article.title} src={article.image} />
+        <CardMedia component="img" alt={article.title} src={article.image} />
         <CardContent>
           <Typography variant="h6">{article.title}</Typography>
           <Typography variant="subtitle2">{article.short}</Typography>

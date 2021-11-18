@@ -63,7 +63,7 @@ const UserLayout = ({ user, followers, activeLink, children }) => {
           {/* )} */}
           {/* TODO: Needs to be a DELETE method call. */}
           {/* {following && !canEdit && ( */}
-          {/*  <Button color="danger" outline className="rounded-0 w-100" href={`/user/${user._id}/follow`}> */}
+          {/*  <Button color="warning" outline className="rounded-0 w-100" href={`/user/${user._id}/follow`}> */}
           {/*    Unfollow */}
           {/*  </Button> */}
           {/* )} */}

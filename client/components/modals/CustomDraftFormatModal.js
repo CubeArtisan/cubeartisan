@@ -290,7 +290,7 @@ const CustomDraftFormatModal = ({ isOpen, toggle, formatIndex, format, setFormat
         {errorsInFormat &&
           errorsInFormat.map((error, errorIndex) => (
             // eslint-disable-next-line react/no-array-index-key
-            <Alert key={errorIndex} color="danger">
+            <Alert key={errorIndex} color="error">
               {error}
             </Alert>
           ))}

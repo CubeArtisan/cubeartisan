@@ -191,16 +191,9 @@ const CustomDraftCard = ({
           </CardTitleH5>
         </CardHeader>
         <CardBody>
-          {format.markdown ? (
             <div className="mb-3">
               <Markdown markdown={format.markdown} />
             </div>
-          ) : (
-            <div
-              className="description-area"
-              dangerouslySetInnerHTML={/* eslint-disable-line react/no-danger */ { __html: format.html }}
-            />
-          )}
 
           <LabelRow htmlFor={`seats-${index}`} label="Total Seats">
             <Input type="select" name="seats" id={`seats-${index}`} defaultValue={format.defaultSeats ?? 8}>
@@ -240,12 +233,12 @@ const CustomDraftCard = ({
                     Make Default
                   </Button>
                 )}
-                <Button color="danger" id={`deleteToggler-${index}`}>
+                <Button color="warning" id={`deleteToggler-${index}`}>
                   Delete
                 </Button>
                 <UncontrolledCollapse toggler={`#deleteToggler-${index}`}>
                   <h6 className="my-4">Are you sure? This action cannot be undone.</h6>
-                  <Button color="danger" onClick={onDeleteFormat} data-index={index}>
+                  <Button color="warning" onClick={onDeleteFormat} data-index={index}>
                     Yes, delete this format
                   </Button>
                 </UncontrolledCollapse>

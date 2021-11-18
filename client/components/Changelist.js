@@ -52,7 +52,7 @@ Add.propTypes = {
 
 const Remove = ({ card, changeId, close }) => (
   <li>
-    <CloseButton changeId={changeId} close={close} /> <Badge color="danger">-</Badge>{' '}
+    <CloseButton changeId={changeId} close={close} /> <Badge color="warning">-</Badge>{' '}
     <TextAutocard card={card}>{cardName(card)}</TextAutocard>
   </li>
 );

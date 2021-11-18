@@ -42,7 +42,7 @@ export const LeaveWarningPage = ({ url, loginCallback, siteCustomizations: { sit
         <p>Are you sure you want to proceed?</p>
       </CardBody>
       <CardFooter>
-        <ButtonLink href={url} color="danger">
+        <ButtonLink href={url} color="warning">
           Yes, continue
         </ButtonLink>
         <Button color="secondary" onClick={back}>
