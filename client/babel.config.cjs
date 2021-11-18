@@ -25,6 +25,15 @@ module.exports = (api) => {
           pure: true,
         },
       ],
+      [
+        'babel-plugin-direct-import',
+        {
+          modules: [
+            "@mui/lab",
+            "@mui/material",
+          ],
+        }
+      ],
     ],
   };
   if (!api.env('test')) {

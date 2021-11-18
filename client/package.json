@@ -31,9 +31,9 @@
     "@babel/preset-env": "^7.14.7",
     "@babel/preset-react": "^7.14.5",
     "@cubeartisan/markdown": "^0.1.0",
+    "@emotion/memoize": "^0.7.5",
     "@mui/lab": "^5.0.0-alpha.55",
     "@mui/material": "^5.1.1",
-    "@mui/styled-engine-sc": "^5.1.0",
     "@primer/octicons-react": "^11.0.0",
     "babel-loader": "^8.1.0",
     "chart.js": "^3.5.0",
@@ -73,11 +73,14 @@
   "devDependencies": {
     "@cubeartisan/client": "^0.1.0",
     "@cubeartisan/server": "^0.1.0",
+    "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest",
     "@react-mock/fetch": "^0.3.0",
     "@testing-library/jest-dom": "^5.5.0",
     "@testing-library/react": "^12.0.0",
     "@types/react": "^17.0.11",
+    "@types/styled-components": "^5.1.15",
     "babel-jest": "^26.0.1",
+    "babel-plugin-direct-import": "^1.0.0",
     "browserslist": "^4.16.6",
     "eslint": "^7.30.0",
     "eslint-config-airbnb": "^18.0.1",
@@ -102,6 +105,7 @@
   },
   "resolutions": {
     "chokidar": "^3.4.0",
-    "@jest/create-cache-key-function": "^27.0.1"
+    "@jest/create-cache-key-function": "^27.0.1",
+    "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest"
   }
 }
