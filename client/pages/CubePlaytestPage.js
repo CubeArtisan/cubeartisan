@@ -161,7 +161,7 @@ const useBotsOnlyCallback = (botsOnly, cubeID) => {
     [botsOnly, cubeID, formRef],
   );
 
-  return [submitForm, formRef, loading, setLoading];
+  return [submitForm, formRef, loading];
 };
 
 const CustomDraftCard = ({
@@ -175,7 +175,7 @@ const CustomDraftCard = ({
   const { cubeID, canEdit } = useContext(CubeContext);
   const { index } = format;
   const [botsOnly, toggleBotsOnly] = useToggle(false);
-  const [submitForm, formRef, loading, setLoading] = useBotsOnlyCallback(botsOnly, cubeID);
+  const [submitForm, formRef, loading] = useBotsOnlyCallback(botsOnly, cubeID);
   return (
     <Card {...props}>
       <CSRFForm
@@ -221,12 +221,7 @@ const CustomDraftCard = ({
           <Input type="hidden" name="id" value={index} />
           <div className="justify-content-center align-items-center">
             {loading && <Spinner className="position-absolute" />}
-            <LoadingButton
-              color="success"
-              variant="contained"
-              loading={loading}
-              type="submit"
-            >
+            <LoadingButton color="success" variant="contained" loading={loading} type="submit">
               Start Draft
             </LoadingButton>
             {canEdit && (
@@ -316,12 +311,7 @@ const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
         <CardFooter>
           <Input type="hidden" name="id" value="-1" />
           <div className="justify-content-center align-items-center">
-            <LoadingButton
-              color="success"
-              variant="contained"
-              type="submit"
-              loading={loading}
-            >
+            <LoadingButton color="success" variant="contained" type="submit" loading={loading}>
               Start Draft
             </LoadingButton>
           </div>
