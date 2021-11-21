@@ -42,13 +42,13 @@ const AutocardListGroup = ({ cards, heading, sort, orderedSort, showOther, rowTa
     [cards, openGroupModal, setGroupModalCards],
   );
   return (
-      <List dense sx={{ border: '1px solid black', padding: '0px' }}>
+    <List dense sx={{ border: '1px solid black', padding: '0px' }}>
       <ListSubheader
         className={`list-group-heading${canGroupModal ? ' clickable' : ''}`}
         onClick={canGroupModal ? handleClick : undefined}
         sx={{ backgroundColor: 'var(--bg-darker)' }}
       >
-      <Typography variant="subtitle1">{heading}</Typography>
+        <Typography variant="subtitle1">{heading}</Typography>
       </ListSubheader>
       {sorted.map(([, group]) =>
         group.map((card, index) => (

@@ -37,7 +37,7 @@ const CARD_ID_FALLBACK = 'undefined.js';
  */
 const noOp = () => undefined;
 
-const AutocardListItem = ({ card, noCardModal, inModal, className, children }) => {
+const AutocardListItem = ({ card, noCardModal, inModal, className }) => {
   const { cardColorClass } = useContext(TagContext);
   const openCardModal = useContext(CardModalContext);
 
@@ -99,13 +99,11 @@ AutocardListItem.propTypes = {
   noCardModal: PropTypes.bool,
   inModal: PropTypes.bool,
   className: PropTypes.string,
-  children: PropTypes.node,
 };
 AutocardListItem.defaultProps = {
   noCardModal: false,
   inModal: false,
   className: '',
-  children: undefined,
 };
 
 export default AutocardListItem;

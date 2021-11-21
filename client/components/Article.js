@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React from 'react';
-import { Typography } from '@mui/material';
+import { Box, Divider, Stack, Typography } from '@mui/material';
 
 import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
@@ -25,16 +25,18 @@ import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
 import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
 
 const Article = ({ article }) => (
-  <>
-    <Typography variant="h1">{article.title}</Typography>
-    <Typography variant="h6">
-      By <a href={`/user/${article.owner}`}>{article.username}</a>
-      {' | '}
-      <TimeAgo date={article.date} />
-    </Typography>
+  <Stack divider={<Divider />}>
+    <Box sx={{ backgroundColor: 'vars(--bg-darker)' }}>
+      <Typography variant="h1">{article.title}</Typography>
+      <Typography variant="h6">
+        By <a href={`/user/${article.owner}`}>{article.username}</a>
+        {' | '}
+        <TimeAgo date={article.date} />
+      </Typography>
+    </Box>
     <Markdown markdown={article.body} />
     <CommentsSection parentType="article" parent={article._id} collapse={false} />
-  </>
+  </Stack>
 );
 Article.propTypes = {
   article: ArticlePropType.isRequired,

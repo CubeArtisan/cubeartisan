@@ -24,28 +24,24 @@ import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { countGroup, sortDeep } from '@cubeartisan/client/utils/Sort.js';
 import AutocardListGroup from '@cubeartisan/client/components/AutocardListGroup.js';
 import AutocardListItem from '@cubeartisan/client/components/AutocardListItem.js';
-import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
 
-const TableView = ({ cards, rowTag, noGroupModal, className, ...props }) => {
+const TableView = ({ cards, rowTag, noGroupModal }) => {
   const { primary, secondary, tertiary, quaternary, showOther } = useContext(SortContext);
-  const { compressedView } = useContext(DisplayContext);
-
 
   const sorted = sortDeep(cards, showOther, quaternary, primary, secondary);
-  const columns = { xs: Math.min(sorted.length, 2), md: Math.min(sorted.length, 9) }
+  const columns = { xs: Math.min(sorted.length, 2), md: Math.min(sorted.length, 9) };
   return (
     <Container maxWidth={false} disableGutters>
       <Grid container spacing={1} columns={columns}>
         {sorted.map(([columnLabel, column]) => (
-          <Grid item
-            key={columnLabel}
-            xs={1}
-            md={1}
-            className="table-col"
-          >
+          <Grid item key={columnLabel} xs={1} md={1}>
             <Typography variant="h6">
-            <>{columnLabel}{': '}{countGroup(column)}</>
+              <>
+                {columnLabel}
+                {': '}
+                {countGroup(column)}
+              </>
             </Typography>
             {column.map(([label, row]) => (
               <AutocardListGroup
@@ -65,18 +61,14 @@ const TableView = ({ cards, rowTag, noGroupModal, className, ...props }) => {
     </Container>
   );
 };
-
 TableView.propTypes = {
   cards: PropTypes.arrayOf(CardPropType).isRequired,
   rowTag: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   noGroupModal: PropTypes.bool,
-  className: PropTypes.string,
 };
-
 TableView.defaultProps = {
   rowTag: AutocardListItem,
   noGroupModal: false,
-  className: null,
 };
 
 export default TableView;

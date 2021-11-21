@@ -19,6 +19,7 @@
 import React, { lazy, useContext, useCallback, useMemo, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import {
   Card,
   CardBody,
@@ -129,8 +130,8 @@ const useBotsOnlyCallback = (botsOnly, cubeID) => {
   const [loading, setLoading] = useState(false);
   const submitForm = useCallback(
     async (e) => {
+      setLoading(true);
       if (botsOnly) {
-        setLoading(true);
         e.preventDefault();
         const body = new FormData(formRef.current);
         const response = await csrfFetch(`/cube/${cubeID}/playtest/draft`, {
@@ -160,7 +161,7 @@ const useBotsOnlyCallback = (botsOnly, cubeID) => {
     [botsOnly, cubeID, formRef],
   );
 
-  return [submitForm, formRef, loading];
+  return [submitForm, formRef, loading, setLoading];
 };
 
 const CustomDraftCard = ({
@@ -174,7 +175,7 @@ const CustomDraftCard = ({
   const { cubeID, canEdit } = useContext(CubeContext);
   const { index } = format;
   const [botsOnly, toggleBotsOnly] = useToggle(false);
-  const [submitForm, formRef, loading] = useBotsOnlyCallback(botsOnly, cubeID);
+  const [submitForm, formRef, loading, setLoading] = useBotsOnlyCallback(botsOnly, cubeID);
   return (
     <Card {...props}>
       <CSRFForm
@@ -191,9 +192,9 @@ const CustomDraftCard = ({
           </CardTitleH5>
         </CardHeader>
         <CardBody>
-            <div className="mb-3">
-              <Markdown markdown={format.markdown} />
-            </div>
+          <div className="mb-3">
+            <Markdown markdown={format.markdown} />
+          </div>
 
           <LabelRow htmlFor={`seats-${index}`} label="Total Seats">
             <Input type="select" name="seats" id={`seats-${index}`} defaultValue={format.defaultSeats ?? 8}>
@@ -220,9 +221,14 @@ const CustomDraftCard = ({
           <Input type="hidden" name="id" value={index} />
           <div className="justify-content-center align-items-center">
             {loading && <Spinner className="position-absolute" />}
-            <Button type="submit" color="success" disabled={loading}>
+            <LoadingButton
+              color="success"
+              variant="contained"
+              loading={loading}
+              type="submit"
+            >
               Start Draft
-            </Button>
+            </LoadingButton>
             {canEdit && (
               <>
                 <Button color="success" onClick={onEditFormat} data-index={index}>
@@ -310,10 +316,14 @@ const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
         <CardFooter>
           <Input type="hidden" name="id" value="-1" />
           <div className="justify-content-center align-items-center">
-            {loading && <Spinner className="position-absolute" />}
-            <Button color="success" disabled={loading}>
+            <LoadingButton
+              color="success"
+              variant="contained"
+              type="submit"
+              loading={loading}
+            >
               Start Draft
-            </Button>
+            </LoadingButton>
           </div>
           {canEdit && defaultDraftFormat !== -1 && (
             <Button color="success" onClick={onSetDefaultFormat} data-index={-1}>

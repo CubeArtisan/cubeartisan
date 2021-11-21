@@ -18,8 +18,8 @@
  */
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardBody, CardHeader, CardTitle, Collapse, Nav, Navbar, NavLink, Row, Spinner } from 'reactstrap';
 import { io } from 'socket.io-client';
+import { Box, Button, ButtonGroup, CircularProgress, Divider, Grid, Stack, Toolbar, Typography } from '@mui/material';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
@@ -27,7 +27,6 @@ import DeckStacks from '@cubeartisan/client/components/DeckStacks.js';
 import DndProvider from '@cubeartisan/client/components/DndProvider.js';
 import { DraftbotBreakdownTable } from '@cubeartisan/client/components/DraftbotBreakdown.js';
 import DraggableCard from '@cubeartisan/client/components/DraggableCard.js';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
 import DisplayContext, { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
@@ -40,7 +39,6 @@ import DraftLocation from '@cubeartisan/client/drafting/DraftLocation.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import TextBadge from '@cubeartisan/client/components/TextBadge.js';
 import Tooltip from '@cubeartisan/client/components/Tooltip.js';
-import { FixedCol } from '@cubeartisan/client/components/CardGrid.js';
 import SetCardsInRow from '@cubeartisan/client/components/SetCardsInRow.js';
 import useTimer from '@cubeartisan/client/hooks/UseTimer.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
@@ -70,56 +68,52 @@ const Pack = ({
 }) => {
   const { cardsInRow } = useContext(DisplayContext);
   return (
-    <Card className="mt-3">
-      <CardHeader>
-        <CardTitle className="mb-0">
-          <h4 className="mb-1">
-            {Number.isInteger(pickNumber) && pickNumber ? (
-              <>
-                Pack {packNumber}, Pick {pickNumber}
-                {instructions ? `: ${instructions}` : ''}
-              </>
-            ) : (
-              <>Loading Draft</>
-            )}
-          </h4>
-          {emptySeats > 0 && (
-            <TextBadge
-              name={`Waiting on ${emptySeats} player${emptySeats > 1 ? 's' : ''} to join. Players can join by going to`}
-            >
-              <Tooltip text="Click to copy to clipboard">
-                <button
-                  type="button"
-                  className="cube-id-btn"
-                  onKeyDown={() => {}}
-                  onClick={async (e) => {
-                    await navigator.clipboard.writeText(window.location.href);
-                    e.currentTarget.blur();
-                  }}
-                >
-                  {window.location.href}
-                </button>
-              </Tooltip>
-            </TextBadge>
+    <Stack divider={<Divider />}>
+      <Box sx={{ backgroundColor: 'var(--bg-darker)' }}>
+        <Typography variant="h4">
+          {Number.isInteger(pickNumber) && pickNumber ? (
+            <>
+              Pack {packNumber}, Pick {pickNumber}
+              {instructions ? `: ${instructions}` : ''}
+            </>
+          ) : (
+            <>Loading Draft</>
           )}
-          {(seconds || null) && (
-            <p>
-              {seconds} second{seconds > 1 ? 's' : ''} remaining to choose.
-            </p>
-          )}
-        </CardTitle>
-      </CardHeader>
-      <CardBody>
-        <SetCardsInRow />
-        <Row noGutters>
-          {pack.length > 0 ? (
-            pack.map((card, index) => (
-              <FixedCol
+        </Typography>
+        {emptySeats > 0 && (
+          <TextBadge
+            name={`Waiting on ${emptySeats} player${emptySeats > 1 ? 's' : ''} to join. Players can join by going to`}
+          >
+            <Tooltip title="Click to copy to clipboard">
+              <Button
+                onClick={async (e) => {
+                  await navigator.clipboard.writeText(window.location.href);
+                  e.currentTarget.blur();
+                }}
+              >
+                {window.location.href}
+              </Button>
+            </Tooltip>
+          </TextBadge>
+        )}
+        {(seconds || null) && (
+          <Typography variant="button">
+            {seconds} second{seconds > 1 ? 's' : ''} remaining to choose.
+          </Typography>
+        )}
+      </Box>
+      <Box>
+        {pack.length > 0 ? (
+          <Grid container columns={cardsInRow} spacing={0}>
+            {pack.map((card, index) => (
+              <Grid
+                item
+                xs={1}
                 key={/* eslint-disable-line react/no-array-index-key */ `${packNumber}:${pickNumber}:${index}`}
                 cardsinrow={cardsInRow}
                 className="justify-content-center align-items-center"
               >
-                {picking === index && <Spinner className="position-absolute" />}
+                {picking === index && <CircularProgress className="position-absolute" />}
                 <DraggableCard
                   location={DraftLocation.pack([index])}
                   data-index={index}
@@ -129,16 +123,16 @@ const Pack = ({
                   onClick={picking === null ? onClickCard : undefined}
                   className={picking === index ? 'transparent' : undefined}
                 />
-              </FixedCol>
-            ))
-          ) : (
-            <>
-              <Spinner /> <h6>{waitingMessage}</h6>
-            </>
-          )}
-        </Row>
-      </CardBody>
-    </Card>
+              </Grid>
+            ))}
+          </Grid>
+        ) : (
+          <>
+            <CircularProgress /> <h6>{waitingMessage}</h6>
+          </>
+        )}
+      </Box>
+    </Stack>
   );
 };
 
@@ -234,19 +228,19 @@ const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking,
   );
   return (
     <>
-      <Navbar expand="xs" light className="usercontrols">
-        <Collapse navbar>
-          <Nav navbar>
-            <CustomImageToggler />
-          </Nav>
-          <Nav>
-            <NavLink href="#" onClick={toggleShowBotBreakdown}>
-              Toggle Bot Breakdown
-            </NavLink>
-          </Nav>
-        </Collapse>
-      </Navbar>
-      <DynamicFlash />
+      <Toolbar sx={{ backgroundColor: 'var(--bg-hover)' }}>
+        <ButtonGroup variant="outlined">
+          <Grid container>
+          <Grid item xs="auto">
+          <CustomImageToggler />
+          </Grid>
+          <Grid item xs="auto">
+          <Button onClick={toggleShowBotBreakdown}>Toggle Bot Breakdown</Button>
+          </Grid>
+          <SetCardsInRow />
+      </Grid>
+        </ButtonGroup>
+      </Toolbar>
       <DndProvider>
         {packNum < numPacks && (
           <>
@@ -266,29 +260,23 @@ const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking,
             </ErrorBoundary>
             {showBotBreakdown && (
               <ErrorBoundary>
-                <Card className="mt-3">
-                  <CardHeader className="mb-0">
-                    <h4 className="mb-0">Draftbot Breakdown</h4>
-                  </CardHeader>
-                  <CardBody>
-                    <DraftbotBreakdownTable drafterState={drafterState} />
-                  </CardBody>
-                </Card>
+                <Box sx={{ backgroundColor: 'var(--bg-darker)' }}>
+                  <Typography variant="h4">Draftbot Breakdown</Typography>
+                </Box>
+                <DraftbotBreakdownTable drafterState={drafterState} />
               </ErrorBoundary>
             )}
           </>
         )}
         <ErrorBoundary className="mt-3">
-          <Card className="my-3">
-            <DeckStacks
-              cards={picks}
-              title="Picks"
-              subtitle={makeSubtitle(picks.flat(3))}
-              locationType={DraftLocation.PICKS}
-              canDrop={canDrop}
-              onMoveCard={handleMoveCard}
-            />
-          </Card>
+          <DeckStacks
+            cards={picks}
+            title="Picks"
+            subtitle={makeSubtitle(picks.flat(3))}
+            locationType={DraftLocation.PICKS}
+            canDrop={canDrop}
+            onMoveCard={handleMoveCard}
+          />
         </ErrorBoundary>
       </DndProvider>
     </>

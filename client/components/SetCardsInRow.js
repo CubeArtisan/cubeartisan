@@ -1,47 +1,51 @@
 import React, { useContext } from 'react';
-import {
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-  UncontrolledButtonDropdown,
-} from 'reactstrap';
+import { Button, Grid, InputLabel, NativeSelect } from '@mui/material';
 
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 
 const range = (lo, hi) => Array.from(Array(hi - lo).keys(), (n) => n + lo);
-const rangeOptions = (lo, hi, onClick) =>
+const rangeOptions = (lo, hi) =>
   range(lo, hi).map((n) => (
-    <DropdownItem key={n} onClick={() => onClick(n)}>
+    <option key={n} value={n}>
       {n}
-    </DropdownItem>
+    </option>
   ));
 
 const SetCardsInRow = () => {
   const { cardsInRow, setCardsInRow } = useContext(DisplayContext);
   return (
-    <Pagination>
-      <PaginationItem active={cardsInRow === 3}>
-        <PaginationLink onClick={() => setCardsInRow(3)}>Large</PaginationLink>
-      </PaginationItem>
-      <PaginationItem active={cardsInRow === 5}>
-        <PaginationLink onClick={() => setCardsInRow(5)}>Medium</PaginationLink>
-      </PaginationItem>
-      <PaginationItem active={cardsInRow === 8}>
-        <PaginationLink onClick={() => setCardsInRow(8)}>Small</PaginationLink>
-      </PaginationItem>
-      <PaginationItem active={cardsInRow === 10}>
-        <PaginationLink onClick={() => setCardsInRow(10)}>Extra-Small</PaginationLink>
-      </PaginationItem>
-      <PaginationItem active={![3, 5, 8, 10].includes(cardsInRow)}>
-        <UncontrolledButtonDropdown>
-          <DropdownToggle caret>{cardsInRow}</DropdownToggle>
-          <DropdownMenu>{rangeOptions(1, 33, setCardsInRow)}</DropdownMenu>
-        </UncontrolledButtonDropdown>
-      </PaginationItem>
-    </Pagination>
+    <>
+          <Grid item xs="auto">
+      <Button active={cardsInRow === 3} onClick={() => setCardsInRow(3)}>
+        Large
+      </Button>
+      </Grid>
+          <Grid item xs="auto">
+      <Button active={cardsInRow === 5} onClick={() => setCardsInRow(5)}>
+        Medium
+      </Button>
+      </Grid>
+          <Grid item xs="auto">
+      <Button active={cardsInRow === 8} onClick={() => setCardsInRow(8)}>
+        Small
+      </Button>
+      </Grid>
+          <Grid item xs="auto">
+      <Button active={cardsInRow === 10} onClick={() => setCardsInRow(10)}>
+        Extra-Small
+      </Button>
+      </Grid>
+          <Grid item xs="auto">
+      <NativeSelect
+        value={cardsInRow}
+        onChange={(event) => setCardsInRow(event.target.value)}
+        id="set-cards-in-row-select"
+        sx={{ border: '1px solid primary.main' }}
+      >
+        {rangeOptions(1, 33, setCardsInRow)}
+      </NativeSelect>
+      </Grid>
+    </>
   );
 };
 export default SetCardsInRow;

@@ -17,21 +17,17 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { useContext } from 'react';
-
-import { NavItem, NavLink } from 'reactstrap';
+import { Button } from '@mui/material';
 
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 
 const CustomImageToggler = () => {
   const { showCustomImages, toggleShowCustomImages } = useContext(DisplayContext);
   return (
-    <NavItem>
-      <NavLink href="#" onClick={toggleShowCustomImages}>
-        {showCustomImages ? 'Hide ' : 'Show '}
-        Custom Images
-      </NavLink>
-    </NavItem>
+    <Button onClick={toggleShowCustomImages}>
+      {showCustomImages ? 'Hide ' : 'Show '}
+      Custom Images
+    </Button>
   );
 };
-
 export default CustomImageToggler;
