@@ -41,6 +41,17 @@ const clientConfig = merge(common, config, {
     ],
     hot: true,
     // liveReload: true,
+    // watchFiles: [
+    //   './components/**/*.js',
+    //   './drafting/**/*.js',
+    //   './filtering/**/*.js',
+    //   './generated/**/*.js',
+    //   './hooks/**/*.js',
+    //   './pages/**/*.js',
+    //   './proptypes/**/*.js',
+    //   './res/**/*',
+    //   './utils/**/*.js',
+    // ],
   },
   plugins: [new ReactRefreshWebpackPlugin()],
 });

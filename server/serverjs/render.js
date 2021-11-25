@@ -97,7 +97,7 @@ export const render = async (req, res, page, reactProps = {}, options = {}) => {
     : null;
   const cssStyles = sheet.getStyleTags();
   sheet.seal();
-  res.render('main', {
+  res.render(`../../client/dist/${page}`, {
     reactHTML,
     reactProps: serialize(reactProps),
     cssStyles,
