@@ -1,4 +1,4 @@
-const isProduction = process.env.NODE_ENV !== 'production';
+const isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = (api) => {
   const isTest = api.env('test');
