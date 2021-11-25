@@ -76,6 +76,7 @@
   "devDependencies": {
     "@cubeartisan/client": "^0.1.0",
     "@cubeartisan/server": "^0.1.0",
+    "@emotion/react": "^11.6.0",
     "@emotion/styled": "^11.6.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.2",
     "@react-mock/fetch": "^0.3.0",
