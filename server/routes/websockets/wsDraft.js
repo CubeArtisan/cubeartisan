@@ -210,7 +210,7 @@ const manageWebsocketDraft = async (socket) => {
     return [changes, draft];
   };
 
-  const moveCardInZone = async (draft, zone, source, target) =>{
+  const moveCardInZone = async (draft, zone, source, target) => {
     applyChanges({
       $set: { [`seats.${seatNumber}.${zone}`]: moveOrAddCard(draft.seats[seatNumber][zone], target, source) },
     });

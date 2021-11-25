@@ -19,10 +19,10 @@
 const glob = require('glob');
 const path = require('path');
 const merge = require('webpack-merge');
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 
-//Multi page entry
+// Multi page entry
 function getEntries() {
   const entry = {};
   glob.sync('./pages/*.js').forEach((file) => {
@@ -32,7 +32,7 @@ function getEntries() {
   return entry;
 }
 
-//Multi page template
+// Multi page template
 function getHtmlPlugins() {
   return glob
     .sync('./pages/*.js')
@@ -45,7 +45,7 @@ function getHtmlPlugins() {
           filename: `${template.name}.pug`,
           inject: false,
           chunks: [template.name.toString(), 'runtime'],
-          templateContent: ({htmlWebpackPlugin}) =>
+          templateContent: ({ htmlWebpackPlugin }) =>
             `doctype html
 html(lang='en')
   head
@@ -148,10 +148,7 @@ const clientConfig = merge(config, {
     sourceMapFilename: '[name].[contenthash].js.map',
     path: path.resolve(__dirname, 'dist'),
   },
-  plugins: [
-    ...getHtmlPlugins(),
-    new HtmlWebpackHarddiskPlugin(),
-  ],
+  plugins: [...getHtmlPlugins(), new HtmlWebpackHarddiskPlugin()],
   target: 'browserslist',
 });
 
