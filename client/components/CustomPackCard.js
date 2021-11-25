@@ -54,7 +54,7 @@ const ACTION_LABELS = Object.freeze({
   trashrandom: 'Randomly Trash',
 });
 
-const RightSpan = styled.span`
+const RightSpan = styled('span')`
   float: right;
 `;
 

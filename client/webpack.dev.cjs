@@ -18,6 +18,7 @@
  */
 const path = require('path');
 const merge = require('webpack-merge');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const { clientConfig: common } = require('./webpack.common.cjs');
 
@@ -28,6 +29,7 @@ const config = {
 
 const clientConfig = merge(common, config, {
   devServer: {
+    historyApiFallback: true,
     compress: true,
     contentBase: path.join(__dirname, 'dist'),
     publicPath: '/js/',
@@ -37,7 +39,10 @@ const clientConfig = merge(common, config, {
         target: 'http://127.0.0.1:5000',
       },
     ],
+    hot: true,
+    // liveReload: true,
   },
+  plugins: [new ReactRefreshWebpackPlugin()],
 });
 
 module.exports = [clientConfig];

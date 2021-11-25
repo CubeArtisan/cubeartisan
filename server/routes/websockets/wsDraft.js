@@ -217,9 +217,7 @@ const manageWebsocketDraft = async (socket) => {
   };
 
   const moveCardToZone = async (draft, sourceZone, targetZone, source, target) => {
-    console.log(source, target);
     const [card, removed] = removeCard(draft.seats[seatNumber][sourceZone], source);
-    console.log(removed, sourceZone);
     applyChanges({
       $set: {
         [`seats.${seatNumber}.${sourceZone}`]: removed,

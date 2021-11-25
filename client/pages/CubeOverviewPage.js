@@ -69,10 +69,10 @@ const CubeIdModalLink = styled(withModal('span', CubeIdModal))`
   top: 5px;
 `; // the icon needs to be pulled down.
 
-const SpacedHeader = styled.h6`
+const SpacedHeader = styled('h6')`
   margin-top: 10px;
 `;
-const CubeIdContainer = styled.div`
+const CubeIdContainer = styled('div')`
   padding-top: 3px;
   margin-right: 0.25rem;
 `;

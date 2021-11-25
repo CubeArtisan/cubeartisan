@@ -31,7 +31,7 @@ import styled from '@cubeartisan/client/utils/styledHelper.js';
 const FollowersModalLink = withModal(Button, FollowersModal);
 const CreateCubeModalLink = withModal(NavLink, CreateCubeModal);
 
-const BrandedHeader = styled.h5`
+const BrandedHeader = styled('h5')`
   color: var(--success);
 `;
 

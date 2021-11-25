@@ -67,7 +67,7 @@ import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 const CustomizeBasicsModalLink = withModal(NavLink, CustomizeBasicsModal);
 
-const GrowingDiv = styled.div`
+const GrowingDiv = styled('div')`
   flex-grow: 1;
 `;
 

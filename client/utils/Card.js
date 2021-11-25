@@ -318,7 +318,7 @@ export const makeSubtitle = (cards) => {
   return (
     `${numCards} card${numCards === 1 ? '' : 's'}: ` +
     `${numLands} land${numLands === 1 ? '' : 's'}, ` +
-    `${numNonlands} nonland: ` +
+    `${numNonlands} nonland${numNonlands === 1 ? '' : 's'}: ` +
     `${numCreatures} creature${numCreatures === 1 ? '' : 's'}, ` +
     `${numNonCreatures} noncreature${numNonCreatures === 1 ? '' : 's'}` +
     `${numSpecial > 0 ? ` ${numSpecial} special${numSpecial === 1 ? '' : 's'}` : ''}`

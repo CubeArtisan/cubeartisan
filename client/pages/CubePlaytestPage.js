@@ -182,7 +182,7 @@ const CustomDraftCard = ({
         method="POST"
         key="createDraft"
         action={`/cube/${cubeID}/playtest/draft`}
-        innerRef={formRef}
+        ref={formRef}
         onSubmit={submitForm}
       >
         <CardHeader>
@@ -272,7 +272,7 @@ const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
   const [submitForm, formRef, loading] = useBotsOnlyCallback(botsOnly, cubeID);
   return (
     <Card className="mb-3">
-      <CSRFForm method="POST" action={`/cube/${cubeID}/playtest/draft`} onSubmit={submitForm} innerRef={formRef}>
+      <CSRFForm method="POST" action={`/cube/${cubeID}/playtest/draft`} onSubmit={submitForm} ref={formRef}>
         <CardHeader>
           <CardTitleH5>{defaultDraftFormat === -1 && 'Default Format: '}Standard Draft</CardTitleH5>
         </CardHeader>

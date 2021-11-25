@@ -26,7 +26,7 @@ import styled from '@cubeartisan/client/utils/styledHelper.js';
 const AutoSizedCol = styled(Col)`
   margin: auto;
 `;
-const AutoSizedImage = styled.img`
+const AutoSizedImage = styled('img')`
   margin: auto;
 `;
 

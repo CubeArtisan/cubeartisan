@@ -85,7 +85,7 @@ const CmcInput = styled(LoadingInput)`
   max-width: 3;
 `;
 
-const TagsCell = styled.td`
+const TagsCell = styled('td')`
   min-width: 15rem;
 `;
 

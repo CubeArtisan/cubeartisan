@@ -19,7 +19,18 @@
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { io } from 'socket.io-client';
-import { Box, Button, ButtonGroup, CircularProgress, Divider, Grid, Stack, Toolbar, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  CircularProgress,
+  Divider,
+  Grid,
+  Paper,
+  Stack,
+  Toolbar,
+  Typography,
+} from '@mui/material';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
@@ -49,6 +60,11 @@ import {
   initializeMtgDraftbots,
   validActions,
 } from '@cubeartisan/client/drafting/draftutil.js';
+
+const oppositeLocation = {
+  [DraftLocation.PICKS]: DraftLocation.SIDEBOARD,
+  [DraftLocation.SIDEBOARD]: DraftLocation.PICKS,
+};
 
 const canDrop = (source, target) => {
   return (
@@ -116,7 +132,7 @@ const Pack = ({
                 cardsinrow={cardsInRow}
                 className="justify-content-center align-items-center"
               >
-                {picking === index && <CircularProgress className="position-absolute" />}
+                {picking === index && <CircularProgress className="position-relative" />}
                 <DraggableCard
                   location={DraftLocation.pack([index])}
                   data-index={index}
@@ -170,6 +186,7 @@ const CubeDraftPlayerUI = ({
   emptySeats,
   seconds,
 }) => {
+  const { cardsInRow } = useContext(DisplayContext);
   const user = useContext(UserContext);
   const {
     cards,
@@ -218,6 +235,7 @@ const CubeDraftPlayerUI = ({
 
   const handleMoveCard = useCallback(
     async (source, target) => {
+      console.log(source.type, target.type);
       if (source.equals(target)) return;
       if (source.type === DraftLocation.PACK) {
         if (target.type === DraftLocation.PICKS) {
@@ -255,10 +273,32 @@ const CubeDraftPlayerUI = ({
     },
     [cardsInPack, takeCard],
   );
+
+  const handleClickPoolCard = useCallback(
+    async (event) => {
+      event.preventDefault();
+      const eventTarget = event.currentTarget;
+      const locationType = eventTarget.getAttribute('data-location-type');
+      const locationData = JSON.parse(eventTarget.getAttribute('data-location-data'));
+      const source = new DraftLocation(locationType, locationData);
+      const target = new DraftLocation(oppositeLocation[source.type], Array.from(source.data));
+      target.data[2] = 0;
+      if (target.type === DraftLocation.SIDEBOARD) {
+        // Only one row for the sideboard.
+        target.data[0] = 0;
+      } else {
+        // Pick row based on CMC.
+        target.data[0] = eventTarget.getAttribute('data-cmc') === 'true' ? 0 : 1;
+      }
+      handleMoveCard(source, target);
+    },
+    [handleMoveCard],
+  );
+
   return (
-    <>
+    <Stack spacing={1}>
       <Toolbar sx={{ backgroundColor: 'var(--bg-hover)' }}>
-        <ButtonGroup variant="outlined">
+        <ButtonGroup variant="outlined" sx={{ width: ' 100%' }}>
           <Grid container>
             <Grid item xs="auto">
               <CustomImageToggler />
@@ -273,50 +313,64 @@ const CubeDraftPlayerUI = ({
       <DndProvider>
         {packNum < numPacks && (
           <>
-            <ErrorBoundary>
-              <Pack
-                emptySeats={emptySeats}
-                pack={pack}
-                packNumber={packNum + 1}
-                pickNumber={action === 'done' ? pickNum : pickNum + 1}
-                instructions={instructions}
-                picking={picking}
-                onMoveCard={handleMoveCard}
-                onClickCard={handleClickPackCard}
-                seconds={seconds}
-                waitingMessage={waitingMessage}
-              />
-            </ErrorBoundary>
-            {showBotBreakdown && (
+            <Paper elevation={3}>
               <ErrorBoundary>
-                <Box sx={{ backgroundColor: 'var(--bg-darker)' }}>
-                  <Typography variant="h4">Draftbot Breakdown</Typography>
-                </Box>
-                <DraftbotBreakdownTable drafterState={drafterState} />
+                <Pack
+                  emptySeats={emptySeats}
+                  pack={pack}
+                  packNumber={packNum + 1}
+                  pickNumber={action === 'done' ? pickNum : pickNum + 1}
+                  instructions={instructions}
+                  picking={picking}
+                  onMoveCard={handleMoveCard}
+                  onClickCard={handleClickPackCard}
+                  seconds={seconds}
+                  waitingMessage={waitingMessage}
+                />
               </ErrorBoundary>
+            </Paper>
+            {showBotBreakdown && (
+              <Paper elevation={3}>
+                <ErrorBoundary>
+                  <Box sx={{ backgroundColor: 'var(--bg-darker)' }}>
+                    <Typography variant="h4">Draftbot Breakdown</Typography>
+                  </Box>
+                  <DraftbotBreakdownTable drafterState={drafterState} />
+                </ErrorBoundary>
+              </Paper>
             )}
           </>
         )}
-        <ErrorBoundary className="mt-3">
-          <DeckStacks
-            cards={picks}
-            title="Picks"
-            subtitle={makeSubtitle(picks.flat(3))}
-            locationType={DraftLocation.PICKS}
-            canDrop={canDrop}
-            onMoveCard={handleMoveCard}
-          />
-          <DeckStacks
-            cards={sideboardedPicks}
-            title="Sideboard"
-            subtitle={makeSubtitle(sideboardedPicks.flat(3))}
-            locationType={DraftLocation.SIDEBOARD}
-            canDrop={canDrop}
-            onMoveCard={handleMoveCard}
-          />
-        </ErrorBoundary>
+        <Paper elevation={3}>
+          <ErrorBoundary>
+            <DeckStacks
+              cardsInRow={cardsInRow}
+              cards={picks}
+              title="Picks"
+              subtitle={makeSubtitle(picks.flat(3))}
+              locationType={DraftLocation.PICKS}
+              canDrop={canDrop}
+              onMoveCard={handleMoveCard}
+              onClickCard={handleClickPoolCard}
+            />
+          </ErrorBoundary>
+        </Paper>
+        <Paper elevation={3}>
+          <ErrorBoundary>
+            <DeckStacks
+              cardsInRow={cardsInRow}
+              cards={sideboardedPicks}
+              title="Sideboard"
+              subtitle=""
+              locationType={DraftLocation.SIDEBOARD}
+              canDrop={canDrop}
+              onMoveCard={handleMoveCard}
+              onClickCard={handleClickPoolCard}
+            />
+          </ErrorBoundary>
+        </Paper>
       </DndProvider>
-    </>
+    </Stack>
   );
 };
 CubeDraftPlayerUI.propTypes = {
@@ -384,8 +438,6 @@ export const CubeDraftPage = ({ cube, draftid, loginCallback }) => {
     socket.current.on('drafterState', (newDrafterState) => {
       setPicking(null);
       setDrafterState((oldDrafterState) => {
-        console.log(newDrafterState);
-        console.log(newDrafterState.cardsInPack.length, oldDrafterState.cardsInPack.length);
         if (oldDrafterState.cardsInPack.length !== newDrafterState.cardsInPack.length && newDrafterState.timeout) {
           setSeconds(newDrafterState.timeout * newDrafterState.cardsInPack.length);
         }
@@ -395,6 +447,7 @@ export const CubeDraftPage = ({ cube, draftid, loginCallback }) => {
     socket.current.on('emptySeats', (newEmptySeats) => {
       setEmptySeats(newEmptySeats);
     });
+    return () => socket?.current?.disconnect?.();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

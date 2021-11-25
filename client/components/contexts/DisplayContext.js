@@ -23,7 +23,7 @@ const DisplayContext = createContext({
   showCustomImages: true,
   compressedView: false,
   showMaybeboard: false,
-  cardsInRow: 4,
+  cardsInRow: 8,
 });
 
 export const DisplayContextProvider = ({ cubeID, defaultNumCols, ...props }) => {
@@ -49,7 +49,7 @@ export const DisplayContextProvider = ({ cubeID, defaultNumCols, ...props }) => 
   }, [cubeID, showMaybeboard]);
 
   const [cardsInRow, setCardsInRow] = useState(
-    () => (typeof localStorage !== 'undefined' && localStorage.getItem('cardsInRow')) || defaultNumCols,
+    () => (typeof localStorage !== 'undefined' && parseInt(localStorage.getItem('cardsInRow'), 10)) || null,
   );
   const updateCardsInRow = useCallback((newCardsInRow) => {
     localStorage.setItem('cardsInRow', newCardsInRow);
