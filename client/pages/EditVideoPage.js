@@ -18,23 +18,10 @@
  */
 import React, { lazy, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { Spinner, Nav, CardBody, Card, TabContent, TabPane, Input, FormGroup, Row, Col, Label } from 'reactstrap';
+import { Button } from '@mui/material';
+
 import VideoPropType from '@cubeartisan/client/proptypes/VideoPropType.js';
-
-import {
-  Spinner,
-  Nav,
-  CardBody,
-  Card,
-  TabContent,
-  TabPane,
-  Input,
-  FormGroup,
-  Row,
-  Col,
-  Label,
-  Button,
-} from 'reactstrap';
-
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import Tab from '@cubeartisan/client/components/Tab.js';
@@ -110,7 +97,7 @@ export const EditVideoPage = ({ loginCallback, video }) => {
                 <Input type="hidden" name="artist" value={imageArtist} />
                 <Input type="hidden" name="body" value={body} />
                 <Input type="hidden" name="url" value={url} />
-                <Button type="submit" color="success" block disabled={!hasChanges}>
+                <Button type="submit" color="success" fullWidth disabled={!hasChanges}>
                   Save
                 </Button>
               </CSRFForm>
@@ -125,7 +112,7 @@ export const EditVideoPage = ({ loginCallback, video }) => {
                 <Input type="hidden" name="artist" value={imageArtist} />
                 <Input type="hidden" name="body" value={body} />
                 <Input type="hidden" name="url" value={url} />
-                <Button type="submit" outline color="success" block>
+                <Button type="submit" variant="outlined" color="success" fullWidth>
                   Publish
                 </Button>
               </CSRFForm>

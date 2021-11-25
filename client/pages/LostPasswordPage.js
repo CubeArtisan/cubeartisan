@@ -18,8 +18,8 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { Card, CardBody, FormGroup, Label, Input, Button, Col, Row, CardHeader } from 'reactstrap';
+import { Button } from '@mui/material';
+import { Card, CardBody, FormGroup, Label, Input, Col, Row, CardHeader } from 'reactstrap';
 
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
@@ -49,7 +49,7 @@ const LostPassword = ({ loginCallback }) => (
               </Col>
             </Row>
           </FormGroup>
-          <Button type="submit" color="success" block outline>
+          <Button type="submit" color="success" fullWidth variant="outlined">
             Continue
           </Button>
         </CSRFForm>

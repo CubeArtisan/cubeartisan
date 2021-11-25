@@ -61,7 +61,7 @@ const DraggableCard = ({ card, location, canDrop, onMoveCard, className, onClick
   const oldClasses = [].concat(['position-absolute'], isDragging ? ['transparent'] : ['d-none']);
 
   const typeLine = (card.type_line || card.details.type).toLowerCase();
-  const cnc = typeLine.includes('creature');
+  const cmc = typeLine.includes('creature');
 
   return (
     <>
@@ -75,7 +75,7 @@ const DraggableCard = ({ card, location, canDrop, onMoveCard, className, onClick
             className={previewClasses.join(' ')}
             data-location-type={location.type}
             data-location-data={JSON.stringify(location.data)}
-            data-cnc={cnc.toString()}
+            data-cmc={cmc.toString()}
             onClick={onClick}
             {...props}
           />

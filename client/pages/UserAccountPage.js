@@ -19,7 +19,6 @@
 import React, { useCallback, useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button,
   Col,
   FormGroup,
   Input,
@@ -37,6 +36,7 @@ import {
   InputGroupText,
   CustomInput,
 } from 'reactstrap';
+import { Button } from '@mui/material';
 
 import Query from '@cubeartisan/client/utils/Query.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
@@ -185,7 +185,7 @@ export const UserAccountPage = ({ defaultNav, loginCallback }) => {
                         </dd>
                       </dl>
                       <Row noGutters>
-                        <Button className="ml-auto" block outline color="success" type="submit">
+                        <Button variant="outlined" fullWidth color="success" type="submit">
                           Update
                         </Button>
                       </Row>
@@ -216,7 +216,7 @@ export const UserAccountPage = ({ defaultNav, loginCallback }) => {
                       </Label>
                       <Input className="col-sm-8" id="confirmPassword" name="password3" type="password" />
                     </FormGroup>
-                    <Button outline block color="success" type="submit">
+                    <Button variant="outlined" fullWidth color="success" type="submit">
                       Change Password
                     </Button>
                   </CSRFForm>
@@ -239,7 +239,7 @@ export const UserAccountPage = ({ defaultNav, loginCallback }) => {
                       </Label>
                       <Input className="col-sm-8" id="emailPassword" name="password" type="password" />
                     </FormGroup>
-                    <Button block outline color="success" type="submit">
+                    <Button fullWidth variant="outlined" color="success" type="submit">
                       Update
                     </Button>
                   </CSRFForm>
@@ -268,7 +268,7 @@ export const UserAccountPage = ({ defaultNav, loginCallback }) => {
                       />
                       <Label for="hideFeatured">Hide Featured Cubes</Label>
                     </FormGroup>
-                    <Button block outline color="success" type="submit">
+                    <Button fullWidth variant="outlined" color="success" type="submit">
                       Update
                     </Button>
                   </CSRFForm>

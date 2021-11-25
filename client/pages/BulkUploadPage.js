@@ -18,8 +18,9 @@
  */
 import React, { Fragment, useCallback, useContext, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-
-import { Button, Col, Form, Input, Label, Row, Card, CardBody, CardHeader } from 'reactstrap';
+import { Button } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+import { Col, Form, Input, Label, Row, Card, CardBody, CardHeader } from 'reactstrap';
 
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
@@ -28,7 +29,6 @@ import ChangelistContext, {
   ChangelistContextProvider,
 } from '@cubeartisan/client/components/contexts/ChangelistContext.js';
 import { getCard } from '@cubeartisan/client/components/EditCollapse.js';
-import LoadingButton from '@cubeartisan/client/components/LoadingButton.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
@@ -111,7 +111,7 @@ const BulkUploadPageRaw = ({ cubeID, missing, blogpost, cube }) => {
                 </div>
                 <Input type="hidden" name="title" value={blogpost.title} />
                 <Input type="hidden" name="blog" value={blogpost.html} />
-                <Button color="success" type="submit" className="mt-3" block outline>
+                <Button color="success" type="submit" fullWidth variant="outlined">
                   Save Changes
                 </Button>
               </CSRFForm>

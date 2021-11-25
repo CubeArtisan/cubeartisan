@@ -23,7 +23,7 @@ import { NavLink } from 'reactstrap';
 import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 import styled from '@cubeartisan/client/utils/styledHelper.js';
 
-const TightDiv = styled.div`
+const TightDiv = styled('div')`
   width: min-content;
 `;
 

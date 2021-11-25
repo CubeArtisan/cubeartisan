@@ -18,10 +18,9 @@
  */
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col } from 'reactstrap';
+import { Grid } from '@mui/material';
 
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
-import styled from '@cubeartisan/client/utils/styledHelper.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 
 function cardImage(Tag, card, cardProps, linkDetails) {
@@ -30,38 +29,27 @@ function cardImage(Tag, card, cardProps, linkDetails) {
   return cardTag;
 }
 
-export const FixedCol = styled(Col)`
-  flex: 0 0 ${({ cardsinrow }) => 100 / cardsinrow}%;
-  max-width: ${({ cardsinrow }) => 100 / cardsinrow}%;
-`;
-
-const CardGrid = ({ cardList, Tag, colProps, cardProps, linkDetails, ...props }) => {
+const CardGrid = ({ cardList, Tag, cardProps, linkDetails }) => {
   const { cardsInRow } = useContext(DisplayContext);
   return (
-    <Row noGutters className="justify-content-center" {...props}>
+    <Grid container spacing={0} columns={cardsInRow}>
       {cardList.map((card, cardIndex) => (
-        <FixedCol
-          key={/* eslint-disable-line react/no-array-index-key */ cardIndex}
-          {...colProps}
-          cardsinrow={cardsInRow}
-        >
+        <Grid item xs={1} key={/* eslint-disable-line react/no-array-index-key */ cardIndex}>
           {cardImage(Tag, card, cardProps, linkDetails)}
-        </FixedCol>
+        </Grid>
       ))}
-    </Row>
+    </Grid>
   );
 };
 
 CardGrid.propTypes = {
   cardList: PropTypes.arrayOf(CardPropType).isRequired,
   Tag: PropTypes.node.isRequired,
-  colProps: PropTypes.shape({}),
   cardProps: PropTypes.shape({}),
   linkDetails: PropTypes.bool,
 };
 
 CardGrid.defaultProps = {
-  colProps: null,
   cardProps: null,
   linkDetails: false,
 };

@@ -31,11 +31,11 @@ import styled from '@cubeartisan/client/utils/styledHelper.js';
 
 const trigger = isTouchDevice() ? 'click' : 'hover.js';
 
-const TagSpan = styled.span`
+const TagSpan = styled('span')`
   color: ${(props) => props.color};
   font-size: ${(props) => props.size}px;
 `;
-const TagContainer = styled.div`
+const TagContainer = styled('div')`
   vertical-align: middle;
   display: inline-block;
 `;

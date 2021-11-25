@@ -19,7 +19,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { Modal, ModalBody, ModalHeader, Input, Button, ModalFooter } from 'reactstrap';
+import { Button } from '@mui/material';
+import { Modal, ModalBody, ModalHeader, Input, ModalFooter } from 'reactstrap';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 const deleteCube = async (cubeid) => {
@@ -38,7 +39,12 @@ const DeleteCubeModal = ({ isOpen, toggle, cubeid }) => {
         <Input value={deleteText} onChange={(e) => setDeleteText(e.target.value)} />
       </ModalBody>
       <ModalFooter>
-        <Button onClick={() => deleteCube(cubeid)} color="danger" outline disabled={deleteText !== 'Delete'}>
+        <Button
+          onClick={() => deleteCube(cubeid)}
+          color="warning"
+          variant="outlined"
+          disabled={deleteText !== 'Delete'}
+        >
           Delete
         </Button>
         <Button onClick={toggle}>Close</Button>

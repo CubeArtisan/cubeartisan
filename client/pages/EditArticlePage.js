@@ -18,20 +18,8 @@
  */
 import React, { lazy, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Spinner,
-  Nav,
-  CardBody,
-  Card,
-  TabContent,
-  TabPane,
-  Input,
-  FormGroup,
-  Row,
-  Col,
-  Label,
-  Button,
-} from 'reactstrap';
+import { Spinner, Nav, CardBody, Card, TabContent, TabPane, Input, FormGroup, Row, Col, Label } from 'reactstrap';
+import { Button } from '@mui/material';
 
 import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
@@ -106,7 +94,7 @@ export const EditArticlePage = ({ loginCallback, article, siteCustomizations }) 
                 <Input type="hidden" name="imagename" value={imageName} />
                 <Input type="hidden" name="artist" value={imageArtist} />
                 <Input type="hidden" name="body" value={body} />
-                <Button type="submit" color="success" block disabled={!hasChanges}>
+                <Button type="submit" color="success" fullWidth disabled={!hasChanges}>
                   Save
                 </Button>
               </CSRFForm>
@@ -120,7 +108,7 @@ export const EditArticlePage = ({ loginCallback, article, siteCustomizations }) 
                 <Input type="hidden" name="imagename" value={imageName} />
                 <Input type="hidden" name="artist" value={imageArtist} />
                 <Input type="hidden" name="body" value={body} />
-                <Button type="submit" color="success" block>
+                <Button type="submit" color="success" fullWidth>
                   Publish
                 </Button>
               </CSRFForm>

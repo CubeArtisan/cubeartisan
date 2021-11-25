@@ -18,9 +18,11 @@
  */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Button } from '@mui/material';
+import { Col, Row, Card, CardHeader, CardBody, Collapse } from 'reactstrap';
+
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import CubePreview from '@cubeartisan/client/components/CubePreview.js';
-import { Col, Row, Card, CardHeader, CardBody, Button, Collapse } from 'reactstrap';
 
 const CubesCard = ({ cubes, title, header, lean, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -52,7 +54,7 @@ const CubesCard = ({ cubes, title, header, lean, ...props }) => {
       </Collapse>
       {(!lean || cubes.length > 2) && (
         <CardBody>
-          <Button color="success" block onClick={toggle}>
+          <Button color="success" fullWidth onClick={toggle}>
             {isOpen ? 'View Fewer...' : 'View More...'}
           </Button>
         </CardBody>

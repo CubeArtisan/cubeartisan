@@ -17,6 +17,8 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
+import { Button } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import {
   Modal,
   ModalBody,
@@ -30,7 +32,6 @@ import {
   Label,
   Input,
   CardBody,
-  Button,
   FormText,
 } from 'reactstrap';
 
@@ -38,7 +39,6 @@ import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import { getCubeDescription, getCubeId } from '@cubeartisan/client/utils/Util.js';
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
-import LoadingButton from '@cubeartisan/client/components/LoadingButton.js';
 import TagInput from '@cubeartisan/client/components/TagInput.js';
 import { TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext.js';
 import TextEntry from '@cubeartisan/client/components/TextEntry.js';

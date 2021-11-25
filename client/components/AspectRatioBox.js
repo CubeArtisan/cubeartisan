@@ -21,11 +21,11 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import styled from '@cubeartisan/client/utils/styledHelper.js';
 
-export const StretchedDiv = styled.div`
+export const StretchedDiv = styled('div')`
   padding-top: ${(props) => (100 / props.ratio).toFixed(5)}%;
 `;
 
-const NoMarginsDiv = styled.div`
+const NoMarginsDiv = styled('div')`
   left: 0;
   top: 0;
   right: 0;

@@ -18,11 +18,12 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
+import { Button } from '@mui/material';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
 
-const AddToCubeModal = ({ link, isOpen, toggle }) => {
+const LinkModal = ({ link, isOpen, toggle }) => {
   return (
     <Modal isOpen={isOpen} toggle={toggle} size="xs">
       <ModalHeader toggle={toggle}>This link could be dangerous</ModalHeader>
@@ -31,7 +32,7 @@ const AddToCubeModal = ({ link, isOpen, toggle }) => {
           This link leads to: <code>{link}</code>
         </p>
         <p>Following unknown links can be dangerous, are you sure you wish to proceed?</p>
-        <ButtonLink href={link} block color="danger" outline target="_blank" rel="noopener noreferrer">
+        <ButtonLink href={link} block color="warning" outline target="_blank" rel="noopener noreferrer">
           Yes, I know what I'm doing
         </ButtonLink>
       </ModalBody>
@@ -44,10 +45,10 @@ const AddToCubeModal = ({ link, isOpen, toggle }) => {
   );
 };
 
-AddToCubeModal.propTypes = {
+LinkModal.propTypes = {
   link: PropTypes.string.isRequired,
   isOpen: PropTypes.bool.isRequired,
   toggle: PropTypes.func.isRequired,
 };
 
-export default AddToCubeModal;
+export default LinkModal;

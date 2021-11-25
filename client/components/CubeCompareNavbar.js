@@ -28,13 +28,13 @@ import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import styled from '@cubeartisan/client/utils/styledHelper.js';
 
-const BrandedH5 = styled.h5`
+const BrandedH5 = styled('h5')`
   color: var(--success);
 `;
-const BrandedH6 = styled.h5`
+const BrandedH6 = styled('h5')`
   color: var(--success);
 `;
-const BrandedLink = styled.a`
+const BrandedLink = styled('a')`
   color: var(--success);
 `;
 

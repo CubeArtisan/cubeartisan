@@ -18,7 +18,8 @@
  */
 import React, { lazy, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
+import { Button } from '@mui/material';
+import { Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
 
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
@@ -57,7 +58,7 @@ export const UserCubePage = ({ owner, followers, following, cubes, loginCallback
               </Col>
             </Row>
             {user && user._id === owner._id && (
-              <Button color="success" block outline href={`/user/${user._id}/account`}>
+              <Button color="success" fullWidth variant="outlined" href={`/user/${user._id}/account`}>
                 Update
               </Button>
             )}

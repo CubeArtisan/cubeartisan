@@ -17,17 +17,8 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React from 'react';
-import {
-  Modal,
-  ModalHeader,
-  ModalBody,
-  Button,
-  ModalFooter,
-  Input,
-  Label,
-  InputGroup,
-  InputGroupAddon,
-} from 'reactstrap';
+import { Button } from '@mui/material';
+import { Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, InputGroup, InputGroupAddon } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { ClippyIcon } from '@primer/octicons-react';
 
@@ -46,11 +37,7 @@ const CubeIdModal = ({ toggle, isOpen, shortID, fullID, alert }) => {
         <InputGroup>
           <Input className="bg-white monospaced" value={shortID} readonly />
           <InputGroupAddon addonType="append">
-            <Button
-              className="btn-sm input-group-button"
-              onClick={() => onCopyClick(shortID, 'Short ID')}
-              aria-label="Copy Short ID"
-            >
+            <Button size="small" onClick={() => onCopyClick(shortID, 'Short ID')} aria-label="Copy Short ID">
               <ClippyIcon size={16} />
             </Button>
           </InputGroupAddon>
@@ -61,11 +48,7 @@ const CubeIdModal = ({ toggle, isOpen, shortID, fullID, alert }) => {
         <InputGroup>
           <Input className="bg-white monospaced" value={fullID} readonly />
           <InputGroupAddon addonType="append">
-            <Button
-              className="btn-sm input-group-button"
-              onClick={() => onCopyClick(fullID, 'Full ID')}
-              aria-label="Copy Full ID"
-            >
+            <Button size="small" onClick={() => onCopyClick(fullID, 'Full ID')} aria-label="Copy Full ID">
               <ClippyIcon size={16} />
             </Button>
           </InputGroupAddon>

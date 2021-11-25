@@ -18,16 +18,12 @@
  */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
-import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
-import { getCardColorClass } from '@cubeartisan/client/components/contexts/TagContext.js';
+import { Button } from '@mui/material';
 import {
   Modal,
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Button,
   InputGroup,
   InputGroupAddon,
   InputGroupText,
@@ -37,6 +33,11 @@ import {
   ListGroup,
   ListGroupItem,
 } from 'reactstrap';
+
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
+import { getCardColorClass } from '@cubeartisan/client/components/contexts/TagContext.js';
 
 const AutocardItem = withAutocard(ListGroupItem);
 
@@ -127,7 +128,7 @@ const AddGroupToCubeModal = ({ cards, isOpen, toggle, cubes, packid }) => {
           <Spinner className="position-absolute" />
         </div>
         <ModalFooter>
-          <Button color="danger" onClick={toggle}>
+          <Button color="warning" onClick={toggle}>
             Close
           </Button>
         </ModalFooter>
@@ -156,7 +157,7 @@ const AddGroupToCubeModal = ({ cards, isOpen, toggle, cubes, packid }) => {
           <p>You don't appear to have any cubes to add this card to. Are you logged in?</p>
         </ModalBody>
         <ModalFooter>
-          <Button color="danger" onClick={toggle}>
+          <Button color="warning" onClick={toggle}>
             Close
           </Button>
         </ModalFooter>
@@ -205,7 +206,7 @@ const AddGroupToCubeModal = ({ cards, isOpen, toggle, cubes, packid }) => {
         <Button color="secondary" onClick={maybe}>
           Maybeboard
         </Button>
-        <Button color="danger" onClick={toggle}>
+        <Button color="warning" onClick={toggle}>
           Close
         </Button>
       </ModalFooter>

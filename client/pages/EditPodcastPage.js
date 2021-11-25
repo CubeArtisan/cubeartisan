@@ -18,10 +18,10 @@
  */
 import React, { lazy, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Nav, CardBody, Card, TabContent, TabPane, Input, FormGroup, Row, Col, Label } from 'reactstrap';
+import { Button } from '@mui/material';
+
 import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType.js';
-
-import { Nav, CardBody, Card, TabContent, TabPane, Input, FormGroup, Row, Col, Label, Button } from 'reactstrap';
-
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import Tab from '@cubeartisan/client/components/Tab.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
@@ -58,7 +58,7 @@ export const EditPodcastPage = ({ loginCallback, podcast }) => {
               <CSRFForm method="POST" action={`/podcast/${podcast._id}`} autoComplete="off">
                 <Input type="hidden" name="podcastid" value={podcast._id} />
                 <Input type="hidden" name="rss" value={rss} />
-                <Button type="submit" color="success" block disabled={!hasChanges}>
+                <Button type="submit" color="success" fullWidth disabled={!hasChanges}>
                   Update
                 </Button>
               </CSRFForm>
@@ -67,7 +67,7 @@ export const EditPodcastPage = ({ loginCallback, podcast }) => {
               <CSRFForm method="POST" action={`/podcast/${podcast._id}/submit`} autoComplete="off">
                 <Input type="hidden" name="podcastid" value={podcast._id} />
                 <Input type="hidden" name="rss" value={rss} />
-                <Button type="submit" outline color="success" block>
+                <Button type="submit" outline color="success" fullWidth>
                   Publish
                 </Button>
               </CSRFForm>

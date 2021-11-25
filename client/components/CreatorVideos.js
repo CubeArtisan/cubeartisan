@@ -17,14 +17,15 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { useState, useEffect, useContext } from 'react';
+import { Button } from '@mui/material';
+import { Navbar, Nav, NavItem, Row, Col, CardBody } from 'reactstrap';
 
-import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import { Button, Navbar, Nav, NavItem, Row, Col, CardBody } from 'reactstrap';
 import LoadingPage from '@cubeartisan/client/pages/LoadingPage.js';
 import VideoPreview from '@cubeartisan/client/components/VideoPreview.js';
 import Paginate from '@cubeartisan/client/components/Paginate.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 
 const PAGE_SIZE = 24;
 

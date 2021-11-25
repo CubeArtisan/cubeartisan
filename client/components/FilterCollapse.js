@@ -18,8 +18,8 @@
  */
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Button } from '@mui/material';
 import {
-  Button,
   Col,
   Row,
   Collapse,
@@ -38,7 +38,6 @@ import styled from '@cubeartisan/client/utils/styledHelper.js';
 
 import { makeFilter } from '@cubeartisan/client/filtering/FilterCards.js';
 import { ColorChecksAddon, ColorChecksControl } from '@cubeartisan/client/components/ColorCheck.js';
-import LoadingButton from '@cubeartisan/client/components/LoadingButton.js';
 import TextField from '@cubeartisan/client/components/TextField.js';
 import NumericField from '@cubeartisan/client/components/NumericField.js';
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
@@ -360,7 +359,7 @@ const AdvancedFilterModal = ({ isOpen, toggle, apply, values, onChange, ...props
         />
       </ModalBody>
       <ModalFooter>
-        <Button color="danger" aria-label="Close" onClick={toggle}>
+        <Button color="warning" aria-label="Close" onClick={toggle}>
           Cancel
         </Button>
         <Button color="success" type="submit">
@@ -565,9 +564,9 @@ const FilterCollapse = ({ filter, setFilter, numCards, numShown, defaultFilterTe
                 onKeyDown={handleKeyDown}
               />
               <InputGroupAddon addonType="append">
-                <LoadingButton color="success" className="square-left" onClick={apply} loading={false}>
+                <Button color="success" variant="contained" onClick={apply}>
                   Apply
-                </LoadingButton>
+                </Button>
               </InputGroupAddon>
             </InputGroup>
           </Form>
@@ -633,7 +632,7 @@ const FilterCollapse = ({ filter, setFilter, numCards, numShown, defaultFilterTe
             </InputGroup>
           </PaddedCol>
           <PaddedCol xs="auto">
-            <Button type="submit" onClick={applyQuick} size="sm" color="success" className="mb-3">
+            <Button type="submit" onClick={applyQuick} size="small" color="success" variant="outlined">
               Quick Filter
             </Button>
           </PaddedCol>
@@ -646,13 +645,13 @@ const FilterCollapse = ({ filter, setFilter, numCards, numShown, defaultFilterTe
       </Row>
       <Row>
         <Col>
-          <Button color="danger" className="mr-2 mb-3" onClick={reset}>
+          <Button color="warning" variant="outlined" onClick={reset}>
             Reset Filters
           </Button>
-          <Button color="primary" className="mr-2 mb-3" onClick={toggleAdvancedOpen}>
+          <Button color="primary" variant="outlined" onClick={toggleAdvancedOpen}>
             Advanced...
           </Button>
-          <Button color="secondary" className="mr-2 mb-3" href="/filters">
+          <Button color="secondary" variant="outlined" href="/filters">
             Syntax Guide
           </Button>
         </Col>

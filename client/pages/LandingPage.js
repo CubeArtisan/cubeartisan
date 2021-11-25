@@ -18,7 +18,8 @@
  */
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col, Button } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
+import { Button } from '@mui/material';
 
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import Footer from '@cubeartisan/client/components/layouts/Footer.js';
@@ -54,14 +55,14 @@ export const LandingPage = ({ numusers, numcubes, numdrafts }) => {
               <strong>{numdrafts}</strong>
               {' Completed Drafts'}
             </h5>
-            <Button href="/user" className="landing-btn my-3" color="success">
+            <Button href="/user" className="landing-btn" color="success">
               Sign Up
             </Button>
             <LoginModalButton
               modalProps={{ loginCallback: '/' }}
               className="landing-btn mb-3"
               color="success"
-              outline
+              variant="outlined"
               isOpen={loginIsOpen}
               toggle={toggleLoginModal}
             >

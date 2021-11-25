@@ -18,8 +18,8 @@
  */
 import React, { useCallback, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Button } from '@mui/material';
 import {
-  Button,
   Collapse,
   Col,
   Container,
@@ -67,7 +67,7 @@ import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 const CustomizeBasicsModalLink = withModal(NavLink, CustomizeBasicsModal);
 
-const GrowingDiv = styled.div`
+const GrowingDiv = styled('div')`
   flex-grow: 1;
 `;
 
@@ -294,7 +294,7 @@ const CompareCollapse = (props) => {
                 value={compareID}
                 onChange={handleChange}
               />
-              <Button color="success" className="mb-2" href={targetUrl}>
+              <Button color="success" size="medium" href={targetUrl}>
                 Compare Cubes
               </Button>
             </Form>

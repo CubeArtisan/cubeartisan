@@ -18,11 +18,13 @@
  */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Button } from '@mui/material';
+import { Modal, ModalHeader, ModalBody, ModalFooter, Card, Input } from 'reactstrap';
+
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import FilterCollapse from '@cubeartisan/client/components/FilterCollapse.js';
 import TextField from '@cubeartisan/client/components/TextField.js';
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Card, Input } from 'reactstrap';
 
 const ResizeModal = ({ cubeID }) => {
   const [open, toggleOpen] = useToggle(false);
@@ -38,7 +40,7 @@ const ResizeModal = ({ cubeID }) => {
 
   return (
     <>
-      <Button color="success" className="mb-2 mr-2" onClick={toggleOpen}>
+      <Button color="success" onClick={toggleOpen}>
         Resize
       </Button>
       <Modal isOpen={open} toggle={toggleOpen} size="lg">

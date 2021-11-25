@@ -19,7 +19,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Col, Modal, ModalBody, ModalHeader, Row, FormGroup, Label, Input, Button, ModalFooter } from 'reactstrap';
+import { Button } from '@mui/material';
+import { Col, Modal, ModalBody, ModalHeader, Row, FormGroup, Label, Input, ModalFooter } from 'reactstrap';
 
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 
@@ -40,7 +41,7 @@ const CreateCubeModal = ({ isOpen, toggle }) => (
         </FormGroup>
       </ModalBody>
       <ModalFooter>
-        <Button type="submit" color="success" block outline>
+        <Button type="submit" color="success" fullWidth variant="outlined">
           Create
         </Button>
       </ModalFooter>

@@ -303,7 +303,7 @@ export const createDraft = (format, cubeCards, seats, user, botsOnly = false, se
       name: bot ? `Bot ${botIndex}` : 'Waiting for Player',
       userid: null,
       drafted: [new Array(8).fill([]), new Array(8).fill([])], // organized draft picks
-      sideboard: [new Array(8).fill([]), new Array(8).fill([])],
+      sideboard: [new Array(8).fill([])],
       pickorder: [],
       trashorder: [],
     };
