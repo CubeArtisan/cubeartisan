@@ -131,10 +131,18 @@
 - Fix mass editing CMC values and display errors better. Ported from CubeCobra.
 - Correctly escape card urls. Ported from CubeCobra.
 
+### v1.3.0
+
+- Start updating the UI to a new style. This will be a work in progress for quite a while.
+- Update cockatrice export format.
+- Better messages about what the draft is waiting on. Including a message that you have
+  to be logged in.
+
+- Fix issue where the last card in a draft was not added to pools.
+
 ## Known Issues
 
 - On Firefox Drag and Drop in the DraftPage and the DeckbuilderPage causes the
   browser to navigate to the image url for the card.
 - Artist name is not shown correctly when selecting card arts for cube overview.
-- Last pick of a draft is getting skipped.
 - Pick by pick breakdown shows the last pick of a pack under the next pack's section.
