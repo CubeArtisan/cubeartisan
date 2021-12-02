@@ -18,8 +18,9 @@
  */
 import React, { lazy, useContext, useCallback, useMemo, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { Button } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import {
-  Button,
   Card,
   CardBody,
   CardFooter,
@@ -129,8 +130,8 @@ const useBotsOnlyCallback = (botsOnly, cubeID) => {
   const [loading, setLoading] = useState(false);
   const submitForm = useCallback(
     async (e) => {
+      setLoading(true);
       if (botsOnly) {
-        setLoading(true);
         e.preventDefault();
         const body = new FormData(formRef.current);
         const response = await csrfFetch(`/cube/${cubeID}/playtest/draft`, {
@@ -181,7 +182,7 @@ const CustomDraftCard = ({
         method="POST"
         key="createDraft"
         action={`/cube/${cubeID}/playtest/draft`}
-        innerRef={formRef}
+        ref={formRef}
         onSubmit={submitForm}
       >
         <CardHeader>
@@ -191,16 +192,9 @@ const CustomDraftCard = ({
           </CardTitleH5>
         </CardHeader>
         <CardBody>
-          {format.markdown ? (
-            <div className="mb-3">
-              <Markdown markdown={format.markdown} />
-            </div>
-          ) : (
-            <div
-              className="description-area"
-              dangerouslySetInnerHTML={/* eslint-disable-line react/no-danger */ { __html: format.html }}
-            />
-          )}
+          <div className="mb-3">
+            <Markdown markdown={format.markdown} />
+          </div>
 
           <LabelRow htmlFor={`seats-${index}`} label="Total Seats">
             <Input type="select" name="seats" id={`seats-${index}`} defaultValue={format.defaultSeats ?? 8}>
@@ -227,25 +221,25 @@ const CustomDraftCard = ({
           <Input type="hidden" name="id" value={index} />
           <div className="justify-content-center align-items-center">
             {loading && <Spinner className="position-absolute" />}
-            <Button type="submit" color="success" className="mr-2" disabled={loading}>
+            <LoadingButton color="success" variant="contained" loading={loading} type="submit">
               Start Draft
-            </Button>
+            </LoadingButton>
             {canEdit && (
               <>
-                <Button color="success" className="mr-2" onClick={onEditFormat} data-index={index}>
+                <Button color="success" onClick={onEditFormat} data-index={index}>
                   Edit
                 </Button>
                 {defaultDraftFormat !== index && (
-                  <Button color="success" className="mr-2" onClick={onSetDefaultFormat} data-index={index}>
+                  <Button color="success" onClick={onSetDefaultFormat} data-index={index}>
                     Make Default
                   </Button>
                 )}
-                <Button color="danger" id={`deleteToggler-${index}`}>
+                <Button color="warning" id={`deleteToggler-${index}`}>
                   Delete
                 </Button>
                 <UncontrolledCollapse toggler={`#deleteToggler-${index}`}>
                   <h6 className="my-4">Are you sure? This action cannot be undone.</h6>
-                  <Button color="danger" onClick={onDeleteFormat} data-index={index}>
+                  <Button color="warning" onClick={onDeleteFormat} data-index={index}>
                     Yes, delete this format
                   </Button>
                 </UncontrolledCollapse>
@@ -278,7 +272,7 @@ const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
   const [submitForm, formRef, loading] = useBotsOnlyCallback(botsOnly, cubeID);
   return (
     <Card className="mb-3">
-      <CSRFForm method="POST" action={`/cube/${cubeID}/playtest/draft`} onSubmit={submitForm} innerRef={formRef}>
+      <CSRFForm method="POST" action={`/cube/${cubeID}/playtest/draft`} onSubmit={submitForm} ref={formRef}>
         <CardHeader>
           <CardTitleH5>{defaultDraftFormat === -1 && 'Default Format: '}Standard Draft</CardTitleH5>
         </CardHeader>
@@ -317,13 +311,12 @@ const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
         <CardFooter>
           <Input type="hidden" name="id" value="-1" />
           <div className="justify-content-center align-items-center">
-            {loading && <Spinner className="position-absolute" />}
-            <Button color="success" className="mr-2" disabled={loading}>
+            <LoadingButton color="success" variant="contained" type="submit" loading={loading}>
               Start Draft
-            </Button>
+            </LoadingButton>
           </div>
           {canEdit && defaultDraftFormat !== -1 && (
-            <Button color="success" className="mr-3" onClick={onSetDefaultFormat} data-index={-1}>
+            <Button color="success" onClick={onSetDefaultFormat} data-index={-1}>
               Make Default
             </Button>
           )}
@@ -410,7 +403,7 @@ const SamplePackCard = (props) => {
         </LabelRow>
       </CardBody>
       <CardFooter>
-        <Button color="success" className="mr-2" href={`/cube/${cubeID}/playtest/sample`}>
+        <Button color="success" href={`/cube/${cubeID}/playtest/sample`}>
           View Random
         </Button>
         <Button color="success" disabled={!seed} href={`/cube/${cubeID}/playtest/sample/${seed}`}>

@@ -18,8 +18,9 @@
  */
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
+import { Box, Button, Container, Divider, Grid, Link, Paper, Stack, Typography } from '@mui/material';
 
+import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import CardPackagePropType from '@cubeartisan/client/proptypes/CardPackagePropType.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
@@ -28,10 +29,8 @@ import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import TextBadge from '@cubeartisan/client/components/TextBadge.js';
 import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
-
-import { CardHeader, Card, CardBody, Row, Col, Button } from 'reactstrap';
-
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 
 const AddGroupToCubeModalLink = withModal(Button, AddGroupToCubeModal);
 const AutocardA = withAutocard('a');
@@ -83,93 +82,89 @@ const CardPackage = ({ cardPackage, refresh }) => {
       refresh();
     }
   };
+  const { cardsInRow } = useContext(DisplayContext);
 
   return (
-    <Card className="mb-4">
-      <CardHeader className="pl-4 pr-0 pt-2 pb-0">
-        <Row>
-          <Col xs="12" sm="6">
-            <h5 className="card-title">
-              <a href={`/package/${cardPackage._id}`}>{cardPackage.title}</a>
-            </h5>
-            <h6 className="card-subtitle mb-2 text-muted">
-              <a href={`/user/${cardPackage.userid}`}>{cardPackage.username}</a>
-              {' submitted '}
-              <TimeAgo date={cardPackage.date} />
-            </h6>
-          </Col>
+    <Container>
+      <Stack divider={<Divider orientation="horizontal" flexItem />} spacing={1}>
+        <Box sx={{ backgroundColor: 'var(--bg-darker)' }}>
+          <Grid container spacing={1}>
+            <Grid item xs={12} sm={6}>
+              <Link variant="h5" href={`/package/${cardPackage._id}`}>
+                {cardPackage.title}
+              </Link>
+              <Typography variant="h6">
+                <Link href={`/user/${cardPackage.userid}`}>{cardPackage.username}</Link>
+                {' submitted '}
+                <TimeAgo date={cardPackage.date} />
+              </Typography>
+            </Grid>
 
-          {user ? (
-            <Col xs="12" sm="6" className="pb-2">
-              <div className="flex-container flex-row-reverse">
+            {user ? (
+              <Grid item xs={12} sm={6}>
                 <TextBadge name="Votes" className="mx-2">
-                  <Tooltip text={voted ? 'Click to remove your upvote' : 'Click to upvote this package'}>
-                    <button
+                  <Tooltip title={voted ? 'Click to remove your upvote' : 'Click to upvote this package'}>
+                    <Button
                       type="button"
                       className="cube-id-btn"
-                      onKeyDown={() => {}}
                       onClick={() => {
                         toggleVote();
                       }}
                     >
                       {voted ? <b>{cardPackage.votes}</b> : cardPackage.votes}
-                    </button>
+                    </Button>
                   </Tooltip>
                 </TextBadge>
 
                 <AddGroupToCubeModalLink
-                  outline
+                  variant="outlined"
                   color="success"
                   modalProps={{ cards: cardPackage.cards, cubes: user ? user.cubes : [], packid: cardPackage._id }}
                 >
-                  Add To Cube
+                  <Button>Add To Cube</Button>
                 </AddGroupToCubeModalLink>
                 {user.roles.includes('Admin') && (
                   <>
                     {cardPackage.approved ? (
-                      <Button outline color="danger" className="mx-2" onClick={unapprove}>
+                      <Button variant="outlined" color="danger" className="mx-2" onClick={unapprove}>
                         Remove Approval
                       </Button>
                     ) : (
-                      <Button outline color="success" className="mx-2" onClick={approve}>
+                      <Button variant="outlined" color="success" className="mx-2" onClick={approve}>
                         Approve
                       </Button>
                     )}
-                    <Button outline color="danger" onClick={remove}>
+                    <Button variant="outlined" color="danger" onClick={remove}>
                       Delete
                     </Button>
                   </>
                 )}
-              </div>
-            </Col>
-          ) : (
-            <Col xs="6">
-              <div className="float-right">
+              </Grid>
+            ) : (
+              <Grid item xs={6}>
                 <TextBadge name="Votes" className="mr-2">
-                  <Tooltip text="Login to upvote">{cardPackage.votes}</Tooltip>
+                  <Tooltip text="Login to upvote">
+                    <Typography variant="button">{cardPackage.votes}</Typography>
+                  </Tooltip>
                 </TextBadge>
-              </div>
-            </Col>
-          )}
-        </Row>
-      </CardHeader>
-      <CardBody>
-        <Row>
+              </Grid>
+            )}
+          </Grid>
+        </Box>
+        <Grid container spacing={2} columns={cardsInRow}>
           {cardPackage.cards.map((cardId) => (
-            <Col key={`${cardPackage._id}-${cardId}`} className="col-6 col-md-2-4 col-lg-2-4 col-xl-2-4">
-              <Card className="mb-3">
+            <Grid item key={`${cardPackage._id}-${cardId}`} xs={1}>
+              <Paper elevation={1}>
                 <AutocardA href={`/card/${cardId}`} front={`/card/${cardId}/image/redirect`} target="_blank">
                   <img className="w-100" src={`/card/${cardId}/image/redirect`} alt={cardId} />
                 </AutocardA>
-              </Card>
-            </Col>
+              </Paper>
+            </Grid>
           ))}
-        </Row>
-      </CardBody>
-      <div className="border-top">
+        </Grid>
         <CommentsSection parentType="package" parent={cardPackage._id} collapse />
-      </div>
-    </Card>
+      </Stack>
+    </Container>
   );
 };
 

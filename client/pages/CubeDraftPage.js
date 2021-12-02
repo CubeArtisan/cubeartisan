@@ -18,8 +18,19 @@
  */
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardBody, CardHeader, CardTitle, Collapse, Nav, Navbar, NavLink, Row, Spinner } from 'reactstrap';
 import { io } from 'socket.io-client';
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  CircularProgress,
+  Divider,
+  Grid,
+  Paper,
+  Stack,
+  Toolbar,
+  Typography,
+} from '@mui/material';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
@@ -27,7 +38,6 @@ import DeckStacks from '@cubeartisan/client/components/DeckStacks.js';
 import DndProvider from '@cubeartisan/client/components/DndProvider.js';
 import { DraftbotBreakdownTable } from '@cubeartisan/client/components/DraftbotBreakdown.js';
 import DraggableCard from '@cubeartisan/client/components/DraggableCard.js';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
 import DisplayContext, { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
@@ -40,7 +50,6 @@ import DraftLocation from '@cubeartisan/client/drafting/DraftLocation.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import TextBadge from '@cubeartisan/client/components/TextBadge.js';
 import Tooltip from '@cubeartisan/client/components/Tooltip.js';
-import { FixedCol } from '@cubeartisan/client/components/CardGrid.js';
 import SetCardsInRow from '@cubeartisan/client/components/SetCardsInRow.js';
 import useTimer from '@cubeartisan/client/hooks/UseTimer.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
@@ -52,8 +61,16 @@ import {
   validActions,
 } from '@cubeartisan/client/drafting/draftutil.js';
 
-const canDrop = (_, target) => {
-  return target.type === DraftLocation.PICKS;
+const oppositeLocation = {
+  [DraftLocation.PICKS]: DraftLocation.SIDEBOARD,
+  [DraftLocation.SIDEBOARD]: DraftLocation.PICKS,
+};
+
+const canDrop = (source, target) => {
+  return (
+    target.type === DraftLocation.PICKS ||
+    (target.type === DraftLocation.SIDEBOARD && source.type !== DraftLocation.PACK)
+  );
 };
 
 const Pack = ({
@@ -70,56 +87,52 @@ const Pack = ({
 }) => {
   const { cardsInRow } = useContext(DisplayContext);
   return (
-    <Card className="mt-3">
-      <CardHeader>
-        <CardTitle className="mb-0">
-          <h4 className="mb-1">
-            {Number.isInteger(pickNumber) && pickNumber ? (
-              <>
-                Pack {packNumber}, Pick {pickNumber}
-                {instructions ? `: ${instructions}` : ''}
-              </>
-            ) : (
-              <>Loading Draft</>
-            )}
-          </h4>
-          {emptySeats > 0 && (
-            <TextBadge
-              name={`Waiting on ${emptySeats} player${emptySeats > 1 ? 's' : ''} to join. Players can join by going to`}
-            >
-              <Tooltip text="Click to copy to clipboard">
-                <button
-                  type="button"
-                  className="cube-id-btn"
-                  onKeyDown={() => {}}
-                  onClick={async (e) => {
-                    await navigator.clipboard.writeText(window.location.href);
-                    e.currentTarget.blur();
-                  }}
-                >
-                  {window.location.href}
-                </button>
-              </Tooltip>
-            </TextBadge>
+    <Stack divider={<Divider />}>
+      <Box sx={{ backgroundColor: 'var(--bg-darker)' }}>
+        <Typography variant="h4">
+          {Number.isInteger(pickNumber) && pickNumber ? (
+            <>
+              Pack {packNumber}, Pick {pickNumber}
+              {instructions ? `: ${instructions}` : ''}
+            </>
+          ) : (
+            <>Loading Draft</>
           )}
-          {(seconds || null) && (
-            <p>
-              {seconds} second{seconds > 1 ? 's' : ''} remaining to choose.
-            </p>
-          )}
-        </CardTitle>
-      </CardHeader>
-      <CardBody>
-        <SetCardsInRow />
-        <Row noGutters>
-          {pack.length > 0 ? (
-            pack.map((card, index) => (
-              <FixedCol
+        </Typography>
+        {emptySeats > 0 && (
+          <TextBadge
+            name={`Waiting on ${emptySeats} player${emptySeats > 1 ? 's' : ''} to join. Players can join by going to`}
+          >
+            <Tooltip title="Click to copy to clipboard">
+              <Button
+                onClick={async (e) => {
+                  await navigator.clipboard.writeText(window.location.href);
+                  e.currentTarget.blur();
+                }}
+              >
+                {window.location.href}
+              </Button>
+            </Tooltip>
+          </TextBadge>
+        )}
+        {(seconds || null) && (
+          <Typography variant="button">
+            {seconds} second{seconds > 1 ? 's' : ''} remaining to choose.
+          </Typography>
+        )}
+      </Box>
+      <Box>
+        {pack.length > 0 ? (
+          <Grid container columns={cardsInRow} spacing={0}>
+            {pack.map((card, index) => (
+              <Grid
+                item
+                xs={1}
                 key={/* eslint-disable-line react/no-array-index-key */ `${packNumber}:${pickNumber}:${index}`}
                 cardsinrow={cardsInRow}
                 className="justify-content-center align-items-center"
               >
-                {picking === index && <Spinner className="position-absolute" />}
+                {picking === index && <CircularProgress className="position-relative" />}
                 <DraggableCard
                   location={DraftLocation.pack([index])}
                   data-index={index}
@@ -129,16 +142,16 @@ const Pack = ({
                   onClick={picking === null ? onClickCard : undefined}
                   className={picking === index ? 'transparent' : undefined}
                 />
-              </FixedCol>
-            ))
-          ) : (
-            <>
-              <Spinner /> <h6>{waitingMessage}</h6>
-            </>
-          )}
-        </Row>
-      </CardBody>
-    </Card>
+              </Grid>
+            ))}
+          </Grid>
+        ) : (
+          <>
+            <CircularProgress /> <h6>{waitingMessage}</h6>
+          </>
+        )}
+      </Box>
+    </Stack>
   );
 };
 
@@ -161,12 +174,25 @@ Pack.defaultProps = {
   seconds: 0,
 };
 
-const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking, emptySeats, seconds }) => {
+const CubeDraftPlayerUI = ({
+  drafterState,
+  drafted,
+  takeCard,
+  moveMainboardCard,
+  moveSideboardCard,
+  mainboardCard,
+  sideboardCard,
+  picking,
+  emptySeats,
+  seconds,
+}) => {
+  const { cardsInRow } = useContext(DisplayContext);
   const user = useContext(UserContext);
   const {
     cards,
     cardsInPack,
     step: { action, amount },
+    sideboard,
     packNum,
     pickNum,
     numPacks,
@@ -177,6 +203,10 @@ const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking,
   const picks = useMemo(
     () => drafted.map((row) => row.map((col) => col.map((cardIndex) => cards[cardIndex]))),
     [drafted, cards],
+  );
+  const sideboardedPicks = useMemo(
+    () => sideboard.map((row) => row.map((col) => col.map((cardIndex) => cards[cardIndex]))),
+    [sideboard, cards],
   );
   const instructions = useMemo(() => {
     if (action === 'pick') {
@@ -205,6 +235,7 @@ const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking,
 
   const handleMoveCard = useCallback(
     async (source, target) => {
+      console.log(source.type, target.type);
       if (source.equals(target)) return;
       if (source.type === DraftLocation.PACK) {
         if (target.type === DraftLocation.PICKS) {
@@ -213,17 +244,27 @@ const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking,
           console.error("Can't move cards inside pack.");
         }
       } else if (source.type === DraftLocation.PICKS) {
-        if (target.type === DraftLocation.PICKS) {
-          moveCard({ target: target.data, source: source.data });
+        if (target.type === DraftLocation.SIDEBOARD) {
+          sideboardCard({ target: target.data, source: source.data });
+        } else if (target.type === DraftLocation.PICKS) {
+          moveMainboardCard({ target: target.data, source: source.data });
+        } else {
+          console.error("Can't move cards from picks back to pack.");
+        }
+      } else if (source.type === DraftLocation.SIDEBOARD) {
+        if (target.type === DraftLocation.SIDEBOARD) {
+          moveSideboardCard({ target: target.data, source: source.data });
+        } else if (target.type === DraftLocation.PICKS) {
+          mainboardCard({ target: target.data, source: source.data });
         } else {
           console.error("Can't move cards from picks back to pack.");
         }
       }
     },
-    [takeCard, cardsInPack, moveCard],
+    [takeCard, cardsInPack, moveMainboardCard, moveSideboardCard, mainboardCard, sideboardCard],
   );
 
-  const handleClickCard = useCallback(
+  const handleClickPackCard = useCallback(
     async (event) => {
       event.preventDefault();
       const cardPackIndex = parseInt(event.currentTarget.getAttribute('data-index'), 10);
@@ -232,66 +273,104 @@ const CubeDraftPlayerUI = ({ drafterState, drafted, takeCard, moveCard, picking,
     },
     [cardsInPack, takeCard],
   );
+
+  const handleClickPoolCard = useCallback(
+    async (event) => {
+      event.preventDefault();
+      const eventTarget = event.currentTarget;
+      const locationType = eventTarget.getAttribute('data-location-type');
+      const locationData = JSON.parse(eventTarget.getAttribute('data-location-data'));
+      const source = new DraftLocation(locationType, locationData);
+      const target = new DraftLocation(oppositeLocation[source.type], Array.from(source.data));
+      target.data[2] = 0;
+      if (target.type === DraftLocation.SIDEBOARD) {
+        // Only one row for the sideboard.
+        target.data[0] = 0;
+      } else {
+        // Pick row based on CMC.
+        target.data[0] = eventTarget.getAttribute('data-cmc') === 'true' ? 0 : 1;
+      }
+      handleMoveCard(source, target);
+    },
+    [handleMoveCard],
+  );
+
   return (
-    <>
-      <Navbar expand="xs" light className="usercontrols">
-        <Collapse navbar>
-          <Nav navbar>
-            <CustomImageToggler />
-          </Nav>
-          <Nav>
-            <NavLink href="#" onClick={toggleShowBotBreakdown}>
-              Toggle Bot Breakdown
-            </NavLink>
-          </Nav>
-        </Collapse>
-      </Navbar>
-      <DynamicFlash />
+    <Stack spacing={1}>
+      <Toolbar sx={{ backgroundColor: 'var(--bg-hover)' }}>
+        <ButtonGroup variant="outlined" sx={{ width: ' 100%' }}>
+          <Grid container>
+            <Grid item xs="auto">
+              <CustomImageToggler />
+            </Grid>
+            <Grid item xs="auto">
+              <Button onClick={toggleShowBotBreakdown}>Toggle Bot Breakdown</Button>
+            </Grid>
+            <SetCardsInRow />
+          </Grid>
+        </ButtonGroup>
+      </Toolbar>
       <DndProvider>
         {packNum < numPacks && (
           <>
-            <ErrorBoundary>
-              <Pack
-                emptySeats={emptySeats}
-                pack={pack}
-                packNumber={packNum + 1}
-                pickNumber={action === 'done' ? pickNum : pickNum + 1}
-                instructions={instructions}
-                picking={picking}
-                onMoveCard={handleMoveCard}
-                onClickCard={handleClickCard}
-                seconds={seconds}
-                waitingMessage={waitingMessage}
-              />
-            </ErrorBoundary>
-            {showBotBreakdown && (
+            <Paper elevation={3}>
               <ErrorBoundary>
-                <Card className="mt-3">
-                  <CardHeader className="mb-0">
-                    <h4 className="mb-0">Draftbot Breakdown</h4>
-                  </CardHeader>
-                  <CardBody>
-                    <DraftbotBreakdownTable drafterState={drafterState} />
-                  </CardBody>
-                </Card>
+                <Pack
+                  emptySeats={emptySeats}
+                  pack={pack}
+                  packNumber={packNum + 1}
+                  pickNumber={action === 'done' ? pickNum : pickNum + 1}
+                  instructions={instructions}
+                  picking={picking}
+                  onMoveCard={handleMoveCard}
+                  onClickCard={handleClickPackCard}
+                  seconds={seconds}
+                  waitingMessage={waitingMessage}
+                />
               </ErrorBoundary>
+            </Paper>
+            {showBotBreakdown && (
+              <Paper elevation={3}>
+                <ErrorBoundary>
+                  <Box sx={{ backgroundColor: 'var(--bg-darker)' }}>
+                    <Typography variant="h4">Draftbot Breakdown</Typography>
+                  </Box>
+                  <DraftbotBreakdownTable drafterState={drafterState} />
+                </ErrorBoundary>
+              </Paper>
             )}
           </>
         )}
-        <ErrorBoundary className="mt-3">
-          <Card className="my-3">
+        <Paper elevation={3}>
+          <ErrorBoundary>
             <DeckStacks
+              cardsInRow={cardsInRow}
               cards={picks}
               title="Picks"
               subtitle={makeSubtitle(picks.flat(3))}
               locationType={DraftLocation.PICKS}
               canDrop={canDrop}
               onMoveCard={handleMoveCard}
+              onClickCard={handleClickPoolCard}
             />
-          </Card>
-        </ErrorBoundary>
+          </ErrorBoundary>
+        </Paper>
+        <Paper elevation={3}>
+          <ErrorBoundary>
+            <DeckStacks
+              cardsInRow={cardsInRow}
+              cards={sideboardedPicks}
+              title="Sideboard"
+              subtitle=""
+              locationType={DraftLocation.SIDEBOARD}
+              canDrop={canDrop}
+              onMoveCard={handleMoveCard}
+              onClickCard={handleClickPoolCard}
+            />
+          </ErrorBoundary>
+        </Paper>
       </DndProvider>
-    </>
+    </Stack>
   );
 };
 CubeDraftPlayerUI.propTypes = {
@@ -299,7 +378,10 @@ CubeDraftPlayerUI.propTypes = {
   drafted: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number.isRequired).isRequired).isRequired)
     .isRequired,
   takeCard: PropTypes.func.isRequired,
-  moveCard: PropTypes.func.isRequired,
+  moveMainboardCard: PropTypes.func.isRequired,
+  moveSideboardCard: PropTypes.func.isRequired,
+  sideboardCard: PropTypes.func.isRequired,
+  mainboardCard: PropTypes.func.isRequired,
   picking: PropTypes.number,
   emptySeats: PropTypes.number.isRequired,
   seconds: PropTypes.number,
@@ -356,8 +438,6 @@ export const CubeDraftPage = ({ cube, draftid, loginCallback }) => {
     socket.current.on('drafterState', (newDrafterState) => {
       setPicking(null);
       setDrafterState((oldDrafterState) => {
-        console.log(newDrafterState);
-        console.log(newDrafterState.cardsInPack.length, oldDrafterState.cardsInPack.length);
         if (oldDrafterState.cardsInPack.length !== newDrafterState.cardsInPack.length && newDrafterState.timeout) {
           setSeconds(newDrafterState.timeout * newDrafterState.cardsInPack.length);
         }
@@ -367,6 +447,7 @@ export const CubeDraftPage = ({ cube, draftid, loginCallback }) => {
     socket.current.on('emptySeats', (newEmptySeats) => {
       setEmptySeats(newEmptySeats);
     });
+    return () => socket?.current?.disconnect?.();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -410,11 +491,30 @@ export const CubeDraftPage = ({ cube, draftid, loginCallback }) => {
     [action, picking, cardsInPack],
   );
 
-  const moveCard = useCallback(({ source, target }) => {
+  const moveMainboardCard = useCallback(({ source, target }) => {
     if (socket.current) {
-      socket.current.emit('move card', source, target);
+      socket.current.emit('move mainboard card', source, target);
     }
   }, []);
+
+  const moveSideboardCard = useCallback(({ source, target }) => {
+    if (socket.current) {
+      socket.current.emit('move sideboard card', source, target);
+    }
+  }, []);
+
+  const sideboardCard = useCallback(({ source, target }) => {
+    if (socket.current) {
+      socket.current.emit('move to sideboard', source, target);
+    }
+  }, []);
+
+  const mainboardCard = useCallback(({ source, target }) => {
+    if (socket.current) {
+      socket.current.emit('move to mainboard', source, target);
+    }
+  }, []);
+
   return (
     <MainLayout loginCallback={loginCallback}>
       <CubeLayout cube={cube} activeLink="playtest">
@@ -426,7 +526,10 @@ export const CubeDraftPage = ({ cube, draftid, loginCallback }) => {
             sideboard={sideboard}
             drafted={drafted}
             takeCard={takeCard}
-            moveCard={moveCard}
+            moveMainboardCard={moveMainboardCard}
+            moveSideboardCard={moveSideboardCard}
+            sideboardCard={sideboardCard}
+            mainboardCard={mainboardCard}
             seconds={seconds}
           />
         </DisplayContextProvider>

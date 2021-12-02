@@ -18,8 +18,8 @@
  */
 import React, { lazy, useContext } from 'react';
 import PropTypes from 'prop-types';
-
-import { Card, CardBody, FormGroup, Label, Input, Button } from 'reactstrap';
+import { Button } from '@mui/material';
+import { Card, CardBody, FormGroup, Label, Input } from 'reactstrap';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import Paginate from '@cubeartisan/client/components/Paginate.js';
@@ -52,7 +52,7 @@ const DevBlog = ({ blogs, pages, activePage, loginCallback }) => {
                   <Label>HTML:</Label>
                   <Input name="html" type="textarea" />
                 </FormGroup>
-                <Button type="submit" color="success" block outline>
+                <Button type="submit" color="success" variant="outline" fullWidth>
                   Submit
                 </Button>
               </CSRFForm>

@@ -1,4 +1,8 @@
+const isProduction = process.env.NODE_ENV === 'production';
+
 module.exports = (api) => {
+  const isTest = api.env('test');
+  const isDevelopment = !isProduction && !isTest;
   const config = {
     presets: [
       [
@@ -25,9 +29,16 @@ module.exports = (api) => {
           pure: true,
         },
       ],
-    ],
+      !isTest && [
+        'babel-plugin-direct-import',
+        {
+          modules: ['@mui/lab', '@mui/material', '@mui/styles'],
+        },
+      ],
+      isDevelopment && require.resolve('react-refresh/babel'),
+    ].filter(Boolean),
   };
-  if (!api.env('test')) {
+  if (!isTest) {
     config.presets[0][1].modules = false;
   }
   return config;

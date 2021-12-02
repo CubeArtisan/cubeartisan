@@ -18,20 +18,8 @@
  */
 import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  CardTitle,
-  Collapse,
-  Nav,
-  Navbar,
-  Button,
-  Col,
-  Row,
-  Input,
-  Badge,
-} from 'reactstrap';
+import { Badge, Button } from '@mui/material';
+import { Card, CardBody, CardHeader, CardTitle, Collapse, Nav, Navbar, Col, Row, Input } from 'reactstrap';
 
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
@@ -78,8 +66,8 @@ const Pack = ({ pack, packNumber, pickNumber, makePick, seatIndex, turn }) => (
         {[0, 1, 2].map((col) => (
           <Col key={`col-btn-${col}`} xs="3" md="2">
             <Button
-              block
-              outline
+              fullWidth
+              variant="outlined"
               color="success"
               onClick={() => {
                 makePick({
@@ -100,7 +88,7 @@ const Pack = ({ pack, packNumber, pickNumber, makePick, seatIndex, turn }) => (
           <Col className="my-2" xs="1">
             <Button
               className="float-right h-100"
-              outline
+              variant="outlined"
               color="success"
               onClick={() => {
                 makePick({

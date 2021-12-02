@@ -20,19 +20,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ChartComponent from 'react-chartjs-2';
 import styled from '@cubeartisan/client/utils/styledHelper.js';
-
-import {
-  Col,
-  Row,
-  Table,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  CustomInput,
-  Input,
-  Button,
-  Form,
-} from 'reactstrap';
+import { Button } from '@mui/material';
+import { Col, Row, Table, InputGroup, InputGroupAddon, InputGroupText, CustomInput, Input, Form } from 'reactstrap';
 
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import calculate from '@cubeartisan/client/utils/CalculateHyperGeom.js';
@@ -285,7 +274,7 @@ const HyperGeom = () => {
             value={sampleSuccesses}
             onChange={(event) => setSampleSuccesses(event.target.value, 10)}
           />
-          <Button type="submit" className="mb-3" color="success" block>
+          <Button type="submit" color="success" fullWidth>
             Calculate
           </Button>
         </Form>
@@ -344,7 +333,7 @@ const HyperGeom = () => {
                 </Col>
               ))}
             </Row>
-            <Button className="mb-3" color="danger" block onClick={clear}>
+            <Button color="warning" fullWidth onClick={clear}>
               Reset
             </Button>
           </>

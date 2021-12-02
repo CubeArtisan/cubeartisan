@@ -17,8 +17,9 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { useCallback, useContext, useMemo, useState } from 'react';
+import { Button } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import {
-  Button,
   Row,
   Col,
   CustomInput,
@@ -48,7 +49,6 @@ import ChangelistContext from '@cubeartisan/client/components/contexts/Changelis
 import { ColorChecksAddon } from '@cubeartisan/client/components/ColorCheck.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext.js';
-import LoadingButton from '@cubeartisan/client/components/LoadingButton.js';
 import MassBuyButton from '@cubeartisan/client/components/MassBuyButton.js';
 import TagInput from '@cubeartisan/client/components/TagInput.js';
 import TextBadge from '@cubeartisan/client/components/TextBadge.js';
@@ -294,7 +294,9 @@ const GroupModal = ({ cubeID, canEdit, children, ...props }) => {
                 <ListGroup className="list-outline w-100">
                   {cards.map((card) => (
                     <AutocardListItem key={card.index} card={card} noCardModal inModal>
-                      <Button close className="mr-1" data-index={card.index} onClick={handleRemoveCard} />
+                      <Button data-index={card.index} onClick={handleRemoveCard}>
+                        X
+                      </Button>
                     </AutocardListItem>
                   ))}
                 </ListGroup>
@@ -424,7 +426,7 @@ const GroupModal = ({ cubeID, canEdit, children, ...props }) => {
           </Row>
         </ModalBody>
         <ModalFooter>
-          <Button color="danger" onClick={handleRemoveAll}>
+          <Button color="warning" onClick={handleRemoveAll}>
             Remove all from cube
           </Button>
           <MassBuyButton cards={cards}>Buy all</MassBuyButton>

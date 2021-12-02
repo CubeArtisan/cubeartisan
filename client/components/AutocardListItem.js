@@ -19,14 +19,15 @@
 import React, { useCallback, useContext, useMemo } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import { ListItem, Typography } from '@mui/material';
 
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext.js';
 import TagContext from '@cubeartisan/client/components/contexts/TagContext.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import { cardName } from '@cubeartisan/client/utils/Card.js';
 
-const AutocardDiv = withAutocard('li');
+const AutocardLI = withAutocard(ListItem);
 
 const CARD_NAME_FALLBACK = 'Unidentified Card';
 const CARD_ID_FALLBACK = 'undefined.js';
@@ -36,16 +37,7 @@ const CARD_ID_FALLBACK = 'undefined.js';
  */
 const noOp = () => undefined;
 
-/** 2020-11-18 struesdell:
- *  Pulled out className constants for maintainability
- */
-const styles = {
-  root: 'card-list-item list-group-item',
-  name: 'card-list-item_name',
-  children: 'card-list-item_children',
-};
-
-const AutocardListItem = ({ card, noCardModal, inModal, className, children }) => {
+const AutocardListItem = ({ card, noCardModal, inModal, className }) => {
   const { cardColorClass } = useContext(TagContext);
   const openCardModal = useContext(CardModalContext);
 
@@ -90,17 +82,16 @@ const AutocardListItem = ({ card, noCardModal, inModal, className, children }) =
   const colorClassname = useMemo(() => cardColorClass(card), [card, cardColorClass]);
 
   return (
-    <AutocardDiv
-      className={cx(styles.root, colorClassname, className)}
+    <AutocardLI
+      className={cx(colorClassname, className)}
       card={card}
       onAuxClick={noCardModal ? noOp : handleAuxClick}
       onClick={noCardModal ? noOp : handleClick}
       inModal={inModal}
       role="button"
     >
-      <span className={styles.name}>{name}</span>
-      <span className={styles.children}>{children}</span>
-    </AutocardDiv>
+      <Typography variant="body1">{name}</Typography>
+    </AutocardLI>
   );
 };
 AutocardListItem.propTypes = {
@@ -108,13 +99,11 @@ AutocardListItem.propTypes = {
   noCardModal: PropTypes.bool,
   inModal: PropTypes.bool,
   className: PropTypes.string,
-  children: PropTypes.node,
 };
 AutocardListItem.defaultProps = {
   noCardModal: false,
   inModal: false,
   className: '',
-  children: undefined,
 };
 
 export default AutocardListItem;

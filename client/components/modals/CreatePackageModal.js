@@ -18,12 +18,12 @@
  */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-
+import { Button } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import {
   Modal,
   ModalBody,
   ModalHeader,
-  Button,
   ModalFooter,
   Row,
   Col,
@@ -35,7 +35,6 @@ import {
 } from 'reactstrap';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
-import LoadingButton from '@cubeartisan/client/components/LoadingButton.js';
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
 
 const CreatePackageModal = ({ isOpen, toggle, onError, onSuccess }) => {
@@ -123,7 +122,7 @@ const CreatePackageModal = ({ isOpen, toggle, onError, onSuccess }) => {
           <Col xs="12" md="4">
             <Button
               color="success"
-              block
+              fullWidth
               onClick={submitCard}
               disabled={!(imageDict && imageDict[cardName.toLowerCase()])}
             >
@@ -138,9 +137,9 @@ const CreatePackageModal = ({ isOpen, toggle, onError, onSuccess }) => {
                 <img className="w-100" src={`/card/${cardId}/image/redirect`} alt={cardId} />
                 <Button
                   className="mt-1"
-                  color="danger"
-                  outline
-                  block
+                  color="warning"
+                  variant="outline"
+                  fullWidth
                   onClick={() => {
                     const temp = cards.slice();
                     temp.splice(index, 1);
@@ -155,10 +154,10 @@ const CreatePackageModal = ({ isOpen, toggle, onError, onSuccess }) => {
         </Row>
       </ModalBody>
       <ModalFooter>
-        <LoadingButton color="success" outline onClick={save}>
+        <LoadingButton color="success" variant="outlined" onClick={save}>
           Submit Package
         </LoadingButton>
-        <Button color="danger" outline onClick={toggle}>
+        <Button color="warning" variant="outlined" onClick={toggle}>
           Cancel
         </Button>
       </ModalFooter>

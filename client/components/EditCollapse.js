@@ -17,9 +17,8 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { useCallback, useContext, useState } from 'react';
-
+import { Button } from '@mui/material';
 import {
-  Button,
   Col,
   Collapse,
   Form,
@@ -258,7 +257,7 @@ const EditCollapse = ({ ...props }) => {
           </Form>
         </Row>
         <ResizeModal cubeID={cubeID} />
-        <Button color="success" className="mb-2" onClick={toggleShowMaybeboard}>
+        <Button color="success" size="medium" onClick={toggleShowMaybeboard}>
           Maybeboard
         </Button>
       </Row>
@@ -304,10 +303,10 @@ const EditCollapse = ({ ...props }) => {
           </Row>
           <Row className="mb-2">
             <Col>
-              <Button color="success" className="mr-2" type="submit">
+              <Button color="success" size="medium" type="submit">
                 Save Changes
               </Button>
-              <Button color="danger" onClick={handleDiscardAll}>
+              <Button color="warning" onClick={handleDiscardAll}>
                 Discard All
               </Button>
             </Col>

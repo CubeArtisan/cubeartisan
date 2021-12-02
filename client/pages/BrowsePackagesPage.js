@@ -18,7 +18,7 @@
  */
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-
+import { Button } from '@mui/material';
 import {
   Spinner,
   Card,
@@ -27,7 +27,6 @@ import {
   Col,
   Nav,
   UncontrolledAlert,
-  Button,
   InputGroup,
   InputGroupAddon,
   InputGroupText,
@@ -120,7 +119,7 @@ export const BrowsePackagesPage = ({ loginCallback }) => {
               <Col xs="6">
                 <div className="text-right">
                   <CreatePackageModalLink
-                    outline
+                    variant="outlined"
                     color="success"
                     modalProps={{
                       onError: (message) => {
@@ -151,7 +150,7 @@ export const BrowsePackagesPage = ({ loginCallback }) => {
               onKeyDown={(e) => e.keyCode === 13 && setFilter(filterTemp)}
             />
             <InputGroupAddon addonType="append">
-              <Button color="success" className="square-left" onClick={() => setFilter(filterTemp)}>
+              <Button color="success" onClick={() => setFilter(filterTemp)}>
                 Apply
               </Button>
             </InputGroupAddon>

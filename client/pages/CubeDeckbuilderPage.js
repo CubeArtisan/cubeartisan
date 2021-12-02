@@ -90,8 +90,8 @@ export const CubeDeckbuilderPage = ({ cube, initialDeck, loginCallback }) => {
         // Only one row for the sideboard.
         target.data[0] = 0;
       } else {
-        // Pick row based on CNC.
-        target.data[0] = eventTarget.getAttribute('data-cnc') === 'true' ? 0 : 1;
+        // Pick row based on CMC.
+        target.data[0] = eventTarget.getAttribute('data-cmc') === 'true' ? 0 : 1;
       }
       handleMoveCard(source, target);
     },

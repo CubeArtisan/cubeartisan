@@ -17,16 +17,15 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { forwardRef } from 'react';
-import { Form, Input } from 'reactstrap';
 import PropTypes from 'prop-types';
 
 import { getCsrfToken } from '@cubeartisan/client/utils/CSRF.js';
 
 const CSRFForm = forwardRef(({ children, ...props }, ref) => (
-  <Form ref={ref} {...props}>
-    <Input type="hidden" name="_csrf" value={getCsrfToken() || ''} />
+  <form ref={ref} {...props}>
+    <input type="hidden" name="_csrf" value={getCsrfToken() ?? ''} />
     {children}
-  </Form>
+  </form>
 ));
 
 CSRFForm.propTypes = {

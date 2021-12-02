@@ -17,8 +17,17 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import React, { useCallback, useEffect, useMemo } from 'react';
-import { Col, DropdownItem, DropdownMenu, DropdownToggle, Form, Label, Row, UncontrolledDropdown } from 'reactstrap';
+import React, { useCallback, useEffect } from 'react';
+import {
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  Grid,
+  InputLabel,
+  ListSubheader,
+  MenuItem,
+  Select,
+} from '@mui/material';
 
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import { calculateAsfans } from '@cubeartisan/client/drafting/createdraft.js';
@@ -26,15 +35,6 @@ import { calculateAsfans } from '@cubeartisan/client/drafting/createdraft.js';
 const AsfanDropdown = ({ cube, defaultFormatId, setAsfans }) => {
   const [draftFormat, setDraftFormat] = useQueryParam('formatId', null);
 
-  const labelText = useMemo(() => {
-    if (draftFormat !== null) {
-      if (draftFormat < 0) {
-        return 'Standard Draft Format.js';
-      }
-      return cube.draft_formats[draftFormat].title;
-    }
-    return '';
-  }, [draftFormat, cube]);
   const toggleUseAsfans = useCallback(
     ({ target }) => setDraftFormat(target.checked ? defaultFormatId : null),
     [setDraftFormat, defaultFormatId],
@@ -53,37 +53,40 @@ const AsfanDropdown = ({ cube, defaultFormatId, setAsfans }) => {
       setAsfans(Object.fromEntries(cube.cards.map((card) => [card.cardID, 1])));
     }
   }, [cube, draftFormat, setAsfans]);
+  const changeDraftFormat = (event) => setDraftFormat(event.target.value);
 
   return (
-    <Row>
-      <Col xs="12" sm="6">
-        <Label>
-          <input type="checkbox" checked={draftFormat !== null} onChange={toggleUseAsfans} /> Use expected count per
-          player in a draft format instead of card count.
-        </Label>
-      </Col>
+    <Grid container spacing={1}>
+      <Grid item xs={12} sm={6}>
+        <FormControlLabel
+          control={<Checkbox checked={draftFormat !== null} onChange={toggleUseAsfans} />}
+          label="Use expected count per player in a draft format instead of card count."
+        />
+      </Grid>
       {draftFormat !== null && (
-        <Col xs="12" sm="6">
-          <Form inline>
-            Draft Format:
-            <UncontrolledDropdown disabled={draftFormat === null} className="ml-2">
-              <DropdownToggle caret={draftFormat !== null} color={draftFormat !== null ? 'success' : 'disabled'}>
-                {labelText}
-              </DropdownToggle>
-              <DropdownMenu>
-                <DropdownItem onClick={() => setDraftFormat(-1)}>Standard Draft Format</DropdownItem>
-                {cube.draft_formats.length > 0 && <DropdownItem header>Custom Formats</DropdownItem>}
-                {cube.draft_formats.map((format, index) => (
-                  <DropdownItem key={format._id} onClick={() => setDraftFormat(index)}>
-                    {format.title}
-                  </DropdownItem>
-                ))}
-              </DropdownMenu>
-            </UncontrolledDropdown>
-          </Form>
-        </Col>
+        <Grid item xs="12" sm="6">
+          <FormControl>
+            <InputLabel id="draftformat-selector-label">Draft Format</InputLabel>
+            <Select
+              labelId="draftformat-selector-label"
+              id="draftformat-selector"
+              value={draftFormat}
+              defaultValue={-1}
+              label="Draft Format"
+              onChange={changeDraftFormat}
+            >
+              <MenuItem value={-1}>Standard Draft Format</MenuItem>
+              {cube.draft_formats.length > 0 && <ListSubheader>Custom Formats</ListSubheader>}
+              {cube.draft_formats.map((format, index) => (
+                <MenuItem key={format._id} value={index}>
+                  {format.title}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
       )}
-    </Row>
+    </Grid>
   );
 };
 

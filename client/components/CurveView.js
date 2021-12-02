@@ -64,8 +64,8 @@ const ColorCard = ({ color, group }) => (
       </h5>
     </CardHeader>
     <CardBody>
-      {sortDeep(group, false, 'Alphabetical', 'Creature/Non-Creature').map(([label, cncGroup]) => (
-        <TypeRow key={label} cardType={label} group={cncGroup} />
+      {sortDeep(group, false, 'Alphabetical', 'Creature/Non-Creature').map(([label, cmcGroup]) => (
+        <TypeRow key={label} cardType={label} group={cmcGroup} />
       ))}
     </CardBody>
   </Card>

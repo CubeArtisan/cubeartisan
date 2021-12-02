@@ -17,9 +17,9 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { useContext, useCallback, useMemo } from 'react';
+import { Button } from '@mui/material';
 import {
   Alert,
-  Button,
   Col,
   FormGroup,
   FormText,
@@ -290,7 +290,7 @@ const CustomDraftFormatModal = ({ isOpen, toggle, formatIndex, format, setFormat
         {errorsInFormat &&
           errorsInFormat.map((error, errorIndex) => (
             // eslint-disable-next-line react/no-array-index-key
-            <Alert key={errorIndex} color="danger">
+            <Alert key={errorIndex} color="error">
               {error}
             </Alert>
           ))}

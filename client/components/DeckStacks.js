@@ -18,31 +18,38 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CardBody, CardHeader, CardTitle, Row } from 'reactstrap';
+import { Box, Grid, Stack, Typography } from '@mui/material';
 
 import CardStack from '@cubeartisan/client/components/CardStack.js';
 import DraggableCard from '@cubeartisan/client/components/DraggableCard.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import Location from '@cubeartisan/client/drafting/DraftLocation.js';
 
-const DeckStacks = ({ cards, title, subtitle, locationType, canDrop, onMoveCard, onClickCard, ...props }) => (
-  <>
-    <CardHeader {...props}>
-      <CardTitle className="mb-0 d-flex flex-row align-items-end">
-        <h4 className="mb-0 mr-auto">{title}</h4>
-        <h6 className="mb-0 font-weight-normal d-sm-block">{subtitle}</h6>
-      </CardTitle>
-    </CardHeader>
-    <CardBody className="pt-0">
-      {cards.map((row, index) => (
-        <Row key={/* eslint-disable-line react/no-array-index-key */ index} className="row-low-padding">
-          {row.map((column, index2) => (
-            <CardStack
-              key={/* eslint-disable-line react/no-array-index-key */ index2}
-              location={new Location(locationType, [index, index2, 0])}
-            >
+const DeckStacks = ({
+  cards,
+  title,
+  subtitle,
+  locationType,
+  canDrop,
+  onMoveCard,
+  onClickCard,
+  cardsInRow,
+  ...props
+}) => (
+  <Box sx={{ height: '100%' }} {...props}>
+    <Stack direction="row" sx={{ backgroundColor: 'var(--bg-darker)' }} justifyContent="center" width="100%">
+      <Typography variant="h4">{title}</Typography>
+      <Typography variant="subtitle1" marginLeft="auto">
+        {subtitle}
+      </Typography>
+    </Stack>
+    {cards.map((row, index) => (
+      <Grid container columns={cardsInRow} key={/* eslint-disable-line react/no-array-index-key */ index}>
+        {row.map((column, index2) => (
+          <Grid item xs={1} key={/* eslint-disable-line react/no-array-index-key */ index2}>
+            <CardStack location={new Location(locationType, [index, index2, 0])}>
               {column.map((card, index3) => (
-                <div className="stacked" key={/* eslint-disable-line react/no-array-index-key */ index3}>
+                <div key={/* eslint-disable-line react/no-array-index-key */ index3} className="stacked">
                   <DraggableCard
                     location={new Location(locationType, [index, index2, index3 + 1])}
                     card={card}
@@ -53,11 +60,11 @@ const DeckStacks = ({ cards, title, subtitle, locationType, canDrop, onMoveCard,
                 </div>
               ))}
             </CardStack>
-          ))}
-        </Row>
-      ))}
-    </CardBody>
-  </>
+          </Grid>
+        ))}
+      </Grid>
+    ))}
+  </Box>
 );
 
 DeckStacks.propTypes = {
@@ -69,6 +76,7 @@ DeckStacks.propTypes = {
   onMoveCard: PropTypes.func,
   onClickCard: PropTypes.func,
   canDrop: PropTypes.func,
+  cardsInRow: PropTypes.number,
 };
 
 DeckStacks.defaultProps = {
@@ -76,6 +84,7 @@ DeckStacks.defaultProps = {
   onMoveCard: () => {},
   onClickCard: () => {},
   canDrop: () => true,
+  cardsInRow: 8,
 };
 
 export default DeckStacks;

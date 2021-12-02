@@ -19,8 +19,8 @@
 import React, { useState, useContext } from 'react';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-
-import { UncontrolledDropdown, DropdownToggle, DropdownMenu, Badge, CardHeader, CardFooter } from 'reactstrap';
+import { Badge } from '@mui/material';
+import { UncontrolledDropdown, DropdownToggle, DropdownMenu, CardHeader, CardFooter } from 'reactstrap';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import LinkButton from '@cubeartisan/client/components/LinkButton.js';
@@ -39,7 +39,7 @@ const NotificationsNav = () => {
     <UncontrolledDropdown nav inNavbar>
       <DropdownToggle nav caret>
         {notifications.length > 0 && (
-          <Badge color="danger">{notifications.length > 100 ? '100+' : notifications.length}</Badge>
+          <Badge color="warning">{notifications.length > 100 ? '100+' : notifications.length}</Badge>
         )}
         <img className="notification-icon" src="/content/notification.png" alt="notifications" />
       </DropdownToggle>

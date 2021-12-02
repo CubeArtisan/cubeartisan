@@ -19,8 +19,7 @@
 import React, { useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
-
-import { ListGroup, ListGroupItem } from 'reactstrap';
+import { List, ListSubheader, Typography } from '@mui/material';
 
 import { sortDeep } from '@cubeartisan/client/utils/Sort.js';
 
@@ -43,24 +42,24 @@ const AutocardListGroup = ({ cards, heading, sort, orderedSort, showOther, rowTa
     [cards, openGroupModal, setGroupModalCards],
   );
   return (
-    <ListGroup className="list-outline">
-      <ListGroupItem
-        tag="div"
+    <List dense sx={{ border: '1px solid black', padding: '0px' }}>
+      <ListSubheader
         className={`list-group-heading${canGroupModal ? ' clickable' : ''}`}
         onClick={canGroupModal ? handleClick : undefined}
+        sx={{ backgroundColor: 'var(--bg-darker)' }}
       >
-        {heading}
-      </ListGroupItem>
+        <Typography variant="subtitle1">{heading}</Typography>
+      </ListSubheader>
       {sorted.map(([, group]) =>
         group.map((card, index) => (
           <RowTag
-            key={card._id || (typeof card.index === 'undefined' ? index : card.index)}
+            key={typeof card.index === 'undefined' ? card._id : card.index}
             card={card}
             className={index === 0 ? 'cmc-group' : undefined}
           />
         )),
       )}
-    </ListGroup>
+    </List>
   );
 };
 
