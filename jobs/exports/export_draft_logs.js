@@ -21,8 +21,8 @@ import DraftLog from '@cubeartisan/server/models/draftLog.js';
 import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 import { loadCardToInt, writeFile } from "@cubeartisan/jobs/exports/utils.js";
 
-const batchSize = 256;
-const minFileSize = 128 * 1024 * 1024; // 128 MiB
+const batchSize = 64;
+const minFileSize = 8 * 1024 * 1024; // 128 MiB
 let totalPicks = 0;
 
 const processSeat = (choices, basics, createdAt, cardToInt) => {

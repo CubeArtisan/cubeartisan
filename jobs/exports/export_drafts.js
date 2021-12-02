@@ -12,9 +12,9 @@ import { convertDrafterState, getAllDrafterStates } from "@cubeartisan/client/dr
 import { getObjectCreatedAt, loadCardToInt, writeFile } from "@cubeartisan/jobs/exports/utils.js";
 
 // Number of documents to process at a time
-const batchSize = 256;
+const batchSize = 64;
 // Minimum size in bytes of the output files (last file may be smaller).
-const minFileSize = 128 * 1024 * 1024; // 128 MiB
+const minFileSize = 8 * 1024 * 1024; // 128 MiB
 
 let totalPicks = 0;
 
