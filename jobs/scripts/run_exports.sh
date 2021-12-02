@@ -11,6 +11,7 @@ node `yarn --silent node-options` exports/export_drafts.js $TEMP
 node `yarn --silent node-options` exports/export_draft_logs.js $TEMP
 node `yarn --silent node-options` exports/export_cubes.js  $TEMP
 node `yarn --silent node-options` exports/export_decks.js  $TEMP
-tar -cJf $OUTPUT_DIR/$OUTPUT_FILE $TEMP
-gsutil cp $OUTPUT_DIR/$OUTPUT_FILE gs://cubeartisan/exports/$OUTPUT_FILE
-rm -rf $TEMP $OUTPUT_DIR
+rm -r $TEMP/v8-compile-cache* $TEMP/yarn--*
+# tar -cJf $OUTPUT_DIR/$OUTPUT_FILE $TEMP
+# gsutil cp $OUTPUT_DIR/$OUTPUT_FILE gs://cubeartisan/exports/$OUTPUT_FILE
+# rm -rf $TEMP $OUTPUT_DIR
