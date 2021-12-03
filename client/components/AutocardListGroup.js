@@ -26,12 +26,14 @@ import { sortDeep } from '@cubeartisan/client/utils/Sort.js';
 import AutocardListItem from '@cubeartisan/client/components/AutocardListItem.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext.js';
+import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 
 const AutocardListGroup = ({ cards, heading, sort, orderedSort, showOther, rowTag, noGroupModal }) => {
   const RowTag = rowTag;
   const sorted = sortDeep(cards, showOther, orderedSort, sort);
   const { canEdit } = useContext(CubeContext);
   const { openGroupModal, setGroupModalCards } = useContext(GroupModalContext);
+  const { useSticky } = useContext(DisplayContext);
   const canGroupModal = !noGroupModal && canEdit;
   const handleClick = useCallback(
     (event) => {
@@ -42,13 +44,16 @@ const AutocardListGroup = ({ cards, heading, sort, orderedSort, showOther, rowTa
     [cards, openGroupModal, setGroupModalCards],
   );
   return (
-    <List dense sx={{ border: '1px solid black', padding: '0px' }}>
+    <List dense sx={{ border: '1px solid black', padding: '0px', marginY: 1 }}>
       <ListSubheader
         className={`list-group-heading${canGroupModal ? ' clickable' : ''}`}
         onClick={canGroupModal ? handleClick : undefined}
-        sx={{ backgroundColor: 'var(--bg-darker)' }}
+        sx={{ backgroundColor: 'var(--header)', paddingLeft: 0.5, paddingRight: 0, PaddingY: 1 }}
+        disableSticky={!useSticky}
       >
-        <Typography variant="subtitle1">{heading}</Typography>
+        <Typography variant="subtitle2" color="rgba(0,0,0,0.8)">
+          {heading}
+        </Typography>
       </ListSubheader>
       {sorted.map(([, group]) =>
         group.map((card, index) => (
