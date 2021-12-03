@@ -34,7 +34,7 @@ const TableView = ({ cards, rowTag, noGroupModal }) => {
     <Container maxWidth={false} disableGutters xs={{ width: '100%' }}>
       <Grid container spacing={1}>
         {sorted.map(([columnLabel, column]) => (
-          <Grid item key={columnLabel} xs="auto" sx={{ width: { xs: 100, md: 200 } }}>
+          <Grid item key={columnLabel} xs="auto" sx={{ width: { xs: 80, md: 200 } }}>
             <Typography variant="subtitle1" align="center">
               <>
                 {columnLabel}

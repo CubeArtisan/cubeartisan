@@ -134,7 +134,7 @@ export function GetColorIdentity(colors) {
     return 'None';
   }
   if (colors.length > 1) {
-    return 'Multicolored';
+    return 'Gold';
   }
 }
 
@@ -289,7 +289,7 @@ function getLabelsRaw(cube, sort, showOther) {
 
   /* Start of sort Options */
   if (sort === 'Color Category') {
-    ret = ['White', 'Blue', 'Black', 'Red', 'Green', 'Hybrid', 'Multicolored', 'Colorless', 'Lands'];
+    ret = ['White', 'Blue', 'Black', 'Red', 'Green', 'Hybrid', 'Gold', 'Colorless', 'Lands'];
   } else if (sort === 'Color Category Full') {
     ret = SINGLE_COLOR.concat(['Colorless'])
       .concat(GUILDS)
@@ -297,7 +297,7 @@ function getLabelsRaw(cube, sort, showOther) {
       .concat(FOUR_AND_FIVE_COLOR)
       .concat(['Lands']);
   } else if (sort === 'Color Identity') {
-    ret = ['White', 'Blue', 'Black', 'Red', 'Green', 'Multicolored', 'Colorless'];
+    ret = ['White', 'Blue', 'Black', 'Red', 'Green', 'Gold', 'Colorless'];
   } else if (sort === 'Color Identity Full') {
     ret = SINGLE_COLOR.concat(['Colorless']).concat(GUILDS).concat(SHARDS_AND_WEDGES).concat(FOUR_AND_FIVE_COLOR);
   } else if (sort === 'Color Combination Includes' || sort === 'Includes Color Combination') {
@@ -483,7 +483,7 @@ export function cardGetLabels(card, sort, showOther) {
     ret = [card.colorCategory ?? GetColorCategory(cardType(card), cardColorIdentity(card))];
   } else if (sort === 'Color Category Full') {
     const colorCategory = card.colorCategory ?? GetColorCategory(cardType(card), cardColorIdentity(card));
-    if (colorCategory === 'Multicolored') {
+    if (colorCategory === 'Gold') {
       ret = [getColorCombination(cardColorIdentity(card))];
     } else {
       ret = [colorCategory];
