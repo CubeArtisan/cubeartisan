@@ -30,12 +30,11 @@ const TableView = ({ cards, rowTag, noGroupModal }) => {
   const { primary, secondary, tertiary, quaternary, showOther } = useContext(SortContext);
 
   const sorted = sortDeep(cards, showOther, quaternary, primary, secondary);
-  const columns = { xs: Math.min(sorted.length, 2), md: Math.min(sorted.length, 9) };
   return (
     <Container maxWidth={false} disableGutters>
-      <Grid container spacing={1} columns={columns}>
+      <Grid container spacing={1} columns={16}>
         {sorted.map(([columnLabel, column]) => (
-          <Grid item key={columnLabel} xs={1} md={1}>
+          <Grid item key={columnLabel} xs="auto" lg={2} sx={{ maxWidth: { xs: 180 } }}>
             <Typography variant="h6">
               <>
                 {columnLabel}
