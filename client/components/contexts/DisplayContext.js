@@ -24,6 +24,7 @@ const DisplayContext = createContext({
   compressedView: false,
   showMaybeboard: false,
   cardsInRow: 8,
+  useSticky: false,
 });
 
 export const DisplayContextProvider = ({ cubeID, defaultNumCols, ...props }) => {
@@ -56,6 +57,20 @@ export const DisplayContextProvider = ({ cubeID, defaultNumCols, ...props }) => 
     setCardsInRow(newCardsInRow);
   }, []);
 
+  const [useSticky, setUseSticky] = useState(
+    () => typeof localStorage !== 'undefined' && localStorage.getItem('useSticky') === 'true',
+  );
+  const toggleUseSticky = useCallback(() => {
+    setUseSticky((oldSticky) => {
+      if (oldSticky) {
+        localStorage.setItem('useSticky', 'false');
+        return false;
+      }
+      localStorage.setItem('useSticky', 'true');
+      return true;
+    });
+  }, []);
+
   const value = {
     showCustomImages,
     toggleShowCustomImages,
@@ -65,6 +80,8 @@ export const DisplayContextProvider = ({ cubeID, defaultNumCols, ...props }) => 
     toggleShowMaybeboard,
     cardsInRow,
     setCardsInRow: updateCardsInRow,
+    useSticky,
+    toggleUseSticky,
   };
   return <DisplayContext.Provider value={value} {...props} />;
 };

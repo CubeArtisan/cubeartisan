@@ -89,8 +89,9 @@ const AutocardListItem = ({ card, noCardModal, inModal, className }) => {
       onClick={noCardModal ? noOp : handleClick}
       inModal={inModal}
       role="button"
+      sx={{ paddingLeft: 0.5, paddingRight: 0, PaddingY: 0.25 }}
     >
-      <Typography sx={{ overflowWrap: 'break-word', width: '100%' }} variant="body1">
+      <Typography noWrap sx={{ width: '100%' }} variant="body2">
         {name}
       </Typography>
     </AutocardLI>

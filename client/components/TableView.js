@@ -31,14 +31,14 @@ const TableView = ({ cards, rowTag, noGroupModal }) => {
 
   const sorted = sortDeep(cards, showOther, quaternary, primary, secondary);
   return (
-    <Container maxWidth={false} disableGutters>
-      <Grid container spacing={1} columns={16}>
+    <Container maxWidth={false} disableGutters xs={{ width: '100%' }}>
+      <Grid container spacing={1}>
         {sorted.map(([columnLabel, column]) => (
-          <Grid item key={columnLabel} xs="auto" lg={2} sx={{ maxWidth: { xs: 180 } }}>
-            <Typography variant="h6">
+          <Grid item key={columnLabel} xs="auto" sx={{ width: { xs: 100, md: 200 } }}>
+            <Typography variant="subtitle1" align="center">
               <>
                 {columnLabel}
-                {': '}
+                :<br />
                 {countGroup(column)}
               </>
             </Typography>

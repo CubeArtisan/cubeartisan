@@ -348,6 +348,8 @@ const CubeListNavbar = ({
     toggleCompressedView,
     showMaybeboard,
     toggleShowMaybeboard,
+    useSticky,
+    toggleUseSticky,
   } = useContext(DisplayContext);
 
   const onCubeUpdate = (updated) => {
@@ -499,6 +501,9 @@ const CubeListNavbar = ({
                 </DropdownItem>
                 <DropdownItem onClick={() => changeSort({ showOther: !showOther })}>
                   {showOther ? 'Hide Unsorted Cards' : 'Show Unsorted Cards'}
+                </DropdownItem>
+                <DropdownItem onClick={() => toggleUseSticky()}>
+                  {`${useSticky ? 'Disable' : 'Enable'} Sticky Column Headers.`}
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
