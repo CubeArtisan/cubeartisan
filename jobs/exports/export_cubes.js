@@ -11,9 +11,9 @@ import carddb from '@cubeartisan/server/serverjs/cards.js';
 import { getObjectCreatedAt, loadCardToInt, writeFile } from '@cubeartisan/jobs/exports/utils.js';
 
 // Number of documents to process at a time
-const batchSize = 128;
+const batchSize = 1024;
 // Minimum size in bytes of the output files (last file may be smaller).
-const minFileSize = 8 * 1024 * 1024; // 128 MB
+const minFileSize = 128 * 1024 * 1024; // 128 MB
 
 const isValidCube = (cube) => (cube?.cards?.length ?? 0) > 0 && cube.isListed !== false;
 
