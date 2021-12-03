@@ -90,7 +90,9 @@ const AutocardListItem = ({ card, noCardModal, inModal, className }) => {
       inModal={inModal}
       role="button"
     >
-      <Typography variant="body1">{name}</Typography>
+      <Typography sx={{ overflowWrap: 'break-word', width: '100%' }} variant="body1">
+        {name}
+      </Typography>
     </AutocardLI>
   );
 };
