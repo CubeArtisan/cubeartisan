@@ -1,18 +1,21 @@
 name: Build Docker For Production
 on:
   push:
-    tags:
-      - 'v*'
+    branch: prod
 jobs:
   build:
     name: Create Release, Build Docker, and Deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Get Tag Name
-        run: echo "TAG=`echo $(git describe --tags --abbrev=0)`" >> $GITHUB_ENV
+      - name: Parse Release Notes
+        run: |
+          sed -n "{1! G;$ p;h}" RELEASE_NOTES.md | sed '/#\+ v/q' | sed -n "{1! G;$ p;h}" > THIS_RELEASE_NOTES.md
+          export STOR=`head -n 1 THIS_RELEASE_NOTES.md | sed 's/^\(#\+\) \(v.*\)/\1/'`
+          echo "TAG=`head -n 1 THIS_RELEASE_NOTES.md | sed 's/^\(#\+\) \(v.*\)/\2/'`" >> $GITHUB_ENV
+          tail -n +3 THIS_RELEASE_NOTES.md | sed 's/^'$STOR'//g' > FINAL_RELEASE_NOTES.md
       - name: Get Repository Owner
-        run: echo "REPOSITORY=`echo "ghcr.io/${{ github.repository_owner }}" | tr "[:upper:]" "[:lower:]"`" >> $GITHUB_ENV
+        run: echo "REPOSITORY=`echo 'ghcr.io/${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]'`" >> $GITHUB_ENV
       - name: Show tag and repo
         run: 'echo "REPOSITORY: $REPOSITORY" && echo "TAG: $TAG"'
       - name: Build the Docker image
@@ -31,6 +34,7 @@ jobs:
           release_name: Release ${{ env.TAG }}
           draft: false
           prerelease: false
+          body_path: FINAL_RELEASE_NOTES.md
       - name: Trigger deploy
         run: |
           curl \
