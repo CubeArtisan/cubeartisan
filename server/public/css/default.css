@@ -22,7 +22,7 @@
   --link-secondary: hsl(200, 90%, 90%);
   --link-secondary-hover: hsl(215, 35%, 80%);
   --text-light: hsl(255, 15%, 30%);
-  --header: hsla(260, 60%, 25%, 0.2);
+  --header: hsla(260, 60%, 25%, 0.1);
   --hover:  hsla(260, 40%, 15%, .1);
   --shadow: hsla(250, 85%, 10%, 0.25);
   --shadow-light: hsla(255, 95%, 10%, 0.1);

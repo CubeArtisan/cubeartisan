@@ -227,24 +227,36 @@ const CardModal = ({
       </ModalBody>
       <ModalFooter>
         {!disabled && !maybe && (
-          <Button color="warning" onClick={queueRemoveCard}>
+          <Button color="error" onClick={queueRemoveCard} variant="contained" sx={{ margin: 0.5 }}>
             <span className="d-none d-sm-inline">Remove from cube</span>
             <span className="d-sm-none">Remove</span>
           </Button>
         )}
-        <Button color="secondary" href={card.details.scryfall_uri} target="_blank">
+        <Button
+          color="secondary"
+          href={card.details.scryfall_uri}
+          target="_blank"
+          variant="contained"
+          sx={{ margin: 0.5 }}
+        >
           <span className="d-none d-sm-inline">View on Scryfall</span>
           <span className="d-sm-none">Scryfall</span>
         </Button>
-        <Button color="secondary" href={`/card/${card.cardID}`} target="_blank">
+        <Button
+          color="secondary"
+          href={`/card/${card.cardID}`}
+          target="_blank"
+          variant="contained"
+          sx={{ margin: 0.5 }}
+        >
           <span className="d-none d-sm-inline">View card analytics</span>
           <span className="d-sm-none">Analytics</span>
         </Button>
-        <Button color="secondary" href={getTCGLink(card)} target="_blank">
+        <Button color="secondary" href={getTCGLink(card)} target="_blank" variant="contained" sx={{ margin: 0.5 }}>
           Buy
         </Button>
         {!disabled && (
-          <LoadingButton color="success" onClick={saveChanges}>
+          <LoadingButton color="success" onClick={saveChanges} variant="contained" sx={{ margin: 0.5 }}>
             <span className="d-none d-sm-inline">Save changes</span>
             <span className="d-sm-none">Save</span>
           </LoadingButton>

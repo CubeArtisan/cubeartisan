@@ -34,7 +34,7 @@ const colorMap = {
   Red: '#D85F69',
   Green: '#6AB572',
   Colorless: '#ADADAD',
-  Multicolored: '#DBC467',
+  Gold: '#DBC467',
 };
 const colors = [...Object.values(colorMap), '#000000'];
 const getColor = (label, index) => {
