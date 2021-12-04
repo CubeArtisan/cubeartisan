@@ -134,11 +134,16 @@
 ### v1.3.0
 
 - Start updating the UI to a new style. This will be a work in progress for quite a while.
-- Update cockatrice export format.
+- Update cockatrice export format. Thanks to @rudyards for this.
 - Better messages about what the draft is waiting on. Including a message that you have
-  to be logged in.
+  to be logged in. Thanks to @k9err for this.
+- Enable sideboarding while drafting.
 
-- Fix issue where the last card in a draft was not added to pools.
+- Fix issue where the last card in a draft was not added to pools. Thanks to @k9err for this.
+
+### v1.3.1.0
+
+- Improve the Cube List page's Table View and Card Modal UI. Thanks to @SirFunchalot for feedback.
 
 ## Known Issues
 
