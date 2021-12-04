@@ -12,9 +12,9 @@ import { convertDrafterState, getAllDrafterStates } from "@cubeartisan/client/dr
 import { getObjectCreatedAt, loadCardToInt, writeFile } from "@cubeartisan/jobs/exports/utils.js";
 
 // Number of documents to process at a time
-const batchSize = 64;
+const batchSize = 128;
 // Minimum size in bytes of the output files (last file may be smaller).
-const minFileSize = 8 * 1024 * 1024; // 128 MiB
+const minFileSize = 128 * 1024 * 1024; // 128 MiB
 
 let totalPicks = 0;
 
@@ -105,7 +105,7 @@ try {
       for (; i < nextBound; i++) {
         const draft = await cursor.next();
         if (isValidDraft(draft)) {
-          processedDrafts.push(...processDraft(draft, cardToInt));
+          processingDrafts.push(...processDraft(draft, cardToInt));
         }
       }
       size += Buffer.byteLength(JSON.stringify(processingDrafts));

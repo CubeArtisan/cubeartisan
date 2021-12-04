@@ -9,7 +9,7 @@ import { getObjectCreatedAt, loadCardToInt, writeFile } from '@cubeartisan/jobs/
 // Number of documents to process at a time
 const batchSize = 256;
 // Minimum size in bytes of the output files (last file may be smaller).
-const minFileSize = 8 * 1024 * 1024; // 128 MB
+const minFileSize = 128 * 1024 * 1024; // 128 MB
 
 const processDeck = (deck, cardToInt) => {
   const main = [];
