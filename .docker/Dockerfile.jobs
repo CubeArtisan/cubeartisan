@@ -40,6 +40,7 @@ COPY ./client/nearley    client/nearley/
 COPY ./client/pages      client/pages/
 COPY ./client/proptypes  client/proptypes/
 COPY ./client/res        client/res/
+COPY ./client/theming    client/theming/
 COPY ./client/utils      client/utils/
 
 COPY ./markdown/index.js markdown/index.js
