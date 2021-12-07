@@ -18,7 +18,7 @@
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ThemeProvider } from '@mui/material/styles/index.js';
+import { ThemeProvider } from '@mui/material/node/styles/index.js';
 
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
 import SiteCustomizationContext, {

@@ -13,7 +13,7 @@ const defaultTheme = {
   direction: 'ltr',
   components: {},
   shape: {
-    borderRadius: 8,
+    borderRadius: 10,
   },
   props: {
     MuiTooltip: {
