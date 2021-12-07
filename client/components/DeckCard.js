@@ -18,7 +18,7 @@
  */
 import React, { lazy } from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardBody, CardHeader, CardTitle, Col, Row, Spinner } from 'reactstrap';
+import { CircularProgress, Grid, Paper, Stack, Typography } from '@mui/material';
 
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import DraftSeatPropType from '@cubeartisan/client/proptypes/DraftSeatPropType.js';
@@ -28,24 +28,23 @@ import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import { makeSubtitle } from '@cubeartisan/client/utils/Card.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import CardHeader from '@cubeartisan/client/components/CardHeader.js';
 
 const DecksPickBreakdown = lazy(async () => import('@cubeartisan/client/components/DecksPickBreakdown.js'));
 const DraftbotBreakdown = lazy(async () => import('@cubeartisan/client/components/DraftbotBreakdown.js'));
 
 const DeckStacksStatic = ({ piles, cards }) => (
-  <CardBody className="pt-0 border-bottom">
-    {piles.map((row, index) => (
-      <Row key={/* eslint-disable-line react/no-array-index-key */ index} className="row-low-padding">
-        {row.map((column, index2) => (
-          <Col
-            key={/* eslint-disable-line react/no-array-index-key */ index2}
-            className="card-stack col-md-1-5 col-lg-1-5 col-xl-1-5 col-low-padding"
-            xs={3}
-          >
-            <div className="w-100 text-center mb-1">
-              <b>{column.length > 0 ? column.length : ''}</b>
-            </div>
-            <div className="stack">
+  <Grid container>
+    {piles.map((row, index) =>
+      row
+        .map((column, index2) => (
+          <Grid key={/* eslint-disable-line react/no-array-index-key */ `${index}-${index2}`} item xs={3}>
+            {column.length > 0 && (
+              <Typography align="center" variant="body1" fontWeight="bold">
+                {column.length}
+              </Typography>
+            )}
+            <Stack>
               {column.map((cardIndex, index3) => {
                 const card = cards[cardIndex];
                 return (
@@ -56,12 +55,12 @@ const DeckStacksStatic = ({ piles, cards }) => (
                   </div>
                 );
               })}
-            </div>
-          </Col>
-        ))}
-      </Row>
-    ))}
-  </CardBody>
+            </Stack>
+          </Grid>
+        ))
+        .flat(2),
+    )}
+  </Grid>
 );
 
 DeckStacksStatic.propTypes = {
@@ -106,76 +105,61 @@ const DeckCard = ({ seat, deck, seatIndex, draft, view }) => {
   }
 
   return (
-    <Card>
+    <Paper elevation={4}>
       <CardHeader>
-        <CardTitle className="mb-0 d-flex flex-row align-items-end">
-          <h4 className="mb-0 mr-auto">{seat.name}</h4>
+        <Stack>
+          <Typography variant="h4">{seat.name}</Typography>
           {!seat.bot && (
-            <h6 className="mb-0 font-weight-normal d-none d-sm-block">
+            <Typography variant="h6">
               Drafted by {seat.userid ? <a href={`/user/${seat.userid}`}>{seat.username}</a> : 'Anonymous'}
-            </h6>
+            </Typography>
           )}
-        </CardTitle>
+        </Stack>
       </CardHeader>
-      <Suspense fallback={<Spinner />}>
-        {view === 'picks' && (
-          <CardBody>
-            {draft ? (
-              <DecksPickBreakdown deck={deck} seatIndex={draftSeatIndex} draft={draft} />
-            ) : (
-              <h4>This deck does not have a related draft log.</h4>
-            )}
-          </CardBody>
-        )}
+      <Suspense fallback={<CircularProgress />}>
+        {view === 'picks' &&
+          (draft ? (
+            <DecksPickBreakdown deck={deck} seatIndex={draftSeatIndex} draft={draft} />
+          ) : (
+            <h4>This deck does not have a related draft log.</h4>
+          ))}
         {view === 'deck' && (
           <>
-            <Row className="mt-3">
-              <Col>
-                <DeckStacksStatic
-                  piles={stackedDeck}
-                  cards={deck.cards}
-                  title="Deck"
-                  subtitle={makeSubtitle(
-                    seat.deck
-                      .flat()
-                      .flat()
-                      .map((cardIndex) => deck.cards[cardIndex]),
-                  )}
-                />
-              </Col>
-            </Row>
+            <DeckStacksStatic
+              piles={stackedDeck}
+              cards={deck.cards}
+              title="Deck"
+              subtitle={makeSubtitle(
+                seat.deck
+                  .flat()
+                  .flat()
+                  .map((cardIndex) => deck.cards[cardIndex]),
+              )}
+            />
             {stackedSideboard && stackedSideboard.length > 0 && (
-              <Row>
-                <Col>
-                  <CardBody className="border-bottom">
-                    <h4>Sideboard</h4>
-                  </CardBody>
-                  <DeckStacksStatic piles={stackedSideboard} cards={deck.cards} title="Sideboard" />
-                </Col>
-              </Row>
+              <>
+                <CardHeader className="border-bottom">
+                  <h4>Sideboard</h4>
+                </CardHeader>
+                <DeckStacksStatic piles={stackedSideboard} cards={deck.cards} title="Sideboard" />
+              </>
             )}
           </>
         )}
-        {view === 'draftbot' && (
-          <CardBody>
-            {draft ? (
-              <DraftbotBreakdown deck={deck} seatIndex={draftSeatIndex} draft={draft} />
-            ) : (
-              <h4>This deck does not have a related draft log.</h4>
-            )}
-          </CardBody>
-        )}
+        {view === 'draftbot' &&
+          (draft ? (
+            <DraftbotBreakdown deck={deck} seatIndex={draftSeatIndex} draft={draft} />
+          ) : (
+            <h4>This deck does not have a related draft log.</h4>
+          ))}
       </Suspense>
-      <CardBody>
-        <Markdown markdown={seat.description} />
-      </CardBody>
+      <Markdown markdown={seat.description} />
       <div className="border-top">
         <CommentsSection parentType="deck" parent={deck._id} collapse={false} />
       </div>
-    </Card>
+    </Paper>
   );
 };
-
 DeckCard.propTypes = {
   seat: DraftSeatPropType.isRequired,
   view: PropTypes.string,
@@ -186,7 +170,6 @@ DeckCard.propTypes = {
   deck: DeckPropType.isRequired,
   seatIndex: PropTypes.string.isRequired,
 };
-
 DeckCard.defaultProps = {
   view: 'deck',
 };

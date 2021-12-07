@@ -37,7 +37,7 @@ const DeckStacks = ({
   ...props
 }) => (
   <Box sx={{ height: '100%' }} {...props}>
-    <Stack direction="row" sx={{ backgroundColor: 'var(--bg-darker)' }} justifyContent="center" width="100%">
+    <Stack direction="row" sx={{ backgroundColor: 'background.darker' }} justifyContent="center" width="100%">
       <Typography variant="h4">{title}</Typography>
       <Typography variant="subtitle1" marginLeft="auto">
         {subtitle}

@@ -19,6 +19,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Collapse, Nav, NavItem, NavLink, Navbar, NavbarToggler } from 'reactstrap';
+import { Link, Typography } from '@mui/material';
 
 import FilterCollapse from '@cubeartisan/client/components/FilterCollapse.js';
 import SortCollapse from '@cubeartisan/client/components/SortCollapse.js';
@@ -26,17 +27,6 @@ import TagColorsModal from '@cubeartisan/client/components/modals/TagColorsModal
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
-import styled from '@cubeartisan/client/utils/styledHelper.js';
-
-const BrandedH5 = styled('h5')`
-  color: var(--success);
-`;
-const BrandedH6 = styled('h5')`
-  color: var(--success);
-`;
-const BrandedLink = styled('a')`
-  color: var(--success);
-`;
 
 const CubeCompareNavbar = ({ cubeA, cubeB, cards, filter, setFilter, setOpenCollapse, openCollapse }) => {
   const [isOpen, toggleOpen] = useToggle(false);
@@ -63,17 +53,19 @@ const CubeCompareNavbar = ({ cubeA, cubeB, cards, filter, setFilter, setOpenColl
       <div className="cubenav">
         <ul className="nav nav-tabs nav-fill pt-2">
           <li className="nav-item">
-            <BrandedH5>Compare Cubes</BrandedH5>
-            <BrandedH6 className="my-3">
-              <span className="text-muted">Base Cube:</span>{' '}
-              <BrandedLink href={`/cube/${cubeA.shortID}/list`} className="mr-3">
+            <Typography variant="h5" color="success">
+              Compare Cubes
+            </Typography>
+            <Typography variant="h6" color="success">
+              Base Cube:{' '}
+              <Link variant="inherit" color="success" href={`/cube/${cubeA.shortID}/list`}>
                 {cubeA.name} ({cubeA.card_count} cards)
-              </BrandedLink>{' '}
-              <span className="text-muted">Comparison Cube:</span>{' '}
-              <BrandedLink href={`/cube/${cubeB.shortID}/list`}>
+              </Link>{' '}
+              Comparison Cube:{' '}
+              <Link href={`/cube/${cubeB.shortID}/list`} color="success" variant="inherit">
                 {cubeB.name} ({cubeB.card_count} cards)
-              </BrandedLink>
-            </BrandedH6>
+              </Link>
+            </Typography>
           </li>
         </ul>
       </div>

@@ -157,3 +157,9 @@
 ### Bug Fixes
 
 - Fix CSRF form not forwarding ref correctly causing decks to not be saveable.
+
+## v1.3.3.0
+
+### Features
+
+- Migrate The Deck Page view to the new UI style.
