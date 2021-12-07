@@ -261,7 +261,7 @@ export const GridDraftPage = ({ cube, initialDraft, seatNumber, loginCallback })
           <DynamicFlash />
           <CSRFForm
             className="d-none"
-            innerRef={submitDeckForm}
+            ref={submitDeckForm}
             method="POST"
             action={`/griddraft/${initialDraft._id}/submit`}
           >

@@ -18,7 +18,7 @@
  */
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Button, Container, Divider, Grid, Link, Paper, Stack, Typography } from '@mui/material';
+import { Button, Container, Divider, Grid, Link, Paper, Stack, Typography } from '@mui/material';
 
 import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
@@ -31,6 +31,7 @@ import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import CardHeader from '@cubeartisan/client/components/CardHeader.js';
 
 const AddGroupToCubeModalLink = withModal(Button, AddGroupToCubeModal);
 const AutocardA = withAutocard('a');
@@ -87,7 +88,7 @@ const CardPackage = ({ cardPackage, refresh }) => {
   return (
     <Container>
       <Stack divider={<Divider orientation="horizontal" flexItem />} spacing={1}>
-        <Box sx={{ backgroundColor: 'var(--bg-darker)' }}>
+        <CardHeader>
           <Grid container spacing={1}>
             <Grid item xs={12} sm={6}>
               <Link variant="h5" href={`/package/${cardPackage._id}`}>
@@ -150,7 +151,7 @@ const CardPackage = ({ cardPackage, refresh }) => {
               </Grid>
             )}
           </Grid>
-        </Box>
+        </CardHeader>
         <Grid container spacing={2} columns={cardsInRow}>
           {cardPackage.cards.map((cardId) => (
             <Grid item key={`${cardPackage._id}-${cardId}`} xs={1}>

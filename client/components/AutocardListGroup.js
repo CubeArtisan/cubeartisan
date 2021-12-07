@@ -48,7 +48,7 @@ const AutocardListGroup = ({ cards, heading, sort, orderedSort, showOther, rowTa
       <ListSubheader
         className={`list-group-heading${canGroupModal ? ' clickable' : ''}`}
         onClick={canGroupModal ? handleClick : undefined}
-        sx={{ backgroundColor: 'var(--header)', paddingLeft: 0.5, paddingRight: 0, PaddingY: 1 }}
+        sx={{ backgroundColor: 'background.header', paddingLeft: 0.5, paddingRight: 0, PaddingY: 1 }}
         disableSticky={!useSticky}
       >
         <Typography variant="subtitle2" color="rgba(0,0,0,0.8)">

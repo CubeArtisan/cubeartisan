@@ -52,6 +52,7 @@ import manageWebsocketDraft from "@cubeartisan/server/routes/websockets/wsDraft.
 const __filename = fileURLToPath(import.meta.url);
 // eslint-disable-next-line no-underscore-dangle
 const __dirname = path.dirname(__filename);
+// eslint-disable-next-line prettier/prettier
 await connectionQ();
 const MongoDBStore = MongoDBStoreFactory(session);
 const db = mongoose.connection;

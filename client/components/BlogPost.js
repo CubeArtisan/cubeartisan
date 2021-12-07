@@ -18,7 +18,7 @@
  */
 import React, { lazy, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Divider, Grid, Link, Paper, Stack, Typography } from '@mui/material';
+import { Divider, Grid, Link, Paper, Stack, Typography } from '@mui/material';
 
 import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType.js';
 import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
@@ -26,6 +26,7 @@ import UserContext from '@cubeartisan/client/components/contexts/UserContext.js'
 import BlogContextMenu from '@cubeartisan/client/components/BlogContextMenu.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import CardHeader from '@cubeartisan/client/components/CardHeader.js';
 
 const CommentsSection = lazy(() => import('@cubeartisan/client/components/CommentsSection.js'));
 
@@ -35,7 +36,7 @@ const BlogPost = ({ post, onEdit }) => {
 
   return (
     <Paper elevation={3}>
-      <Box sx={{ backgroundColor: 'var(--bg-darker)' }}>
+      <CardHeader>
         <Grid container spacing={1}>
           <Grid item xs={11}>
             <Link variant="h4" underline="hover" color="inherit" href={`/cube/${post.cube}/blog/post/${post._id}`}>
@@ -57,7 +58,7 @@ const BlogPost = ({ post, onEdit }) => {
           {' — '}
           <TimeAgo date={post.date} />
         </Typography>
-      </Box>
+      </CardHeader>
       <Stack divider={<Divider orientation="horizontal" flexItem />} spacing={1}>
         <Markdown markdown={post.markdown} limited />
         <Suspense>

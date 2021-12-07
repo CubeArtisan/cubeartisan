@@ -19,18 +19,7 @@
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { io } from 'socket.io-client';
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  CircularProgress,
-  Divider,
-  Grid,
-  Paper,
-  Stack,
-  Toolbar,
-  Typography,
-} from '@mui/material';
+import { Button, ButtonGroup, CircularProgress, Divider, Grid, Paper, Stack, Toolbar, Typography } from '@mui/material';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
@@ -60,6 +49,7 @@ import {
   initializeMtgDraftbots,
   validActions,
 } from '@cubeartisan/client/drafting/draftutil.js';
+import CardHeader from '@cubeartisan/client/components/CardHeader.js';
 
 const oppositeLocation = {
   [DraftLocation.PICKS]: DraftLocation.SIDEBOARD,
@@ -88,7 +78,7 @@ const Pack = ({
   const { cardsInRow } = useContext(DisplayContext);
   return (
     <Stack divider={<Divider />}>
-      <Box sx={{ backgroundColor: 'var(--bg-darker)' }}>
+      <CardHeader>
         <Typography variant="h4">
           {Number.isInteger(pickNumber) && pickNumber ? (
             <>
@@ -120,37 +110,35 @@ const Pack = ({
             {seconds} second{seconds > 1 ? 's' : ''} remaining to choose.
           </Typography>
         )}
-      </Box>
-      <Box>
-        {pack.length > 0 ? (
-          <Grid container columns={cardsInRow} spacing={0}>
-            {pack.map((card, index) => (
-              <Grid
-                item
-                xs={1}
-                key={/* eslint-disable-line react/no-array-index-key */ `${packNumber}:${pickNumber}:${index}`}
-                cardsinrow={cardsInRow}
-                className="justify-content-center align-items-center"
-              >
-                {picking === index && <CircularProgress className="position-relative" />}
-                <DraggableCard
-                  location={DraftLocation.pack([index])}
-                  data-index={index}
-                  card={card}
-                  canDrop={canDrop}
-                  onMoveCard={picking === null ? onMoveCard : undefined}
-                  onClick={picking === null ? onClickCard : undefined}
-                  className={picking === index ? 'transparent' : undefined}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        ) : (
-          <>
-            <CircularProgress /> <h6>{waitingMessage}</h6>
-          </>
-        )}
-      </Box>
+      </CardHeader>
+      {pack.length > 0 ? (
+        <Grid container columns={cardsInRow} spacing={0}>
+          {pack.map((card, index) => (
+            <Grid
+              item
+              xs={1}
+              key={/* eslint-disable-line react/no-array-index-key */ `${packNumber}:${pickNumber}:${index}`}
+              cardsinrow={cardsInRow}
+              className="justify-content-center align-items-center"
+            >
+              {picking === index && <CircularProgress className="position-relative" />}
+              <DraggableCard
+                location={DraftLocation.pack([index])}
+                data-index={index}
+                card={card}
+                canDrop={canDrop}
+                onMoveCard={picking === null ? onMoveCard : undefined}
+                onClick={picking === null ? onClickCard : undefined}
+                className={picking === index ? 'transparent' : undefined}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      ) : (
+        <>
+          <CircularProgress /> <h6>{waitingMessage}</h6>
+        </>
+      )}
     </Stack>
   );
 };
@@ -297,7 +285,7 @@ const CubeDraftPlayerUI = ({
 
   return (
     <Stack spacing={1}>
-      <Toolbar sx={{ backgroundColor: 'var(--bg-hover)' }}>
+      <Toolbar sx={{ backgroundColor: 'bg.hover' }}>
         <ButtonGroup variant="outlined" sx={{ width: ' 100%' }}>
           <Grid container>
             <Grid item xs="auto">
@@ -332,9 +320,9 @@ const CubeDraftPlayerUI = ({
             {showBotBreakdown && (
               <Paper elevation={3}>
                 <ErrorBoundary>
-                  <Box sx={{ backgroundColor: 'var(--bg-darker)' }}>
+                  <CardHeader>
                     <Typography variant="h4">Draftbot Breakdown</Typography>
-                  </Box>
+                  </CardHeader>
                   <DraftbotBreakdownTable drafterState={drafterState} />
                 </ErrorBoundary>
               </Paper>

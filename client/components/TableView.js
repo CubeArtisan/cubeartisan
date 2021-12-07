@@ -38,7 +38,7 @@ const TableView = ({ cards, rowTag, noGroupModal }) => {
             item
             key={columnLabel}
             xs="auto"
-            sx={{ minWidth: { xs: 90, md: 110, lg: 125, xl: 160 }, width: '12.5%' }}
+            sx={{ minWidth: { xs: 80, md: 110, lg: 125, xl: 160 }, width: '12.5%' }}
           >
             <Typography variant="subtitle1" align="center">
               <>

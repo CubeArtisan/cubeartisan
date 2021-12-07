@@ -124,87 +124,87 @@ export const saveShowTagColors = [
 ];
 
 const viewNotificationHandler = async (req, res) => {
-    const { user } = req;
+  const { user } = req;
 
-    if (req.params.index > user.notifications.length) {
-      req.flash('danger', 'Not Found');
-      return res.redirect('/404');
-    }
+  if (req.params.index > user.notifications.length) {
+    req.flash('danger', 'Not Found');
+    return res.redirect('/404');
+  }
 
-    const notification = user.notifications.splice(req.params.index, 1)[0];
-    await user.save();
+  const notification = user.notifications.splice(req.params.index, 1)[0];
+  await user.save();
 
-    if (!notification) {
-      req.flash('danger', 'Not Found');
-      return res.redirect('/404');
-    }
+  if (!notification) {
+    req.flash('danger', 'Not Found');
+    return res.redirect('/404');
+  }
 
-    return res.redirect(notification.url);
+  return res.redirect(notification.url);
 };
 export const viewNotification = [ensureAuth, wrapAsyncApi(viewNotificationHandler)];
 
 const clearNotificationsHandler = async (req, res) => {
-    const { user } = req;
+  const { user } = req;
 
-    user.notifications = [];
-    await user.save();
+  user.notifications = [];
+  await user.save();
 
-    return res.status(200).send({
-      success: 'true',
-    });
+  return res.status(200).send({
+    success: 'true',
+  });
 };
 export const clearNotifications = [ensureAuth, wrapAsyncApi(clearNotificationsHandler)];
 
 const followUserHandler = async (req, res) => {
-    const { user } = req;
-    const other = await User.findById(req.params.userid).exec();
+  const { user } = req;
+  const other = await User.findById(req.params.userid).exec();
 
-    if (!other) {
-      req.flash('danger', 'User not found');
-      return res.redirect(303, '/404');
-    }
+  if (!other) {
+    req.flash('danger', 'User not found');
+    return res.redirect(303, '/404');
+  }
 
-    if (!other.users_following.some((id) => id.equals(user._id))) {
-      other.users_following.push(user._id);
-    }
-    if (!user.followed_users.some((id) => id.equals(other._id))) {
-      user.followed_users.push(other._id);
-    }
+  if (!other.users_following.some((id) => id.equals(user._id))) {
+    other.users_following.push(user._id);
+  }
+  if (!user.followed_users.some((id) => id.equals(other._id))) {
+    user.followed_users.push(other._id);
+  }
 
-    await addNotification(other, user, `/user/${user._id}`, `${user.username} has followed you!`);
+  await addNotification(other, user, `/user/${user._id}`, `${user.username} has followed you!`);
 
-    await Promise.all([user.save(), other.save()]);
+  await Promise.all([user.save(), other.save()]);
 
-    return res.redirect(303, `/user/${req.params.userid}`);
+  return res.redirect(303, `/user/${req.params.userid}`);
 };
 export const followUser = [ensureAuth, wrapAsyncApi(followUserHandler)];
 
 const unfollowUserHandler = async (req, res) => {
-    const { user } = req;
-    const other = await User.findById(req.params.userid).exec();
+  const { user } = req;
+  const other = await User.findById(req.params.userid).exec();
 
-    if (!other) {
-      req.flash('danger', 'User not found');
-      return res.redirect(303, '/404');
-    }
+  if (!other) {
+    req.flash('danger', 'User not found');
+    return res.redirect(303, '/404');
+  }
 
-    other.users_following = other.users_following.filter((id) => !req.user._id.equals(id));
-    user.followed_users = user.followed_users.filter((id) => id.toString() !== req.params.userid);
+  other.users_following = other.users_following.filter((id) => !req.user._id.equals(id));
+  user.followed_users = user.followed_users.filter((id) => id.toString() !== req.params.userid);
 
-    await Promise.all([user.save(), other.save()]);
+  await Promise.all([user.save(), other.save()]);
 
-    return res.redirect(303, `/user/${req.params.userid}`);
+  return res.redirect(303, `/user/${req.params.userid}`);
 };
 export const unfollowUser = [ensureAuth, wrapAsyncApi(unfollowUserHandler)];
 
 const viewResetPasswordHandler = async (req, res) => {
-    // create a password reset page and return it here
-    const passwordReset = await PasswordReset.findById(req.params.userid).lean();
-    if (!passwordReset || passwordReset.expires < Date.now()) {
-      req.flash('danger', 'Password recovery link expired');
-      return res.redirect('/');
-    }
-    return render(req, res, 'PasswordResetPage');
+  // create a password reset page and return it here
+  const passwordReset = await PasswordReset.findById(req.params.userid).lean();
+  if (!passwordReset || passwordReset.expires < Date.now()) {
+    req.flash('danger', 'Password recovery link expired');
+    return res.redirect('/');
+  }
+  return render(req, res, 'PasswordResetPage');
 };
 export const viewResetPassword = wrapAsyncPage(viewResetPasswordHandler);
 
@@ -388,96 +388,97 @@ export const confirmUser = async (req, res) => {
 };
 
 const viewUserPageHandler = async (req, res) => {
-    let user = null;
-    try {
-      user = await User.findById(req.params.userid, '_id username about users_following image_name image artist').lean();
-      // eslint-disable-next-line no-empty
-    } catch (err) {}
+  let user = null;
+  try {
+    user = await User.findById(req.params.userid, '_id username about users_following image_name image artist').lean();
+    // eslint-disable-next-line no-empty
+  } catch (err) {}
 
-    if (!user) {
-      user = await User.findOne(
-        {
-          username_lower: req.params.userid.toLowerCase(),
-        },
-        '_id username about users_following image_name image artist',
-      ).lean();
-      if (!user) {
-        req.flash('danger', 'User not found');
-        return res.redirect('/404');
-      }
-    }
-
-    const cubesQ = Cube.find({
-      owner: user._id,
-      ...(req.user && req.user._id.equals(user._id)
-        ? {}
-        : {
-            isListed: true,
-          }),
-    }).lean();
-    const followersQ = User.find(
-      { _id: { $in: user.users_following } },
-      '_id username image_name image artist users_following',
-    ).lean();
-
-    const [cubes, followers] = await Promise.all([cubesQ, followersQ]);
-
-    const following = req.user && user.users_following ? user.users_following.some((id) => id.equals(req.user._id)) : false;
-    delete user.users_following;
-
-    return render(req, res, 'UserCubePage', {
-      owner: user,
-      cubes,
-      followers,
-      following,
-    });
-};
-export const viewUserPage = wrapAsyncPage(viewUserPageHandler);
-
-const viewUserDecksHandler = async (req, res) => {
-    const { userid } = req.params;
-    const pagesize = 30;
-
-    const userQ = User.findById(userid, '_id username users_following').lean();
-
-    const decksQ = Deck.find(
+  if (!user) {
+    user = await User.findOne(
       {
-        owner: userid,
+        username_lower: req.params.userid.toLowerCase(),
       },
-      '_id seats date cube owner cubeOwner',
-    )
-      .sort({
-        date: -1,
-      })
-      .skip(pagesize * Math.max(req.params.page, 0))
-      .limit(pagesize)
-      .lean();
-    const numDecksQ = Deck.countDocuments({
-      owner: userid,
-    });
-
-    const [user, numDecks, decks] = await Promise.all([userQ, numDecksQ, decksQ]);
-
+      '_id username about users_following image_name image artist',
+    ).lean();
     if (!user) {
       req.flash('danger', 'User not found');
       return res.redirect('/404');
     }
+  }
 
-    const followers = await User.find(
-      { _id: { $in: user.users_following } },
-      '_id username image_name image artist users_following',
-    );
+  const cubesQ = Cube.find({
+    owner: user._id,
+    ...(req.user && req.user._id.equals(user._id)
+      ? {}
+      : {
+          isListed: true,
+        }),
+  }).lean();
+  const followersQ = User.find(
+    { _id: { $in: user.users_following } },
+    '_id username image_name image artist users_following',
+  ).lean();
 
-    delete user.users_following;
+  const [cubes, followers] = await Promise.all([cubesQ, followersQ]);
 
-    return render(req, res, 'UserDecksPage', {
-      owner: user,
-      followers,
-      following: req.user && req.user.followed_users.some((id) => user._id.equals(id)),
-      decks: decks || [],
-      pages: Math.ceil(numDecks / pagesize),
-      activePage: Math.max(req.params.page, 0),
-    });
+  const following =
+    req.user && user.users_following ? user.users_following.some((id) => id.equals(req.user._id)) : false;
+  delete user.users_following;
+
+  return render(req, res, 'UserCubePage', {
+    owner: user,
+    cubes,
+    followers,
+    following,
+  });
+};
+export const viewUserPage = wrapAsyncPage(viewUserPageHandler);
+
+const viewUserDecksHandler = async (req, res) => {
+  const { userid } = req.params;
+  const pagesize = 30;
+
+  const userQ = User.findById(userid, '_id username users_following').lean();
+
+  const decksQ = Deck.find(
+    {
+      owner: userid,
+    },
+    '_id seats date cube owner cubeOwner',
+  )
+    .sort({
+      date: -1,
+    })
+    .skip(pagesize * Math.max(req.params.page, 0))
+    .limit(pagesize)
+    .lean();
+  const numDecksQ = Deck.countDocuments({
+    owner: userid,
+  });
+
+  const [user, numDecks, decks] = await Promise.all([userQ, numDecksQ, decksQ]);
+
+  if (!user) {
+    req.flash('danger', 'User not found');
+    return res.redirect('/404');
+  }
+
+  const followers = await User.find(
+    { _id: { $in: user.users_following } },
+    '_id username image_name image artist users_following',
+  );
+
+  delete user.users_following;
+
+  return render(req, res, 'UserDecksPage', {
+    owner: user,
+    followers,
+    following: req.user && req.user.followed_users.some((id) => user._id.equals(id)),
+    decks: decks || [],
+    pages: Math.ceil(numDecks / pagesize),
+    activePage: Math.max(req.params.page, 0),
+  });
 };
 export const viewUserDecks = wrapAsyncPage(viewUserDecksHandler);
 
@@ -664,7 +665,8 @@ const viewSocialPageHandler = async (req, res) => {
 };
 export const viewSocialPage = [ensureAuth, viewSocialPageHandler];
 
-const viewAccountPageHandler = async (req, res) => render(
+const viewAccountPageHandler = async (req, res) =>
+  render(
     req,
     res,
     'UserAccountPage',
@@ -679,7 +681,8 @@ export const viewAccountPage = [ensureAuth, wrapAsyncPage(viewAccountPageHandler
 
 export const viewRegisterPage = (req, res) => render(req, res, 'RegisterPage');
 
-const viewNotificationsHandler = (req, res) => render(req, res, 'NotificationsPage', { notifications: req.user.old_notifications })
+const viewNotificationsHandler = (req, res) =>
+  render(req, res, 'NotificationsPage', { notifications: req.user.old_notifications });
 export const viewNotifications = [ensureAuth, wrapAsyncPage(viewNotificationsHandler)];
 
 export const redirectToFirstPageOfUserDecks = (req, res) => res.redirect(`/user/${req.params.userid}/decks/0`);
