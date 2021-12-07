@@ -31,6 +31,7 @@ const ImageFallback = forwardRef(({ src, fallbackSrc, alt, ...props }, ref) => {
     <img
       alt={fallback ? 'fallback image' : alt}
       src={fallback ? fallbackSrc : src}
+      draggable="false"
       onError={handleError}
       ref={ref}
       {...props}

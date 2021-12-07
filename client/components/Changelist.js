@@ -18,7 +18,6 @@
  */
 import React, { useCallback, useContext } from 'react';
 import { Badge, Button } from '@mui/material';
-import { Input } from 'reactstrap';
 import PropTypes from 'prop-types';
 
 import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';
@@ -121,7 +120,7 @@ const Changelist = () => {
           return null;
         })}
       </ul>
-      <Input type="hidden" name="body" value={changelistData} />
+      <input type="hidden" name="body" value={changelistData} />
     </>
   );
 };

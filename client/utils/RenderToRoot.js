@@ -18,12 +18,14 @@
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { ThemeProvider } from '@mui/material/styles/index.js';
 
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
 import SiteCustomizationContext, {
   DEFAULT_SITE_CUSTOMIZATIONS,
 } from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import theme from '@cubeartisan/client/theming/theme.js';
 
 const RenderToRoot = (Element) => {
   const defaultReactProps = typeof window !== 'undefined' ? window?.reactProps ?? {} : {};
@@ -35,7 +37,9 @@ const RenderToRoot = (Element) => {
           <UserContext.Provider
             value={reactProps?.user ?? { _id: null, username: 'Anonymous User', notifications: [] }}
           >
-            <Element {...reactProps} />
+            <ThemeProvider theme={theme}>
+              <Element {...reactProps} />
+            </ThemeProvider>
           </UserContext.Provider>
         </SiteCustomizationContext.Provider>
       </ErrorBoundary>
