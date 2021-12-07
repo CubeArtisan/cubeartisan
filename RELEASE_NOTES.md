@@ -151,3 +151,9 @@
 
 - Now automatically deploy the release with version number and release notes pulled from
   `RELEASE_NOTES.md`
+
+## v1.3.2.0
+
+### Bug Fixes
+
+- Fix CSRF form not forwarding ref correctly causing decks to not be saveable.

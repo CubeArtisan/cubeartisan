@@ -54,7 +54,7 @@ const CubeSettingsModal = ({ addAlert, onCubeUpdate, isOpen, toggle }) => {
     <Modal isOpen={isOpen} toggle={toggle}>
       <ModalHeader toggle={toggle}>Edit Settings</ModalHeader>
       <ModalBody>
-        <CSRFForm innerRef={formRef}>
+        <CSRFForm ref={formRef}>
           <FormGroup check>
             <Input id="isListed" name="isListed" type="checkbox" defaultChecked={cube.isListed || false} />
             <Label for="isListed">Is Listed</Label>

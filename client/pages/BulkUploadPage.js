@@ -104,7 +104,7 @@ const BulkUploadPageRaw = ({ cubeID, missing, blogpost, cube }) => {
                   Add
                 </LoadingButton>
               </Form>
-              <CSRFForm method="POST" action={`/cube/${cubeID}`} innerRef={formRef}>
+              <CSRFForm method="POST" action={`/cube/${cubeID}`} ref={formRef}>
                 <Label>Changelist:</Label>
                 <div className="changelist-container mb-2">
                   <Changelist />

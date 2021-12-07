@@ -1,7 +1,8 @@
 name: Build Docker For Production
 on:
   push:
-    branch: prod
+    branches:
+      - prod
 jobs:
   build:
     name: Create Release, Build Docker, and Deploy
