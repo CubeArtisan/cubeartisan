@@ -43,7 +43,6 @@ const config = {
   resolve: {
     alias: {
       '@cubeartisan/client': path.resolve(__dirname, '../client'),
-      '@cubeartisan/markdown': path.resolve(__dirname, '../markdown'),
       '@cubeartisan/server': path.resolve(__dirname, '.'),
     },
   },

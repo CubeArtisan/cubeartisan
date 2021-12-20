@@ -6,7 +6,6 @@
   "workspaces": [
     "client",
     "jobs",
-    "markdown",
     "server"
   ],
   "sideEffects": [

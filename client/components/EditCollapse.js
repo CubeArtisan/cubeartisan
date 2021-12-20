@@ -34,9 +34,9 @@ import {
   InputGroupText,
 } from 'reactstrap';
 
-import { cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
 import { findUserLinks } from '@cubeartisan/markdown';
 
+import { cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
 import Changelist from '@cubeartisan/client/components/Changelist.js';
 import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';

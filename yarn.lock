@@ -1002,6 +1002,25 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@cubeartisan/markdown@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@cubeartisan/markdown/-/markdown-1.0.0.tgz#c036348d8159c49b31e410c3e760243783af788d"
+  integrity sha512-yHyyg6/q6CyYzjDdmyz3YPKFHqdemV2f3JLpd45W5yiq4ejuUyIE0F9eSciEtfVMcfrv5HjgOAshQIbRsbKSBQ==
+  dependencies:
+    core-js "^3.20.0"
+    micromark "^2.10.1"
+    react-latex "^2.0.0"
+    react-markdown "^5.0.3"
+    react-syntax-highlighter "^15.4.3"
+    remark-autolink-headings "^6.0.1"
+    remark-breaks "^2.0.1"
+    remark-gfm "^1.0.0"
+    remark-math "^4.0.0"
+    remark-parse "^9.0.0"
+    remark-slug "^6.0.0"
+    unified "^9.2.0"
+    unist-util-visit "^2.0.3"
+
 "@dabh/diagnostics@^2.0.2":
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@dabh/diagnostics/-/diagnostics-2.0.2.tgz#290d08f7b381b8f94607dc8f471a12c675f9db31"
@@ -2352,7 +2371,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^17.0.11", "@types/react@^17.0.15":
+"@types/react@*", "@types/react@^17.0.11":
   version "17.0.37"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.37.tgz#6884d0aa402605935c397ae689deed115caad959"
   integrity sha512-2FS1oTqBGcH/s0E+CjrCCR9+JMpsu9b69RTFO+40ua43ZqP5MmQ4iUde/dMjWR909KxZwmOQIFq6AV6NjEG5xg==
@@ -4091,6 +4110,11 @@ core-js@^3.15.2, core-js@^3.19.0:
   version "3.19.2"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.19.2.tgz#ae216d7f4f7e924d9a2e3ff1e4b1940220f9157b"
   integrity sha512-ciYCResnLIATSsXuXnIOH4CbdfgV+H1Ltg16hJFN7/v6OxqnFr/IFGeLacaZ+fHLAm0TBbXwNK9/DNBzBUrO/g==
+
+core-js@^3.20.0:
+  version "3.20.0"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.20.0.tgz#1c5ac07986b8d15473ab192e45a2e115a4a95b79"
+  integrity sha512-KjbKU7UEfg4YPpskMtMXPhUKn7m/1OdTHTVjy09ScR2LVaoUXe8Jh0UdvN2EKUR6iKTJph52SJP95mAB0MnVLQ==
 
 core-util-is@^1.0.2, core-util-is@~1.0.0:
   version "1.0.3"
