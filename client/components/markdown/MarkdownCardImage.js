@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Link } from '@mui/material'
+import { Grid, Link } from '@mui/material';
 
 import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
 
