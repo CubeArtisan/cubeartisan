@@ -285,7 +285,7 @@ const CubeDraftPlayerUI = ({
 
   return (
     <Stack spacing={1}>
-      <Toolbar sx={{ backgroundColor: 'bg.hover' }}>
+      <Toolbar sx={{ backgroundColor: 'background.hover' }}>
         <ButtonGroup variant="outlined" sx={{ width: ' 100%' }}>
           <Grid container>
             <Grid item xs="auto">

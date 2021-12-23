@@ -431,7 +431,7 @@ export const showErrorPage = async (req, res) => {
       title: '404: Page not found',
     });
   } catch (err) {
-    res.logger.error(err);
+    req.logger.error(err);
     return res.end();
   }
 };

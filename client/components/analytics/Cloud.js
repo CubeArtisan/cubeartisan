@@ -22,7 +22,7 @@ import { InputGroup, InputGroupAddon, InputGroupText, UncontrolledTooltip } from
 import PropTypes from 'prop-types';
 
 import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown.js';
-import ThemeContext from '@cubeartisan/client/components/contexts/ThemeContext.js';
+import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import CubePropTypes from '@cubeartisan/client/proptypes/CubePropType.js';
 import TagInput from '@cubeartisan/client/components/TagInput.js';
@@ -70,7 +70,7 @@ const COLOR_OPTIONS = {
 };
 
 const Cloud = ({ cards, cube, setAsfans, defaultFormatId }) => {
-  const theme = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
 
   const [exclude, setExclude] = useQueryParam('exclude', '');
   const [tagInput, setTagInput] = useState('');

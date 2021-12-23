@@ -18,14 +18,13 @@
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ThemeProvider } from '@mui/material/node/styles/index.js';
 
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
 import SiteCustomizationContext, {
   DEFAULT_SITE_CUSTOMIZATIONS,
 } from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import theme from '@cubeartisan/client/theming/theme.js';
+import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
 
 const RenderToRoot = (Element) => {
   const defaultReactProps = typeof window !== 'undefined' ? window?.reactProps ?? {} : {};
@@ -33,15 +32,15 @@ const RenderToRoot = (Element) => {
     const reactProps = { ...defaultReactProps, ...providedReactProps };
     return (
       <ErrorBoundary className="mt-3">
-        <SiteCustomizationContext.Provider value={reactProps?.siteCustomizations ?? DEFAULT_SITE_CUSTOMIZATIONS}>
-          <UserContext.Provider
-            value={reactProps?.user ?? { _id: null, username: 'Anonymous User', notifications: [] }}
-          >
-            <ThemeProvider theme={theme}>
+        <UserContext.Provider
+          value={reactProps?.user ?? { _id: null, username: 'Anonymous User', notifications: [], theme: null }}
+        >
+          <SiteCustomizationContext.Provider value={reactProps?.siteCustomizations ?? DEFAULT_SITE_CUSTOMIZATIONS}>
+            <DisplayContextProvider>
               <Element {...reactProps} />
-            </ThemeProvider>
-          </UserContext.Provider>
-        </SiteCustomizationContext.Provider>
+            </DisplayContextProvider>
+          </SiteCustomizationContext.Provider>
+        </UserContext.Provider>
       </ErrorBoundary>
     );
   };

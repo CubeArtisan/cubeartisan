@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { lazy, useContext } from 'react';
+import React, { lazy, useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
 import {
   Container,
@@ -30,13 +30,15 @@ import {
   DropdownItem,
   DropdownMenu,
 } from 'reactstrap';
+import { IconButton } from '@mui/material';
+import { Brightness4, Brightness7 } from '@mui/icons-material';
 
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
 import NotificationsNav from '@cubeartisan/client/components/NotificationsNav.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
-import ThemeContext from '@cubeartisan/client/components/contexts/ThemeContext.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 import Footer from '@cubeartisan/client/components/layouts/Footer.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
@@ -51,6 +53,9 @@ const MainLayout = ({ children, loginCallback }) => {
   const user = useContext(UserContext);
   const { siteName, sourceRepo } = useContext(SiteCustomizationContext);
   const [expanded, toggle] = useToggle(false);
+  const { updateTheme, theme } = useContext(DisplayContext);
+
+  const toggleTheme = useCallback(() => updateTheme(), [updateTheme]);
 
   return (
     <div className="flex-container flex-vertical viewport">
@@ -116,6 +121,9 @@ const MainLayout = ({ children, loginCallback }) => {
                   <DropdownItem href={sourceRepo}>Github</DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
+              <IconButton onClick={toggleTheme} color="info">
+                {theme === 'dark' ? <Brightness7 /> : <Brightness4 />}
+              </IconButton>
               {user?._id ? (
                 <>
                   <NotificationsNav />
@@ -173,9 +181,7 @@ const MainLayout = ({ children, loginCallback }) => {
         </Container>
       </Navbar>
       <Container fluid="xl" className="flex-grow main-content">
-        <ThemeContext.Provider value={user?.theme ?? 'default'}>
-          <ErrorBoundary>{children}</ErrorBoundary>
-        </ThemeContext.Provider>
+        <ErrorBoundary>{children}</ErrorBoundary>
       </Container>
       <Footer />
     </div>

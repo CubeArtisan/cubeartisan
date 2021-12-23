@@ -16,8 +16,14 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { createContext, useCallback, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
+// import useMediaQuery from '@mui/material/useMediaQuery/index.js';
+import { ThemeProvider } from '@mui/material/node/styles/index.js';
+
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import getTheme from '@cubeartisan/client/theming/theme.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 const DisplayContext = createContext({
   showCustomImages: true,
@@ -25,9 +31,12 @@ const DisplayContext = createContext({
   showMaybeboard: false,
   cardsInRow: 8,
   useSticky: false,
+  theme: 'default',
 });
 
 export const DisplayContextProvider = ({ cubeID, defaultNumCols, ...props }) => {
+  const user = useContext(UserContext);
+  const userTheme = user.theme;
   const [showCustomImages, setShowCustomImages] = useState(true);
   const toggleShowCustomImages = useCallback(() => {
     setShowCustomImages(!showCustomImages);
@@ -70,7 +79,43 @@ export const DisplayContextProvider = ({ cubeID, defaultNumCols, ...props }) => 
       return true;
     });
   }, []);
-
+  // console.log(useMediaQuery);
+  const prefersDarkMode = false; // useMediaQuery('(prefers-color-scheme: dark)');
+  const [theme, setTheme] = useState(
+    () =>
+      userTheme ??
+      ((typeof localStorage !== 'undefined' && localStorage.getItem('theme')) ||
+        (prefersDarkMode ? 'dark' : 'default')),
+  );
+  const updateTheme = useCallback(
+    (newTheme) => {
+      setTheme((oldTheme) => {
+        newTheme = newTheme ?? (oldTheme === 'dark' ? 'default' : 'dark');
+        if (user._id) {
+          user.theme = newTheme;
+          const formData = new FormData();
+          formData.append('hideFeatured', user.hide_featured || false ? 'on' : 'off');
+          formData.append('theme', newTheme);
+          csrfFetch(`/user/${user._id}/display`, {
+            method: 'POST',
+            body: formData,
+          });
+        }
+        console.log('Setting theme to', newTheme);
+        return newTheme;
+      });
+    },
+    [user],
+  );
+  useEffect(() => {
+    if (user._id && user.theme) setTheme(user.theme);
+  }, [user._id, user.theme]);
+  const muiTheme = useMemo(() => {
+    console.log(user.theme, theme);
+    const newTheme = getTheme(user.theme ?? theme);
+    console.log(newTheme.palette.mode);
+    return newTheme;
+  }, [user.theme, theme]);
   const value = {
     showCustomImages,
     toggleShowCustomImages,
@@ -82,14 +127,21 @@ export const DisplayContextProvider = ({ cubeID, defaultNumCols, ...props }) => 
     setCardsInRow: updateCardsInRow,
     useSticky,
     toggleUseSticky,
+    theme,
+    updateTheme,
   };
-  return <DisplayContext.Provider value={value} {...props} />;
+  return (
+    <DisplayContext.Provider value={value}>
+      <ThemeProvider theme={muiTheme} {...props} />
+    </DisplayContext.Provider>
+  );
 };
 DisplayContextProvider.propTypes = {
-  cubeID: PropTypes.string.isRequired,
+  cubeID: PropTypes.string,
   defaultNumCols: PropTypes.number,
 };
 DisplayContextProvider.defaultProps = {
-  defaultNumCols: 4,
+  cubeID: 'nocube',
+  defaultNumCols: 8,
 };
 export default DisplayContext;
