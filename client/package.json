@@ -30,7 +30,7 @@
     "@babel/eslint-parser": "^7.14.7",
     "@babel/preset-env": "^7.14.7",
     "@babel/preset-react": "^7.14.5",
-    "@cubeartisan/markdown": "^0.1.0",
+    "@cubeartisan/markdown": "^1.0.0",
     "@emotion/memoize": "^0.7.5",
     "@mui/icons-material": "^5.1.1",
     "@mui/lab": "^5.0.0-alpha.55",

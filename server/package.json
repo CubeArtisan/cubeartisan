@@ -7,7 +7,7 @@
   "scripts": {
     "list-files": "git ls-files '*.js' '*.cjs' '*.mjs' '*.jsx'",
     "list-files:all": "git ls-files '../client/*.js' '../client/*.jsx' '../client/*.mjs' '../client/*.cjs' '*.js' '*.jsx' '*.cjs' '*.mjs' '../markdown/*.js'",
-    "node-options": "echo '--experimental-loader @node-loader/babel --require dotenv/config --max-old-space-size=4096 --experimental-json-modules --enable-source-maps --es-module-specifier-resolution=node'",
+    "node-options": "echo '--experimental-loader @node-loader/babel --require dotenv/config --max-old-space-size=4096 --experimental-json-modules --enable-source-maps --es-module-specifier-resolution=node --trace-warnings'",
     "cards": "node --max-old-space-size=4096 `yarn --silent node-options` scripts/force_update.js",
     "lint": "eslint --quiet `yarn --silent list-files`",
     "lint:loud": "eslint `yarn --silent list-files`",
@@ -25,7 +25,7 @@
     "@babel/plugin-syntax-top-level-await": "^7.14.5",
     "@babel/preset-react": "^7.14.5",
     "@cubeartisan/client": "^0.1.0",
-    "@cubeartisan/markdown": "^0.1.0",
+    "@cubeartisan/markdown": "^1.0.0",
     "@google-cloud/opentelemetry-cloud-monitoring-exporter": "^0.13.0",
     "@google-cloud/opentelemetry-cloud-trace-exporter": "^1.0.0",
     "@node-loader/babel": "^1.1.0",
