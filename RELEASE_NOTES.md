@@ -163,3 +163,7 @@
 ### Features
 
 - Migrate The Deck Page view to the new UI style.
+
+### Infrastructure
+
+- Move the markdown components to a separate library to allow other sites to share it.

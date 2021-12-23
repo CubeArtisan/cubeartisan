@@ -9,12 +9,11 @@ RUN apt-get update && apt-get install -y gcc python3-dev python3-setuptools pyth
 RUN pip3 uninstall crcmod; pip3 install --no-cache-dir -U crcmod
 
 WORKDIR /CubeArtisan
-RUN mkdir client server markdown jobs
+RUN mkdir client server jobs
 
 COPY ./package.json package.json
 COPY ./server/package.json server/package.json
 COPY ./client/package.json client/package.json
-COPY ./markdown/package.json markdown/package.json
 COPY ./jobs/package.json jobs/package.json
 COPY ./yarn.lock yarn.lock
 COPY ./.yarnrc.yml .yarnrc.yml
@@ -42,10 +41,6 @@ COPY ./client/proptypes  client/proptypes/
 COPY ./client/res        client/res/
 COPY ./client/theming    client/theming/
 COPY ./client/utils      client/utils/
-
-COPY ./markdown/index.js markdown/index.js
-COPY ./markdown/plugins markdown/plugins/
-COPY ./markdown/components markdown/components
 
 COPY ./jobs/babel.config.cjs jobs/babel.config.cjs
 COPY ./jobs/exports jobs/exports
