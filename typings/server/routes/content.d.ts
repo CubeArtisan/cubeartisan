@@ -1,0 +1,26 @@
+export function viewCreatorDashboard(req: any, res: any): Promise<void>;
+export const browseContent: (req: any, res: any, next: any) => Promise<any>;
+export const browseArticles: (req: any, res: any, next: any) => Promise<any>;
+export const browsePodcasts: (req: any, res: any, next: any) => Promise<any>;
+export const browseVideos: (req: any, res: any, next: any) => Promise<any>;
+export const viewArticle: (req: any, res: any, next: any) => Promise<any>;
+export const browsePodcastEpisodes: (req: any, res: any, next: any) => Promise<any>;
+export const viewPodcastEpisode: (req: any, res: any, next: any) => Promise<any>;
+export const viewVideo: (req: any, res: any, next: any) => Promise<any>;
+export const viewEditArticle: (req: any, res: any, next: any) => Promise<any>;
+export const viewEditPodcast: (req: any, res: any, next: any) => Promise<any>;
+export const fetchPodcast: (req: any, res: any, next: any) => Promise<any>;
+export const viewEditVideo: (req: any, res: any, next: any) => Promise<any>;
+export const editArticle: (req: any, res: any, next: any) => Promise<any>;
+export const editPodcast: (req: any, res: any, next: any) => Promise<any>;
+export const editVideo: (req: any, res: any, next: any) => Promise<any>;
+export const submitArticle: (req: any, res: any, next: any) => Promise<any>;
+export const submitPodcast: (req: any, res: any, next: any) => Promise<any>;
+export const submitVideo: (req: any, res: any, next: any) => Promise<any>;
+export const createNewArticle: (((req: any, res: any, next: any) => any)[] | ((req: any, res: any, next: any) => Promise<any>))[];
+export const createNewPodcast: (req: any, res: any, next: any) => Promise<any>;
+export const createNewVideo: (req: any, res: any, next: any) => Promise<any>;
+export const getJsonUserArticles: (req: any, res: any, next: any) => Promise<any>;
+export const getJsonUserPodcasts: (req: any, res: any, next: any) => Promise<any>;
+export const getJsonUserVideos: (req: any, res: any, next: any) => Promise<any>;
+//# sourceMappingURL=content.d.ts.map

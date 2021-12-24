@@ -13,6 +13,7 @@ module.exports = (api) => {
             proposals: true,
           },
           shippedProposals: true,
+          modules: 'cjs',
         },
       ],
       '@babel/preset-react',

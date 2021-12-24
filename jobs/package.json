@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "license": "AGPL-3.0-only",
   "type": "module",
+  "typings": "../typings/jobs/index.d.ts",
   "scripts": {
     "list-files": "git ls-files '*.js' '*.cjs' '*.mjs' '*.jsx'",
     "list-files:all": "git ls-files '../*.js' '../*.cjs' '../*.mjs' '../*.jsx' '../*.json'",
