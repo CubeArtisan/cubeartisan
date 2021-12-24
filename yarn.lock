@@ -8219,6 +8219,14 @@ loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.4.0:
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
 
+loose-ts-check@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/loose-ts-check/-/loose-ts-check-1.2.0.tgz#766014a64695b7740a0d41276f6cdf1398b15427"
+  integrity sha512-RnVczoE60wOWBkgjjPVieeUknHftgeiyTnjxbwRBF1RRqdUGB42f4yUjJ0KNlBRLRQNnGZwEl+aM/YijcWJtTA==
+  dependencies:
+    chalk "^4.1.0"
+    yargs "^16.1.0"
+
 lower-case@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/lower-case/-/lower-case-2.0.2.tgz#6fa237c63dbdc4a82ca0fd882e4722dc5e634e28"
@@ -13242,7 +13250,7 @@ yargs@^15.4.1:
     y18n "^4.0.0"
     yargs-parser "^18.1.2"
 
-yargs@^16.1.1:
+yargs@^16.1.0, yargs@^16.1.1:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-16.2.0.tgz#1c82bf0f6b6a66eafce7ef30e376f49a12477f66"
   integrity sha512-D1mvvtDG0L5ft/jGWkLpG1+m0eQxOfaBvTNELraWj22wSVUMWxZUvYgJYcKh6jGGIkJFhH4IZPQhR4TKpc8mBw==
