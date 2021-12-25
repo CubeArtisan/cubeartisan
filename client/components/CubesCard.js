@@ -18,7 +18,7 @@
  */
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Accordion, AccordionDetails, AccordionSummary, Button, Grid, Link, Paper, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Grid, Link, Paper, Typography } from '@mui/material';
 
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import CubePreview from '@cubeartisan/client/components/CubePreview.js';

@@ -18,7 +18,7 @@
  */
 import React, { lazy, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Button, Card, CardContent, CardHeader, Grid, Link, Paper, Typography } from '@mui/material';
+import { Box, Button, Grid, Link, Paper, Typography } from '@mui/material';
 
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
@@ -32,7 +32,6 @@ import SiteCustomizationContext from '@cubeartisan/client/components/contexts/Si
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 
 const CreateCubeModal = lazy(() => import('@cubeartisan/client/components/modals/CreateCubeModal.js'));
-const CubesCard = lazy(() => import('@cubeartisan/client/components/CubesCard.js'));
 const Feed = lazy(() => import('@cubeartisan/client/components/Feed.js'));
 const CubePreview = lazy(() => import('@cubeartisan/client/components/CubePreview.js'));
 const ArticlePreview = lazy(() => import('@cubeartisan/client/components/ArticlePreview.js'));
@@ -42,7 +41,7 @@ const PodcastEpisodePreview = lazy(() => import('@cubeartisan/client/components/
 
 const CreateCubeModalButton = withModal(Button, CreateCubeModal);
 
-export const DashboardPage = ({ posts, cubes, decks, loginCallback, content, featured }) => {
+export const DashboardPage = ({ posts, cubes, decks, loginCallback, content }) => {
   const { discordUrl } = useContext(SiteCustomizationContext);
   const user = useContext(UserContext);
   // where featured cubes are positioned on the screen
@@ -158,18 +157,14 @@ export const DashboardPage = ({ posts, cubes, decks, loginCallback, content, fea
     </MainLayout>
   );
 };
-
 DashboardPage.propTypes = {
   posts: PropTypes.arrayOf(BlogPostPropType).isRequired,
   cubes: PropTypes.arrayOf(CubePropType).isRequired,
   decks: PropTypes.arrayOf(DeckPropType).isRequired,
   content: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   loginCallback: PropTypes.string,
-  featured: PropTypes.arrayOf(CubePropType),
 };
-
 DashboardPage.defaultProps = {
   loginCallback: '/',
-  featured: [],
 };
 export default RenderToRoot(DashboardPage);

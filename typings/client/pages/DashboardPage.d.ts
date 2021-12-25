@@ -1,10 +1,9 @@
-export function DashboardPage({ posts, cubes, decks, loginCallback, content, featured }: {
+export function DashboardPage({ posts, cubes, decks, loginCallback, content }: {
     posts: any;
     cubes: any;
     decks: any;
     loginCallback: any;
     content: any;
-    featured: any;
 }): JSX.Element;
 export namespace DashboardPage {
     namespace propTypes {
@@ -51,23 +50,10 @@ export namespace DashboardPage {
         }>[]>;
         const content: PropTypes.Validator<PropTypes.InferProps<{}>[]>;
         const loginCallback: PropTypes.Requireable<string>;
-        const featured: PropTypes.Requireable<PropTypes.InferProps<{
-            cards: PropTypes.Requireable<PropTypes.InferProps<{
-                cardName: PropTypes.Requireable<string>;
-                picks: PropTypes.Requireable<number>;
-                passes: PropTypes.Requireable<number>;
-                elo: PropTypes.Requireable<number>;
-                mainboards: PropTypes.Requireable<number>;
-                sideboards: PropTypes.Requireable<number>;
-            }>[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
-        }>[]>;
     }
     namespace defaultProps {
         const loginCallback_1: string;
         export { loginCallback_1 as loginCallback };
-        const featured_1: any[];
-        export { featured_1 as featured };
     }
 }
 declare var _default: (providedReactProps: any) => JSX.Element;
