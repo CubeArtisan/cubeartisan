@@ -56,6 +56,11 @@ const DARK_PALETTE = {
     A400: 'hsl(0, 0%, 26%)',
     A700: 'hsl(0, 0%, 62%)',
   },
+  shadow: {
+    full: 'hsla(0, 0%, 100%, 0.20)',
+    partial: 'hsla(0, 0%, 100%, 0.14)',
+    low: 'hsla(0, 0%, 100%, 0.12)',
+  },
   contrastThreshold: 4.5,
   tonalOffset: 0.2,
   text: {
@@ -65,10 +70,21 @@ const DARK_PALETTE = {
   },
   divider: 'hsla(0, 0%, 100%, 0.12)',
   background: {
-    paper: 'hsl(0, 0%, 0%)',
+    primary: 'hsl(260, 15%, 20%)',
+    paper: 'hsl(200, 55%, 15%)',
     default: 'hsl(0, 0%, 0%)',
-    darker: 'hsl(270, 10%, 20%)',
+    darker: 'hsl(270, 20%, 40%)',
     hover: 'hsl(270, 60%, 9%)',
+  },
+  cards: {
+    white: 'hsl(65, 50%, 85%)',
+    blue: 'hsl(235, 90%, 30%)',
+    black: 'hsl(266, 100%, 30%)',
+    red: 'hsl(330, 95%, 30%)',
+    green: 'hsl(160, 60%, 30%)',
+    multi: 'hsl(55, 95%, 30%)',
+    colorless: 'hsl(340, 5%, 30%)',
+    lands: 'hsl(32, 42%, 30%)',
   },
   action: {
     active: 'hsla(0, 0%, 100%, 0.54)',

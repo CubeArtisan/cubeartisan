@@ -58,6 +58,11 @@ const LIGHT_PALETTE = {
   },
   contrastThreshold: 4.5,
   tonalOffset: 0.2,
+  shadow: {
+    full: 'hsla(0, 0%, 0%, 0.20)',
+    partial: 'hsla(0, 0%, 0%, 0.14)',
+    low: 'hsla(0, 0%, 0%, 0.12)',
+  },
   text: {
     primary: 'hsla(0, 0, 0, 0.87)',
     secondary: 'hsla(0, 0, 0, 0.6)',

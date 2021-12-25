@@ -79,6 +79,11 @@ declare namespace LIGHT_PALETTE {
     };
     const contrastThreshold: number;
     const tonalOffset: number;
+    namespace shadow {
+        const full: string;
+        const partial: string;
+        const low: string;
+    }
     namespace text {
         const primary_1: string;
         export { primary_1 as primary };

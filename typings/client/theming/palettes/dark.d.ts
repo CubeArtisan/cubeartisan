@@ -77,6 +77,11 @@ declare namespace DARK_PALETTE {
         A400: string;
         A700: string;
     };
+    namespace shadow {
+        const full: string;
+        const partial: string;
+        const low: string;
+    }
     const contrastThreshold: number;
     const tonalOffset: number;
     namespace text {
@@ -88,11 +93,25 @@ declare namespace DARK_PALETTE {
     }
     const divider: string;
     namespace background {
+        const primary_2: string;
+        export { primary_2 as primary };
         export const paper: string;
         const _default: string;
         export { _default as default };
         export const darker: string;
         export const hover: string;
+    }
+    namespace cards {
+        const white_1: string;
+        export { white_1 as white };
+        export const blue: string;
+        const black_1: string;
+        export { black_1 as black };
+        export const red: string;
+        export const green: string;
+        export const multi: string;
+        export const colorless: string;
+        export const lands: string;
     }
     namespace action {
         export const active: string;

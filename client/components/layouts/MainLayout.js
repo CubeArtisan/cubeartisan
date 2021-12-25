@@ -31,7 +31,7 @@ import SiteAppBar from '@cubeartisan/client/components/SiteAppBar.js';
  */
 const MainLayout = ({ children, loginCallback }) => {
   return (
-    <Box sx={{ minHeight: '100vh' }}>
+    <Box sx={{ minHeight: '100vh', backgroundColor: 'background.primary' }}>
       <SiteAppBar loginCallback={loginCallback} />
       <Container maxWidth="xl">
         <ErrorBoundary>{children}</ErrorBoundary>

@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { useContext } from 'react';
-import { Row, Col, Container } from 'reactstrap';
+import { Box, Container, Grid } from '@mui/material';
 
 import Copyright from '@cubeartisan/client/components/Copyright.js';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
@@ -25,10 +25,10 @@ import SiteCustomizationContext from '@cubeartisan/client/components/contexts/Si
 const Footer = () => {
   const { discordUrl, siteName, sourceRepo } = useContext(SiteCustomizationContext);
   return (
-    <footer>
-      <Container className="pt-3 bg-accent">
-        <Row>
-          <Col xs="6" sm="3">
+    <Box component="footer" sx={{ backgroundColor: 'background.paper', bottom: 0 }}>
+      <Container maxWidth="xl">
+        <Grid container>
+          <Grid item xs={6} sm={3}>
             <small>
               <h6 className="footer-header">Content</h6>
               <ul className="footer-ul pl-0">
@@ -54,8 +54,8 @@ const Footer = () => {
                 </li>
               </ul>
             </small>
-          </Col>
-          <Col xs="6" sm="3">
+          </Grid>
+          <Grid item xs={6} sm={3}>
             <small>
               <h6 className="footer-header">Cube</h6>
               <ul className="footer-ul pl-0">
@@ -76,8 +76,8 @@ const Footer = () => {
                 </li>
               </ul>
             </small>
-          </Col>
-          <Col xs="6" sm="3">
+          </Grid>
+          <Grid item xs={6} sm={3}>
             <small>
               <h6 className="footer-header">Cards</h6>
               <ul className="footer-ul pl-0">
@@ -103,8 +103,8 @@ const Footer = () => {
                 </li>
               </ul>
             </small>
-          </Col>
-          <Col xs="6" sm="3">
+          </Grid>
+          <Grid item xs={6} sm={3}>
             <small>
               <h6 className="footer-header">Info</h6>
               <ul className="footer-ul pl-0">
@@ -135,8 +135,8 @@ const Footer = () => {
                 </li>
               </ul>
             </small>
-          </Col>
-        </Row>
+          </Grid>
+        </Grid>
         <p className="center footer-text">
           <a className="footer-link" href="/privacy">
             Privacy Policy
@@ -173,7 +173,7 @@ const Footer = () => {
           <Copyright />
         </p>
       </Container>
-    </footer>
+    </Box>
   );
 };
 

@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "module": "es2022",
+    "target": "es2021",
+    "baseUrl": "./",
+    "paths": {
+      "@cubeartisan/server/*": ["./server/*"],
+      "@cubeartisan/client/*": ["./client/*"],
+      "@cubeartisan/jobs/*": ["./jobs/*"]
+    },
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "checkJs": false,
+    "allowJs": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "typings",
+    "declarationMap": true,
+    "typeRoots": [
+      "./typings"
+    ]
+  },
+  "include": ["server/**/*", "client/**/*", "./jobs/**/*"],
+  "exclude": ["**/node_modules/**/*", "**/dist/**/*", "**/coverage/**/*"]
+}

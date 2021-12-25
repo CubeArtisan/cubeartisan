@@ -1,9 +1,3 @@
-
-body {
-	background-color: var(--bg);
-	color: var(--text);
-}
-
 .card {
 	background-color: var(--bg);
 }
@@ -109,25 +103,6 @@ body {
 	background-color: var(--bg) !important;
 	color:var(--text);
 	text-decoration: none;
-}
-
-.card-list-item {
-	list-style-type: none;
-	transition: 0.25s;
-	border-radius: 0 !important;
-	cursor: pointer;
-	font-size: 8.5pt;
-
-	color:var(--card-text);
-	padding: 3px 4px;
-	text-decoration: none;
-}
-
-.card-list-item,
-.card-list-item .name {
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	overflow: hidden;
 }
 
 @media (max-width: 1199.98px) {
@@ -903,6 +878,10 @@ img.mana-symbol-sm {
 		width: 100%;
 		min-height: 100px;
 	}
+}
+
+html {
+  height: 100%;
 }
 
 .sortIcon {

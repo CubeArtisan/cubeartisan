@@ -20,7 +20,7 @@ export const SortFunctions: {
     'Mana Value': (a: any, b: any) => number;
     Price: (a: any, b: any) => number;
     Elo: (a: any, b: any) => number;
-    'Release Date': (a: any, b: any) => 1 | 0 | -1;
+    'Release Date': (a: any, b: any) => 1 | -1 | 0;
     'Cube Count': (a: any, b: any) => number;
     'Pick Count': (a: any, b: any) => number;
 };
