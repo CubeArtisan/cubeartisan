@@ -4,7 +4,6 @@
   "client/__tests__/helpers/helpers.js",
   "client/babel.config.cjs",
   "client/components/AsfanDropdown.js",
-  "client/components/AutocardListGroup.js",
   "client/components/AutocardListItem.js",
   "client/components/AutocompleteInput.js",
   "client/components/BlogPost.js",
