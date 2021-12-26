@@ -25,31 +25,31 @@ export const getCardColorClass = (card) => {
   const type = card.type_line ?? card.details.type;
   const colors = card.colors ?? card.details.color_identity;
   if (type.toLowerCase().includes('land')) {
-    return 'lands';
+    return 'cards.lands';
   }
   if (colors.length === 0) {
-    return 'colorless';
+    return 'cards.colorless';
   }
   if (colors.length > 1) {
-    return 'multi';
+    return 'cards.multi';
   }
   if (colors.length === 1 && Array.from('WUBRGC').includes(colors[0])) {
     return {
-      W: 'white',
-      U: 'blue',
-      B: 'black',
-      R: 'red',
-      G: 'green',
-      C: 'colorless',
+      W: 'cards.white',
+      U: 'cards.blue',
+      B: 'cards.black',
+      R: 'cards.red',
+      G: 'cards.green',
+      C: 'cards.colorless',
     }[colors[0]];
   }
-  return 'colorless';
+  return 'cards.colorless';
 };
 
 export const getCardTagColorClass = (tagColors, card) => {
   const tagColor = tagColors.find(({ tag }) => (card.tags ?? []).includes(tag));
   if (tagColor && tagColor.color) {
-    return `tag-color tag-${tagColor.color}`;
+    return `card.${tagColor.color}`;
   }
   return getCardColorClass(card);
 };
@@ -57,9 +57,9 @@ export const getCardTagColorClass = (tagColors, card) => {
 export const getTagColorClass = (tagColors, tag) => {
   const tagColor = tagColors.find((tagColorB) => tag === tagColorB.tag);
   if (tagColor && tagColor.color) {
-    return `tag-color tag-${tagColor.color}`;
+    return `card.${tagColor.color}`;
   }
-  return 'tag-no-color';
+  return '';
 };
 
 export const TAG_COLORS = [

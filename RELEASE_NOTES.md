@@ -162,7 +162,10 @@
 
 ### Features
 
-- Migrate The Deck Page view to the new UI style.
+- Migrate the Deck Page view to the new UI style.
+- Allow controlling dark mode without refreshing.
+- Migrate the Dashboard to the new UI style.
+- Improvements to the dark mode color scheme.
 
 ### Infrastructure
 

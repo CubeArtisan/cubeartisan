@@ -217,43 +217,6 @@
 	opacity: 1;
 }
 
-.cmc-group:not(:first-of-type) {
-	border-top: 1px solid var(--border-darker);
-}
-
-.white {
-	border-color: var(--card-white);
-	background-color: var(--card-white);
-}
-.blue {
-	border-color: var(--card-blue);
-	background-color: var(--card-blue);
-}
-.black {
-	border-color: var(--card-black);
-	background-color: var(--card-black);
-}
-.red {
-	border-color: var(--card-red);
-	background-color: var(--card-red);
-}
-.green {
-	border-color: var(--card-green);
-	background-color: var(--card-green);
-}
-.multi {
-	border-color: var(--card-multi);
-	background-color: var(--card-multi);
-}
-.colorless {
-	border-color: var(--card-colorless);
-	background-color: var(--card-colorless);
-}
-.lands {
-	border-color: var(--card-lands);
-	background-color: var(--card-lands);
-}
-
 .dropdown-menu a:focus {
 	background-color: var(--success);
 	color: var(--bg);

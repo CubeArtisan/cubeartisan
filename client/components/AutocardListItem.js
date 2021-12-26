@@ -79,17 +79,16 @@ const AutocardListItem = ({ card, noCardModal, inModal, className }) => {
    *  Memoized card color (WUBRG) derivation to minimize rerenders
    *  @note: tag coloring is handled by AutocardDiv automatically.
    */
-  const colorClassname = useMemo(() => cardColorClass(card), [card, cardColorClass]);
+  const backgroundColor = useMemo(() => cardColorClass(card), [card, cardColorClass]);
 
   return (
     <AutocardLI
-      className={cx(colorClassname, className)}
       card={card}
       onAuxClick={noCardModal ? noOp : handleAuxClick}
       onClick={noCardModal ? noOp : handleClick}
       inModal={inModal}
       role="button"
-      sx={{ paddingLeft: 0.5, paddingRight: 0, PaddingY: 0.25 }}
+      sx={{ paddingLeft: 0.5, paddingRight: 0, PaddingY: 0.25, backgroundColor }}
     >
       <Typography noWrap sx={{ width: '100%' }} variant="body2">
         {name}

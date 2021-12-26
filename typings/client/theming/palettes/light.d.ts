@@ -99,6 +99,18 @@ declare namespace LIGHT_PALETTE {
         export const darker: string;
         export const hover: string;
     }
+    namespace cards {
+        const white_1: string;
+        export { white_1 as white };
+        export const blue: string;
+        const black_1: string;
+        export { black_1 as black };
+        export const red: string;
+        export const green: string;
+        export const multi: string;
+        export const colorless: string;
+        export const lands: string;
+    }
     namespace action {
         export const active: string;
         const hover_1: string;

@@ -75,6 +75,16 @@ const LIGHT_PALETTE = {
     darker: 'hsl(270, 10%, 80%)',
     hover: 'hsl(270, 60%, 91%)',
   },
+  cards: {
+    white: 'hsl(65, 40%, 85%)',
+    blue: 'hsl(235, 90%, 85%)',
+    black: 'hsl(266, 100%, 85%)',
+    red: 'hsl(330, 95%, 85%)',
+    green: 'hsl(160, 60%, 85%)',
+    multi: 'hsl(55, 95%, 85%)',
+    colorless: 'hsl(340, 5%, 85%)',
+    lands: 'hsl(32, 42%, 85%)',
+  },
   action: {
     active: 'hsla(0, 0, 0, 0.54)',
     hover: 'hsla(0, 0, 0, 0.04)',

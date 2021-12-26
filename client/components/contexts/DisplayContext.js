@@ -19,7 +19,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 // import useMediaQuery from '@mui/material/useMediaQuery/index.js';
-import { ThemeProvider } from '@mui/material/node/styles/index.js';
+import { ThemeProvider, responsiveFontSizes } from '@mui/material/node/styles/index.js';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import getTheme from '@cubeartisan/client/theming/theme.js';
@@ -111,9 +111,7 @@ export const DisplayContextProvider = ({ cubeID, defaultNumCols, ...props }) => 
     if (user._id && user.theme) setTheme(user.theme);
   }, [user._id, user.theme]);
   const muiTheme = useMemo(() => {
-    console.log(user.theme, theme);
-    const newTheme = getTheme(user.theme ?? theme);
-    console.log(newTheme.palette.mode);
+    const newTheme = responsiveFontSizes(getTheme(user.theme ?? theme));
     return newTheme;
   }, [user.theme, theme]);
   const value = {

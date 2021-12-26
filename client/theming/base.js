@@ -11,7 +11,15 @@ const defaultTheme = (palette) => ({
     unit: 'px',
   },
   direction: 'ltr',
-  components: {},
+  components: {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          color: palette.text.primary,
+        },
+      },
+    },
+  },
   shape: {
     borderRadius: 10,
   },

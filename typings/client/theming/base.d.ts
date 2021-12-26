@@ -12,7 +12,15 @@ declare function defaultTheme(palette: any): {
         unit: string;
     };
     direction: string;
-    components: {};
+    components: {
+        MuiTypography: {
+            styleOverrides: {
+                root: {
+                    color: any;
+                };
+            };
+        };
+    };
     shape: {
         borderRadius: number;
     };
