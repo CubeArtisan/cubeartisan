@@ -19,7 +19,7 @@
 import React, { useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
-import { List, ListSubheader, Typography } from '@mui/material';
+import { Divider, List, ListSubheader, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/node/styles/index.js';
 
 import { sortDeep } from '@cubeartisan/client/utils/Sort.js';
@@ -55,9 +55,14 @@ const AutocardListGroup = ({ cards, heading, sort, orderedSort, showOther, rowTa
       >
         <Typography variant="subtitle2">{heading}</Typography>
       </ListSubheader>
-      {sorted.map(([, group]) =>
-        group.map((card) => <RowTag key={typeof card.index === 'undefined' ? card._id : card.index} card={card} />),
-      )}
+      {sorted.map(([, group]) => (
+        <>
+          {group.map((card) => (
+            <RowTag key={typeof card.index === 'undefined' ? card._id : card.index} card={card} />
+          ))}
+          <Divider />
+        </>
+      ))}
     </List>
   );
 };

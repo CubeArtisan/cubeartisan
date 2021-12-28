@@ -17,7 +17,6 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { useCallback, useContext, useMemo } from 'react';
-import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { ListItem, Typography } from '@mui/material';
 
@@ -37,7 +36,7 @@ const CARD_ID_FALLBACK = 'undefined.js';
  */
 const noOp = () => undefined;
 
-const AutocardListItem = ({ card, noCardModal, inModal, className }) => {
+const AutocardListItem = ({ card, noCardModal, inModal }) => {
   const { cardColorClass } = useContext(TagContext);
   const openCardModal = useContext(CardModalContext);
 
@@ -100,12 +99,10 @@ AutocardListItem.propTypes = {
   card: CardPropType.isRequired,
   noCardModal: PropTypes.bool,
   inModal: PropTypes.bool,
-  className: PropTypes.string,
 };
 AutocardListItem.defaultProps = {
   noCardModal: false,
   inModal: false,
-  className: '',
 };
 
 export default AutocardListItem;

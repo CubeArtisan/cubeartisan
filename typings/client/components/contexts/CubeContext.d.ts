@@ -19,14 +19,31 @@ export namespace CubeContextProvider {
     }
 }
 export default CubeContext;
-import PropTypes from "prop-types";
-declare const CubeContext: React.Context<{
-    cube: {};
+export type ContextType = React.Context<{
+    cube: any;
     canEdit: boolean;
-    cubeID: any;
+    cubeID: string | null;
     hasCustomImages: boolean;
-    updateCubeCard: () => void;
-    updateCubeCards: () => void;
+    setCube: ((cube: any) => void) | ((replacer: (cube: any) => any) => void);
+    updateCubeCard: (index: number, card: any) => void;
+    updateCubeCards: (cards: any[]) => void;
+}>;
+import PropTypes from "prop-types";
+/**
+ * @typedef {import('react').Context<{ cube: any, canEdit: Boolean, cubeID: string?, hasCustomImages: Boolean,
+ *           setCube: ((cube: any) => void) | ((replacer: (cube: any) => any) => void),
+ *           updateCubeCard: (index: number, card: any) => void,
+ *           updateCubeCards: (cards: any[]) => void }>} ContextType
+ * @type ContextType
+ */
+declare const CubeContext: React.Context<{
+    cube: any;
+    canEdit: boolean;
+    cubeID: string | null;
+    hasCustomImages: boolean;
+    setCube: ((cube: any) => void) | ((replacer: (cube: any) => any) => void);
+    updateCubeCard: (index: number, card: any) => void;
+    updateCubeCards: (cards: any[]) => void;
 }>;
 import React from "react";
 //# sourceMappingURL=CubeContext.d.ts.map

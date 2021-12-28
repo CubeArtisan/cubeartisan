@@ -18,6 +18,10 @@
  */
 import { createContext } from 'react';
 
-const CardModalContext = createContext(() => null);
+/**
+ * @typedef {import('react').Context<(card: any) => void>} ContextType
+ * @type ContextType
+ */
+const CardModalContext = createContext(() => {});
 
 export default CardModalContext;

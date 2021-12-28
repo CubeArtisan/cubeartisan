@@ -29,10 +29,39 @@ export namespace TagContextProvider {
     }
 }
 export default TagContext;
+export type ContextType = React.Context<{
+    allSuggestions: string[];
+    addSuggestion: (tag: string) => void;
+    allTags: string[];
+    setTagColors: (colors: string[]) => void;
+    showTagColors: boolean;
+    setShowTagColors: (showTagColors: boolean) => void;
+    cardColorClass: (card: any) => string;
+    tagColorClass: (tag: string) => string;
+}>;
 import PropTypes from "prop-types";
+/**
+ * @typedef {import('react').Context<{
+ *   allSuggestions: string[],
+ *   addSuggestion: (tag: string) => void,
+ *   allTags: string[],
+ *   setTagColors: (colors: string[]) => void,
+ *   showTagColors: Boolean,
+ *   setShowTagColors: (showTagColors: Boolean) => void,
+ *   cardColorClass: (card: any) => string,
+ *   tagColorClass: (tag: string) => string,
+ * }>} ContextType
+ * @type ContextType
+ */
 declare const TagContext: React.Context<{
-    addSuggestion: () => void;
-    allSuggestions: any[];
+    allSuggestions: string[];
+    addSuggestion: (tag: string) => void;
+    allTags: string[];
+    setTagColors: (colors: string[]) => void;
+    showTagColors: boolean;
+    setShowTagColors: (showTagColors: boolean) => void;
+    cardColorClass: (card: any) => string;
+    tagColorClass: (tag: string) => string;
 }>;
 import React from "react";
 //# sourceMappingURL=TagContext.d.ts.map

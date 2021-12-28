@@ -76,11 +76,28 @@ export const TAG_COLORS = [
   ['Pink', 'pink'],
 ];
 
+/**
+ * @typedef {import('react').Context<{
+ *   allSuggestions: string[],
+ *   addSuggestion: (tag: string) => void,
+ *   allTags: string[],
+ *   setTagColors: (colors: string[]) => void,
+ *   showTagColors: Boolean,
+ *   setShowTagColors: (showTagColors: Boolean) => void,
+ *   cardColorClass: (card: any) => string,
+ *   tagColorClass: (tag: string) => string,
+ * }>} ContextType
+ * @type ContextType
+ */
 const TagContext = createContext({
-  addSuggestion: () => {
-    console.error('Error: No TagContext!');
-  },
   allSuggestions: [],
+  addSuggestion: () => {},
+  allTags: [],
+  setTagColors: () => {},
+  showTagColors: false,
+  setShowTagColors: () => {},
+  cardColorClass: () => '',
+  tagColorClass: () => '',
 });
 
 export const TagContextProvider = ({
@@ -153,7 +170,7 @@ export const TagContextProvider = ({
   const tagColorClass = useCallback(
     (tag) => {
       if (showTagColors) return getTagColorClass(tagColors, tag);
-      return 'tag-no-color';
+      return '';
     },
     [tagColors, showTagColors],
   );
