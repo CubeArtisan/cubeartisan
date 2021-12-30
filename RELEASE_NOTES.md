@@ -175,3 +175,5 @@ This release is composed of porting over bug fixes for bugs we carried over from
   Thanks to @lunakv who wrote the fix for CubeCobra this was ported from.
 - Fix pagination calculations on the CardSearchPage.
   Thanks to @lunakv who wrote the fix for CubeCobra this was ported from.
+- The filter `is:commander` now will consider Grist, the Hunger Tide a commander.
+  Thanks to @lunakv who wrote the fix for CubeCobra this was ported from.
