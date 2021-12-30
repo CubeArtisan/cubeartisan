@@ -90,10 +90,11 @@ export const bulkUpload = async (req, res, list, cube) => {
       for (const itemUntrimmed of lines) {
         const item = itemUntrimmed.trim();
         // separate counts and sets from the name
-        //                              |    count?   |name|     (set)?      |
-        const splitLine = item.match(/^(?:([0-9]+)x? )?(.*?)(?: \(([^)(]+)\))?$/);
+        //                              |    count?   |name|     (set)?         c.num? |
+        const splitLine = item.match(/^(?:([0-9]+)x? )?(.*?)(?: \(([^)(]+)\)(?: (\S+))?)?$/);
         const name = splitLine[2];
         const set = splitLine[3];
+        const collectorNum = splitLine[4];
         let count = parseInt(splitLine[1], 10);
         if (!Number.isInteger(count)) {
           count = 1;
@@ -103,9 +104,13 @@ export const bulkUpload = async (req, res, list, cube) => {
         if (set) {
           const potentialIds = carddb.getIdsFromName(name);
           if (potentialIds && potentialIds.length > 0) {
-            const matchingItem = potentialIds.find(
-              (id) => carddb.cardFromId(id).set.toLowerCase() === set.toLowerCase(),
-            );
+            const matchingItem = potentialIds.find((id) => {
+              const card = carddb.cardFromId(id);
+              return (
+                card.set.toLowerCase() === set.toLowerCase() &&
+                (!collectorNum || card.collector_number === collectorNum)
+              );
+            });
             // if no sets match, just take the first ID ¯\_(ツ)_/¯
             selectedId = matchingItem || potentialIds[0];
           }
@@ -117,9 +122,11 @@ export const bulkUpload = async (req, res, list, cube) => {
         if (selectedId) {
           const details = carddb.cardFromId(selectedId);
           if (!details.error) {
-            addCardToCube(cube, details);
-            added.push(details);
-            changelog.push(addCardMarkdown({ cardID: selectedId, name: details.name }));
+            for (let i = 0; i < count; i++) {
+              addCardToCube(cube, details);
+              added.push(details);
+              changelog.push(addCardMarkdown({ cardID: selectedId, name: details.name }));
+            }
           }
         } else {
           missing.push(item);

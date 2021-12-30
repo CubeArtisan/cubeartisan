@@ -157,3 +157,25 @@
 ### Bug Fixes
 
 - Fix CSRF form not forwarding ref correctly causing decks to not be saveable.
+
+### v1.3.2.1
+
+This release is composed of porting over bug fixes for bugs we carried over from CubeCobra.
+
+#### Features
+
+- Allow specifying collector numbers in the bulk text upload
+  Thanks to @lunakv who wrote the fix for CubeCobra this was ported from.
+
+#### Bug Fixes
+
+- Fix scryfall imports which were failing due to the reversible cards in the commander secret lair.
+  Thanks to @lunakv who wrote the fix for CubeCobra this was ported from.
+- Fix bulk text upload format.
+  Thanks to @lunakv who wrote the fix for CubeCobra this was ported from.
+- Fix pagination calculations on the CardSearchPage.
+  Thanks to @lunakv who wrote the fix for CubeCobra this was ported from.
+- The filter `is:commander` now will consider Grist, the Hunger Tide a commander.
+  Thanks to @lunakv who wrote the fix for CubeCobra this was ported from.
+- Handle searching for cubes that contain a card better when the card has an art card printing.
+  Thanks to @dekkerglen who wrote the fix for CubeCobra this was ported from.
