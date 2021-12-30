@@ -132,13 +132,13 @@ function registerFileWatcher(filename, attribute) {
   });
 }
 
-async function initializeCardDb(dataRoot, skipWatchers) {
+async function initializeCardDb(dataRoot, skipWatchers, attempt = 0) {
   winston.info('LoadingPage carddb...');
   if (dataRoot === undefined) {
     dataRoot = './private';
   }
   if (!Object.keys(fileToAttribute).every((filename) => fs.existsSync(`${dataRoot}/${filename}`))) {
-    winston.info('String midnight cardbase update...');
+    winston.info('Starting cardbase update...');
 
     await updatecards.downloadCardbase(dataRoot);
   }
@@ -150,7 +150,16 @@ async function initializeCardDb(dataRoot, skipWatchers) {
       registerFileWatcher(filepath, attribute);
     }
   }
-  await Promise.all(promises);
+  try {
+    await Promise.all(promises);
+  } catch (err) {
+    if (attempt < 2) {
+      winston.info('Starting cardbase update...');
+      await updatecards.downloadCardbase(dataRoot);
+      return initializeCardDb(dataRoot, true, attempt + 1);
+    }
+    throw err;
+  }
   // cache cards used in card filters
   data.printedCardList = Object.values(data._carddict).filter((card) => !card.digital && !card.isToken);
   return winston.info('Finished loading carddb.');
