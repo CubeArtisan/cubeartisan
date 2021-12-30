@@ -756,6 +756,12 @@ describe.each(fnToAttributeTable)('%s properly converts %s', (convertFn, attribu
     const result = updatecards[convertFn](card, true, getFaceAttributeSource(card, true));
     expect(result).toEqual(convertedExampleAdventureCardAdventure[attribute]);
   });
+
+  test('for a reversible card', () => {
+    const card = examplecards.exampleReversibleCard;
+    const result = updatecards[convertFn](card, false, getFaceAttributeSource(card, false));
+    expect(result).toEqual(convertedExampleReversibleCard[attribute]);
+  });
 });
 
 describe('convertName', () => {
