@@ -1,21 +1,36 @@
-export class SortContextProvider extends React.Component<any, any, any> {
-    constructor(props: any);
-    changeSort(change: any): void;
-}
+export function SortContextProvider({ defaultSorts, defaultShowOther, ...props }: {
+    [x: string]: any;
+    defaultSorts: any;
+    defaultShowOther: any;
+}): JSX.Element;
 export namespace SortContextProvider {
     namespace propTypes {
-        const defaultSorts: PropTypes.Validator<string[]>;
-        const showOther: PropTypes.Validator<boolean>;
+        const defaultSorts: PropTypes.Requireable<string[]>;
+        const defaultShowOther: PropTypes.Requireable<boolean>;
+    }
+    namespace defaultProps {
+        export { DEFAULT_SORTS as defaultSorts };
+        const defaultShowOther_1: boolean;
+        export { defaultShowOther_1 as defaultShowOther };
     }
 }
 export default SortContext;
-import React from "react";
+export type SortContextValuesNoSetter = {
+    primary?: string;
+    secondary?: string;
+    tertiary?: string;
+    quaternary?: string;
+    showOther?: boolean;
+};
 import PropTypes from "prop-types";
+declare const DEFAULT_SORTS: string[];
 declare const SortContext: React.Context<{
-    primary: string;
-    secondary: string;
-    tertiary: string;
-    quaternary: string;
-    showOther: boolean;
+    changeSort: (newValues: SortContextValuesNoSetter) => SortContextValuesNoSetter;
+    primary?: string;
+    secondary?: string;
+    tertiary?: string;
+    quaternary?: string;
+    showOther?: boolean;
 }>;
+import React from "react";
 //# sourceMappingURL=SortContext.d.ts.map

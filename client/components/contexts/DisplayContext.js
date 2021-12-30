@@ -25,13 +25,36 @@ import UserContext from '@cubeartisan/client/components/contexts/UserContext.js'
 import getTheme from '@cubeartisan/client/theming/theme.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
+/**
+ * @typedef {'default' | 'dark'} ThemeType
+ * @typedef DisplayContextValue
+ * @property {boolean} showCustomImages
+ * @property {() => void} toggleShowCustomImages
+ * @property {boolean} showMaybeboard
+ * @property {() => void} toggleShowMaybeboard
+ * @property {number} cardsInRow
+ * @property {(cardsInRow: number) => void} setCardsInRow
+ * @property {boolean} useSticky
+ * @property {() => void} toggleUseSticky
+ * @property {ThemeType} theme
+ * @property {(theme?: ThemeType) => void} updateTheme
+ */
+
+/**
+ * @typedef {import('react').Context<DisplayContextValue>} ContextType
+ * @type ContextType
+ */
 const DisplayContext = createContext({
   showCustomImages: true,
-  compressedView: false,
+  toggleShowCustomImages: () => {},
   showMaybeboard: false,
+  toggleShowMaybeboard: () => {},
   cardsInRow: 8,
+  setCardsInRow: () => {},
   useSticky: false,
+  toggleUseSticky: () => {},
   theme: 'default',
+  updateTheme: () => {},
 });
 
 export const DisplayContextProvider = ({ cubeID, defaultNumCols, ...props }) => {
@@ -41,14 +64,6 @@ export const DisplayContextProvider = ({ cubeID, defaultNumCols, ...props }) => 
   const toggleShowCustomImages = useCallback(() => {
     setShowCustomImages(!showCustomImages);
   }, [showCustomImages]);
-
-  const [compressedView, setCompressedView] = useState(() => {
-    return typeof localStorage !== 'undefined' && localStorage.getItem('compressed') === 'true';
-  });
-  const toggleCompressedView = useCallback(() => {
-    localStorage.setItem('compressed', !compressedView);
-    setCompressedView(!compressedView);
-  }, [compressedView]);
 
   const [showMaybeboard, setShowMaybeboard] = useState(() => {
     return typeof localStorage !== 'undefined' && cubeID && localStorage.getItem(`maybeboard-${cubeID}`) === 'true';
@@ -117,8 +132,6 @@ export const DisplayContextProvider = ({ cubeID, defaultNumCols, ...props }) => 
   const value = {
     showCustomImages,
     toggleShowCustomImages,
-    compressedView,
-    toggleCompressedView,
     showMaybeboard,
     toggleShowMaybeboard,
     cardsInRow,

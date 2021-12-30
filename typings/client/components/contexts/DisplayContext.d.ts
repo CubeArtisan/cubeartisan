@@ -16,14 +16,39 @@ export namespace DisplayContextProvider {
     }
 }
 export default DisplayContext;
-import PropTypes from "prop-types";
-declare const DisplayContext: React.Context<{
+export type ThemeType = 'default' | 'dark';
+export type DisplayContextValue = {
     showCustomImages: boolean;
-    compressedView: boolean;
+    toggleShowCustomImages: () => void;
     showMaybeboard: boolean;
+    toggleShowMaybeboard: () => void;
     cardsInRow: number;
+    setCardsInRow: (cardsInRow: number) => void;
     useSticky: boolean;
-    theme: string;
-}>;
+    toggleUseSticky: () => void;
+    theme: ThemeType;
+    updateTheme: (theme?: ThemeType) => void;
+};
+export type ContextType = import('react').Context<DisplayContextValue>;
+import PropTypes from "prop-types";
+/**
+ * @typedef {'default' | 'dark'} ThemeType
+ * @typedef DisplayContextValue
+ * @property {boolean} showCustomImages
+ * @property {() => void} toggleShowCustomImages
+ * @property {boolean} showMaybeboard
+ * @property {() => void} toggleShowMaybeboard
+ * @property {number} cardsInRow
+ * @property {(cardsInRow: number) => void} setCardsInRow
+ * @property {boolean} useSticky
+ * @property {() => void} toggleUseSticky
+ * @property {ThemeType} theme
+ * @property {(theme?: ThemeType) => void} updateTheme
+ */
+/**
+ * @typedef {import('react').Context<DisplayContextValue>} ContextType
+ * @type ContextType
+ */
+declare const DisplayContext: React.Context<DisplayContextValue>;
 import React from "react";
 //# sourceMappingURL=DisplayContext.d.ts.map

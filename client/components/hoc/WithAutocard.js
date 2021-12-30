@@ -30,8 +30,7 @@ const StyledCardImage = styled('img')({
   width: 300,
 });
 
-const StyledFoilImage = styled('img')({
-  width: 300,
+const StyledFoilImage = styled(StyledCardImage)({
   position: 'absolute',
   pointerEvents: 'none',
   mixBlendMode: 'multiply',

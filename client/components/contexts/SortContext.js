@@ -16,73 +16,79 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { createContext, Component } from 'react';
+import React, { createContext, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-const SortContext = createContext({
+const DEFAULT_SORTS = ['Color Category', 'Types-Multicolor', 'Mana Value', 'Alphabetical'];
+
+/**
+ * @typedef SortContextValuesNoSetter
+ * @property {string} [primary]
+ * @property {string} [secondary]
+ * @property {string} [tertiary]
+ * @property {string} [quaternary]
+ * @property {boolean} [showOther]
+ */
+
+/**
+ * @type SortContextValuesNoSetter
+ */
+const DEFAULT_VALUES = {
   primary: 'Color Category',
   secondary: 'Types-Multicolor',
   tertiary: 'Mana Value',
   quaternary: 'Alphabetical',
   showOther: false,
-});
-
-export class SortContextProvider extends Component {
-  constructor(props) {
-    super(props);
-    const {
-      defaultSorts: [
-        primary = 'Color Category',
-        secondary = 'Types-Multicolor',
-        tertiary = 'Mana Value',
-        quaternary = 'Alphabetical',
-      ],
-      showOther = false,
-    } = this.props;
-
-    this.state = {
-      primary,
-      secondary,
-      tertiary,
-      quaternary,
-      showOther,
-    };
-
-    this.changeSort = this.changeSort.bind(this);
-  }
-
-  componentDidMount() {
-    for (const stage of ['primary', 'secondary', 'tertiary', 'quaternary']) {
-      const select = document.getElementById(`${stage}SortSelect`);
-      if (select) {
-        select.addEventListener('change', (event) => {
-          this.setState({
-            [stage]: event.target.value,
-          });
-        });
-      }
-    }
-  }
-
-  changeSort(change) {
-    this.setState(change);
-  }
-
-  render() {
-    const value = {
-      ...this.state,
-      changeSort: this.changeSort,
-    };
-    return <SortContext.Provider value={value} {...this.props} />;
-  }
-}
-
-SortContextProvider.propTypes = {
-  defaultSorts: PropTypes.arrayOf(PropTypes.string).isRequired,
-  showOther: PropTypes.bool.isRequired,
 };
+/**
+ * @param {SortContextValuesNoSetter} newValues
+ * @returns void
+ */
+const DEFAULT_CHANGE_SORT = (newValues) => newValues;
 
-SortContext.Wrapped = (Tag) => (props) =>
-  <SortContext.Consumer>{(value) => <Tag {...props} {...value} />}</SortContext.Consumer>;
-
+const SortContext = createContext({
+  ...DEFAULT_VALUES,
+  changeSort: DEFAULT_CHANGE_SORT,
+});
+export const SortContextProvider = ({ defaultSorts, defaultShowOther, ...props }) => {
+  let {
+    primary: defaultPrimary,
+    secondary: defaultSecondary,
+    tertiary: defaultTertiary,
+    quaternary: defaultQuaternary,
+  } = DEFAULT_VALUES;
+  if (defaultSorts.length === 4) {
+    [defaultPrimary, defaultSecondary, defaultTertiary, defaultQuaternary] = defaultSorts;
+  }
+  defaultShowOther = defaultShowOther ?? DEFAULT_VALUES.showOther;
+  const [primary, setPrimary] = useState(defaultPrimary);
+  const [secondary, setSecondary] = useState(defaultSecondary);
+  const [tertiary, setTertiary] = useState(defaultTertiary);
+  const [quaternary, setQuaternary] = useState(defaultQuaternary);
+  const [showOther, setShowOther] = useState(defaultShowOther);
+  const changeSort = useCallback((newValues) => {
+    if (newValues.primary) setPrimary(newValues.primary);
+    if (newValues.secondary) setSecondary(newValues.secondary);
+    if (newValues.tertiary) setTertiary(newValues.tertiary);
+    if (newValues.quaternary) setQuaternary(newValues.quaternary);
+    if (newValues.showOther) setShowOther(newValues.showOther);
+  }, []);
+  const value = {
+    primary,
+    secondary,
+    tertiary,
+    quaternary,
+    showOther,
+    changeSort,
+  };
+  return <SortContext.Provider value={value} {...props} />;
+};
+SortContextProvider.propTypes = {
+  defaultSorts: PropTypes.arrayOf(PropTypes.string),
+  defaultShowOther: PropTypes.bool,
+};
+SortContextProvider.defaultProps = {
+  defaultSorts: DEFAULT_SORTS,
+  defaultShowOther: false,
+};
 export default SortContext;

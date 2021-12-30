@@ -19,7 +19,6 @@
   "client/components/CubeListNavbar.js",
   "client/components/CubeSearchNavBar.js",
   "client/components/CubesCard.js",
-  "client/components/CustomImageToggler.js",
   "client/components/DeckCard.js",
   "client/components/DeckStacks.js",
   "client/components/DeckbuilderNavbar.js",

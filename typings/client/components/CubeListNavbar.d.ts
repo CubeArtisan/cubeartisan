@@ -1,5 +1,5 @@
 export default CubeListNavbar;
-declare function CubeListNavbar({ cards, cubeView, setCubeView, openCollapse, setOpenCollapse, defaultPrimarySort, defaultSecondarySort, defaultTertiarySort, defaultQuaternarySort, defaultShowUnsorted, sorts, setSorts, defaultSorts, cubeDefaultShowUnsorted, defaultFilterText, filter, setFilter, className, alerts, setAlerts, }: {
+declare function CubeListNavbar({ cards, cubeView, setCubeView, openCollapse, setOpenCollapse, defaultPrimarySort, defaultSecondarySort, defaultTertiarySort, defaultQuaternarySort, defaultShowUnsorted, sorts, setSorts, defaultSorts, cubeDefaultShowUnsorted, defaultFilterText, filter, setFilter, alerts, setAlerts, }: {
     cards: any;
     cubeView: any;
     setCubeView: any;
@@ -17,7 +17,6 @@ declare function CubeListNavbar({ cards, cubeView, setCubeView, openCollapse, se
     defaultFilterText: any;
     filter: any;
     setFilter: any;
-    className: any;
     alerts: any;
     setAlerts: any;
 }): JSX.Element;
@@ -53,7 +52,6 @@ declare namespace CubeListNavbar {
         const defaultFilterText: PropTypes.Validator<string>;
         const filter: PropTypes.Requireable<(...args: any[]) => any>;
         const setFilter: PropTypes.Validator<(...args: any[]) => any>;
-        const className: PropTypes.Requireable<string>;
         const alerts: PropTypes.Validator<PropTypes.InferProps<{
             color: PropTypes.Requireable<string>;
             message: PropTypes.Validator<string>;
@@ -67,8 +65,6 @@ declare namespace CubeListNavbar {
         export { sorts_1 as sorts };
         const filter_1: any;
         export { filter_1 as filter };
-        const className_1: any;
-        export { className_1 as className };
     }
 }
 import PropTypes from "prop-types";

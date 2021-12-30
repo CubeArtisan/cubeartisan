@@ -166,6 +166,7 @@
 - Allow controlling dark mode without refreshing.
 - Migrate the Dashboard to the new UI style.
 - Improvements to the dark mode color scheme.
+- Migrate the Cube List Page mostly.
 
 ### Infrastructure
 
