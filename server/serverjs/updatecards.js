@@ -483,10 +483,11 @@ function getTokens(card, catalogCard) {
   return mentionedTokens;
 }
 
-function convertCmc(card, isExtra) {
+function convertCmc(card, isExtra, faceAttributeSource) {
   if (isExtra) {
     return 0;
   }
+  if (typeof faceAttributeSource.cmc === 'number') return faceAttributeSource.cmc;
   return card.cmc;
 }
 
@@ -592,15 +593,24 @@ function convertColors(card, isExtra = false) {
   return [];
 }
 
-function convertType(card, isExtra) {
-  let type = card.type_line;
-  if (isExtra) {
-    type = type.substring(type.indexOf('/') + 2);
-  } else if (type.includes('//')) {
-    type = type.substring(0, type.indexOf('/'));
+function convertType(card, isExtra, faceAttributeSource) {
+  let type = faceAttributeSource.type_line;
+  if (!type) {
+    type = card.type_line;
+    if (isExtra) {
+      type = type.substring(type.indexOf('/') + 2);
+    } else if (type.includes('//')) {
+      type = type.substring(0, type.indexOf('/'));
+    }
   }
+
   if (type === 'Artifact — Contraption') {
     type = 'Artifact Contraption';
+  }
+
+  if (!type) {
+    winston.error(`Error converting type: (isExtra:${isExtra}) ${card.name} (id: ${card._id})`);
+    return '';
   }
   return type.trim();
 }
@@ -625,17 +635,24 @@ function convertName(card, isExtra) {
   return str.trim();
 }
 
-function convertCard(card, isExtra) {
+export function getFaceAttributeSource(card, isExtra) {
   let faceAttributeSource;
-  const newcard = {};
   if (isExtra) {
     [, faceAttributeSource] = card.card_faces;
-    card = { ...card };
-    card.card_faces = [faceAttributeSource];
   } else if (card.card_faces) {
     [faceAttributeSource] = card.card_faces;
   } else {
     faceAttributeSource = card;
+  }
+  return faceAttributeSource;
+}
+
+function convertCard(card, isExtra) {
+  const faceAttributeSource = getFaceAttributeSource(card, isExtra);
+  const newcard = {};
+  if (isExtra) {
+    card = { ...card };
+    card.card_faces = [faceAttributeSource];
   }
   const name = convertName(card, isExtra);
   newcard.color_identity = Array.from(card.color_identity);
@@ -694,12 +711,12 @@ function convertCard(card, isExtra) {
     newcard.oracle_text = card.card_faces.map((face) => face.oracle_text).join('\n');
   }
   newcard._id = convertId(card, isExtra);
-  newcard.oracle_id = card.oracle_id;
-  newcard.cmc = convertCmc(card, isExtra);
+  newcard.oracle_id = faceAttributeSource.oracle_id ?? card.oracle_id;
+  newcard.cmc = convertCmc(card, isExtra, faceAttributeSource);
   newcard.legalities = convertLegalities(card, isExtra);
   newcard.parsed_cost = convertParsedCost(card, isExtra);
   newcard.colors = convertColors(card, isExtra);
-  newcard.type = convertType(card, isExtra);
+  newcard.type = convertType(card, isExtra, faceAttributeSource);
   newcard.full_art = card.full_art;
   newcard.language = card.lang;
   newcard.mtgo_id = card.mtgo_id;

@@ -157,3 +157,10 @@
 ### Bug Fixes
 
 - Fix CSRF form not forwarding ref correctly causing decks to not be saveable.
+
+### v1.3.2.1
+
+#### Bug Fixes
+
+- Fix scryfall imports which were failing due to the reversible cards in the commander secret lair.
+  Thanks to @lunakv who wrote the fix for CubeCobra this was ported from.
