@@ -75,6 +75,9 @@ const store = new MongoDBStore(
     }
   },
 );
+
+// update the carddb regardless of if it is already downloaded. Do it in the background though.
+(async () => updatedb.downloadCardbase())();
 // scryfall updates this data at 9, so this will minimize staleness
 schedule.scheduleJob(`${Math.floor(Math.random() * 60)} 11 * * *`, async () => {
   winston.info('String midnight cardbase update...');
