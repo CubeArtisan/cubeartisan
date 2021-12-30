@@ -160,7 +160,14 @@
 
 ### v1.3.2.1
 
+#### Features
+
+- Allow specifying collector numbers in the bulk text upload
+  Thanks to @lunakv who wrote the fix for CubeCobra this was ported from.
+
 #### Bug Fixes
 
 - Fix scryfall imports which were failing due to the reversible cards in the commander secret lair.
+  Thanks to @lunakv who wrote the fix for CubeCobra this was ported from.
+- Fix bulk text upload format.
   Thanks to @lunakv who wrote the fix for CubeCobra this was ported from.
