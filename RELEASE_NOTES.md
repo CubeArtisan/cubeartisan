@@ -139,26 +139,30 @@
 
 - Fix issue where the last card in a draft was not added to pools. Thanks to @k9err for this.
 
-## v1.3.1.0
+### v1.3.1.0
 
-### Features
+#### Features
 
 - Improve the Cube List page's Table View and Card Modal UI. Thanks to @SirFunchalot for feedback.
 
-## v1.3.1.1
+#### v1.3.1.1
 
-### Infrastructure
+##### Infrastructure
 
 - Now automatically deploy the release with version number and release notes pulled from
   `RELEASE_NOTES.md`
 
-## v1.3.2.0
+### v1.3.2.0
 
-### Bug Fixes
+#### Bug Fixes
 
 - Fix CSRF form not forwarding ref correctly causing decks to not be saveable.
 
-## v1.3.3.0
+## v1.4.0.0
+
+This release is largely about quality of life improvements and migrating to the new design library.
+While there may not be explicit features the hope is the whole site will feel easier to use and that
+functionality of the site is easier to discover.
 
 ### Features
 
@@ -171,3 +175,4 @@
 ### Infrastructure
 
 - Move the markdown components to a separate library to allow other sites to share it.
+- Update packages for a smoother experience with less warnings.

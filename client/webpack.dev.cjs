@@ -16,7 +16,6 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-const path = require('path');
 const merge = require('webpack-merge');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
@@ -29,10 +28,15 @@ const config = {
 
 const clientConfig = merge(common, config, {
   devServer: {
+    devMiddleware: {
+      publicPath: '/js/',
+    },
     historyApiFallback: true,
     compress: true,
-    contentBase: path.join(__dirname, 'dist'),
-    publicPath: '/js/',
+    host: '127.0.0.1',
+    port: 8080,
+    static: {},
+    // contentBase: path.join(__dirname, 'dist'),
     proxy: [
       {
         context: ['!/js/*.bundle.js', '**'],
