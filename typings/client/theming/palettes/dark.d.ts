@@ -113,6 +113,20 @@ declare namespace DARK_PALETTE {
         export const colorless: string;
         export const lands: string;
     }
+    namespace tags {
+        const red_1: string;
+        export { red_1 as red };
+        export const brown: string;
+        export const yellow: string;
+        const green_1: string;
+        export { green_1 as green };
+        export const turquoise: string;
+        const blue_1: string;
+        export { blue_1 as blue };
+        export const purple: string;
+        export const violet: string;
+        export const pink: string;
+    }
     namespace action {
         export const active: string;
         const hover_1: string;

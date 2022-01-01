@@ -70,7 +70,6 @@
   "client/components/modals/LoginModal.js",
   "client/components/modals/ResizeModal.js",
   "client/components/modals/SampleHandModal.js",
-  "client/components/modals/TagColorsModal.js",
   "client/components/wrappers/Suspense.js",
   "client/drafting/createdraft.js",
   "client/drafting/draftutil.js",

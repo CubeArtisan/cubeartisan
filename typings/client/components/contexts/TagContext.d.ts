@@ -1,6 +1,6 @@
 export function getCardColorClass(card: any): any;
 export function getCardTagColorClass(tagColors: any, card: any): any;
-export function getTagColorClass(tagColors: any, tag: any): string;
+export function getTagColorClass(tagColors: TagColor[], tag: string): string;
 export const TAG_COLORS: string[][];
 export function TagContextProvider({ children, cubeID, defaultTagColors, defaultShowTagColors, defaultTags, userID, }: {
     children: any;
@@ -29,39 +29,36 @@ export namespace TagContextProvider {
     }
 }
 export default TagContext;
-export type ContextType = React.Context<{
+export type TagColor = {
+    tag: string;
+    color: string;
+};
+export type TagContextValues = {
     allSuggestions: string[];
     addSuggestion: (tag: string) => void;
     allTags: string[];
-    setTagColors: (colors: string[]) => void;
+    tagColors: TagColor[];
+    setTagColors: (colors: TagColor[]) => Promise<void>;
     showTagColors: boolean;
-    setShowTagColors: (showTagColors: boolean) => void;
+    setShowTagColors: (showTagColors: boolean) => Promise<void>;
     cardColorClass: (card: any) => string;
     tagColorClass: (tag: string) => string;
-}>;
+};
 import PropTypes from "prop-types";
 /**
- * @typedef {import('react').Context<{
- *   allSuggestions: string[],
- *   addSuggestion: (tag: string) => void,
- *   allTags: string[],
- *   setTagColors: (colors: string[]) => void,
- *   showTagColors: Boolean,
- *   setShowTagColors: (showTagColors: Boolean) => void,
- *   cardColorClass: (card: any) => string,
- *   tagColorClass: (tag: string) => string,
- * }>} ContextType
- * @type ContextType
+ * @typedef TagContextValues
+ * @property {string[]} allSuggestions
+ * @property {(tag: string) => void} addSuggestion
+ * @property {string[]} allTags
+ * @property {TagColor[]} tagColors
+ * @property {(colors: TagColor[]) => Promise<void>} setTagColors
+ * @property {boolean} showTagColors
+ * @property {(showTagColors: Boolean) => Promise<void>} setShowTagColors
+ * @property {(card: any) => string} cardColorClass
+ * @property {(tag: string) => string} tagColorClass
  */
-declare const TagContext: React.Context<{
-    allSuggestions: string[];
-    addSuggestion: (tag: string) => void;
-    allTags: string[];
-    setTagColors: (colors: string[]) => void;
-    showTagColors: boolean;
-    setShowTagColors: (showTagColors: boolean) => void;
-    cardColorClass: (card: any) => string;
-    tagColorClass: (tag: string) => string;
-}>;
-import React from "react";
+/**
+ * @type {import('react').Context<TagContextValues>}
+ */
+declare const TagContext: import('react').Context<TagContextValues>;
 //# sourceMappingURL=TagContext.d.ts.map

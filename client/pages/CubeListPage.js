@@ -18,6 +18,7 @@
  */
 import React, { lazy, useContext, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
+import { UncontrolledAlert } from 'reactstrap';
 
 import LocalStorage from '@cubeartisan/client/utils/LocalStorage.js';
 import Query from '@cubeartisan/client/utils/Query.js';
@@ -25,7 +26,7 @@ import { ChangelistContextProvider } from '@cubeartisan/client/components/contex
 import ClientOnly from '@cubeartisan/client/components/ClientOnly.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import CubeListNavbar from '@cubeartisan/client/components/CubeListNavbar.js';
-import DisplayContext, { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
 import GroupModal from '@cubeartisan/client/components/modals/GroupModal.js';

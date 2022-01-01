@@ -36,5 +36,8 @@
     "test:loud": "yarn workspaces run test:loud",
     "updatetypes": "tsc -p tsconfig.lax.json",
     "webpack-dev-server": "yarn workspace @cubeartisan/client webpack-dev-server"
+  },
+  "dependencies": {
+    "@types/styled-components": "^5.1.19"
   }
 }

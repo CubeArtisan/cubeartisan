@@ -1,8 +1,7 @@
 export default AutocardListItem;
-declare function AutocardListItem({ card, noCardModal, inModal }: {
+declare function AutocardListItem({ card, noCardModal }: {
     card: any;
     noCardModal: any;
-    inModal: any;
 }): JSX.Element;
 declare namespace AutocardListItem {
     namespace propTypes {
@@ -21,13 +20,10 @@ declare namespace AutocardListItem {
             }>>;
         }>>;
         const noCardModal: PropTypes.Requireable<boolean>;
-        const inModal: PropTypes.Requireable<boolean>;
     }
     namespace defaultProps {
         const noCardModal_1: boolean;
         export { noCardModal_1 as noCardModal };
-        const inModal_1: boolean;
-        export { inModal_1 as inModal };
     }
 }
 import PropTypes from "prop-types";
