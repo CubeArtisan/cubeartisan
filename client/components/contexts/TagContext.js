@@ -21,6 +21,12 @@ import PropTypes from 'prop-types';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
+/**
+ * @typedef TagColor
+ * @property {string} tag
+ * @property {string} color
+ */
+
 export const getCardColorClass = (card) => {
   const type = card.type_line ?? card.details.type;
   const colors = card.colors ?? card.details.color_identity;
@@ -54,10 +60,15 @@ export const getCardTagColorClass = (tagColors, card) => {
   return getCardColorClass(card);
 };
 
+/**
+ * @param {TagColor[]} tagColors
+ * @param {string} tag
+ * @returns {string}
+ */
 export const getTagColorClass = (tagColors, tag) => {
   const tagColor = tagColors.find((tagColorB) => tag === tagColorB.tag);
   if (tagColor && tagColor.color) {
-    return `card.${tagColor.color}`;
+    return `tag.${tagColor.color}`;
   }
   return '';
 };
@@ -66,7 +77,6 @@ export const TAG_COLORS = [
   ['None', null],
   ['Red', 'red'],
   ['Brown', 'brown'],
-  ['Orange', 'orange'],
   ['Yellow', 'yellow'],
   ['Green', 'green'],
   ['Turquoise', 'turquoise'],
@@ -77,25 +87,28 @@ export const TAG_COLORS = [
 ];
 
 /**
- * @typedef {import('react').Context<{
- *   allSuggestions: string[],
- *   addSuggestion: (tag: string) => void,
- *   allTags: string[],
- *   setTagColors: (colors: string[]) => void,
- *   showTagColors: Boolean,
- *   setShowTagColors: (showTagColors: Boolean) => void,
- *   cardColorClass: (card: any) => string,
- *   tagColorClass: (tag: string) => string,
- * }>} ContextType
- * @type ContextType
+ * @typedef TagContextValues
+ * @property {string[]} allSuggestions
+ * @property {(tag: string) => void} addSuggestion
+ * @property {string[]} allTags
+ * @property {TagColor[]} tagColors
+ * @property {(colors: TagColor[]) => Promise<void>} setTagColors
+ * @property {boolean} showTagColors
+ * @property {(showTagColors: Boolean) => Promise<void>} setShowTagColors
+ * @property {(card: any) => string} cardColorClass
+ * @property {(tag: string) => string} tagColorClass
+ */
+/**
+ * @type {import('react').Context<TagContextValues>}
  */
 const TagContext = createContext({
   allSuggestions: [],
   addSuggestion: () => {},
   allTags: [],
-  setTagColors: () => {},
+  tagColors: [],
+  setTagColors: async () => {},
   showTagColors: false,
-  setShowTagColors: () => {},
+  setShowTagColors: async () => {},
   cardColorClass: () => '',
   tagColorClass: () => '',
 });

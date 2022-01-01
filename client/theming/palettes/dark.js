@@ -86,6 +86,17 @@ const DARK_PALETTE = {
     colorless: 'hsl(340, 5%, 20%)',
     lands: 'hsl(32, 60%, 20%)',
   },
+  tags: {
+    red: 'hsl(9, 80%, 25%)',
+    brown: 'hsl(30, 50%, 25%)',
+    yellow: 'hsl(45, 72%, 25%)',
+    green: 'hsl(110, 90%, 25%)',
+    turquoise: 'hsl(180, 75%, 25%)',
+    blue: 'hsl(220, 72%, 23%)',
+    purple: 'hsl(265, 92%, 30%)',
+    violet: 'hsl(275, 84%, 25%)',
+    pink: 'hsl(310, 72%, 25%)',
+  },
   action: {
     active: 'hsla(0, 0%, 100%, 0.54)',
     hover: 'hsla(0, 0%, 100%, 0.04)',

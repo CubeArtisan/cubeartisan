@@ -85,6 +85,18 @@ const LIGHT_PALETTE = {
     colorless: 'hsl(340, 5%, 85%)',
     lands: 'hsl(32, 42%, 85%)',
   },
+  tags: {
+    none: 'hsl(0, 0%, 70%)',
+    red: 'hsl(9, 90%, 80%)',
+    brown: 'hsl(30, 50%, 80%)',
+    yellow: 'hsl(45, 82%, 80%)',
+    green: 'hsl(110, 80%, 80%)',
+    turquoise: 'hsl(180, 75%, 80%)',
+    blue: 'hsl(220, 72%, 80%)',
+    purple: 'hsl(265, 78%, 78%)',
+    violet: 'hsl(275, 94%, 82%)',
+    pink: 'hsl(310, 72%, 80%)',
+  },
   action: {
     active: 'hsla(0, 0, 0, 0.54)',
     hover: 'hsla(0, 0, 0, 0.04)',

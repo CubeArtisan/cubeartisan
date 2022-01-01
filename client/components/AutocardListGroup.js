@@ -57,8 +57,8 @@ const AutocardListGroup = ({ cards, heading, sort, orderedSort, showOther, rowTa
       </ListSubheader>
       {sorted.map(([, group]) => (
         <>
-          {group.map((card) => (
-            <RowTag key={typeof card.index === 'undefined' ? card._id : card.index} card={card} />
+          {group.map((card, index) => (
+            <RowTag key={typeof card.index === 'undefined' ? `${card._id}-${index}` : card.index} card={card} />
           ))}
           <Divider />
         </>

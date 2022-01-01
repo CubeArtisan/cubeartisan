@@ -33,7 +33,6 @@ import {
   Menu,
   MenuItem,
   Select,
-  Switch,
   // TextareaAutosize,
   TextField,
   Toolbar,
@@ -140,12 +139,10 @@ const UploadBulkModal = ({ isOpen, toggle }) => {
     </Dialog>
   );
 };
-
 UploadBulkModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   toggle: PropTypes.func.isRequired,
 };
-
 const UploadBulkModalItem = withModal(MenuItem, UploadBulkModal);
 
 const UploadBulkReplaceModal = ({ isOpen, toggle }) => {

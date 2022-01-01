@@ -36,7 +36,7 @@ const CARD_ID_FALLBACK = 'undefined.js';
  */
 const noOp = () => undefined;
 
-const AutocardListItem = ({ card, noCardModal, inModal }) => {
+const AutocardListItem = ({ card, noCardModal }) => {
   const { cardColorClass } = useContext(TagContext);
   const openCardModal = useContext(CardModalContext);
 
@@ -85,7 +85,6 @@ const AutocardListItem = ({ card, noCardModal, inModal }) => {
       card={card}
       onAuxClick={noCardModal ? noOp : handleAuxClick}
       onClick={noCardModal ? noOp : handleClick}
-      inModal={inModal}
       role="button"
       sx={{ paddingLeft: 0.5, paddingRight: 0, PaddingY: 0.25, backgroundColor }}
     >
@@ -98,11 +97,9 @@ const AutocardListItem = ({ card, noCardModal, inModal }) => {
 AutocardListItem.propTypes = {
   card: CardPropType.isRequired,
   noCardModal: PropTypes.bool,
-  inModal: PropTypes.bool,
 };
 AutocardListItem.defaultProps = {
   noCardModal: false,
-  inModal: false,
 };
 
 export default AutocardListItem;
