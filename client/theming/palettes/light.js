@@ -70,9 +70,9 @@ const LIGHT_PALETTE = {
   },
   divider: 'hsla(0, 0, 0, 0.12)',
   background: {
-    paper: 'hsl(0, 0%, 100%)',
+    paper: 'hsl(240, 90%, 90%)',
     default: 'hsl(0, 0%, 100%)',
-    darker: 'hsl(270, 10%, 80%)',
+    darker: 'hsl(270, 40%, 75%)',
     hover: 'hsl(270, 60%, 91%)',
   },
   cards: {

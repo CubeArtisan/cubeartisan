@@ -18,7 +18,6 @@
  */
 import React, { lazy, useContext, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-import { UncontrolledAlert } from 'reactstrap';
 
 import LocalStorage from '@cubeartisan/client/utils/LocalStorage.js';
 import Query from '@cubeartisan/client/utils/Query.js';
@@ -92,74 +91,72 @@ const CubeListPageRaw = ({
 
   return (
     <SortContextProvider defaultSorts={cube.default_sorts} showOther={!!cube.default_show_unsorted}>
-      <DisplayContextProvider cubeID={cube._id}>
-        <TagContextProvider
-          cubeID={cube._id}
-          defaultTagColors={cube.tag_colors}
-          defaultShowTagColors={defaultShowTagColors}
-          defaultTags={defaultTags}
-          userID={userID}
-        >
-          <ChangelistContextProvider cubeID={cube._id} setOpenCollapse={setOpenCollapse}>
-            <Suspense>
-              <CardModalForm>
-                <GroupModal cubeID={cube._id} canEdit={canEdit}>
-                  <CubeListNavbar
-                    cubeView={cubeView}
-                    setCubeView={setCubeView}
-                    openCollapse={openCollapse}
-                    setOpenCollapse={setOpenCollapse}
-                    defaultPrimarySort={defaultPrimarySort}
-                    defaultSecondarySort={defaultSecondarySort}
-                    defaultTertiarySort={defaultTertiarySort}
-                    defaultQuaternarySort={defaultQuaternarySort}
-                    defaultShowUnsorted={defaultShowUnsorted}
-                    sorts={sorts}
-                    setSorts={setSorts}
-                    defaultSorts={cube.default_sorts}
-                    cubeDefaultShowUnsorted={cube.default_show_unsorted}
-                    defaultFilterText={defaultFilterText}
-                    filter={filter}
-                    setFilter={setFilter}
-                    cards={filteredCards}
-                    className="mb-3"
-                    alerts={alerts}
-                    setAlerts={setAlerts}
-                  />
-                  <DynamicFlash />
-                  {alerts.map(({ color, message }, index) => (
-                    <UncontrolledAlert color={color} key={/* eslint-disable-line react/no-array-index-key */ index}>
-                      {message}
-                    </UncontrolledAlert>
-                  ))}
-                  <ErrorBoundary>
-                    <ClientOnly>
-                      <DisplayContext.Consumer>
-                        {({ showMaybeboard }) => (
-                          <MaybeboardContextProvider initialCards={cube.maybe}>
-                            {showMaybeboard && <Maybeboard filter={filter} />}
-                          </MaybeboardContextProvider>
-                        )}
-                      </DisplayContext.Consumer>
-                    </ClientOnly>
-                  </ErrorBoundary>
-                  <ErrorBoundary>
-                    {filteredCards.length === 0 ? <h5 className="mt-1 mb-3">No cards match filter.</h5> : ''}
+      <TagContextProvider
+        cubeID={cube._id}
+        defaultTagColors={cube.tag_colors}
+        defaultShowTagColors={defaultShowTagColors}
+        defaultTags={defaultTags}
+        userID={userID}
+      >
+        <ChangelistContextProvider cubeID={cube._id} setOpenCollapse={setOpenCollapse}>
+          <Suspense>
+            <CardModalForm>
+              <GroupModal cubeID={cube._id} canEdit={canEdit}>
+                <CubeListNavbar
+                  cubeView={cubeView}
+                  setCubeView={setCubeView}
+                  openCollapse={openCollapse}
+                  setOpenCollapse={setOpenCollapse}
+                  defaultPrimarySort={defaultPrimarySort}
+                  defaultSecondarySort={defaultSecondarySort}
+                  defaultTertiarySort={defaultTertiarySort}
+                  defaultQuaternarySort={defaultQuaternarySort}
+                  defaultShowUnsorted={defaultShowUnsorted}
+                  sorts={sorts}
+                  setSorts={setSorts}
+                  defaultSorts={cube.default_sorts}
+                  cubeDefaultShowUnsorted={cube.default_show_unsorted}
+                  defaultFilterText={defaultFilterText}
+                  filter={filter}
+                  setFilter={setFilter}
+                  cards={filteredCards}
+                  className="mb-3"
+                  alerts={alerts}
+                  setAlerts={setAlerts}
+                />
+                <DynamicFlash />
+                {alerts.map(({ color, message }, index) => (
+                  <UncontrolledAlert color={color} key={/* eslint-disable-line react/no-array-index-key */ index}>
+                    {message}
+                  </UncontrolledAlert>
+                ))}
+                <ErrorBoundary>
+                  <ClientOnly>
+                    <DisplayContext.Consumer>
+                      {({ showMaybeboard }) => (
+                        <MaybeboardContextProvider initialCards={cube.maybe}>
+                          {showMaybeboard && <Maybeboard filter={filter} />}
+                        </MaybeboardContextProvider>
+                      )}
+                    </DisplayContext.Consumer>
+                  </ClientOnly>
+                </ErrorBoundary>
+                <ErrorBoundary>
+                  {filteredCards.length === 0 ? <h5 className="mt-1 mb-3">No cards match filter.</h5> : ''}
+                  {
                     {
-                      {
-                        table: <TableView cards={filteredCards} />,
-                        spoiler: <VisualSpoiler cards={filteredCards} />,
-                        curve: <CurveView cards={filteredCards} />,
-                        list: <ListView cards={filteredCards} />,
-                      }[cubeView]
-                    }
-                  </ErrorBoundary>
-                </GroupModal>
-              </CardModalForm>
-            </Suspense>
-          </ChangelistContextProvider>
-        </TagContextProvider>
-      </DisplayContextProvider>
+                      table: <TableView cards={filteredCards} />,
+                      spoiler: <VisualSpoiler cards={filteredCards} />,
+                      curve: <CurveView cards={filteredCards} />,
+                      list: <ListView cards={filteredCards} />,
+                    }[cubeView]
+                  }
+                </ErrorBoundary>
+              </GroupModal>
+            </CardModalForm>
+          </Suspense>
+        </ChangelistContextProvider>
+      </TagContextProvider>
     </SortContextProvider>
   );
 };
