@@ -158,7 +158,43 @@
 
 - Fix CSRF form not forwarding ref correctly causing decks to not be saveable.
 
-## v1.4.0.0
+### v1.3.2.1
+
+This release is composed of porting over bug fixes for bugs we carried over from CubeCobra.
+
+#### Features
+
+- Allow specifying collector numbers in the bulk text upload
+  Thanks to @lunakv who wrote the fix for CubeCobra this was ported from.
+
+#### Bug Fixes
+
+- Fix scryfall imports which were failing due to the reversible cards in the commander secret lair.
+  Thanks to @lunakv who wrote the fix for CubeCobra this was ported from.
+- Fix bulk text upload format.
+  Thanks to @lunakv who wrote the fix for CubeCobra this was ported from.
+- Fix pagination calculations on the CardSearchPage.
+  Thanks to @lunakv who wrote the fix for CubeCobra this was ported from.
+- The filter `is:commander` now will consider Grist, the Hunger Tide a commander.
+  Thanks to @lunakv who wrote the fix for CubeCobra this was ported from.
+- Handle searching for cubes that contain a card better when the card has an art card printing.
+  Thanks to @dekkerglen who wrote the fix for CubeCobra this was ported from.
+
+### v1.3.2.2
+
+#### Bug Fixes
+
+- When constructing decks we now properly handle 1/2 mana value cards where previously they prevented
+  decks from being made at the end of a draft.
+- Fix error where card database can get corrupted on the server preventing instances from starting.
+
+### v1.3.2.3
+
+#### Bug Fixes
+
+- Fix an error in the ui migration that prevented the PlaytestData analytics from displaying.
+
+## v1.3.3.0
 
 This release is largely about quality of life improvements and migrating to the new design library.
 While there may not be explicit features the hope is the whole site will feel easier to use and that

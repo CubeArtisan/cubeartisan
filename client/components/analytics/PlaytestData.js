@@ -18,7 +18,7 @@
  */
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { ListGroupItem } from 'reactstrap';
+import { Link } from '@mui/material';
 
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import CubeAnalyticPropType from '@cubeartisan/client/proptypes/CubeAnalyticPropType.js';
@@ -29,14 +29,19 @@ import { cardName, mainboardRate, pickRate, encodeName } from '@cubeartisan/clie
 
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 
-const AutocardItem = withAutocard(ListGroupItem);
+const AutocardLink = withAutocard(Link);
 
 const renderCardLink = (card) => (
-  <AutocardItem className="p-0" key={card.index} card={card} data-in-modal index={card.index}>
-    <a href={`/card/${encodeName(card.cardID)}`} target="_blank" rel="noopener noreferrer">
-      {cardName(card)}
-    </a>
-  </AutocardItem>
+  <AutocardLink
+    key={card.index}
+    card={card}
+    index={card.index}
+    href={`/card/${encodeName(card.cardID)}`}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    {cardName(card)}
+  </AutocardLink>
 );
 
 const renderPercent = (val) => {
@@ -66,6 +71,7 @@ const PlaytestData = ({ cards: allCards, cubeAnalytics }) => {
         })),
     [cubeAnalytics, cardDict],
   );
+  console.log(data);
 
   return (
     <>

@@ -179,7 +179,7 @@ export const CardSearchPage = ({ loginCallback }) => {
         <Card className="mb-3">
           {count / 96 > 1 && (
             <CardHeader>
-              <Paginate count={Math.floor(count / 96)} active={page} onClick={(i) => updatePage(i)} />
+              <Paginate count={Math.ceil(count / 96)} active={page} onClick={(i) => updatePage(i)} />
             </CardHeader>
           )}
 
@@ -201,7 +201,7 @@ export const CardSearchPage = ({ loginCallback }) => {
           )}
           {count / 100 > 1 && (
             <CardFooter>
-              <Paginate count={Math.floor(count / 96)} active={page} onClick={(i) => updatePage(i)} />
+              <Paginate count={Math.ceil(count / 96)} active={page} onClick={(i) => updatePage(i)} />
             </CardFooter>
           )}
         </Card>

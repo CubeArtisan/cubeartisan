@@ -33,7 +33,7 @@ export const buildDeck = ({ cards, picked }) => {
 
   for (const cardIndex of picked) {
     const card = cards[cardIndex];
-    let index = Math.min(cardCmc(card) ?? 0, 7);
+    let index = Math.min(Math.ceil(cardCmc(card)) ?? 0, 7);
     if (!cardType(card).toLowerCase().includes('creature') && !cardType(card).toLowerCase().includes('basic')) {
       index += 8;
     }
