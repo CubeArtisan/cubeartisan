@@ -20,7 +20,7 @@ import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
 const withModal = (Tag, ModalTag) => {
-  const WithModal = ({ children, className, modalProps, ...props }) => {
+  const WithModal = ({ children, modalProps, ...props }) => {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = useCallback(
       (event) => {
@@ -34,7 +34,7 @@ const withModal = (Tag, ModalTag) => {
 
     return (
       <>
-        <Tag {...props} className={className ? `${className} clickable` : 'clickable'} onClick={toggle}>
+        <Tag {...props} onClick={toggle}>
           {children}
         </Tag>
         <ModalTag isOpen={isOpen} toggle={toggle} {...modalProps} />
@@ -43,11 +43,9 @@ const withModal = (Tag, ModalTag) => {
   };
   WithModal.propTypes = {
     children: PropTypes.node.isRequired,
-    className: PropTypes.string,
     modalProps: PropTypes.shape({}),
   };
   WithModal.defaultProps = {
-    className: null,
     modalProps: {},
   };
   if (typeof Tag === 'string') {

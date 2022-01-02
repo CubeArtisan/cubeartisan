@@ -16,50 +16,60 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from '@mui/material';
-import { Col, Row, Card, CardHeader, CardBody, Collapse } from 'reactstrap';
+import { Accordion, AccordionDetails, AccordionSummary, Grid, Link, Paper, Typography } from '@mui/material';
 
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import CubePreview from '@cubeartisan/client/components/CubePreview.js';
+import { ExpandMore } from '@mui/icons-material';
+import CardHeader from '@cubeartisan/client/components/CardHeader.js';
 
+/**
+ * @typedef { import('react').FunctionComponent<{ cubes: [any], title: string, lean: Boolean, header?: { sideLink: string, sideText: string, hLevel: number } }>} ComponentType
+ * @type ComponentType
+ * */
 const CubesCard = ({ cubes, title, header, lean, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggle = () => setIsOpen(!isOpen);
   const Heading = `h${header?.hLevel ?? 4}`;
+  const toggleAccordion = useCallback((event, isExpanded) => {
+    setIsOpen(isExpanded);
+  }, []);
 
   return (
-    <Card {...props}>
-      <CardHeader className="cubes-card-header">
-        <Heading>{title} </Heading>
-        {header && <a href={header.sideLink}>{header.sideText}</a>}
+    <Paper elevation={2} {...props}>
+      <CardHeader>
+        {/* @ts-ignore */}
+        <Typography variant={Heading}>{title}</Typography>
+        {header && (
+          <Link variant="subtitle1" href={header.sideLink}>
+            {header.sideText}
+          </Link>
+        )}
       </CardHeader>
-      <Row noGutters>
+      <Grid container>
         {cubes.slice(0, 2).map((cube) => (
-          <Col key={cube._id} lg={6} md={6} sm={12} xs={12}>
+          <Grid item key={cube._id} xs={12} md={6}>
             <CubePreview cube={cube} />
-          </Col>
+          </Grid>
         ))}
-      </Row>
-      <Collapse isOpen={isOpen}>
-        <Row noGutters>
-          {cubes.slice(2).map((cube) => (
-            <Col key={cube._id} lg={6} md={6} sm={12} xs={12}>
-              <CubePreview cube={cube} />
-            </Col>
-          ))}
-        </Row>
-      </Collapse>
-      {(!lean || cubes.length > 2) && (
-        <CardBody>
-          <Button color="success" fullWidth onClick={toggle}>
-            {isOpen ? 'View Fewer...' : 'View More...'}
-          </Button>
-        </CardBody>
-      )}
-    </Card>
+      </Grid>
+      <Accordion expanded={isOpen} onChange={toggleAccordion}>
+        <AccordionSummary expandIcon={<ExpandMore />}>
+          <Typography variant="subtitle2">{isOpen ? 'View Fewer...' : 'View More...'}</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Grid container>
+            {cubes.slice(2).map((cube) => (
+              <Grid item key={cube._id} xs={12} md={6}>
+                <CubePreview cube={cube} />
+              </Grid>
+            ))}
+          </Grid>
+        </AccordionDetails>
+      </Accordion>
+    </Paper>
   );
 };
 
@@ -67,13 +77,12 @@ CubesCard.propTypes = {
   cubes: PropTypes.arrayOf(CubePropType).isRequired,
   title: PropTypes.string.isRequired,
   header: PropTypes.shape({
-    sideLink: PropTypes.string,
-    sideText: PropTypes.string,
-    hLevel: PropTypes.number,
+    sideLink: PropTypes.string.isRequired,
+    sideText: PropTypes.string.isRequired,
+    hLevel: PropTypes.number.isRequired,
   }),
   lean: PropTypes.bool,
 };
-
 CubesCard.defaultProps = {
   header: undefined,
   lean: false,

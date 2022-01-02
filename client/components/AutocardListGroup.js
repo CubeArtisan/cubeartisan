@@ -19,7 +19,8 @@
 import React, { useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
-import { List, ListSubheader, Typography } from '@mui/material';
+import { Divider, List, ListSubheader, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/node/styles/index.js';
 
 import { sortDeep } from '@cubeartisan/client/utils/Sort.js';
 
@@ -35,6 +36,7 @@ const AutocardListGroup = ({ cards, heading, sort, orderedSort, showOther, rowTa
   const { openGroupModal, setGroupModalCards } = useContext(GroupModalContext);
   const { useSticky } = useContext(DisplayContext);
   const canGroupModal = !noGroupModal && canEdit;
+  const theme = useTheme();
   const handleClick = useCallback(
     (event) => {
       event.preventDefault();
@@ -44,26 +46,23 @@ const AutocardListGroup = ({ cards, heading, sort, orderedSort, showOther, rowTa
     [cards, openGroupModal, setGroupModalCards],
   );
   return (
-    <List dense sx={{ border: '1px solid black', padding: '0px', marginY: 1 }}>
+    <List dense sx={{ border: `1px solid ${theme.palette.shadow.full}`, padding: '0px', marginY: 1 }}>
       <ListSubheader
         className={`list-group-heading${canGroupModal ? ' clickable' : ''}`}
         onClick={canGroupModal ? handleClick : undefined}
-        sx={{ backgroundColor: 'background.header', paddingLeft: 0.5, paddingRight: 0, PaddingY: 1 }}
+        sx={{ backgroundColor: 'background.darker', paddingLeft: 0.5, paddingRight: 0, paddingY: 1 }}
         disableSticky={!useSticky}
       >
-        <Typography variant="subtitle2" color="rgba(0,0,0,0.8)">
-          {heading}
-        </Typography>
+        <Typography variant="subtitle2">{heading}</Typography>
       </ListSubheader>
-      {sorted.map(([, group]) =>
-        group.map((card, index) => (
-          <RowTag
-            key={typeof card.index === 'undefined' ? card._id : card.index}
-            card={card}
-            className={index === 0 ? 'cmc-group' : undefined}
-          />
-        )),
-      )}
+      {sorted.map(([, group]) => (
+        <>
+          {group.map((card, index) => (
+            <RowTag key={typeof card.index === 'undefined' ? `${card._id}-${index}` : card.index} card={card} />
+          ))}
+          <Divider />
+        </>
+      ))}
     </List>
   );
 };

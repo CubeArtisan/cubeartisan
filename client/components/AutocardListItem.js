@@ -17,7 +17,6 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { useCallback, useContext, useMemo } from 'react';
-import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { ListItem, Typography } from '@mui/material';
 
@@ -37,7 +36,7 @@ const CARD_ID_FALLBACK = 'undefined.js';
  */
 const noOp = () => undefined;
 
-const AutocardListItem = ({ card, noCardModal, inModal, className }) => {
+const AutocardListItem = ({ card, noCardModal }) => {
   const { cardColorClass } = useContext(TagContext);
   const openCardModal = useContext(CardModalContext);
 
@@ -79,17 +78,15 @@ const AutocardListItem = ({ card, noCardModal, inModal, className }) => {
    *  Memoized card color (WUBRG) derivation to minimize rerenders
    *  @note: tag coloring is handled by AutocardDiv automatically.
    */
-  const colorClassname = useMemo(() => cardColorClass(card), [card, cardColorClass]);
+  const backgroundColor = useMemo(() => cardColorClass(card), [card, cardColorClass]);
 
   return (
     <AutocardLI
-      className={cx(colorClassname, className)}
       card={card}
       onAuxClick={noCardModal ? noOp : handleAuxClick}
       onClick={noCardModal ? noOp : handleClick}
-      inModal={inModal}
       role="button"
-      sx={{ paddingLeft: 0.5, paddingRight: 0, PaddingY: 0.25 }}
+      sx={{ paddingLeft: 0.5, paddingRight: 0, PaddingY: 0.25, backgroundColor }}
     >
       <Typography noWrap sx={{ width: '100%' }} variant="body2">
         {name}
@@ -100,13 +97,9 @@ const AutocardListItem = ({ card, noCardModal, inModal, className }) => {
 AutocardListItem.propTypes = {
   card: CardPropType.isRequired,
   noCardModal: PropTypes.bool,
-  inModal: PropTypes.bool,
-  className: PropTypes.string,
 };
 AutocardListItem.defaultProps = {
   noCardModal: false,
-  inModal: false,
-  className: '',
 };
 
 export default AutocardListItem;

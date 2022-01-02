@@ -26,33 +26,6 @@
 .tag-color > a {
   color: var(--bg) !important;
 }
-.tag-red {
-  background-color: #8e1600 !important;
-}
-.tag-brown {
-  background-color: #654321 !important;
-}
 .tag-orange {
   background-color: #ff7034 !important;
-}
-.tag-yellow {
-  background-color: #e0b83d !important;
-}
-.tag-green {
-  background-color: #228c22 !important;
-}
-.tag-turquoise {
-  background-color: #008081 !important;
-}
-.tag-blue {
-  background-color: #115da8 !important;
-}
-.tag-purple {
-  background-color: #663399 !important;
-}
-.tag-violet {
-  background-color: #b200ed !important;
-}
-.tag-pink {
-  background-color: #ff69b4 !important;
 }

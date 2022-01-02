@@ -13,3 +13,5 @@ jobs:
       run: yarn install --frozen-lockfile --production=false || yarn install --frozen-lockfile --production=false || yarn install --frozen-lockfile --production=false
     - name: Run the CI script in yarn to check code style and unit tests.
       run: yarn ci
+    - name: Check that no files were changed
+      run: "[ -z $(git status --porcelain) ]"

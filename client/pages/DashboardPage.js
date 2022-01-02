@@ -18,8 +18,7 @@
  */
 import React, { lazy, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Card, Col, Row, CardHeader, CardBody, CardFooter } from 'reactstrap';
-import { Button } from '@mui/material';
+import { Box, Button, Grid, Link, Paper, Typography } from '@mui/material';
 
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
@@ -33,7 +32,6 @@ import SiteCustomizationContext from '@cubeartisan/client/components/contexts/Si
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 
 const CreateCubeModal = lazy(() => import('@cubeartisan/client/components/modals/CreateCubeModal.js'));
-const CubesCard = lazy(() => import('@cubeartisan/client/components/CubesCard.js'));
 const Feed = lazy(() => import('@cubeartisan/client/components/Feed.js'));
 const CubePreview = lazy(() => import('@cubeartisan/client/components/CubePreview.js'));
 const ArticlePreview = lazy(() => import('@cubeartisan/client/components/ArticlePreview.js'));
@@ -43,7 +41,7 @@ const PodcastEpisodePreview = lazy(() => import('@cubeartisan/client/components/
 
 const CreateCubeModalButton = withModal(Button, CreateCubeModal);
 
-export const DashboardPage = ({ posts, cubes, decks, loginCallback, content, featured }) => {
+export const DashboardPage = ({ posts, cubes, decks, loginCallback, content }) => {
   const { discordUrl } = useContext(SiteCustomizationContext);
   const user = useContext(UserContext);
   // where featured cubes are positioned on the screen
@@ -64,55 +62,42 @@ export const DashboardPage = ({ posts, cubes, decks, loginCallback, content, fea
   return (
     <MainLayout loginCallback={loginCallback}>
       <DynamicFlash />
-      <Row className="mt-3">
-        <Col xs="12" md="6">
-          <Card>
-            <CardHeader>
-              <h5>Your Cubes</h5>
-            </CardHeader>
-            <CardBody className="p-0">
+      <Grid container spacing={1} sx={{ marginBottom: 1 }}>
+        <Grid item xs={12} md={6}>
+          <Paper elevation={4}>
+            <Typography variant="h5" sx={{ backgroundColor: 'background.darker' }}>
+              Your Cubes
+            </Typography>
+            <Box>
               <Suspense>
-                <Row className="no-gutters">
+                <Grid container sx={{ padding: 0 }}>
                   {cubes.length > 0 ? (
                     cubes.slice(0, 4).map((cube) => (
-                      <Col key={cube._id} xs="12" sm="12" md="12" lg="6">
+                      <Grid item key={cube._id} xs={12} md={6} sx={{ padding: 1 }}>
                         <CubePreview cube={cube} />
-                      </Col>
+                      </Grid>
                     ))
                   ) : (
-                    <p className="m-2">
+                    <Typography variant="body1">
                       You don't have any cubes.{' '}
                       <CreateCubeModalButton color="success">Add a new cube?</CreateCubeModalButton>
-                    </p>
+                    </Typography>
                   )}
-                </Row>
+                </Grid>
               </Suspense>
-            </CardBody>
-            {featuredPosition !== 'left' && (
-              <CardFooter>{cubes.length > 2 && <a href={`/user/${cubes[0].owner}`}>View All</a>}</CardFooter>
-            )}
-          </Card>
-          {featuredPosition === 'left' && (
-            <Suspense>
-              <CubesCard title="Featured Cubes" cubes={featured} lean />
-            </Suspense>
-          )}
-        </Col>
-        <Col xs="12" md="6">
-          {featuredPosition === 'right' && (
-            <Suspense>
-              <CubesCard className="mb-4" title="Featured Cubes" cubes={featured} lean />
-            </Suspense>
-          )}
-          <Card>
-            <CardHeader>
-              <h5>Recent Drafts of Your Cubes</h5>
-            </CardHeader>
-            <CardBody className="p-0">
+            </Box>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={6} spacing={1}>
+          <Paper elevation={4}>
+            <Typography variant="h5" sx={{ backgroundColor: 'background.darker' }}>
+              Recent Drafts of Your Cubes
+            </Typography>
+            <Box>
               {decks.length > 0 ? (
                 filteredDecks.map((deck) => (
                   <Suspense>
-                    <DeckPreview key={deck._id} deck={deck} nextURL="/dashboard" canEdit />
+                    <DeckPreview key={deck._id} deck={deck} nextURL="/dashboard" />
                   </Suspense>
                 ))
               ) : (
@@ -121,61 +106,65 @@ export const DashboardPage = ({ posts, cubes, decks, loginCallback, content, fea
                   <a href={discordUrl}>Discord draft exchange?</a>
                 </p>
               )}
-            </CardBody>
-            <CardFooter>
-              <a href="/dashboard/decks/0">View All</a>
-            </CardFooter>
-          </Card>
-        </Col>
-      </Row>
-      <Row>
-        <Col xs="12" md="8">
-          <h5 className="mt-3">Feed</h5>
-          <Suspense>
-            <Feed items={posts} />
-          </Suspense>
-        </Col>
-        <Col className="d-none d-md-block mt-3" md="4">
-          <Row>
-            <Col xs="12">
-              <Row>
-                <Col xs="6">
-                  <h5>Latest Content</h5>
-                </Col>
-                <Col xs="6">
-                  <a className="float-right" href="/content">
-                    View more...
-                  </a>
-                </Col>
-              </Row>
-            </Col>
+            </Box>
+            <Link variant="body1" href="/dashboard/decks/0" sx={{ marginLeft: 1 }}>
+              View All
+            </Link>
+          </Paper>
+        </Grid>
+      </Grid>
+      <Grid container spacing={1}>
+        <Grid item xs={12} md={8}>
+          <Paper elevation={4}>
+            <Typography variant="h5" color="text.primary" sx={{ backgroundColor: 'background.darker', width: '100%' }}>
+              Feed
+            </Typography>
             <Suspense>
-              {content.map((item) => (
-                <Col className="mb-3" xs="12">
-                  {item.type === 'article' && <ArticlePreview article={item.content} />}
-                  {item.type === 'video' && <VideoPreview video={item.content} />}
-                  {item.type === 'episode' && <PodcastEpisodePreview episode={item.content} />}
-                </Col>
-              ))}
+              <Feed items={posts} />
             </Suspense>
-          </Row>
-        </Col>
-      </Row>
+          </Paper>
+        </Grid>
+        <Grid item md={4} sx={{ padding: 0 }}>
+          <Paper elevation={4}>
+            <Grid container spacing={1}>
+              <Grid item xs={12}>
+                <Grid container spacing={1} sx={{ backgroundColor: 'background.darker' }}>
+                  <Grid item xs={6}>
+                    <Typography variant="h5" color="text.primary">
+                      Latest Content
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Link sx={{ float: 'right' }} href="/content">
+                      View more...
+                    </Link>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Suspense>
+                {content.map((item) => (
+                  <Grid item xs={12} key={item.content._id} sx={{ padding: 1, marginLeft: 1 }}>
+                    {item.type === 'article' && <ArticlePreview article={item.content} />}
+                    {item.type === 'video' && <VideoPreview video={item.content} />}
+                    {item.type === 'episode' && <PodcastEpisodePreview episode={item.content} />}
+                  </Grid>
+                ))}
+              </Suspense>
+            </Grid>
+          </Paper>
+        </Grid>
+      </Grid>
     </MainLayout>
   );
 };
-
 DashboardPage.propTypes = {
   posts: PropTypes.arrayOf(BlogPostPropType).isRequired,
   cubes: PropTypes.arrayOf(CubePropType).isRequired,
   decks: PropTypes.arrayOf(DeckPropType).isRequired,
   content: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   loginCallback: PropTypes.string,
-  featured: PropTypes.arrayOf(CubePropType),
 };
-
 DashboardPage.defaultProps = {
   loginCallback: '/',
-  featured: [],
 };
 export default RenderToRoot(DashboardPage);

@@ -22,12 +22,12 @@ import { InputGroup, InputGroupAddon, InputGroupText, UncontrolledTooltip } from
 import PropTypes from 'prop-types';
 
 import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown.js';
-import ThemeContext from '@cubeartisan/client/components/contexts/ThemeContext.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import CubePropTypes from '@cubeartisan/client/proptypes/CubePropType.js';
 import TagInput from '@cubeartisan/client/components/TagInput.js';
 import { arrayMove, isTouchDevice } from '@cubeartisan/client/utils/Util.js';
 import styled from '@cubeartisan/client/utils/styledHelper.js';
+import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 
 const trigger = isTouchDevice() ? 'click' : 'hover.js';
 
@@ -70,7 +70,7 @@ const COLOR_OPTIONS = {
 };
 
 const Cloud = ({ cards, cube, setAsfans, defaultFormatId }) => {
-  const theme = useContext(ThemeContext);
+  const { theme } = useContext(DisplayContext);
 
   const [exclude, setExclude] = useQueryParam('exclude', '');
   const [tagInput, setTagInput] = useState('');

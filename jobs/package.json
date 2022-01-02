@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "license": "AGPL-3.0-only",
   "type": "module",
+  "typings": "../typings/jobs/index.d.ts",
   "scripts": {
     "list-files": "git ls-files '*.js' '*.cjs' '*.mjs' '*.jsx'",
     "list-files:all": "git ls-files '../*.js' '../*.cjs' '../*.mjs' '../*.jsx' '../*.json'",
@@ -38,7 +39,7 @@
     "mongoose-seed": "^0.6.0",
     "node-cache": "^5.1.2",
     "node-fetch": "^2.6.1",
-    "uuid": "^3.4.0",
+    "uuid": "^7.0.0",
     "winston": "^3.3.3",
     "winston-elasticsearch": "^0.15.7"
   },
@@ -54,8 +55,9 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.3",
     "eslint-plugin-promise": "^5.1.0",
-    "jest": "26.x.x",
-    "mongodb-memory-server": "^6.9.6",
+    "jest": "^27.4.5",
+    "loose-ts-check": "^1.2.0",
+    "mongodb-memory-server": "^7.0.0",
     "prettier": "^2.3.0",
     "webpack": "^5.42.0",
     "webpack-merge": "^4.2.2"

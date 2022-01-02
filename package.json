@@ -21,7 +21,9 @@
     "build": "yarn workspace @cubeartisan/client build",
     "build:dev": "yarn workspace @cubeartisan/client build:dev",
     "cards": "yarn workspace @cubeartisan/server cards",
-    "ci": "yarn nearley && yarn lint && yarn test:loud",
+    "checktypes": "tsc -p tsconfig.json | loose-ts-check",
+    "checktypes:update": "tsc -p tsconfig.json | loose-ts-check --auto-update",
+    "ci": "yarn nearley && yarn lint && yarn updatetypes && yarn checktypes && yarn test:loud",
     "list-files": "git ls-files '*.js' '*.cjs' '*.mjs' '*.jsx'",
     "lint:fix": "yarn workspaces run lint:fix",
     "lint": "yarn workspaces run lint",
@@ -32,6 +34,10 @@
     "start": "yarn webpack-dev-server & yarn nodemon",
     "test": "yarn workspaces run test",
     "test:loud": "yarn workspaces run test:loud",
+    "updatetypes": "tsc -p tsconfig.lax.json",
     "webpack-dev-server": "yarn workspace @cubeartisan/client webpack-dev-server"
+  },
+  "dependencies": {
+    "@types/styled-components": "^5.1.19"
   }
 }

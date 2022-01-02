@@ -301,7 +301,6 @@ const AutocompleteInput = forwardRef(
           <ul className="autocomplete-list">
             {matches.map((match, index) => (
               <AutocardLi
-                inModal
                 front={cubeId ? `/cube/${cubeId}/${match}/image` : `/card/${match}/image/redirect`}
                 key={index /* eslint-disable-line react/no-array-index-key */}
                 onClick={handleClickSuggestion}

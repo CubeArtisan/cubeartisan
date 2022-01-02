@@ -1,0 +1,43 @@
+export function isTouchDevice(): boolean;
+export function arraysEqual(a: any, b: any): boolean;
+export function arrayRotate(arr: any, reverse: any): any;
+export function arrayShuffle(array: any): any;
+export function arrayMove(arr: any, oldIndex: any, newIndex: any): any[];
+export function arrayDelete(arr: any, index: any): any[];
+export function arrayIsSubset(needles: any, haystack: any, comparison: any): any;
+export function arraysAreEqualSets(a1: any, a2: any, comparison: any): any;
+export function randomElement(array: any): any;
+export function alphaCompare(a: any, b: any): any;
+export function cmcColumn(card: any): number;
+export function sortDeck(deck: any): any[][];
+export const COLORS: string[][];
+export function getCubeId(cube: any): any;
+export function getCubeDescription(cube: any): string;
+export function isInternalURL(to: any): boolean;
+export function toNullableInt(str: any): number;
+export function isSamePageURL(to: any): boolean;
+export function isObject(obj: any): boolean;
+export function areDeepEqual(obj1: any, obj2: any): boolean;
+declare namespace _default {
+    export { COLORS };
+    export { alphaCompare };
+    export { areDeepEqual };
+    export { arrayDelete };
+    export { arrayIsSubset };
+    export { arrayMove };
+    export { arrayRotate };
+    export { arrayShuffle };
+    export { arraysAreEqualSets };
+    export { arraysEqual };
+    export { cmcColumn };
+    export { getCubeDescription };
+    export { getCubeId };
+    export { isInternalURL };
+    export { isObject };
+    export { isSamePageURL };
+    export { randomElement };
+    export { sortDeck };
+    export { toNullableInt };
+}
+export default _default;
+//# sourceMappingURL=Util.d.ts.map

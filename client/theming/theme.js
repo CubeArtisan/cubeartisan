@@ -1,14 +1,20 @@
 import createTheme from '@mui/material/node/styles/createTheme.js';
 
-import themeBase from '@cubeartisan/client/theming/base.js';
+import getBase from '@cubeartisan/client/theming/base.js';
 import typography from '@cubeartisan/client/theming/typography.js';
-import palette from '@cubeartisan/client/theming/palettes/light.js';
+import lightPalette from '@cubeartisan/client/theming/palettes/light.js';
+import darkPalette from '@cubeartisan/client/theming/palettes/dark.js';
 
-console.log(createTheme);
-const THEME = (typeof createTheme === 'function' ? createTheme : createTheme.default)({
-  ...themeBase,
-  typography,
-  palette,
-});
+/**
+ * @param {'default'|'dark'} themeType
+ */
+const getTheme = (themeType) => {
+  const palette = themeType === 'dark' ? darkPalette : lightPalette;
+  return (typeof createTheme === 'function' ? createTheme : createTheme.default)({
+    ...getBase(palette),
+    typography,
+    palette,
+  });
+};
 
-export default THEME;
+export default getTheme;

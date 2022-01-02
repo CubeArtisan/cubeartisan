@@ -19,11 +19,19 @@
 import React, { createContext, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * @typedef {import('react').Context<{ cube: any, canEdit: Boolean, cubeID: string?, hasCustomImages: Boolean,
+ *           setCube: ((cube: any) => void) | ((replacer: (cube: any) => any) => void),
+ *           updateCubeCard: (index: number, card: any) => void,
+ *           updateCubeCards: (cards: any[]) => void }>} ContextType
+ * @type ContextType
+ */
 const CubeContext = createContext({
   cube: {},
   canEdit: false,
   cubeID: null,
   hasCustomImages: false,
+  setCube: () => {},
   updateCubeCard: () => {},
   updateCubeCards: () => {},
 });
@@ -64,7 +72,6 @@ export const CubeContextProvider = ({ initialCube, canEdit, ...props }) => {
 
   return <CubeContext.Provider value={value} {...props} />;
 };
-
 CubeContextProvider.propTypes = {
   initialCube: PropTypes.shape({
     cards: PropTypes.arrayOf(PropTypes.object),
@@ -72,10 +79,8 @@ CubeContextProvider.propTypes = {
   canEdit: PropTypes.bool,
   cubeID: PropTypes.string.isRequired,
 };
-
 CubeContextProvider.defaultProps = {
   initialCube: {},
   canEdit: false,
 };
-
 export default CubeContext;

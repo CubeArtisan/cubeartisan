@@ -21,15 +21,22 @@ import PropTypes from 'prop-types';
 
 import { getCsrfToken } from '@cubeartisan/client/utils/CSRF.js';
 
-const CSRFForm = forwardRef(({ children, ...props }, ref) => (
-  <form ref={ref} {...props}>
-    <input type="hidden" name="_csrf" value={getCsrfToken() ?? ''} />
-    {children}
-  </form>
-));
-
+/**
+ * @typedef {import('react').ReactNode} ReactNode
+ * @typedef {import('react').ForwardRefExoticComponent<{ children: ReactNode, action: string, encType?: string, method?: string }>} ComponentType
+ * @type ComponentType
+ */
+const CSRFForm = forwardRef(({ children, ...props }, ref) => {
+  const CSRFFormInternal = () => (
+    <form ref={ref} {...props}>
+      <input type="hidden" name="_csrf" value={getCsrfToken() ?? ''} />
+      {children}
+    </form>
+  );
+  CSRFFormInternal.displayName = 'CSRFForm';
+  return <CSRFFormInternal />;
+});
 CSRFForm.propTypes = {
   children: PropTypes.node.isRequired,
 };
-
 export default CSRFForm;

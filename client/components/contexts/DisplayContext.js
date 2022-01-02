@@ -16,30 +16,54 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { createContext, useCallback, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
+// import useMediaQuery from '@mui/material/useMediaQuery/index.js';
+import { ThemeProvider, responsiveFontSizes } from '@mui/material/node/styles/index.js';
 
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import getTheme from '@cubeartisan/client/theming/theme.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+
+/**
+ * @typedef {'default' | 'dark'} ThemeType
+ * @typedef DisplayContextValue
+ * @property {boolean} showCustomImages
+ * @property {() => void} toggleShowCustomImages
+ * @property {boolean} showMaybeboard
+ * @property {() => void} toggleShowMaybeboard
+ * @property {number} cardsInRow
+ * @property {(cardsInRow: number) => void} setCardsInRow
+ * @property {boolean} useSticky
+ * @property {() => void} toggleUseSticky
+ * @property {ThemeType} theme
+ * @property {(theme?: ThemeType) => void} updateTheme
+ */
+
+/**
+ * @typedef {import('react').Context<DisplayContextValue>} ContextType
+ * @type ContextType
+ */
 const DisplayContext = createContext({
   showCustomImages: true,
-  compressedView: false,
+  toggleShowCustomImages: () => {},
   showMaybeboard: false,
+  toggleShowMaybeboard: () => {},
   cardsInRow: 8,
+  setCardsInRow: () => {},
   useSticky: false,
+  toggleUseSticky: () => {},
+  theme: 'default',
+  updateTheme: () => {},
 });
 
 export const DisplayContextProvider = ({ cubeID, defaultNumCols, ...props }) => {
+  const user = useContext(UserContext);
+  const userTheme = user.theme;
   const [showCustomImages, setShowCustomImages] = useState(true);
   const toggleShowCustomImages = useCallback(() => {
     setShowCustomImages(!showCustomImages);
   }, [showCustomImages]);
-
-  const [compressedView, setCompressedView] = useState(() => {
-    return typeof localStorage !== 'undefined' && localStorage.getItem('compressed') === 'true';
-  });
-  const toggleCompressedView = useCallback(() => {
-    localStorage.setItem('compressed', !compressedView);
-    setCompressedView(!compressedView);
-  }, [compressedView]);
 
   const [showMaybeboard, setShowMaybeboard] = useState(() => {
     return typeof localStorage !== 'undefined' && cubeID && localStorage.getItem(`maybeboard-${cubeID}`) === 'true';
@@ -70,26 +94,65 @@ export const DisplayContextProvider = ({ cubeID, defaultNumCols, ...props }) => 
       return true;
     });
   }, []);
-
+  // console.log(useMediaQuery);
+  const prefersDarkMode = false; // useMediaQuery('(prefers-color-scheme: dark)');
+  const [theme, setTheme] = useState(
+    () =>
+      userTheme ??
+      ((typeof localStorage !== 'undefined' && localStorage.getItem('theme')) ||
+        (prefersDarkMode ? 'dark' : 'default')),
+  );
+  const updateTheme = useCallback(
+    (newTheme) => {
+      setTheme((oldTheme) => {
+        newTheme = newTheme ?? (oldTheme === 'dark' ? 'default' : 'dark');
+        if (user._id) {
+          user.theme = newTheme;
+          const formData = new FormData();
+          formData.append('hideFeatured', user.hide_featured || false ? 'on' : 'off');
+          formData.append('theme', newTheme);
+          csrfFetch(`/user/${user._id}/display`, {
+            method: 'POST',
+            body: formData,
+          });
+        }
+        console.log('Setting theme to', newTheme);
+        return newTheme;
+      });
+    },
+    [user],
+  );
+  useEffect(() => {
+    if (user._id && user.theme) setTheme(user.theme);
+  }, [user._id, user.theme]);
+  const muiTheme = useMemo(() => {
+    const newTheme = responsiveFontSizes(getTheme(user.theme ?? theme));
+    return newTheme;
+  }, [user.theme, theme]);
   const value = {
     showCustomImages,
     toggleShowCustomImages,
-    compressedView,
-    toggleCompressedView,
     showMaybeboard,
     toggleShowMaybeboard,
     cardsInRow,
     setCardsInRow: updateCardsInRow,
     useSticky,
     toggleUseSticky,
+    theme,
+    updateTheme,
   };
-  return <DisplayContext.Provider value={value} {...props} />;
+  return (
+    <DisplayContext.Provider value={value}>
+      <ThemeProvider theme={muiTheme} {...props} />
+    </DisplayContext.Provider>
+  );
 };
 DisplayContextProvider.propTypes = {
-  cubeID: PropTypes.string.isRequired,
+  cubeID: PropTypes.string,
   defaultNumCols: PropTypes.number,
 };
 DisplayContextProvider.defaultProps = {
-  defaultNumCols: 4,
+  cubeID: 'nocube',
+  defaultNumCols: 8,
 };
 export default DisplayContext;
