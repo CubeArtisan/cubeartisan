@@ -182,8 +182,14 @@ This release is composed of porting over bug fixes for bugs we carried over from
 
 ### v1.3.2.2
 
-#### Bug fixes
+#### Bug Fixes
 
 - When constructing decks we now properly handle 1/2 mana value cards where previously they prevented
   decks from being made at the end of a draft.
 - Fix error where card database can get corrupted on the server preventing instances from starting.
+
+### v1.3.2.3
+
+#### Bug Fixes
+
+- Fix an error in the ui migration that prevented the PlaytestData analytics from displaying.
