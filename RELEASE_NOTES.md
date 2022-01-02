@@ -166,11 +166,15 @@ functionality of the site is easier to discover.
 
 ### Features
 
-- Migrate the Deck Page view to the new UI style.
+- Migrate much of the UI to the new library and style.
+  - the Deck Page
+  - the Dashboard
+  - Cube List Page table view
+  - Cube List navbar
+  - Markdown
+  - Autocard
 - Allow controlling dark mode without refreshing.
-- Migrate the Dashboard to the new UI style.
-- Improvements to the dark mode color scheme.
-- Migrate the Cube List Page mostly.
+- Redesigns of both light and dark mode color schemes.
 
 ### Infrastructure
 
