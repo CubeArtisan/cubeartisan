@@ -1,3 +1,4 @@
+export function getFaceAttributeSource(card: any, isExtra: any): any;
 declare namespace _default {
     export { initializeCatalog };
     export { catalog };
@@ -106,9 +107,9 @@ declare function convertLegalities(card: any, isExtra: any): {
     Penny: any;
     Vintage: any;
 };
-declare function convertType(card: any, isExtra: any): any;
+declare function convertType(card: any, isExtra: any, faceAttributeSource: any): any;
 declare function convertColors(card: any, isExtra?: boolean): any[];
 declare function convertParsedCost(card: any, isExtra?: boolean): any;
-declare function convertCmc(card: any, isExtra: any): any;
+declare function convertCmc(card: any, isExtra: any, faceAttributeSource: any): any;
 declare function getTokens(card: any, catalogCard: any): any[];
 //# sourceMappingURL=updatecards.d.ts.map

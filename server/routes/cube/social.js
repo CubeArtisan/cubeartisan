@@ -28,7 +28,7 @@ const followCubeHandler = async (req, res) => {
 export const followCube = [ensureAuth, wrapAsyncApi(followCubeHandler)];
 
 const unfollowCubeHandler = async (req, res) => {
-  const cube = await Cube.findById(buildIdQuery(req.params.id), 'users_following');
+  const cube = await Cube.findOne(buildIdQuery(req.params.id), 'users_following');
   if (!cube) {
     req.flash('danger', 'Cube not found');
     res.status(404).send({

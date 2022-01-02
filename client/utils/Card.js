@@ -18,6 +18,7 @@
  */
 import { arraysEqual, arrayIsSubset } from '@cubeartisan/client/utils/Util.js';
 import LandCategories from '@cubeartisan/client/res/LandCategories.js';
+import CategoryOverrides from '@cubeartisan/client/res/CategoryOverrides.js';
 
 export const COLOR_COMBINATIONS = [
   [],
@@ -262,7 +263,8 @@ export const CARD_CATEGORY_DETECTORS = {
   commander: (details) =>
     details.legalities.Commander === 'legal' &&
     ((details.type.includes('Legendary') && details.type.includes('Creature')) ||
-      details.oracle_text.includes('can be your commander')),
+      details.oracle_text.includes('can be your commander') ||
+      CategoryOverrides.commander.includes(details.name)),
   spell: (details) => !details.type.includes('Land') && !cardIsSpecialZoneType({ details }),
   permanent: (details) =>
     !details.type.includes('Instant') && !details.type.includes('Sorcery') && !cardIsSpecialZoneType({ details }),
