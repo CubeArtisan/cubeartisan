@@ -41,15 +41,16 @@ const StyledFoilImage = styled(StyledCardImage)({
  */
 
 /**
- * @template {{ children: import('react').ReactNode, ref: import('react').ForwardedRef<any>}} P
+ * @template {object} P
  * @param {import('react').ComponentType<P>} Tag - The tag for the autocard components
  * @returns {import('react').ForwardRefExoticComponent<AutocardProps & P>}
  */
 const withAutocard = (Tag) => {
   /**
-   * @typedef {import('react').ForwardRefExoticComponent<import('react').PropsWithoutRef<AutocardProps & P>>} ComponentType
+   * @typedef {import('react').ForwardRefExoticComponent<AutocardProps & P>} ComponentType
    * @type ComponentType
    */
+  // @ts-ignore
   const WithAutocard = forwardRef(({ card, front, back, tags, ...props }, ref) => {
     const tagContext = useContext(TagContext);
     const tagColorClass = tagContext?.tagColorClass ?? placeholderClass;
@@ -109,12 +110,14 @@ const withAutocard = (Tag) => {
     front: PropTypes.string,
     back: PropTypes.string,
     tags: PropTypes.arrayOf(PropTypes.string.isRequired),
+    ...Tag.propTypes,
   };
   WithAutocard.defaultProps = {
     card: null,
     front: null,
     back: null,
     tags: null,
+    ...Tag.defaultProps,
   };
   if (typeof Tag === 'string') {
     WithAutocard.displayName = `${Tag}WithAutocard`;
