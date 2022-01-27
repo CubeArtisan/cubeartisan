@@ -37,7 +37,7 @@ const StyledFoilImage = styled(StyledCardImage)({
 });
 
 /**
- * @typedef {{ card?: any, front?: string, back?: string, tags?: string[] }} AutocardProps
+ * @typedef {{ card?: import('@cubeartisan/client/proptypes/CardPropType.js').Card, front?: string, back?: string, tags?: string[] }} AutocardProps
  */
 
 /**
@@ -56,7 +56,7 @@ const withAutocard = (Tag) => {
     const tagColorClass = tagContext?.tagColorClass ?? placeholderClass;
     const { showCustomImages } = useContext(DisplayContext);
     const backupRef = useRef();
-    card = card ?? { details: {} };
+    card = card ?? { cardID: '', tags: [], details: { image_normal: '', _id: '', name: '' } };
     tags = tags ?? cardTags(card) ?? [];
     front = front || (showCustomImages && cardImageUrl(card)) || cardImageNormal(card);
     back = back || (showCustomImages && cardImageBackUrl(card)) || cardImageFlip(card);

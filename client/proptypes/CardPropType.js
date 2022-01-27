@@ -19,6 +19,18 @@
 import PropTypes from 'prop-types';
 import CardDetailsPropType from '@cubeartisan/client/proptypes/CardDetailsPropType.js';
 
+/**
+ * @typedef Card
+ * @property {string} [_id]
+ * @property {number} [index]
+ * @property {string} [imgUrl]
+ * @property {string} [imgBackUrl]
+ * @property {string} cardID
+ * @property {import('@cubeartisan/client/proptypes/CardDetailsPropType.js').Color[]} [colors]
+ * @property {string[]} tags
+ * @property {import('@cubeartisan/client/proptypes/CardDetailsPropType.js').CardDetails} details
+ */
+
 const CardPropType = PropTypes.shape({
   _id: PropTypes.string,
   index: PropTypes.number,

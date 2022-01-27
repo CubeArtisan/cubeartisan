@@ -10,6 +10,9 @@ declare namespace AutocardListItem {
             index: PropTypes.Requireable<number>;
             imgUrl: PropTypes.Requireable<string>;
             imgBackUrl: PropTypes.Requireable<string>;
+            /** 2020-11-18 struesdell:
+             *  Added noOp callback to allow props to fall through without passing undefined to children.
+             */
             cardID: PropTypes.Validator<string>;
             colors: PropTypes.Requireable<string[]>;
             tags: PropTypes.Requireable<string[]>;

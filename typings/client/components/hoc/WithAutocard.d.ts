@@ -1,12 +1,12 @@
 export default withAutocard;
 export type AutocardProps = {
-    card?: any;
+    card?: import('@cubeartisan/client/proptypes/CardPropType.js').Card;
     front?: string;
     back?: string;
     tags?: string[];
 };
 /**
- * @typedef {{ card?: any, front?: string, back?: string, tags?: string[] }} AutocardProps
+ * @typedef {{ card?: import('@cubeartisan/client/proptypes/CardPropType.js').Card, front?: string, back?: string, tags?: string[] }} AutocardProps
  */
 /**
  * @template {object} P

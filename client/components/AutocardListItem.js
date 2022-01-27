@@ -101,5 +101,4 @@ AutocardListItem.propTypes = {
 AutocardListItem.defaultProps = {
   noCardModal: false,
 };
-
 export default AutocardListItem;

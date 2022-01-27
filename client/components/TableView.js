@@ -74,5 +74,4 @@ TableView.defaultProps = {
   rowTag: AutocardListItem,
   noGroupModal: false,
 };
-
 export default TableView;

@@ -66,7 +66,6 @@ const AutocardListGroup = ({ cards, heading, sort, orderedSort, showOther, rowTa
     </List>
   );
 };
-
 AutocardListGroup.propTypes = {
   cards: PropTypes.arrayOf(CardPropType).isRequired,
   rowTag: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
@@ -76,7 +75,6 @@ AutocardListGroup.propTypes = {
   orderedSort: PropTypes.string,
   showOther: PropTypes.bool,
 };
-
 AutocardListGroup.defaultProps = {
   rowTag: AutocardListItem,
   noGroupModal: false,
@@ -84,5 +82,4 @@ AutocardListGroup.defaultProps = {
   orderedSort: 'Alphabetical',
   showOther: false,
 };
-
 export default AutocardListGroup;
