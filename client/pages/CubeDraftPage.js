@@ -43,10 +43,11 @@ import SetCardsInRow from '@cubeartisan/client/components/SetCardsInRow.js';
 import useTimer from '@cubeartisan/client/hooks/UseTimer.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import {
+  getDraftbotScores,
   getDefaultPosition,
-  getWorstScore,
+  getWorstOption,
+  getBestOption,
   convertDrafterState,
-  initializeMtgDraftbots,
   validActions,
 } from '@cubeartisan/client/drafting/draftutil.js';
 import CardHeader from '@cubeartisan/client/components/CardHeader.js';
@@ -404,15 +405,13 @@ export const CubeDraftPage = ({ cube, draftid, loginCallback }) => {
   const makePick = useCallback(async () => {
     if (picking || !drafterState.timeout) return;
     if (drafterState.step.action === 'pick') {
-      const { calculateBotPick } = await initializeMtgDraftbots();
-      const choice = await calculateBotPick(convertDrafterState(drafterState));
-      const chosen = drafterState.cardsInPack[choice.chosenOption];
+      const choice = getBestOption(await getDraftbotScores(convertDrafterState(drafterState)));
+      const chosen = drafterState.cardsInPack[choice];
       setPicking(chosen);
       socket.current.emit('pick card', chosen, getDefaultPosition(drafterState.cards[chosen], drafterState.drafted));
     } else if (drafterState.step.action === 'trash') {
-      const { calculateBotPick } = await initializeMtgDraftbots();
-      const choice = await calculateBotPick(convertDrafterState(drafterState));
-      const chosen = drafterState.cardsInPack[getWorstScore(choice)];
+      const choice = getWorstOption(await getDraftbotScores(convertDrafterState(drafterState)));
+      const chosen = drafterState.cardsInPack[choice];
       setPicking(chosen);
       socket.current.emit('trash card', chosen);
     }

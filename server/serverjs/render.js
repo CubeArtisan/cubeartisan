@@ -76,6 +76,7 @@ export const render = async (req, res, page, reactProps = {}, options = {}) => {
     siteRoot: process.env.SITE_ROOT,
     sourceRepo: process.env.SOURCE_REPO,
     supportEmail: process.env.SUPPORT_EMAIL,
+    mtgmlServer: process.env.MTGML_SERVER,
   };
 
   if (!options.metadata) {

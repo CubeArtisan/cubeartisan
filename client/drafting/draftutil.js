@@ -17,6 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 /* eslint-disable no-loop-func */
+import axios from 'axios';
 import seedrandom from 'seedrandom';
 
 import { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation.js';
@@ -155,7 +156,16 @@ const newpack = ([oldDrafterState, internalState]) => {
   drafterState.packSize = internalState.packsWithCards[0].length;
   drafterState.pickNum = 0;
   drafterState.cardsInPack = internalState.packsWithCards[seatNum].slice();
-  drafterState.seen = drafterState.seen.concat(internalState.packsWithCards[seatNum]); // We see the pack we opened.
+  drafterState.seen = [
+    ...drafterState.seen,
+    {
+      pack: internalState.packsWithCards[seatNum],
+      pickNum: drafterState.pickNum,
+      packNum: drafterState.packNum,
+      numPicks: drafterState.packSize,
+      numPacks: drafterState.numPacks,
+    },
+  ];
   return [drafterState, internalState];
 };
 
@@ -171,7 +181,16 @@ const pass = ([oldDrafterState, internalState]) => {
   const passLeft = drafterState.packNum % 2 === 0;
   internalState.offset = (internalState.offset + (passLeft ? 1 : numSeats - 1)) % numSeats;
   drafterState.cardsInPack = packsWithCards[(seatNum + internalState.offset) % numSeats].slice();
-  drafterState.seen = drafterState.seen.concat(packsWithCards[(seatNum + internalState.offset) % numSeats]);
+  drafterState.seen = [
+    ...drafterState.seen,
+    {
+      pack: packsWithCards[(seatNum + internalState.offset) % numSeats],
+      pickNum: drafterState.pickNum,
+      packNum: drafterState.packNum,
+      numPicks: drafterState.packSize,
+      numPacks: drafterState.numPacks,
+    },
+  ];
   internalState.stepNumber += 1;
   return [drafterState, internalState];
 };
@@ -282,20 +301,39 @@ export const convertDrafterState = (drafterState) => {
   return newState;
 };
 
-export const getWorstScore = (result) => {
+export const getDraftbotScores = async (convertedDrafterState, mtgmlServer) => {
+  const response = await axios.post(`${mtgmlServer}/draft`, { drafterState: convertedDrafterState });
+  const responseJson = response.data;
+  if (!responseJson.success) throw new Error(responseJson.error);
+  return responseJson.scores;
+};
+
+export const getWorstOption = (scores) => {
   let worstIndex = 0;
-  let worstScore = 2;
-  for (let i = 0; i < result.scores.length; i++) {
-    if (result.scores[i].score < worstScore) {
-      worstScore = result.scores[i].score;
+  let worstScore = scores[0];
+  for (let i = 1; i < scores.length; i++) {
+    if (scores[i] < worstScore) {
+      worstScore = scores[i];
       worstIndex = i;
     }
   }
   return worstIndex;
 };
 
-export const allBotsDraft = async (draft) => {
-  const { calculateBotPick } = await initializeMtgDraftbots();
+export const getBestOption = (scores) => {
+  let worstIndex = 0;
+  let worstScore = scores[0];
+  for (let i = 1; i < scores.length; i++) {
+    if (scores[i] < worstScore) {
+      worstScore = scores[i];
+      worstIndex = i;
+    }
+  }
+  return worstIndex;
+};
+
+export const allBotsDraft = async (draft, mtgmlServer) => {
+  console.log('mtgmlServer', mtgmlServer);
   let drafterStates = draft.seats.map((_, seatNumber) => getDrafterState({ draft, seatNumber }));
   let [
     {
@@ -316,8 +354,8 @@ export const allBotsDraft = async (draft) => {
         // eslint-disable-next-line no-await-in-loop
         picks = await Promise.all(
           drafterStates.map(async (drafterState) => {
-            const result = await calculateBotPick(convertDrafterState(drafterState));
-            return drafterState.cardsInPack[result.chosenOption];
+            const chosen = getBestOption(await getDraftbotScores(convertDrafterState(drafterState), mtgmlServer));
+            return drafterState.cardsInPack[chosen];
           }),
         );
       }
@@ -338,8 +376,8 @@ export const allBotsDraft = async (draft) => {
         // eslint-disable-next-line no-await-in-loop
         picks = await Promise.all(
           drafterStates.map(async (drafterState) => {
-            const result = await calculateBotPick(convertDrafterState(drafterState));
-            return drafterState.cardsInPack[getWorstScore(result)];
+            const chosen = getWorstOption(await getDraftbotScores(convertDrafterState(drafterState), mtgmlServer));
+            return drafterState.cardsInPack[chosen];
           }),
         );
       }
