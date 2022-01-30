@@ -43,6 +43,7 @@ import {
   UncontrolledCollapse,
 } from 'reactstrap';
 
+import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
@@ -126,8 +127,11 @@ LabelRow.propTypes = {
 };
 
 const useBotsOnlyCallback = (botsOnly, cubeID) => {
+  console.log(cubeID);
   const formRef = useRef();
   const [loading, setLoading] = useState(false);
+  const { mtgmlServer } = useContext(SiteCustomizationContext);
+  console.log(mtgmlServer);
   const submitForm = useCallback(
     async (e) => {
       setLoading(true);
@@ -141,7 +145,7 @@ const useBotsOnlyCallback = (botsOnly, cubeID) => {
 
         const json = await response.json();
 
-        const draft = await allBotsDraft(json.draft);
+        const draft = await allBotsDraft(json.draft, mtgmlServer);
         for (const card of draft.cards) {
           delete card.details;
         }
@@ -158,7 +162,7 @@ const useBotsOnlyCallback = (botsOnly, cubeID) => {
         window.location.href = json2.url;
       }
     },
-    [botsOnly, cubeID, formRef],
+    [botsOnly, cubeID, formRef, mtgmlServer],
   );
 
   return [submitForm, formRef, loading];

@@ -1046,11 +1046,11 @@ const resizeCubeHandler = async (req, res) => {
       });
     }
 
-    const response = await fetch(
-      `${process.env.FLASKROOT}/?cube_name=${encodeURIComponent(
-        req.params.id,
-      )}&num_recs=${1000}&root=${encodeURIComponent(process.env.SITE_ROOT)}`,
-    );
+    const response = await fetch(`${process.env.MTGML_SERVER}/cube?num_recs=${1000}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cube: cube.cards.map(({ cardID }) => carddb.cardFromId(cardID).oracle_id) }),
+    });
     if (!response.ok) {
       return handleRouteError(
         req,
@@ -1059,17 +1059,13 @@ const resizeCubeHandler = async (req, res) => {
         `/cube/${encodeURIComponent(req.params.id)}/list`,
       );
     }
-    const { cuts, additions } = await response.json();
-
-    // use this instead if you want debug data
-    // const additions = { island: 1, mountain: 1, plains: 1, forest: 1, swamp: 1, wastes: 1 };
-    // const cuts = { ...additions };
+    const { cuts, adds } = await response.json();
 
     const pids = new Set();
     const cardNames = new Set();
 
     const formatTuple = (tuple) => {
-      const details = carddb.getMostReasonable(tuple[0]);
+      const details = carddb.getFirstReasonable(carddb.oracleToId[tuple[0]]);
       const card = newCard(details);
       card.details = details;
 
@@ -1089,7 +1085,7 @@ const resizeCubeHandler = async (req, res) => {
     }
 
     // we sort the reverse way depending on adding or removing
-    let list = Object.entries(newSize > cube.cards.length ? additions : cuts)
+    let list = (newSize > cube.cards.length ? adds : cuts)
       .sort((a, b) => {
         if (a[1] > b[1]) return newSize > cube.cards.length ? -1 : 1;
         if (a[1] < b[1]) return newSize > cube.cards.length ? 1 : -1;
@@ -1871,46 +1867,34 @@ const getDateCubeUpdatedHandler = async (req, res) => {
 export const getDateCubeUpdated = wrapAsyncApi(getDateCubeUpdatedHandler);
 
 const getRecommendationsHandler = async (req, res) => {
-  const response = await fetch(
-    `${process.env.FLASKROOT}/?cube_name=${encodeURIComponent(req.params.id)}&num_recs=${1000}`,
-  );
+  const { id } = req.params;
+  const cube = await Cube.findOne(buildIdQuery(id)).lean();
+  const response = await fetch(`${process.env.MTGML_SERVER}/cube?num_recs=${1000}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ cube: cube.cards.map(({ cardID }) => carddb.cardFromId(cardID).oracle_id) }),
+  });
   if (!response.ok) {
-    winston.error('Flask server response not OK.', response);
+    winston.error('Flask server response not OK.', { response, text: await response.text() });
     return res.status(500).send({
       success: 'false',
       result: {},
     });
   }
-  const { cuts, additions } = await response.json();
+  const { cuts, adds } = await response.json();
 
-  // use this instead if you want debug data
-  // const additions = { island: 1, mountain: 1, plains: 1, forest: 1, swamp: 1, wastes: 1 };
-  // const cuts = { ...additions };
-
-  const pids = new Set();
-  const cardNames = new Set();
-
-  const formatTuple = (tuple) => {
-    const details = carddb.getMostReasonable(tuple[0]);
+  const formatTuple = ([oracleId, score]) => {
+    const details = carddb.getFirstReasonable(carddb.oracleToId[oracleId]);
     const card = newCard(details);
     card.details = details;
 
-    if (card.details.tcgplayer_id) {
-      pids.add(card.details.tcgplayer_id);
-    }
-    cardNames.add(card.details.name);
-
-    return card;
+    return { card, score };
   };
 
-  const addlist = Object.entries(additions)
-    .sort((a, b) => b[1] - a[1])
-    .map(formatTuple);
+  const addlist = adds.sort((a, b) => b[1] - a[1]).map(formatTuple);
 
   // this is sorted the opposite way, as lower numbers mean we want to cut it
-  const cutlist = Object.entries(cuts)
-    .sort((a, b) => a[1] - b[1])
-    .map(formatTuple);
+  const cutlist = cuts.sort((a, b) => a[1] - b[1]).map(formatTuple);
 
   return res.status(200).send({
     success: 'true',
