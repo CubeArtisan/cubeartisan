@@ -19,6 +19,7 @@
 import React, { useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import AddToCubeModal from '@cubeartisan/client/components/modals/AddToCubeModal.js';
 import PagedList from '@cubeartisan/client/components/PagedList.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
@@ -43,7 +44,7 @@ import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 const AutocardA = withAutocard('a');
 const AddModal = withModal(AutocardA, AddToCubeModal);
 
-const Suggestion = ({ card, index, cube }) => {
+const Suggestion = ({ card, score, index, cube }) => {
   return (
     <ListGroupItem>
       <h6>
@@ -57,20 +58,15 @@ const Suggestion = ({ card, index, cube }) => {
         >
           {cardName(card)}
         </AddModal>
+        {` (${(score * 100).toFixed(2)}%)`}
       </h6>
     </ListGroupItem>
   );
 };
 
 Suggestion.propTypes = {
-  card: PropTypes.shape({
-    cardID: PropTypes.string.isRequired,
-    details: PropTypes.shape({
-      image_normal: PropTypes.string.isRequired,
-      image_flip: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
+  card: CardPropType.isRequired,
+  score: PropTypes.number.isRequired,
   cube: CubePropType.isRequired,
   index: PropTypes.number.isRequired,
 };
@@ -81,13 +77,13 @@ const Suggestions = ({ adds, cuts, loadState, cube, filter }) => {
 
   const filteredCuts = useMemo(() => {
     const withIndex = cuts?.map((cut, index) => [cut, index]) ?? [];
-    return filter ? withIndex.filter(([card]) => filter(card)) : withIndex;
+    return filter ? withIndex.filter(([{ card }]) => filter(card)) : withIndex;
   }, [cuts, filter]);
 
   const filteredAdds = useMemo(() => {
     let withIndex = adds?.map((add, index) => [add, index]) ?? [];
     if (maybeOnly) {
-      withIndex = withIndex.filter(([card]) =>
+      withIndex = withIndex.filter(([{ card }]) =>
         cube.maybe.some((maybe) => cardNameLower(maybe) === cardNameLower(card)),
       );
     }
@@ -134,7 +130,7 @@ const Suggestions = ({ adds, cuts, loadState, cube, filter }) => {
                       showBottom
                       pageWrap={(element) => <CardBody>{element}</CardBody>}
                       rows={filteredAdds.slice(0).map(([add, index]) => (
-                        <Suggestion key={add.cardID} index={index} card={add} cube={cube} />
+                        <Suggestion key={add.card.cardID} index={index} card={add.card} score={add.score} cube={cube} />
                       ))}
                     />
                   ) : (
@@ -164,8 +160,8 @@ const Suggestions = ({ adds, cuts, loadState, cube, filter }) => {
                       pageSize={20}
                       showBottom
                       pageWrap={(element) => <CardBody>{element}</CardBody>}
-                      rows={filteredCuts.slice(0).map(([card, index]) => (
-                        <Suggestion key={card.cardID} index={index} card={card} cube={cube} />
+                      rows={filteredCuts.slice(0).map(([cut, index]) => (
+                        <Suggestion key={cut.card.cardID} index={index} card={cut.card} score={cut.score} cube={cube} />
                       ))}
                     />
                   ) : (
@@ -183,14 +179,14 @@ const Suggestions = ({ adds, cuts, loadState, cube, filter }) => {
 };
 
 Suggestions.propTypes = {
-  adds: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  cuts: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  adds: PropTypes.arrayOf(
+    PropTypes.shape({ card: CardPropType.isRequired, score: PropTypes.number.isRequired }).isRequired,
+  ).isRequired,
+  cuts: PropTypes.arrayOf(
+    PropTypes.shape({ card: CardPropType.isRequired, score: PropTypes.number.isRequired }).isRequired,
+  ).isRequired,
   loadState: PropTypes.oneOf(['loading', 'loaded', 'error']).isRequired,
-  cube: PropTypes.shape({
-    maybe: PropTypes.arrayOf(
-      PropTypes.shape({ details: PropTypes.shape({ name_lower: PropTypes.string.isRequired }) }),
-    ),
-  }).isRequired,
+  cube: CubePropType.isRequired,
   filter: PropTypes.func,
 };
 

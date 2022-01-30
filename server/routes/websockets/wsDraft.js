@@ -8,12 +8,12 @@ import {
   convertDrafterState,
   getDefaultPosition,
   getDrafterState,
-  initializeMtgDraftbots,
+  getDraftbotScores,
+  getBestOption,
+  getWorstOption,
 } from '@cubeartisan/client/drafting/draftutil.js';
 import { moveOrAddCard, removeCard } from '@cubeartisan/client/drafting/DraftLocation.js';
 import { areDeepEqual } from '@cubeartisan/client/utils/Util.js';
-
-const mtgdraftbotsQ = import('mtgdraftbots');
 
 const getSeat = async (draftid, user) => {
   let draft = await Draft.findById(draftid).lean();
@@ -148,9 +148,6 @@ const manageWebsocketDraft = async (socket) => {
           cardsInPack.length > 0 && (action.match(/random/) || draft.seats[seatNum].bot) && !action.match(/done/),
       );
 
-  const { calculateBotPick } = await mtgdraftbotsQ;
-  await initializeMtgDraftbots();
-
   advancePack = async (draft, changes = {}) => {
     for (
       let drafterStates = getAdvanceableDrafterStates(draft);
@@ -170,12 +167,14 @@ const manageWebsocketDraft = async (socket) => {
             }
           } else if (draft.seats[drafterState.seatNum].bot) {
             if (drafterState.step.action.match(/pick/)) {
-              // eslint-disable-next-line no-await-in-loop
-              const result = await calculateBotPick(convertDrafterState(drafterState));
+              const maxIndex = getBestOption(
+                // eslint-disable-next-line no-await-in-loop
+                await getDraftbotScores(convertDrafterState(drafterState), process.env.MTGML_SERVER),
+              );
               // eslint-disable-next-line no-await-in-loop
               [changes, draft] = await pickCard(
                 draft,
-                drafterState.cardsInPack[result.chosenOption],
+                drafterState.cardsInPack[maxIndex],
                 null,
                 drafterState.seatNum,
                 changes,
@@ -183,16 +182,10 @@ const manageWebsocketDraft = async (socket) => {
               );
             }
             if (drafterState.step.action.match(/trash/)) {
-              // eslint-disable-next-line no-await-in-loop
-              const result = await calculateBotPick(convertDrafterState(drafterState));
-              let worstIndex = 0;
-              let worstScore = 2;
-              for (let i = 0; i < result.scores.length; i++) {
-                if (result.scores[i].score < worstScore) {
-                  worstScore = result.scores[i].score;
-                  worstIndex = i;
-                }
-              }
+              const worstIndex = getWorstOption(
+                // eslint-disable-next-line no-await-in-loop
+                await getDraftbotScores(convertDrafterState(drafterState), process.env.MTGML_SERVER),
+              );
               // eslint-disable-next-line no-await-in-loop
               [changes, draft] = await trashCard(
                 draft,

@@ -22,8 +22,9 @@ export const DEFAULT_SITE_CUSTOMIZATIONS = {
   discordUrl: 'DiscordUrl',
   siteName: 'SiteName',
   siteRoot: 'http://localhost:8080',
-  sourceRepo: 'https://github.com/ruler501/CubeCobra',
+  sourceRepo: 'https://github.com/cubeartisan/CubeArtisan',
   supportEmail: 'support@localhost',
+  mtgmlServer: null,
 };
 
 const SiteCustomizationContext = createContext(DEFAULT_SITE_CUSTOMIZATIONS);
