@@ -70,6 +70,8 @@ export function convertDrafterState(drafterState: any): {
     numPicks: any;
     seed: any;
 };
-export function getWorstScore(result: any): number;
-export function allBotsDraft(draft: any): Promise<any>;
+export function getDraftbotScores(convertedDrafterState: any, mtgmlServer: any): Promise<any>;
+export function getWorstOption(scores: any): number;
+export function getBestOption(scores: any): number;
+export function allBotsDraft(draft: any, mtgmlServer: any): Promise<any>;
 //# sourceMappingURL=draftutil.d.ts.map
