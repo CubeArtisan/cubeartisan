@@ -38,7 +38,7 @@
     "mongoose": "^5.12.10",
     "mongoose-seed": "^0.6.0",
     "node-cache": "^5.1.2",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.6.7",
     "uuid": "^7.0.0",
     "winston": "^3.3.3",
     "winston-elasticsearch": "^0.15.7"
