@@ -193,3 +193,9 @@ This release is composed of porting over bug fixes for bugs we carried over from
 #### Bug Fixes
 
 - Fix an error in the ui migration that prevented the PlaytestData analytics from displaying.
+
+## v1.4.0
+
+### Features
+
+- Update the draftbots to use the new model.
