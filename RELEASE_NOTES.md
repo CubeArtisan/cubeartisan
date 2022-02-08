@@ -206,7 +206,11 @@ This release is composed of porting over bug fixes for bugs we carried over from
 
 - Fix bug with request to draftbot model that had all cards appear identical.
 
-### v1.4.1.1
+### v1.4.2
+
+#### Bug Fixes
+
+- The last pick of a pack will no longer appear as part of the next pack.
 
 #### Infrastructure
 
