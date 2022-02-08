@@ -10,6 +10,8 @@ services:
     build:
       dockerfile: .docker/Dockerfile.jobs
       context: ../
+      cache_from: 
+        - ${REPOSITORY}/cubeartisan-jobs:latest
     image: ${REPOSITORY}/cubeartisan-jobs:${TAG}
     depends_on:
       - "cubeartisan-mongodb"
@@ -17,6 +19,8 @@ services:
     build:
       dockerfile: .docker/Dockerfile
       context: ../
+      cache_from: 
+        - ${REPOSITORY}/cubeartisan-jobs:${TAG}
       args:
         REPOSITORY: ${REPOSITORY}
         TAG: ${TAG}

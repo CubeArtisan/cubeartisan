@@ -287,17 +287,22 @@ export const getDefaultPosition = (card, picks) => {
 
 export const convertDrafterState = (drafterState) => {
   const newState = {
-    basics: drafterState.basics,
-    picked: drafterState.picked,
-    seen: drafterState.seen,
-    cardsInPack: drafterState.cardsInPack,
-    cardOracleIds: drafterState.cards.map(({ details }) => details.oracle_id),
+    basics: drafterState.basics.map((idx) => drafterState.cards[idx].details.oracle_id),
+    picked: drafterState.picked.map((idx) => drafterState.cards[idx].details.oracle_id),
+    seen: drafterState.seen.map(({ pack, ...rest }) => ({
+      pack: pack.map((idx) => drafterState.cards[idx].details.oracle_id),
+      ...rest,
+    })),
+    cardsInPack: drafterState.cardsInPack.map((idx) => drafterState.cards[idx].details.oracle_id),
     packNum: drafterState.packNum,
     numPacks: drafterState.numPacks,
     pickNum: drafterState.pickNum,
     numPicks: drafterState.packSize,
-    seed: drafterState.seed ?? Math.floor(Math.random() * 65536),
   };
+  console.log(
+    newState,
+    newState.seen.map(({ pack }) => pack),
+  );
   return newState;
 };
 
