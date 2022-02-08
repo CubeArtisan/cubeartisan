@@ -299,10 +299,6 @@ export const convertDrafterState = (drafterState) => {
     pickNum: drafterState.pickNum,
     numPicks: drafterState.packSize,
   };
-  console.log(
-    newState,
-    newState.seen.map(({ pack }) => pack),
-  );
   return newState;
 };
 

@@ -15,7 +15,6 @@ export const writeFile = (filename, object) => {
 export const loadCardToInt = async () => {
   await carddb.initializeCardDb('./private', true);
   const cardToIntFile = 'card_to_int.json';
-
   const intToCardFile = 'int_to_card.json';
   if (fs.existsSync(`${folder}/${cardToIntFile}`) && fs.existsSync(`${folder}/${intToCardFile}`)) {
     const intToCard = JSON.parse(fs.readFileSync(`${folder}/${intToCardFile}`));
@@ -24,12 +23,17 @@ export const loadCardToInt = async () => {
   }
   const intToCard = carddb
     .allOracleIds()
-    .map((oracleId) => carddb.getVersionsByOracleId(oracleId).filter((card) => carddb.reasonableCard(card)))
+    .map((oracleId) =>
+      carddb
+        .getVersionsByOracleId(oracleId)
+        .map((id) => carddb.cardFromId(id))
+        .filter((card) => carddb.reasonableCard(card)),
+    )
     .filter((cards) => cards.length > 0)
     .map(([card]) => card);
   const cardToInt = Object.fromEntries(intToCard.map((card, index) => [card.oracle_id, index]));
-  writeFile('card_to_int.json', cardToInt);
-  writeFile('int_to_card.json', intToCard);
+  writeFile(cardToIntFile, cardToInt);
+  writeFile(intToCardFile, intToCard);
   return { cardToInt, intToCard };
 };
 
