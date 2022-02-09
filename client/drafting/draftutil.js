@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /**
  * This file is part of CubeArtisan.
  *
@@ -299,18 +300,20 @@ export const convertDrafterState = (drafterState) => {
     pickNum: drafterState.pickNum,
     numPicks: drafterState.packSize,
   };
-  console.log(
-    newState,
-    newState.seen.map(({ pack }) => pack),
-  );
   return newState;
 };
 
 export const getDraftbotScores = async (convertedDrafterState, mtgmlServer) => {
+  console.log('MTGML_SERVER:', mtgmlServer);
+  try {
   const response = await axios.post(`${mtgmlServer}/draft`, { drafterState: convertedDrafterState });
   const responseJson = response.data;
-  if (!responseJson.success) throw new Error(responseJson.error);
+  if (!responseJson.success) console.error(responseJson.error);
   return responseJson.scores;
+  } catch (err) {
+    console.error(err);
+    return [];
+  }
 };
 
 export const getWorstOption = (scores) => {

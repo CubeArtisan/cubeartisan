@@ -193,7 +193,6 @@ This release is composed of porting over bug fixes for bugs we carried over from
 #### Bug Fixes
 
 - Fix an error in the ui migration that prevented the PlaytestData analytics from displaying.
-<<<<<<< HEAD
 
 ## v1.4.0
 
@@ -207,3 +206,15 @@ This release is composed of porting over bug fixes for bugs we carried over from
 
 - Fix bug with request to draftbot model that had all cards appear identical.
 
+### v1.4.2
+
+#### Bug Fixes
+
+- The last pick of a pack will no longer appear as part of the next pack.
+- DraftbotBreakdown now correctly shows the scores for each card. This will
+  have the UX improved upon in a future version of the mtgml model.
+
+#### Infrastructure
+
+- Try to speed up continuous integration tests.
+- Modify what cards get included in the exports.

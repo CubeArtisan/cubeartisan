@@ -4102,6 +4102,13 @@ core-util-is@^1.0.2, core-util-is@~1.0.0:
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.3.tgz#a6042d3634c2b27e9328f837b965fac83808db85"
   integrity sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==
 
+core_d@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/core_d/-/core_d-3.2.0.tgz#c4cbed5b69684d04a6b5f880935be1659601151c"
+  integrity sha512-waKkgHU2P19huhuMjCqCDWTYjxCIHoB+nnYjI7pVMUOC1giWxMNDrXkPw9QjWY+PWCFm49bD3wA/J+c7BGZ+og==
+  dependencies:
+    supports-color "^8.1.0"
+
 cors@~2.8.5:
   version "2.8.5"
   resolved "https://registry.yarnpkg.com/cors/-/cors-2.8.5.tgz#eac11da51592dd86b9f06f6e7ac293b3df875d29"
@@ -5175,7 +5182,7 @@ eslint-visitor-keys@^2.0.0, eslint-visitor-keys@^2.1.0:
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-2.1.0.tgz#f65328259305927392c938ed44eb0a5c9b2bd303"
   integrity sha512-0rSmRBzXgDzIsD6mGdJgevzgezI534Cer5L/vyMX0kHzT/jiB43jRhd9YUlMGYLQy2zprNmoT8qasCGtY+QaKw==
 
-eslint@^7.30.0:
+eslint@^7.3.0, eslint@^7.30.0:
   version "7.32.0"
   resolved "https://registry.yarnpkg.com/eslint/-/eslint-7.32.0.tgz#c6d328a14be3fb08c8d1d21e12c02fdb7a2a812d"
   integrity sha512-VHZ8gX+EDfz+97jGcgyGCyRia/dPOd6Xh9yPv8Bl1+SoaIwD+a/vlrOmGRUyOYu7MwUhc7CxqeaDZU13S4+EpA==
@@ -5220,6 +5227,16 @@ eslint@^7.30.0:
     table "^6.0.9"
     text-table "^0.2.0"
     v8-compile-cache "^2.0.3"
+
+eslint_d@^11.1.1:
+  version "11.1.1"
+  resolved "https://registry.yarnpkg.com/eslint_d/-/eslint_d-11.1.1.tgz#206ef2de9f699ab642f5bc3fee6f80d43a66f0f0"
+  integrity sha512-PaNWblwIa10KZUt9EObGBzrsaxB+CPtk5d99sTveXmAtQrPSmrntKpWqxN/Mwot0qnI5gCllzkPZi6tO710KUA==
+  dependencies:
+    core_d "^3.2.0"
+    eslint "^7.3.0"
+    nanolru "^1.0.0"
+    optionator "^0.9.1"
 
 esm@^3.2.25:
   version "3.2.25"
@@ -8904,6 +8921,11 @@ nanoid@^3.1.30:
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.30.tgz#63f93cc548d2a113dc5dfbc63bfa09e2b9b64362"
   integrity sha512-zJpuPDwOv8D2zq2WRoMe1HsfZthVewpel9CAvTfc/2mBD1uUT/agc5f7GHGWXlYkFvi1mVxe4IjvP2HNrop7nQ==
 
+nanolru@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/nanolru/-/nanolru-1.0.0.tgz#0a5679cd4e4578c4ca3741e610b71c4c9b5afaf8"
+  integrity sha512-GyQkE8M32pULhQk7Sko5raoIbPalAk90ICG+An4fq6fCsFHsP6fB2K46WGXVdoJpy4SGMnZ/EKbo123fZJomWg==
+
 nanomatch@^1.2.9:
   version "1.2.13"
   resolved "https://registry.yarnpkg.com/nanomatch/-/nanomatch-1.2.13.tgz#b87a8aa4fc0de8fe6be88895b38983ff265bd119"
@@ -11913,7 +11935,7 @@ supports-color@^7.0.0, supports-color@^7.1.0, supports-color@^7.2.0:
   dependencies:
     has-flag "^4.0.0"
 
-supports-color@^8.0.0:
+supports-color@^8.0.0, supports-color@^8.1.0:
   version "8.1.1"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-8.1.1.tgz#cd6fc17e28500cff56c1b86c0a7fd4a54a73005c"
   integrity sha512-MpUEN2OodtUzxvKQl72cUF7RQ5EiHsGvSsVG0ia9c5RbWGL2CI4C7EpPS8UTBIplnlzZiNuV56w+FuNxy3ty2Q==
