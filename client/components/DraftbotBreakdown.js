@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Col, Row } from 'reactstrap';
 
@@ -27,6 +27,7 @@ import { DrafterStatePropType, DraftPropType } from '@cubeartisan/client/proptyp
 import { cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
 import { convertDrafterState, getDraftbotScores } from '@cubeartisan/client/drafting/draftutil.js';
 import PickSelector from '@cubeartisan/client/components/PickSelector.js';
+import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 
 const AutocardLink = withAutocard('a');
 
@@ -51,13 +52,14 @@ const CARD_TRAIT = Object.freeze({
 });
 
 export const DraftbotBreakdownTable = ({ drafterState }) => {
+  const { mtgmlServer } = useContext(SiteCustomizationContext);
   const [botResult, setBotResult] = useState(null);
   useEffect(() => {
     (async () => {
-      const result = await getDraftbotScores(convertDrafterState(drafterState));
+      const result = await getDraftbotScores(convertDrafterState(drafterState), mtgmlServer);
       setBotResult(result);
     })();
-  }, [drafterState]);
+  }, [drafterState, mtgmlServer]);
   const botEvaluations = useMemo(() => botResult ?? [], [botResult]);
   const rows = useMemo(
     () =>

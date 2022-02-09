@@ -211,6 +211,8 @@ This release is composed of porting over bug fixes for bugs we carried over from
 #### Bug Fixes
 
 - The last pick of a pack will no longer appear as part of the next pack.
+- DraftbotBreakdown now correctly shows the scores for each card. This will
+  have the UX improved upon in a future version of the mtgml model.
 
 #### Infrastructure
 
