@@ -55,7 +55,7 @@
     "core-js": "^3.15.2",
     "core-js-pure": "^3.15.2",
     "csurf": "^1.10.0",
-    "dotenv": "^8.2.0",
+    "dotenv": "^16.0.0",
     "email-templates": "^8.0.8",
     "event-stream": "^4.0.1",
     "express": "^4.17.1",
