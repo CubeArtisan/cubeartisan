@@ -36,7 +36,7 @@
     "@mui/base": "^5.0.0-alpha.62",
     "@mui/icons-material": "^5.2.5",
     "@mui/lab": "^5.0.0-alpha.55",
-    "@mui/material": "^5.2.6",
+    "@mui/material": "^5.4.1",
     "@mui/styles": "^5.2.0",
     "@primer/octicons-react": "^11.0.0",
     "axios": "^0.25.0",
