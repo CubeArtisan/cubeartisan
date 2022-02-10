@@ -85,7 +85,7 @@
     "@testing-library/react": "^12.0.0",
     "@types/react": "^17.0.11",
     "@types/styled-components": "^5.1.15",
-    "babel-jest": "^26.0.1",
+    "babel-jest": "^27.5.1",
     "babel-plugin-direct-import": "^1.0.0",
     "browserslist": "^4.16.6",
     "eslint": "^7.30.0",
