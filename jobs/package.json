@@ -41,7 +41,7 @@
     "node-fetch": "^2.6.7",
     "uuid": "^7.0.0",
     "winston": "^3.5.1",
-    "winston-elasticsearch": "^0.15.7"
+    "winston-elasticsearch": "^0.16.1"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.7",
