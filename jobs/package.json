@@ -34,7 +34,7 @@
     "dotenv": "^8.2.0",
     "glob": "^7.1.6",
     "mongodb": "^3.6.10",
-    "mongodb-client-encryption": "^1.2.6",
+    "mongodb-client-encryption": "^1.2.7",
     "mongoose": "^5.12.10",
     "mongoose-seed": "^0.6.0",
     "node-cache": "^5.1.2",
