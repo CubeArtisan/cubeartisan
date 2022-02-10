@@ -303,12 +303,12 @@ export const convertDrafterState = (drafterState) => {
   return newState;
 };
 
-export const getDraftbotScores = async (convertedDrafterState, mtgmlServer) => {
-  console.log('MTGML_SERVER:', mtgmlServer);
+export const getDraftbotScores = async (convertedDrafterState, mtgmlServer, includeOracles) => {
   try {
   const response = await axios.post(`${mtgmlServer}/draft`, { drafterState: convertedDrafterState });
   const responseJson = response.data;
   if (!responseJson.success) console.error(responseJson.error);
+  if (includeOracles) return responseJson;
   return responseJson.scores;
   } catch (err) {
     console.error(err);
@@ -341,7 +341,6 @@ export const getBestOption = (scores) => {
 };
 
 export const allBotsDraft = async (draft, mtgmlServer) => {
-  console.log('mtgmlServer', mtgmlServer);
   let drafterStates = draft.seats.map((_, seatNumber) => getDrafterState({ draft, seatNumber }));
   let [
     {
