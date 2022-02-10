@@ -329,15 +329,15 @@ export const getWorstOption = (scores) => {
 };
 
 export const getBestOption = (scores) => {
-  let worstIndex = 0;
-  let worstScore = scores[0];
+  let bestIndex = 0;
+  let bestScore = scores[0];
   for (let i = 1; i < scores.length; i++) {
-    if (scores[i] < worstScore) {
-      worstScore = scores[i];
-      worstIndex = i;
+    if (scores[i] > bestScore) {
+      bestScore = scores[i];
+      bestIndex = i;
     }
   }
-  return worstIndex;
+  return bestIndex;
 };
 
 export const allBotsDraft = async (draft, mtgmlServer) => {

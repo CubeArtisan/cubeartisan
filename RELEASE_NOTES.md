@@ -225,6 +225,10 @@ This release is composed of porting over bug fixes for bugs we carried over from
 
 - Bring back the full draftbot breakdown with oracles.
 
+#### Bug Fixes
+
+- Fix bug where the bots would always pick the card they thought was worst in the pack.
+
 #### Infrastructure
 
 - Fix the ability of the jobs image to run exports/maintenance.
