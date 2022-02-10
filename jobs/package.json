@@ -58,7 +58,7 @@
     "jest": "^27.4.5",
     "loose-ts-check": "^1.2.0",
     "mongodb-memory-server": "^7.0.0",
-    "prettier": "^2.3.0",
+    "prettier": "^2.5.1",
     "webpack": "^5.42.0",
     "webpack-merge": "^4.2.2"
   }
