@@ -1,0 +1,69 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    rebase-strategy: auto
+    schedule:
+      interval: daily
+    target-branch: prod
+  - package-ecosystem: npm
+    directory: "/client"
+    rebase-strategy: auto
+    schedule:
+      interval: daily
+    target-branch: prod
+  - package-ecosystem: npm
+    directory: "/server"
+    rebase-strategy: auto
+    schedule:
+      interval: daily
+    target-branch: prod
+  - package-ecosystem: npm
+    directory: "/jobs"
+    rebase-strategy: auto
+    schedule:
+      interval: daily
+    target-branch: prod
+  - package-ecosystem: "github-actions"
+    # Workflow files stored in the
+    # default location of `.github/workflows`
+    directory: "/"
+    rebase-strategy: "auto"
+    schedule:
+      interval: "daily"
+    target-branch: prod
+  # dev
+  - package-ecosystem: npm
+    directory: "/"
+    rebase-strategy: auto
+    schedule:
+      interval: daily
+    versioning-strategy: increase
+    target-branch: dev
+  - package-ecosystem: npm
+    directory: "/client"
+    rebase-strategy: auto
+    schedule:
+      interval: daily
+    target-branch: dev
+  - package-ecosystem: npm
+    directory: "/server"
+    rebase-strategy: auto
+    schedule:
+      interval: daily
+    target-branch: dev
+  - package-ecosystem: npm
+    directory: "/jobs"
+    rebase-strategy: auto
+    schedule:
+      interval: daily
+    versioning-strategy: increase
+    target-branch: dev
+  - package-ecosystem: "github-actions"
+    # Workflow files stored in the
+    # default location of `.github/workflows`
+    directory: "/"
+    rebase-strategy: auto
+    schedule:
+      interval: daily
+    target-branch: dev
