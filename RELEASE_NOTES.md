@@ -218,3 +218,9 @@ This release is composed of porting over bug fixes for bugs we carried over from
 
 - Try to speed up continuous integration tests.
 - Modify what cards get included in the exports.
+
+### v.1.4.2.1
+
+#### Infrastructure
+
+- Fix the ability of the jobs image to run exports/maintenance.

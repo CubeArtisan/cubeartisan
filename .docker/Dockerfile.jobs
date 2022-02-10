@@ -52,3 +52,8 @@ COPY ./server/routes             server/routes/
 COPY ./server/scripts            server/scripts/
 COPY ./server/serverjs           server/serverjs/
 COPY ./server/views              server/views/
+
+COPY ./jobs/babel.config.cjs     jobs/babel.config.cjs
+COPY ./jobs/exports              jobs/exports/
+COPY ./jobs/maintenance          jobs/maintenance/
+COPY ./jobs/scipts               jobs/scripts/
