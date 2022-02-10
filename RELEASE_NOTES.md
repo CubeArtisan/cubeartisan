@@ -219,7 +219,11 @@ This release is composed of porting over bug fixes for bugs we carried over from
 - Try to speed up continuous integration tests.
 - Modify what cards get included in the exports.
 
-### v.1.4.2.1
+### v.1.4.3
+
+#### Features
+
+- Bring back the full draftbot breakdown with oracles.
 
 #### Infrastructure
 
