@@ -39,7 +39,7 @@
     "mongoose-seed": "^0.6.0",
     "node-cache": "^5.1.2",
     "node-fetch": "^2.6.7",
-    "uuid": "^7.0.0",
+    "uuid": "^8.3.2",
     "winston": "^3.5.1",
     "winston-elasticsearch": "^0.15.7"
   },
