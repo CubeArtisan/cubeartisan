@@ -34,7 +34,7 @@
     "glob": "^7.1.6",
     "mongodb": "^4.3.1",
     "mongodb-client-encryption": "^1.2.6",
-    "mongoose": "^5.12.10",
+    "mongoose": "^6.2.1",
     "mongoose-seed": "^0.6.0",
     "node-cache": "^5.1.2",
     "node-fetch": "^2.6.1",
