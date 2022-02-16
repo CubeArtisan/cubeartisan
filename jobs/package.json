@@ -22,7 +22,7 @@
     "maintenance": "yarn clean-cubes; yarn embeddings; yarn cards; yarn analytics"
   },
   "dependencies": {
-    "@babel/core": "^7.14.6",
+    "@babel/core": "^7.17.3",
     "@babel/node": "^7.16.8",
     "@babel/plugin-syntax-top-level-await": "^7.14.5",
     "@cubeartisan/client": "^0.1.0",
@@ -55,7 +55,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^5.1.0",
-    "jest": "^27.4.5",
+    "jest": "^27.5.1",
     "loose-ts-check": "^1.2.0",
     "mongodb-memory-server": "^7.0.0",
     "prettier": "^2.5.1",
