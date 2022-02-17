@@ -34,7 +34,7 @@
     "@opentelemetry/core": "^1.0.1",
     "@opentelemetry/instrumentation": "^0.27.0",
     "@opentelemetry/instrumentation-dns": "^0.27.0",
-    "@opentelemetry/instrumentation-express": "^0.27.0",
+    "@opentelemetry/instrumentation-express": "^0.28.0",
     "@opentelemetry/instrumentation-http": "^0.27.0",
     "@opentelemetry/instrumentation-mongodb": "^0.28.0",
     "@opentelemetry/instrumentation-winston": "^0.27.0",
