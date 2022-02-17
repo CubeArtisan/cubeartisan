@@ -16,7 +16,7 @@
     "test:watch": "echo no tests yet"
   },
   "dependencies": {
-    "core-js": "^3.15.2",
+    "core-js": "^3.21.1",
     "core-js-pure": "^3.15.2",
     "micromark": "^2.10.1",
     "prop-types": "^15.7.2",
