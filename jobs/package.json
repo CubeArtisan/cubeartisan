@@ -44,7 +44,7 @@
     "winston-elasticsearch": "^0.16.1"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.14.7",
+    "@babel/eslint-parser": "^7.17.0",
     "@cubeartisan/jobs": "^1.0.0",
     "eslint": "^7.30.0",
     "eslint-config-airbnb": "^18.0.1",
@@ -59,7 +59,7 @@
     "loose-ts-check": "^1.2.0",
     "mongodb-memory-server": "^7.0.0",
     "prettier": "^2.5.1",
-    "webpack": "^5.42.0",
+    "webpack": "^5.69.0",
     "webpack-merge": "^4.2.2"
   }
 }
