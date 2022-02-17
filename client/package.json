@@ -58,7 +58,7 @@
     "react-dnd-touch-backend": "^14.0.0",
     "react-dom": "17.0.2",
     "react-infinite-scroll-component": "^6.1.0",
-    "react-leaf-carousel": "^2.0.3",
+    "react-leaf-carousel": "^3.0.0",
     "react-pivottable": "^0.11.0",
     "react-player": "^2.6.1",
     "react-sortable-hoc": "^2.0.0",
