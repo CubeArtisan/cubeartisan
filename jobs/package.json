@@ -44,7 +44,7 @@
     "winston-elasticsearch": "^0.16.1"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.14.7",
+    "@babel/eslint-parser": "^7.17.0",
     "@cubeartisan/jobs": "^1.0.0",
     "eslint": "^7.30.0",
     "eslint-config-airbnb": "^18.0.1",
