@@ -54,7 +54,7 @@
     "eslint-plugin-jest": "^23.9.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-promise": "^6.0.0",
     "jest": "^27.5.1",
     "loose-ts-check": "^1.2.0",
     "mongodb-memory-server": "^7.0.0",
