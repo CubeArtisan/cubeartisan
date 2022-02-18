@@ -33,7 +33,7 @@
     "@cubeartisan/markdown": "^0.1.0",
     "@emotion/memoize": "^0.7.5",
     "@mui/icons-material": "^5.1.1",
-    "@mui/lab": "^5.0.0-alpha.55",
+    "@mui/lab": "^5.0.0-alpha.69",
     "@mui/material": "^5.4.2",
     "@mui/styles": "^5.2.0",
     "@primer/octicons-react": "^16.3.1",
