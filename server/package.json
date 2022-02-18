@@ -116,7 +116,7 @@
     "prettier": "^2.3.0",
     "supertest": "^6.1.6",
     "webpack": "^5.42.0",
-    "webpack-merge": "^4.2.2",
+    "webpack-merge": "^5.8.0",
     "winston2": "npm:winston@2.4.5"
   },
   "resolutions": {
