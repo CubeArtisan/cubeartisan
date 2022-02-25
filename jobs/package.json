@@ -32,7 +32,7 @@
     "core-js-pure": "^3.15.2",
     "dotenv": "^16.0.0",
     "glob": "^7.1.6",
-    "mongodb": "^4.3.1",
+    "mongodb": "^4.4.0",
     "mongodb-client-encryption": "^2.0.0",
     "mongoose": "^6.2.1",
     "mongoose-seed": "^0.6.0",
