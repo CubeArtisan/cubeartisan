@@ -33,7 +33,7 @@
     "@babel/preset-react": "^7.14.5",
     "@cubeartisan/markdown": "^1.0.0",
     "@emotion/memoize": "^0.7.5",
-    "@mui/base": "^5.0.0-alpha.62",
+    "@mui/base": "^5.0.0-alpha.70",
     "@mui/icons-material": "^5.2.5",
     "@mui/lab": "^5.0.0-alpha.55",
     "@mui/material": "^5.2.6",
