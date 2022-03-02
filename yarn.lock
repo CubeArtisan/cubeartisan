@@ -1225,21 +1225,21 @@
     google-auth-library "^7.0.0"
     googleapis "^88.0.0"
 
-"@google-cloud/opentelemetry-cloud-trace-exporter@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@google-cloud/opentelemetry-cloud-trace-exporter/-/opentelemetry-cloud-trace-exporter-1.0.0.tgz#85da2f5add3b71a365921eabaff6c1ab0a0f90ad"
-  integrity sha512-hiU1N2mtVMtyU7ViMCNY0etIkmfzRUejIPtEqQj4ErVhQGWV+K48Ay6y9JoovHP9ZeTKXVdxqb8eBWQPjZJgsA==
+"@google-cloud/opentelemetry-cloud-trace-exporter@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@google-cloud/opentelemetry-cloud-trace-exporter/-/opentelemetry-cloud-trace-exporter-1.1.0.tgz#f57c565fbacde3f5f26a8f3da4e61702c5c4b5df"
+  integrity sha512-pAgk5ieNcOOWBO2OQQsgZ7ZXbutVDCdlVg7srfQT7txTf2UlVajT1DlisEveMpMjjNjHeizjf/4P3NZ8btUlFw==
   dependencies:
-    "@google-cloud/opentelemetry-resource-util" "^1.0.0"
+    "@google-cloud/opentelemetry-resource-util" "^1.1.0"
     "@grpc/grpc-js" "^1.1.8"
     "@grpc/proto-loader" "^0.6.0"
     google-auth-library "^7.0.0"
     google-proto-files "^2.1.0"
 
-"@google-cloud/opentelemetry-resource-util@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@google-cloud/opentelemetry-resource-util/-/opentelemetry-resource-util-1.0.0.tgz#06ce710ac1156ea679d6166810b634361572caa0"
-  integrity sha512-43z9Ue+Zqxz5ohF+hhlaSmzRLwB6x3onpIpx16niIPgCaxAVOiJuJ78A+NeidipUIDeX8Mm3Wm41eztx4auG8g==
+"@google-cloud/opentelemetry-resource-util@^1.0.0", "@google-cloud/opentelemetry-resource-util@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@google-cloud/opentelemetry-resource-util/-/opentelemetry-resource-util-1.1.0.tgz#0bd1fe708ba27288f6efc9712fbd3705fd325540"
+  integrity sha512-AXfQiqIxeespEYcRNaotC05ddiy2Vgk2yqY73b7Hl1UoJ75Gt4kSRcswrVn18eoDI0YQkSTBh7Ye9ugfFLN5HA==
 
 "@grpc/grpc-js@^1.1.8":
   version "1.4.4"
