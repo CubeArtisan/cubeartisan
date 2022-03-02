@@ -6,24 +6,36 @@ updates:
     schedule:
       interval: daily
     target-branch: prod
+    ignore:
+      - dependency-name: '*'
+      - update-types: 'major'
   - package-ecosystem: npm
     directory: "/client"
     rebase-strategy: auto
     schedule:
       interval: daily
     target-branch: prod
+    ignore:
+      - dependency-name: '*'
+      - update-types: 'major'
   - package-ecosystem: npm
     directory: "/server"
     rebase-strategy: auto
     schedule:
       interval: daily
     target-branch: prod
+    ignore:
+      - dependency-name: '*'
+      - update-types: 'major'
   - package-ecosystem: npm
     directory: "/jobs"
     rebase-strategy: auto
     schedule:
       interval: daily
     target-branch: prod
+    ignore:
+      - dependency-name: '*'
+      - update-types: 'major'
   - package-ecosystem: "github-actions"
     # Workflow files stored in the
     # default location of `.github/workflows`
