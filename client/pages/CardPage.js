@@ -20,7 +20,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import CardPricePropType from '@cubeartisan/client/proptypes/CardPricePropType.js';
 import CardDataPointPropType from '@cubeartisan/client/proptypes/CardDataPointPropType.js';
-import { Badge, Button } from '@mui/material';
+import { Badge, Button, IconButton } from '@mui/material';
+import { Check, ContentCopy, SwapHoriz } from '@mui/icons-material';
 import {
   Card,
   CardHeader,
@@ -38,7 +39,7 @@ import {
   Input,
 } from 'reactstrap';
 
-import ChartComponent from 'react-chartjs-2';
+import { Chart as ChartJS } from 'react-chartjs-2';
 
 import CardImage from '@cubeartisan/client/components/CardImage.js';
 import CardGrid from '@cubeartisan/client/components/CardGrid.js';
@@ -75,7 +76,7 @@ import {
   getCardKingdomLink,
   nameToDashedUrlComponent,
 } from '@cubeartisan/client/utils/Affiliate.js';
-import { ArrowSwitchIcon, CheckIcon, ClippyIcon } from '@primer/octicons-react';
+
 import styled from '@cubeartisan/client/utils/styledHelper.js';
 
 const AutocardA = withAutocard('a');
@@ -175,7 +176,7 @@ const Graph = ({ data, yFunc, unit, yRange }) => {
   }
 
   if (plot.datasets[0].data.length > 0) {
-    return <ChartComponent options={options} data={plot} type="line" />;
+    return <ChartJS options={options} data={plot} type="line" />;
   }
   return <p>No data to show.</p>;
 };
@@ -229,9 +230,9 @@ const CardIdBadge = ({ id }) => {
       </InputGroupAddon>
       <Input className="bg-white" value={id} disabled />
       <AutoSizedAddon addonType="append">
-        <Button size="small" onClick={onCopyClick}>
-          {copied ? <CheckIcon size={16} /> : <ClippyIcon size={16} />}
-        </Button>
+        <IconButton size="small" onClick={onCopyClick}>
+          {copied ? <Check /> : <ContentCopy />}
+        </IconButton>
       </AutoSizedAddon>
     </InputGroup>
   );
@@ -283,7 +284,7 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
           <Col className="pl-2 pb-2" xs="12" sm="3">
             <ImageFallback className="w-100" src={imageUsed} fallbackSrc="/content/default_card.png" alt={card.name} />
             {card.image_flip && (
-              <Button
+              <IconButton
                 color="success"
                 variant="outlined"
                 fullWidth
@@ -295,8 +296,8 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
                   }
                 }}
               >
-                <ArrowSwitchIcon size={16} /> Transform
-              </Button>
+                <SwapHoriz /> Transform
+              </IconButton>
             )}
             <CardBody className="breakdown p-1">
               <p>

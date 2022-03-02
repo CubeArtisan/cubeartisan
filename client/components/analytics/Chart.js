@@ -18,7 +18,7 @@
  */
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import ChartComponent from 'react-chartjs-2';
+import { Chart as ChartJS } from 'react-chartjs-2';
 import { Col, Row, InputGroup, InputGroupAddon, CustomInput, InputGroupText } from 'reactstrap';
 
 import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown.js';
@@ -138,7 +138,7 @@ const Chart = ({ cards, characteristics, setAsfans, cube, defaultFormatId }) => 
         </Col>
       </Row>
       <AsfanDropdown cube={cube} defaultFormatId={defaultFormatId} setAsfans={setAsfans} />
-      <ChartComponent options={options} data={data} type="bar" />
+      <ChartJS options={options} data={data} type="bar" />
     </>
   );
 };

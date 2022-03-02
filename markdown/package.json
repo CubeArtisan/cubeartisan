@@ -16,6 +16,8 @@
     "test:watch": "echo no tests yet"
   },
   "dependencies": {
+    "@mui/icons-material": "^5.4.4",
+    "@mui/material": "^5.4.4",
     "core-js": "^3.21.1",
     "core-js-pure": "^3.15.2",
     "micromark": "^2.10.1",

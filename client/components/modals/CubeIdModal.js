@@ -17,10 +17,10 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React from 'react';
-import { Button } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, InputGroup, InputGroupAddon } from 'reactstrap';
 import PropTypes from 'prop-types';
-import { ClippyIcon } from '@primer/octicons-react';
+import { ContentCopy } from '@mui/icons-material';
 
 const CubeIdModal = ({ toggle, isOpen, shortID, fullID, alert }) => {
   const onCopyClick = async (id, label) => {
@@ -37,9 +37,9 @@ const CubeIdModal = ({ toggle, isOpen, shortID, fullID, alert }) => {
         <InputGroup>
           <Input className="bg-white monospaced" value={shortID} readonly />
           <InputGroupAddon addonType="append">
-            <Button size="small" onClick={() => onCopyClick(shortID, 'Short ID')} aria-label="Copy Short ID">
-              <ClippyIcon size={16} />
-            </Button>
+            <IconButton size="small" onClick={() => onCopyClick(shortID, 'Short ID')} aria-label="Copy Short ID">
+              <ContentCopy />
+            </IconButton>
           </InputGroupAddon>
         </InputGroup>
         <Label for="short-id-input">A custom, memorable ID that owners are allowed to modify.</Label>
@@ -48,9 +48,9 @@ const CubeIdModal = ({ toggle, isOpen, shortID, fullID, alert }) => {
         <InputGroup>
           <Input className="bg-white monospaced" value={fullID} readonly />
           <InputGroupAddon addonType="append">
-            <Button size="small" onClick={() => onCopyClick(fullID, 'Full ID')} aria-label="Copy Full ID">
-              <ClippyIcon size={16} />
-            </Button>
+            <IconButton size="small" onClick={() => onCopyClick(fullID, 'Full ID')} aria-label="Copy Full ID">
+              <ContentCopy />
+            </IconButton>
           </InputGroupAddon>
         </InputGroup>
         <Label for="full-id-input">The canonical unique ID for this cube, guaranteed not to change.</Label>

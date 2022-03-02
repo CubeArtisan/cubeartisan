@@ -19,8 +19,9 @@
 import React, { createElement, lazy } from 'react';
 import PropTypes from 'prop-types';
 import { a11yLight, a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs/index.js';
-import { LinkIcon } from '@primer/octicons-react';
 import { Row, Card, CardBody } from 'reactstrap';
+import { Link as LinkIcon } from '@mui/icons-material';
+import { IconButton } from '@mui/material';
 
 import { LIMITED_PLUGINS, ALL_PLUGINS } from '@cubeartisan/markdown/plugins/index.js';
 import { isInternalURL, isSamePageURL } from '@cubeartisan/markdown/plugins/utils.js';
@@ -51,9 +52,9 @@ const renderLink = (ExternalLink) => {
       // heading autolink
       if (node.data?.hChildren) {
         return (
-          <a href={ref} className="heading-link">
-            <LinkIcon size={16} className="link-icon" />
-          </a>
+          <IconButton href={ref} className="heading-link">
+            <LinkIcon />
+          </IconButton>
         );
       }
 

@@ -25,16 +25,6 @@ import { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation.js';
 import { cardType } from '@cubeartisan/client/utils/Card.js';
 import { cmcColumn, toNullableInt } from '@cubeartisan/client/utils/Util.js';
 
-let draftbotsInitialized = false;
-export const areDraftbotsInitialized = () => draftbotsInitialized;
-export const initializeMtgDraftbots = async () => {
-  const mtgdraftbots = await import('mtgdraftbots');
-  if (draftbotsInitialized) return mtgdraftbots;
-  await mtgdraftbots.initializeDraftbots();
-  draftbotsInitialized = true;
-  return mtgdraftbots;
-};
-
 export const defaultStepsForLength = (length) =>
   new Array(length)
     .fill([
@@ -303,12 +293,13 @@ export const convertDrafterState = (drafterState) => {
   return newState;
 };
 
-export const getDraftbotScores = async (convertedDrafterState, mtgmlServer, includeOracles) => {
+export const getDraftbotScores = async (convertedDrafterState, mtgmlServer, includeOracles = false) => {
   try {
   const response = await axios.post(`${mtgmlServer}/draft`, { drafterState: convertedDrafterState });
   const responseJson = response.data;
   if (!responseJson.success) console.error(responseJson.error);
   if (includeOracles) return responseJson;
+  console.log(responseJson);
   return responseJson.scores;
   } catch (err) {
     console.error(err);
