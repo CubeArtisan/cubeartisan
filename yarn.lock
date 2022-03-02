@@ -11000,10 +11000,10 @@ react-syntax-highlighter@^15.4.3:
     prismjs "^1.25.0"
     refractor "^3.2.0"
 
-react-tag-input@^6.7.0:
-  version "6.7.3"
-  resolved "https://registry.yarnpkg.com/react-tag-input/-/react-tag-input-6.7.3.tgz#216f75f6166a81e6f0f1e71af90bc65002f1603a"
-  integrity sha512-5hJZWMkEMjZJR/ZTAQYCTBRJ6Tj7h2ESQf+rYYEzf0ispPTa4d9sNXdCfBVV2yjw0oU/76GPH8gMHIBzuKbcvQ==
+react-tag-input@^6.8.0:
+  version "6.8.0"
+  resolved "https://registry.yarnpkg.com/react-tag-input/-/react-tag-input-6.8.0.tgz#d87322d5a76cb22859b9ed238bff5172ba034cbf"
+  integrity sha512-b8XhTXxWIVhrwInqEtT40fA2wooqat3qT6ZTA+2wao6ooA0cB4kVT+/wWDSftSTzHz3iyr69xq1ZqDsFfaz4Kw==
   dependencies:
     classnames "~2.3.1"
     lodash "~4.17.12"
