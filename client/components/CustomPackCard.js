@@ -17,7 +17,8 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { useMemo } from 'react';
-import { Button } from '@mui/material';
+import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
+import { Button, IconButton } from '@mui/material';
 import {
   Card,
   CardBody,
@@ -38,8 +39,6 @@ import {
 import PropTypes from 'prop-types';
 
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
-import { ChevronDownIcon, ChevronUpIcon } from '@primer/octicons-react';
-import styled from '@cubeartisan/client/utils/styledHelper.js';
 
 const DEFAULT_STEP = Object.freeze([
   { action: 'pick', amount: 1 },
@@ -54,15 +53,13 @@ const ACTION_LABELS = Object.freeze({
   trashrandom: 'Randomly Trash',
 });
 
-const RightSpan = styled('span')`
-  float: right;
-`;
-
 const CollapsibleCardTitle = ({ children, isOpen, ...props }) => {
   return (
     <CardTitle {...props}>
       {children}
-      <RightSpan>{isOpen ? <ChevronUpIcon size={24} /> : <ChevronDownIcon size={24} />}</RightSpan>
+      <IconButton size="lg" sx={{ float: 'right' }}>
+        {isOpen ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+      </IconButton>
     </CardTitle>
   );
 };

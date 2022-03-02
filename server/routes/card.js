@@ -40,7 +40,7 @@ import {
 const PAGE_SIZE = 96;
 
 const getAllMostReasonable = (filter) => {
-  const cards = filterCardsDetails(carddb.printedCardList, filter);
+  const cards = filterCardsDetails(carddb.fullCardList, filter);
 
   const keys = new Set();
   const filtered = [];
@@ -59,7 +59,7 @@ const searchCards = (filter, sort = 'elo', page = 0, direction = 'descending', d
   if (distinct === 'names') {
     cards.push(...getAllMostReasonable(filter));
   } else {
-    cards.push(...filterCardsDetails(carddb.printedCardList, filter));
+    cards.push(...filterCardsDetails(carddb.fullCardList, filter));
   }
 
   if (ORDERED_SORTS.includes(sort)) {

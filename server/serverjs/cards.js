@@ -33,6 +33,7 @@ let data = {
   english: {},
   _carddict: {},
   printedCardList: [], // for card filters
+  fullCardList: [],
 };
 
 const fileToAttribute = {
@@ -161,7 +162,8 @@ async function initializeCardDb(dataRoot, skipWatchers, attempt = 0) {
     throw err;
   }
   // cache cards used in card filters
-  data.printedCardList = Object.values(data._carddict).filter((card) => !card.digital && !card.isToken);
+  data.fullCardList = Object.values(data._carddict);
+  data.printedCardList = data.fullCardList.filter((card) => !card.digital && !card.isToken);
   return winston.info('Finished loading carddb.');
 }
 
@@ -176,6 +178,7 @@ function unloadCardDb() {
     }
   }
   delete data.printedCardList;
+  delete data.fullCardList;
 }
 
 function reasonableCard(card) {

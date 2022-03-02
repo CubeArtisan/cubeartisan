@@ -45,7 +45,7 @@ const renderCardLink = (card) => (
 );
 
 const renderPercent = (val) => {
-  return <>{parseInt(val * 1000, 10) / 10}%</>;
+  return <>{(val * 100).toFixed(2)}%</>;
 };
 
 const PlaytestData = ({ cards: allCards, cubeAnalytics }) => {

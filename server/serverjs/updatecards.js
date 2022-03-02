@@ -306,14 +306,13 @@ function getTokens(card, catalogCard) {
       // find the ability that generates the token to reduce the amount of text to get confused by.
       const abilities = catalogCard.oracle_text.split('\n');
       for (const ability of abilities) {
-        if (ability.includes(' token')) {
+        if (ability.includes(' token') && ability.includes('create')) {
           const reString =
             '((?:(?:([A-Za-z ,]+), a (legendary))|[Xa-z ]+))(?: ([0-9X]+/[0-9X]+))? ((?:red|colorless|green|white|black|blue| and )+)?(?: ?((?:(?:[A-Z][a-z]+ )+)|[a-z]+))?((?:legendary|artifact|creature|Aura|enchantment| )*)?tokens?( that are copies of)?(?: named ((?:[A-Z][a-z]+ ?|of ?)+(?:\'s \\w+)?)?)?(?:(?: with |\\. It has )?((?:(".*")|[a-z]+| and )+)+)?(?:.*(a copy of))?';
           const re = new RegExp(reString);
           const result = re.exec(ability);
           // eslint-disable-next-line no-continue
-          if (typeof result === 'undefined') continue;
-
+          if (!result) continue;
           let tokenPowerAndToughness = result[4];
           const tokenColorString = result[5] ? result[5] : result[1];
           const tokenSubTypesString = result[6] ? result[6].trim() : '';
@@ -711,7 +710,7 @@ function convertCard(card, isExtra) {
     newcard.oracle_text = card.card_faces.map((face) => face.oracle_text).join('\n');
   }
   newcard._id = convertId(card, isExtra);
-  newcard.oracle_id = faceAttributeSource.oracle_id ?? card.oracle_id;
+  newcard.oracle_id = `${faceAttributeSource.oracle_id ?? card.oracle_id}${isExtra ? '-2' : ''}`;
   newcard.cmc = convertCmc(card, isExtra, faceAttributeSource);
   newcard.legalities = convertLegalities(card, isExtra);
   newcard.parsed_cost = convertParsedCost(card, isExtra);

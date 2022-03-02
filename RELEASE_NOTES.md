@@ -232,3 +232,14 @@ This release is composed of porting over bug fixes for bugs we carried over from
 #### Infrastructure
 
 - Fix the ability of the jobs image to run exports/maintenance.
+
+### v1.4.4
+
+#### Features
+
+ - Allow searching for cards that are digital only.
+ - Finish replacing the octicons icons with material icons.
+
+#### Infrastructure
+
+ - Give the back side of DFCs a unique oracle id since they are a distinct card object.

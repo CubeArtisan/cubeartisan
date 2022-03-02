@@ -18,7 +18,8 @@
  */
 import React, { useCallback, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
+import { HelpOutline } from '@mui/icons-material';
 import {
   Collapse,
   Col,
@@ -60,7 +61,6 @@ import SortCollapse from '@cubeartisan/client/components/SortCollapse.js';
 import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
 import TagColorsModal from '@cubeartisan/client/components/modals/TagColorsModal.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
-import { QuestionIcon } from '@primer/octicons-react';
 import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 import styled from '@cubeartisan/client/utils/styledHelper.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
@@ -536,7 +536,9 @@ const CubeListNavbar = ({
                   <FlexGroup check>
                     <Input type="checkbox" checked={isSortUsed} /> Use Sort
                     <Tooltip text="Order export using current sort options." wrapperTag="span" className="ml-auto mr-0">
-                      <QuestionIcon size={16} />
+                      <IconButton size="sm">
+                        <HelpOutline />
+                      </IconButton>
                     </Tooltip>
                   </FlexGroup>
                 </DropdownItem>
@@ -548,7 +550,9 @@ const CubeListNavbar = ({
                       wrapperTag="span"
                       className="ml-auto mr-0"
                     >
-                      <QuestionIcon size={16} />
+                      <IconButton size="sm">
+                        <HelpOutline />
+                      </IconButton>
                     </Tooltip>
                   </FlexGroup>
                 </DropdownItem>
