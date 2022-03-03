@@ -18,7 +18,7 @@
  */
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { Button, ButtonGroup } from '@mui/material';
+import { Button, ButtonGroup, IconButton } from '@mui/material';
 import { FormGroup, Input, InputGroupAddon, Label } from 'reactstrap';
 
 import { COLORS } from '@cubeartisan/client/utils/Util.js';
@@ -68,17 +68,17 @@ export const ColorCheckButton = ({ prefix, size, color, short, value, onChange }
     },
     [prefix, short, value, onChange],
   );
+  console.log(size);
   const symbolClassName = size ? `mana-symbol-${size}` : 'mana-symbol';
   return (
-    <Button
+    <IconButton
       className={`color-check-button${value ? ' active' : ''}`}
-      variant={value ? 'text' : 'outlined'}
-      size={size}
+      size={size ?? 'sm'}
       onClick={handleClick}
       aria-label={color}
     >
       <img src={`/content/symbols/${short.toLowerCase()}.png`} alt={color} title={color} className={symbolClassName} />
-    </Button>
+    </IconButton>
   );
 };
 ColorCheckButton.propTypes = {
