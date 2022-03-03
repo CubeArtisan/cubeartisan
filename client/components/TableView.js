@@ -18,7 +18,7 @@
  */
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Container, Grid, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { countGroup, sortDeep } from '@cubeartisan/client/utils/Sort.js';
@@ -31,38 +31,38 @@ const TableView = ({ cards, rowTag, noGroupModal }) => {
 
   const sorted = sortDeep(cards, showOther, quaternary, primary, secondary);
   return (
-    <Container maxWidth={false} disableGutters xs={{ width: '100%' }}>
-      <Grid container spacing={1}>
-        {sorted.map(([columnLabel, column]) => (
-          <Grid
-            item
-            key={columnLabel}
-            xs="auto"
-            sx={{ minWidth: { xs: 80, md: 110, lg: 125, xl: 160 }, width: '12.5%' }}
-          >
-            <Typography variant="subtitle1" align="center">
-              <>
-                {columnLabel}
-                :<br />
-                {countGroup(column)}
-              </>
-            </Typography>
-            {column.map(([label, row]) => (
-              <AutocardListGroup
-                key={label}
-                heading={`${label} (${countGroup(row)})`}
-                cards={row}
-                rowTag={rowTag}
-                noGroupModal={noGroupModal}
-                sort={tertiary}
-                orderedSort={quaternary}
-                showOther={showOther}
-              />
-            ))}
-          </Grid>
-        ))}
-      </Grid>
-    </Container>
+    <Box sx={{ display: 'flex', flexWrap: 'wrap', width: '100%' }}>
+      {sorted.map(([columnLabel, column]) => (
+        <Box
+          key={columnLabel}
+          sx={{
+            minWidth: 100,
+            flexGrow: 1,
+            flexBasis: `${100 / sorted.length}%`,
+          }}
+        >
+          <Typography variant="subtitle1" align="center">
+            <>
+              {columnLabel}
+              :<br />
+              {countGroup(column)}
+            </>
+          </Typography>
+          {column.map(([label, row]) => (
+            <AutocardListGroup
+              key={label}
+              heading={`${label} (${countGroup(row)})`}
+              cards={row}
+              rowTag={rowTag}
+              noGroupModal={noGroupModal}
+              sort={tertiary}
+              orderedSort={quaternary}
+              showOther={showOther}
+            />
+          ))}
+        </Box>
+      ))}
+    </Box>
   );
 };
 TableView.propTypes = {
