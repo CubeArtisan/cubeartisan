@@ -7,9 +7,9 @@ declare function withLoading(Tag: any, handlers: any): {
         opacity: any;
     }): JSX.Element;
     propTypes: {
-        loading: PropTypes.Requireable<boolean>;
-        opacity: PropTypes.Requireable<number>;
-        spinnerSize: PropTypes.Requireable<string>;
+        loading: any;
+        opacity: any;
+        spinnerSize: any;
     };
     defaultProps: {
         loading: any;
@@ -18,5 +18,4 @@ declare function withLoading(Tag: any, handlers: any): {
     };
     displayName: string;
 };
-import PropTypes from "prop-types";
 //# sourceMappingURL=WithLoading.d.ts.map

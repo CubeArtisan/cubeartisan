@@ -22,41 +22,25 @@ declare function CubeListNavbar({ cards, cubeView, setCubeView, openCollapse, se
 }): JSX.Element;
 declare namespace CubeListNavbar {
     namespace propTypes {
-        const cards: PropTypes.Validator<PropTypes.InferProps<{
-            _id: PropTypes.Requireable<string>;
-            index: PropTypes.Requireable<number>;
-            imgUrl: PropTypes.Requireable<string>;
-            imgBackUrl: PropTypes.Requireable<string>;
-            cardID: PropTypes.Validator<string>;
-            colors: PropTypes.Requireable<string[]>;
-            tags: PropTypes.Requireable<string[]>;
-            details: PropTypes.Requireable<PropTypes.InferProps<{
-                _id: PropTypes.Validator<string>;
-                name: PropTypes.Validator<string>;
-                image_normal: PropTypes.Validator<string>;
-            }>>;
-        }>[]>;
-        const cubeView: PropTypes.Validator<string>;
-        const setCubeView: PropTypes.Validator<(...args: any[]) => any>;
-        const openCollapse: PropTypes.Requireable<string>;
-        const setOpenCollapse: PropTypes.Validator<(...args: any[]) => any>;
-        const defaultPrimarySort: PropTypes.Validator<string>;
-        const defaultSecondarySort: PropTypes.Validator<string>;
-        const defaultTertiarySort: PropTypes.Validator<string>;
-        const defaultQuaternarySort: PropTypes.Validator<string>;
-        const defaultShowUnsorted: PropTypes.Validator<string>;
-        const sorts: PropTypes.Requireable<string[]>;
-        const setSorts: PropTypes.Validator<(...args: any[]) => any>;
-        const defaultSorts: PropTypes.Validator<string[]>;
-        const cubeDefaultShowUnsorted: PropTypes.Validator<boolean>;
-        const defaultFilterText: PropTypes.Validator<string>;
-        const filter: PropTypes.Requireable<(...args: any[]) => any>;
-        const setFilter: PropTypes.Validator<(...args: any[]) => any>;
-        const alerts: PropTypes.Validator<PropTypes.InferProps<{
-            color: PropTypes.Requireable<string>;
-            message: PropTypes.Validator<string>;
-        }>[]>;
-        const setAlerts: PropTypes.Validator<(...args: any[]) => any>;
+        const cards: any;
+        const cubeView: any;
+        const setCubeView: any;
+        const openCollapse: any;
+        const setOpenCollapse: any;
+        const defaultPrimarySort: any;
+        const defaultSecondarySort: any;
+        const defaultTertiarySort: any;
+        const defaultQuaternarySort: any;
+        const defaultShowUnsorted: any;
+        const sorts: any;
+        const setSorts: any;
+        const defaultSorts: any;
+        const cubeDefaultShowUnsorted: any;
+        const defaultFilterText: any;
+        const filter: any;
+        const setFilter: any;
+        const alerts: any;
+        const setAlerts: any;
     }
     namespace defaultProps {
         const openCollapse_1: any;
@@ -67,5 +51,4 @@ declare namespace CubeListNavbar {
         export { filter_1 as filter };
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=CubeListNavbar.d.ts.map

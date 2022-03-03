@@ -19,7 +19,7 @@
 import rimraf from 'rimraf';
 import updatecards, { getFaceAttributeSource } from '@cubeartisan/server/serverjs/updatecards.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
-import cardutil from '@cubeartisan/client/utils/Card.js';
+import { normalizeName } from '@cubeartisan/client/utils/Card.js';
 import examplecards from '@cubeartisan/server/__tests__/fixtures/examplecards.js';
 
 const convertedExampleReversibleCard = {
@@ -612,8 +612,8 @@ test("addCardToCatalog successfully adds a card's information to the internal st
   const card = convertedExampleCard;
   updatecards.addCardToCatalog(card);
   const { catalog } = updatecards;
-  const normalizedFullName = cardutil.normalizeName(card.full_name);
-  const normalizedName = cardutil.normalizeName(card.name);
+  const normalizedFullName = normalizeName(card.full_name);
+  const normalizedName = normalizeName(card.name);
   const expectedImagedictStructure = {
     uri: card.art_crop,
     id: card._id,

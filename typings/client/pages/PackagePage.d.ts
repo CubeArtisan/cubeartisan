@@ -4,18 +4,8 @@ export function PackagePage({ pack, loginCallback }: {
 }): JSX.Element;
 export namespace PackagePage {
     namespace propTypes {
-        const pack: PropTypes.Validator<PropTypes.InferProps<{
-            _id: PropTypes.Validator<string>;
-            title: PropTypes.Validator<string>;
-            date: PropTypes.Validator<string>;
-            userid: PropTypes.Validator<string>;
-            username: PropTypes.Validator<string>;
-            approved: PropTypes.Validator<boolean>;
-            cards: PropTypes.Validator<string[]>;
-            votes: PropTypes.Validator<number>;
-            voters: PropTypes.Validator<string[]>;
-        }>>;
-        const loginCallback: PropTypes.Requireable<string>;
+        const pack: any;
+        const loginCallback: any;
     }
     namespace defaultProps {
         const loginCallback_1: string;
@@ -24,5 +14,4 @@ export namespace PackagePage {
 }
 declare var _default: (providedReactProps: any) => JSX.Element;
 export default _default;
-import PropTypes from "prop-types";
 //# sourceMappingURL=PackagePage.d.ts.map

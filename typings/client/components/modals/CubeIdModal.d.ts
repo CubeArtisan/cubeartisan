@@ -8,12 +8,11 @@ declare function CubeIdModal({ toggle, isOpen, shortID, fullID, alert }: {
 }): JSX.Element;
 declare namespace CubeIdModal {
     namespace propTypes {
-        const toggle: PropTypes.Validator<(...args: any[]) => any>;
-        const isOpen: PropTypes.Validator<boolean>;
-        const shortID: PropTypes.Validator<string>;
-        const fullID: PropTypes.Validator<string>;
-        const alert: PropTypes.Validator<(...args: any[]) => any>;
+        const toggle: any;
+        const isOpen: any;
+        const shortID: any;
+        const fullID: any;
+        const alert: any;
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=CubeIdModal.d.ts.map

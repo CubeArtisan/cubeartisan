@@ -3,7 +3,7 @@ export function LoginPage({ loginCallback }: {
 }): JSX.Element;
 export namespace LoginPage {
     namespace propTypes {
-        const loginCallback: PropTypes.Requireable<string>;
+        const loginCallback: any;
     }
     namespace defaultProps {
         const loginCallback_1: string;
@@ -12,5 +12,4 @@ export namespace LoginPage {
 }
 declare var _default: (providedReactProps: any) => JSX.Element;
 export default _default;
-import PropTypes from "prop-types";
 //# sourceMappingURL=LoginPage.d.ts.map

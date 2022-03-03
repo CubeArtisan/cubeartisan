@@ -7,11 +7,11 @@ export function PodcastsPage({ loginCallback, podcasts, episodes, count, page }:
 }): JSX.Element;
 export namespace PodcastsPage {
     namespace propTypes {
-        const loginCallback: PropTypes.Requireable<string>;
-        const podcasts: PropTypes.Validator<PropTypes.InferProps<{}>[]>;
-        const episodes: PropTypes.Validator<PropTypes.InferProps<{}>[]>;
-        const count: PropTypes.Validator<number>;
-        const page: PropTypes.Validator<number>;
+        const loginCallback: any;
+        const podcasts: any;
+        const episodes: any;
+        const count: any;
+        const page: any;
     }
     namespace defaultProps {
         const loginCallback_1: string;
@@ -20,5 +20,4 @@ export namespace PodcastsPage {
 }
 declare var _default: (providedReactProps: any) => JSX.Element;
 export default _default;
-import PropTypes from "prop-types";
 //# sourceMappingURL=PodcastsPage.d.ts.map

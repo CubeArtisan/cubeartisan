@@ -7,51 +7,11 @@ export function ExplorePage({ recents, featured, drafted, recentlyDrafted, login
 }): JSX.Element;
 export namespace ExplorePage {
     namespace propTypes {
-        const recents: PropTypes.Validator<PropTypes.InferProps<{
-            cards: PropTypes.Requireable<PropTypes.InferProps<{
-                cardName: PropTypes.Requireable<string>;
-                picks: PropTypes.Requireable<number>;
-                passes: PropTypes.Requireable<number>;
-                elo: PropTypes.Requireable<number>;
-                mainboards: PropTypes.Requireable<number>;
-                sideboards: PropTypes.Requireable<number>;
-            }>[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
-        }>[]>;
-        const featured: PropTypes.Validator<PropTypes.InferProps<{
-            cards: PropTypes.Requireable<PropTypes.InferProps<{
-                cardName: PropTypes.Requireable<string>;
-                picks: PropTypes.Requireable<number>;
-                passes: PropTypes.Requireable<number>;
-                elo: PropTypes.Requireable<number>;
-                mainboards: PropTypes.Requireable<number>;
-                sideboards: PropTypes.Requireable<number>;
-            }>[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
-        }>[]>;
-        const drafted: PropTypes.Validator<PropTypes.InferProps<{
-            cards: PropTypes.Requireable<PropTypes.InferProps<{
-                cardName: PropTypes.Requireable<string>;
-                picks: PropTypes.Requireable<number>;
-                passes: PropTypes.Requireable<number>;
-                elo: PropTypes.Requireable<number>;
-                mainboards: PropTypes.Requireable<number>;
-                sideboards: PropTypes.Requireable<number>;
-            }>[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
-        }>[]>;
-        const recentlyDrafted: PropTypes.Validator<PropTypes.InferProps<{
-            cards: PropTypes.Requireable<PropTypes.InferProps<{
-                cardName: PropTypes.Requireable<string>;
-                picks: PropTypes.Requireable<number>;
-                passes: PropTypes.Requireable<number>;
-                elo: PropTypes.Requireable<number>;
-                mainboards: PropTypes.Requireable<number>;
-                sideboards: PropTypes.Requireable<number>;
-            }>[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
-        }>[]>;
-        const loginCallback: PropTypes.Requireable<string>;
+        const recents: any;
+        const featured: any;
+        const drafted: any;
+        const recentlyDrafted: any;
+        const loginCallback: any;
     }
     namespace defaultProps {
         const loginCallback_1: string;
@@ -60,5 +20,4 @@ export namespace ExplorePage {
 }
 declare var _default: (providedReactProps: any) => JSX.Element;
 export default _default;
-import PropTypes from "prop-types";
 //# sourceMappingURL=ExplorePage.d.ts.map

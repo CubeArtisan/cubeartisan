@@ -12,12 +12,12 @@ export function TagContextProvider({ children, cubeID, defaultTagColors, default
 }): JSX.Element;
 export namespace TagContextProvider {
     namespace propTypes {
-        const cubeID: PropTypes.Validator<string>;
-        const defaultTagColors: PropTypes.Requireable<string[]>;
-        const defaultShowTagColors: PropTypes.Requireable<boolean>;
-        const defaultTags: PropTypes.Requireable<string[]>;
-        const children: PropTypes.Validator<PropTypes.ReactNodeLike>;
-        const userID: PropTypes.Validator<string>;
+        const cubeID: any;
+        const defaultTagColors: any;
+        const defaultShowTagColors: any;
+        const defaultTags: any;
+        const children: any;
+        const userID: any;
     }
     namespace defaultProps {
         const defaultTagColors_1: any[];
@@ -44,7 +44,6 @@ export type TagContextValues = {
     cardColorClass: (card: any) => string;
     tagColorClass: (tag: string) => string;
 };
-import PropTypes from "prop-types";
 /**
  * @typedef TagContextValues
  * @property {string[]} allSuggestions
@@ -60,5 +59,5 @@ import PropTypes from "prop-types";
 /**
  * @type {import('react').Context<TagContextValues>}
  */
-declare const TagContext: import('react').Context<TagContextValues>;
+declare const TagContext: any;
 //# sourceMappingURL=TagContext.d.ts.map

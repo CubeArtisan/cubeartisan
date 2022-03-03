@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { createContext, useCallback, useState } from 'react';
+import React, { createContext, useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
@@ -47,7 +47,10 @@ export const MaybeboardContextProvider = ({ initialCards, ...props }) => {
     });
   }, []);
 
-  const value = { maybeboard, addMaybeboardCard, removeMaybeboardCard, updateMaybeboardCard };
+  const value = useMemo(
+    () => ({ maybeboard, addMaybeboardCard, removeMaybeboardCard, updateMaybeboardCard }),
+    [maybeboard, addMaybeboardCard, removeMaybeboardCard, updateMaybeboardCard],
+  );
 
   return <MaybeboardContext.Provider value={value} {...props} />;
 };

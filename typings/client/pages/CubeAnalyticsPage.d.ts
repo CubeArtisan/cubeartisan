@@ -10,53 +10,14 @@ export function CubeAnalyticsPage({ cube, cubeID, defaultFilterText, defaultTab,
 }): JSX.Element;
 export namespace CubeAnalyticsPage {
     namespace propTypes {
-        const cube: PropTypes.Validator<PropTypes.InferProps<{
-            cards: PropTypes.Requireable<PropTypes.InferProps<{
-                cardName: PropTypes.Requireable<string>;
-                picks: PropTypes.Requireable<number>;
-                passes: PropTypes.Requireable<number>;
-                elo: PropTypes.Requireable<number>;
-                mainboards: PropTypes.Requireable<number>;
-                sideboards: PropTypes.Requireable<number>;
-            }>[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
-        }>>;
-        const cubeID: PropTypes.Validator<string>;
-        const defaultFilterText: PropTypes.Requireable<string>;
-        const defaultTab: PropTypes.Requireable<number>;
-        const defaultFormatId: PropTypes.Requireable<number>;
-        const defaultShowTagColors: PropTypes.Requireable<boolean>;
-        const loginCallback: PropTypes.Requireable<string>;
-        const cubeAnalytics: PropTypes.Validator<PropTypes.InferProps<{
-            _id: PropTypes.Validator<string>;
-            shortID: PropTypes.Requireable<string>;
-            name: PropTypes.Requireable<string>;
-            card_count: PropTypes.Requireable<number>;
-            cards: PropTypes.Requireable<PropTypes.InferProps<{
-                _id: PropTypes.Requireable<string>;
-                index: PropTypes.Requireable<number>;
-                imgUrl: PropTypes.Requireable<string>;
-                imgBackUrl: PropTypes.Requireable<string>;
-                cardID: PropTypes.Validator<string>;
-                colors: PropTypes.Requireable<string[]>;
-                tags: PropTypes.Requireable<string[]>;
-                details: PropTypes.Requireable<PropTypes.InferProps<{
-                    _id: PropTypes.Validator<string>;
-                    name: PropTypes.Validator<string>;
-                    image_normal: PropTypes.Validator<string>;
-                }>>;
-            }>[]>;
-            type: PropTypes.Requireable<string>;
-            overrideCategory: PropTypes.Requireable<boolean>;
-            categoryOverride: PropTypes.Requireable<string>;
-            categoryPrefixes: PropTypes.Requireable<string[]>;
-            image_name: PropTypes.Requireable<string>;
-            image_artist: PropTypes.Requireable<string>;
-            image_uri: PropTypes.Requireable<string>;
-            owner: PropTypes.Requireable<string>;
-            owner_name: PropTypes.Requireable<string>;
-            disableNotifications: PropTypes.Requireable<boolean>;
-        }>>;
+        const cube: any;
+        const cubeID: any;
+        const defaultFilterText: any;
+        const defaultTab: any;
+        const defaultFormatId: any;
+        const defaultShowTagColors: any;
+        const loginCallback: any;
+        const cubeAnalytics: any;
     }
     namespace defaultProps {
         const defaultFilterText_1: string;
@@ -73,5 +34,4 @@ export namespace CubeAnalyticsPage {
 }
 declare var _default: (providedReactProps: any) => JSX.Element;
 export default _default;
-import PropTypes from "prop-types";
 //# sourceMappingURL=CubeAnalyticsPage.d.ts.map

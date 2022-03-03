@@ -9,23 +9,13 @@ export function SearchPage({ cubes, query, count, perPage, page, order, loginCal
 }): JSX.Element;
 export namespace SearchPage {
     namespace propTypes {
-        const cubes: PropTypes.Validator<PropTypes.InferProps<{
-            cards: PropTypes.Requireable<PropTypes.InferProps<{
-                cardName: PropTypes.Requireable<string>;
-                picks: PropTypes.Requireable<number>;
-                passes: PropTypes.Requireable<number>;
-                elo: PropTypes.Requireable<number>;
-                mainboards: PropTypes.Requireable<number>;
-                sideboards: PropTypes.Requireable<number>;
-            }>[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
-        }>[]>;
-        const query: PropTypes.Requireable<string>;
-        const count: PropTypes.Requireable<number>;
-        const perPage: PropTypes.Requireable<number>;
-        const page: PropTypes.Requireable<number>;
-        const order: PropTypes.Requireable<string>;
-        const loginCallback: PropTypes.Requireable<string>;
+        const cubes: any;
+        const query: any;
+        const count: any;
+        const perPage: any;
+        const page: any;
+        const order: any;
+        const loginCallback: any;
     }
     namespace defaultProps {
         const query_1: string;
@@ -44,5 +34,4 @@ export namespace SearchPage {
 }
 declare var _default: (providedReactProps: any) => JSX.Element;
 export default _default;
-import PropTypes from "prop-types";
 //# sourceMappingURL=SearchPage.d.ts.map

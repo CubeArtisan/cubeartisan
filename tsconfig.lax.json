@@ -21,6 +21,6 @@
       "./typings"
     ]
   },
-  "include": ["server/**/*", "client/**/*", "./jobs/**/*"],
-  "exclude": ["**/node_modules/**/*", "**/dist/**/*", "**/coverage/**/*"]
+  "include": ["server/**/*", "client/**/*", "jobs/**/*"],
+  "exclude": ["**/dist/**/*", "**/coverage/**/*"]
 }

@@ -150,7 +150,7 @@ const AddGroupToCubeModal = ({ cards, isOpen, toggle, cubes, packid }) => {
                 data-in-modal
                 index={card.index}
               >
-                <>{card.name}</>
+                {card.name}
               </AutocardItem>
             ))}
           </ListGroup>
@@ -184,7 +184,7 @@ const AddGroupToCubeModal = ({ cards, isOpen, toggle, cubes, packid }) => {
               data-in-modal
               index={card.index}
             >
-              <>{card.name}</>
+              {card.name}
             </AutocardItem>
           ))}
         </ListGroup>

@@ -6,10 +6,10 @@ export function CommentReportsPage({ loginCallback, reports, count, page }: {
 }): JSX.Element;
 export namespace CommentReportsPage {
     namespace propTypes {
-        const loginCallback: PropTypes.Requireable<string>;
-        const reports: PropTypes.Validator<PropTypes.InferProps<{}>[]>;
-        const count: PropTypes.Validator<number>;
-        const page: PropTypes.Validator<number>;
+        const loginCallback: any;
+        const reports: any;
+        const count: any;
+        const page: any;
     }
     namespace defaultProps {
         const loginCallback_1: string;
@@ -18,5 +18,4 @@ export namespace CommentReportsPage {
 }
 declare var _default: (providedReactProps: any) => JSX.Element;
 export default _default;
-import PropTypes from "prop-types";
 //# sourceMappingURL=CommentReportsPage.d.ts.map

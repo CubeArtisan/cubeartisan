@@ -4,12 +4,11 @@ declare function Suspense({ ...props }: {
 }): JSX.Element;
 declare namespace Suspense {
     namespace propTypes {
-        const fallback: PropTypes.Requireable<PropTypes.ReactNodeLike>;
+        const fallback: any;
     }
     namespace defaultProps {
         const fallback_1: JSX.Element;
         export { fallback_1 as fallback };
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=Suspense.d.ts.map

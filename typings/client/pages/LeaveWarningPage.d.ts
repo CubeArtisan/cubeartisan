@@ -7,11 +7,9 @@ export function LeaveWarningPage({ url, loginCallback, siteCustomizations: { sit
 }): JSX.Element;
 export namespace LeaveWarningPage {
     namespace propTypes {
-        const url: PropTypes.Validator<string>;
-        const loginCallback: PropTypes.Requireable<string>;
-        const siteCustomizations: PropTypes.Validator<PropTypes.InferProps<{
-            siteName: PropTypes.Validator<string>;
-        }>>;
+        const url: any;
+        const loginCallback: any;
+        const siteCustomizations: any;
     }
     namespace defaultProps {
         const loginCallback_1: string;
@@ -20,5 +18,4 @@ export namespace LeaveWarningPage {
 }
 declare var _default: (providedReactProps: any) => JSX.Element;
 export default _default;
-import PropTypes from "prop-types";
 //# sourceMappingURL=LeaveWarningPage.d.ts.map

@@ -7,12 +7,5 @@ export namespace DEFAULT_SITE_CUSTOMIZATIONS {
     const mtgmlServer: any;
 }
 export default SiteCustomizationContext;
-declare const SiteCustomizationContext: import("react").Context<{
-    discordUrl: string;
-    siteName: string;
-    siteRoot: string;
-    sourceRepo: string;
-    supportEmail: string;
-    mtgmlServer: any;
-}>;
+declare const SiteCustomizationContext: any;
 //# sourceMappingURL=SiteCustomizationContext.d.ts.map

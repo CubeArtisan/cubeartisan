@@ -94,9 +94,9 @@ export const randomElement = (array) => {
 };
 
 export const alphaCompare = (a, b) => {
-  const textA = (a?.name ?? a?.details?.name).toUpperCase();
-  const textB = (b?.name ?? b?.details?.name).toUpperCase();
-  return textA.localeCompare(textB);
+  const textA = (a?.name ?? a?.details?.name)?.toUpperCase?.();
+  const textB = (b?.name ?? b?.details?.name)?.toUpperCase?.();
+  return textA?.localeCompare?.(textB);
 };
 
 export const cmcColumn = (card) => {

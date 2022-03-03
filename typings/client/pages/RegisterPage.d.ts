@@ -5,9 +5,9 @@ export function RegisterPage({ username, email, loginCallback }: {
 }): JSX.Element;
 export namespace RegisterPage {
     namespace propTypes {
-        const email: PropTypes.Requireable<string>;
-        const username: PropTypes.Requireable<string>;
-        const loginCallback: PropTypes.Requireable<string>;
+        const email: any;
+        const username: any;
+        const loginCallback: any;
     }
     namespace defaultProps {
         const loginCallback_1: string;
@@ -20,5 +20,4 @@ export namespace RegisterPage {
 }
 declare var _default: (providedReactProps: any) => JSX.Element;
 export default _default;
-import PropTypes from "prop-types";
 //# sourceMappingURL=RegisterPage.d.ts.map

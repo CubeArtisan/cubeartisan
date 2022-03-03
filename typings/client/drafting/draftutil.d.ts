@@ -1,5 +1,3 @@
-export function areDraftbotsInitialized(): boolean;
-export function initializeMtgDraftbots(): Promise<any>;
 export function defaultStepsForLength(length: any): any[];
 export const validActions: string[];
 export function getAllDrafterStates({ draft, seatNumber, pickNumber, stepNumber }: {
@@ -63,14 +61,12 @@ export function convertDrafterState(drafterState: any): {
     picked: any;
     seen: any;
     cardsInPack: any;
-    cardOracleIds: any;
     packNum: any;
     numPacks: any;
     pickNum: any;
     numPicks: any;
-    seed: any;
 };
-export function getDraftbotScores(convertedDrafterState: any, mtgmlServer: any): Promise<any>;
+export function getDraftbotScores(convertedDrafterState: any, mtgmlServer: any, includeOracles?: boolean): Promise<any>;
 export function getWorstOption(scores: any): number;
 export function getBestOption(scores: any): number;
 export function allBotsDraft(draft: any, mtgmlServer: any): Promise<any>;

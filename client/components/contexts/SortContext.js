@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { createContext, useState, useCallback } from 'react';
+import React, { createContext, useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 const DEFAULT_SORTS = ['Color Category', 'Types-Multicolor', 'Mana Value', 'Alphabetical'];
@@ -73,14 +73,17 @@ export const SortContextProvider = ({ defaultSorts, defaultShowOther, ...props }
     if (newValues.quaternary) setQuaternary(newValues.quaternary);
     if (newValues.showOther) setShowOther(newValues.showOther);
   }, []);
-  const value = {
-    primary,
-    secondary,
-    tertiary,
-    quaternary,
-    showOther,
-    changeSort,
-  };
+  const value = useMemo(
+    () => ({
+      primary,
+      secondary,
+      tertiary,
+      quaternary,
+      showOther,
+      changeSort,
+    }),
+    [primary, secondary, tertiary, quaternary, showOther, changeSort],
+  );
   return <SortContext.Provider value={value} {...props} />;
 };
 SortContextProvider.propTypes = {

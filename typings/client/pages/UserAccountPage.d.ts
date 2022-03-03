@@ -4,8 +4,8 @@ export function UserAccountPage({ defaultNav, loginCallback }: {
 }): JSX.Element;
 export namespace UserAccountPage {
     namespace propTypes {
-        const defaultNav: PropTypes.Validator<string>;
-        const loginCallback: PropTypes.Requireable<string>;
+        const defaultNav: any;
+        const loginCallback: any;
     }
     namespace defaultProps {
         const loginCallback_1: string;
@@ -14,5 +14,4 @@ export namespace UserAccountPage {
 }
 declare var _default: (providedReactProps: any) => JSX.Element;
 export default _default;
-import PropTypes from "prop-types";
 //# sourceMappingURL=UserAccountPage.d.ts.map

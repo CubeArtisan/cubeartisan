@@ -5,8 +5,7 @@ declare function CardModalForm({ children, ...props }: {
 }): JSX.Element;
 declare namespace CardModalForm {
     namespace propTypes {
-        const children: PropTypes.Validator<PropTypes.ReactNodeLike>;
+        const children: any;
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=CardModalForm.d.ts.map

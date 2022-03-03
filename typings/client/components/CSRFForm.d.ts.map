@@ -1,1 +1,1 @@
-{"version":3,"file":"CSRFForm.d.ts","sourceRoot":"","sources":["../../../client/components/CSRFForm.js"],"names":[],"mappings":";wBAwBa,OAAO,OAAO,EAAE,SAAS;4BACzB,OAAO,OAAO,EAAE,yBAAyB,CAAC;IAAE,QAAQ,EAAE,SAAS,CAAC;IAAC,MAAM,EAAE,MAAM,CAAC;IAAC,OAAO,CAAC,EAAE,MAAM,CAAC;IAAC,MAAM,CAAC,EAAE,MAAM,CAAA;CAAE,CAAC;AAFlI;;;;GAIG;AACH;cAHmE,SAAS;YAAU,MAAM;cAAY,MAAM;aAAW,MAAM;GAY5H"}
+{"version":3,"file":"CSRFForm.d.ts","sourceRoot":"","sources":["../../../client/components/CSRFForm.js"],"names":[],"mappings":";;;AAuBA;;;;GAIG;AACH,4BAYG"}

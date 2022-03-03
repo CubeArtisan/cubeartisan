@@ -215,6 +215,21 @@ LegalityBadge.propTypes = {
   status: PropTypes.string.isRequired,
 };
 
+const elementWrapper = (element) => (
+  <table className="table table-striped mb-0">
+    <thead>
+      <tr>
+        <th scope="col">Version</th>
+        <th scope="col">USD</th>
+        <th scope="col">USD Foil</th>
+        <th scope="col">EUR</th>
+        <th scope="col">TIX</th>
+      </tr>
+    </thead>
+    <tbody>{element}</tbody>
+  </table>
+);
+
 const CardIdBadge = ({ id }) => {
   const [copied, setCopied] = useState(false);
 
@@ -401,8 +416,8 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
                     </Col>
                     <Col xs="6">
                       <div className="text-right">
-                        <>{card.loyalty && <p>{card.loyalty}</p>}</>
-                        <>{card.power && <p>{`${card.power} / ${card.toughness}`}</p>}</>
+                        {card.loyalty && <p>{card.loyalty}</p>}
+                        {card.power && <p>{`${card.power} / ${card.toughness}`}</p>}
                       </div>
                     </Col>
                   </Row>
@@ -602,20 +617,7 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
             {filteredVersions.length > 0 ? (
               <PagedList
                 pageSize={10}
-                pageWrap={(element) => (
-                  <table className="table table-striped mb-0">
-                    <thead>
-                      <tr>
-                        <th scope="col">Version</th>
-                        <th scope="col">USD</th>
-                        <th scope="col">USD Foil</th>
-                        <th scope="col">EUR</th>
-                        <th scope="col">TIX</th>
-                      </tr>
-                    </thead>
-                    <tbody>{element}</tbody>
-                  </table>
-                )}
+                pageWrap={elementWrapper}
                 rows={filteredVersions.slice(0).map((version) => (
                   <tr key={version._id}>
                     <td>

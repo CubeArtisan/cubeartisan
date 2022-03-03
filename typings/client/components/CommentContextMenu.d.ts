@@ -6,10 +6,9 @@ declare function CommentContextMenu({ edit, remove, children }: {
 }): JSX.Element;
 declare namespace CommentContextMenu {
     namespace propTypes {
-        const edit: PropTypes.Validator<(...args: any[]) => any>;
-        const remove: PropTypes.Validator<(...args: any[]) => any>;
-        const children: PropTypes.Validator<PropTypes.ReactNodeLike>;
+        const edit: any;
+        const remove: any;
+        const children: any;
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=CommentContextMenu.d.ts.map

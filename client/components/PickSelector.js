@@ -32,7 +32,7 @@ const PickSelector = ({ picksList, curPickNumber, setPickNumberFromEvent }) => (
               {curPickNumber === pickNumber ? (
                 <strong>{`${ACTION_LABELS[action]}: ${cardName(card)}`}</strong>
               ) : (
-                <>{`${ACTION_LABELS[action]}: ${cardName(card)}`}</>
+                `${ACTION_LABELS[action]}: ${cardName(card)}`
               )}
             </AutocardDiv>
           </ListGroupItem>

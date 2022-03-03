@@ -4,10 +4,7 @@ declare function ListView({ cards }: {
 }): JSX.Element;
 declare namespace ListView {
     namespace propTypes {
-        const cards: PropTypes.Validator<PropTypes.InferProps<{
-            _id: PropTypes.Validator<string>;
-        }>[]>;
+        const cards: any;
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=ListView.d.ts.map

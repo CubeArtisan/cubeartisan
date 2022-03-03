@@ -10,49 +10,13 @@ export function CubeComparePage({ cards, cube, cubeB, defaultTagColors, defaultS
 }): JSX.Element;
 export namespace CubeComparePage {
     namespace propTypes {
-        const cards: PropTypes.Validator<PropTypes.InferProps<{
-            _id: PropTypes.Requireable<string>;
-            index: PropTypes.Requireable<number>;
-            imgUrl: PropTypes.Requireable<string>;
-            imgBackUrl: PropTypes.Requireable<string>;
-            cardID: PropTypes.Validator<string>;
-            colors: PropTypes.Requireable<string[]>;
-            tags: PropTypes.Requireable<string[]>;
-            details: PropTypes.Requireable<PropTypes.InferProps<{
-                _id: PropTypes.Validator<string>;
-                name: PropTypes.Validator<string>;
-                image_normal: PropTypes.Validator<string>;
-            }>>;
-        }>[]>;
-        const cube: PropTypes.Validator<PropTypes.InferProps<{
-            cards: PropTypes.Requireable<PropTypes.InferProps<{
-                cardName: PropTypes.Requireable<string>;
-                picks: PropTypes.Requireable<number>;
-                passes: PropTypes.Requireable<number>;
-                elo: PropTypes.Requireable<number>;
-                mainboards: PropTypes.Requireable<number>;
-                sideboards: PropTypes.Requireable<number>;
-            }>[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
-        }>>;
-        const cubeB: PropTypes.Validator<PropTypes.InferProps<{
-            cards: PropTypes.Requireable<PropTypes.InferProps<{
-                cardName: PropTypes.Requireable<string>;
-                picks: PropTypes.Requireable<number>;
-                passes: PropTypes.Requireable<number>;
-                elo: PropTypes.Requireable<number>;
-                mainboards: PropTypes.Requireable<number>;
-                sideboards: PropTypes.Requireable<number>;
-            }>[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
-        }>>;
-        const defaultTagColors: PropTypes.Validator<PropTypes.InferProps<{
-            tag: PropTypes.Validator<string>;
-            color: PropTypes.Requireable<string>;
-        }>[]>;
-        const defaultShowTagColors: PropTypes.Validator<boolean>;
-        const defaultSorts: PropTypes.Validator<string[]>;
-        const loginCallback: PropTypes.Requireable<string>;
+        const cards: any;
+        const cube: any;
+        const cubeB: any;
+        const defaultTagColors: any;
+        const defaultShowTagColors: any;
+        const defaultSorts: any;
+        const loginCallback: any;
     }
     namespace defaultProps {
         const loginCallback_1: string;
@@ -61,5 +25,4 @@ export namespace CubeComparePage {
 }
 declare var _default: (providedReactProps: any) => JSX.Element;
 export default _default;
-import PropTypes from "prop-types";
 //# sourceMappingURL=CubeComparePage.d.ts.map

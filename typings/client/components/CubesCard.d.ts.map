@@ -1,1 +1,1 @@
-{"version":3,"file":"CubesCard.d.ts","sourceRoot":"","sources":["../../../client/components/CubesCard.js"],"names":[],"mappings":";4BA4Bc,OAAO,OAAO,EAAE,iBAAiB,CAAC;IAAE,KAAK,EAAE,CAAC,GAAG,CAAC,CAAC;IAAC,KAAK,EAAE,MAAM,CAAC;IAAC,IAAI,UAAU;IAAC,MAAM,CAAC,EAAE;QAAE,QAAQ,EAAE,MAAM,CAAC;QAAC,QAAQ,EAAE,MAAM,CAAC;QAAC,MAAM,EAAE,MAAM,CAAA;KAAE,CAAA;CAAE,CAAC;AADhK;;;KAGK;AACL,yBAFS,aAAa,CA4CpB"}
+{"version":3,"file":"CubesCard.d.ts","sourceRoot":"","sources":["../../../client/components/CubesCard.js"],"names":[],"mappings":";;AA2BA;;;KAGK;AACL,6BA0CE"}

@@ -8,10 +8,10 @@ declare function Tooltip({ text, children, wrapperTag, tooltipProps, ...props }:
 }): JSX.Element;
 declare namespace Tooltip {
     namespace propTypes {
-        const text: PropTypes.Validator<string>;
-        const children: PropTypes.Validator<PropTypes.ReactNodeLike>;
-        const wrapperTag: PropTypes.Requireable<PropTypes.ReactNodeLike>;
-        const tooltipProps: PropTypes.Requireable<PropTypes.InferProps<{}>>;
+        const text: any;
+        const children: any;
+        const wrapperTag: any;
+        const tooltipProps: any;
     }
     namespace defaultProps {
         const wrapperTag_1: string;
@@ -20,5 +20,4 @@ declare namespace Tooltip {
         export { tooltipProps_1 as tooltipProps };
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=Tooltip.d.ts.map

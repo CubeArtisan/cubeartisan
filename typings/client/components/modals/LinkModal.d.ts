@@ -6,10 +6,9 @@ declare function LinkModal({ link, isOpen, toggle }: {
 }): JSX.Element;
 declare namespace LinkModal {
     namespace propTypes {
-        const link: PropTypes.Validator<string>;
-        const isOpen: PropTypes.Validator<boolean>;
-        const toggle: PropTypes.Validator<(...args: any[]) => any>;
+        const link: any;
+        const isOpen: any;
+        const toggle: any;
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=LinkModal.d.ts.map

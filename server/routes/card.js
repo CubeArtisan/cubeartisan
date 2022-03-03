@@ -210,9 +210,9 @@ const getVersionsFromIdsHandler = (req, res) => {
   const result = Object.fromEntries(
     allVersions.map((versions) => [
       normalizeName(versions[0].name),
-      versions.map(({ _id, full_name, image_normal, image_flip, prices, elo }) => ({
+      versions.map(({ _id, full_name: fullName, image_normal, image_flip, prices, elo }) => ({
         _id,
-        version: full_name.toUpperCase().substring(full_name.indexOf('[') + 1, full_name.indexOf(']')),
+        version: fullName.toUpperCase().substring(fullName.indexOf('[') + 1, fullName.indexOf(']')),
         image_normal,
         image_flip,
         price: prices.usd,

@@ -8,16 +8,15 @@ declare function DeckDeleteModal({ deckID, cubeID, nextURL, isOpen, toggle }: {
 }): JSX.Element;
 declare namespace DeckDeleteModal {
     namespace propTypes {
-        const toggle: PropTypes.Validator<(...args: any[]) => any>;
-        const deckID: PropTypes.Validator<string>;
-        const cubeID: PropTypes.Validator<string>;
-        const isOpen: PropTypes.Validator<boolean>;
-        const nextURL: PropTypes.Requireable<string>;
+        const toggle: any;
+        const deckID: any;
+        const cubeID: any;
+        const isOpen: any;
+        const nextURL: any;
     }
     namespace defaultProps {
         const nextURL_1: any;
         export { nextURL_1 as nextURL };
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=DeckDeleteModal.d.ts.map

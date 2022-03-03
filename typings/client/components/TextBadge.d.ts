@@ -7,10 +7,10 @@ declare function TextBadge({ name, className, children, fill }: {
 }): JSX.Element;
 declare namespace TextBadge {
     namespace propTypes {
-        const name: PropTypes.Requireable<string>;
-        const className: PropTypes.Requireable<string>;
-        const children: PropTypes.Validator<PropTypes.ReactNodeLike>;
-        const fill: PropTypes.Requireable<boolean>;
+        const name: any;
+        const className: any;
+        const children: any;
+        const fill: any;
     }
     namespace defaultProps {
         const name_1: string;
@@ -21,5 +21,4 @@ declare namespace TextBadge {
         export { fill_1 as fill };
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=TextBadge.d.ts.map

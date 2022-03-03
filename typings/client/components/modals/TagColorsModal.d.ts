@@ -6,9 +6,9 @@ declare function TagColorsModal({ canEdit, isOpen, toggle }: {
 }): JSX.Element;
 declare namespace TagColorsModal {
     namespace propTypes {
-        const canEdit: PropTypes.Requireable<boolean>;
-        const isOpen: PropTypes.Requireable<boolean>;
-        const toggle: PropTypes.Validator<(...args: any[]) => any>;
+        const canEdit: any;
+        const isOpen: any;
+        const toggle: any;
     }
     namespace defaultProps {
         const canEdit_1: boolean;
@@ -17,5 +17,4 @@ declare namespace TagColorsModal {
         export { isOpen_1 as isOpen };
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=TagColorsModal.d.ts.map

@@ -4,8 +4,8 @@ export function BrowseContentPage({ loginCallback, content }: {
 }): JSX.Element;
 export namespace BrowseContentPage {
     namespace propTypes {
-        const loginCallback: PropTypes.Requireable<string>;
-        const content: PropTypes.Validator<PropTypes.InferProps<{}>[]>;
+        const loginCallback: any;
+        const content: any;
     }
     namespace defaultProps {
         const loginCallback_1: string;
@@ -14,5 +14,4 @@ export namespace BrowseContentPage {
 }
 declare var _default: (providedReactProps: any) => JSX.Element;
 export default _default;
-import PropTypes from "prop-types";
 //# sourceMappingURL=BrowseContentPage.d.ts.map

@@ -7,11 +7,10 @@ declare function CubeSettingsModal({ addAlert, onCubeUpdate, isOpen, toggle }: {
 }): JSX.Element;
 declare namespace CubeSettingsModal {
     namespace propTypes {
-        const addAlert: PropTypes.Validator<(...args: any[]) => any>;
-        const onCubeUpdate: PropTypes.Validator<(...args: any[]) => any>;
-        const isOpen: PropTypes.Validator<boolean>;
-        const toggle: PropTypes.Validator<(...args: any[]) => any>;
+        const addAlert: any;
+        const onCubeUpdate: any;
+        const isOpen: any;
+        const toggle: any;
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=CubeSettingsModal.d.ts.map

@@ -1,3 +1,3 @@
 export default UserContext;
-declare const UserContext: import("react").Context<any>;
+declare const UserContext: any;
 //# sourceMappingURL=UserContext.d.ts.map

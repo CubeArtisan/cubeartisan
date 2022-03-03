@@ -6,10 +6,9 @@ declare function LoginModal({ isOpen, toggle, loginCallback }: {
 }): JSX.Element;
 declare namespace LoginModal {
     namespace propTypes {
-        const isOpen: PropTypes.Validator<boolean>;
-        const toggle: PropTypes.Validator<(...args: any[]) => any>;
-        const loginCallback: PropTypes.Validator<string>;
+        const isOpen: any;
+        const toggle: any;
+        const loginCallback: any;
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=LoginModal.d.ts.map

@@ -263,12 +263,11 @@ const GroupModal = ({ cubeID, canEdit, children, ...props }) => {
   );
 
   const setCards = useCallback((oldCards) => setCardIndices(oldCards.map((card) => card.index)), []);
-
-  const contextChildren = (
-    <GroupModalContext.Provider value={{ groupModalCards: cards, openGroupModal: open, setGroupModalCards: setCards }}>
-      {children}
-    </GroupModalContext.Provider>
+  const contextValue = useMemo(
+    () => ({ groupModalCards: cards, openGroupModal: open, setGroupModalCards: setCards }),
+    [cards, open, setCards],
   );
+  const contextChildren = <GroupModalContext.Provider value={contextValue}>{children}</GroupModalContext.Provider>;
 
   if (!canEdit) {
     return contextChildren;

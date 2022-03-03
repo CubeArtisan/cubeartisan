@@ -1,16 +1,20 @@
 export default SampleHandModal;
-declare class SampleHandModal extends React.Component<any, any, any> {
+declare class SampleHandModal {
     constructor(props: any);
+    state: {
+        isOpen: boolean;
+        hand: any[];
+        pool: any[];
+    };
     open(event: any): void;
     close(): void;
     refresh(): void;
     draw(): void;
+    render(): JSX.Element;
 }
 declare namespace SampleHandModal {
     namespace propTypes {
-        const deck: PropTypes.Validator<any[]>;
+        const deck: any;
     }
 }
-import React from "react";
-import PropTypes from "prop-types";
 //# sourceMappingURL=SampleHandModal.d.ts.map

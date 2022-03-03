@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 export const getGridDrafterState = ({ gridDraft, seatNumber }) => {
-  const { cards, initial_state } = gridDraft;
+  const { cards, initial_state: initialState } = gridDraft;
   const numPacks = gridDraft.initial_state.length;
   const seatNum = parseInt(seatNumber, 10);
   let curStep = 0;
@@ -26,7 +26,7 @@ export const getGridDrafterState = ({ gridDraft, seatNumber }) => {
   let curPickNum = 0;
   const pickedNums = [0, 0];
   let currentPicker = 0;
-  let cardsInPack = initial_state[0];
+  let [cardsInPack] = initialState;
   let packNum = 0;
 
   if (currentPicker === seatNum) {
@@ -35,7 +35,7 @@ export const getGridDrafterState = ({ gridDraft, seatNumber }) => {
 
   while (packNum < numPacks && pickedIndices[currentPicker].length > pickedNums[currentPicker]) {
     // Pack is opened and the current player picks a row or column of 3 cards.
-    cardsInPack = initial_state[packNum].slice();
+    cardsInPack = initialState[packNum].slice();
     cardsInPack[pickedIndices[currentPicker][pickedNums[currentPicker]]] = null;
     cardsInPack[pickedIndices[currentPicker][pickedNums[currentPicker] + 1]] = null;
     cardsInPack[pickedIndices[currentPicker][pickedNums[currentPicker] + 2]] = null;
@@ -63,8 +63,8 @@ export const getGridDrafterState = ({ gridDraft, seatNumber }) => {
       curStep += 1;
       packNum += 1;
       if (packNum < numPacks && currentPicker === seatNum) {
-        seen.push(...gridDraft.initial_state[packNum]);
-        cardsInPack = initial_state[packNum].slice();
+        seen.push(...gridDraft.initialState[packNum]);
+        cardsInPack = initialState[packNum].slice();
       }
     } else {
       // packNum += 1;

@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { getCsrfToken } from '@cubeartisan/client/utils/CSRF.js';
@@ -27,11 +27,14 @@ import { getCsrfToken } from '@cubeartisan/client/utils/CSRF.js';
  * @type ComponentType
  */
 const CSRFForm = forwardRef(({ children, ...props }, ref) => {
-  const CSRFFormInternal = () => (
-    <form ref={ref} {...props}>
-      <input type="hidden" name="_csrf" value={getCsrfToken() ?? ''} />
-      {children}
-    </form>
+  const CSRFFormInternal = useCallback(
+    () => (
+      <form ref={ref} {...props}>
+        <input type="hidden" name="_csrf" value={getCsrfToken() ?? ''} />
+        {children}
+      </form>
+    ),
+    [ref, props, children],
   );
   CSRFFormInternal.displayName = 'CSRFForm';
   return <CSRFFormInternal />;

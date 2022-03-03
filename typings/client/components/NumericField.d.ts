@@ -10,13 +10,12 @@ declare function NumericField({ name, humanName, placeholder, valueOp, value, on
 }): JSX.Element;
 declare namespace NumericField {
     namespace propTypes {
-        const name: PropTypes.Validator<string>;
-        const humanName: PropTypes.Validator<string>;
-        const placeholder: PropTypes.Validator<string>;
-        const valueOp: PropTypes.Validator<string>;
-        const value: PropTypes.Validator<string>;
-        const onChange: PropTypes.Validator<(...args: any[]) => any>;
+        const name: any;
+        const humanName: any;
+        const placeholder: any;
+        const valueOp: any;
+        const value: any;
+        const onChange: any;
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=NumericField.d.ts.map

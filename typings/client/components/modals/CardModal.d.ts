@@ -17,61 +17,19 @@ declare function CardModal({ card, maybe, versions, versionsLoading, toggle, dis
 }): JSX.Element;
 declare namespace CardModal {
     namespace propTypes {
-        const card: PropTypes.Validator<PropTypes.InferProps<{
-            _id: PropTypes.Requireable<string>;
-            index: PropTypes.Requireable<number>;
-            imgUrl: PropTypes.Requireable<string>;
-            imgBackUrl: PropTypes.Requireable<string>;
-            cardID: PropTypes.Validator<string>;
-            colors: PropTypes.Requireable<string[]>;
-            tags: PropTypes.Requireable<string[]>;
-            details: PropTypes.Requireable<PropTypes.InferProps<{
-                _id: PropTypes.Validator<string>;
-                name: PropTypes.Validator<string>;
-                image_normal: PropTypes.Validator<string>;
-            }>>;
-        }>>;
-        const maybe: PropTypes.Requireable<boolean>;
-        const versions: PropTypes.Validator<PropTypes.InferProps<{
-            _id: PropTypes.Requireable<string>;
-            index: PropTypes.Requireable<number>;
-            imgUrl: PropTypes.Requireable<string>;
-            imgBackUrl: PropTypes.Requireable<string>;
-            cardID: PropTypes.Validator<string>;
-            colors: PropTypes.Requireable<string[]>;
-            tags: PropTypes.Requireable<string[]>;
-            details: PropTypes.Requireable<PropTypes.InferProps<{
-                _id: PropTypes.Validator<string>;
-                name: PropTypes.Validator<string>;
-                image_normal: PropTypes.Validator<string>;
-            }>>;
-        }>[]>;
-        const versionsLoading: PropTypes.Requireable<boolean>;
-        const toggle: PropTypes.Validator<(...args: any[]) => any>;
-        const disabled: PropTypes.Requireable<boolean>;
-        const values: PropTypes.Validator<PropTypes.InferProps<{
-            _id: PropTypes.Requireable<string>;
-            index: PropTypes.Requireable<number>;
-            imgUrl: PropTypes.Requireable<string>;
-            imgBackUrl: PropTypes.Requireable<string>;
-            cardID: PropTypes.Validator<string>;
-            colors: PropTypes.Requireable<string[]>;
-            tags: PropTypes.Requireable<string[]>;
-            details: PropTypes.Requireable<PropTypes.InferProps<{
-                _id: PropTypes.Validator<string>;
-                name: PropTypes.Validator<string>;
-                image_normal: PropTypes.Validator<string>;
-            }>>;
-        }>>;
-        const onChange: PropTypes.Validator<(...args: any[]) => any>;
-        const saveChanges: PropTypes.Validator<(...args: any[]) => any>;
-        const queueRemoveCard: PropTypes.Validator<(...args: any[]) => any>;
-        const setTagInput: PropTypes.Validator<(...args: any[]) => any>;
-        const addTagText: PropTypes.Validator<(...args: any[]) => any>;
-        const tagActions: PropTypes.Validator<PropTypes.InferProps<{
-            addTag: PropTypes.Validator<(...args: any[]) => any>;
-            deleteTag: PropTypes.Validator<(...args: any[]) => any>;
-        }>>;
+        const card: any;
+        const maybe: any;
+        const versions: any;
+        const versionsLoading: any;
+        const toggle: any;
+        const disabled: any;
+        const values: any;
+        const onChange: any;
+        const saveChanges: any;
+        const queueRemoveCard: any;
+        const setTagInput: any;
+        const addTagText: any;
+        const tagActions: any;
     }
     namespace defaultProps {
         const disabled_1: boolean;
@@ -82,5 +40,4 @@ declare namespace CardModal {
         export { versionsLoading_1 as versionsLoading };
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=CardModal.d.ts.map

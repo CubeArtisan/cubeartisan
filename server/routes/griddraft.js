@@ -24,7 +24,7 @@ import CubeAnalytic from '@cubeartisan/server/models/cubeAnalytic.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import { render } from '@cubeartisan/server/serverjs/render.js';
 import generateMeta from '@cubeartisan/server/serverjs/meta.js';
-import Util, { getCubeDescription } from '@cubeartisan/client/utils/Util.js';
+import { arraysAreEqualSets, getCubeDescription } from '@cubeartisan/client/utils/Util.js';
 import { addNotification } from '@cubeartisan/server/serverjs/util.js';
 import { body } from 'express-validator';
 import Deck from '@cubeartisan/server/models/deck.js';
@@ -137,7 +137,7 @@ const submitGridDraftHandler = async (req, res) => {
       // eslint-disable-next-line no-await-in-loop
       const { sideboard, deck: newDeck, colors } = await buildDeck({ cards, picked: seat.pickorder });
       const colorString =
-        colors.length > 0 ? 'C' : COLOR_COMBINATIONS.find((comb) => Util.arraysAreEqualSets(comb, colors)).join('');
+        colors.length > 0 ? 'C' : COLOR_COMBINATIONS.find((comb) => arraysAreEqualSets(comb, colors)).join('');
       if (seat.bot) {
         deck.seats.push({
           bot: seat.bot,

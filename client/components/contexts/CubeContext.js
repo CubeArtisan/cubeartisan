@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { createContext, useCallback, useState } from 'react';
+import React, { createContext, useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
 /**
@@ -68,7 +68,10 @@ export const CubeContextProvider = ({ initialCube, canEdit, ...props }) => {
     (card) => (card.imgUrl && card.imgUrl.length > 0) || (card.imgBackUrl && card.imgBackUrl.length > 0),
   );
 
-  const value = { cube, canEdit, cubeID, hasCustomImages, setCube, updateCubeCard, updateCubeCards };
+  const value = useMemo(
+    () => ({ cube, canEdit, cubeID, hasCustomImages, setCube, updateCubeCard, updateCubeCards }),
+    [cube, canEdit, cubeID, hasCustomImages, setCube, updateCubeCard, updateCubeCards],
+  );
 
   return <CubeContext.Provider value={value} {...props} />;
 };

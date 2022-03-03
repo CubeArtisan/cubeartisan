@@ -8,14 +8,9 @@ export function NotificationsPage({ notifications, loginCallback, siteCustomizat
 }): JSX.Element;
 export namespace NotificationsPage {
     namespace propTypes {
-        const notifications: PropTypes.Validator<PropTypes.InferProps<{
-            _id: PropTypes.Validator<string>;
-        }>[]>;
-        const loginCallback: PropTypes.Requireable<string>;
-        const siteCustomizations: PropTypes.Validator<PropTypes.InferProps<{
-            discordUrl: PropTypes.Validator<string>;
-            siteName: PropTypes.Validator<string>;
-        }>>;
+        const notifications: any;
+        const loginCallback: any;
+        const siteCustomizations: any;
     }
     namespace defaultProps {
         const loginCallback_1: string;
@@ -24,5 +19,4 @@ export namespace NotificationsPage {
 }
 declare var _default: (providedReactProps: any) => JSX.Element;
 export default _default;
-import PropTypes from "prop-types";
 //# sourceMappingURL=NotificationsPage.d.ts.map

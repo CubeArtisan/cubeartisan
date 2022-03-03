@@ -5,12 +5,9 @@ export function ContactPage({ title, content, loginCallback }: {
 }): JSX.Element;
 export namespace ContactPage {
     namespace propTypes {
-        const title: PropTypes.Validator<string>;
-        const content: PropTypes.Validator<PropTypes.InferProps<{
-            label: PropTypes.Validator<string>;
-            text: PropTypes.Validator<string>;
-        }>[]>;
-        const loginCallback: PropTypes.Requireable<string>;
+        const title: any;
+        const content: any;
+        const loginCallback: any;
     }
     namespace defaultProps {
         const loginCallback_1: string;
@@ -19,5 +16,4 @@ export namespace ContactPage {
 }
 declare var _default: (providedReactProps: any) => JSX.Element;
 export default _default;
-import PropTypes from "prop-types";
 //# sourceMappingURL=InfoPage.d.ts.map

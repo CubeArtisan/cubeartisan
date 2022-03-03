@@ -9,14 +9,11 @@ declare function HeaderCell({ label, fieldName, sortConfig, requestSort, tooltip
 }): JSX.Element;
 declare namespace HeaderCell {
     namespace propTypes {
-        const label: PropTypes.Validator<string>;
-        const fieldName: PropTypes.Validator<string>;
-        const sortConfig: PropTypes.Requireable<PropTypes.InferProps<{
-            key: PropTypes.Validator<string>;
-            direction: PropTypes.Validator<string>;
-        }>>;
-        const requestSort: PropTypes.Validator<(...args: any[]) => any>;
-        const tooltip: PropTypes.Requireable<string>;
+        const label: any;
+        const fieldName: any;
+        const sortConfig: any;
+        const requestSort: any;
+        const tooltip: any;
     }
     namespace defaultProps {
         const tooltip_1: any;
@@ -25,5 +22,4 @@ declare namespace HeaderCell {
         export { sortConfig_1 as sortConfig };
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=HeaderCell.d.ts.map

@@ -129,18 +129,32 @@ export const DisplayContextProvider = ({ cubeID, defaultNumCols, ...props }) => 
     const newTheme = responsiveFontSizes(getTheme(user.theme ?? theme));
     return newTheme;
   }, [user.theme, theme]);
-  const value = {
-    showCustomImages,
-    toggleShowCustomImages,
-    showMaybeboard,
-    toggleShowMaybeboard,
-    cardsInRow,
-    setCardsInRow: updateCardsInRow,
-    useSticky,
-    toggleUseSticky,
-    theme,
-    updateTheme,
-  };
+  const value = useMemo(
+    () => ({
+      showCustomImages,
+      toggleShowCustomImages,
+      showMaybeboard,
+      toggleShowMaybeboard,
+      cardsInRow,
+      setCardsInRow: updateCardsInRow,
+      useSticky,
+      toggleUseSticky,
+      theme,
+      updateTheme,
+    }),
+    [
+      showCustomImages,
+      toggleShowCustomImages,
+      showMaybeboard,
+      toggleShowMaybeboard,
+      cardsInRow,
+      updateCardsInRow,
+      useSticky,
+      toggleUseSticky,
+      theme,
+      updateTheme,
+    ],
+  );
   return (
     <DisplayContext.Provider value={value}>
       <ThemeProvider theme={muiTheme} {...props} />

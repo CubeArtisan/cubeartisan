@@ -4,8 +4,7 @@ declare function ResizeModal({ cubeID }: {
 }): JSX.Element;
 declare namespace ResizeModal {
     namespace propTypes {
-        const cubeID: PropTypes.Validator<string>;
+        const cubeID: any;
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=ResizeModal.d.ts.map

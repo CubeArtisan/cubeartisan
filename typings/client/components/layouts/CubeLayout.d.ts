@@ -6,24 +6,13 @@ declare function CubeLayout({ cube, activeLink, children }: {
 }): JSX.Element;
 declare namespace CubeLayout {
     namespace propTypes {
-        const cube: PropTypes.Validator<PropTypes.InferProps<{
-            cards: PropTypes.Requireable<PropTypes.InferProps<{
-                cardName: PropTypes.Requireable<string>;
-                picks: PropTypes.Requireable<number>;
-                passes: PropTypes.Requireable<number>;
-                elo: PropTypes.Requireable<number>;
-                mainboards: PropTypes.Requireable<number>;
-                sideboards: PropTypes.Requireable<number>;
-            }>[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
-        }>>;
-        const activeLink: PropTypes.Validator<string>;
-        const children: PropTypes.Requireable<PropTypes.ReactNodeLike>;
+        const cube: any;
+        const activeLink: any;
+        const children: any;
     }
     namespace defaultProps {
         const children_1: boolean;
         export { children_1 as children };
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=CubeLayout.d.ts.map

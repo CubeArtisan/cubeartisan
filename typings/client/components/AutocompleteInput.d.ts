@@ -1,5 +1,4 @@
 export const treeCache: {};
 export default AutocompleteInput;
-declare const AutocompleteInput: React.ForwardRefExoticComponent<React.RefAttributes<any>>;
-import React from "react";
+declare const AutocompleteInput: any;
 //# sourceMappingURL=AutocompleteInput.d.ts.map

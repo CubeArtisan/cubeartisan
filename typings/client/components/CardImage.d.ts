@@ -1,4 +1,3 @@
 export default CardImage;
-declare const CardImage: React.ForwardRefExoticComponent<React.RefAttributes<any>>;
-import React from "react";
+declare const CardImage: any;
 //# sourceMappingURL=CardImage.d.ts.map

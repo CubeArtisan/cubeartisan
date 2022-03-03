@@ -20,6 +20,7 @@ import fs from 'fs';
 import winston from 'winston';
 import { SortFunctions, ORDERED_SORTS } from '@cubeartisan/client/utils/Sort.js';
 import updatecards from '@cubeartisan/server/serverjs/updatecards.js';
+import { reasonableCard } from '@cubeartisan/client/utils/Card.js';
 
 // eslint-disable-next-line
 let data = {
@@ -179,20 +180,6 @@ function unloadCardDb() {
   }
   delete data.printedCardList;
   delete data.fullCardList;
-}
-
-function reasonableCard(card) {
-  return (
-    !card.promo &&
-    !card.digital &&
-    !card.isToken &&
-    card.border_color !== 'gold' &&
-    card.language === 'en' &&
-    card.tcgplayer_id &&
-    card.set !== 'myb' &&
-    card.set !== 'mb1' &&
-    card.collector_number.indexOf('★') === -1
-  );
 }
 
 function reasonableId(id) {

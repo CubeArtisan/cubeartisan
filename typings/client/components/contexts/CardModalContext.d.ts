@@ -1,8 +1,8 @@
 export default CardModalContext;
-export type ContextType = import("react").Context<(card: any) => void>;
+export type ContextType = any;
 /**
  * @typedef {import('react').Context<(card: any) => void>} ContextType
  * @type ContextType
  */
-declare const CardModalContext: import("react").Context<(card: any) => void>;
+declare const CardModalContext: any;
 //# sourceMappingURL=CardModalContext.d.ts.map

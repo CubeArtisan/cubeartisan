@@ -5,11 +5,9 @@ export function CubeContextProvider({ initialCube, canEdit, ...props }: {
 }): JSX.Element;
 export namespace CubeContextProvider {
     namespace propTypes {
-        const initialCube: PropTypes.Requireable<PropTypes.InferProps<{
-            cards: PropTypes.Requireable<object[]>;
-        }>>;
-        const canEdit: PropTypes.Requireable<boolean>;
-        const cubeID: PropTypes.Validator<string>;
+        const initialCube: any;
+        const canEdit: any;
+        const cubeID: any;
     }
     namespace defaultProps {
         const initialCube_1: {};
@@ -19,16 +17,7 @@ export namespace CubeContextProvider {
     }
 }
 export default CubeContext;
-export type ContextType = React.Context<{
-    cube: any;
-    canEdit: boolean;
-    cubeID: string | null;
-    hasCustomImages: boolean;
-    setCube: ((cube: any) => void) | ((replacer: (cube: any) => any) => void);
-    updateCubeCard: (index: number, card: any) => void;
-    updateCubeCards: (cards: any[]) => void;
-}>;
-import PropTypes from "prop-types";
+export type ContextType = any;
 /**
  * @typedef {import('react').Context<{ cube: any, canEdit: Boolean, cubeID: string?, hasCustomImages: Boolean,
  *           setCube: ((cube: any) => void) | ((replacer: (cube: any) => any) => void),
@@ -36,14 +25,5 @@ import PropTypes from "prop-types";
  *           updateCubeCards: (cards: any[]) => void }>} ContextType
  * @type ContextType
  */
-declare const CubeContext: React.Context<{
-    cube: any;
-    canEdit: boolean;
-    cubeID: string | null;
-    hasCustomImages: boolean;
-    setCube: ((cube: any) => void) | ((replacer: (cube: any) => any) => void);
-    updateCubeCard: (index: number, card: any) => void;
-    updateCubeCards: (cards: any[]) => void;
-}>;
-import React from "react";
+declare const CubeContext: any;
 //# sourceMappingURL=CubeContext.d.ts.map

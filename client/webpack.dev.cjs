@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const { clientConfig: common } = require('./webpack.common.cjs');
@@ -25,7 +25,6 @@ const config = {
   mode: 'development',
   devtool: 'inline-source-map',
 };
-
 const clientConfig = merge(common, config, {
   devServer: {
     devMiddleware: {
@@ -60,4 +59,4 @@ const clientConfig = merge(common, config, {
   plugins: [new ReactRefreshWebpackPlugin()],
 });
 
-module.exports = [clientConfig];
+module.exports = clientConfig;

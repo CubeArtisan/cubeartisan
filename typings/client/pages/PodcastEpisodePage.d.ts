@@ -4,21 +4,8 @@ export function PodcastEpisodePage({ loginCallback, episode }: {
 }): JSX.Element;
 export namespace PodcastEpisodePage {
     namespace propTypes {
-        const loginCallback: PropTypes.Requireable<string>;
-        const episode: PropTypes.Validator<PropTypes.InferProps<{
-            _id: PropTypes.Validator<string>;
-            title: PropTypes.Validator<string>;
-            rss: PropTypes.Validator<string>;
-            description: PropTypes.Validator<string>;
-            date: PropTypes.Validator<string>;
-            status: PropTypes.Validator<string>;
-            owner: PropTypes.Validator<string>;
-            source: PropTypes.Validator<string>;
-            username: PropTypes.Validator<string>;
-            image: PropTypes.Validator<string>;
-            podcast: PropTypes.Validator<string>;
-            podcastname: PropTypes.Validator<string>;
-        }>>;
+        const loginCallback: any;
+        const episode: any;
     }
     namespace defaultProps {
         const loginCallback_1: string;
@@ -27,5 +14,4 @@ export namespace PodcastEpisodePage {
 }
 declare var _default: (providedReactProps: any) => JSX.Element;
 export default _default;
-import PropTypes from "prop-types";
 //# sourceMappingURL=PodcastEpisodePage.d.ts.map

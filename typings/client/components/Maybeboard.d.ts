@@ -5,8 +5,7 @@ declare function Maybeboard({ filter, ...props }: {
 }): JSX.Element;
 declare namespace Maybeboard {
     namespace propTypes {
-        const filter: PropTypes.Validator<any[][]>;
+        const filter: any;
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=Maybeboard.d.ts.map

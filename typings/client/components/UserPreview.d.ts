@@ -4,14 +4,7 @@ declare function UserPreview({ user }: {
 }): JSX.Element;
 declare namespace UserPreview {
     namespace propTypes {
-        const user: PropTypes.Validator<PropTypes.InferProps<{
-            _id: PropTypes.Validator<string>;
-            username: PropTypes.Validator<string>;
-            image: PropTypes.Validator<string>;
-            artist: PropTypes.Validator<string>;
-            users_following: PropTypes.Requireable<string[]>;
-        }>>;
+        const user: any;
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=UserPreview.d.ts.map

@@ -7,10 +7,10 @@ declare function TextEntry({ name, value, onChange, maxLength }: {
 }): JSX.Element;
 declare namespace TextEntry {
     namespace propTypes {
-        const name: PropTypes.Requireable<string>;
-        const value: PropTypes.Validator<string>;
-        const onChange: PropTypes.Validator<(...args: any[]) => any>;
-        const maxLength: PropTypes.Requireable<number>;
+        const name: any;
+        const value: any;
+        const onChange: any;
+        const maxLength: any;
     }
     namespace defaultProps {
         const name_1: string;
@@ -19,5 +19,4 @@ declare namespace TextEntry {
         export { maxLength_1 as maxLength };
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=TextEntry.d.ts.map

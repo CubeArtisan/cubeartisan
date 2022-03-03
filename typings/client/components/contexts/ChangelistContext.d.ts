@@ -7,10 +7,10 @@ export function ChangelistContextProvider({ cubeID, setOpenCollapse, initialChan
 }): JSX.Element;
 export namespace ChangelistContextProvider {
     namespace propTypes {
-        const cubeID: PropTypes.Validator<string>;
-        const setOpenCollapse: PropTypes.Validator<(...args: any[]) => any>;
-        const initialChanges: PropTypes.Requireable<PropTypes.InferProps<{}>[]>;
-        const noSave: PropTypes.Requireable<boolean>;
+        const cubeID: any;
+        const setOpenCollapse: any;
+        const initialChanges: any;
+        const noSave: any;
     }
     namespace defaultProps {
         const initialChanges_1: any[];
@@ -20,7 +20,5 @@ export namespace ChangelistContextProvider {
     }
 }
 export default ChangelistContext;
-import PropTypes from "prop-types";
-declare const ChangelistContext: React.Context<{}>;
-import React from "react";
+declare const ChangelistContext: any;
 //# sourceMappingURL=ChangelistContext.d.ts.map

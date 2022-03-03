@@ -8,22 +8,11 @@ declare function CustomizeBasicsModal({ isOpen, toggle, cube, updateBasics, onEr
 }): JSX.Element;
 declare namespace CustomizeBasicsModal {
     namespace propTypes {
-        const isOpen: PropTypes.Validator<boolean>;
-        const toggle: PropTypes.Validator<(...args: any[]) => any>;
-        const cube: PropTypes.Validator<PropTypes.InferProps<{
-            cards: PropTypes.Requireable<PropTypes.InferProps<{
-                cardName: PropTypes.Requireable<string>;
-                picks: PropTypes.Requireable<number>;
-                passes: PropTypes.Requireable<number>;
-                elo: PropTypes.Requireable<number>;
-                mainboards: PropTypes.Requireable<number>;
-                sideboards: PropTypes.Requireable<number>;
-            }>[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
-        }>>;
-        const updateBasics: PropTypes.Validator<(...args: any[]) => any>;
-        const onError: PropTypes.Validator<(...args: any[]) => any>;
+        const isOpen: any;
+        const toggle: any;
+        const cube: any;
+        const updateBasics: any;
+        const onError: any;
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=CustomizeBasicsModal.d.ts.map

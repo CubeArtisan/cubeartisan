@@ -7,11 +7,10 @@ declare function CreatePackageModal({ isOpen, toggle, onError, onSuccess }: {
 }): JSX.Element;
 declare namespace CreatePackageModal {
     namespace propTypes {
-        const isOpen: PropTypes.Validator<boolean>;
-        const toggle: PropTypes.Validator<(...args: any[]) => any>;
-        const onError: PropTypes.Validator<(...args: any[]) => any>;
-        const onSuccess: PropTypes.Validator<(...args: any[]) => any>;
+        const isOpen: any;
+        const toggle: any;
+        const onError: any;
+        const onSuccess: any;
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=CreatePackageModal.d.ts.map

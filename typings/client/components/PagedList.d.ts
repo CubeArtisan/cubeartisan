@@ -7,10 +7,10 @@ declare function PagedList({ pageSize, rows, showBottom, pageWrap }: {
 }): JSX.Element;
 declare namespace PagedList {
     namespace propTypes {
-        const pageSize: PropTypes.Requireable<number>;
-        const showBottom: PropTypes.Requireable<boolean>;
-        const rows: PropTypes.Validator<PropTypes.InferProps<{}>[]>;
-        const pageWrap: PropTypes.Requireable<(...args: any[]) => any>;
+        const pageSize: any;
+        const showBottom: any;
+        const rows: any;
+        const pageWrap: any;
     }
     namespace defaultProps {
         const pageSize_1: number;
@@ -21,5 +21,4 @@ declare namespace PagedList {
         export { pageWrap_1 as pageWrap };
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=PagedList.d.ts.map

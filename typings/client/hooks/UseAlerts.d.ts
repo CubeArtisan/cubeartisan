@@ -4,7 +4,7 @@ export function Alerts({ alerts, ...props }: {
 }): any;
 export default useAlerts;
 declare function useAlerts(): {
-    addAlert: (color: any, message: any) => void;
-    alerts: any[];
+    addAlert: any;
+    alerts: any;
 };
 //# sourceMappingURL=UseAlerts.d.ts.map

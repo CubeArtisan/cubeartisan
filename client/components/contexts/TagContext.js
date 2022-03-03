@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { createContext, useState, useCallback } from 'react';
+import React, { createContext, useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
@@ -188,17 +188,20 @@ export const TagContextProvider = ({
     [tagColors, showTagColors],
   );
 
-  const value = {
-    allSuggestions: tags,
-    addSuggestion: addTag,
-    allTags: tags.map((tag) => tag.text),
-    tagColors,
-    setTagColors: saveTagColors,
-    showTagColors,
-    setShowTagColors: saveShowTagColors,
-    cardColorClass,
-    tagColorClass,
-  };
+  const value = useMemo(
+    () => ({
+      allSuggestions: tags,
+      addSuggestion: addTag,
+      allTags: tags.map((tag) => tag.text),
+      tagColors,
+      setTagColors: saveTagColors,
+      showTagColors,
+      setShowTagColors: saveShowTagColors,
+      cardColorClass,
+      tagColorClass,
+    }),
+    [tags, addTag, tagColors, saveTagColors, showTagColors, saveShowTagColors, cardColorClass, tagColorClass],
+  );
   return <TagContext.Provider value={value}>{children}</TagContext.Provider>;
 };
 TagContextProvider.propTypes = {

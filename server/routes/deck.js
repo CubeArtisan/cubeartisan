@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import Util from '@cubeartisan/client/utils/Util.js';
+import { arraysAreEqualSets, getCubeDescription } from '@cubeartisan/client/utils/Util.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import { buildDeck } from '@cubeartisan/client/drafting/deckutil.js';
 import { render } from '@cubeartisan/server/serverjs/render.js';
@@ -386,7 +386,7 @@ export const viewDeckbuilder = async (req, res) => {
         title: `${abbreviate(cube.name)} - Deckbuilder`,
         metadata: generateMeta(
           `${process.env.SITE_NAME} Draft: ${cube.name}`,
-          Util.getCubeDescription(cube),
+          getCubeDescription(cube),
           cube.image_uri,
           `${process.env.SITE_ROOT}/deck/${req.params.id}/build`,
         ),
@@ -522,7 +522,7 @@ const updateDeckHandler = async (req, res) => {
     }
     const { colors } = await buildDeck({ cards: cardsArray, picked: deck.toObject().seats[0].deck.flat(3) });
     const colorString =
-      colors.length === 0 ? 'C' : COLOR_COMBINATIONS.find((comb) => Util.arraysAreEqualSets(comb, colors)).join('');
+      colors.length === 0 ? 'C' : COLOR_COMBINATIONS.find((comb) => arraysAreEqualSets(comb, colors)).join('');
 
     deck.seats[0].deck = newdeck.playerdeck;
     deck.seats[0].sideboard = newdeck.playersideboard;
@@ -658,7 +658,7 @@ export const viewDeck = async (req, res) => {
         title: `${abbreviate(cube.name)} - ${drafter}'s deck`,
         metadata: generateMeta(
           `${process.env.SITE_NAME} Deck: ${cube.name}`,
-          Util.getCubeDescription(cube),
+          getCubeDescription(cube),
           cube.image_uri,
           `${process.env.SITE_ROOT}/cube/deck/${req.params.id}`,
         ),

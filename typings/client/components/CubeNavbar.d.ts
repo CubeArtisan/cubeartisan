@@ -4,12 +4,11 @@ declare function CubeNavbar({ activeLink }: {
 }): JSX.Element;
 declare namespace CubeNavbar {
     namespace propTypes {
-        const activeLink: PropTypes.Requireable<string>;
+        const activeLink: any;
     }
     namespace defaultProps {
         const activeLink_1: string;
         export { activeLink_1 as activeLink };
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=CubeNavbar.d.ts.map

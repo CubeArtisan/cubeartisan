@@ -5,9 +5,8 @@ declare function CountTableRow({ label, value }: {
 }): JSX.Element;
 declare namespace CountTableRow {
     namespace propTypes {
-        const label: PropTypes.Validator<string>;
-        const value: PropTypes.Validator<number>;
+        const label: any;
+        const value: any;
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=CountTableRow.d.ts.map

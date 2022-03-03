@@ -1,4 +1,5 @@
 module.exports = (api) => {
+  console.log('Loading babel config.');
   const config = {
     presets: [
       [
@@ -9,7 +10,7 @@ module.exports = (api) => {
           },
           useBuiltIns: 'usage',
           corejs: {
-            version: '3.15.2',
+            version: '3.21',
             proposals: true,
           },
           shippedProposals: true,

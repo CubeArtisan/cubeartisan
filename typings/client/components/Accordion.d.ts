@@ -6,14 +6,13 @@ declare function Accordion({ defaultExpand, children, title }: {
 }): JSX.Element;
 declare namespace Accordion {
     namespace propTypes {
-        const defaultExpand: PropTypes.Requireable<boolean>;
-        const children: PropTypes.Validator<PropTypes.ReactNodeLike>;
-        const title: PropTypes.Validator<string>;
+        const defaultExpand: any;
+        const children: any;
+        const title: any;
     }
     namespace defaultProps {
         const defaultExpand_1: boolean;
         export { defaultExpand_1 as defaultExpand };
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=Accordion.d.ts.map

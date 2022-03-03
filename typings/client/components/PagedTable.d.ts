@@ -7,14 +7,13 @@ declare function PagedTable({ pageSize, rows, children, ...props }: {
 }): JSX.Element;
 declare namespace PagedTable {
     namespace propTypes {
-        const children: PropTypes.Validator<PropTypes.ReactElementLike>;
-        const pageSize: PropTypes.Requireable<number>;
-        const rows: PropTypes.Validator<PropTypes.InferProps<{}>[]>;
+        const children: any;
+        const pageSize: any;
+        const rows: any;
     }
     namespace defaultProps {
         const pageSize_1: number;
         export { pageSize_1 as pageSize };
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=PagedTable.d.ts.map

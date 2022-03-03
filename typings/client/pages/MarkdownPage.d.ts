@@ -3,10 +3,8 @@ export function MarkdownPage({ loginCallback }: {
 }): JSX.Element;
 export namespace MarkdownPage {
     namespace propTypes {
-        const loginCallback: PropTypes.Requireable<string>;
-        const siteCustomizations: PropTypes.Validator<PropTypes.InferProps<{
-            siteName: PropTypes.Validator<string>;
-        }>>;
+        const loginCallback: any;
+        const siteCustomizations: any;
     }
     namespace defaultProps {
         const loginCallback_1: string;
@@ -15,5 +13,4 @@ export namespace MarkdownPage {
 }
 declare var _default: (providedReactProps: any) => JSX.Element;
 export default _default;
-import PropTypes from "prop-types";
 //# sourceMappingURL=MarkdownPage.d.ts.map

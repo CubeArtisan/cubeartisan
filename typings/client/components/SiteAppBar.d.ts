@@ -4,12 +4,11 @@ declare function SiteAppBar({ loginCallback }: {
 }): JSX.Element;
 declare namespace SiteAppBar {
     namespace propTypes {
-        const loginCallback: PropTypes.Requireable<string>;
+        const loginCallback: any;
     }
     namespace defaultProps {
         const loginCallback_1: string;
         export { loginCallback_1 as loginCallback };
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=SiteAppBar.d.ts.map

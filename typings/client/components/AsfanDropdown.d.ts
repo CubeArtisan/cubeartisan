@@ -6,23 +6,13 @@ declare function AsfanDropdown({ cube, defaultFormatId, setAsfans }: {
 }): JSX.Element;
 declare namespace AsfanDropdown {
     namespace propTypes {
-        const cube: PropTypes.Validator<PropTypes.InferProps<{
-            cards: PropTypes.Validator<PropTypes.InferProps<{
-                cardID: PropTypes.Validator<string>;
-            }>[]>;
-            draft_formats: PropTypes.Validator<PropTypes.InferProps<{
-                title: PropTypes.Validator<string>;
-                _id: PropTypes.Validator<string>;
-            }>[]>;
-            defaultDraftFormat: PropTypes.Requireable<number>;
-        }>>;
-        const defaultFormatId: PropTypes.Requireable<number>;
-        const setAsfans: PropTypes.Validator<(...args: any[]) => any>;
+        const cube: any;
+        const defaultFormatId: any;
+        const setAsfans: any;
     }
     namespace defaultProps {
         const defaultFormatId_1: number;
         export { defaultFormatId_1 as defaultFormatId };
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=AsfanDropdown.d.ts.map
