@@ -16,17 +16,19 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Col, Row } from 'reactstrap';
+import { Grid, Typography } from '@mui/material';
 
 import { usePickListAndDrafterState } from '@cubeartisan/client/components/DecksPickBreakdown.js';
 import { SortableTable, compareStrings } from '@cubeartisan/client/components/SortableTable.js';
+import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import { DrafterStatePropType, DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
 import { cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
 import { convertDrafterState, getDraftbotScores } from '@cubeartisan/client/drafting/draftutil.js';
 import PickSelector from '@cubeartisan/client/components/PickSelector.js';
+import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 
 const AutocardLink = withAutocard('a');
 
@@ -50,42 +52,73 @@ const CARD_TRAIT = Object.freeze({
   },
 });
 
+const SCORE_TRAIT = Object.freeze({
+  title: 'Final Score',
+  tooltip: 'The score that combines all the oracles together.',
+});
+
 export const DraftbotBreakdownTable = ({ drafterState }) => {
   const [botResult, setBotResult] = useState(null);
+  const { mtgmlServer } = useContext(SiteCustomizationContext);
   useEffect(() => {
     (async () => {
-      const result = await getDraftbotScores(convertDrafterState(drafterState));
+      const result = await getDraftbotScores(convertDrafterState(drafterState), mtgmlServer, true);
       setBotResult(result);
     })();
-  }, [drafterState]);
-  const botEvaluations = useMemo(() => botResult ?? [], [botResult]);
+  }, [drafterState, mtgmlServer]);
+  const [oracles, weights] = useMemo(() => {
+    if ((botResult?.oracles?.length ?? 0) === 0) return [[], []];
+    const iOracles = botResult.oracles[0].map(({ title, tooltip }) => ({
+      title,
+      tooltip,
+    }));
+    const iWeights = botResult.oracles[0].map(({ title, weight }) => ({ title, weight }));
+    return [iOracles, iWeights];
+  }, [botResult]);
+  const renderWithTooltip = (iTitle) => (
+    <Tooltip text={oracles.find(({ title }) => title === iTitle)?.tooltip ?? ''}>{iTitle}</Tooltip>
+  );
+  const WEIGHT_COLUMNS = [
+    { title: 'Oracle', sortable: true, key: 'title', heading: true, renderFn: renderWithTooltip },
+    { title: 'Weight', sortable: true, key: 'weight' },
+  ];
   const rows = useMemo(
     () =>
-      botEvaluations
-        .map((botEvaluation, idx) =>
+      botResult?.oracles
+        ?.map?.((oracleResults, idx) =>
           Object.fromEntries([
             [CARD_TRAIT.title, drafterState.cards[drafterState.cardsInPack[idx]]],
-            ['Score', botEvaluation],
+            ...oracleResults.map(({ title, score }) => [title, score]),
+            [SCORE_TRAIT.title, botResult.scores[idx]],
           ]),
         )
-        .filter((row) => row[CARD_TRAIT.title]),
-    [botEvaluations, drafterState.cards, drafterState.cardsInPack],
+        ?.filter?.((row) => row[CARD_TRAIT.title]) ?? [],
+    [botResult, drafterState.cards, drafterState.cardsInPack],
   );
 
   return (
-    <SortableTable
-      className="small-table"
-      columnProps={[CARD_TRAIT, { title: 'Score', tooltip: 'Score from the draftbots, higher is better.' }].map(
-        (trait) => ({
+    <>
+      <SortableTable
+        className="small-table"
+        columnProps={[CARD_TRAIT, ...oracles, SCORE_TRAIT].map((trait) => ({
           ...trait,
           key: trait.title,
           sortable: true,
-        }),
-      )}
-      data={rows}
-      defaultSortConfig={{ key: 'Total Score', direction: 'descending' }}
-      sortFns={{ Lands: compareStrings, Card: (a, b) => compareStrings(cardName(a), cardName(b)) }}
-    />
+        }))}
+        data={rows}
+        defaultSortConfig={{ key: 'Total Score', direction: 'descending' }}
+        sortFns={{ Card: (a, b) => compareStrings(cardName(a), cardName(b)) }}
+      />
+      <Typography variant="h4">
+        {`Pack ${drafterState.packNum + 1}: Pick ${drafterState.pickNum + 1} Weights`}
+      </Typography>
+      <SortableTable
+        className="small-table"
+        columnProps={WEIGHT_COLUMNS}
+        data={weights}
+        sortFns={{ title: compareStrings }}
+      />
+    </>
   );
 };
 
@@ -97,19 +130,19 @@ const DraftbotBreakdown = (props) => {
   const { picksList, drafterState, setPickNumberFromEvent } = usePickListAndDrafterState(props);
 
   return (
-    <Row>
-      <Col xs={12} sm={3}>
+    <Grid container>
+      <Grid item xs={12} sm={3}>
         <PickSelector
           picksList={picksList}
           curPickNumber={drafterState.pickNumber}
           setPickNumberFromEvent={setPickNumberFromEvent}
         />
-      </Col>
-      <Col xs={12} sm={9}>
+      </Grid>
+      <Grid item xs={12} sm={9}>
         <h4 className="mt-5 mb-2">{`Pack ${drafterState.packNum + 1}: Pick ${drafterState.pickNum + 1} Cards`}</h4>
         <DraftbotBreakdownTable drafterState={drafterState} />
-      </Col>
-    </Row>
+      </Grid>
+    </Grid>
   );
 };
 
