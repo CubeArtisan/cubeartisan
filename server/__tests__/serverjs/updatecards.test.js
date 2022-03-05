@@ -19,7 +19,7 @@
 import rimraf from 'rimraf';
 import updatecards, { getFaceAttributeSource } from '@cubeartisan/server/serverjs/updatecards.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
-import cardutil from '@cubeartisan/client/utils/Card.js';
+import { normalizeName } from '@cubeartisan/client/utils/Card.js';
 import examplecards from '@cubeartisan/server/__tests__/fixtures/examplecards.js';
 
 const convertedExampleReversibleCard = {
@@ -230,7 +230,7 @@ const convertedExampleDoubleFacedCardFlipFace = {
   oracle_text:
     'Vigilance\n{T}: Add {G}{G}.\nAt the beginning of each upkeep, if a player cast two or more spells last turn, transform Moonscarred Werewolf.',
   _id: '6f35e364-81d9-4888-993b-acc7a53d963c2',
-  oracle_id: '52855f90-19c1-46c9-8eed-88b3c1722bb0',
+  oracle_id: '52855f90-19c1-46c9-8eed-88b3c1722bb0-2',
   cmc: 0,
   legalities: {
     Brawl: 'not_legal',
@@ -612,8 +612,8 @@ test("addCardToCatalog successfully adds a card's information to the internal st
   const card = convertedExampleCard;
   updatecards.addCardToCatalog(card);
   const { catalog } = updatecards;
-  const normalizedFullName = cardutil.normalizeName(card.full_name);
-  const normalizedName = cardutil.normalizeName(card.name);
+  const normalizedFullName = normalizeName(card.full_name);
+  const normalizedName = normalizeName(card.name);
   const expectedImagedictStructure = {
     uri: card.art_crop,
     id: card._id,

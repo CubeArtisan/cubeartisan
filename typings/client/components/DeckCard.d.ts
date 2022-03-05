@@ -52,7 +52,7 @@ declare namespace DeckCard {
                 name: PropTypes.Validator<string>;
             }>[]>;
             date: PropTypes.Requireable<string | Date>;
-            comments: PropTypes.Requireable<object[]>;
+            comments: PropTypes.Requireable<PropTypes.InferProps<{}>[]>;
             basics: PropTypes.Validator<number[]>;
         }>>;
         const seatIndex: PropTypes.Validator<string>;

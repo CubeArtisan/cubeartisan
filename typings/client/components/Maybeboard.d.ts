@@ -5,7 +5,11 @@ declare function Maybeboard({ filter, ...props }: {
 }): JSX.Element;
 declare namespace Maybeboard {
     namespace propTypes {
-        const filter: PropTypes.Validator<any[][]>;
+        const filter: PropTypes.Requireable<(...args: any[]) => any>;
+    }
+    namespace defaultProps {
+        export function filter_1(): void;
+        export { filter_1 as filter };
     }
 }
 import PropTypes from "prop-types";

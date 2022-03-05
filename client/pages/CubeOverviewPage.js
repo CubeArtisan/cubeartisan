@@ -18,7 +18,7 @@
  */
 import React, { lazy, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
 import {
   Card,
   CardHeader,
@@ -34,7 +34,7 @@ import {
   UncontrolledAlert,
   UncontrolledCollapse,
 } from 'reactstrap';
-import { LinkExternalIcon, QuestionIcon } from '@primer/octicons-react';
+import { HelpOutline } from '@mui/icons-material';
 
 import styled from '@cubeartisan/client/utils/styledHelper.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
@@ -229,7 +229,9 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
                       aria-label="Show Cube IDs"
                       className="mr-2"
                     >
-                      <QuestionIcon size="18" />
+                      <IconButton size="md">
+                        <HelpOutline />
+                      </IconButton>
                     </CubeIdModalLink>
                   </Suspense>
                 </Row>
@@ -247,11 +249,6 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
                   </i>{' '}
                   • <a href={`/cube/${cubeState._id}/rss`}>RSS</a>
                 </h6>
-                <p>
-                  <a href={`https://luckypaper.co/resources/cube-map/?cube=${cubeState._id}`}>
-                    View in Cube Map <LinkExternalIcon size={16} />
-                  </a>
-                </p>
                 {!cubeState.privatePrices && (
                   <Row noGutters className="mb-1">
                     {Number.isFinite(priceOwned) && (

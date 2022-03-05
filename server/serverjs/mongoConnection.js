@@ -11,8 +11,6 @@ export const MONGODB_CONNECTION_STRING = `mongodb://${credentials}${process.env.
 // Connect db
 export default () =>
   mongoose.connect(MONGODB_CONNECTION_STRING, {
-    useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: false,
   });

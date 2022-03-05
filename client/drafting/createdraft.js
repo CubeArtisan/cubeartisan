@@ -87,7 +87,7 @@ const standardDraftAsfan = (cards) => {
   };
 };
 
-const customDraft = (cards, duplicates = false, rng) => {
+const customDraft = (cards, rng, duplicates = false) => {
   return (cardFilters) => {
     if (cards.length === 0) {
       throw new Error('Unable to create draft: not enough cards.');
@@ -246,7 +246,7 @@ export const createDraft = (format, cubeCards, seats, user, botsOnly = false, se
   }
 
   if (format.custom === true) {
-    nextCardFn = customDraft(cubeCards, format.multiples, rng);
+    nextCardFn = customDraft(cubeCards, rng, format.multiples);
   } else {
     nextCardFn = standardDraft(cubeCards, rng);
   }

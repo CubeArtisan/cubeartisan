@@ -6,7 +6,27 @@ export function CubeContextProvider({ initialCube, canEdit, ...props }: {
 export namespace CubeContextProvider {
     namespace propTypes {
         const initialCube: PropTypes.Requireable<PropTypes.InferProps<{
-            cards: PropTypes.Requireable<object[]>;
+            cards: PropTypes.Requireable<PropTypes.InferProps<{
+                _id: PropTypes.Requireable<string>;
+                /**
+                 * @typedef {import('react').Context<{ cube: any, canEdit: Boolean, cubeID: string?, hasCustomImages: Boolean,
+                 *           setCube: ((cube: any) => void) | ((replacer: (cube: any) => any) => void),
+                 *           updateCubeCard: (index: number, card: any) => void,
+                 *           updateCubeCards: (cards: any[]) => void }>} ContextType
+                 * @type ContextType
+                 */
+                index: PropTypes.Requireable<number>;
+                imgUrl: PropTypes.Requireable<string>;
+                imgBackUrl: PropTypes.Requireable<string>;
+                cardID: PropTypes.Validator<string>;
+                colors: PropTypes.Requireable<string[]>;
+                tags: PropTypes.Requireable<string[]>;
+                details: PropTypes.Requireable<PropTypes.InferProps<{
+                    _id: PropTypes.Validator<string>;
+                    name: PropTypes.Validator<string>;
+                    image_normal: PropTypes.Validator<string>;
+                }>>;
+            }>[]>;
         }>>;
         const canEdit: PropTypes.Requireable<boolean>;
         const cubeID: PropTypes.Validator<string>;

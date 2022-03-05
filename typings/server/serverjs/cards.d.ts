@@ -10,5 +10,6 @@ declare namespace data {
     const english: {};
     const _carddict: {};
     const printedCardList: any[];
+    const fullCardList: any[];
 }
 //# sourceMappingURL=cards.d.ts.map

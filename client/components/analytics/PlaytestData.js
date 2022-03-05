@@ -45,7 +45,7 @@ const renderCardLink = (card) => (
 );
 
 const renderPercent = (val) => {
-  return <>{parseInt(val * 1000, 10) / 10}%</>;
+  return <>{(val * 100).toFixed(2)}%</>;
 };
 
 const PlaytestData = ({ cards: allCards, cubeAnalytics }) => {
@@ -74,28 +74,26 @@ const PlaytestData = ({ cards: allCards, cubeAnalytics }) => {
   console.log(data);
 
   return (
-    <>
-      <ErrorBoundary>
-        <SortableTable
-          columnProps={[
-            {
-              key: 'card',
-              title: 'Card Name',
-              heading: true,
-              sortable: true,
-              renderFn: renderCardLink,
-            },
-            { key: 'elo', title: 'Cube Elo', sortable: true, heading: false },
-            { key: 'pickrate', title: 'Pick Rate', sortable: true, heading: false, renderFn: renderPercent },
-            { key: 'picks', title: 'Pick Count', sortable: true, heading: false },
-            { key: 'mainboard', title: 'Mainboard Rate', sortable: true, heading: false, renderFn: renderPercent },
-            { key: 'mainboards', title: 'Mainboard Count', sortable: true, heading: false },
-          ]}
-          data={data}
-          sortFns={{ label: compareStrings }}
-        />
-      </ErrorBoundary>
-    </>
+    <ErrorBoundary>
+      <SortableTable
+        columnProps={[
+          {
+            key: 'card',
+            title: 'Card Name',
+            heading: true,
+            sortable: true,
+            renderFn: renderCardLink,
+          },
+          { key: 'elo', title: 'Cube Elo', sortable: true, heading: false },
+          { key: 'pickrate', title: 'Pick Rate', sortable: true, heading: false, renderFn: renderPercent },
+          { key: 'picks', title: 'Pick Count', sortable: true, heading: false },
+          { key: 'mainboard', title: 'Mainboard Rate', sortable: true, heading: false, renderFn: renderPercent },
+          { key: 'mainboards', title: 'Mainboard Count', sortable: true, heading: false },
+        ]}
+        data={data}
+        sortFns={{ label: compareStrings }}
+      />
+    </ErrorBoundary>
   );
 };
 

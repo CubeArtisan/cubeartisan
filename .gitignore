@@ -545,3 +545,12 @@ MigrationBackup/
 # End of https://www.gitignore.io/api/node,komodoedit,webstorm+all,visualstudio,visualstudiocode
 push-docker.ps1
 .direnv/
+
+# Yarn 3 ignores
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

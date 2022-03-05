@@ -42,15 +42,10 @@ const processSeat = (seatNumber, draft, cardToInt) => {
         // eslint-disable-next-line no-continue
         continue;
       }
-      const updateIndex = (cardIdx) => cardToInt[pick.cardOracleIds[cardIdx]]
+      const updateIndex = (cardIdx) => cardToInt[cardIdx]
       pick.picked = pick.picked.map(updateIndex);
       if (pick.picked.some((x) => (x ?? null) === null)) {
         winston.warn(`picked contained invalid indices ${JSON.stringify(pick.picked)}`);
-        return [];
-      }
-      pick.seen = pick.seen.map(updateIndex);
-      if (pick.seen.some((x) => (x ?? null) === null)) {
-        winston.warn(`seen contained invalid indices ${JSON.stringify(pick.seen)}`);
         return [];
       }
       pick.cardsInPack = pick.cardsInPack.map(updateIndex);
@@ -58,9 +53,12 @@ const processSeat = (seatNumber, draft, cardToInt) => {
         winston.warn(`cardsInPack contained invalid indices ${JSON.stringify(pick.cardsInPack)}`);
         return [];
       }
-      delete pick.cardOracleIds;
-      delete pick.seed;
-      delete pick.basics;
+      pick.seen = pick.seen.map(({ pack, ...rest}) => ({ pack: pack.map(updateIndex), ...rest }));
+      if (pick.seen.some(({pack}) => pack && pack.some((x) => (x ?? null) === null))) {
+        winston.warn(`seen contained invalid indices ${JSON.stringify(pick.seen)}`);
+        return [];
+      }
+      pick.basics = pick.basics.map(updateIndex)
       picks.push(pick);
       totalPicks += 1;
     }

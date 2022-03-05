@@ -44,6 +44,8 @@ import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 const AutocardA = withAutocard('a');
 const AddModal = withModal(AutocardA, AddToCubeModal);
 
+const elementWrapper = (element) => <CardBody>{element}</CardBody>;
+
 const Suggestion = ({ card, score, index, cube }) => {
   return (
     <ListGroupItem>
@@ -128,7 +130,7 @@ const Suggestions = ({ adds, cuts, loadState, cube, filter }) => {
                     <PagedList
                       pageSize={20}
                       showBottom
-                      pageWrap={(element) => <CardBody>{element}</CardBody>}
+                      pageWrap={elementWrapper}
                       rows={filteredAdds.slice(0).map(([add, index]) => (
                         <Suggestion key={add.card.cardID} index={index} card={add.card} score={add.score} cube={cube} />
                       ))}
@@ -159,7 +161,7 @@ const Suggestions = ({ adds, cuts, loadState, cube, filter }) => {
                     <PagedList
                       pageSize={20}
                       showBottom
-                      pageWrap={(element) => <CardBody>{element}</CardBody>}
+                      pageWrap={elementWrapper}
                       rows={filteredCuts.slice(0).map(([cut, index]) => (
                         <Suggestion key={cut.card.cardID} index={index} card={cut.card} score={cut.score} cube={cube} />
                       ))}

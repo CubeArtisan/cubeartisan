@@ -1,4 +1,4 @@
-const applyPendingMigrationsPre = (migrations) => async (doc) => {
+export const applyPendingMigrationsPre = (migrations) => async (doc) => {
   if (!doc) return doc;
   const { schemaVersion } = doc;
   let newDoc = doc;
@@ -13,7 +13,7 @@ const applyPendingMigrationsPre = (migrations) => async (doc) => {
   return newDoc;
 };
 
-const withMigrations = (schema, migrations) => {
+export const withMigrations = (schema, migrations) => {
   const [{ version: latestVersion }] = migrations.slice(-1);
 
   schema.add({ schemaVersion: Number });

@@ -32,7 +32,7 @@ export namespace CubeDeckPage {
                 name: PropTypes.Validator<string>;
             }>[]>;
             date: PropTypes.Requireable<string | Date>;
-            comments: PropTypes.Requireable<object[]>;
+            comments: PropTypes.Requireable<PropTypes.InferProps<{}>[]>;
             basics: PropTypes.Validator<number[]>;
         }>>;
         export { DraftPropType as draft };

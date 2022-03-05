@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /**
  * This file is part of CubeArtisan.
  *
@@ -23,16 +24,6 @@ import seedrandom from 'seedrandom';
 import { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation.js';
 import { cardType } from '@cubeartisan/client/utils/Card.js';
 import { cmcColumn, toNullableInt } from '@cubeartisan/client/utils/Util.js';
-
-let draftbotsInitialized = false;
-export const areDraftbotsInitialized = () => draftbotsInitialized;
-export const initializeMtgDraftbots = async () => {
-  const mtgdraftbots = await import('mtgdraftbots');
-  if (draftbotsInitialized) return mtgdraftbots;
-  await mtgdraftbots.initializeDraftbots();
-  draftbotsInitialized = true;
-  return mtgdraftbots;
-};
 
 export const defaultStepsForLength = (length) =>
   new Array(length)
@@ -287,25 +278,33 @@ export const getDefaultPosition = (card, picks) => {
 
 export const convertDrafterState = (drafterState) => {
   const newState = {
-    basics: drafterState.basics,
-    picked: drafterState.picked,
-    seen: drafterState.seen,
-    cardsInPack: drafterState.cardsInPack,
-    cardOracleIds: drafterState.cards.map(({ details }) => details.oracle_id),
+    basics: drafterState.basics.map((idx) => drafterState.cards[idx].details.oracle_id),
+    picked: drafterState.picked.map((idx) => drafterState.cards[idx].details.oracle_id),
+    seen: drafterState.seen.map(({ pack, ...rest }) => ({
+      pack: pack.map((idx) => drafterState.cards[idx].details.oracle_id),
+      ...rest,
+    })),
+    cardsInPack: drafterState.cardsInPack.map((idx) => drafterState.cards[idx].details.oracle_id),
     packNum: drafterState.packNum,
     numPacks: drafterState.numPacks,
     pickNum: drafterState.pickNum,
     numPicks: drafterState.packSize,
-    seed: drafterState.seed ?? Math.floor(Math.random() * 65536),
   };
   return newState;
 };
 
-export const getDraftbotScores = async (convertedDrafterState, mtgmlServer) => {
+export const getDraftbotScores = async (convertedDrafterState, mtgmlServer, includeOracles = false) => {
+  try {
   const response = await axios.post(`${mtgmlServer}/draft`, { drafterState: convertedDrafterState });
   const responseJson = response.data;
-  if (!responseJson.success) throw new Error(responseJson.error);
+  if (!responseJson.success) console.error(responseJson.error);
+  if (includeOracles) return responseJson;
+  console.log(responseJson);
   return responseJson.scores;
+  } catch (err) {
+    console.error(err);
+    return [];
+  }
 };
 
 export const getWorstOption = (scores) => {
@@ -321,19 +320,18 @@ export const getWorstOption = (scores) => {
 };
 
 export const getBestOption = (scores) => {
-  let worstIndex = 0;
-  let worstScore = scores[0];
+  let bestIndex = 0;
+  let bestScore = scores[0];
   for (let i = 1; i < scores.length; i++) {
-    if (scores[i] < worstScore) {
-      worstScore = scores[i];
-      worstIndex = i;
+    if (scores[i] > bestScore) {
+      bestScore = scores[i];
+      bestIndex = i;
     }
   }
-  return worstIndex;
+  return bestIndex;
 };
 
 export const allBotsDraft = async (draft, mtgmlServer) => {
-  console.log('mtgmlServer', mtgmlServer);
   let drafterStates = draft.seats.map((_, seatNumber) => getDrafterState({ draft, seatNumber }));
   let [
     {

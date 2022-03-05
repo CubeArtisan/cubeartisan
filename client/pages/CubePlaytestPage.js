@@ -44,6 +44,7 @@ import {
 } from 'reactstrap';
 
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
@@ -513,13 +514,6 @@ export const CubePlaytestPage = ({ cube, decks, loginCallback }) => {
     [formats, defaultDraftFormat],
   );
 
-  const StandardDraftFormatCard = () => (
-    <StandardDraftCard
-      className="mb-3"
-      onSetDefaultFormat={handleSetDefaultFormat}
-      defaultDraftFormat={defaultDraftFormat}
-    />
-  );
   return (
     <MainLayout loginCallback={loginCallback}>
       <CubeLayout cube={cube} activeLink="playtest">
@@ -543,7 +537,9 @@ export const CubePlaytestPage = ({ cube, decks, loginCallback }) => {
         <Alerts alerts={alerts} />
         <Row className="justify-content-center">
           <Col xs="12" md="6" xl="6">
-            {defaultDraftFormat === -1 && <StandardDraftFormatCard />}
+            {defaultDraftFormat === -1 && (
+              <StandardDraftCard onSetDefaultFormat={handleSetDefaultFormat} defaultDraftFormat={defaultDraftFormat} />
+            )}
             {formatsSorted.map((format) => (
               <CustomDraftCard
                 key={format._id}
@@ -555,7 +551,9 @@ export const CubePlaytestPage = ({ cube, decks, loginCallback }) => {
                 className="mb-3"
               />
             ))}
-            {defaultDraftFormat !== -1 && <StandardDraftFormatCard />}
+            {defaultDraftFormat !== -1 && (
+              <StandardDraftCard onSetDefaultFormat={handleSetDefaultFormat} defaultDraftFormat={defaultDraftFormat} />
+            )}
             <GridCard className="mb-3" />
           </Col>
           <Col xs="12" md="6" xl="6">
@@ -579,7 +577,7 @@ export const CubePlaytestPage = ({ cube, decks, loginCallback }) => {
 
 CubePlaytestPage.propTypes = {
   cube: PropTypes.shape({
-    cards: PropTypes.arrayOf(PropTypes.object),
+    cards: PropTypes.arrayOf(CardPropType),
     defaultDraftFormat: PropTypes.number,
     _id: PropTypes.string.isRequired,
     shortID: PropTypes.string.isRequired,

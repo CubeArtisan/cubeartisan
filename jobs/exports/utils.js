@@ -21,15 +21,19 @@ export const loadCardToInt = async () => {
     const cardToInt = JSON.parse(fs.readFileSync(`${folder}/${cardToIntFile}`));
     return { cardToInt, intToCard };
   }
-  const cardOracleIds = new Set(carddb.allCards().map((c) => c.oracle_id));
-  const cardToInt = Object.fromEntries(Array.from(cardOracleIds, (oracleId, index) => [oracleId, index]));
-  const intToCard = new Array(Array.from(cardOracleIds).length);
-  for (const card of carddb.allCards()) {
-    intToCard[cardToInt[card.oracle_id]] = card;
-  }
-
-  writeFile('card_to_int.json', cardToInt);
-  writeFile('int_to_card.json', intToCard);
+  const intToCard = carddb
+    .allOracleIds()
+    .map((oracleId) =>
+      carddb
+        .getVersionsByOracleId(oracleId)
+        .map((id) => carddb.cardFromId(id))
+        .filter((card) => carddb.reasonableCard(card)),
+    )
+    .filter((cards) => cards.length > 0)
+    .map(([card]) => card);
+  const cardToInt = Object.fromEntries(intToCard.map((card, index) => [card.oracle_id, index]));
+  writeFile(cardToIntFile, cardToInt);
+  writeFile(intToCardFile, intToCard);
   return { cardToInt, intToCard };
 };
 

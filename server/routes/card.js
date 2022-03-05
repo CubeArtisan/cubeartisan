@@ -40,7 +40,7 @@ import {
 const PAGE_SIZE = 96;
 
 const getAllMostReasonable = (filter) => {
-  const cards = filterCardsDetails(carddb.printedCardList, filter);
+  const cards = filterCardsDetails(carddb.fullCardList, filter);
 
   const keys = new Set();
   const filtered = [];
@@ -59,7 +59,7 @@ const searchCards = (filter, sort = 'elo', page = 0, direction = 'descending', d
   if (distinct === 'names') {
     cards.push(...getAllMostReasonable(filter));
   } else {
-    cards.push(...filterCardsDetails(carddb.printedCardList, filter));
+    cards.push(...filterCardsDetails(carddb.fullCardList, filter));
   }
 
   if (ORDERED_SORTS.includes(sort)) {
@@ -210,9 +210,9 @@ const getVersionsFromIdsHandler = (req, res) => {
   const result = Object.fromEntries(
     allVersions.map((versions) => [
       normalizeName(versions[0].name),
-      versions.map(({ _id, full_name, image_normal, image_flip, prices, elo }) => ({
+      versions.map(({ _id, full_name: fullName, image_normal, image_flip, prices, elo }) => ({
         _id,
-        version: full_name.toUpperCase().substring(full_name.indexOf('[') + 1, full_name.indexOf(']')),
+        version: fullName.toUpperCase().substring(fullName.indexOf('[') + 1, fullName.indexOf(']')),
         image_normal,
         image_flip,
         price: prices.usd,

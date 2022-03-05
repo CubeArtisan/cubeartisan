@@ -20,7 +20,7 @@ declare namespace DeckPreview {
                 name: PropTypes.Validator<string>;
             }>[]>;
             date: PropTypes.Requireable<string | Date>;
-            comments: PropTypes.Requireable<object[]>;
+            comments: PropTypes.Requireable<PropTypes.InferProps<{}>[]>;
             basics: PropTypes.Validator<number[]>;
         }>>;
         const nextURL: PropTypes.Requireable<string>;

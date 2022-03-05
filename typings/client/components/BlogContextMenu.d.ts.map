@@ -1,1 +1,1 @@
-{"version":3,"file":"BlogContextMenu.d.ts","sourceRoot":"","sources":["../../../client/components/BlogContextMenu.js"],"names":[],"mappings":";AAyBA;IACE,wBASC;IAED,eAIC;IAED,0BAIC;IAED,wBAIC;CAyBF"}
+{"version":3,"file":"BlogContextMenu.d.ts","sourceRoot":"","sources":["../../../client/components/BlogContextMenu.js"],"names":[],"mappings":";AAyBA;IACE,wBASC;IAED,eAIC;IAED,0BAIC;IAED,wBAIC;IAtBC;;;MAGC;IAqBH,sBAsBC;CACF"}

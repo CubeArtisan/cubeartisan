@@ -90,18 +90,16 @@ const DeckPreview = ({ deck, nextURL }) => {
   return (
     <div className="deck-preview" {...handleClick}>
       {canEdit && (
-        <>
-          <DeleteButton type="button" className="close" onClick={openDeleteModal}>
-            X
-            <DeckDeleteModal
-              toggle={closeDeleteModal}
-              isOpen={deleteModalOpen}
-              deckID={deck._id}
-              cubeID={deck.cube}
-              nextURL={nextURL}
-            />
-          </DeleteButton>
-        </>
+        <DeleteButton type="button" className="close" onClick={openDeleteModal}>
+          X
+          <DeckDeleteModal
+            toggle={closeDeleteModal}
+            isOpen={deleteModalOpen}
+            deckID={deck._id}
+            cubeID={deck.cube}
+            nextURL={nextURL}
+          />
+        </DeleteButton>
       )}
       <h6 className="mb-0 text-muted">
         <a href={`/deck/${deck._id}`} title={fullName}>

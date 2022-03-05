@@ -194,7 +194,67 @@ This release is composed of porting over bug fixes for bugs we carried over from
 
 - Fix an error in the ui migration that prevented the PlaytestData analytics from displaying.
 
-## v1.3.3.0
+## v1.4.0
+
+### Features
+
+- Update the draftbots to use the new model.
+
+### v1.4.1
+
+#### Bug Fixes
+
+- Fix bug with request to draftbot model that had all cards appear identical.
+
+### v1.4.2
+
+#### Bug Fixes
+
+- The last pick of a pack will no longer appear as part of the next pack.
+- DraftbotBreakdown now correctly shows the scores for each card. This will
+  have the UX improved upon in a future version of the mtgml model.
+
+#### Infrastructure
+
+- Try to speed up continuous integration tests.
+- Modify what cards get included in the exports.
+
+### v.1.4.3
+
+#### Features
+
+- Bring back the full draftbot breakdown with oracles.
+
+#### Bug Fixes
+
+- Fix bug where the bots would always pick the card they thought was worst in the pack.
+
+#### Infrastructure
+
+- Fix the ability of the jobs image to run exports/maintenance.
+
+### v1.4.4
+
+#### Features
+
+- Allow searching for cards that are digital only.
+- Finish replacing the octicons icons with material icons.
+
+#### Infrastructure
+
+ - Give the back side of DFCs a unique oracle id since they are a distinct card object.
+
+#### v1.4.4.1
+
+##### Features
+
+- Improve the scaling of the columns on the Cube Table View.
+
+##### Bug Fixes
+
+- Remove an error when opening the card modal on a cube page.
+
+## v2.0.0
 
 This release is largely about quality of life improvements and migrating to the new design library.
 While there may not be explicit features the hope is the whole site will feel easier to use and that

@@ -62,6 +62,73 @@ const HyperGeom = lazy(() => import('@cubeartisan/client/components/analytics/Hy
 const Suggestions = lazy(() => import('@cubeartisan/client/components/analytics/Suggestions.js'));
 const Asfans = lazy(() => import('@cubeartisan/client/components/analytics/Asfans.js'));
 
+const analytics = [
+  {
+    name: 'Averages',
+    component: ({ characteristics, defaultFormatId, cube, setAsfans, collection }) => (
+      <Averages
+        cards={collection}
+        characteristics={characteristics}
+        defaultFormatId={defaultFormatId}
+        cube={cube}
+        setAsfans={setAsfans}
+      />
+    ),
+  },
+  {
+    name: 'Table',
+    component: ({ defaultFormatId, cube, setAsfans, collection }) => (
+      <AnalyticTable cards={collection} setAsfans={setAsfans} defaultFormatId={defaultFormatId} cube={cube} />
+    ),
+  },
+  {
+    name: 'Asfans',
+    component: ({ collection, cube, defaultFormatId }) => (
+      <Asfans cards={collection} cube={cube} defaultFormatId={defaultFormatId} />
+    ),
+  },
+  {
+    name: 'Chart',
+    component: ({ characteristics, defaultFormatId, cube, setAsfans, collection }) => (
+      <Chart
+        cards={collection}
+        characteristics={characteristics}
+        setAsfans={setAsfans}
+        defaultFormatId={defaultFormatId}
+        cube={cube}
+      />
+    ),
+  },
+  {
+    name: 'Recommender',
+    component: ({ cube, collection, addCards, cutCards, filter, loading }) => (
+      <Suggestions cards={collection} cube={cube} adds={addCards} cuts={cutCards} filter={filter} loadState={loading} />
+    ),
+  },
+  {
+    name: 'Playtest Data',
+    component: ({ collection, cubeAnalytics }) => <Playtest cards={collection} cubeAnalytics={cubeAnalytics} />,
+  },
+  {
+    name: 'Tokens',
+    component: ({ cube }) => <Tokens cube={cube} />,
+  },
+  {
+    name: 'Tag Cloud',
+    component: ({ defaultFormatId, cube, setAsfans, collection }) => (
+      <Cloud cards={collection} setAsfans={setAsfans} defaultFormatId={defaultFormatId} cube={cube} />
+    ),
+  },
+  {
+    name: 'Pivot Table',
+    component: ({ collection, characteristics }) => <PivotTable cards={collection} characteristics={characteristics} />,
+  },
+  {
+    name: 'Hypergeometric Calculator',
+    component: ({ collection }) => <HyperGeom cards={collection} />,
+  },
+];
+
 export const CubeAnalyticsPage = ({
   cube,
   cubeID,
@@ -200,78 +267,6 @@ export const CubeAnalyticsPage = ({
     'Devotion to Green': convertToCharacteristic('Devotion to Green', (card) => cardDevotion(card, 'g').toString()),
   };
 
-  const analytics = [
-    {
-      name: 'Averages',
-      component: (collection) => (
-        <Averages
-          cards={collection}
-          characteristics={characteristics}
-          defaultFormatId={defaultFormatId}
-          cube={cube}
-          setAsfans={setAsfans}
-        />
-      ),
-    },
-    {
-      name: 'Table',
-      component: (collection) => (
-        <AnalyticTable cards={collection} setAsfans={setAsfans} defaultFormatId={defaultFormatId} cube={cube} />
-      ),
-    },
-    {
-      name: 'Asfans',
-      component: (collection) => <Asfans cards={collection} cube={cube} defaultFormatId={defaultFormatId} />,
-    },
-    {
-      name: 'Chart',
-      component: (collection) => (
-        <Chart
-          cards={collection}
-          characteristics={characteristics}
-          setAsfans={setAsfans}
-          defaultFormatId={defaultFormatId}
-          cube={cube}
-        />
-      ),
-    },
-    {
-      name: 'Recommender',
-      component: (collection, cubeObj, addCards, cutCards, loadState) => (
-        <Suggestions
-          cards={collection}
-          cube={cubeObj}
-          adds={addCards}
-          cuts={cutCards}
-          filter={filter}
-          loadState={loadState}
-        />
-      ),
-    },
-    {
-      name: 'Playtest Data',
-      component: (collection) => <Playtest cards={collection} cubeAnalytics={cubeAnalytics} />,
-    },
-    {
-      name: 'Tokens',
-      component: (_, cubeObj) => <Tokens cube={cubeObj} />,
-    },
-    {
-      name: 'Tag Cloud',
-      component: (collection) => (
-        <Cloud cards={collection} setAsfans={setAsfans} defaultFormatId={defaultFormatId} cube={cube} />
-      ),
-    },
-    {
-      name: 'Pivot Table',
-      component: (collection) => <PivotTable cards={collection} characteristics={characteristics} />,
-    },
-    {
-      name: 'Hypergeometric Calculator',
-      component: (collection) => <HyperGeom cards={collection} />,
-    },
-  ];
-
   async function getData(url = '') {
     // Default options are marked with *
     const response = await csrfFetch(url, { method: 'GET' });
@@ -347,7 +342,16 @@ export const CubeAnalyticsPage = ({
                   <CardBody>
                     <ErrorBoundary>
                       <Suspense fallback={<Spinner />}>
-                        {analytics[activeTab].component(cards, cube, adds, cuts, loading)}
+                        {analytics[activeTab].component({
+                          collection: cards,
+                          cube,
+                          toAdd: adds,
+                          toCut: cuts,
+                          loading,
+                          characteristics,
+                          defaultFormatId,
+                          setAsfans,
+                        })}
                       </Suspense>
                     </ErrorBoundary>
                   </CardBody>

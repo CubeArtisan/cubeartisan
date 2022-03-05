@@ -26,7 +26,7 @@ declare namespace DeckbuilderNavbar {
                 name: PropTypes.Validator<string>;
             }>[]>;
             date: PropTypes.Requireable<string | Date>;
-            comments: PropTypes.Requireable<object[]>;
+            comments: PropTypes.Requireable<PropTypes.InferProps<{}>[]>;
             basics: PropTypes.Validator<number[]>;
         }>>;
         const addBasics: PropTypes.Validator<(...args: any[]) => any>;

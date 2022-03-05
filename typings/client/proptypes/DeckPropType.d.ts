@@ -14,7 +14,7 @@ declare const DeckPropType: PropTypes.Requireable<PropTypes.InferProps<{
         name: PropTypes.Validator<string>;
     }>[]>;
     date: PropTypes.Requireable<string | Date>;
-    comments: PropTypes.Requireable<object[]>;
+    comments: PropTypes.Requireable<PropTypes.InferProps<{}>[]>;
     basics: PropTypes.Validator<number[]>;
 }>>;
 import PropTypes from "prop-types";

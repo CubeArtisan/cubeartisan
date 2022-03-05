@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { createContext, useCallback, useEffect, useRef, useState } from 'react';
+import React, { createContext, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Query from '@cubeartisan/client/utils/Query.js';
@@ -114,20 +114,36 @@ export const ChangelistContextProvider = ({ cubeID, setOpenCollapse, initialChan
 
   const openEditCollapse = useCallback(() => setOpenCollapse('edit'), [setOpenCollapse]);
 
-  const value = {
-    changes,
-    addValue,
-    setAddValue,
-    removeValue,
-    setRemoveValue,
-    addInputRef,
-    removeInputRef,
-    setChanges,
-    addChange,
-    addChanges,
-    removeChange,
-    openEditCollapse,
-  };
+  const value = useMemo(
+    () => ({
+      changes,
+      addValue,
+      setAddValue,
+      removeValue,
+      setRemoveValue,
+      addInputRef,
+      removeInputRef,
+      setChanges,
+      addChange,
+      addChanges,
+      removeChange,
+      openEditCollapse,
+    }),
+    [
+      changes,
+      addValue,
+      setAddValue,
+      removeValue,
+      setRemoveValue,
+      addInputRef,
+      removeInputRef,
+      setChanges,
+      addChange,
+      addChanges,
+      removeChange,
+      openEditCollapse,
+    ],
+  );
 
   return <ChangelistContext.Provider value={value} {...props} />;
 };

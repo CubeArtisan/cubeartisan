@@ -6,6 +6,12 @@ declare class ErrorBoundary extends React.Component<any, any, any> {
         stack: any;
     };
     constructor(props: any);
+    state: {
+        hasError: boolean;
+        error: string;
+        stack: string;
+    };
+    componentDidCatch(error: any, errorInfo: any): void;
 }
 declare namespace ErrorBoundary {
     namespace propTypes {

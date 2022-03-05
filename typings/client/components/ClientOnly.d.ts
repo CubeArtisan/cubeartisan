@@ -1,3 +1,5 @@
 export default ClientOnly;
-declare function ClientOnly(props: any): JSX.Element;
+declare function ClientOnly({ children }: {
+    children: any;
+}): any;
 //# sourceMappingURL=ClientOnly.d.ts.map

@@ -26,9 +26,8 @@ import es from 'event-stream';
 import fetch from 'node-fetch';
 import { exec } from 'child_process';
 
-import cardutil from '@cubeartisan/client/utils/Card.js';
+import { normalizeName, reasonableCard } from '@cubeartisan/client/utils/Card.js';
 import { binaryInsert, turnToTree } from '@cubeartisan/server/serverjs/util.js';
-import carddb from '@cubeartisan/server/serverjs/cards.js';
 
 const catalog = {};
 
@@ -168,8 +167,8 @@ async function downloadDefaultCards(basePath = 'private', defaultSourcePath = nu
 
 function addCardToCatalog(card, isExtra) {
   catalog.dict[card._id] = card;
-  const normalizedFullName = cardutil.normalizeName(card.full_name);
-  const normalizedName = cardutil.normalizeName(card.name);
+  const normalizedFullName = normalizeName(card.full_name);
+  const normalizedName = normalizeName(card.name);
   catalog.imagedict[normalizedFullName] = {
     uri: card.art_crop,
     artist: card.artist,
@@ -182,7 +181,7 @@ function addCardToCatalog(card, isExtra) {
     if (card.image_flip) {
       cardImages.image_flip = card.image_flip;
     }
-    if (carddb.reasonableCard(card)) {
+    if (reasonableCard(card)) {
       catalog.cardimages[normalizedName] = cardImages;
     }
   }
@@ -306,14 +305,13 @@ function getTokens(card, catalogCard) {
       // find the ability that generates the token to reduce the amount of text to get confused by.
       const abilities = catalogCard.oracle_text.split('\n');
       for (const ability of abilities) {
-        if (ability.includes(' token')) {
+        if (ability.includes(' token') && ability.includes('create')) {
           const reString =
             '((?:(?:([A-Za-z ,]+), a (legendary))|[Xa-z ]+))(?: ([0-9X]+/[0-9X]+))? ((?:red|colorless|green|white|black|blue| and )+)?(?: ?((?:(?:[A-Z][a-z]+ )+)|[a-z]+))?((?:legendary|artifact|creature|Aura|enchantment| )*)?tokens?( that are copies of)?(?: named ((?:[A-Z][a-z]+ ?|of ?)+(?:\'s \\w+)?)?)?(?:(?: with |\\. It has )?((?:(".*")|[a-z]+| and )+)+)?(?:.*(a copy of))?';
           const re = new RegExp(reString);
           const result = re.exec(ability);
           // eslint-disable-next-line no-continue
-          if (typeof result === 'undefined') continue;
-
+          if (!result) continue;
           let tokenPowerAndToughness = result[4];
           const tokenColorString = result[5] ? result[5] : result[1];
           const tokenSubTypesString = result[6] ? result[6].trim() : '';
@@ -699,7 +697,7 @@ function convertCard(card, isExtra) {
   newcard.isToken = card.layout === 'token';
   newcard.border_color = card.border_color;
   newcard.name = name;
-  newcard.name_lower = cardutil.normalizeName(name);
+  newcard.name_lower = normalizeName(name);
   newcard.full_name = `${name} [${card.set}-${card.collector_number}]`;
   newcard.artist = card.artist;
   newcard.scryfall_uri = card.scryfall_uri;
@@ -711,7 +709,7 @@ function convertCard(card, isExtra) {
     newcard.oracle_text = card.card_faces.map((face) => face.oracle_text).join('\n');
   }
   newcard._id = convertId(card, isExtra);
-  newcard.oracle_id = faceAttributeSource.oracle_id ?? card.oracle_id;
+  newcard.oracle_id = `${faceAttributeSource.oracle_id ?? card.oracle_id}${isExtra ? '-2' : ''}`;
   newcard.cmc = convertCmc(card, isExtra, faceAttributeSource);
   newcard.legalities = convertLegalities(card, isExtra);
   newcard.parsed_cost = convertParsedCost(card, isExtra);
@@ -777,7 +775,7 @@ function addLanguageMapping(card) {
     }
   }
 
-  const name = cardutil.normalizeName(convertName(card));
+  const name = normalizeName(convertName(card));
   for (const otherId of catalog.nameToId[name]) {
     const otherCard = catalog.dict[otherId];
     if (card.set === otherCard.set && card.collector_number === otherCard.collector_number) {
@@ -839,22 +837,20 @@ async function saveAllCards(ratings = [], histories = [], basePath = 'private', 
   }
 
   winston.info('Processing cards...');
-  await new Promise((resolve) =>
-    fs
-      .createReadStream(defaultPath || path.resolve(basePath, 'cards.json'))
+  await new Promise((resolve) => {
+    fs.createReadStream(defaultPath || path.resolve(basePath, 'cards.json'))
       .pipe(JSONStream.parse('*'))
       .pipe(es.mapSync(saveEnglishCard))
-      .on('close', resolve),
-  );
+      .on('close', resolve);
+  });
 
   winston.info('Creating language mappings...');
-  await new Promise((resolve) =>
-    fs
-      .createReadStream(allPath || path.resolve(basePath, 'all-cards.json'))
+  await new Promise((resolve) => {
+    fs.createReadStream(allPath || path.resolve(basePath, 'all-cards.json'))
       .pipe(JSONStream.parse('*'))
       .pipe(es.mapSync(addLanguageMapping))
-      .on('close', resolve),
-  );
+      .on('close', resolve);
+  });
 
   winston.info('Saving cardbase files...');
   await writeCatalog(basePath);
@@ -900,7 +896,9 @@ async function updateCardbase(ratings, histories, basePath = 'private', defaultP
 }
 
 const execPromise = async (cmd) =>
-  new Promise((resolve) => exec(cmd, (error, stdout, stderr) => resolve([error, stdout, stderr])));
+  new Promise((resolve) => {
+    exec(cmd, (error, stdout, stderr) => resolve([error, stdout, stderr]));
+  });
 
 async function downloadCardbase(basePath = './private') {
   if (!fs.existsSync(basePath)) {

@@ -20,6 +20,7 @@ import fs from 'fs';
 import winston from 'winston';
 import { SortFunctions, ORDERED_SORTS } from '@cubeartisan/client/utils/Sort.js';
 import updatecards from '@cubeartisan/server/serverjs/updatecards.js';
+import { reasonableCard } from '@cubeartisan/client/utils/Card.js';
 
 // eslint-disable-next-line
 let data = {
@@ -33,6 +34,7 @@ let data = {
   english: {},
   _carddict: {},
   printedCardList: [], // for card filters
+  fullCardList: [],
 };
 
 const fileToAttribute = {
@@ -161,7 +163,8 @@ async function initializeCardDb(dataRoot, skipWatchers, attempt = 0) {
     throw err;
   }
   // cache cards used in card filters
-  data.printedCardList = Object.values(data._carddict).filter((card) => !card.digital && !card.isToken);
+  data.fullCardList = Object.values(data._carddict);
+  data.printedCardList = data.fullCardList.filter((card) => !card.digital && !card.isToken);
   return winston.info('Finished loading carddb.');
 }
 
@@ -176,20 +179,7 @@ function unloadCardDb() {
     }
   }
   delete data.printedCardList;
-}
-
-function reasonableCard(card) {
-  return (
-    !card.promo &&
-    !card.digital &&
-    !card.isToken &&
-    card.border_color !== 'gold' &&
-    card.language === 'en' &&
-    card.tcgplayer_id &&
-    card.set !== 'myb' &&
-    card.set !== 'mb1' &&
-    card.collector_number.indexOf('★') === -1
-  );
+  delete data.fullCardList;
 }
 
 function reasonableId(id) {

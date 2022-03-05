@@ -4,6 +4,11 @@ declare class BlogContextMenu extends React.Component<any, any, any> {
     toggle(): void;
     toggleDeleteModal(): void;
     openDeleteModal(): void;
+    state: {
+        dropdownOpen: boolean;
+        deleteModalOpen: boolean;
+    };
+    render(): JSX.Element;
 }
 declare namespace BlogContextMenu {
     namespace propTypes {

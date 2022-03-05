@@ -125,6 +125,7 @@ export namespace CARD_CATEGORY_DETECTORS {
 }
 export const CARD_CATEGORIES: string[];
 export function makeSubtitle(cards: any): string;
+export function reasonableCard(card: any): boolean;
 declare namespace _default {
     export { cardTags };
     export { cardFinish };

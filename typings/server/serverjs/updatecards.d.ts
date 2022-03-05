@@ -61,7 +61,7 @@ declare function convertCard(card: any, isExtra: any): {
     rarity: any;
     oracle_text: any;
     _id: any;
-    oracle_id: any;
+    oracle_id: string;
     cmc: any;
     legalities: {
         Legacy: any;

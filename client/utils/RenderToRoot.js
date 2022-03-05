@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
+import React, { useMemo } from 'react';
 import ReactDOM from 'react-dom';
 
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
@@ -29,12 +29,20 @@ import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/
 const RenderToRoot = (Element) => {
   const defaultReactProps = typeof window !== 'undefined' ? window?.reactProps ?? {} : {};
   const Wrapped = (providedReactProps) => {
-    const reactProps = { ...defaultReactProps, ...providedReactProps };
+    const reactProps = useMemo(() => ({ ...defaultReactProps, ...providedReactProps }), [providedReactProps]);
+    const defaultUserProps = useMemo(
+      () =>
+        reactProps?.user ?? {
+          _id: null,
+          username: 'Anonymous User',
+          notifications: [],
+          theme: null,
+        },
+      [reactProps],
+    );
     return (
       <ErrorBoundary className="mt-3">
-        <UserContext.Provider
-          value={reactProps?.user ?? { _id: null, username: 'Anonymous User', notifications: [], theme: null }}
-        >
+        <UserContext.Provider value={defaultUserProps}>
           <SiteCustomizationContext.Provider value={reactProps?.siteCustomizations ?? DEFAULT_SITE_CUSTOMIZATIONS}>
             <DisplayContextProvider>
               <Element {...reactProps} />

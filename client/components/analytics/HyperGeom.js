@@ -18,7 +18,7 @@
  */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import ChartComponent from 'react-chartjs-2';
+import { Chart as ChartJS } from 'react-chartjs-2';
 import styled from '@cubeartisan/client/utils/styledHelper.js';
 import { Button } from '@mui/material';
 import { Col, Row, Table, InputGroup, InputGroupAddon, InputGroupText, CustomInput, Input, Form } from 'reactstrap';
@@ -286,7 +286,7 @@ const HyperGeom = () => {
         {data.length > 0 && (
           <>
             <h5>Cumulative Distributions</h5>
-            <ChartComponent options={options} data={plotdata} type="line" />
+            <ChartJS options={options} data={plotdata} type="line" />
             <InputGroup className="mb-3">
               <InputGroupAddon addonType="prepend">
                 <InputGroupText>X-Axis: </InputGroupText>
