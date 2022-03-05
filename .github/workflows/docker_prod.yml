@@ -8,7 +8,7 @@ jobs:
     name: Create Release, Build Docker, and Deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Parse Release Notes
         run: |
           sed -n "{1! G;$ p;h}" RELEASE_NOTES.md | sed '/#\+ v/q' | sed -n "{1! G;$ p;h}" > THIS_RELEASE_NOTES.md
