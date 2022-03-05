@@ -61,7 +61,7 @@
     "react-tag-input": "^6.8.0",
     "react-tagcloud": "^2.2.0",
     "react-timeago": "^6.2.1",
-    "reactstrap": "^8.10.1",
+    "reactstrap": "^9.0.1",
     "seedrandom": "^3.0.5",
     "shuffle-seed": "^1.1.6",
     "socket.io-client": "^4.4.1",
