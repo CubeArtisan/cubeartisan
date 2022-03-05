@@ -6,8 +6,8 @@
 
 let
 
-  yarnPath = ./server/.yarn/releases/yarn-3.2.0.cjs;
-  lockfile = ./server/yarn.lock;
+  yarnPath = ./.yarn/releases/yarn-3.2.0.cjs;
+  lockfile = ./yarn.lock;
   cacheFolder = ".yarn/cache";
 
   # Call overrideAttrs on a derivation if a function is provided.

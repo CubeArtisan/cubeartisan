@@ -1,4 +1,4 @@
-FROM node:16.10
+FROM node:16.11.1
 
 LABEL org.containers.image.url=https://github.com/CubeArtisan/cubeartisan
 
@@ -19,7 +19,7 @@ COPY ./jobs/package.json         jobs/package.json
 COPY ./yarn.lock                 yarn.lock
 COPY ./.yarnrc.yml               .yarnrc.yml
 
-RUN yarn install --frozen-lockfile --production=false || yarn install --frozen-lockfile --production=false || yarn install --frozen-lockfile --production=false; yarn cache clean
+RUN yarn install --immutable && yarn cache clean
 
 COPY ./client/babel.config.cjs   client/babel.config.cjs
 COPY ./client/webpack.common.cjs client/webpack.common.cjs
@@ -47,5 +47,4 @@ COPY ./server/scripts            server/scripts/
 COPY ./server/serverjs           server/serverjs/
 COPY ./server/views              server/views/
 
-# RUN yarn install --frozen-lockfile --production=true || yarn install --frozen-lockfile --production=true || yarn install --frozen-lockfile --production=true; yarn cache clean
 ENTRYPOINT sh -c 'yarn server'
