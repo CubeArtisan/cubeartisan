@@ -9,11 +9,12 @@ declare function SelectField({ name, humanName, value, onChange, options, ...pro
 }): JSX.Element;
 declare namespace SelectField {
     namespace propTypes {
-        const name: any;
-        const humanName: any;
-        const value: any;
-        const onChange: any;
-        const options: any;
+        const name: PropTypes.Validator<string>;
+        const humanName: PropTypes.Validator<string>;
+        const value: PropTypes.Validator<string>;
+        const onChange: PropTypes.Validator<(...args: any[]) => any>;
+        const options: PropTypes.Validator<string[]>;
     }
 }
+import PropTypes from "prop-types";
 //# sourceMappingURL=SelectField.d.ts.map

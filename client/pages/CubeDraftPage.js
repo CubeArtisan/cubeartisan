@@ -21,6 +21,7 @@ import PropTypes from 'prop-types';
 import { io } from 'socket.io-client';
 import { Button, ButtonGroup, CircularProgress, Divider, Grid, Paper, Stack, Toolbar, Typography } from '@mui/material';
 
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
 import DeckStacks from '@cubeartisan/client/components/DeckStacks.js';
@@ -145,7 +146,7 @@ const Pack = ({
 };
 
 Pack.propTypes = {
-  pack: PropTypes.arrayOf(PropTypes.object).isRequired,
+  pack: PropTypes.arrayOf(CardPropType).isRequired,
   packNumber: PropTypes.number.isRequired,
   pickNumber: PropTypes.number.isRequired,
   instructions: PropTypes.string,

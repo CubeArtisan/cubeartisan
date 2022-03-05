@@ -44,6 +44,7 @@ import {
 } from 'reactstrap';
 
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
@@ -576,7 +577,7 @@ export const CubePlaytestPage = ({ cube, decks, loginCallback }) => {
 
 CubePlaytestPage.propTypes = {
   cube: PropTypes.shape({
-    cards: PropTypes.arrayOf(PropTypes.object),
+    cards: PropTypes.arrayOf(CardPropType),
     defaultDraftFormat: PropTypes.number,
     _id: PropTypes.string.isRequired,
     shortID: PropTypes.string.isRequired,

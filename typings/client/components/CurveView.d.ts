@@ -5,7 +5,8 @@ declare function CurveView({ cards, ...props }: {
 }): JSX.Element;
 declare namespace CurveView {
     namespace propTypes {
-        const cards: any;
+        const cards: PropTypes.Validator<PropTypes.InferProps<{}>[]>;
     }
 }
+import PropTypes from "prop-types";
 //# sourceMappingURL=CurveView.d.ts.map

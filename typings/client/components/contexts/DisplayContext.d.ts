@@ -5,8 +5,8 @@ export function DisplayContextProvider({ cubeID, defaultNumCols, ...props }: {
 }): JSX.Element;
 export namespace DisplayContextProvider {
     namespace propTypes {
-        const cubeID: any;
-        const defaultNumCols: any;
+        const cubeID: PropTypes.Requireable<string>;
+        const defaultNumCols: PropTypes.Requireable<number>;
     }
     namespace defaultProps {
         const cubeID_1: string;
@@ -29,7 +29,8 @@ export type DisplayContextValue = {
     theme: ThemeType;
     updateTheme: (theme?: ThemeType) => void;
 };
-export type ContextType = any;
+export type ContextType = import('react').Context<DisplayContextValue>;
+import PropTypes from "prop-types";
 /**
  * @typedef {'default' | 'dark'} ThemeType
  * @typedef DisplayContextValue
@@ -48,5 +49,6 @@ export type ContextType = any;
  * @typedef {import('react').Context<DisplayContextValue>} ContextType
  * @type ContextType
  */
-declare const DisplayContext: any;
+declare const DisplayContext: React.Context<DisplayContextValue>;
+import React from "react";
 //# sourceMappingURL=DisplayContext.d.ts.map

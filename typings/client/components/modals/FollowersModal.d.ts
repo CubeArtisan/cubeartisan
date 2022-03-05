@@ -6,9 +6,12 @@ declare function FollowersModal({ followers, isOpen, toggle }: {
 }): JSX.Element;
 declare namespace FollowersModal {
     namespace propTypes {
-        const followers: any;
-        const isOpen: any;
-        const toggle: any;
+        const followers: PropTypes.Validator<PropTypes.InferProps<{
+            _id: PropTypes.Validator<string>;
+        }>[]>;
+        const isOpen: PropTypes.Validator<boolean>;
+        const toggle: PropTypes.Validator<(...args: any[]) => any>;
     }
 }
+import PropTypes from "prop-types";
 //# sourceMappingURL=FollowersModal.d.ts.map

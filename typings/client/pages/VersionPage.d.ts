@@ -5,9 +5,9 @@ export function VersionPage({ version, host, loginCallback }: {
 }): JSX.Element;
 export namespace VersionPage {
     namespace propTypes {
-        const version: any;
-        const host: any;
-        const loginCallback: any;
+        const version: PropTypes.Validator<string>;
+        const host: PropTypes.Validator<string>;
+        const loginCallback: PropTypes.Requireable<string>;
     }
     namespace defaultProps {
         const loginCallback_1: string;
@@ -16,4 +16,5 @@ export namespace VersionPage {
 }
 declare var _default: (providedReactProps: any) => JSX.Element;
 export default _default;
+import PropTypes from "prop-types";
 //# sourceMappingURL=VersionPage.d.ts.map

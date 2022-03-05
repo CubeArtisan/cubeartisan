@@ -7,10 +7,11 @@ declare function Tab({ tab, setTab, index, children }: {
 }): JSX.Element;
 declare namespace Tab {
     namespace propTypes {
-        const tab: any;
-        const setTab: any;
-        const index: any;
-        const children: any;
+        const tab: PropTypes.Validator<string>;
+        const setTab: PropTypes.Validator<(...args: any[]) => any>;
+        const index: PropTypes.Validator<string>;
+        const children: PropTypes.Validator<PropTypes.ReactNodeLike>;
     }
 }
+import PropTypes from "prop-types";
 //# sourceMappingURL=Tab.d.ts.map

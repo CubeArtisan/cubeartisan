@@ -1,3 +1,3 @@
 export default FoilCardImage;
-declare const FoilCardImage: any;
+declare const FoilCardImage: import("react").ForwardRefExoticComponent<import("react").RefAttributes<any>>;
 //# sourceMappingURL=FoilCardImage.d.ts.map

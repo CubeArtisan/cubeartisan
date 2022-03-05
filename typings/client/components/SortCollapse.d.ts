@@ -12,14 +12,14 @@ declare function SortCollapse({ defaultPrimarySort, defaultSecondarySort, defaul
 }): JSX.Element;
 declare namespace SortCollapse {
     namespace propTypes {
-        const defaultPrimarySort: any;
-        const defaultSecondarySort: any;
-        const defaultTertiarySort: any;
-        const defaultQuaternarySort: any;
-        const defaultShowUnsorted: any;
-        const defaultSorts: any;
-        const cubeDefaultShowUnsorted: any;
-        const setSorts: any;
+        const defaultPrimarySort: PropTypes.Requireable<string>;
+        const defaultSecondarySort: PropTypes.Requireable<string>;
+        const defaultTertiarySort: PropTypes.Requireable<string>;
+        const defaultQuaternarySort: PropTypes.Requireable<string>;
+        const defaultShowUnsorted: PropTypes.Requireable<string>;
+        const defaultSorts: PropTypes.Requireable<string[]>;
+        const cubeDefaultShowUnsorted: PropTypes.Requireable<boolean>;
+        const setSorts: PropTypes.Validator<(...args: any[]) => any>;
     }
     namespace defaultProps {
         const defaultPrimarySort_1: string;
@@ -38,4 +38,5 @@ declare namespace SortCollapse {
         export { cubeDefaultShowUnsorted_1 as cubeDefaultShowUnsorted };
     }
 }
+import PropTypes from "prop-types";
 //# sourceMappingURL=SortCollapse.d.ts.map

@@ -6,9 +6,9 @@ declare function CubeSearchNavBar({ query, order, title }: {
 }): JSX.Element;
 declare namespace CubeSearchNavBar {
     namespace propTypes {
-        const query: any;
-        const order: any;
-        const title: any;
+        const query: PropTypes.Requireable<string>;
+        const order: PropTypes.Requireable<string>;
+        const title: PropTypes.Requireable<string>;
     }
     namespace defaultProps {
         const title_1: any;
@@ -19,4 +19,5 @@ declare namespace CubeSearchNavBar {
         export { order_1 as order };
     }
 }
+import PropTypes from "prop-types";
 //# sourceMappingURL=CubeSearchNavBar.d.ts.map

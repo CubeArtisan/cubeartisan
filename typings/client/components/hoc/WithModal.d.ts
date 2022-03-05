@@ -6,12 +6,13 @@ declare function withModal(Tag: any, ModalTag: any): {
         modalProps: any;
     }): JSX.Element;
     propTypes: {
-        children: any;
-        modalProps: any;
+        children: PropTypes.Validator<PropTypes.ReactNodeLike>;
+        modalProps: PropTypes.Requireable<PropTypes.InferProps<{}>>;
     };
     defaultProps: {
         modalProps: {};
     };
     displayName: string;
 };
+import PropTypes from "prop-types";
 //# sourceMappingURL=WithModal.d.ts.map

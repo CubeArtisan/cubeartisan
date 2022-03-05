@@ -6,13 +6,14 @@ declare function CommentsSection({ parent, parentType, collapse }: {
 }): JSX.Element;
 declare namespace CommentsSection {
     namespace propTypes {
-        const parent: any;
-        const parentType: any;
-        const collapse: any;
+        const parent: PropTypes.Validator<string>;
+        const parentType: PropTypes.Validator<string>;
+        const collapse: PropTypes.Requireable<boolean>;
     }
     namespace defaultProps {
         const collapse_1: boolean;
         export { collapse_1 as collapse };
     }
 }
+import PropTypes from "prop-types";
 //# sourceMappingURL=CommentsSection.d.ts.map

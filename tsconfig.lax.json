@@ -22,5 +22,5 @@
     ]
   },
   "include": ["server/**/*", "client/**/*", "jobs/**/*"],
-  "exclude": ["**/dist/**/*", "**/coverage/**/*"]
+  "exclude": ["**/dist/**/*", "**/coverage/**/*", "**/node_modules/**/*"]
 }

@@ -3,7 +3,7 @@ export function BrowsePackagesPage({ loginCallback }: {
 }): JSX.Element;
 export namespace BrowsePackagesPage {
     namespace propTypes {
-        const loginCallback: any;
+        const loginCallback: PropTypes.Requireable<string>;
     }
     namespace defaultProps {
         const loginCallback_1: string;
@@ -12,4 +12,5 @@ export namespace BrowsePackagesPage {
 }
 declare var _default: (providedReactProps: any) => JSX.Element;
 export default _default;
+import PropTypes from "prop-types";
 //# sourceMappingURL=BrowsePackagesPage.d.ts.map

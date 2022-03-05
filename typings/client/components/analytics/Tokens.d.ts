@@ -4,7 +4,16 @@ declare function Tokens({ cube }: {
 }): JSX.Element;
 declare namespace Tokens {
     namespace propTypes {
-        const cube: any;
+        const cube: PropTypes.Validator<PropTypes.InferProps<{
+            cards: PropTypes.Requireable<PropTypes.InferProps<{
+                details: PropTypes.Validator<PropTypes.InferProps<{
+                    _id: PropTypes.Validator<string>;
+                    name: PropTypes.Validator<string>;
+                }>>;
+            }>[]>;
+            draft_formats: PropTypes.Requireable<PropTypes.InferProps<{}>[]>;
+        }>>;
     }
 }
+import PropTypes from "prop-types";
 //# sourceMappingURL=Tokens.d.ts.map

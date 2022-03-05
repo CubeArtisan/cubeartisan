@@ -5,8 +5,8 @@ export function SortContextProvider({ defaultSorts, defaultShowOther, ...props }
 }): JSX.Element;
 export namespace SortContextProvider {
     namespace propTypes {
-        const defaultSorts: any;
-        const defaultShowOther: any;
+        const defaultSorts: PropTypes.Requireable<string[]>;
+        const defaultShowOther: PropTypes.Requireable<boolean>;
     }
     namespace defaultProps {
         export { DEFAULT_SORTS as defaultSorts };
@@ -22,6 +22,15 @@ export type SortContextValuesNoSetter = {
     quaternary?: string;
     showOther?: boolean;
 };
+import PropTypes from "prop-types";
 declare const DEFAULT_SORTS: string[];
-declare const SortContext: any;
+declare const SortContext: React.Context<{
+    changeSort: (newValues: SortContextValuesNoSetter) => SortContextValuesNoSetter;
+    primary?: string;
+    secondary?: string;
+    tertiary?: string;
+    quaternary?: string;
+    showOther?: boolean;
+}>;
+import React from "react";
 //# sourceMappingURL=SortContext.d.ts.map

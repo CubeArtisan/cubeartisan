@@ -26,7 +26,8 @@ const DeckPropType = PropTypes.shape({
   cubeOwner: PropTypes.string,
   seats: PropTypes.arrayOf(DraftSeatPropType),
   date: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string]),
-  comments: PropTypes.arrayOf(PropTypes.object),
+  // TODO: Define commentproptype.
+  comments: PropTypes.arrayOf(PropTypes.shape({})),
   basics: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
 });
 

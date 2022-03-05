@@ -12,11 +12,12 @@ declare function CustomDraftFormatModal({ isOpen, toggle, formatIndex, format, s
 }): JSX.Element;
 declare namespace CustomDraftFormatModal {
     namespace propTypes {
-        const isOpen: any;
-        const toggle: any;
-        const formatIndex: any;
-        const format: any;
-        const setFormat: any;
+        const isOpen: PropTypes.Validator<boolean>;
+        const toggle: PropTypes.Validator<(...args: any[]) => any>;
+        const formatIndex: PropTypes.Validator<number>;
+        const format: PropTypes.Validator<object>;
+        const setFormat: PropTypes.Validator<(...args: any[]) => any>;
     }
 }
+import PropTypes from "prop-types";
 //# sourceMappingURL=CustomDraftFormatModal.d.ts.map

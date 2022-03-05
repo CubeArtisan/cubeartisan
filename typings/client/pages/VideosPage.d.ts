@@ -6,10 +6,23 @@ export function VideosPage({ loginCallback, videos, count, page }: {
 }): JSX.Element;
 export namespace VideosPage {
     namespace propTypes {
-        const loginCallback: any;
-        const videos: any;
-        const count: any;
-        const page: any;
+        const loginCallback: PropTypes.Requireable<string>;
+        const videos: PropTypes.Validator<PropTypes.InferProps<{
+            _id: PropTypes.Validator<string>;
+            title: PropTypes.Validator<string>;
+            body: PropTypes.Validator<string>;
+            date: PropTypes.Validator<string>;
+            status: PropTypes.Validator<string>;
+            owner: PropTypes.Validator<string>;
+            username: PropTypes.Validator<string>;
+            url: PropTypes.Validator<string>;
+            artist: PropTypes.Validator<string>;
+            short: PropTypes.Validator<string>;
+            image: PropTypes.Validator<string>;
+            imagename: PropTypes.Validator<string>;
+        }>[]>;
+        const count: PropTypes.Validator<number>;
+        const page: PropTypes.Validator<number>;
     }
     namespace defaultProps {
         const loginCallback_1: string;
@@ -18,4 +31,5 @@ export namespace VideosPage {
 }
 declare var _default: (providedReactProps: any) => JSX.Element;
 export default _default;
+import PropTypes from "prop-types";
 //# sourceMappingURL=VideosPage.d.ts.map

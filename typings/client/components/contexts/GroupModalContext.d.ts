@@ -1,3 +1,3 @@
 export default GroupModalContext;
-declare const GroupModalContext: any;
+declare const GroupModalContext: import("react").Context<any>;
 //# sourceMappingURL=GroupModalContext.d.ts.map

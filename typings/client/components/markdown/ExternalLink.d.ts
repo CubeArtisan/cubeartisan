@@ -5,7 +5,8 @@ declare function ExternalLink({ href, ...props }: {
 }): JSX.Element;
 declare namespace ExternalLink {
     namespace propTypes {
-        const href: any;
+        const href: PropTypes.Validator<string>;
     }
 }
+import PropTypes from "prop-types";
 //# sourceMappingURL=ExternalLink.d.ts.map

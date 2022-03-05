@@ -7,10 +7,11 @@ declare function ConfirmDeleteModal({ isOpen, toggle, text, submitDelete }: {
 }): JSX.Element;
 declare namespace ConfirmDeleteModal {
     namespace propTypes {
-        const toggle: any;
-        const submitDelete: any;
-        const isOpen: any;
-        const text: any;
+        const toggle: PropTypes.Validator<(...args: any[]) => any>;
+        const submitDelete: PropTypes.Validator<(...args: any[]) => any>;
+        const isOpen: PropTypes.Validator<boolean>;
+        const text: PropTypes.Validator<string>;
     }
 }
+import PropTypes from "prop-types";
 //# sourceMappingURL=ConfirmDeleteModal.d.ts.map

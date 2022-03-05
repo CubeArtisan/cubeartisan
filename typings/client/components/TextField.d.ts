@@ -9,11 +9,12 @@ declare function TextField({ name, humanName, placeholder, value, onChange, ...p
 }): JSX.Element;
 declare namespace TextField {
     namespace propTypes {
-        const name: any;
-        const humanName: any;
-        const placeholder: any;
-        const value: any;
-        const onChange: any;
+        const name: PropTypes.Validator<string>;
+        const humanName: PropTypes.Validator<string>;
+        const placeholder: PropTypes.Validator<string>;
+        const value: PropTypes.Validator<string>;
+        const onChange: PropTypes.Validator<(...args: any[]) => any>;
     }
 }
+import PropTypes from "prop-types";
 //# sourceMappingURL=TextField.d.ts.map

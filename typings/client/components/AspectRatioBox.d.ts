@@ -13,12 +13,13 @@ declare function AspectRatioBox({ ratio, className, ...props }: {
 }): JSX.Element;
 declare namespace AspectRatioBox {
     namespace propTypes {
-        const ratio: any;
-        const className: any;
+        const ratio: PropTypes.Validator<number>;
+        const className: PropTypes.Requireable<string>;
     }
     namespace defaultProps {
         const className_1: string;
         export { className_1 as className };
     }
 }
+import PropTypes from "prop-types";
 //# sourceMappingURL=AspectRatioBox.d.ts.map

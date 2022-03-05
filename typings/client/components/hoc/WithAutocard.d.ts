@@ -14,7 +14,8 @@ export type AutocardProps = {
  * @returns {import('react').ForwardRefExoticComponent<AutocardProps & P>}
  */
 declare function withAutocard<P extends {
-    children: any;
-    ref: any;
-}>(Tag: any): any;
+    children: import('react').ReactNode;
+    ref: import('react').ForwardedRef<any>;
+}>(Tag: React.ComponentType<P>): React.ForwardRefExoticComponent<AutocardProps & P>;
+import React from "react";
 //# sourceMappingURL=WithAutocard.d.ts.map

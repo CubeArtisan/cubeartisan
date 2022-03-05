@@ -6,10 +6,21 @@ export function AdminCommentsPage({ loginCallback, comments, count, page }: {
 }): JSX.Element;
 export namespace AdminCommentsPage {
     namespace propTypes {
-        const loginCallback: any;
-        const comments: any;
-        const count: any;
-        const page: any;
+        const loginCallback: PropTypes.Requireable<string>;
+        const comments: PropTypes.Validator<PropTypes.InferProps<{
+            _id: PropTypes.Validator<string>;
+            timePosted: PropTypes.Validator<string>;
+            ownerName: PropTypes.Validator<string>;
+            owner: PropTypes.Validator<string>;
+            parent: PropTypes.Validator<string>;
+            parentType: PropTypes.Validator<string>;
+            artist: PropTypes.Validator<string>;
+            image: PropTypes.Validator<string>;
+            content: PropTypes.Validator<string>;
+            updated: PropTypes.Validator<boolean>;
+        }>[]>;
+        const count: PropTypes.Validator<number>;
+        const page: PropTypes.Validator<number>;
     }
     namespace defaultProps {
         const loginCallback_1: string;
@@ -18,4 +29,5 @@ export namespace AdminCommentsPage {
 }
 declare var _default: (providedReactProps: any) => JSX.Element;
 export default _default;
+import PropTypes from "prop-types";
 //# sourceMappingURL=AdminCommentsPage.d.ts.map

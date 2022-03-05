@@ -8,11 +8,22 @@ declare function Comment({ comment, index, depth, noReplies, editComment }: {
 }): JSX.Element;
 declare namespace Comment {
     namespace propTypes {
-        const comment: any;
-        const index: any;
-        const depth: any;
-        const noReplies: any;
-        const editComment: any;
+        const comment: PropTypes.Validator<PropTypes.InferProps<{
+            _id: PropTypes.Validator<string>;
+            timePosted: PropTypes.Validator<string>;
+            ownerName: PropTypes.Validator<string>;
+            owner: PropTypes.Validator<string>;
+            parent: PropTypes.Validator<string>;
+            parentType: PropTypes.Validator<string>;
+            artist: PropTypes.Validator<string>;
+            image: PropTypes.Validator<string>;
+            content: PropTypes.Validator<string>;
+            updated: PropTypes.Validator<boolean>;
+        }>>;
+        const index: PropTypes.Validator<number>;
+        const depth: PropTypes.Requireable<number>;
+        const noReplies: PropTypes.Requireable<boolean>;
+        const editComment: PropTypes.Validator<(...args: any[]) => any>;
     }
     namespace defaultProps {
         const depth_1: number;
@@ -21,4 +32,5 @@ declare namespace Comment {
         export { noReplies_1 as noReplies };
     }
 }
+import PropTypes from "prop-types";
 //# sourceMappingURL=Comment.d.ts.map

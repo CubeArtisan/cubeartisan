@@ -10,12 +10,12 @@ declare function FilterCollapse({ filter, setFilter, numCards, numShown, default
 }): JSX.Element;
 declare namespace FilterCollapse {
     namespace propTypes {
-        const filter: any;
-        const setFilter: any;
-        const numCards: any;
-        const numShown: any;
-        const defaultFilterText: any;
-        const noCount: any;
+        const filter: PropTypes.Requireable<(...args: any[]) => any>;
+        const setFilter: PropTypes.Validator<(...args: any[]) => any>;
+        const numCards: PropTypes.Requireable<number>;
+        const numShown: PropTypes.Requireable<number>;
+        const defaultFilterText: PropTypes.Requireable<string>;
+        const noCount: PropTypes.Requireable<boolean>;
     }
     namespace defaultProps {
         const filter_1: any;
@@ -30,4 +30,5 @@ declare namespace FilterCollapse {
         export { noCount_1 as noCount };
     }
 }
+import PropTypes from "prop-types";
 //# sourceMappingURL=FilterCollapse.d.ts.map

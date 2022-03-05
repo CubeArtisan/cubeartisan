@@ -10,13 +10,26 @@ declare function AutocardListGroup({ cards, heading, sort, orderedSort, showOthe
 }): JSX.Element;
 declare namespace AutocardListGroup {
     namespace propTypes {
-        const cards: any;
-        const rowTag: any;
-        const noGroupModal: any;
-        const heading: any;
-        const sort: any;
-        const orderedSort: any;
-        const showOther: any;
+        const cards: PropTypes.Validator<PropTypes.InferProps<{
+            _id: PropTypes.Requireable<string>;
+            index: PropTypes.Requireable<number>;
+            imgUrl: PropTypes.Requireable<string>;
+            imgBackUrl: PropTypes.Requireable<string>;
+            cardID: PropTypes.Validator<string>;
+            colors: PropTypes.Requireable<string[]>;
+            tags: PropTypes.Requireable<string[]>;
+            details: PropTypes.Requireable<PropTypes.InferProps<{
+                _id: PropTypes.Validator<string>;
+                name: PropTypes.Validator<string>;
+                image_normal: PropTypes.Validator<string>;
+            }>>;
+        }>[]>;
+        const rowTag: PropTypes.Requireable<string | ((...args: any[]) => any)>;
+        const noGroupModal: PropTypes.Requireable<boolean>;
+        const heading: PropTypes.Validator<PropTypes.ReactNodeLike>;
+        const sort: PropTypes.Requireable<string>;
+        const orderedSort: PropTypes.Requireable<string>;
+        const showOther: PropTypes.Requireable<boolean>;
     }
     namespace defaultProps {
         export { AutocardListItem as rowTag };
@@ -30,5 +43,6 @@ declare namespace AutocardListGroup {
         export { showOther_1 as showOther };
     }
 }
+import PropTypes from "prop-types";
 import AutocardListItem from "@cubeartisan/client/components/AutocardListItem.js";
 //# sourceMappingURL=AutocardListGroup.d.ts.map

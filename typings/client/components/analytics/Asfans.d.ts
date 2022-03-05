@@ -5,8 +5,12 @@ declare function Asfans({ cards: cardsNoAsfan, cube }: {
 }): JSX.Element;
 declare namespace Asfans {
     namespace propTypes {
-        const cube: any;
-        const cards: any;
+        const cube: PropTypes.Validator<PropTypes.InferProps<{
+            cards: PropTypes.Requireable<PropTypes.InferProps<{}>[]>;
+            draft_formats: PropTypes.Requireable<PropTypes.InferProps<{}>[]>;
+        }>>;
+        const cards: PropTypes.Validator<PropTypes.InferProps<{}>[]>;
     }
 }
+import PropTypes from "prop-types";
 //# sourceMappingURL=Asfans.d.ts.map

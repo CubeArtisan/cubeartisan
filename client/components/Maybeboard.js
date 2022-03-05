@@ -249,7 +249,10 @@ const Maybeboard = ({ filter, ...props }) => {
 };
 
 Maybeboard.propTypes = {
-  filter: PropTypes.arrayOf(PropTypes.array).isRequired,
+  filter: PropTypes.func,
+};
+Maybeboard.defaultProps = {
+  filter: () => {},
 };
 
 export default Maybeboard;

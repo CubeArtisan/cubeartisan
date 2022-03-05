@@ -7,10 +7,11 @@ declare function BlogDeleteModal({ isOpen, toggle, postID, cubeID }: {
 }): JSX.Element;
 declare namespace BlogDeleteModal {
     namespace propTypes {
-        const toggle: any;
-        const postID: any;
-        const isOpen: any;
-        const cubeID: any;
+        const toggle: PropTypes.Validator<(...args: any[]) => any>;
+        const postID: PropTypes.Validator<string>;
+        const isOpen: PropTypes.Validator<boolean>;
+        const cubeID: PropTypes.Validator<string>;
     }
 }
+import PropTypes from "prop-types";
 //# sourceMappingURL=BlogDeleteModal.d.ts.map

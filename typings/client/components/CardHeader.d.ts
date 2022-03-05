@@ -1,8 +1,10 @@
 export default CardHeader;
-export type ComponentType = any;
+export type ComponentType = import('react').FunctionComponent<{
+    sx?: object;
+}>;
 /**
  * @typedef { import('react').FunctionComponent<{ sx?: object }> } ComponentType
  * @type ComponentType
  */
-declare const CardHeader: any;
+declare const CardHeader: ComponentType;
 //# sourceMappingURL=CardHeader.d.ts.map

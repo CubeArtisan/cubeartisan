@@ -9,12 +9,23 @@ declare function CubeOverviewModal({ cube: savedCube, onError, onCubeUpdate, use
 }): JSX.Element;
 declare namespace CubeOverviewModal {
     namespace propTypes {
-        const isOpen: any;
-        const toggle: any;
-        const cube: any;
-        const onError: any;
-        const onCubeUpdate: any;
-        const userID: any;
+        const isOpen: PropTypes.Validator<boolean>;
+        const toggle: PropTypes.Validator<(...args: any[]) => any>;
+        const cube: PropTypes.Validator<PropTypes.InferProps<{
+            cards: PropTypes.Requireable<PropTypes.InferProps<{
+                cardName: PropTypes.Requireable<string>;
+                picks: PropTypes.Requireable<number>;
+                passes: PropTypes.Requireable<number>;
+                elo: PropTypes.Requireable<number>;
+                mainboards: PropTypes.Requireable<number>;
+                sideboards: PropTypes.Requireable<number>;
+            }>[]>;
+            useCubeElo: PropTypes.Requireable<boolean>;
+        }>>;
+        const onError: PropTypes.Validator<(...args: any[]) => any>;
+        const onCubeUpdate: PropTypes.Validator<(...args: any[]) => any>;
+        const userID: PropTypes.Validator<string>;
     }
 }
+import PropTypes from "prop-types";
 //# sourceMappingURL=CubeOverviewModal.d.ts.map

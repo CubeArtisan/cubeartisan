@@ -7,13 +7,14 @@ declare function GroupModal({ cubeID, canEdit, children, ...props }: {
 }): JSX.Element;
 declare namespace GroupModal {
     namespace propTypes {
-        const cubeID: any;
-        const canEdit: any;
-        const children: any;
+        const cubeID: PropTypes.Validator<string>;
+        const canEdit: PropTypes.Requireable<boolean>;
+        const children: PropTypes.Validator<PropTypes.ReactNodeLike>;
     }
     namespace defaultProps {
         const canEdit_1: boolean;
         export { canEdit_1 as canEdit };
     }
 }
+import PropTypes from "prop-types";
 //# sourceMappingURL=GroupModal.d.ts.map

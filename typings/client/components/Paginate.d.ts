@@ -7,10 +7,10 @@ declare function Paginate({ count, active, urlF, onClick }: {
 }): JSX.Element;
 declare namespace Paginate {
     namespace propTypes {
-        const count: any;
-        const active: any;
-        const urlF: any;
-        const onClick: any;
+        const count: PropTypes.Validator<number>;
+        const active: PropTypes.Validator<number>;
+        const urlF: PropTypes.Requireable<(...args: any[]) => any>;
+        const onClick: PropTypes.Requireable<(...args: any[]) => any>;
     }
     namespace defaultProps {
         const urlF_1: any;
@@ -19,4 +19,5 @@ declare namespace Paginate {
         export { onClick_1 as onClick };
     }
 }
+import PropTypes from "prop-types";
 //# sourceMappingURL=Paginate.d.ts.map

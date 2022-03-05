@@ -1,5 +1,4 @@
 module.exports = (api) => {
-  console.log('Loading babel config.');
   const config = {
     presets: [
       [

@@ -6,8 +6,9 @@ declare function LinkButton({ children, onClick, ...props }: {
 }): JSX.Element;
 declare namespace LinkButton {
     namespace propTypes {
-        const onClick: any;
-        const children: any;
+        const onClick: PropTypes.Validator<(...args: any[]) => any>;
+        const children: PropTypes.Validator<PropTypes.ReactNodeLike>;
     }
 }
+import PropTypes from "prop-types";
 //# sourceMappingURL=LinkButton.d.ts.map

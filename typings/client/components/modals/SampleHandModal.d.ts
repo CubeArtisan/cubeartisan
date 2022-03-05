@@ -1,5 +1,5 @@
 export default SampleHandModal;
-declare class SampleHandModal {
+declare class SampleHandModal extends React.Component<any, any, any> {
     constructor(props: any);
     state: {
         isOpen: boolean;
@@ -14,7 +14,9 @@ declare class SampleHandModal {
 }
 declare namespace SampleHandModal {
     namespace propTypes {
-        const deck: any;
+        const deck: PropTypes.Validator<any[]>;
     }
 }
+import React from "react";
+import PropTypes from "prop-types";
 //# sourceMappingURL=SampleHandModal.d.ts.map

@@ -12,14 +12,27 @@ declare function DeckStacks({ cards, title, subtitle, locationType, canDrop, onM
 }): JSX.Element;
 declare namespace DeckStacks {
     namespace propTypes {
-        const cards: any;
-        const title: any;
-        const subtitle: any;
-        const locationType: any;
-        const onMoveCard: any;
-        const onClickCard: any;
-        const canDrop: any;
-        const cardsInRow: any;
+        const cards: PropTypes.Validator<PropTypes.InferProps<{
+            _id: PropTypes.Requireable<string>;
+            index: PropTypes.Requireable<number>;
+            imgUrl: PropTypes.Requireable<string>;
+            imgBackUrl: PropTypes.Requireable<string>;
+            cardID: PropTypes.Validator<string>;
+            colors: PropTypes.Requireable<string[]>;
+            tags: PropTypes.Requireable<string[]>;
+            details: PropTypes.Requireable<PropTypes.InferProps<{
+                _id: PropTypes.Validator<string>;
+                name: PropTypes.Validator<string>;
+                image_normal: PropTypes.Validator<string>;
+            }>>;
+        }>[][][]>;
+        const title: PropTypes.Validator<string>;
+        const subtitle: PropTypes.Requireable<PropTypes.ReactNodeLike>;
+        const locationType: PropTypes.Validator<string>;
+        const onMoveCard: PropTypes.Requireable<(...args: any[]) => any>;
+        const onClickCard: PropTypes.Requireable<(...args: any[]) => any>;
+        const canDrop: PropTypes.Requireable<(...args: any[]) => any>;
+        const cardsInRow: PropTypes.Requireable<number>;
     }
     namespace defaultProps {
         const subtitle_1: boolean;
@@ -34,4 +47,5 @@ declare namespace DeckStacks {
         export { cardsInRow_1 as cardsInRow };
     }
 }
+import PropTypes from "prop-types";
 //# sourceMappingURL=DeckStacks.d.ts.map

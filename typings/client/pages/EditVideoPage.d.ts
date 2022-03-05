@@ -4,8 +4,21 @@ export function EditVideoPage({ loginCallback, video }: {
 }): JSX.Element;
 export namespace EditVideoPage {
     namespace propTypes {
-        const loginCallback: any;
-        const video: any;
+        const loginCallback: PropTypes.Requireable<string>;
+        const video: PropTypes.Validator<PropTypes.InferProps<{
+            _id: PropTypes.Validator<string>;
+            title: PropTypes.Validator<string>;
+            body: PropTypes.Validator<string>;
+            date: PropTypes.Validator<string>;
+            status: PropTypes.Validator<string>;
+            owner: PropTypes.Validator<string>;
+            username: PropTypes.Validator<string>;
+            url: PropTypes.Validator<string>;
+            artist: PropTypes.Validator<string>;
+            short: PropTypes.Validator<string>;
+            image: PropTypes.Validator<string>;
+            imagename: PropTypes.Validator<string>;
+        }>>;
     }
     namespace defaultProps {
         const loginCallback_1: string;
@@ -14,4 +27,5 @@ export namespace EditVideoPage {
 }
 declare var _default: (providedReactProps: any) => JSX.Element;
 export default _default;
+import PropTypes from "prop-types";
 //# sourceMappingURL=EditVideoPage.d.ts.map

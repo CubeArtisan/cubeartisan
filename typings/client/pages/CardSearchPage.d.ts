@@ -3,7 +3,7 @@ export function CardSearchPage({ loginCallback }: {
 }): JSX.Element;
 export namespace CardSearchPage {
     namespace propTypes {
-        const loginCallback: any;
+        const loginCallback: PropTypes.Requireable<string>;
     }
     namespace defaultProps {
         const loginCallback_1: string;
@@ -12,4 +12,5 @@ export namespace CardSearchPage {
 }
 declare var _default: (providedReactProps: any) => JSX.Element;
 export default _default;
+import PropTypes from "prop-types";
 //# sourceMappingURL=CardSearchPage.d.ts.map

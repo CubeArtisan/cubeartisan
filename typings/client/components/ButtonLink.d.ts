@@ -8,10 +8,10 @@ declare function ButtonLink({ children, outline, color, block, ...props }: {
 }): JSX.Element;
 declare namespace ButtonLink {
     namespace propTypes {
-        const children: any;
-        const outline: any;
-        const color: any;
-        const block: any;
+        const children: PropTypes.Validator<PropTypes.ReactNodeLike>;
+        const outline: PropTypes.Requireable<boolean>;
+        const color: PropTypes.Requireable<string>;
+        const block: PropTypes.Requireable<boolean>;
     }
     namespace defaultProps {
         const outline_1: boolean;
@@ -22,4 +22,5 @@ declare namespace ButtonLink {
         export { block_1 as block };
     }
 }
+import PropTypes from "prop-types";
 //# sourceMappingURL=ButtonLink.d.ts.map

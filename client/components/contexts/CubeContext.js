@@ -19,6 +19,8 @@
 import React, { createContext, useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+
 /**
  * @typedef {import('react').Context<{ cube: any, canEdit: Boolean, cubeID: string?, hasCustomImages: Boolean,
  *           setCube: ((cube: any) => void) | ((replacer: (cube: any) => any) => void),
@@ -77,7 +79,7 @@ export const CubeContextProvider = ({ initialCube, canEdit, ...props }) => {
 };
 CubeContextProvider.propTypes = {
   initialCube: PropTypes.shape({
-    cards: PropTypes.arrayOf(PropTypes.object),
+    cards: PropTypes.arrayOf(CardPropType),
   }),
   canEdit: PropTypes.bool,
   cubeID: PropTypes.string.isRequired,
