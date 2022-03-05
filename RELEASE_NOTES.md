@@ -237,12 +237,22 @@ This release is composed of porting over bug fixes for bugs we carried over from
 
 #### Features
 
- - Allow searching for cards that are digital only.
- - Finish replacing the octicons icons with material icons.
+- Allow searching for cards that are digital only.
+- Finish replacing the octicons icons with material icons.
 
 #### Infrastructure
 
  - Give the back side of DFCs a unique oracle id since they are a distinct card object.
+
+#### v1.4.4.1
+
+##### Features
+
+- Improve the scaling of the columns on the Cube Table View.
+
+##### Bug Fixes
+
+- Remove an error when opening the card modal on a cube page.
 
 ## v2.0.0
 
