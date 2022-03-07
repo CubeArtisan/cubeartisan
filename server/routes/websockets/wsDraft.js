@@ -85,9 +85,9 @@ const manageWebsocketDraft = async (socket) => {
     if (!drafterState.cardsInPack.includes(cardIndex)) return null;
     draft.seats[seatIndex].trashorder.push(cardIndex);
     if (!changes.$set) changes.$set = {};
-    changes.$set[`$seats.${seatIndex}.trashorder`] = draft.seats[seatIndex].trashorder;
+    changes.$set[`seats.${seatIndex}.trashorder`] = draft.seats[seatIndex].trashorder;
     if (fromClient) {
-      return advancePack(draft, drafterState.nextSeat, changes);
+      return advancePack(draft, changes);
     }
     return [changes, draft];
   };
@@ -130,10 +130,7 @@ const manageWebsocketDraft = async (socket) => {
     return [changes, draft];
   };
 
-  const applyChanges = async (changes) => {
-    await Draft.updateOne({ _id: draftid }, changes);
-  };
-
+  const applyChanges = async (changes) => Draft.updateOne({ _id: draftid }, changes);
   const getAdvanceableDrafterStates = (draft) =>
     draft.seats
       .map((_, i) => {
@@ -164,6 +161,7 @@ const manageWebsocketDraft = async (socket) => {
             } else if (drafterState.step.action.match(/trash/)) {
               // eslint-disable-next-line no-await-in-loop
               [changes, draft] = await trashCard(draft, cardIndex, drafterState.seatNum, changes, drafterState);
+              console.log(changes);
             }
           } else if (draft.seats[drafterState.seatNum].bot) {
             if (drafterState.step.action.match(/pick/)) {
@@ -228,6 +226,7 @@ const manageWebsocketDraft = async (socket) => {
   let stepNumber = -1;
   let prevState = null;
   const updateState = async (draft) => {
+    console.log(draft.seats[0].trashorder);
     let drafterState;
     try {
       drafterState = getDrafterState({ draft, seatNumber });
@@ -261,9 +260,7 @@ const manageWebsocketDraft = async (socket) => {
   };
 
   const changeStream = Draft.watch({ $match: { _id: draftid } });
-  changeStream.on('change', async () => {
-    await updateState(await getDraft());
-  });
+  changeStream.on('change', async () => updateState(await getDraft()));
   socket.on('disconnect', () => {
     try {
       changeStream.close();
