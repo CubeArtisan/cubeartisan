@@ -253,3 +253,9 @@ This release is composed of porting over bug fixes for bugs we carried over from
 ##### Bug Fixes
 
 - Remove an error when opening the card modal on a cube page.
+
+#### v1.4.4.1
+
+##### Bug Fixes
+
+- Fix how trash actions work to be as expected.

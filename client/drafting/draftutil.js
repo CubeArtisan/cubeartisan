@@ -49,7 +49,7 @@ const trash = ([oldDrafterState, internalState]) => {
   }
   for (let seatIndex = 0; seatIndex < numSeats; seatIndex++) {
     const offsetSeatIndex = (seatIndex + offset) % numSeats;
-    const takenCardIndex = draft.seats[seatIndex].trashorder[drafterState.pickedNum] ?? -1;
+    const takenCardIndex = draft.seats[seatIndex].trashorder[drafterState.trashedNum] ?? -1;
     if (takenCardIndex < 0) {
       if (seatIndex === seatNum) {
         internalState.done = true;
