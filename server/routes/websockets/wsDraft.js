@@ -161,7 +161,6 @@ const manageWebsocketDraft = async (socket) => {
             } else if (drafterState.step.action.match(/trash/)) {
               // eslint-disable-next-line no-await-in-loop
               [changes, draft] = await trashCard(draft, cardIndex, drafterState.seatNum, changes, drafterState);
-              console.log(changes);
             }
           } else if (draft.seats[drafterState.seatNum].bot) {
             if (drafterState.step.action.match(/pick/)) {
@@ -226,7 +225,6 @@ const manageWebsocketDraft = async (socket) => {
   let stepNumber = -1;
   let prevState = null;
   const updateState = async (draft) => {
-    console.log(draft.seats[0].trashorder);
     let drafterState;
     try {
       drafterState = getDrafterState({ draft, seatNumber });
