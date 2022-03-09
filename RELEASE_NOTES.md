@@ -254,7 +254,7 @@ This release is composed of porting over bug fixes for bugs we carried over from
 
 - Remove an error when opening the card modal on a cube page.
 
-#### v1.4.4.1
+#### v1.4.4.2
 
 ##### Bug Fixes
 
