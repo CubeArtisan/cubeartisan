@@ -18,7 +18,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Container } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
 import Footer from '@cubeartisan/client/components/layouts/Footer.js';
@@ -31,13 +31,13 @@ import SiteAppBar from '@cubeartisan/client/components/SiteAppBar.js';
  */
 const MainLayout = ({ children, loginCallback }) => {
   return (
-    <Box sx={{ minHeight: '100vh', backgroundColor: 'background.primary' }}>
+    <Grid container sx={{ minHeight: '100vh', backgroundColor: 'background.primary' }} alignItems="self-start">
       <SiteAppBar loginCallback={loginCallback} />
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" sx={{ height: '100vh' }}>
         <ErrorBoundary>{children}</ErrorBoundary>
       </Container>
       <Footer />
-    </Box>
+    </Grid>
   );
 };
 MainLayout.propTypes = {

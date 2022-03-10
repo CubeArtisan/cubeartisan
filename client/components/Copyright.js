@@ -17,6 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { useContext } from 'react';
+import { Typography } from '@mui/material';
 
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 
@@ -25,9 +26,9 @@ const Copyright = () => {
   const { siteName } = useContext(SiteCustomizationContext);
 
   return (
-    <>
+    <Typography variant="body2" align="center">
       All other content Copyright © 2020-{currentDate} {siteName}.
-    </>
+    </Typography>
   );
 };
 
