@@ -1626,6 +1626,7 @@ __metadata:
     glob: ^7.2.0
     html-to-text: ^8.1.0
     html-webpack-harddisk-plugin: ^2.0.0
+    html-webpack-live-reload-plugin: ^1.0.12
     html-webpack-plugin: ^5.5.0
     jest: ^27.5.1
     jest-environment-jsdom-sixteen: ^1.0.3
@@ -9461,7 +9462,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-webpack-plugin@npm:^5.5.0":
+"html-webpack-live-reload-plugin@npm:^1.0.12":
+  version: 1.0.12
+  resolution: "html-webpack-live-reload-plugin@npm:1.0.12"
+  dependencies:
+    html-webpack-plugin: ^5.3.1
+    socket.io: ^4.0.0
+  checksum: 97f019a53543545df77f50df7f47c9fd672550f70e578741a9b8e31f0af238a5034fd033f6fddf21144416e7621bae1162165c2b3191a7226bea772c8b9d1776
+  languageName: node
+  linkType: hard
+
+"html-webpack-plugin@npm:^5.3.1, html-webpack-plugin@npm:^5.5.0":
   version: 5.5.0
   resolution: "html-webpack-plugin@npm:5.5.0"
   dependencies:
@@ -15739,7 +15750,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"socket.io@npm:^4.4.1":
+"socket.io@npm:^4.0.0, socket.io@npm:^4.4.1":
   version: 4.4.1
   resolution: "socket.io@npm:4.4.1"
   dependencies:

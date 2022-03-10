@@ -18,6 +18,7 @@
  */
 const { merge } = require('webpack-merge');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const HtmlWebpackLiveReload = require('html-webpack-live-reload-plugin');
 
 const { clientConfig: common } = require('./webpack.common.cjs');
 
@@ -56,7 +57,7 @@ const clientConfig = merge(common, config, {
     //   './utils/**/*.js',
     // ],
   },
-  plugins: [new ReactRefreshWebpackPlugin()],
+  plugins: [new ReactRefreshWebpackPlugin(), new HtmlWebpackLiveReload()],
 });
 
 module.exports = clientConfig;
