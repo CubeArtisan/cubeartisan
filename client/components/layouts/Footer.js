@@ -29,11 +29,9 @@ const Footer = () => {
       component="footer"
       sx={{
         backgroundColor: 'background.paper',
-        bottom: 0,
         color: 'grey.900',
-        alignSelf: 'end',
-        position: 'relative',
         width: '100%',
+        height: 'min-content',
       }}
     >
       <Container maxWidth="xl">

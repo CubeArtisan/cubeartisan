@@ -48,20 +48,11 @@ export const LandingPage = ({ numusers, numcubes, numdrafts }) => {
       >
         <img src="/content/LandingLogo.png" alt={siteName} />
       </Grid>
-      <Grid item container xs={12} sm={6} sx={{ minHeight: '100vh', backgroundColor: 'background.primary' }}>
-        <Box
-          marginY={5}
-          alignSelf="begin"
-          width="80%"
-          maxWidth="800"
-          minWidth="160"
-          top={0}
-          position="relative"
-          marginX="auto"
-        >
+      <Grid item container xs={12} sm={6} sx={{ backgroundColor: 'background.primary', flexFlow: 'column' }}>
+        <Box sx={{ maxWidth: 800, width: '80%', minWidth: 160, flex: '0 1 auto', marginY: 5, marginX: 'auto' }}>
           <CardSearchBar />
         </Box>
-        <Stack alignSelf="stretch" width="100%">
+        <Stack sx={{ flex: '1 1 auto' }}>
           <Typography variant="h4" color="grey.800" align="center">
             Build, playtest, and share your Magic the Gathering cube!
           </Typography>
@@ -86,7 +77,9 @@ export const LandingPage = ({ numusers, numcubes, numdrafts }) => {
             Login
           </LoginModalButton>
         </Stack>
-        <Footer />
+        <Grid item sx={{ flex: '0 1 auto' }}>
+          <Footer />
+        </Grid>
       </Grid>
     </Grid>
   );
