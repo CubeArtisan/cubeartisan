@@ -31,12 +31,22 @@ import SiteAppBar from '@cubeartisan/client/components/SiteAppBar.js';
  */
 const MainLayout = ({ children, loginCallback }) => {
   return (
-    <Grid container sx={{ minHeight: '100vh', backgroundColor: 'background.primary' }} alignItems="self-start">
-      <SiteAppBar loginCallback={loginCallback} />
-      <Container maxWidth="xl" sx={{ height: '100vh' }}>
-        <ErrorBoundary>{children}</ErrorBoundary>
-      </Container>
-      <Footer />
+    <Grid
+      container
+      sx={{ minHeight: '100vh', backgroundColor: 'background.primary', flexFlow: 'column' }}
+      alignItems="center"
+    >
+      <Grid item sx={{ flex: '0 1 auto', width: '100%' }}>
+        <SiteAppBar loginCallback={loginCallback} />
+      </Grid>
+      <Grid item sx={{ flex: '1 1 auto', width: '100%' }}>
+        <Container maxWidth="xl" sx={{ flex: '1 1 auto' }}>
+          <ErrorBoundary>{children}</ErrorBoundary>
+        </Container>
+      </Grid>
+      <Grid item sx={{ flex: '0 1 auto' }}>
+        <Footer />
+      </Grid>
     </Grid>
   );
 };
