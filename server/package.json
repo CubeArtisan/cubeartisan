@@ -9,7 +9,7 @@
     "node-options": "echo '--experimental-loader @node-loader/babel --require dotenv/config --max-old-space-size=4096 --experimental-json-modules --enable-source-maps --es-module-specifier-resolution=node --trace-warnings'",
     "cards": "sh -c 'node --max-old-space-size=4096 `yarn --silent node-options` scripts/force_update.js'",
     "server": "sh -c 'node `yarn run --silent node-options` routes/index.js'",
-    "nodemon": "sh -c \"nodemon -x 'node' --ignore public --ignore private --ignore __tests__ --ignore __mocks__ --ignore ../client/__tests__ --ignore '*.json' -w ../client/generated -- `yarn run --silent node-options` routes/index.js\"",
+    "nodemon": "sh -c \"nodemon -x 'node' --ignore public --ignore private --ignore __tests__ --ignore __mocks__ --ignore ../client/__tests__ --ignore '*.json' -w ../client/generated -w ../client/dist -- `yarn run --silent node-options` routes/index.js\"",
     "start": "yarn nodemon"
   },
   "dependencies": {
