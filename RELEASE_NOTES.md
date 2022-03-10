@@ -266,6 +266,7 @@ functionality of the site is easier to discover.
   - the Deck Page
   - the Dashboard
   - Cube List Page table view
+  - the Landing Page
   - Cube List navbar
   - Markdown
   - Autocard

@@ -18,8 +18,7 @@
  */
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col } from 'reactstrap';
-import { Button } from '@mui/material';
+import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import Footer from '@cubeartisan/client/components/layouts/Footer.js';
@@ -31,49 +30,65 @@ import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 
 const LoginModalButton = withModal(Button, LoginModal);
 
+const BUTTON_SX = { maxWidth: '500', width: '33%', minWidth: 150, marginX: 'auto', marginY: 1 };
+
 export const LandingPage = ({ numusers, numcubes, numdrafts }) => {
   const [loginIsOpen, toggleLoginModal] = useToggle(false);
   const { siteName } = useContext(SiteCustomizationContext);
   return (
-    <div className="flex-container flex-vertical viewport">
-      <Row className="m-0 p-0 flex-grow">
-        <Col xs="12" sm="6" className="m-0 bg-dark landing-half landing-logo-container">
-          <img src="/content/LandingLogo.png" alt={siteName} className="landing-logo" />
-        </Col>
-        <Col xs="12" sm="6" className="m-0 bg-accent landing-half flex-container flex-vertical">
-          <div className="mt-3 flex-container">
-            <CardSearchBar />
-          </div>
-          <div className="flex-grow centered flex-vertical">
-            <h4 className="center footer-text  mt-4">Build, playtest, and share your Magic the Gathering cube!</h4>
-            <br />
-            <h5 className="center footer-text">
-              <strong>{numusers}</strong>
-              {' Users, '}
-              <strong>{numcubes}</strong>
-              {' Cubes, '}
-              <strong>{numdrafts}</strong>
-              {' Completed Drafts'}
-            </h5>
-            <Button href="/user" className="landing-btn" color="success">
-              Sign Up
-            </Button>
-            <LoginModalButton
-              modalProps={{ loginCallback: '/' }}
-              className="landing-btn mb-3"
-              color="success"
-              variant="outlined"
-              isOpen={loginIsOpen}
-              toggle={toggleLoginModal}
-            >
-              Login
-            </LoginModalButton>
-            <span data-ccpa-link="1" />
-          </div>
-          <Footer />
-        </Col>
-      </Row>
-    </div>
+    <Grid container sx={{ width: '100hw', minHeight: '100vh' }}>
+      <Grid
+        item
+        container
+        xs={12}
+        sm={6}
+        sx={{ backgroundColor: 'background.darker', height: '100vh' }}
+        justifyContent="center"
+        alignItems="center"
+      >
+        <img src="/content/LandingLogo.png" alt={siteName} />
+      </Grid>
+      <Grid item container xs={12} sm={6} sx={{ minHeight: '100vh', backgroundColor: 'background.primary' }}>
+        <Box
+          marginY={5}
+          alignSelf="begin"
+          width="80%"
+          maxWidth="800"
+          minWidth="160"
+          top={0}
+          position="relative"
+          marginX="auto"
+        >
+          <CardSearchBar />
+        </Box>
+        <Stack alignSelf="stretch" width="100%">
+          <Typography variant="h4" color="grey.800" align="center">
+            Build, playtest, and share your Magic the Gathering cube!
+          </Typography>
+          <Typography variant="h5" align="center" color="grey.800" sx={{ marginBottom: 4 }}>
+            <strong>{numusers}</strong>
+            {' Users, '}
+            <strong>{numcubes}</strong>
+            {' Cubes, '}
+            <strong>{numdrafts}</strong>
+            {' Completed Drafts'}
+          </Typography>
+          <Button href="/user" color="primary" variant="contained" sx={BUTTON_SX}>
+            Sign Up
+          </Button>
+          <LoginModalButton
+            modalProps={{ loginCallback: '/', isOpen: loginIsOpen, toggle: toggleLoginModal }}
+            color="primary"
+            variant="contained"
+            onClick={toggleLoginModal}
+            sx={BUTTON_SX}
+          >
+            Login
+          </LoginModalButton>
+        </Stack>
+        <Footer />
+      </Grid>
+    </Grid>
   );
 };
 

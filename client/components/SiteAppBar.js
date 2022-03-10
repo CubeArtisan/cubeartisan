@@ -36,7 +36,7 @@ const SiteAppBar = ({ loginCallback }) => {
   const { updateTheme, theme } = useContext(DisplayContext);
   const toggleTheme = useCallback(() => updateTheme(), [updateTheme]);
   return (
-    <Navbar color="dark" expand="md" dark>
+    <Navbar color="dark" expand="md" dark style={{ width: '100%', height: 'fit-content' }}>
       <Container fluid="xl">
         <div className="d-flex flex-nowrap w-100 header-banner">
           <div className="overflow-hidden mr-auto">

@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { useContext } from 'react';
-import { Box, Container, Grid } from '@mui/material';
+import { Box, Container, Grid, Link, Typography } from '@mui/material';
 
 import Copyright from '@cubeartisan/client/components/Copyright.js';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
@@ -25,136 +25,105 @@ import SiteCustomizationContext from '@cubeartisan/client/components/contexts/Si
 const Footer = () => {
   const { discordUrl, siteName, sourceRepo } = useContext(SiteCustomizationContext);
   return (
-    <Box component="footer" sx={{ backgroundColor: 'background.paper', bottom: 0 }}>
+    <Box
+      component="footer"
+      sx={{
+        backgroundColor: 'background.paper',
+        bottom: 0,
+        color: 'grey.900',
+        alignSelf: 'end',
+        position: 'relative',
+        width: '100%',
+      }}
+    >
       <Container maxWidth="xl">
-        <Grid container>
-          <Grid item xs={6} sm={3}>
+        <Grid container width="100%" columns={12}>
+          <Grid item xs={6} sm={3} justifyContent="center" alignItems="center">
             <small>
-              <h6 className="footer-header">Content</h6>
+              <Typography variant="h6">Content</Typography>
               <ul className="footer-ul pl-0">
                 <li>
-                  <a className="footer-link" href="/content">
-                    Browse
-                  </a>
+                  <Link href="/content">Browse</Link>
                 </li>
                 <li>
-                  <a className="footer-link" href="/articles">
-                    Articles
-                  </a>
+                  <Link href="/articles">Articles</Link>
                 </li>
                 <li>
-                  <a className="footer-link" href="/podcasts">
-                    Podcasts
-                  </a>
+                  <Link href="/podcasts">Podcasts</Link>
                 </li>
                 <li>
-                  <a className="footer-link" href="/videos">
-                    Videos
-                  </a>
+                  <Link href="/videos">Videos</Link>
                 </li>
               </ul>
             </small>
           </Grid>
           <Grid item xs={6} sm={3}>
             <small>
-              <h6 className="footer-header">Cube</h6>
+              <Typography variant="h6">Cube</Typography>
               <ul className="footer-ul pl-0">
                 <li>
-                  <a className="footer-link" href="/cubes/explore">
-                    Explore Cubes
-                  </a>
+                  <Link href="/cubes/explore">Explore Cubes</Link>
                 </li>
                 <li>
-                  <a className="footer-link" href="/cubes/search">
-                    Search Cubes
-                  </a>
+                  <Link href="/cubes/search">Search Cubes</Link>
                 </li>
                 <li>
-                  <a className="footer-link" href="/cubes/random">
-                    Random Cube
-                  </a>
+                  <Link href="/cubes/random">Random Cube</Link>
                 </li>
               </ul>
             </small>
           </Grid>
           <Grid item xs={6} sm={3}>
             <small>
-              <h6 className="footer-header">Cards</h6>
+              <Typography variant="h6">Cards</Typography>
               <ul className="footer-ul pl-0">
                 <li>
-                  <a className="footer-link" href="/cards/search">
-                    Search Cards
-                  </a>
+                  <Link href="/cards/search">Search Cards</Link>
                 </li>
                 <li>
-                  <a className="footer-link" href="/packages">
-                    Packages
-                  </a>
+                  <Link href="/packages">Packages</Link>
                 </li>
                 <li>
-                  <a className="footer-link" href="/cards/random">
-                    Random Card
-                  </a>
+                  <Link href="/cards/random">Random Card</Link>
                 </li>
                 <li>
-                  <a className="footer-link" href="/filters">
-                    Filter Syntax
-                  </a>
+                  <Link href="/filters">Filter Syntax</Link>
                 </li>
               </ul>
             </small>
           </Grid>
           <Grid item xs={6} sm={3}>
             <small>
-              <h6 className="footer-header">Info</h6>
+              <Typography variant="h6">Info</Typography>
               <ul className="footer-ul pl-0">
                 <li>
-                  <a className="footer-link" href="/dev/blog">
-                    Dev Blog
-                  </a>
+                  <Link href="/dev/blog">Dev Blog</Link>
                 </li>
                 <li>
-                  <a className="footer-link" href="/contact">
-                    Contact
-                  </a>
+                  <Link href="/contact">Contact</Link>
                 </li>
                 <li>
-                  <a className="footer-link" href="/ourstory">
-                    Our Story
-                  </a>
+                  <Link href="/ourstory">Our Story</Link>
                 </li>
                 <li>
-                  <a className="footer-link" href="/faq">
-                    FAQ
-                  </a>
+                  <Link href="/faq">FAQ</Link>
                 </li>
                 <li>
-                  <a className="footer-link" href={sourceRepo}>
-                    Github
-                  </a>
+                  <Link href={sourceRepo}>Github</Link>
                 </li>
               </ul>
             </small>
           </Grid>
         </Grid>
-        <p className="center footer-text">
-          <a className="footer-link" href="/privacy">
-            Privacy Policy
-          </a>
+        <Typography align="center" variant="body2">
+          <Link href="/privacy">Privacy Policy</Link>
           {' | '}
-          <a className="footer-link" href="/tos">
-            Terms & Conditions
-          </a>
+          <Link href="/tos">Terms & Conditions</Link>
           {' | '}
-          <a className="footer-link" href="/cookies">
-            Cookies
-          </a>
+          <Link href="/cookies">Cookies</Link>
           <br />
-          Magic: The Gathering is ©{' '}
-          <a className="footer-link" href="https://company.wizards.com/">
-            Wizards of the Coast
-          </a>
-          . {siteName} is not affiliated nor produced nor endorsed by Wizards of the Coast.
+          Magic: The Gathering is © <Link href="https://company.wizards.com/">Wizards of the Coast</Link>. {siteName} is
+          not affiliated nor produced nor endorsed by Wizards of the Coast.
           <br />
           All card images, mana symbols, expansions and art related to Magic the Gathering is a property of Wizards of
           the Coast/Hasbro.
@@ -164,14 +133,11 @@ const Footer = () => {
           <br />
           Custom card images displayed on {siteName} are subject to the license terms under which they were uploaded to
           their hosts. {siteName} is not responsible for the content of custom card images. To report a custom card
-          image violation, message the development team on{' '}
-          <a className="footer-link" href={discordUrl}>
-            Discord
-          </a>
+          image violation, message the development team on <Link href={discordUrl}>Discord</Link>
           .
           <br />
-          <Copyright />
-        </p>
+        </Typography>
+        <Copyright />
       </Container>
     </Box>
   );

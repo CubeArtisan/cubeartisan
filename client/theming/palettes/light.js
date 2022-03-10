@@ -70,7 +70,7 @@ const LIGHT_PALETTE = {
   },
   divider: 'hsla(0, 0, 0, 0.12)',
   background: {
-    paper: 'hsl(240, 90%, 90%)',
+    paper: 'hsl(240, 100%, 95%)',
     default: 'hsl(0, 0%, 100%)',
     darker: 'hsl(270, 40%, 75%)',
     hover: 'hsl(270, 60%, 91%)',
