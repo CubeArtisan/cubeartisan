@@ -100,13 +100,12 @@ const EditCollapse = ({ ...props }) => {
   const newTotal = cube.cards.length + additions - removals;
 
   const handleChange = useCallback(
-    (event) => {
-      return {
+    (event) =>
+      ({
         textarea: setPostContent,
         add: setAddValue,
         remove: setRemoveValue,
-      }[event.target.name](event.target.value);
-    },
+      }[event.target.name](event.target.value)),
     [setAddValue, setRemoveValue],
   );
 

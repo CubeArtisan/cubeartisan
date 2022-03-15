@@ -22,30 +22,28 @@ import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
-const ConfirmDeleteModal = ({ isOpen, toggle, text, submitDelete }) => {
-  return (
-    <Modal isOpen={isOpen} toggle={toggle}>
-      <ModalHeader toggle={toggle}>Confirm Delete</ModalHeader>
-      <ModalBody>
-        <p>{text}</p>
-      </ModalBody>
-      <ModalFooter>
-        <Button
-          color="warning"
-          onClick={() => {
-            submitDelete();
-            toggle();
-          }}
-        >
-          Delete
-        </Button>{' '}
-        <Button color="secondary" onClick={toggle}>
-          Close
-        </Button>
-      </ModalFooter>
-    </Modal>
-  );
-};
+const ConfirmDeleteModal = ({ isOpen, toggle, text, submitDelete }) => (
+  <Modal isOpen={isOpen} toggle={toggle}>
+    <ModalHeader toggle={toggle}>Confirm Delete</ModalHeader>
+    <ModalBody>
+      <p>{text}</p>
+    </ModalBody>
+    <ModalFooter>
+      <Button
+        color="warning"
+        onClick={() => {
+          submitDelete();
+          toggle();
+        }}
+      >
+        Delete
+      </Button>{' '}
+      <Button color="secondary" onClick={toggle}>
+        Close
+      </Button>
+    </ModalFooter>
+  </Modal>
+);
 
 ConfirmDeleteModal.propTypes = {
   toggle: PropTypes.func.isRequired,

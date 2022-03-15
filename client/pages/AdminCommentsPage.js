@@ -32,37 +32,35 @@ const Comment = lazy(() => import('@cubeartisan/client/components/Comment.js'));
 
 const PAGE_SIZE = 24;
 
-export const AdminCommentsPage = ({ loginCallback, comments, count, page }) => {
-  return (
-    <MainLayout loginCallback={loginCallback}>
-      <DynamicFlash />
-      <Card className="my-3">
-        <CardHeader>
-          <h5>Comment Reports</h5>
-          {count > PAGE_SIZE ? (
-            <>
-              <h6>
-                {`Displaying ${PAGE_SIZE * page + 1}-${Math.min(count, PAGE_SIZE * (page + 1))} of ${count} Comments`}
-              </h6>
-              <Paginate
-                count={Math.ceil(count / PAGE_SIZE)}
-                active={parseInt(page, 10)}
-                urlF={(i) => `/admin/comments/${i}`}
-              />
-            </>
-          ) : (
-            <h6>{`Displaying all ${count} Comments`}</h6>
-          )}
-        </CardHeader>
-        <Suspense>
-          {comments.map((comment) => (
-            <Comment comment={comment} index={0} noReplies editComment={() => {}} />
-          ))}
-        </Suspense>
-      </Card>
-    </MainLayout>
-  );
-};
+export const AdminCommentsPage = ({ loginCallback, comments, count, page }) => (
+  <MainLayout loginCallback={loginCallback}>
+    <DynamicFlash />
+    <Card className="my-3">
+      <CardHeader>
+        <h5>Comment Reports</h5>
+        {count > PAGE_SIZE ? (
+          <>
+            <h6>
+              {`Displaying ${PAGE_SIZE * page + 1}-${Math.min(count, PAGE_SIZE * (page + 1))} of ${count} Comments`}
+            </h6>
+            <Paginate
+              count={Math.ceil(count / PAGE_SIZE)}
+              active={parseInt(page, 10)}
+              urlF={(i) => `/admin/comments/${i}`}
+            />
+          </>
+        ) : (
+          <h6>{`Displaying all ${count} Comments`}</h6>
+        )}
+      </CardHeader>
+      <Suspense>
+        {comments.map((comment) => (
+          <Comment comment={comment} index={0} noReplies editComment={() => {}} />
+        ))}
+      </Suspense>
+    </Card>
+  </MainLayout>
+);
 
 AdminCommentsPage.propTypes = {
   loginCallback: PropTypes.string,

@@ -469,9 +469,7 @@ export const logoutUser = (req, res) => {
   res.redirect('/');
 };
 
-export const addMinutes = (date, minutes) => {
-  return new Date(new Date(date).getTime() + minutes * 60000);
-};
+export const addMinutes = (date, minutes) => new Date(new Date(date).getTime() + minutes * 60000);
 
 export const submitLostPassword = [
   body('email', 'Email is required').isEmail(),

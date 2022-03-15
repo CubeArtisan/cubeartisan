@@ -9,9 +9,7 @@ const batchSize = 1000;
 
 const isInvalidCardId = (id) => carddb.cardFromId(id).name === 'Invalid Card';
 
-const needsCleaning = (cube) => {
-  return !cube.cards || cube.cards.some((card) => !card || isInvalidCardId(card.cardID));
-};
+const needsCleaning = (cube) => !cube.cards || cube.cards.some((card) => !card || isInvalidCardId(card.cardID));
 
 const processCube = async (leanCube) => {
   if (needsCleaning(leanCube)) {

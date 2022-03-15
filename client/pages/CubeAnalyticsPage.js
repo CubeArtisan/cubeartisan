@@ -149,9 +149,10 @@ export const CubeAnalyticsPage = ({
   const [filterCollapseOpen, toggleFilterCollapse] = useToggle(false);
   const [asfans, setAsfans] = useState({});
 
-  const cards = useMemo(() => {
-    return (filter ? cube.cards.filter(filter) : cube.cards).map((card) => ({ ...card, asfan: asfans[card.cardID] }));
-  }, [asfans, cube, filter]);
+  const cards = useMemo(
+    () => (filter ? cube.cards.filter(filter) : cube.cards).map((card) => ({ ...card, asfan: asfans[card.cardID] })),
+    [asfans, cube, filter],
+  );
 
   const cardAnalyticsDict = Object.fromEntries(
     cubeAnalytics.cards.map((cardAnalytic) => [cardAnalytic.cardName, cardAnalytic]),

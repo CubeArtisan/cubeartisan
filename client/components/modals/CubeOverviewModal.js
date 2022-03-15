@@ -50,7 +50,7 @@ import React, { useCallback, useEffect, useState } from 'react';
  * @param { Cube } cube
  * @returns { string }
  */
-const pickDescriptionFromCube = (cube) => {
+const pickDescriptionFromCube = (cube) =>
   /** 2020-11-24 strusdell:
    * @phulin believes that the check for the string literal 'undefined' here is
    * deliberate. Presumably this would represent bad data, and should be ignored.
@@ -58,11 +58,9 @@ const pickDescriptionFromCube = (cube) => {
    * NOTE: This may introduce weird behavior if the user enters 'undefined' as their
    * description.
    */
-  return Object.prototype.hasOwnProperty.call(cube, 'raw_desc') && cube.raw_desc !== 'undefined'
+  Object.prototype.hasOwnProperty.call(cube, 'raw_desc') && cube.raw_desc !== 'undefined'
     ? cube.raw_desc
     : cube.description;
-};
-
 const CubeOverviewModal = ({ cube: savedCube, onError, onCubeUpdate, userID, isOpen, toggle }) => {
   const [tags, setTags] = useState((savedCube.tags ?? []).map((tag) => ({ id: tag, text: tag })));
   const [cube, setCube] = useState(JSON.parse(JSON.stringify(savedCube)));
@@ -115,9 +113,7 @@ const CubeOverviewModal = ({ cube: savedCube, onError, onCubeUpdate, userID, isO
         let prefixes = cube.categoryPrefixes;
 
         if (prefixes.includes(id) && !value) {
-          prefixes = prefixes.filter((e) => {
-            return e !== id;
-          });
+          prefixes = prefixes.filter((e) => e !== id);
         } else if (!prefixes.includes(id) && value) {
           prefixes.push(id);
         }

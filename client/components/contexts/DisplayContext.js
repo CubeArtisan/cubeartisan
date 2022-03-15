@@ -65,9 +65,9 @@ export const DisplayContextProvider = ({ cubeID, defaultNumCols, ...props }) => 
     setShowCustomImages(!showCustomImages);
   }, [showCustomImages]);
 
-  const [showMaybeboard, setShowMaybeboard] = useState(() => {
-    return typeof localStorage !== 'undefined' && cubeID && localStorage.getItem(`maybeboard-${cubeID}`) === 'true';
-  });
+  const [showMaybeboard, setShowMaybeboard] = useState(
+    () => typeof localStorage !== 'undefined' && cubeID && localStorage.getItem(`maybeboard-${cubeID}`) === 'true',
+  );
   const toggleShowMaybeboard = useCallback(() => {
     if (cubeID) localStorage.setItem(`maybeboard-${cubeID}`, !showMaybeboard);
     setShowMaybeboard(!showMaybeboard);

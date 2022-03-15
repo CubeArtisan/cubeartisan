@@ -66,9 +66,7 @@ router.get('/dashboard', ensureAdmin, async (req, res) => {
 
 const PAGE_SIZE = 24;
 
-router.get('/comments', async (_req, res) => {
-  return res.redirect('/admin/comments/0');
-});
+router.get('/comments', async (_req, res) => res.redirect('/admin/comments/0'));
 
 router.get('/comments/:page', ensureAdmin, async (req, res) => {
   try {
@@ -142,9 +140,7 @@ router.get('/reviewpodcasts/:page', ensureAdmin, async (req, res) => {
   }
 });
 
-router.get('/commentreports', async (_req, res) => {
-  return res.redirect('/admin/commentreports/0');
-});
+router.get('/commentreports', async (_req, res) => res.redirect('/admin/commentreports/0'));
 
 router.get('/commentreports/:page', ensureAdmin, async (req, res) => {
   try {
@@ -161,9 +157,7 @@ router.get('/commentreports/:page', ensureAdmin, async (req, res) => {
   }
 });
 
-router.get('/applications', async (_req, res) => {
-  return res.redirect('/admin/applications/0');
-});
+router.get('/applications', async (_req, res) => res.redirect('/admin/applications/0'));
 
 router.get('/applications/:page', ensureAdmin, async (req, res) => {
   try {

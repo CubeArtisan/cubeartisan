@@ -507,8 +507,8 @@ export const viewPrivacyPolicy = (req, res) =>
     ],
   });
 
-export const viewStoryPage = (req, res) => {
-  return render(req, res, 'InfoPage', {
+export const viewStoryPage = (req, res) =>
+  render(req, res, 'InfoPage', {
     title: 'Our Story',
     content: [
       {
@@ -525,7 +525,6 @@ export const viewStoryPage = (req, res) => {
       },
     ],
   });
-};
 
 export const viewFaq = (req, res) =>
   render(req, res, 'InfoPage', {

@@ -23,27 +23,25 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
 
-const LinkModal = ({ link, isOpen, toggle }) => {
-  return (
-    <Modal isOpen={isOpen} toggle={toggle} size="xs">
-      <ModalHeader toggle={toggle}>This link could be dangerous</ModalHeader>
-      <ModalBody>
-        <p>
-          This link leads to: <code>{link}</code>
-        </p>
-        <p>Following unknown links can be dangerous, are you sure you wish to proceed?</p>
-        <ButtonLink href={link} block color="warning" outline target="_blank" rel="noopener noreferrer">
-          Yes, I know what I'm doing
-        </ButtonLink>
-      </ModalBody>
-      <ModalFooter>
-        <Button color="secondary" onClick={toggle}>
-          Close
-        </Button>
-      </ModalFooter>
-    </Modal>
-  );
-};
+const LinkModal = ({ link, isOpen, toggle }) => (
+  <Modal isOpen={isOpen} toggle={toggle} size="xs">
+    <ModalHeader toggle={toggle}>This link could be dangerous</ModalHeader>
+    <ModalBody>
+      <p>
+        This link leads to: <code>{link}</code>
+      </p>
+      <p>Following unknown links can be dangerous, are you sure you wish to proceed?</p>
+      <ButtonLink href={link} block color="warning" outline target="_blank" rel="noopener noreferrer">
+        Yes, I know what I'm doing
+      </ButtonLink>
+    </ModalBody>
+    <ModalFooter>
+      <Button color="secondary" onClick={toggle}>
+        Close
+      </Button>
+    </ModalFooter>
+  </Modal>
+);
 
 LinkModal.propTypes = {
   link: PropTypes.string.isRequired,

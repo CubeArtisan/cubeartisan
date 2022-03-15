@@ -177,9 +177,7 @@ export function isTouchDevice() {
   return mq(query);
 }
 
-export const getCubeId = (cube) => {
-  return cube.shortID || cube._id;
-};
+export const getCubeId = (cube) => cube.shortID || cube._id;
 
 export const getCubeDescription = (cube) => {
   if (cube.overrideCategory) {

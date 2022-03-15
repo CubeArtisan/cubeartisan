@@ -58,12 +58,9 @@ const oppositeLocation = {
   [DraftLocation.SIDEBOARD]: DraftLocation.PICKS,
 };
 
-const canDrop = (source, target) => {
-  return (
-    target.type === DraftLocation.PICKS ||
-    (target.type === DraftLocation.SIDEBOARD && source.type !== DraftLocation.PACK)
-  );
-};
+const canDrop = (source, target) =>
+  target.type === DraftLocation.PICKS ||
+  (target.type === DraftLocation.SIDEBOARD && source.type !== DraftLocation.PACK);
 
 const Pack = ({
   pack,

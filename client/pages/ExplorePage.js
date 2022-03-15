@@ -29,26 +29,24 @@ import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 
 const CubesCard = lazy(() => import('@cubeartisan/client/components/CubesCard.js'));
 
-export const ExplorePage = ({ recents, featured, drafted, recentlyDrafted, loginCallback }) => {
-  return (
-    <MainLayout loginCallback={loginCallback}>
-      <CubeSearchNavBar />
-      <DynamicFlash />
-      <Row>
-        <Suspense>
-          <Col lg={6} md={6} sm={12} xs={12}>
-            <CubesCard title="Featured Cubes" className="mt-4" cubes={featured} />
-            <CubesCard title="Recently Updated Cubes" className="mt-4" cubes={recents} />
-          </Col>
-          <Col lg={6} md={6} sm={12} xs={12}>
-            <CubesCard title="Most Drafted Cubes" className="mt-4" cubes={drafted} />
-            <CubesCard title="Recently Drafted Cubes" className="mt-4" cubes={recentlyDrafted} />
-          </Col>
-        </Suspense>
-      </Row>
-    </MainLayout>
-  );
-};
+export const ExplorePage = ({ recents, featured, drafted, recentlyDrafted, loginCallback }) => (
+  <MainLayout loginCallback={loginCallback}>
+    <CubeSearchNavBar />
+    <DynamicFlash />
+    <Row>
+      <Suspense>
+        <Col lg={6} md={6} sm={12} xs={12}>
+          <CubesCard title="Featured Cubes" className="mt-4" cubes={featured} />
+          <CubesCard title="Recently Updated Cubes" className="mt-4" cubes={recents} />
+        </Col>
+        <Col lg={6} md={6} sm={12} xs={12}>
+          <CubesCard title="Most Drafted Cubes" className="mt-4" cubes={drafted} />
+          <CubesCard title="Recently Drafted Cubes" className="mt-4" cubes={recentlyDrafted} />
+        </Col>
+      </Suspense>
+    </Row>
+  </MainLayout>
+);
 
 const cubesListProp = PropTypes.arrayOf(CubePropType);
 

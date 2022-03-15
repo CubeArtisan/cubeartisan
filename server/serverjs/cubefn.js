@@ -65,9 +65,7 @@ export const generateShortId = async () => {
 
 const FORMATS = ['Vintage', 'Legacy', 'Modern', 'Pioneer', 'Standard'];
 
-export const intToLegality = (val) => {
-  return FORMATS[val];
-};
+export const intToLegality = (val) => FORMATS[val];
 
 export const legalityToInt = (legality) => {
   let res;
@@ -104,9 +102,8 @@ export const cardsAreEquivalent = (card, details) => {
   return true;
 };
 
-export const cardIsLegal = (card, legality) => {
-  return card.legalities[legality] === 'legal' || card.legalities[legality] === 'banned';
-};
+export const cardIsLegal = (card, legality) =>
+  card.legalities[legality] === 'legal' || card.legalities[legality] === 'banned';
 
 export const setCubeType = (cube, carddb) => {
   let pauper = true;
@@ -162,9 +159,7 @@ export const setCubeType = (cube, carddb) => {
   return cube;
 };
 
-export const abbreviate = (name) => {
-  return name.length < 20 ? name : `${name.slice(0, 20)}…`;
-};
+export const abbreviate = (name) => (name.length < 20 ? name : `${name.slice(0, 20)}…`);
 
 export const buildTagColors = (cube) => {
   let { tag_colors: tagColor } = cube;
@@ -329,16 +324,14 @@ export const getEloAdjustment = (winner, loser, speed) => {
   return [adjustmentA, adjustmentB];
 };
 
-export const newCardAnalytics = (cardName, elo) => {
-  return {
-    cardName,
-    picks: 0,
-    passes: 0,
-    elo,
-    mainboards: 0,
-    sideboards: 0,
-  };
-};
+export const newCardAnalytics = (cardName, elo) => ({
+  cardName,
+  picks: 0,
+  passes: 0,
+  elo,
+  mainboards: 0,
+  sideboards: 0,
+});
 
 export const removeDeckCardAnalytics = async (cube, deck, carddb) => {
   // we don't want to save deck analytics for decks have not been built
@@ -548,9 +541,7 @@ export const saveDraftAnalytics = async (draft, seatNumber, carddb) => {
   }
 };
 
-const loadImage = async (url) => {
-  return (await axios({ url, responseType: 'arraybuffer' })).data;
-};
+const loadImage = async (url) => (await axios({ url, responseType: 'arraybuffer' })).data;
 
 export const generateSamplepackImageSharp = async (sources = [], options = {}) => {
   const imageSources = await Promise.all(

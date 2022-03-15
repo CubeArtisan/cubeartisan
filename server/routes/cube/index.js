@@ -708,13 +708,11 @@ const viewSamplePackImageHandler = async (req, res) => {
   const height = Math.floor(Math.sqrt(pack.pack.length));
   const width = Math.ceil(pack.pack.length / height);
 
-  const srcArray = pack.pack.map((card, index) => {
-    return {
-      src: card.imgUrl || card.details.image_normal,
-      x: CARD_WIDTH * (index % width),
-      y: CARD_HEIGHT * Math.floor(index / width),
-    };
-  });
+  const srcArray = pack.pack.map((card, index) => ({
+    src: card.imgUrl || card.details.image_normal,
+    x: CARD_WIDTH * (index % width),
+    y: CARD_HEIGHT * Math.floor(index / width),
+  }));
 
   const imageBuffer = await generateSamplepackImageSharp(srcArray, {
     width: CARD_WIDTH * width,

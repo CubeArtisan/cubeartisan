@@ -21,6 +21,7 @@ import { Input } from 'reactstrap';
 import PropTypes from 'prop-types';
 
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
+import { Autocomplete, Chip, TextField } from '@mui/material';
 
 const AutocardLi = withAutocard('li');
 
@@ -330,4 +331,32 @@ AutocompleteInput.defaultProps = {
   defaultValue: null,
   value: null,
 };
+
+/**
+ * @template T
+ * @param {Array<T>} value
+ * @param {(x: object) => object} getTagProps
+ */
+const renderTags = (value, getTagProps) =>
+  value.map((option, index) => <Chip variant="outlined" label={option} {...getTagProps({ index })} />);
+
+/**
+ * @param {object} params
+ */
+const renderInput = (params) => <TextField {...params} variant="outlined" />;
+
+const AutocompleteTextBox = ({ options, multiple, ...rest }) => {
+  if (multiple) {
+    return <Autocomplete multiple options={options} renderTags={renderTags} renderInput={renderInput} {...rest} />;
+  }
+  return <Autocomplete options={options} renderInput={renderInput} {...rest} />;
+};
+AutocompleteTextBox.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  multiple: PropTypes.bool,
+};
+AutocompleteTextBox.defaultProps = {
+  multiple: false,
+};
+
 export default AutocompleteInput;

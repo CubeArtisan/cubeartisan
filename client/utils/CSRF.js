@@ -33,22 +33,20 @@ export const csrfFetch = (resource, init = { method: 'GET' }) => {
   return fetch(resource, init);
 };
 
-export const postJson = (resource, body) => {
-  return csrfFetch(resource, {
+export const postJson = (resource, body) =>
+  csrfFetch(resource, {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
       'Content-Type': 'application/json',
     },
   });
-};
 
-export const putJson = (resource, body) => {
-  return csrfFetch(resource, {
+export const putJson = (resource, body) =>
+  csrfFetch(resource, {
     method: 'PUT',
     body: JSON.stringify(body),
     headers: {
       'Content-Type': 'application/json',
     },
   });
-};

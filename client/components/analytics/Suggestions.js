@@ -46,25 +46,23 @@ const AddModal = withModal(AutocardA, AddToCubeModal);
 
 const elementWrapper = (element) => <CardBody>{element}</CardBody>;
 
-const Suggestion = ({ card, score, index, cube }) => {
-  return (
-    <ListGroupItem>
-      <h6>
-        {index + 1}
-        {'. '}
-        <AddModal
-          front={card.details.image_normal}
-          back={card.details.image_flip ?? undefined}
-          href={`/card/${encodeName(card.cardID)}`}
-          modalProps={{ card: card.details, hideAnalytics: false, cubeContext: cube._id }}
-        >
-          {cardName(card)}
-        </AddModal>
-        {` (${(score * 100).toFixed(2)}%)`}
-      </h6>
-    </ListGroupItem>
-  );
-};
+const Suggestion = ({ card, score, index, cube }) => (
+  <ListGroupItem>
+    <h6>
+      {index + 1}
+      {'. '}
+      <AddModal
+        front={card.details.image_normal}
+        back={card.details.image_flip ?? undefined}
+        href={`/card/${encodeName(card.cardID)}`}
+        modalProps={{ card: card.details, hideAnalytics: false, cubeContext: cube._id }}
+      >
+        {cardName(card)}
+      </AddModal>
+      {` (${(score * 100).toFixed(2)}%)`}
+    </h6>
+  </ListGroupItem>
+);
 
 Suggestion.propTypes = {
   card: CardPropType.isRequired,

@@ -179,6 +179,7 @@
   "server/serverjs/mongoConnection.js",
   "server/serverjs/render.js",
   "server/serverjs/rss.js",
+  "server/serverjs/updatecards.js",
   "server/serverjs/winstonConfig.js",
   "server/webpack.dev.cjs"
 ]

@@ -36,9 +36,7 @@ function getEntries() {
 function getHtmlPlugins() {
   return glob
     .sync('./pages/*.js')
-    .map((file) => {
-      return { name: file.match(/\/pages\/(.+)\.js/)[1], path: file };
-    })
+    .map((file) => ({ name: file.match(/\/pages\/(.+)\.js/)[1], path: file }))
     .map(
       (template) =>
         new HtmlWebpackPlugin({

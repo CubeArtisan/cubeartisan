@@ -42,15 +42,13 @@ const SortableDragHandle = SortableHandle(() => <DragHandle />);
 
 const SortableItem = SortableElement(({ value }) => value);
 
-const SortableList = SortableContainer(({ items }) => {
-  return (
-    <List>
-      {items.map(({ element, key }, index) => (
-        <SortableItem key={key} index={index} value={element} />
-      ))}
-    </List>
-  );
-});
+const SortableList = SortableContainer(({ items }) => (
+  <List>
+    {items.map(({ element, key }, index) => (
+      <SortableItem key={key} index={index} value={element} />
+    ))}
+  </List>
+));
 
 const TagColorRow = ({ tag, value, onChange, dragging }) => {
   const [open, setOpen] = useState(false);
@@ -160,24 +158,20 @@ const TagColorsModal = ({ canEdit, isOpen, toggle }) => {
 
   const editableRows = useMemo(
     () =>
-      orderedTags.map(({ tag, color }) => {
-        return {
-          element: <TagColorRow tag={tag} value={color} key={tag} onChange={changeColor} dragging={dragging} />,
-          key: tag,
-        };
-      }),
+      orderedTags.map(({ tag, color }) => ({
+        element: <TagColorRow tag={tag} value={color} key={tag} onChange={changeColor} dragging={dragging} />,
+        key: tag,
+      })),
     [orderedTags, changeColor, dragging],
   );
 
   const staticRows = useMemo(
     () =>
-      orderedTags.map(({ tag, color }) => {
-        return (
-          <Typography variant="body1" key={tag} sx={{ backgroundColor: `tags.${color}` }}>
-            {tag}
-          </Typography>
-        );
-      }),
+      orderedTags.map(({ tag, color }) => (
+        <Typography variant="body1" key={tag} sx={{ backgroundColor: `tags.${color}` }}>
+          {tag}
+        </Typography>
+      )),
     [orderedTags],
   );
 

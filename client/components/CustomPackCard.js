@@ -53,16 +53,14 @@ const ACTION_LABELS = Object.freeze({
   trashrandom: 'Randomly Trash',
 });
 
-const CollapsibleCardTitle = ({ children, isOpen, ...props }) => {
-  return (
-    <CardTitle {...props}>
-      {children}
-      <IconButton size="lg" sx={{ float: 'right' }}>
-        {isOpen ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
-      </IconButton>
-    </CardTitle>
-  );
-};
+const CollapsibleCardTitle = ({ children, isOpen, ...props }) => (
+  <CardTitle {...props}>
+    {children}
+    <IconButton size="lg" sx={{ float: 'right' }}>
+      {isOpen ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+    </IconButton>
+  </CardTitle>
+);
 
 const CustomPackCard = ({ packIndex, pack, canRemove, mutations }) => {
   const [slotsOpen, toggleSlotsOpen] = useToggle(true);

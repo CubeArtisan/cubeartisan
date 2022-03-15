@@ -24,31 +24,29 @@ import { Card, CardHeader, CardBody } from 'reactstrap';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
-export const VersionPage = ({ version, host, loginCallback }) => {
-  return (
-    <MainLayout loginCallback={loginCallback}>
-      <Card className="my-3">
-        <CardHeader>
-          <h4>Deployment Details</h4>
-        </CardHeader>
-        <CardBody>
-          <dl className="row">
-            <dt className="col-3">Build Version</dt>
-            <dd className="col-9">
-              <p>{version}</p>
-            </dd>
-          </dl>
-          <dl className="row">
-            <dt className="col-3">Host</dt>
-            <dd className="col-9">
-              <p>{host}</p>
-            </dd>
-          </dl>
-        </CardBody>
-      </Card>
-    </MainLayout>
-  );
-};
+export const VersionPage = ({ version, host, loginCallback }) => (
+  <MainLayout loginCallback={loginCallback}>
+    <Card className="my-3">
+      <CardHeader>
+        <h4>Deployment Details</h4>
+      </CardHeader>
+      <CardBody>
+        <dl className="row">
+          <dt className="col-3">Build Version</dt>
+          <dd className="col-9">
+            <p>{version}</p>
+          </dd>
+        </dl>
+        <dl className="row">
+          <dt className="col-3">Host</dt>
+          <dd className="col-9">
+            <p>{host}</p>
+          </dd>
+        </dl>
+      </CardBody>
+    </Card>
+  </MainLayout>
+);
 
 VersionPage.propTypes = {
   version: PropTypes.string.isRequired,
