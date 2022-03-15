@@ -24,7 +24,7 @@
     "@google-cloud/opentelemetry-cloud-trace-exporter": "^1.1.0",
     "@google-cloud/opentelemetry-resource-util": "1.1.0",
     "@mui/icons-material": "^5.4.4",
-    "@mui/material": "^5.4.4",
+    "@mui/material": "^5.5.1",
     "@node-loader/babel": "^1.0.2",
     "@node-loader/core": "^1.0.5",
     "@opentelemetry/api": "1.0.4",
