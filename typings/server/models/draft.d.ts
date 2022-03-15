@@ -1,6 +1,8 @@
-/// <reference types="mongoose/types/PipelineStage" />
-/// <reference types="mongoose/types/Error" />
-/// <reference types="mongoose/types/Connection" />
+/// <reference types="mongoose/types/pipelinestage" />
+/// <reference types="mongoose/types/connection" />
+/// <reference types="mongoose/types/cursor" />
+/// <reference types="mongoose/types/error" />
+/// <reference types="mongoose/types/schemaoptions" />
 export default Draft;
 declare const Draft: mongoose.Model<any, {}, {}, {}>;
 import mongoose from "mongoose";
