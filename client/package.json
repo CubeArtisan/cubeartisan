@@ -27,7 +27,7 @@
     "@emotion/memoize": "^0.7.5",
     "@mui/icons-material": "^5.4.4",
     "@mui/lab": "^5.0.0-alpha.71",
-    "@mui/material": "^5.4.4",
+    "@mui/material": "^5.5.2",
     "@mui/styles": "^5.4.4",
     "@opentelemetry/api": "1.0.4",
     "axios": "^0.26.0",
