@@ -38,7 +38,7 @@
     "mongoose": "^6.2.5",
     "mongoose-seed": "^0.6.0",
     "node-cache": "^5.1.2",
-    "node-fetch": "^3.2.2",
+    "node-fetch": "^3.2.3",
     "uuid": "^8.3.2",
     "winston": "^3.6.0"
   },
