@@ -259,3 +259,9 @@ This release is composed of porting over bug fixes for bugs we carried over from
 ##### Bug Fixes
 
 - Fix how trash actions work to be as expected.
+
+#### v1.4.4.3
+
+##### Bug Fixes
+
+- Fix error where login and forgot password routes would say user not found.
