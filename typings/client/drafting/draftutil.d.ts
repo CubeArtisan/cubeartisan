@@ -66,7 +66,7 @@ export function convertDrafterState(drafterState: any): {
     pickNum: any;
     numPicks: any;
 };
-export function getDraftbotScores(convertedDrafterState: any, mtgmlServer: any, includeOracles?: boolean): Promise<any>;
+export function getDraftbotScores(convertedDrafterState: any, mtgmlServer: string, includeOracles?: boolean): Promise<any>;
 export function getWorstOption(scores: any): number;
 export function getBestOption(scores: any): number;
 export function allBotsDraft(draft: any, mtgmlServer: any): Promise<any>;
