@@ -293,6 +293,9 @@ export const convertDrafterState = (drafterState) => {
   return newState;
 };
 
+/**
+  * @param {string} mtgmlServer
+  */
 export const getDraftbotScores = async (convertedDrafterState, mtgmlServer, includeOracles = false) => {
   try {
   const response = await axios.post(`${mtgmlServer}/draft`, { drafterState: convertedDrafterState });
