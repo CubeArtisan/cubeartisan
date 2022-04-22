@@ -79,7 +79,7 @@
     "@testing-library/react": "^12.1.4",
     "@types/styled-components": "^5.1.24",
     "babel-jest": "^27.5.1",
-    "browserslist": "^4.20.0",
+    "browserslist": "^4.20.2",
     "eslint": "^8.10.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
