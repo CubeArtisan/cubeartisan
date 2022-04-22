@@ -21,16 +21,17 @@
       drv = pkgs.mkShell {
         name = "cubeartisan";
         buildInputs = [
-          pkgs.crc32c
-          pkgs.nodejs
-          pkgs.pkg-config
           pkgs.cairo
-          pkgs.pango
-          pkgs.libpng 
-          pkgs.libjpeg 
-          pkgs.giflib 
+          pkgs.crc32c
+          pkgs.docker-compose
           pkgs.gcc 
+          pkgs.giflib 
+          pkgs.libjpeg 
+          pkgs.libpng 
           pkgs.libuuid.out 
+          pkgs.nodejs
+          pkgs.pango
+          pkgs.pkg-config
           pkgs.yarn
         ];
         shellHook = ''
