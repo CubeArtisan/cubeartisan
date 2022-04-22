@@ -8,13 +8,6 @@ export namespace CubeContextProvider {
         const initialCube: PropTypes.Requireable<PropTypes.InferProps<{
             cards: PropTypes.Requireable<PropTypes.InferProps<{
                 _id: PropTypes.Requireable<string>;
-                /**
-                 * @typedef {import('react').Context<{ cube: any, canEdit: Boolean, cubeID: string?, hasCustomImages: Boolean,
-                 *           setCube: ((cube: any) => void) | ((replacer: (cube: any) => any) => void),
-                 *           updateCubeCard: (index: number, card: any) => void,
-                 *           updateCubeCards: (cards: any[]) => void }>} ContextType
-                 * @type ContextType
-                 */
                 index: PropTypes.Requireable<number>;
                 imgUrl: PropTypes.Requireable<string>;
                 imgBackUrl: PropTypes.Requireable<string>;

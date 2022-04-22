@@ -86,7 +86,7 @@ const AutocardListItem = ({ card, noCardModal }) => {
       onAuxClick={noCardModal ? noOp : handleAuxClick}
       onClick={noCardModal ? noOp : handleClick}
       role="button"
-      sx={{ paddingLeft: 0.5, paddingRight: 0, PaddingY: 0.25, backgroundColor }}
+      sx={{ paddingLeft: 0.5, paddingRight: 0, paddingY: 0.25, backgroundColor }}
     >
       <Typography noWrap sx={{ width: '100%' }} variant="body2">
         {name}
@@ -101,5 +101,4 @@ AutocardListItem.propTypes = {
 AutocardListItem.defaultProps = {
   noCardModal: false,
 };
-
 export default AutocardListItem;

@@ -37,25 +37,26 @@ const StyledFoilImage = styled(StyledCardImage)({
 });
 
 /**
- * @typedef {{ card?: any, front?: string, back?: string, tags?: string[] }} AutocardProps
+ * @typedef {{ card?: import('@cubeartisan/client/proptypes/CardPropType.js').Card, front?: string, back?: string, tags?: string[] }} AutocardProps
  */
 
 /**
- * @template {{ children: import('react').ReactNode, ref: import('react').ForwardedRef<any>}} P
+ * @template {object} P
  * @param {import('react').ComponentType<P>} Tag - The tag for the autocard components
  * @returns {import('react').ForwardRefExoticComponent<AutocardProps & P>}
  */
 const withAutocard = (Tag) => {
   /**
-   * @typedef {import('react').ForwardRefExoticComponent<import('react').PropsWithoutRef<AutocardProps & P>>} ComponentType
+   * @typedef {import('react').ForwardRefExoticComponent<AutocardProps & P>} ComponentType
    * @type ComponentType
    */
+  // @ts-ignore
   const WithAutocard = forwardRef(({ card, front, back, tags, ...props }, ref) => {
     const tagContext = useContext(TagContext);
     const tagColorClass = tagContext?.tagColorClass ?? placeholderClass;
     const { showCustomImages } = useContext(DisplayContext);
     const backupRef = useRef();
-    card = card ?? { details: {} };
+    card = card ?? { cardID: '', tags: [], details: { image_normal: '', _id: '', name: '' } };
     tags = tags ?? cardTags(card) ?? [];
     front = front || (showCustomImages && cardImageUrl(card)) || cardImageNormal(card);
     back = back || (showCustomImages && cardImageBackUrl(card)) || cardImageFlip(card);
@@ -109,12 +110,14 @@ const withAutocard = (Tag) => {
     front: PropTypes.string,
     back: PropTypes.string,
     tags: PropTypes.arrayOf(PropTypes.string.isRequired),
+    ...Tag.propTypes,
   };
   WithAutocard.defaultProps = {
     card: null,
     front: null,
     back: null,
     tags: null,
+    ...Tag.defaultProps,
   };
   if (typeof Tag === 'string') {
     WithAutocard.displayName = `${Tag}WithAutocard`;

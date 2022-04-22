@@ -18,6 +18,17 @@
  */
 import PropTypes from 'prop-types';
 
+/**
+ * @typedef {'W'|'U'|'B'|'R'|'G'} Color
+ */
+
+/**
+ * @typedef CardDetails
+ * @property {string} _id
+ * @property {string} name
+ * @property {string} image_normal
+ */
+
 const CardDetailsPropType = PropTypes.shape({
   _id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
