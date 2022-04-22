@@ -18,6 +18,7 @@ COPY ./client/package.json       client/package.json
 COPY ./jobs/package.json         jobs/package.json
 COPY ./yarn.lock                 yarn.lock
 COPY ./.yarnrc.yml               .yarnrc.yml
+COPY ./.yarn                     .yarn/
 
 RUN yarn install --immutable && yarn cache clean
 
