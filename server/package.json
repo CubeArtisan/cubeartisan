@@ -57,7 +57,7 @@
     "csurf": "^1.11.0",
     "debug": "^4.3.4",
     "dotenv": "^16.0.0",
-    "email-templates": "^8.1.0",
+    "email-templates": "^9.0.0",
     "eslint": "^8.13.0",
     "eslint-plugin-react": "7.29.4",
     "event-stream": "^4.0.1",
