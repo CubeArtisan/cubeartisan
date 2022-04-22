@@ -27,11 +27,10 @@ import { Spinner } from 'reactstrap';
 import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 
-const wait = async (ms) => {
-  return new Promise((resolve) => {
+const wait = async (ms) =>
+  new Promise((resolve) => {
     setTimeout(resolve, ms);
   });
-};
 
 const Feed = ({ items }) => {
   const [feedItems, setFeedItems] = useState(items);

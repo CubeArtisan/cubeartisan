@@ -98,13 +98,10 @@ export function cardsAreEquivalent(a, b) {
   );
 }
 
-export const mainboardRate = ({ mainboards, sideboards }) => {
-  return mainboards + sideboards > 0 ? mainboards / (mainboards + sideboards) : 0;
-};
+export const mainboardRate = ({ mainboards, sideboards }) =>
+  mainboards + sideboards > 0 ? mainboards / (mainboards + sideboards) : 0;
 
-export const pickRate = ({ picks, passes }) => {
-  return picks + passes > 0 ? picks / (picks + passes) : 0;
-};
+export const pickRate = ({ picks, passes }) => (picks + passes > 0 ? picks / (picks + passes) : 0);
 
 export const cardTags = (card) => card.tags;
 
@@ -327,19 +324,16 @@ export const makeSubtitle = (cards) => {
   );
 };
 
-export const reasonableCard = (card) => {
-  return (
-    !card.promo &&
-    !card.digital &&
-    !card.isToken &&
-    card.border_color !== 'gold' &&
-    card.language === 'en' &&
-    card.tcgplayer_id &&
-    card.set !== 'myb' &&
-    card.set !== 'mb1' &&
-    card.collector_number.indexOf('★') === -1
-  );
-};
+export const reasonableCard = (card) =>
+  !card.promo &&
+  !card.digital &&
+  !card.isToken &&
+  card.border_color !== 'gold' &&
+  card.language === 'en' &&
+  card.tcgplayer_id &&
+  card.set !== 'myb' &&
+  card.set !== 'mb1' &&
+  card.collector_number.indexOf('★') === -1;
 
 export default {
   cardTags,

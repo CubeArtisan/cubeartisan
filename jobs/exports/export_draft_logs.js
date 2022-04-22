@@ -74,9 +74,7 @@ const processSeat = (choices, basics, createdAt, cardToInt) => {
   };
 };
 
-const processDraftLog = (draftLog, cardToInt) => {
-  return draftLog.players.map((choices) => processSeat(choices, draftLog.basics, draftLog.createdAt, cardToInt));
-};
+const processDraftLog = (draftLog, cardToInt) => draftLog.players.map((choices) => processSeat(choices, draftLog.basics, draftLog.createdAt, cardToInt));
 
 try {
   // eslint-disable-next-line prettier/prettier

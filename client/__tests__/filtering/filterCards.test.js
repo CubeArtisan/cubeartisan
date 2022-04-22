@@ -417,9 +417,7 @@ describe('filter', () => {
     it('properly filters oracle text', () => {
       const { filter } = makeFilter('o:flying');
       const countFlyers = exampleCube.cards
-        .map((card) => {
-          return card.details.oracle_text.toLowerCase().indexOf('flying') === -1 ? 0 : 1;
-        })
+        .map((card) => (card.details.oracle_text.toLowerCase().indexOf('flying') === -1 ? 0 : 1))
         .reduce((total, inc) => total + inc, 0);
 
       const flyers = exampleCube.cards.filter(filter);

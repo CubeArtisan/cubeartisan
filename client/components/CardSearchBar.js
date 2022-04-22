@@ -20,21 +20,19 @@ import React from 'react';
 import { Button } from '@mui/material';
 import { Input, InputGroup, InputGroupAddon } from 'reactstrap';
 
-const CardSearchBar = () => {
-  return (
-    <form method="GET" action="/cards/search" autoComplete="off" className="w-100">
-      <div className="search-bar flex-container flex-align-stretch flex-grow">
-        <InputGroup>
-          <Input name="f" placeholder="Search Cards..." />
-          <InputGroupAddon addonType="append">
-            <Button className="search-button" type="submit" color="success">
-              Go
-            </Button>
-          </InputGroupAddon>
-        </InputGroup>
-      </div>
-    </form>
-  );
-};
+const CardSearchBar = () => (
+  <form method="GET" action="/cards/search" autoComplete="off" className="w-100">
+    <div className="search-bar flex-container flex-align-stretch flex-grow">
+      <InputGroup>
+        <Input name="f" placeholder="Search Cards..." />
+        <InputGroupAddon addonType="append">
+          <Button className="search-button" type="submit" color="success">
+            Go
+          </Button>
+        </InputGroupAddon>
+      </InputGroup>
+    </div>
+  </form>
+);
 
 export default CardSearchBar;

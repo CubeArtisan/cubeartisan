@@ -28,29 +28,27 @@ import PodcastEpisodePreview from '@cubeartisan/client/components/PodcastEpisode
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
-export const BrowseContentPage = ({ loginCallback, content }) => {
-  return (
-    <MainLayout loginCallback={loginCallback}>
-      <DynamicFlash />
-      <Row>
-        <Col xs="12">
-          <Row>
-            <Col xs="6">
-              <h4>Browse Content</h4>
-            </Col>
-          </Row>
-        </Col>
-        {content.map((item) => (
-          <Col className="mb-3" xs="6" md="4">
-            {item.type === 'article' && <ArticlePreview article={item.content} />}
-            {item.type === 'video' && <VideoPreview video={item.content} />}
-            {item.type === 'episode' && <PodcastEpisodePreview episode={item.content} />}
+export const BrowseContentPage = ({ loginCallback, content }) => (
+  <MainLayout loginCallback={loginCallback}>
+    <DynamicFlash />
+    <Row>
+      <Col xs="12">
+        <Row>
+          <Col xs="6">
+            <h4>Browse Content</h4>
           </Col>
-        ))}
-      </Row>
-    </MainLayout>
-  );
-};
+        </Row>
+      </Col>
+      {content.map((item) => (
+        <Col className="mb-3" xs="6" md="4">
+          {item.type === 'article' && <ArticlePreview article={item.content} />}
+          {item.type === 'video' && <VideoPreview video={item.content} />}
+          {item.type === 'episode' && <PodcastEpisodePreview episode={item.content} />}
+        </Col>
+      ))}
+    </Row>
+  </MainLayout>
+);
 
 BrowseContentPage.propTypes = {
   loginCallback: PropTypes.string,

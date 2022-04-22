@@ -37,9 +37,7 @@ const colorMap = {
   Gold: '#DBC467',
 };
 const colors = [...Object.values(colorMap), '#000000'];
-const getColor = (label, index) => {
-  return colorMap[label] ?? colors[index % colors.length];
-};
+const getColor = (label, index) => colorMap[label] ?? colors[index % colors.length];
 
 const Chart = ({ cards, characteristics, setAsfans, cube, defaultFormatId }) => {
   const [sort, setSort] = useQueryParam('sort', 'Color Identity');

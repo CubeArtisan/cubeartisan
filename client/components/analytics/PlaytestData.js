@@ -44,9 +44,7 @@ const renderCardLink = (card) => (
   </AutocardLink>
 );
 
-const renderPercent = (val) => {
-  return <>{(val * 100).toFixed(2)}%</>;
-};
+const renderPercent = (val) => <>{(val * 100).toFixed(2)}%</>;
 
 const PlaytestData = ({ cards: allCards, cubeAnalytics }) => {
   const cardDict = useMemo(

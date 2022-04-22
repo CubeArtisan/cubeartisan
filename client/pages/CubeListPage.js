@@ -86,9 +86,7 @@ const CubeListPageRaw = ({
     text: tag,
   }));
 
-  const filteredCards = useMemo(() => {
-    return filter ? cube.cards.filter(filter) : cube.cards;
-  }, [filter, cube]);
+  const filteredCards = useMemo(() => (filter ? cube.cards.filter(filter) : cube.cards), [filter, cube]);
 
   return (
     <SortContextProvider defaultSorts={cube.default_sorts} showOther={!!cube.default_show_unsorted}>

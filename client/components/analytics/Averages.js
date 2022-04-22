@@ -49,13 +49,12 @@ const Averages = ({ cards, characteristics, defaultFormatId, cube, setAsfans }) 
               }
               return true;
             })
-            .map((card) => {
-              return [card.asfan, characteristics[characteristic].get(card)];
-            })
-            .filter(([weight, x]) => {
-              // Don't include null, undefined, or NaN values, but we still want to include 0 values.
-              return weight && weight > 0 && (x || x === 0);
-            });
+            .map((card) => [card.asfan, characteristics[characteristic].get(card)])
+            .filter(
+              ([weight, x]) =>
+                // Don't include null, undefined, or NaN values, but we still want to include 0 values.
+                weight && weight > 0 && (x || x === 0),
+            );
           const avg = weightedAverage(vals);
           return {
             label: tuple[0],

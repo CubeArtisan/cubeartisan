@@ -70,46 +70,55 @@ afterAll(async () => {
   return carddb.unloadCardDb();
 });
 
-test('cubecobra text download', () => {
-  return request(app)
-    .get(`/cube/${cubeID}/export/cubecobra`)
-    .expect(200)
-    .expect('Content-Type', 'text/plain')
-    .expect('Content-disposition', `attachment; filename=${sanitizedCubeName}.txt`)
-    .expect((res) => {
-      const lines = splitText(res.text);
-      expect(lines[0]).toEqual('Faerie Guidemother [eld-11]');
-      expect(lines.length).toEqual(exampleCube.cards.length);
-    });
-}, 15000);
+test(
+  'cubecobra text download',
+  () =>
+    request(app)
+      .get(`/cube/${cubeID}/export/cubecobra`)
+      .expect(200)
+      .expect('Content-Type', 'text/plain')
+      .expect('Content-disposition', `attachment; filename=${sanitizedCubeName}.txt`)
+      .expect((res) => {
+        const lines = splitText(res.text);
+        expect(lines[0]).toEqual('Faerie Guidemother [eld-11]');
+        expect(lines.length).toEqual(exampleCube.cards.length);
+      }),
+  15000,
+);
 
-test('plaintext download', () => {
-  return request(app)
-    .get(`/cube/${cubeID}/export/plaintext`)
-    .expect(200)
-    .expect('Content-Type', 'text/plain; charset=utf-8')
-    .expect('Content-disposition', `attachment; filename=${sanitizedCubeName}.txt`)
-    .expect((res) => {
-      const lines = splitText(res.text);
-      expect(lines[0]).toEqual('Faerie Guidemother');
-      expect(lines.length).toEqual(exampleCube.cards.length);
-    });
-}, 15000);
+test(
+  'plaintext download',
+  () =>
+    request(app)
+      .get(`/cube/${cubeID}/export/plaintext`)
+      .expect(200)
+      .expect('Content-Type', 'text/plain; charset=utf-8')
+      .expect('Content-disposition', `attachment; filename=${sanitizedCubeName}.txt`)
+      .expect((res) => {
+        const lines = splitText(res.text);
+        expect(lines[0]).toEqual('Faerie Guidemother');
+        expect(lines.length).toEqual(exampleCube.cards.length);
+      }),
+  15000,
+);
 
-test('MTGO download', () => {
-  return request(app)
-    .get(`/cube/${cubeID}/export/mtgo`)
-    .expect(200)
-    .expect('Content-Type', 'text/plain')
-    .expect('Content-disposition', `attachment; filename=${sanitizedCubeName}.txt`)
-    .expect((res) => {
-      const lines = splitText(res.text);
-      expect(lines[0]).toEqual('1 Faerie Guidemother');
-      expect(lines[1]).toEqual('1 Giant Killer');
-      // The two Brazen Borrowers in the cube are deduped
-      expect(lines.length).toEqual(exampleCube.cards.length - 1);
-    });
-}, 15000);
+test(
+  'MTGO download',
+  () =>
+    request(app)
+      .get(`/cube/${cubeID}/export/mtgo`)
+      .expect(200)
+      .expect('Content-Type', 'text/plain')
+      .expect('Content-disposition', `attachment; filename=${sanitizedCubeName}.txt`)
+      .expect((res) => {
+        const lines = splitText(res.text);
+        expect(lines[0]).toEqual('1 Faerie Guidemother');
+        expect(lines[1]).toEqual('1 Giant Killer');
+        // The two Brazen Borrowers in the cube are deduped
+        expect(lines.length).toEqual(exampleCube.cards.length - 1);
+      }),
+  15000,
+);
 
 test('csv download', () => {
   const headerFields = [
@@ -164,32 +173,38 @@ test('csv download', () => {
     });
 }, 15000);
 
-test('forge download', () => {
-  return request(app)
-    .get(`/cube/${cubeID}/export/forge`)
-    .expect(200)
-    .expect('Content-Type', 'text/plain')
-    .expect('Content-disposition', `attachment; filename=${sanitizedCubeName}.dck`)
-    .expect((res) => {
-      const lines = splitText(res.text);
-      expect(lines[0]).toEqual('[metadata]');
-      expect(lines[1]).toEqual(`Name=${exampleCube.name}`);
-      expect(lines[2]).toEqual('[Main]');
-      expect(lines[3]).toEqual('1 Faerie Guidemother|ELD');
-      // Extra lines expected for [metadata] and [Main] headings, and cube name
-      expect(lines.length).toEqual(exampleCube.cards.length + 3);
-    });
-}, 15000);
+test(
+  'forge download',
+  () =>
+    request(app)
+      .get(`/cube/${cubeID}/export/forge`)
+      .expect(200)
+      .expect('Content-Type', 'text/plain')
+      .expect('Content-disposition', `attachment; filename=${sanitizedCubeName}.dck`)
+      .expect((res) => {
+        const lines = splitText(res.text);
+        expect(lines[0]).toEqual('[metadata]');
+        expect(lines[1]).toEqual(`Name=${exampleCube.name}`);
+        expect(lines[2]).toEqual('[Main]');
+        expect(lines[3]).toEqual('1 Faerie Guidemother|ELD');
+        // Extra lines expected for [metadata] and [Main] headings, and cube name
+        expect(lines.length).toEqual(exampleCube.cards.length + 3);
+      }),
+  15000,
+);
 
-test('xmage download', () => {
-  return request(app)
-    .get(`/cube/${cubeID}/export/xmage`)
-    .expect(200)
-    .expect('Content-Type', 'text/plain')
-    .expect('Content-disposition', `attachment; filename=${sanitizedCubeName}.dck`)
-    .expect((res) => {
-      const lines = splitText(res.text);
-      expect(lines[0]).toEqual('1 [ELD:11] Faerie Guidemother');
-      expect(lines.length).toEqual(exampleCube.cards.length);
-    });
-}, 15000);
+test(
+  'xmage download',
+  () =>
+    request(app)
+      .get(`/cube/${cubeID}/export/xmage`)
+      .expect(200)
+      .expect('Content-Type', 'text/plain')
+      .expect('Content-disposition', `attachment; filename=${sanitizedCubeName}.dck`)
+      .expect((res) => {
+        const lines = splitText(res.text);
+        expect(lines[0]).toEqual('1 [ELD:11] Faerie Guidemother');
+        expect(lines.length).toEqual(exampleCube.cards.length);
+      }),
+  15000,
+);

@@ -194,9 +194,10 @@ const Maybeboard = ({ filter, ...props }) => {
 
   const maybeboardIndex = useMemo(() => maybeboard.map((card, index) => ({ ...card, index })), [maybeboard]);
 
-  const filteredMaybeboard = useMemo(() => {
-    return filter ? maybeboardIndex.filter(filter) : maybeboardIndex;
-  }, [filter, maybeboardIndex]);
+  const filteredMaybeboard = useMemo(
+    () => (filter ? maybeboardIndex.filter(filter) : maybeboardIndex),
+    [filter, maybeboardIndex],
+  );
 
   return (
     <CardModalForm>

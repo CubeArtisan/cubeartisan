@@ -199,16 +199,14 @@ const convertLegality = {
   restricted: ['warning', 'Restricted'],
 };
 
-const LegalityBadge = ({ legality, status }) => {
-  return (
-    <h6>
-      <Badge className="legality-badge" color={convertLegality[status][0]}>
-        {convertLegality[status][1]}
-      </Badge>{' '}
-      {legality}
-    </h6>
-  );
-};
+const LegalityBadge = ({ legality, status }) => (
+  <h6>
+    <Badge className="legality-badge" color={convertLegality[status][0]}>
+      {convertLegality[status][1]}
+    </Badge>{' '}
+    {legality}
+  </h6>
+);
 
 LegalityBadge.propTypes = {
   legality: PropTypes.string.isRequired,
@@ -283,9 +281,7 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
     return 0;
   });
 
-  const filteredVersions = sortedVersions.filter((version) => {
-    return version._id !== card._id;
-  });
+  const filteredVersions = sortedVersions.filter((version) => version._id !== card._id);
 
   return (
     <MainLayout loginCallback={loginCallback}>

@@ -82,9 +82,7 @@ const HyperGeom = () => {
   const [lte, setlte] = useState('');
   const [et, setet] = useState('');
 
-  const percentify = (num) => {
-    return `${(num * 100).toFixed(2)}%`;
-  };
+  const percentify = (num) => `${(num * 100).toFixed(2)}%`;
 
   const clear = () => {
     setData([]);

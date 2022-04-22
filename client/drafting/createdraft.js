@@ -87,8 +87,9 @@ const standardDraftAsfan = (cards) => {
   };
 };
 
-const customDraft = (cards, rng, duplicates = false) => {
-  return (cardFilters) => {
+const customDraft =
+  (cards, rng, duplicates = false) =>
+  (cardFilters) => {
     if (cards.length === 0) {
       throw new Error('Unable to create draft: not enough cards.');
     }
@@ -127,10 +128,10 @@ const customDraft = (cards, rng, duplicates = false) => {
 
     return { card, messages };
   };
-};
 
-const customDraftAsfan = (cards, duplicates = false) => {
-  return (cardFilters) => {
+const customDraftAsfan =
+  (cards, duplicates = false) =>
+  (cardFilters) => {
     if (cards.length === 0) {
       throw new Error('Unable to create draft asfan: not enough cards.');
     }
@@ -171,7 +172,6 @@ const customDraftAsfan = (cards, duplicates = false) => {
     }
     return { card: true, messages: [] };
   };
-};
 
 export const getDraftFormat = (params, cube) => {
   let format;

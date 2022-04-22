@@ -32,41 +32,39 @@ import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 
 const CommentsSection = lazy(() => import('@cubeartisan/client/components/CommentsSection.js'));
 
-export const PodcastEpisodePage = ({ loginCallback, episode }) => {
-  return (
-    <MainLayout loginCallback={loginCallback}>
-      <DynamicFlash />
-      <Card className="mb-3">
-        <CardHeader>
-          <h1>{episode.title}</h1>
-          <h6>
-            From <a href={`/creators/podcast/${episode.podcast}`}>{episode.podcastname}</a>
-            {' - '}
-            <TimeAgo date={episode.date} />
-          </h6>
-        </CardHeader>
-        <Row noGutters>
-          <Col xs="12" sm="4" className="pr-0">
-            <AspectRatioBox ratio={1} className="text-ellipsis">
-              <img className="w-100" alt={episode.title} src={episode.image} />
-            </AspectRatioBox>
-          </Col>
-          <Col xs="12" sm="8" className="border-left pl-0">
-            <CardBody>
-              <ReactAudioPlayer src={episode.source} controls />
-            </CardBody>
-            <CardBody className="border-top" dangerouslySetInnerHTML={{ __html: episode.description }} />
-          </Col>
-        </Row>
-        <div className="border-top">
-          <Suspense>
-            <CommentsSection parentType="episode" parent={episode._id} collapse={false} />
-          </Suspense>
-        </div>
-      </Card>
-    </MainLayout>
-  );
-};
+export const PodcastEpisodePage = ({ loginCallback, episode }) => (
+  <MainLayout loginCallback={loginCallback}>
+    <DynamicFlash />
+    <Card className="mb-3">
+      <CardHeader>
+        <h1>{episode.title}</h1>
+        <h6>
+          From <a href={`/creators/podcast/${episode.podcast}`}>{episode.podcastname}</a>
+          {' - '}
+          <TimeAgo date={episode.date} />
+        </h6>
+      </CardHeader>
+      <Row noGutters>
+        <Col xs="12" sm="4" className="pr-0">
+          <AspectRatioBox ratio={1} className="text-ellipsis">
+            <img className="w-100" alt={episode.title} src={episode.image} />
+          </AspectRatioBox>
+        </Col>
+        <Col xs="12" sm="8" className="border-left pl-0">
+          <CardBody>
+            <ReactAudioPlayer src={episode.source} controls />
+          </CardBody>
+          <CardBody className="border-top" dangerouslySetInnerHTML={{ __html: episode.description }} />
+        </Col>
+      </Row>
+      <div className="border-top">
+        <Suspense>
+          <CommentsSection parentType="episode" parent={episode._id} collapse={false} />
+        </Suspense>
+      </div>
+    </Card>
+  </MainLayout>
+);
 
 PodcastEpisodePage.propTypes = {
   loginCallback: PropTypes.string,

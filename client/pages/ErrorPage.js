@@ -25,34 +25,32 @@ import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
-export const ErrorPage = ({ title, error, requestId, loginCallback, siteCustomizations: { discordUrl, siteName } }) => {
-  return (
-    <MainLayout loginCallback={loginCallback}>
-      <DynamicFlash />
-      <Card className="my-3">
-        <CardHeader>
-          <h4>{title}</h4>
-        </CardHeader>
-        <CardBody>
+export const ErrorPage = ({ title, error, requestId, loginCallback, siteCustomizations: { discordUrl, siteName } }) => (
+  <MainLayout loginCallback={loginCallback}>
+    <DynamicFlash />
+    <Card className="my-3">
+      <CardHeader>
+        <h4>{title}</h4>
+      </CardHeader>
+      <CardBody>
+        <p>
+          If you think this was a mistake, please report this on the <a href={discordUrl}>{siteName} Discord</a>
+        </p>
+        {error && (
           <p>
-            If you think this was a mistake, please report this on the <a href={discordUrl}>{siteName} Discord</a>
+            {' '}
+            <code>{error}</code>
           </p>
-          {error && (
-            <p>
-              {' '}
-              <code>{error}</code>
-            </p>
-          )}
-          {requestId && (
-            <p>
-              Request ID: <code>{requestId}</code>
-            </p>
-          )}
-        </CardBody>
-      </Card>
-    </MainLayout>
-  );
-};
+        )}
+        {requestId && (
+          <p>
+            Request ID: <code>{requestId}</code>
+          </p>
+        )}
+      </CardBody>
+    </Card>
+  </MainLayout>
+);
 ErrorPage.propTypes = {
   title: PropTypes.string.isRequired,
   requestId: PropTypes.string,

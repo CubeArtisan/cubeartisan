@@ -176,9 +176,10 @@ export const GridDraftPage = ({ cube, initialDraft, seatNumber, loginCallback })
   const seatNum = toNullableInt(seatNumber) ?? 0;
   const { gridDraft, mutations } = useMutatableGridDraft(initialDraft);
   const submitDeckForm = useRef();
-  const drafterStates = useMemo(() => {
-    return [0, 1].map((idx) => getGridDrafterState({ gridDraft, seatNumber: idx }));
-  }, [gridDraft]);
+  const drafterStates = useMemo(
+    () => [0, 1].map((idx) => getGridDrafterState({ gridDraft, seatNumber: idx })),
+    [gridDraft],
+  );
   const { turn, numPacks, packNum, pickNum } = drafterStates[seatNum];
   const { cardsInPack } = drafterStates[turn ? 0 : 1];
   const doneDrafting = packNum >= numPacks;

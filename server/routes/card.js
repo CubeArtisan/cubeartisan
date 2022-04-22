@@ -194,12 +194,11 @@ const findAllVersionsForId = (id) => {
   return cardIds.map((newid) => Object.assign({}, carddb.cardFromId(newid)));
 };
 
-const getAllVersionsForIdHandler = (req, res) => {
-  return res.status(200).send({
+const getAllVersionsForIdHandler = (req, res) =>
+  res.status(200).send({
     success: 'true',
     cards: findAllVersionsForId(req.params.id),
   });
-};
 export const getAllVersionsForId = [cacheImmutableResponse, wrapAsyncApi(getAllVersionsForIdHandler)];
 
 const getVersionsFromIdsHandler = (req, res) => {
@@ -281,43 +280,38 @@ const getFlipImageByIdHandler = async (req, res) => {
 };
 export const getFlipImageById = [cacheImmutableResponse, wrapAsyncApi(getFlipImageByIdHandler)];
 
-const getDetailsForCardsHandler = async (req, res) => {
-  return res.status(200).send({
+const getDetailsForCardsHandler = async (req, res) =>
+  res.status(200).send({
     success: 'true',
     details: req.body.cards.map(getCardFromId),
   });
-};
 export const getDetailsForCards = wrapAsyncApi(getDetailsForCardsHandler);
 
-const listCardNamesHandler = (_, res) => {
-  return res.status(200).send({
+const listCardNamesHandler = (_, res) =>
+  res.status(200).send({
     success: 'true',
     cardnames: carddb.cardtree,
   });
-};
 export const listCardNames = [cacheImmutableResponse, wrapAsyncApi(listCardNamesHandler)];
 
 // Get the full card images including image_normal and image_flip
-const getCardImageUrlsHandler = (_, res) => {
-  return res.status(200).send({
+const getCardImageUrlsHandler = (_, res) =>
+  res.status(200).send({
     success: 'true',
     cardimages: carddb.cardimages,
   });
-};
 export const getCardImageUrls = [cacheImmutableResponse, wrapAsyncApi(getCardImageUrlsHandler)];
 
-const getImageDictHandler = (_, res) => {
-  return res.status(200).send({
+const getImageDictHandler = (_, res) =>
+  res.status(200).send({
     success: 'true',
     dict: carddb.imagedict,
   });
-};
 export const getImageDict = [cacheImmutableResponse, wrapAsyncApi(getImageDictHandler)];
 
-const getFullNamesHandler = (_, res) => {
-  return res.status(200).send({
+const getFullNamesHandler = (_, res) =>
+  res.status(200).send({
     success: 'true',
     cardnames: carddb.full_names,
   });
-};
 export const getFullNames = [cacheImmutableResponse, wrapAsyncApi(getFullNamesHandler)];
