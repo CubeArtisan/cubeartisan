@@ -549,6 +549,7 @@ push-docker.ps1
 # Yarn 3 ignores
 .pnp.*
 .yarn/*
+!.yarn/cache
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
