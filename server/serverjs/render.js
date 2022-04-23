@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable react/jsx-filename-extension */
 /**
  * This file is part of CubeArtisan.
@@ -18,9 +19,12 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React from 'react';
-import ReactDOMServer from 'react-dom/server.node.js';
+import { renderToString } from 'react-dom/server.node.js';
 import serialize from 'serialize-javascript';
-import StyledComponents from 'styled-components';
+import createCache from '@emotion/cache';
+// eslint-disable-next-line
+import createEmotionServer from '@emotion/server/create-instance';
+import { CacheProvider } from '@emotion/react';
 
 import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 import Cube from '@cubeartisan/server/models/cube.js';
@@ -51,6 +55,8 @@ const getCubes = async (req) => {
 };
 
 export const render = async (req, res, page, reactProps = {}, options = {}) => {
+  const cache = createCache.default({ key: 'css' });
+  const { extractCriticalToChunks, constructStyleTagsFromChunks } = createEmotionServer.default(cache);
   const cubes = await getCubes(req);
   reactProps.user = req.user
     ? {
@@ -89,23 +95,21 @@ export const render = async (req, res, page, reactProps = {}, options = {}) => {
     });
   }
 
-  const sheet = new StyledComponents.ServerStyleSheet();
   const PageElement = await getPage(page, req);
   const props = JSON.parse(JSON.stringify(reactProps));
   const reactHTML = PageElement
     ? // eslint-disable-next-line react/jsx-props-no-spreading
-      ReactDOMServer.renderToString(sheet.collectStyles(<PageElement {...props} />))
-    : null;
-  const cssStyles = sheet.getStyleTags();
-  sheet.seal();
+      renderToString(<CacheProvider value={cache}><PageElement {...props} /></CacheProvider>)
+    : '';
+  const emotionChunks = extractCriticalToChunks(reactHTML);
+  const emotionCss = constructStyleTagsFromChunks(emotionChunks);
   res.render(`../../client/dist/${page}`, {
     reactHTML,
     reactProps: serialize(reactProps),
-    cssStyles,
+    cssStyles: emotionCss,
     page,
     metadata: options.metadata,
     title: options.title ? `${options.title} - ${process.env.SITE_NAME}` : process.env.SITE_NAME,
-    colors: req.user?.theme ? `/css/${req.user.theme}.css` : '/css/default.css',
   });
 };
 

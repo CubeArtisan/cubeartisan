@@ -40,6 +40,12 @@ const DARK_PALETTE = {
     dark: 'hsl(124, 55%, 77%)',
     contrastText: 'hsl(0, 0%, 0%)',
   },
+  appbar: {
+    main: 'hsl(220, 40%, 35%)',
+    dark: 'hsl(220, 35%, 45%)',
+    light: 'hsl(220, 80%, 25%)',
+    contrastText: 'hsl(0, 0%, 100%)',
+  },
   grey: {
     '50': 'hsl(0, 0%, 2%)',
     '100': 'hsl(0, 0%, 4%)',

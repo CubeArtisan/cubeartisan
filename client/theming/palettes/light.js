@@ -29,16 +29,22 @@ const LIGHT_PALETTE = {
     contrastText: 'hsl(0, 0%, 100%)',
   },
   info: {
-    main: 'hsl(201, 98%, 41%)',
+    main: 'hsl(201, 98%, 30%)',
     light: 'hsl(198, 97%, 48%)',
     dark: 'hsl(206, 98%, 30%)',
     contrastText: 'hsl(0, 0%, 100%)',
   },
   success: {
-    main: '#hsl(123, 46%, 33%)',
+    main: 'hsl(123, 46%, 33%)',
     light: 'hsl(122, 39%, 49%)',
     dark: 'hsl(124, 55%, 23%)',
     contrastText: 'hsl(0, 0%, 100%)',
+  },
+  appbar: {
+    main: 'hsl(220, 40%, 55%)',
+    light: 'hsl(220, 35%, 65%)',
+    dark: 'hsl(220, 60%, 45%)',
+    contrastText: 'hsl(270, 40%, 20%)',
   },
   grey: {
     '50': 'hsl(0, 0%, 98%)',
@@ -70,7 +76,7 @@ const LIGHT_PALETTE = {
   },
   divider: 'hsla(0, 0, 0, 0.12)',
   background: {
-    paper: 'hsl(240, 100%, 95%)',
+    paper: 'hsl(240, 90%, 95%)',
     default: 'hsl(0, 0%, 100%)',
     darker: 'hsl(270, 40%, 75%)',
     hover: 'hsl(270, 60%, 91%)',

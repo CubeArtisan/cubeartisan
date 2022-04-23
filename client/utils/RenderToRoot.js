@@ -18,6 +18,8 @@
  */
 import React, { useMemo } from 'react';
 import ReactDOM from 'react-dom';
+import createCache from '@emotion/cache';
+import { CacheProvider } from '@emotion/react';
 
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
 import SiteCustomizationContext, {
@@ -53,9 +55,14 @@ const RenderToRoot = (Element) => {
     );
   };
   if (typeof document !== 'undefined') {
+    const cache = createCache({ key: 'css' });
     // import('bootstrap/dist/css/bootstrap.min.css');
     const wrapper = document.getElementById('react-root');
-    const element = <Wrapped />;
+    const element = (
+      <CacheProvider value={cache}>
+        <Wrapped />
+      </CacheProvider>
+    );
     if (wrapper) {
       if (wrapper.children.length === 0) {
         ReactDOM.render(element, wrapper);

@@ -13,8 +13,6 @@ declare function _exports(api: any): {
         modules: string;
     })[])[];
     plugins: (string | (string | {
-        pure: boolean;
-    })[] | (string | {
         modules: string[];
     })[])[];
 };

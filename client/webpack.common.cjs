@@ -63,20 +63,11 @@ html(lang='en')
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap')
     link(rel='icon', href='/content/favicon.ico?v=1.1', type='image/x-icon')
     title=title
-    link(rel='stylesheet' href=colors)
-    link(rel='stylesheet' href='/css/autocomplete.css')
-    link(rel='stylesheet' href='/css/draft.css')
-    link(rel='stylesheet' href='/css/editcube.css')
-    link(rel='stylesheet' href='/css/stylesheet.css')
-    link(rel='stylesheet' href='/css/tags.css')
     ${htmlWebpackPlugin.files.css.map((filename) => `link(src='/js/${filename}', rel='stylesheet')`).join('\n    ')}
     link(href='//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css', rel='stylesheet')
     link(href='https://code.cdn.mozilla.net/fonts/fira.css' rel='stylesheet')
     link(href='https://unpkg.com/react-pivottable@0.9.0/pivottable.css', rel='stylesheet')
-
-    if cssStyles
-      for cssStyle in cssStyles
-        | !{cssStyle}
+    | !{cssStyles}
 
   body
     != messages('dynamic_message', locals)
@@ -145,7 +136,7 @@ const clientConfig = merge(config, {
     sourceMapFilename: '[name].[contenthash].js.map',
     path: path.resolve(__dirname, 'dist'),
   },
-  plugins: [...getHtmlPlugins(), new HtmlWebpackHarddiskPlugin()],
+  plugins: [...getHtmlPlugins(), new HtmlWebpackHarddiskPlugin({ outputPath: path.resolve(__dirname, 'dist/') })],
   target: 'browserslist',
 });
 

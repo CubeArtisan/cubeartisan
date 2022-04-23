@@ -56,7 +56,6 @@
     "@opentelemetry/instrumentation-http": "^0.27.0",
     "@types/node": "^17.0.25",
     "@types/react": "^17.0.44",
-    "@types/styled-components": "^5.1.25",
     "@yarnpkg/pnpify": "^3.1.1",
     "bson": "^4.6.3",
     "csstype": "3.0.11",
@@ -70,8 +69,5 @@
     "typescript": "^4.6.3",
     "winston": "^3.7.2",
     "winston2": "npm:winston@2.4.5"
-  },
-  "resolutions": {
-    "@mui/styled-engine": "npm:@mui/styled-engine-sc@^5.4.2"
   }
 }

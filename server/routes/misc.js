@@ -445,6 +445,7 @@ export const loginUser = (req, res, next) => {
   // find by email
   User.findOne(query, (_err, user) => {
     if (!user) {
+      req.logger.error('Failed login');
       req.flash('danger', 'Incorrect username or email address.');
       res.redirect('/login');
     } else {

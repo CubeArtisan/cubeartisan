@@ -24,12 +24,6 @@ module.exports = (api) => {
       '@babel/preset-react',
     ],
     plugins: [
-      [
-        'babel-plugin-styled-components',
-        {
-          pure: true,
-        },
-      ],
       !isTest && [
         'babel-plugin-direct-import',
         {
