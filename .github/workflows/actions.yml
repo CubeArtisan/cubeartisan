@@ -14,4 +14,4 @@ jobs:
     - name: Run the CI script in yarn to check code style and unit tests.
       run: yarn ci
     - name: Check that no files were changed
-      run: "[ -z $(git status --porcelain) ]"
+      run: "git status; [ -z $(git status --porcelain) ]"

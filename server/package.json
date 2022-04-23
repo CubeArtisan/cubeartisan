@@ -9,7 +9,7 @@
     "node-options": "echo '--experimental-loader @node-loader/babel --require dotenv/config --max-old-space-size=4096 --experimental-json-modules --enable-source-maps --es-module-specifier-resolution=node --trace-warnings'",
     "cards": "sh -c 'node --max-old-space-size=4096 `yarn --silent node-options` scripts/force_update.js'",
     "server": "sh -c 'node `yarn run --silent node-options` routes/index.js'",
-    "nodemon": "sh -c \"nodemon -x 'node' --ignore public --ignore private --ignore __tests__ --ignore __mocks__ --ignore ../client/__tests__ --ignore '*.json' -w ../client/generated -w '../client/dist/**/*.pug' -- `yarn run --silent node-options` routes/index.js\"",
+    "nodemon": "sh -c \"nodemon -x 'node' --ignore public --ignore private --ignore __tests__ --ignore __mocks__ --ignore ../client/__tests__ --ignore '*.json' -w ../client/generated -w '../client/dist/**/*.pug' $(printf ' -w %s' $(yarn run --silent g:list-all-files)) -- `yarn run --silent node-options` routes/index.js\"",
     "start": "yarn nodemon"
   },
   "dependencies": {
@@ -20,6 +20,9 @@
     "@babel/preset-react": "^7.16.7",
     "@cubeartisan/client": "^0.1.0",
     "@cubeartisan/markdown": "^1.0.0",
+    "@emotion/cache": "^11.7.1",
+    "@emotion/react": "^11.9.0",
+    "@emotion/server": "^11.4.0",
     "@google-cloud/opentelemetry-cloud-monitoring-exporter": "^0.14.0",
     "@google-cloud/opentelemetry-cloud-trace-exporter": "^1.1.0",
     "@google-cloud/opentelemetry-resource-util": "1.1.0",
@@ -43,7 +46,6 @@
     "@yarnpkg/pnpify": "^3.1.1",
     "JSONStream": "^1.3.5",
     "axios": "^0.26.1",
-    "babel-plugin-styled-components": "^2.0.7",
     "babel-preset-react": "^6.24.1",
     "bad-words": "^3.0.4",
     "bcryptjs": "^2.4.3",
@@ -95,7 +97,6 @@
     "shuffle-seed": "^1.1.6",
     "sinon": "^13.0.2",
     "socket.io": "^4.4.1",
-    "styled-components": "^5.3.5",
     "uuid": "^8.3.2",
     "winston": "^3.7.2"
   },

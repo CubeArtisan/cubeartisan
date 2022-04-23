@@ -61,6 +61,16 @@ declare namespace DARK_PALETTE {
         const contrastText_5: string;
         export { contrastText_5 as contrastText };
     }
+    namespace appbar {
+        const main_6: string;
+        export { main_6 as main };
+        const dark_6: string;
+        export { dark_6 as dark };
+        const light_6: string;
+        export { light_6 as light };
+        const contrastText_6: string;
+        export { contrastText_6 as contrastText };
+    }
     const grey: {
         '50': string;
         '100': string;
