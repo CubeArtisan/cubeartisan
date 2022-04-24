@@ -274,7 +274,7 @@ CustomDraftCard.propTypes = {
 const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
   const { cubeID, canEdit } = useContext(CubeContext);
   const [botsOnly, toggleBotsOnly] = useToggle(false);
-  const [submitForm, formRef, loading] = useBotsOnlyCallback(botsOnly, cubeID);
+  const [submitForm, formRef] = useBotsOnlyCallback(botsOnly, cubeID);
   return (
     <Card className="mb-3">
       <CSRFForm method="POST" action={`/cube/${cubeID}/playtest/draft`} onSubmit={submitForm} ref={formRef}>
@@ -309,14 +309,15 @@ const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
           </LabelRow>
           <FormGroup check>
             <Label check>
-              <Input type="checkbox" name="botsOnly" onClick={toggleBotsOnly} value={botsOnly} /> Have just bots draft.
+              <Input type="checkbox" name="botsOnly" onChange={toggleBotsOnly} checked={botsOnly} /> Have just bots
+              draft.
             </Label>
           </FormGroup>
         </CardBody>
         <CardFooter>
           <Input type="hidden" name="id" value="-1" />
           <div className="justify-content-center align-items-center">
-            <LoadingButton color="success" variant="contained" type="submit" loading={loading}>
+            <LoadingButton color="success" variant="contained" type="submit">
               Start Draft
             </LoadingButton>
           </div>

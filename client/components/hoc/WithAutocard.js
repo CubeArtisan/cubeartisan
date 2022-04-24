@@ -33,7 +33,7 @@ const StyledCardImage = styled('img')({
 const StyledFoilImage = styled(StyledCardImage)({
   position: 'absolute',
   pointerEvents: 'none',
-  mixBlendMode: 'multiply',
+  mixBlendMode: 'color-burn',
 });
 
 /**
@@ -62,6 +62,7 @@ const withAutocard = (Tag) => {
     back = back || (showCustomImages && cardImageBackUrl(card)) || cardImageFlip(card);
     const foil = cardFinish(card) === 'Foil';
     const name = cardFullName(card);
+    console.debug(name, 'is foil:', foil);
     const cardRender = (
       <Box sx={{ backgroundColor: 'background.paper', width: 'fit-content' }}>
         <Typography sx={{ width: '100%', backgroundColor: 'background.darker' }}>{name}</Typography>
