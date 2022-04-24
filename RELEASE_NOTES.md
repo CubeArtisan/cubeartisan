@@ -271,3 +271,10 @@ This release is composed of porting over bug fixes for bugs we carried over from
 ##### Bug Fixes
 
 - When looking up card indices use imageUrl as the unique field.
+
+
+#### v1.4.4.5
+
+##### Bug Fixes
+
+- Fix occasional crash when accessing card properties.
