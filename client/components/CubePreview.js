@@ -16,57 +16,38 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useState } from 'react';
+import React from 'react';
+import { Card, CardActionArea, CardContent, CardMedia, Link, Typography } from '@mui/material';
 
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
-
-import { Card } from 'reactstrap';
-
-import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox.js';
-
 import { getCubeDescription, getCubeId } from '@cubeartisan/client/utils/Util.js';
 
-const CubePreview = ({ cube }) => {
-  const [hover, setHover] = useState(false);
-  const handleMouseOver = useCallback((event) => setHover(!event.target.getAttribute('data-sublink')), []);
-  const handleMouseOut = useCallback(() => setHover(false), []);
-  const handleClick = useCallback(
-    (event) => {
-      if (!event.target.getAttribute('data-sublink')) {
-        window.location.href = `/cube/${encodeURIComponent(getCubeId(cube))}`;
-      }
-    },
-    [cube],
-  );
-
-  return (
-    <Card
-      className={hover ? 'cube-preview-card hover' : 'cube-preview-card'}
-      onClick={handleClick}
-      onMouseOver={handleMouseOver}
-      onFocus={handleMouseOver}
-      onMouseOut={handleMouseOut}
-      onBlur={handleMouseOut}
-    >
-      <AspectRatioBox ratio={626 / 457} className="text-ellipsis">
-        <img className="w-100" alt={cube.image_name} src={cube.image_uri} />
-        <em className="cube-preview-artist">Art by {cube.image_artist}</em>
-      </AspectRatioBox>
-      <div className="w-100 py-1 px-2">
-        <h5 className="text-muted text-ellipsis my-0" title={cube.name}>
+const CubePreview = ({ cube }) => (
+  <Card>
+    <CardActionArea href={`/cube/${encodeURIComponent(getCubeId(cube))}`}>
+      <CardMedia
+        component="img"
+        alt={`cube.image_name Art by ${cube.image_artist}`}
+        src={cube.image_uri}
+        sx={{ aspectRatio: 626 / 457 }}
+      />
+      <CardContent>
+        <Typography variant="caption" sx={{ fontStyle: 'italic' }}>
+          Art by {cube.image_artist}
+        </Typography>
+        <Typography variant="h5" title={cube.name} noWrap>
           {cube.name}
-        </h5>
-        <div className="text-muted text-ellipsis">{getCubeDescription(cube)}</div>
-        <em className="text-muted text-ellipsis">
-          Designed by{' '}
-          <a data-sublink href={`/user/${cube.owner}`}>
-            {cube.owner_name}
-          </a>
-        </em>
-      </div>
-    </Card>
-  );
-};
+        </Typography>
+        <Typography variant="body1" noWrap>
+          {getCubeDescription(cube)}
+        </Typography>
+        <Typography nowrap variant="caption">
+          Designed by <Link href={`/user/${cube.owner}`}>{cube.owner_name}</Link>
+        </Typography>
+      </CardContent>
+    </CardActionArea>
+  </Card>
+);
 
 CubePreview.propTypes = {
   cube: CubePropType.isRequired,

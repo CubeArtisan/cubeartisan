@@ -30,23 +30,24 @@ import SiteAppBar from '@cubeartisan/client/components/SiteAppBar.js';
  * @type ComponentType
  */
 const MainLayout = ({ children, loginCallback }) => (
-  <Grid
-    container
-    sx={{ minHeight: '100vh', backgroundColor: 'background.primary', flexFlow: 'column' }}
-    alignItems="center"
-  >
-    <Grid item sx={{ flex: '0 1 auto', width: '100%', minHeight: 64 }}>
-      <SiteAppBar loginCallback={loginCallback} />
+  <>
+    <SiteAppBar loginCallback={loginCallback} />
+    <Grid
+      container
+      sx={{ minHeight: '100vh', backgroundColor: 'background.primary', flexFlow: 'column' }}
+      alignItems="center"
+    >
+      <Grid item sx={{ flex: '0 1 auto', width: '100%', minHeight: 64 }} />
+      <Grid item sx={{ flex: '1 1 auto', width: '100%' }}>
+        <Container maxWidth="xl" sx={{ flex: '1 1 auto', padding: 0 }}>
+          <ErrorBoundary>{children}</ErrorBoundary>
+        </Container>
+      </Grid>
+      <Grid item sx={{ flex: '0 1 auto', width: '100%' }}>
+        <Footer />
+      </Grid>
     </Grid>
-    <Grid item sx={{ flex: '1 1 auto', width: '100%' }}>
-      <Container maxWidth="xl" sx={{ flex: '1 1 auto', padding: 0 }}>
-        <ErrorBoundary>{children}</ErrorBoundary>
-      </Container>
-    </Grid>
-    <Grid item sx={{ flex: '0 1 auto', width: '100%' }}>
-      <Footer />
-    </Grid>
-  </Grid>
+  </>
 );
 MainLayout.propTypes = {
   children: PropTypes.node.isRequired,

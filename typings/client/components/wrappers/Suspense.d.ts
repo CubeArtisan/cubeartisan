@@ -1,6 +1,7 @@
 export default Suspense;
-declare function Suspense({ ...props }: {
+declare function Suspense({ fallback, ...props }: {
     [x: string]: any;
+    fallback: any;
 }): JSX.Element;
 declare namespace Suspense {
     namespace propTypes {
