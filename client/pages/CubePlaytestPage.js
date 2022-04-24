@@ -274,7 +274,7 @@ CustomDraftCard.propTypes = {
 const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
   const { cubeID, canEdit } = useContext(CubeContext);
   const [botsOnly, toggleBotsOnly] = useToggle(false);
-  const [submitForm, formRef, loading] = useBotsOnlyCallback(botsOnly, cubeID);
+  const [submitForm, formRef] = useBotsOnlyCallback(botsOnly, cubeID);
   return (
     <Card className="mb-3">
       <CSRFForm method="POST" action={`/cube/${cubeID}/playtest/draft`} onSubmit={submitForm} ref={formRef}>
