@@ -63,7 +63,7 @@ const SiteAppBar = ({ loginCallback }) => {
   );
   const userCubesMenuItems = useMemo(
     () =>
-      user
+      user?.cubes
         ? [
             ...user.cubes.map((item) => ({ link: `/cube/${item.shortId}`, text: item.name, component: MenuItem })),
             CREATE_CUBE_ITEM,
@@ -73,7 +73,7 @@ const SiteAppBar = ({ loginCallback }) => {
   );
   const userProfileMenuItems = useMemo(
     () =>
-      user
+      user?._id
         ? [
             { link: `/user/${user._id}`, text: 'Your Profile', component: MenuItem },
             { link: `/user/${user._id}/social`, text: 'Your Social Feed', component: MenuItem },
