@@ -18,30 +18,40 @@
  */
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
+// import Image from 'mui-image/lib/index.js';
+import { Box } from '@mui/material';
 
 import { cardFinish } from '@cubeartisan/client/utils/Card.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
 const withFoilOverlay = (Tag) => {
-  const WithFoilOverlay = forwardRef(({ card, finish: finishOverride, ...props }, ref) => {
+  const WithFoilOverlay = forwardRef(({ card, finish: finishOverride, sx, ...props }, ref) => {
     const finish = finishOverride ?? cardFinish(card) ?? 'Non-foil';
     return (
-      <div className="position-relative">
+      <Box sx={{ position: 'relative' }}>
         {finish !== 'Foil' ? (
           ''
         ) : (
-          <img src="/content/foilOverlay.png" className="foilOverlay card-border" width="100%" alt="Foil overlay" />
+          <Box
+            component="img"
+            src="/content/foilOverlay.png"
+            width="100%"
+            alt="Foil overlay"
+            sx={{ ...sx, position: 'absolute', top: 0, left: 0, mixBlendMode: 'color', pointerEvents: 'none' }}
+          />
         )}
-        <Tag card={card} ref={ref} {...props} />
-      </div>
+        <Tag card={card} ref={ref} sx={sx} {...props} />
+      </Box>
     );
   });
   WithFoilOverlay.propTypes = {
     card: CardPropType.isRequired,
     finish: PropTypes.string,
+    sx: PropTypes.shape({}),
   };
   WithFoilOverlay.defaultProps = {
     finish: null,
+    sx: {},
   };
   if (typeof Tag === 'string') {
     WithFoilOverlay.displayName = `${Tag}WithFoilOverlay`;

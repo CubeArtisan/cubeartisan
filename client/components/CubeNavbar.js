@@ -9,13 +9,14 @@ const CubeNavItem = ({ link, activeLink, children }) => {
   const { cube } = useContext(CubeContext);
   if (link === activeLink) {
     return (
-      <Button variant="text" sx={{ borderRadius: 8 }}>
-        <Typography
+      <Button sx={{ borderRadius: 8 }}>
+        <Link
           variant="subtitle1"
+          href={`/cube/${encodeURIComponent(getCubeId(cube))}/${link}`}
           sx={{ backgroundColor: 'background.paper', height: '100%', padding: 2, lineHeight: 1.5, borderRadius: 2 }}
         >
           {children}
-        </Typography>
+        </Link>
       </Button>
     );
   }

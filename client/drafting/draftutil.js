@@ -302,7 +302,6 @@ export const getDraftbotScores = async (convertedDrafterState, mtgmlServer, incl
   const responseJson = response.data;
   if (!responseJson.success) console.error(responseJson.error);
   if (includeOracles) return responseJson;
-  console.log(responseJson);
   return responseJson.scores;
   } catch (err) {
     console.error(err);

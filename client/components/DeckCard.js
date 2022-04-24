@@ -18,7 +18,7 @@
  */
 import React, { lazy, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { CircularProgress, Grid, Paper, Stack, Typography } from '@mui/material';
+import { Box, CircularProgress, Grid, Link, Paper, Stack, Typography } from '@mui/material';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
@@ -44,18 +44,21 @@ const DeckStacksStatic = ({ piles, cards, cardsInRow }) => (
                 {column.length}
               </Typography>
             )}
-            <div className="stack">
+            <Box sx={{ marginTop: '124%' }}>
               {column.map((cardIndex, index3) => {
                 const card = cards[cardIndex];
                 return (
-                  <div key={/* eslint-disable-line react/no-array-index-key */ index3} className="stacked">
-                    <a href={card.cardID ? `/card/${card.cardID}` : null}>
-                      <FoilCardImage card={card} tags={[]} autocard />
-                    </a>
-                  </div>
+                  <FoilCardImage
+                    key={/* eslint-disable-line react/no-array-index-key */ `${index}`}
+                    card={card}
+                    tags={[]}
+                    autocard
+                    href={card.cardID ? `/card/${card.cardID}` : null}
+                    sx={{ marginTop: '-124%' }}
+                  />
                 );
               })}
-            </div>
+            </Box>
           </Grid>
         ))
         .flat(2),

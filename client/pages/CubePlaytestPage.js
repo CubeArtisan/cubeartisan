@@ -317,7 +317,7 @@ const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
         <CardFooter>
           <Input type="hidden" name="id" value="-1" />
           <div className="justify-content-center align-items-center">
-            <LoadingButton color="success" variant="contained" type="submit" loading={loading}>
+            <LoadingButton color="success" variant="contained" type="submit">
               Start Draft
             </LoadingButton>
           </div>

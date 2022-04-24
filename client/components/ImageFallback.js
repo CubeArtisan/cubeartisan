@@ -18,6 +18,8 @@
  */
 import React, { forwardRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Box } from '@mui/material';
+// import Image from 'mui-image/lib/index.js';
 
 const ImageFallback = forwardRef(({ src, fallbackSrc, alt, ...props }, ref) => {
   const [fallback, setFallback] = useState(false);
@@ -28,7 +30,8 @@ const ImageFallback = forwardRef(({ src, fallbackSrc, alt, ...props }, ref) => {
 
   // eslint-disable-next-line jsx-a11y/alt-text
   return (
-    <img
+    <Box
+      component="img"
       alt={fallback ? 'fallback image' : alt}
       src={fallback ? fallbackSrc : src}
       draggable="false"
