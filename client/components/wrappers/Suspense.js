@@ -1,10 +1,10 @@
 import React, { Suspense as ReactSuspense } from 'react';
 import PropTypes from 'prop-types';
-import { Spinner } from 'reactstrap';
+import { CircularProgress } from '@mui/material';
 
-const Suspense = ({ ...props }) => {
+const Suspense = ({ fallback, ...props }) => {
   if (typeof window !== 'undefined') {
-    return <ReactSuspense {...props} />;
+    return <ReactSuspense fallback={fallback} {...props} />;
   }
   return null;
 };
@@ -12,7 +12,6 @@ Suspense.propTypes = {
   fallback: PropTypes.node,
 };
 Suspense.defaultProps = {
-  fallback: <Spinner />,
+  fallback: <CircularProgress />,
 };
-
 export default Suspense;
