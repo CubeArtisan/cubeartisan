@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Button, Link, Menu, MenuItem, Tooltip } from '@mui/material';
-import { Menu as MenuIcon } from '@mui/icons-material';
+import { ArrowDropDown, Menu as MenuIcon } from '@mui/icons-material';
 
 const StyledButtonMenu = ({ tooltip, menuItems, children }) => {
   const [anchorEl, setAnchorEl] = useState();
@@ -18,7 +18,7 @@ const StyledButtonMenu = ({ tooltip, menuItems, children }) => {
   return (
     <>
       <Tooltip title={tooltip} enterDelay={300} arrow>
-        <Button color="inherit" onClick={handleClick}>
+        <Button color="inherit" onClick={handleClick} endIcon={<ArrowDropDown />}>
           {children}
         </Button>
       </Tooltip>

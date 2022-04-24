@@ -16,9 +16,9 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { Suspense, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import { CircularProgress } from '@mui/material';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 
 const withModal = (Tag, ModalTag) => {
   const WithModal = ({ children, modalProps, ...props }) => {
@@ -38,7 +38,7 @@ const withModal = (Tag, ModalTag) => {
         <Tag {...props} onClick={toggle}>
           {children}
         </Tag>
-        <Suspense fallback={<CircularProgress />}>
+        <Suspense>
           <ModalTag isOpen={isOpen} toggle={toggle} {...modalProps} />
         </Suspense>
       </>

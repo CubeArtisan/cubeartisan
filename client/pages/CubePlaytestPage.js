@@ -309,7 +309,8 @@ const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
           </LabelRow>
           <FormGroup check>
             <Label check>
-              <Input type="checkbox" name="botsOnly" onClick={toggleBotsOnly} value={botsOnly} /> Have just bots draft.
+              <Input type="checkbox" name="botsOnly" onChange={toggleBotsOnly} checked={botsOnly} /> Have just bots
+              draft.
             </Label>
           </FormGroup>
         </CardBody>
