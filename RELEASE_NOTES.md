@@ -265,3 +265,9 @@ This release is composed of porting over bug fixes for bugs we carried over from
 ##### Bug Fixes
 
 - Fix error where login and forgot password routes would say user not found.
+
+#### v1.4.4.4
+
+##### Bug Fixes
+
+- When looking up card indices use imageUrl as the unique field.

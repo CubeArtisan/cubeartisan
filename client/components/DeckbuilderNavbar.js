@@ -23,6 +23,7 @@ import DeckDeleteModal from '@cubeartisan/client/components/modals/DeckDeleteMod
 
 import { Collapse, Nav, Navbar, NavbarToggler, NavItem, NavLink, Input } from 'reactstrap';
 
+import { cardImageUrl } from '@cubeartisan/client/utils/Card.js';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
 import BasicsModal from '@cubeartisan/client/components/modals/BasicsModal.js';
@@ -32,7 +33,7 @@ import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 const DeleteDeckModalLink = withModal(NavLink, DeckDeleteModal);
 const BasicsModalLink = withModal(NavLink, BasicsModal);
 
-const DeckbuilderNavbar = ({ deck, addBasics, name, description, className, setSideboard, setDeck, ...props }) => {
+function DeckbuilderNavbar({ deck, addBasics, name, description, className, setSideboard, setDeck, ...props }) {
   const { basics } = deck;
   const [isOpen, setIsOpen] = useState(false);
 
@@ -64,7 +65,9 @@ const DeckbuilderNavbar = ({ deck, addBasics, name, description, className, setS
         for (const column of row) {
           column.forEach((card, index) => {
             if (!Number.isFinite(card)) {
-              column[index] = deck.cards.findIndex((deckCard) => deckCard.cardID === card.cardID);
+              column[index] = deck.cards.findIndex(
+                (deckCard) => cardImageUrl(deckCard.cardID) === cardImageUrl(card.cardID),
+              );
             }
           });
         }
@@ -111,7 +114,7 @@ const DeckbuilderNavbar = ({ deck, addBasics, name, description, className, setS
       </Collapse>
     </Navbar>
   );
-};
+}
 
 DeckbuilderNavbar.propTypes = {
   deck: DeckPropType.isRequired,
