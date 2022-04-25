@@ -23,7 +23,6 @@ import DeckDeleteModal from '@cubeartisan/client/components/modals/DeckDeleteMod
 
 import { Collapse, Nav, Navbar, NavbarToggler, NavItem, NavLink, Input } from 'reactstrap';
 
-import { cardImageUrl } from '@cubeartisan/client/utils/Card.js';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
 import BasicsModal from '@cubeartisan/client/components/modals/BasicsModal.js';
@@ -65,9 +64,7 @@ function DeckbuilderNavbar({ deck, addBasics, name, description, className, setS
         for (const column of row) {
           column.forEach((card, index) => {
             if (!Number.isFinite(card)) {
-              column[index] = deck.cards.findIndex(
-                (deckCard) => cardImageUrl(deckCard.cardID) === cardImageUrl(card.cardID),
-              );
+              column[index] = card.index;
             }
           });
         }

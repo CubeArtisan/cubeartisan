@@ -278,3 +278,9 @@ This release is composed of porting over bug fixes for bugs we carried over from
 ##### Bug Fixes
 
 - Fix occasional crash when accessing card properties.
+
+#### v1.4.4.6
+
+##### Bug Fixes
+
+- When looking up card indices use the recorded card index instead of guessing.
