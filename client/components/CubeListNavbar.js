@@ -36,6 +36,7 @@ import {
   // TextareaAutosize,
   TextField,
   Toolbar,
+  Tooltip,
   Typography,
 } from '@mui/material';
 
@@ -52,7 +53,6 @@ import SortCollapse from '@cubeartisan/client/components/SortCollapse.js';
 import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
 import TagColorsModal from '@cubeartisan/client/components/modals/TagColorsModal.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
-import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 const CustomizeBasicsModalLink = withModal(Button, CustomizeBasicsModal);

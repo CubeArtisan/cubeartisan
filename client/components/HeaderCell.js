@@ -16,46 +16,35 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-import { NavLink } from 'reactstrap';
-import Tooltip from '@cubeartisan/client/components/Tooltip.js';
-import styled from '@cubeartisan/client/utils/styledHelper.js';
+import { Button, TableCell, Tooltip, Typography } from '@mui/material';
+import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material';
 
-const TightDiv = styled('div')`
-  width: min-content;
-`;
+const ICON_LOOKUP = {
+  ascending: <ArrowDropUp />,
+  descending: <ArrowDropDown />,
+};
 
 const HeaderCell = ({ label, fieldName, sortConfig, requestSort, tooltip, ...props }) => {
   const active = sortConfig && sortConfig.key === fieldName;
   const direction = active ? sortConfig.direction : 'nosort';
-  const icon = `/content/${direction}.png`;
-
-  const Wrapper = useCallback(
-    () =>
-      tooltip ? (
-        <Tooltip text={tooltip}>
-          <TightDiv>{label}</TightDiv>
-        </Tooltip>
-      ) : (
-        <TightDiv>{label}</TightDiv>
-      ),
-    [label, tooltip],
-  );
 
   return (
-    <th scope="col" className="align-middle" {...props}>
-      <NavLink
-        className="p-0 d-flex align-items-center justify-content-start"
-        href="#"
-        onClick={() => requestSort(fieldName)}
-        active
-      >
-        <Wrapper>{label}</Wrapper>
-        <img src={icon} className="sortIcon mr-auto" alt="Toggle sort direction" />
-      </NavLink>
-    </th>
+    <TableCell component="th" align="center" scope="col" {...props}>
+      <Button onClick={() => requestSort(fieldName)} endIcon={ICON_LOOKUP[direction]}>
+        {tooltip ? (
+          <Tooltip title={tooltip}>
+            <Typography sx={{ width: 'min-content' }}>{label}</Typography>
+          </Tooltip>
+        ) : (
+          <Typography variant="body1" sx={{ width: 'min-content' }}>
+            {label}
+          </Typography>
+        )}
+      </Button>
+    </TableCell>
   );
 };
 

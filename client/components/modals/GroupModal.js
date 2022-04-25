@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { useCallback, useContext, useMemo, useState } from 'react';
-import { Button } from '@mui/material';
+import { Button, Tooltip, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import {
   Row,
@@ -39,7 +39,6 @@ import {
   UncontrolledAlert,
 } from 'reactstrap';
 import PropTypes from 'prop-types';
-import styled from '@cubeartisan/client/utils/styledHelper.js';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import { arrayMove } from '@cubeartisan/client/utils/Util.js';
@@ -52,7 +51,6 @@ import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModa
 import MassBuyButton from '@cubeartisan/client/components/MassBuyButton.js';
 import TagInput from '@cubeartisan/client/components/TagInput.js';
 import TextBadge from '@cubeartisan/client/components/TextBadge.js';
-import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 
 const DEFAULT_FORM_VALUES = {
   status: '',
@@ -65,15 +63,6 @@ const DEFAULT_FORM_VALUES = {
   tags: [],
   tagInput: '',
 };
-
-const BoundedCol = styled(Col)`
-  max-height: 35rem;
-`;
-
-const ScrollingRow = styled(Row)`
-  overflow: scroll;
-  flex-shrink: 1;
-`;
 
 const GroupModal = ({ cubeID, canEdit, children, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -288,8 +277,8 @@ const GroupModal = ({ cubeID, canEdit, children, ...props }) => {
             <UncontrolledAlert color={color}>{message}</UncontrolledAlert>
           ))}
           <Row>
-            <BoundedCol xs="4" className="d-flex flex-column">
-              <ScrollingRow noGutters className="w-100">
+            <Col xs="4" className="d-flex flex-column" sx={{ maxHeight: '35rem' }}>
+              <Row noGutters className="w-100" sx={{ overflow: 'scroll', flexShrink: 1 }}>
                 <ListGroup className="list-outline w-100">
                   {cards.map((card) => (
                     <AutocardListItem key={card.index} card={card} noCardModal inModal>
@@ -299,32 +288,38 @@ const GroupModal = ({ cubeID, canEdit, children, ...props }) => {
                     </AutocardListItem>
                   ))}
                 </ListGroup>
-              </ScrollingRow>
+              </Row>
               <Row noGutters>
                 {Number.isFinite(totalPriceUsd) && (
-                  <TextBadge name="Price USD" className="mt-2 mr-2">
-                    <Tooltip text="TCGPlayer Market Price">${Math.round(totalPriceUsd).toLocaleString()}</Tooltip>
+                  <TextBadge name="Price USD">
+                    <Tooltip title="TCGPlayer Market Price">
+                      <Typography variant="body1">${Math.round(totalPriceUsd).toLocaleString()}</Typography>
+                    </Tooltip>
                   </TextBadge>
                 )}
                 {Number.isFinite(totalPriceUsdFoil) && (
-                  <TextBadge name="Foil USD" className="mt-2 mr-2">
-                    <Tooltip text="TCGPlayer Market Foil Price">
-                      ${Math.round(totalPriceUsdFoil).toLocaleString()}
+                  <TextBadge name="Foil USD">
+                    <Tooltip title="TCGPlayer Market Foil Price">
+                      <Typography variant="body1">${Math.round(totalPriceUsdFoil).toLocaleString()}</Typography>
                     </Tooltip>
                   </TextBadge>
                 )}
                 {Number.isFinite(totalPriceEur) && (
-                  <TextBadge name="EUR" className="mt-2 mr-2">
-                    <Tooltip text="Cardmarket Price">${Math.round(totalPriceEur).toLocaleString()}</Tooltip>
+                  <TextBadge name="EUR">
+                    <Tooltip title="Cardmarket Price">
+                      <Typography variant="body1">${Math.round(totalPriceEur).toLocaleString()}</Typography>
+                    </Tooltip>
                   </TextBadge>
                 )}
                 {Number.isFinite(totalPriceTix) && (
-                  <TextBadge name="TIX" className="mt-2 mr-2">
-                    <Tooltip text="MTGO TIX">${Math.round(totalPriceTix).toLocaleString()}</Tooltip>
+                  <TextBadge name="TIX">
+                    <Tooltip title="MTGO TIX">
+                      <Typography variant="body1">${Math.round(totalPriceTix).toLocaleString()}</Typography>
+                    </Tooltip>
                   </TextBadge>
                 )}
               </Row>
-            </BoundedCol>
+            </Col>
             <Col xs="8">
               <Form>
                 <Label for="groupStatus">

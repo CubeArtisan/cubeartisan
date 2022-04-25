@@ -35,15 +35,21 @@ const DARK_PALETTE = {
     contrastText: 'hsl(0, 0%, 0%)',
   },
   success: {
-    main: 'hsl(123, 46%, 67%)',
-    light: 'hsl(122, 39%, 51%)',
-    dark: 'hsl(124, 55%, 77%)',
+    main: 'hsl(123, 30%, 35%)',
+    light: 'hsl(122, 39%, 25%)',
+    dark: 'hsl(124, 30%, 45%)',
     contrastText: 'hsl(0, 0%, 0%)',
   },
   appbar: {
     main: 'hsl(220, 40%, 35%)',
     dark: 'hsl(220, 35%, 45%)',
     light: 'hsl(220, 80%, 25%)',
+    contrastText: 'hsl(0, 0%, 100%)',
+  },
+  danger: {
+    main: 'hsl(360, 50%, 37%)',
+    light: 'hsl(360, 80%, 24%)',
+    dark: 'hsl(360, 40%, 48%)',
     contrastText: 'hsl(0, 0%, 100%)',
   },
   grey: {
@@ -76,7 +82,7 @@ const DARK_PALETTE = {
   },
   divider: 'hsla(0, 0%, 100%, 0.12)',
   background: {
-    primary: 'hsl(260, 15%, 20%)',
+    primary: 'hsl(265, 35%, 10%)',
     paper: 'hsl(200, 55%, 15%)',
     default: 'hsl(0, 0%, 0%)',
     darker: 'hsl(270, 20%, 30%)',
@@ -109,7 +115,7 @@ const DARK_PALETTE = {
     hoverOpacity: 0.04,
     selected: 'hsla(0, 0%, 100%, 0.08)',
     selectedOpacity: 0.08,
-    disabled: 'hsla(0, 0%, 100%, 0.26)',
+    disabled: 'hsla(0, 0%, 100%, 0.65)',
     disabledBackground: 'hsla(0, 0%, 100%, 0.12)',
     disabledOpacity: 0.38,
     focus: 'hsla(0, 0%, 100%, 0.12)',

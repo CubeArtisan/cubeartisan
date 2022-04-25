@@ -19,12 +19,7 @@
 import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { Spinner } from 'reactstrap';
-import styled from '@cubeartisan/client/utils/styledHelper.js';
-
-const TransparentSpinner = styled(Spinner)`
-  opacity: ${(props) => props.opacity};
-`;
+import { Box, CircularProgress } from '@mui/material';
 
 const withLoading = (Tag, handlers) => {
   const WithLoading = ({ loading, spinnerSize, opacity, ...props }) => {
@@ -47,10 +42,10 @@ const withLoading = (Tag, handlers) => {
     const renderLoading = loading === null ? stateLoading : loading;
 
     return (
-      <div className="d-flex justify-content-center align-items-center flex-grow-1">
-        {renderLoading && <TransparentSpinner size={spinnerSize} className="position-absolute" />}
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexGrow: 1 }}>
+        {renderLoading && <CircularProgress size={spinnerSize} className="position-absolute" />}
         <Tag disabled={renderLoading} {...props} {...wrappedHandlers} />
-      </div>
+      </Box>
     );
   };
   WithLoading.propTypes = {

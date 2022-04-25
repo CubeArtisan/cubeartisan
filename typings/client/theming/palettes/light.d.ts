@@ -41,7 +41,7 @@ declare namespace LIGHT_PALETTE {
         const contrastText_3: string;
         export { contrastText_3 as contrastText };
     }
-    namespace info {
+    namespace danger {
         const main_4: string;
         export { main_4 as main };
         const light_4: string;
@@ -51,7 +51,7 @@ declare namespace LIGHT_PALETTE {
         const contrastText_4: string;
         export { contrastText_4 as contrastText };
     }
-    namespace success {
+    namespace info {
         const main_5: string;
         export { main_5 as main };
         const light_5: string;
@@ -61,7 +61,7 @@ declare namespace LIGHT_PALETTE {
         const contrastText_5: string;
         export { contrastText_5 as contrastText };
     }
-    namespace appbar {
+    namespace success {
         const main_6: string;
         export { main_6 as main };
         const light_6: string;
@@ -70,6 +70,16 @@ declare namespace LIGHT_PALETTE {
         export { dark_6 as dark };
         const contrastText_6: string;
         export { contrastText_6 as contrastText };
+    }
+    namespace appbar {
+        const main_7: string;
+        export { main_7 as main };
+        const light_7: string;
+        export { light_7 as light };
+        const dark_7: string;
+        export { dark_7 as dark };
+        const contrastText_7: string;
+        export { contrastText_7 as contrastText };
     }
     const grey: {
         '50': string;

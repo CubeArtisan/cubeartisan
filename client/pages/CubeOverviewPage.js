@@ -18,38 +18,23 @@
  */
 import React, { lazy, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Button, IconButton } from '@mui/material';
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Col,
-  Nav,
-  Navbar,
-  NavbarToggler,
-  NavItem,
-  NavLink,
-  Row,
-  UncontrolledAlert,
-  UncontrolledCollapse,
-} from 'reactstrap';
+import { Box, Button, Card, IconButton, Link, Toolbar, Tooltip, Typography } from '@mui/material';
 import { HelpOutline } from '@mui/icons-material';
 
-import styled from '@cubeartisan/client/utils/styledHelper.js';
+import Alert from '@cubeartisan/client/components/wrappers/Alert.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import { getCubeId, getCubeDescription } from '@cubeartisan/client/utils/Util.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import TextBadge from '@cubeartisan/client/components/TextBadge.js';
-import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import CardHeader from '@cubeartisan/client/components/CardHeader.js';
 
 const BlogPost = lazy(() => import('@cubeartisan/client/components/BlogPost.js'));
 const CubeIdModal = lazy(() => import('@cubeartisan/client/components/modals/CubeIdModal.js'));
@@ -59,23 +44,16 @@ const CustomizeBasicsModal = lazy(() => import('@cubeartisan/client/components/m
 const DeleteCubeModal = lazy(() => import('@cubeartisan/client/components/modals/DeleteCubeModal.js'));
 const FollowersModal = lazy(() => import('@cubeartisan/client/components/modals/FollowersModal.js'));
 
-const CubeOverviewModalLink = withModal(NavLink, CubeOverviewModal);
-const FollowersModalLink = withModal('a', FollowersModal);
-const CubeSettingsModalLink = withModal(NavLink, CubeSettingsModal);
-const DeleteCubeModalLink = withModal(NavLink, DeleteCubeModal);
-const CustomizeBasicsModalLink = withModal(NavLink, CustomizeBasicsModal);
-const CubeIdModalLink = styled(withModal('span', CubeIdModal))`
-  position: relative;
-  top: 5px;
-`; // the icon needs to be pulled down.
+const CubeOverviewModalLink = withModal(Button, CubeOverviewModal);
+const FollowersModalLink = withModal(Button, FollowersModal);
+const CubeSettingsModalLink = withModal(Button, CubeSettingsModal);
+const DeleteCubeModalLink = withModal(Button, DeleteCubeModal);
+const CustomizeBasicsModalLink = withModal(Button, CustomizeBasicsModal);
+const CubeIdModalLink = withModal(Box, CubeIdModal);
 
-const SpacedHeader = styled('h6')`
-  margin-top: 10px;
-`;
-const CubeIdContainer = styled('div')`
-  padding-top: 3px;
-  margin-right: 0.25rem;
-`;
+// position: relative;
+// top: 5px;
+// `; // the icon needs to be pulled down.
 
 const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followers, loginCallback }) => {
   const user = useContext(UserContext);
@@ -115,214 +93,193 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
     }
   };
 
-  const method = cubeState.isFeatured ? 'DELETE' : 'POST';
   return (
     <MainLayout loginCallback={loginCallback}>
       <CubeLayout cube={cubeState} activeLink="overview">
         {user && cubeState.owner === user._id ? (
-          <Navbar expand="md" light className="usercontrols mb-3">
-            <NavbarToggler
-              className="ml-auto"
-              id="cubeOverviewNavbarToggler"
-              aria-controls="cubeOverviewNavbarCollapse"
-            />
-            <UncontrolledCollapse navbar id="cubeOverviewNavbarCollapse" toggler="#cubeOverviewNavbarToggler">
-              <Nav navbar>
-                <NavItem>
-                  <Suspense>
-                    <CubeOverviewModalLink
-                      modalProps={{
-                        cube: cubeState,
-                        cubeID: cubeState._id,
-                        onError: (message) => addAlert('danger', message),
-                        onCubeUpdate,
-                      }}
-                    >
-                      Edit Overview
-                    </CubeOverviewModalLink>
-                  </Suspense>
-                </NavItem>
-                <NavItem>
-                  <Suspense>
-                    <CubeSettingsModalLink cube={cubeState} modalProps={{ addAlert, onCubeUpdate }}>
-                      Edit Settings
-                    </CubeSettingsModalLink>
-                  </Suspense>
-                </NavItem>
-                <NavItem>
-                  <Suspense>
-                    <CustomizeBasicsModalLink
-                      modalProps={{
-                        cube: cubeState,
-                        onError: (message) => {
-                          addAlert('danger', message);
-                        },
-                        updateBasics: (basics) => {
-                          const deepClone = JSON.parse(JSON.stringify(cubeState));
-                          deepClone.basics = basics;
-                          onCubeUpdate(deepClone);
-                        },
-                      }}
-                    >
-                      Customize Basics
-                    </CustomizeBasicsModalLink>
-                  </Suspense>
-                </NavItem>
-                <NavItem>
-                  <Suspense>
-                    <DeleteCubeModalLink modalProps={{ cubeid: cubeState._id }}>Delete Cube</DeleteCubeModalLink>
-                  </Suspense>
-                </NavItem>
-              </Nav>
-            </UncontrolledCollapse>
-          </Navbar>
+          <Toolbar sx={{ backgroundColor: 'background.paper', marginBotton: 1, borderRadius: '0 0 2rem 2rem' }}>
+            <Suspense>
+              <CubeOverviewModalLink
+                modalProps={{
+                  cube: cubeState,
+                  cubeID: cubeState._id,
+                  onError: (message) => addAlert('danger', message),
+                  onCubeUpdate,
+                }}
+              >
+                Edit Overview
+              </CubeOverviewModalLink>
+            </Suspense>
+            <Suspense>
+              <CubeSettingsModalLink cube={cubeState} modalProps={{ addAlert, onCubeUpdate }}>
+                Edit Settings
+              </CubeSettingsModalLink>
+            </Suspense>
+            <Suspense>
+              <CustomizeBasicsModalLink
+                modalProps={{
+                  cube: cubeState,
+                  onError: (message) => {
+                    addAlert('danger', message);
+                  },
+                  updateBasics: (basics) => {
+                    const deepClone = JSON.parse(JSON.stringify(cubeState));
+                    deepClone.basics = basics;
+                    onCubeUpdate(deepClone);
+                  },
+                }}
+              >
+                Customize Basics
+              </CustomizeBasicsModalLink>
+            </Suspense>
+            <Suspense>
+              <DeleteCubeModalLink modalProps={{ cubeid: cubeState._id }}>Delete Cube</DeleteCubeModalLink>
+            </Suspense>
+          </Toolbar>
         ) : (
-          <Row className="mb-3" />
+          <Box sx={{ marginBotton: 1 }} />
         )}
         <DynamicFlash />
         {alerts.map(({ color, message }, index) => (
-          <UncontrolledAlert color={color} key={/* eslint-disable-line react/no-array-index-key */ index}>
+          <Alert
+            color={color}
+            key={/* eslint-disable-line react/no-array-index-key */ index}
+            onClose={() => setAlerts((old) => old.filter((_, idx) => idx !== index))}
+          >
             {message}
-          </UncontrolledAlert>
+          </Alert>
         ))}
-        <Row>
-          <Col md="4" className="mb-3">
-            <Card>
-              <CardHeader>
-                <Row>
-                  <Col>
-                    <h3>{cubeState.name}</h3>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <SpacedHeader className="card-subtitle mb-2">
-                      <Suspense>
-                        <FollowersModalLink href="#" modalProps={{ followers }}>
-                          {cubeState.users_following.length}{' '}
-                          {cubeState.users_following.length === 1 ? 'follower' : 'followers'}
-                        </FollowersModalLink>
-                      </Suspense>
-                    </SpacedHeader>
-                  </Col>
-                  <CubeIdContainer className="float-right">
-                    <TextBadge name="Cube ID">
-                      <Tooltip text="Click to copy to clipboard">
-                        <button
-                          type="button"
-                          className="cube-id-btn"
-                          onKeyDown={() => {}}
-                          onClick={(e) => {
-                            navigator.clipboard.writeText(getCubeId(cubeState));
-                            e.target.blur();
-                            addAlert('success', 'Cube ID copied to clipboard.');
-                          }}
-                        >
-                          {getCubeId(cubeState)}
-                        </button>
-                      </Tooltip>
-                    </TextBadge>
-                  </CubeIdContainer>
-                  <Suspense>
-                    <CubeIdModalLink
-                      modalProps={{ fullID: cube._id, shortID: getCubeId(cubeState), alert: addAlert }}
-                      aria-label="Show Cube IDs"
-                      className="mr-2"
+        <Box sx={{ marginY: 2, display: 'grid', gridTemplateColumns: '1fr 2fr', gridAutoRows: 'minmax(100px, auto)' }}>
+          <Card sx={{ marginRight: 2, borderRadius: '2em', padding: 0 }}>
+            <CardHeader sx={{ marginBottom: 1 }}>
+              <Typography variant="h3">{cubeState.name}</Typography>
+            </CardHeader>
+            <Box display="flex">
+              <Typography variant="h6" sx={{ marginBottom: 0, width: 'fit-content' }}>
+                <Suspense>
+                  <FollowersModalLink href="#" modalProps={{ followers }}>
+                    {cubeState.users_following.length}{' '}
+                    {cubeState.users_following.length === 1 ? 'follower' : 'followers'}
+                  </FollowersModalLink>
+                </Suspense>
+              </Typography>
+              <Box sx={{ marginLeft: 'auto', border: '1px solid', lineHeight: 1, display: 'flex' }}>
+                <TextBadge name="Cube ID">
+                  <Tooltip title="Click to copy to clipboard">
+                    <Button
+                      onKeyDown={() => {}}
+                      onClick={(e) => {
+                        navigator.clipboard.writeText(getCubeId(cubeState));
+                        e.target.blur();
+                        addAlert('success', 'Cube ID copied to clipboard.');
+                      }}
+                      sx={{ borderLeft: '1px solid', borderRadius: 0, width: 'min-content', padding: 1 }}
                     >
-                      <IconButton size="md">
-                        <HelpOutline />
-                      </IconButton>
-                    </CubeIdModalLink>
-                  </Suspense>
-                </Row>
-              </CardHeader>
-              <div className="position-relative">
-                <img className="card-img-top w-100" alt={cubeState.image_name} src={cubeState.image_uri} />
-                <em className="cube-preview-artist">Art by {cubeState.image_artist}</em>
-              </div>
-              <CardBody className="pt-2 px-3 pb-3">
-                {cube.type && <p className="mb-1">{getCubeDescription(cubeState)}</p>}
-                <h6 className="mb-2">
-                  <i>
-                    Designed by
-                    <a href={`/user/${cubeState.owner}`}> {cubeState.owner_name}</a>
-                  </i>{' '}
-                  • <a href={`/cube/${cubeState._id}/rss`}>RSS</a>
-                </h6>
-                {!cubeState.privatePrices && (
-                  <Row noGutters className="mb-1">
-                    {Number.isFinite(priceOwned) && (
-                      <TextBadge name="Owned" className="mr-2">
-                        <Tooltip text="TCGPlayer Market Price as owned (excluding cards marked Not Owned)">
-                          ${Math.round(priceOwned).toLocaleString()}
-                        </Tooltip>
-                      </TextBadge>
-                    )}
-                    {Number.isFinite(pricePurchase) && (
-                      <TextBadge name="Buy">
-                        <Tooltip text="TCGPlayer Market Price for cheapest version of each card">
-                          ${Math.round(pricePurchase).toLocaleString()}
-                        </Tooltip>
-                      </TextBadge>
-                    )}
-                  </Row>
+                      {getCubeId(cubeState)}
+                    </Button>
+                  </Tooltip>
+                </TextBadge>
+              </Box>
+              <Suspense>
+                <CubeIdModalLink
+                  modalProps={{ fullID: cube._id, shortID: getCubeId(cubeState), alert: addAlert }}
+                  aria-label="Show Cube IDs"
+                  className="mr-2"
+                >
+                  <IconButton>
+                    <HelpOutline />
+                  </IconButton>
+                </CubeIdModalLink>
+              </Suspense>
+            </Box>
+            <Box
+              alt={cubeState.image_name}
+              src={cubeState.image_uri}
+              component="img"
+              sx={{ marginX: '-16px', width: 'calc(100% + 32px)', marginTop: 0.5 }}
+            />
+            <Typography component="em" variant="caption" sx={{ marginLeft: 1 }}>
+              Art by {cubeState.image_artist}
+            </Typography>
+            {cube.type && (
+              <Typography variant="body1" sx={{ marginLeft: 1 }}>
+                {getCubeDescription(cubeState)}
+              </Typography>
+            )}
+            <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
+              <Typography variant="subtitle2">
+                Designed by
+                <Link href={`/user/${cubeState.owner}`}> {cubeState.owner_name}</Link>
+              </Typography>{' '}
+              • <Link href={`/cube/${cubeState._id}/rss`}>RSS</Link>
+            </Typography>
+            {!cubeState.privatePrices && (
+              <Box sx={{ marginBottom: 1, marginX: 2, display: 'flex' }}>
+                {Number.isFinite(priceOwned) && (
+                  <TextBadge name="Owned" sx={{ border: '1px solid', marginRight: 1 }}>
+                    <Tooltip title="TCGPlayer Market Price as owned (excluding cards marked Not Owned)">
+                      <Button disabled sx={{ borderLeft: '1px solid', borderRadius: 0 }}>
+                        ${Math.round(priceOwned).toLocaleString()}
+                      </Button>
+                    </Tooltip>
+                  </TextBadge>
                 )}
-                {user?.roles?.includes?.('Admin') && (
-                  <Button color="success" onClick={() => csrfFetch(`/cube/${cubeState._id}/feature`, { method })}>
-                    {' '}
-                    {cubeState.isFeatured ? 'Remove from Featured' : 'Add to Featured'}
-                  </Button>
+                {Number.isFinite(pricePurchase) && (
+                  <TextBadge name="Buy" sx={{ border: '1px solid' }}>
+                    <Tooltip title="TCGPlayer Market Price for cheapest version of each card">
+                      <Button disabled sx={{ borderLeft: '1px solid', borderRadius: 0 }}>
+                        ${Math.round(pricePurchase).toLocaleString()}
+                      </Button>
+                    </Tooltip>
+                  </TextBadge>
                 )}
-              </CardBody>
-              {user &&
-                cubeState.owner !== user._id &&
-                (followedState ? (
-                  <Button variant="outlined" color="danger" onClick={unfollow}>
-                    Unfollow
-                  </Button>
-                ) : (
-                  <Button color="success" onClick={follow}>
-                    Follow
-                  </Button>
-                ))}
-            </Card>
-          </Col>
-          <Col>
-            <Card>
-              <CardHeader>
-                <h5 className="card-title">Description</h5>
-              </CardHeader>
-              <CardBody>
-                <Markdown markdown={cubeState.description || ''} />
-              </CardBody>
-              {cubeState.tags && cubeState.tags.length > 0 && (
-                <CardFooter>
-                  <div className="autocard-tags">
-                    {cubeState.tags.map((tag) => (
-                      <a href={`/cubes/search/tag:"${tag}"/0`}>
-                        <span key={tag} className="tag">
-                          {tag}
-                        </span>
-                      </a>
-                    ))}
-                  </div>
-                </CardFooter>
-              )}
-            </Card>
-          </Col>
-        </Row>
-        <div className="mb-3">
-          {post && (
-            <Suspense>
-              <BlogPost key={post._id} post={post} loggedIn={user !== null} />
-            </Suspense>
-          )}
-        </div>
+              </Box>
+            )}
+            {user &&
+              cubeState.owner !== user._id &&
+              (followedState ? (
+                <Button variant="contained" disabled color="warning" onClick={unfollow}>
+                  Unfollow
+                </Button>
+              ) : (
+                <Button color="success" disabled variant="contained" onClick={follow}>
+                  Follow
+                </Button>
+              ))}
+          </Card>
+          <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', borderRadius: '2rem' }}>
+            <CardHeader sx={{ marginBottom: 1 }}>
+              <Typography variant="h4">Description</Typography>
+            </CardHeader>
+            <Markdown markdown={cubeState.description || ''} />
+            <Box sx={{ display: 'flex', marginTop: 'auto' }}>
+              {cubeState.tags.map((tag) => (
+                <Link
+                  href={`/cubes/search/tag:"${tag}"/0`}
+                  key={tag}
+                  sx={{
+                    backgroundColor: 'background.darker',
+                    margin: 0.5,
+                    paddingX: 1,
+                    paddingY: 0.5,
+                    borderRadius: 1,
+                  }}
+                >
+                  {tag}
+                </Link>
+              ))}
+            </Box>
+          </Card>
+        </Box>
+        {post && (
+          <Suspense>
+            <BlogPost key={post._id} post={post} loggedIn={user !== null} />
+          </Suspense>
+        )}
       </CubeLayout>
     </MainLayout>
   );
 };
-
 CubeOverview.propTypes = {
   post: PropTypes.shape({
     _id: PropTypes.string.isRequired,
@@ -338,7 +295,6 @@ CubeOverview.propTypes = {
   ),
   loginCallback: PropTypes.string,
 };
-
 CubeOverview.defaultProps = {
   post: null,
   priceOwned: null,
@@ -346,5 +302,4 @@ CubeOverview.defaultProps = {
   followers: [],
   loginCallback: '/',
 };
-
 export default RenderToRoot(CubeOverview);

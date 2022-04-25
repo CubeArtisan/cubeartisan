@@ -1,24 +1,18 @@
 export default TextBadge;
-declare function TextBadge({ name, className, children, fill }: {
+declare function TextBadge({ name, children, sx }: {
     name: any;
-    className: any;
     children: any;
-    fill: any;
+    sx: any;
 }): JSX.Element;
 declare namespace TextBadge {
     namespace propTypes {
-        const name: PropTypes.Requireable<string>;
-        const className: PropTypes.Requireable<string>;
+        const name: PropTypes.Validator<string>;
         const children: PropTypes.Validator<PropTypes.ReactNodeLike>;
-        const fill: PropTypes.Requireable<boolean>;
+        const sx: PropTypes.Requireable<PropTypes.InferProps<{}>>;
     }
     namespace defaultProps {
-        const name_1: string;
-        export { name_1 as name };
-        const className_1: any;
-        export { className_1 as className };
-        const fill_1: boolean;
-        export { fill_1 as fill };
+        const sx_1: {};
+        export { sx_1 as sx };
     }
 }
 import PropTypes from "prop-types";

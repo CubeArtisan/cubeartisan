@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React from 'react';
-import { Button } from '@mui/material';
+import { Button, Tooltip, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import {
   Col,
@@ -42,7 +42,6 @@ import { ColorChecksAddon } from '@cubeartisan/client/components/ColorCheck.js';
 import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
 import TagInput from '@cubeartisan/client/components/TagInput.js';
 import TextBadge from '@cubeartisan/client/components/TextBadge.js';
-import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 import withLoading from '@cubeartisan/client/components/hoc/WithLoading.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
@@ -74,30 +73,32 @@ const CardModal = ({
           <FoilCardImage card={card} finish={values.finish} />
           <Row noGutters className="mb-2">
             {card.details.prices && Number.isFinite(cardPrice(card)) && (
-              <TextBadge name="Price" className="mt-2 mr-2">
-                <Tooltip text="TCGPlayer Market Price">${cardPrice(card).toFixed(2)}</Tooltip>
+              <TextBadge name="Price">
+                <Tooltip title="TCGPlayer Market Price">
+                  <Typography variant="body1">${cardPrice(card).toFixed(2)}</Typography>
+                </Tooltip>
               </TextBadge>
             )}
             {card.details.prices && Number.isFinite(cardFoilPrice(card)) && (
-              <TextBadge name="Foil" className="mt-2 mr-2">
-                <Tooltip text="TCGPlayer Market Price">${cardFoilPrice(card).toFixed(2)}</Tooltip>
+              <TextBadge name="Foil">
+                <Tooltip title="TCGPlayer Market Price">
+                  <Typography variant="body1">${cardFoilPrice(card).toFixed(2)}</Typography>
+                </Tooltip>
               </TextBadge>
             )}
             {card.details.prices && Number.isFinite(cardPriceEur(card)) && (
-              <TextBadge name="EUR" className="mt-2 mr-2">
-                <Tooltip text="Cardmarket Price">€{cardPriceEur(card).toFixed(2)}</Tooltip>
+              <TextBadge name="EUR">
+                <Tooltip title="Cardmarket Price">
+                  <Typography variant="body1">€{cardPriceEur(card).toFixed(2)}</Typography>
+                </Tooltip>
               </TextBadge>
             )}
             {card.details.prices && Number.isFinite(cardTix(card)) && (
-              <TextBadge name="TIX" className="mt-2 mr-2">
-                <Tooltip text="MTGO TIX">{cardTix(card).toFixed(2)}</Tooltip>
+              <TextBadge name="TIX">
+                <Tooltip title="MTGO TIX">{cardTix(card).toFixed(2)}</Tooltip>
               </TextBadge>
             )}
-            {Number.isFinite(cardElo(card)) && (
-              <TextBadge name="Elo" className="mt-2">
-                {cardElo(card).toFixed(0)}
-              </TextBadge>
-            )}
+            {Number.isFinite(cardElo(card)) && <TextBadge name="Elo">{cardElo(card).toFixed(0)}</TextBadge>}
           </Row>
         </Col>
         <Col xs="12" sm="8">

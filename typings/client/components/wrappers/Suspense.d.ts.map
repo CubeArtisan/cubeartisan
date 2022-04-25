@@ -1,1 +1,1 @@
-{"version":3,"file":"Suspense.d.ts","sourceRoot":"","sources":["../../../../client/components/wrappers/Suspense.js"],"names":[],"mappings":";AAIA;;;gBAKC"}
+{"version":3,"file":"Suspense.d.ts","sourceRoot":"","sources":["../../../../client/components/wrappers/Suspense.js"],"names":[],"mappings":";AAIA;;GAEG;AACH,wBAFU,MAAM,EAAE,CAAC;IAAE,QAAQ,CAAC,EAAE,MAAM,SAAS,CAAA;CAAE,CAAC,CAOhD"}

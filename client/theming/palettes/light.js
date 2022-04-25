@@ -28,6 +28,12 @@ const LIGHT_PALETTE = {
     dark: 'hsl(321, 80%, 45%)',
     contrastText: 'hsl(0, 0%, 100%)',
   },
+  danger: {
+    main: 'hsl(360, 50%, 66%)',
+    light: 'hsl(360, 75%, 80%)',
+    dark: 'hsl(360, 30%, 50%)',
+    contrastText: 'hsl(0, 0%, 100%)',
+  },
   info: {
     main: 'hsl(201, 98%, 30%)',
     light: 'hsl(198, 97%, 48%)',
