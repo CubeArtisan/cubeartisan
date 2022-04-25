@@ -64,11 +64,6 @@ const DEFAULT_FORM_VALUES = {
   tagInput: '',
 };
 
-const ScrollingRow = styled(Row)`
-  overflow: scroll;
-  flex-shrink: 1;
-`;
-
 const GroupModal = ({ cubeID, canEdit, children, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [alerts, setAlerts] = useState([]);

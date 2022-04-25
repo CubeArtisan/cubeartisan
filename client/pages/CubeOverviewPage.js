@@ -18,21 +18,7 @@
  */
 import React, { lazy, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Box,
-  Button,
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  Divider,
-  Grid,
-  IconButton,
-  Link,
-  Toolbar,
-  Tooltip,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Card, IconButton, Link, Toolbar, Tooltip, Typography } from '@mui/material';
 import { HelpOutline } from '@mui/icons-material';
 
 import Alert from '@cubeartisan/client/components/wrappers/Alert.js';
@@ -48,6 +34,7 @@ import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import CardHeader from '@cubeartisan/client/components/CardHeader.js';
 
 const BlogPost = lazy(() => import('@cubeartisan/client/components/BlogPost.js'));
 const CubeIdModal = lazy(() => import('@cubeartisan/client/components/modals/CubeIdModal.js'));
@@ -106,12 +93,11 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
     }
   };
 
-  const method = cubeState.isFeatured ? 'DELETE' : 'POST';
   return (
     <MainLayout loginCallback={loginCallback}>
       <CubeLayout cube={cubeState} activeLink="overview">
         {user && cubeState.owner === user._id ? (
-          <Toolbar sx={{ backgroundColor: 'background.paper', marginBotton: 1 }}>
+          <Toolbar sx={{ backgroundColor: 'background.paper', marginBotton: 1, borderRadius: '0 0 2rem 2rem' }}>
             <Suspense>
               <CubeOverviewModalLink
                 modalProps={{
@@ -164,104 +150,107 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
           </Alert>
         ))}
         <Box sx={{ marginY: 2, display: 'grid', gridTemplateColumns: '1fr 2fr', gridAutoRows: 'minmax(100px, auto)' }}>
-          <Box sx={{ marginBottom: 1, marginRight: 2 }}>
-            <Card>
-              <CardContent>
-                <Typography variant="h3">{cubeState.name}</Typography>
-                <Box sx={{ display: 'flex' }}>
-                  <Typography variant="h6" sx={{ marginBottom: 0, width: 'fit-content' }}>
-                    <Suspense>
-                      <FollowersModalLink href="#" modalProps={{ followers }}>
-                        {cubeState.users_following.length}{' '}
-                        {cubeState.users_following.length === 1 ? 'follower' : 'followers'}
-                      </FollowersModalLink>
-                    </Suspense>
-                  </Typography>
-                  <Box sx={{ marginLeft: 'auto', border: '1px solid', lineHeight: 1, display: 'flex' }}>
-                    <TextBadge name="Cube ID">
-                      <Tooltip title="Click to copy to clipboard">
-                        <Button
-                          onKeyDown={() => {}}
-                          onClick={(e) => {
-                            navigator.clipboard.writeText(getCubeId(cubeState));
-                            e.target.blur();
-                            addAlert('success', 'Cube ID copied to clipboard.');
-                          }}
-                          sx={{ borderLeft: '1px solid', borderRadius: 0, width: 'min-content', padding: 1 }}
-                        >
-                          {getCubeId(cubeState)}
-                        </Button>
-                      </Tooltip>
-                    </TextBadge>
-                  </Box>
-                  <Suspense>
-                    <CubeIdModalLink
-                      modalProps={{ fullID: cube._id, shortID: getCubeId(cubeState), alert: addAlert }}
-                      aria-label="Show Cube IDs"
-                      className="mr-2"
+          <Card sx={{ marginRight: 2, borderRadius: '2em', padding: 0 }}>
+            <CardHeader sx={{ marginBottom: 1 }}>
+              <Typography variant="h3">{cubeState.name}</Typography>
+            </CardHeader>
+            <Box display="flex">
+              <Typography variant="h6" sx={{ marginBottom: 0, width: 'fit-content' }}>
+                <Suspense>
+                  <FollowersModalLink href="#" modalProps={{ followers }}>
+                    {cubeState.users_following.length}{' '}
+                    {cubeState.users_following.length === 1 ? 'follower' : 'followers'}
+                  </FollowersModalLink>
+                </Suspense>
+              </Typography>
+              <Box sx={{ marginLeft: 'auto', border: '1px solid', lineHeight: 1, display: 'flex' }}>
+                <TextBadge name="Cube ID">
+                  <Tooltip title="Click to copy to clipboard">
+                    <Button
+                      onKeyDown={() => {}}
+                      onClick={(e) => {
+                        navigator.clipboard.writeText(getCubeId(cubeState));
+                        e.target.blur();
+                        addAlert('success', 'Cube ID copied to clipboard.');
+                      }}
+                      sx={{ borderLeft: '1px solid', borderRadius: 0, width: 'min-content', padding: 1 }}
                     >
-                      <IconButton>
-                        <HelpOutline />
-                      </IconButton>
-                    </CubeIdModalLink>
-                  </Suspense>
-                </Box>
-                <Box
-                  alt={cubeState.image_name}
-                  src={cubeState.image_uri}
-                  component="img"
-                  sx={{ marginX: '-16px', width: 'calc(100% + 32px)', marginTop: 0.5 }}
-                />
-                <Typography component="em" variant="caption">
-                  Art by {cubeState.image_artist}
-                </Typography>
-                {cube.type && <Typography variant="body1">{getCubeDescription(cubeState)}</Typography>}
-                <Typography variant="subtitle1">
-                  <Typography variant="subtitle2">
-                    Designed by
-                    <Link href={`/user/${cubeState.owner}`}> {cubeState.owner_name}</Link>
-                  </Typography>{' '}
-                  • <Link href={`/cube/${cubeState._id}/rss`}>RSS</Link>
-                </Typography>
-                {!cubeState.privatePrices && (
-                  <Box marginBottom={1} sx={{ display: 'flex' }}>
-                    {Number.isFinite(priceOwned) && (
-                      <TextBadge name="Owned" sx={{ border: '1px solid', marginRight: 1 }}>
-                        <Tooltip title="TCGPlayer Market Price as owned (excluding cards marked Not Owned)">
-                          <Button sx={{ borderLeft: '1px solid', borderRadius: 0 }}>
-                            ${Math.round(priceOwned).toLocaleString()}
-                          </Button>
-                        </Tooltip>
-                      </TextBadge>
-                    )}
-                    {Number.isFinite(pricePurchase) && (
-                      <TextBadge name="Buy" sx={{ border: '1px solid' }}>
-                        <Tooltip title="TCGPlayer Market Price for cheapest version of each card">
-                          <Button sx={{ borderLeft: '1px solid', borderRadius: 0 }}>
-                            ${Math.round(pricePurchase).toLocaleString()}
-                          </Button>
-                        </Tooltip>
-                      </TextBadge>
-                    )}
-                  </Box>
+                      {getCubeId(cubeState)}
+                    </Button>
+                  </Tooltip>
+                </TextBadge>
+              </Box>
+              <Suspense>
+                <CubeIdModalLink
+                  modalProps={{ fullID: cube._id, shortID: getCubeId(cubeState), alert: addAlert }}
+                  aria-label="Show Cube IDs"
+                  className="mr-2"
+                >
+                  <IconButton>
+                    <HelpOutline />
+                  </IconButton>
+                </CubeIdModalLink>
+              </Suspense>
+            </Box>
+            <Box
+              alt={cubeState.image_name}
+              src={cubeState.image_uri}
+              component="img"
+              sx={{ marginX: '-16px', width: 'calc(100% + 32px)', marginTop: 0.5 }}
+            />
+            <Typography component="em" variant="caption" sx={{ marginLeft: 1 }}>
+              Art by {cubeState.image_artist}
+            </Typography>
+            {cube.type && (
+              <Typography variant="body1" sx={{ marginLeft: 1 }}>
+                {getCubeDescription(cubeState)}
+              </Typography>
+            )}
+            <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
+              <Typography variant="subtitle2">
+                Designed by
+                <Link href={`/user/${cubeState.owner}`}> {cubeState.owner_name}</Link>
+              </Typography>{' '}
+              • <Link href={`/cube/${cubeState._id}/rss`}>RSS</Link>
+            </Typography>
+            {!cubeState.privatePrices && (
+              <Box sx={{ marginBottom: 1, marginX: 2, display: 'flex' }}>
+                {Number.isFinite(priceOwned) && (
+                  <TextBadge name="Owned" sx={{ border: '1px solid', marginRight: 1 }}>
+                    <Tooltip title="TCGPlayer Market Price as owned (excluding cards marked Not Owned)">
+                      <Button disabled sx={{ borderLeft: '1px solid', borderRadius: 0 }}>
+                        ${Math.round(priceOwned).toLocaleString()}
+                      </Button>
+                    </Tooltip>
+                  </TextBadge>
                 )}
-                {user &&
-                  cubeState.owner !== user._id &&
-                  (followedState ? (
-                    <Button variant="contained" disabled color="warning" onClick={unfollow}>
-                      Unfollow
-                    </Button>
-                  ) : (
-                    <Button color="success" disabled variant="contained" onClick={follow}>
-                      Follow
-                    </Button>
-                  ))}
-              </CardContent>
-            </Card>
-          </Box>
-          <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', padding: 2 }}>
-            <Typography variant="h5">Description</Typography>
-            <Divider sx={{ marginY: 1 }} />
+                {Number.isFinite(pricePurchase) && (
+                  <TextBadge name="Buy" sx={{ border: '1px solid' }}>
+                    <Tooltip title="TCGPlayer Market Price for cheapest version of each card">
+                      <Button disabled sx={{ borderLeft: '1px solid', borderRadius: 0 }}>
+                        ${Math.round(pricePurchase).toLocaleString()}
+                      </Button>
+                    </Tooltip>
+                  </TextBadge>
+                )}
+              </Box>
+            )}
+            {user &&
+              cubeState.owner !== user._id &&
+              (followedState ? (
+                <Button variant="contained" disabled color="warning" onClick={unfollow}>
+                  Unfollow
+                </Button>
+              ) : (
+                <Button color="success" disabled variant="contained" onClick={follow}>
+                  Follow
+                </Button>
+              ))}
+          </Card>
+          <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', borderRadius: '2rem' }}>
+            <CardHeader sx={{ marginBottom: 1 }}>
+              <Typography variant="h4">Description</Typography>
+            </CardHeader>
             <Markdown markdown={cubeState.description || ''} />
             <Box sx={{ display: 'flex', marginTop: 'auto' }}>
               {cubeState.tags.map((tag) => (

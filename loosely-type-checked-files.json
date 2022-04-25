@@ -5,7 +5,6 @@
   "client/babel.config.cjs",
   "client/components/AsfanDropdown.js",
   "client/components/AutocompleteInput.js",
-  "client/components/BlogPost.js",
   "client/components/CSRFForm.js",
   "client/components/CardImage.js",
   "client/components/Changelist.js",

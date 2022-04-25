@@ -35,7 +35,7 @@ const BlogPost = ({ post, onEdit }) => {
   const canEdit = user && user._id === post.owner;
 
   return (
-    <Paper elevation={3}>
+    <Paper elevation={3} sx={{ borderRadius: '2em', marginBottom: 2 }}>
       <CardHeader>
         <Grid container spacing={1}>
           <Grid item xs={11}>
@@ -47,7 +47,7 @@ const BlogPost = ({ post, onEdit }) => {
             {canEdit && <BlogContextMenu className="float-sm-right" post={post} value="..." onEdit={onEdit} />}
           </Grid>
         </Grid>
-        <Typography variant="subtitle">
+        <Typography variant="subtitle1">
           <Link href={`/user/${post.owner}`}>{post.username}</Link>
           {' posted to '}
           {post.dev === 'true' ? (

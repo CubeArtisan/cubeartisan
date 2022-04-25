@@ -77,10 +77,6 @@ const LoadingInput = withLoading(Input, ['onBlur']);
 const LoadingInputChange = withLoading(Input, ['onChange']);
 const LoadingTagInput = withLoading(TagInput, ['handleInputBlur']);
 
-const TagsCell = styled(T)`
-  min-width: 15rem;
-`;
-
 const defaultVersions = (card) => {
   const fullName = card.details.full_name;
   return [
@@ -459,7 +455,7 @@ const ListView = ({ cards }) => {
     <>
       <Alerts alerts={alerts} />
       <Form inline>
-        <PagedTable rows={rowsFlat} size="sm" className="list-view-table">
+        <PagedTable rows={rowsFlat} size="sm" pageSize={100} className="list-view-table">
           <thead>
             <tr>
               <th className="align-middle">
