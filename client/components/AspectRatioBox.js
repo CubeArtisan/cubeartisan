@@ -17,20 +17,8 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React from 'react';
-import cx from 'classnames';
 import PropTypes from 'prop-types';
-import styled from '@cubeartisan/client/utils/styledHelper.js';
-
-export const StretchedDiv = styled('div')`
-  padding-top: ${(props) => (100 / props.ratio).toFixed(5)}%;
-`;
-
-const NoMarginsDiv = styled('div')`
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-`;
+import { Box } from '@mui/material';
 
 /** 2020-11-17 struesdell:
  * - Added classnames dependency, allowing for terse classname construction
@@ -38,16 +26,12 @@ const NoMarginsDiv = styled('div')`
  * - Added propTypes declaration to resolve ESLint errors (issue #1601)
  * - Added defaultProps to support partial prop application
  */
-const AspectRatioBox = ({ ratio, className, ...props }) => (
-  <StretchedDiv className="position-relative w-100" ratio={ratio}>
-    <NoMarginsDiv className={cx('position-absolute', 'overflow-hidden', className)} {...props} />
-  </StretchedDiv>
+const AspectRatioBox = ({ ratio, ...props }) => (
+  <Box sx={{ position: 'relative', width: '100%', paddingTop: `${(100 / ratio).toFixed(5)}%` }}>
+    <Box sx={{ position: 'absolute', overflow: 'hidden', inset: '0 0 0 0' }} {...props} />
+  </Box>
 );
 AspectRatioBox.propTypes = {
   ratio: PropTypes.number.isRequired,
-  className: PropTypes.string,
-};
-AspectRatioBox.defaultProps = {
-  className: '',
 };
 export default AspectRatioBox;

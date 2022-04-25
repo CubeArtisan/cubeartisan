@@ -18,31 +18,22 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Box, Button } from '@mui/material';
 
-import { InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
-
-const TextBadge = ({ name, className, children, fill }) => (
-  <InputGroup size="sm" className={className ? `w-auto ${className}` : 'w-auto'}>
-    <InputGroupAddon className={fill ? 'w-50' : ''} addonType="prepend">
-      <InputGroupText className={fill ? `w-100` : ''}>{name}</InputGroupText>
-    </InputGroupAddon>
-    <InputGroupAddon className={fill ? 'w-50' : ''} addonType="append">
-      <InputGroupText className={`${fill ? 'w-100 ' : ''}bg-white`}>{children}</InputGroupText>
-    </InputGroupAddon>
-  </InputGroup>
+const TextBadge = ({ name, children, sx }) => (
+  <Box sx={{ ...sx, flexDirection: 'row', display: 'flex' }}>
+    <Button component="span" disabled>
+      {name}
+    </Button>
+    {children}
+  </Box>
 );
-
 TextBadge.propTypes = {
-  name: PropTypes.string,
-  className: PropTypes.string,
+  name: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
-  fill: PropTypes.bool,
+  sx: PropTypes.shape({}),
 };
-
 TextBadge.defaultProps = {
-  name: 'textBade',
-  className: null,
-  fill: false,
+  sx: {},
 };
-
 export default TextBadge;

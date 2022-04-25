@@ -19,7 +19,18 @@
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { io } from 'socket.io-client';
-import { Button, ButtonGroup, CircularProgress, Divider, Grid, Paper, Stack, Toolbar, Typography } from '@mui/material';
+import {
+  Button,
+  ButtonGroup,
+  CircularProgress,
+  Divider,
+  Grid,
+  Paper,
+  Stack,
+  Toolbar,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
@@ -39,7 +50,6 @@ import { makeSubtitle } from '@cubeartisan/client/utils/Card.js';
 import DraftLocation from '@cubeartisan/client/drafting/DraftLocation.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import TextBadge from '@cubeartisan/client/components/TextBadge.js';
-import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 import SetCardsInRow from '@cubeartisan/client/components/SetCardsInRow.js';
 import useTimer from '@cubeartisan/client/hooks/UseTimer.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';

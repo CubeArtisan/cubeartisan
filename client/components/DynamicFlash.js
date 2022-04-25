@@ -16,32 +16,38 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useMemo } from 'react';
+import React, { useState } from 'react';
+import { Box } from '@mui/material';
 
-import { UncontrolledAlert } from 'reactstrap';
+import Alert from '@cubeartisan/client/components/wrappers/Alert.js';
 
 const DynamicFlash = (props) => {
-  const messages = useMemo(() => {
+  const [messages, setMessages] = useState(() => {
     if (typeof document !== 'undefined') {
       const flashInput = document.getElementById('flash');
       const flashValue = flashInput ? flashInput.value : '[]';
       return JSON.parse(flashValue);
     }
     return [];
-  }, []);
+  });
 
   return (
-    <div className="mt-3">
-      {Object.keys(messages).map((type) =>
-        messages[type].map((message, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <UncontrolledAlert key={type + index} color={type} {...props}>
-            {message}
-          </UncontrolledAlert>
-        )),
-      )}
-    </div>
+    messages.length > 0 && (
+      <Box marginY={1}>
+        {Object.entries(messages).map(([type, inner]) =>
+          inner.map((message, index) => (
+            <Alert
+              key={type + index /* eslint-disable-line react/no-array-index-key */}
+              color={type}
+              onClose={() => setMessages((old) => old.filter((_, idx) => idx !== index))}
+              {...props}
+            >
+              {message}
+            </Alert>
+          )),
+        )}
+      </Box>
+    )
   );
 };
-
 export default DynamicFlash;

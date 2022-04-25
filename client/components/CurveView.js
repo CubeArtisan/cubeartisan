@@ -18,14 +18,13 @@
  */
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-
-import { Card, CardHeader, CardBody, Col, Row } from 'reactstrap';
+import { Box, Card, CardContent, Typography } from '@mui/material';
 
 import { getLabels, sortDeep } from '@cubeartisan/client/utils/Sort.js';
 
 import AutocardListGroup from '@cubeartisan/client/components/AutocardListGroup.js';
 import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
-import { StretchedDiv } from '@cubeartisan/client/components/AspectRatioBox.js';
+import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox.js';
 
 const cmc2Labels = getLabels(null, 'Mana Value 2');
 
@@ -33,20 +32,20 @@ const TypeRow = ({ cardType, group }) => {
   const sorted = Object.fromEntries(sortDeep(group, false, 'Alphabetical', 'Mana Value 2'));
   return (
     <>
-      <h6>
+      <Typography variant="h6">
         {cardType} ({group.length})
-      </h6>
-      <Row className="row-low-padding mb-2">
+      </Typography>
+      <Box component="span">
         {cmc2Labels.map((cmc) => (
-          <StretchedDiv key={cmc} className="col-low-padding" ratio={cmc2Labels.length}>
+          <AspectRatioBox key={cmc} className="col-low-padding" ratio={cmc2Labels.length}>
             <AutocardListGroup
               heading={`${cmc} (${(sorted[cmc] || []).length})`}
               cards={sorted[cmc] || []}
               sort="Unsorted"
             />
-          </StretchedDiv>
+          </AspectRatioBox>
         ))}
-      </Row>
+      </Box>
     </>
   );
 };
@@ -57,17 +56,15 @@ TypeRow.propTypes = {
 };
 
 const ColorCard = ({ color, group }) => (
-  <Card className="mb-3">
-    <CardHeader>
-      <h5 className="mb-0">
+  <Card sx={{ marginBottom: 0 }}>
+    <CardContent>
+      <Typography align="center" variant="h5" sx={{ marginBottom: 0 }}>
         {color} {group.length}
-      </h5>
-    </CardHeader>
-    <CardBody>
+      </Typography>
       {sortDeep(group, false, 'Alphabetical', 'Creature/Non-Creature').map(([label, cmcGroup]) => (
         <TypeRow key={label} cardType={label} group={cmcGroup} />
       ))}
-    </CardBody>
+    </CardContent>
   </Card>
 );
 
@@ -81,13 +78,11 @@ const CurveView = ({ cards, ...props }) => {
 
   // We call the groups color and type even though they might be other sorts.
   return (
-    <Row {...props}>
-      <Col>
-        {sortDeep(cards, showOther, 'Alphabetical', primary).map(([color, group]) => (
-          <ColorCard key={color} color={color} group={group} />
-        ))}
-      </Col>
-    </Row>
+    <Box {...props}>
+      {sortDeep(cards, showOther, 'Alphabetical', primary).map(([color, group]) => (
+        <ColorCard key={color} color={color} group={group} />
+      ))}
+    </Box>
   );
 };
 

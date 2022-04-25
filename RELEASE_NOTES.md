@@ -277,6 +277,7 @@ functionality of the site is easier to discover.
   - Markdown
   - Autocard
   - Site App Bar
+  - Cube Overview Page
 - Allow controlling dark mode without refreshing.
 - Redesigns of both light and dark mode color schemes.
 

@@ -18,11 +18,10 @@
  */
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Typography } from '@mui/material';
+import { Grid, Link, Tooltip, Typography } from '@mui/material';
 
 import { usePickListAndDrafterState } from '@cubeartisan/client/components/DecksPickBreakdown.js';
 import { SortableTable, compareStrings } from '@cubeartisan/client/components/SortableTable.js';
-import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import { DrafterStatePropType, DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
 import { cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
@@ -30,7 +29,7 @@ import { convertDrafterState, getDraftbotScores } from '@cubeartisan/client/draf
 import PickSelector from '@cubeartisan/client/components/PickSelector.js';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 
-const AutocardLink = withAutocard('a');
+const AutocardLink = withAutocard(Link);
 
 const CARD_TRAIT = Object.freeze({
   title: 'Card',
@@ -76,7 +75,7 @@ export const DraftbotBreakdownTable = ({ drafterState }) => {
     return [iOracles, iWeights];
   }, [botResult]);
   const renderWithTooltip = (iTitle) => (
-    <Tooltip text={oracles.find(({ title }) => title === iTitle)?.tooltip ?? ''}>{iTitle}</Tooltip>
+    <Tooltip title={oracles.find(({ title }) => title === iTitle)?.tooltip ?? ''}>{iTitle}</Tooltip>
   );
   const WEIGHT_COLUMNS = [
     { title: 'Oracle', sortable: true, key: 'title', heading: true, renderFn: renderWithTooltip },

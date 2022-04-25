@@ -18,7 +18,7 @@
  */
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Container, Divider, Grid, Link, Paper, Stack, Typography } from '@mui/material';
+import { Button, Container, Divider, Grid, Link, Paper, Stack, Tooltip, Typography } from '@mui/material';
 
 import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
@@ -27,14 +27,13 @@ import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import AddGroupToCubeModal from '@cubeartisan/client/components/modals/AddGroupToCubeModal.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import TextBadge from '@cubeartisan/client/components/TextBadge.js';
-import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import CardHeader from '@cubeartisan/client/components/CardHeader.js';
 
 const AddGroupToCubeModalLink = withModal(Button, AddGroupToCubeModal);
-const AutocardA = withAutocard('a');
+const AutocardA = withAutocard(Link);
 
 const CardPackage = ({ cardPackage, refresh }) => {
   const user = useContext(UserContext);
@@ -103,11 +102,10 @@ const CardPackage = ({ cardPackage, refresh }) => {
 
             {user ? (
               <Grid item xs={12} sm={6}>
-                <TextBadge name="Votes" className="mx-2">
+                <TextBadge name="Votes">
                   <Tooltip title={voted ? 'Click to remove your upvote' : 'Click to upvote this package'}>
                     <Button
                       type="button"
-                      className="cube-id-btn"
                       onClick={() => {
                         toggleVote();
                       }}
@@ -127,15 +125,15 @@ const CardPackage = ({ cardPackage, refresh }) => {
                 {user.roles.includes('Admin') && (
                   <>
                     {cardPackage.approved ? (
-                      <Button variant="outlined" color="danger" className="mx-2" onClick={unapprove}>
+                      <Button variant="outlined" color="error" onClick={unapprove}>
                         Remove Approval
                       </Button>
                     ) : (
-                      <Button variant="outlined" color="success" className="mx-2" onClick={approve}>
+                      <Button variant="outlined" color="success" onClick={approve}>
                         Approve
                       </Button>
                     )}
-                    <Button variant="outlined" color="danger" onClick={remove}>
+                    <Button variant="outlined" color="error" onClick={remove}>
                       Delete
                     </Button>
                   </>
@@ -143,8 +141,8 @@ const CardPackage = ({ cardPackage, refresh }) => {
               </Grid>
             ) : (
               <Grid item xs={6}>
-                <TextBadge name="Votes" className="mr-2">
-                  <Tooltip text="Login to upvote">
+                <TextBadge name="Votes">
+                  <Tooltip title="Login to upvote">
                     <Typography variant="button">{cardPackage.votes}</Typography>
                   </Tooltip>
                 </TextBadge>
@@ -157,7 +155,7 @@ const CardPackage = ({ cardPackage, refresh }) => {
             <Grid item key={`${cardPackage._id}-${cardId}`} xs={1}>
               <Paper elevation={1}>
                 <AutocardA href={`/card/${cardId}`} front={`/card/${cardId}/image/redirect`} target="_blank">
-                  <img className="w-100" src={`/card/${cardId}/image/redirect`} alt={cardId} />
+                  <img src={`/card/${cardId}/image/redirect`} alt={cardId} />
                 </AutocardA>
               </Paper>
             </Grid>

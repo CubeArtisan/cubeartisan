@@ -71,6 +71,16 @@ declare namespace DARK_PALETTE {
         const contrastText_6: string;
         export { contrastText_6 as contrastText };
     }
+    namespace danger {
+        const main_7: string;
+        export { main_7 as main };
+        const light_7: string;
+        export { light_7 as light };
+        const dark_7: string;
+        export { dark_7 as dark };
+        const contrastText_7: string;
+        export { contrastText_7 as contrastText };
+    }
     const grey: {
         '50': string;
         '100': string;

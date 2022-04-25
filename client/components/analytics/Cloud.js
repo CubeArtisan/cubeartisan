@@ -16,43 +16,25 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useContext, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { TagCloud } from 'react-tagcloud';
-import { InputGroup, InputGroupAddon, InputGroupText, UncontrolledTooltip } from 'reactstrap';
 import PropTypes from 'prop-types';
+import { Box, Tooltip, Typography } from '@mui/material';
 
 import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import CubePropTypes from '@cubeartisan/client/proptypes/CubePropType.js';
 import TagInput from '@cubeartisan/client/components/TagInput.js';
-import { arrayMove, isTouchDevice } from '@cubeartisan/client/utils/Util.js';
-import styled from '@cubeartisan/client/utils/styledHelper.js';
+import { arrayMove } from '@cubeartisan/client/utils/Util.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 
-const trigger = isTouchDevice() ? 'click' : 'hover.js';
-
-const TagSpan = styled('span')`
-  color: ${(props) => props.color};
-  font-size: ${(props) => props.size}px;
-`;
-const TagContainer = styled('div')`
-  vertical-align: middle;
-  display: inline-block;
-`;
-
-const TagCloudTag = ({ tag, size, color }) => {
-  const spanRef = useRef();
-  return (
-    <TagContainer className="tag-cloud-tag mr-2">
-      <TagSpan size={size} color={color} className="tag-cloud-tag" ref={spanRef}>
-        {tag.value}
-      </TagSpan>
-      <UncontrolledTooltip trigger={trigger} placement="auto" target={spanRef}>
-        {Number.isInteger(tag.count) ? tag.count : tag.count.toFixed(2)}
-      </UncontrolledTooltip>
-    </TagContainer>
-  );
-};
+const TagCloudTag = ({ tag, size, color }) => (
+  <Tooltip title={Number.isInteger(tag.count) ? tag.count : tag.count.toFixed(2)}>
+    <Typography sx={{ fontSize: size, color }} align="center">
+      {tag.value}
+    </Typography>
+  </Tooltip>
+);
 
 TagCloudTag.propTypes = {
   tag: PropTypes.shape({
@@ -128,16 +110,14 @@ const Cloud = ({ cards, cube, setAsfans, defaultFormatId }) => {
 
   return (
     <>
-      <h4>Tag Cloud</h4>
-      <p>
+      <Typography variant="h4">Tag Cloud</Typography>
+      <Typography variant="subtitle1">
         Tags in your cube with random colors weighted by the expected number of cards with that tag a player will open
         on average.
-      </p>
+      </Typography>
       <AsfanDropdown cube={cube} defaultFormatId={defaultFormatId} setAsfans={setAsfans} />
-      <InputGroup>
-        <InputGroupAddon addonType="prepend">
-          <InputGroupText>Tags to exclude</InputGroupText>
-        </InputGroupAddon>
+      <Box component="span">
+        <Typography variant="body1">Tags to exclude</Typography>
         <TagInput
           tags={excludeList.map((t) => ({ text: t, id: t }))}
           inputValue={tagInput}
@@ -148,7 +128,7 @@ const Cloud = ({ cards, cube, setAsfans, defaultFormatId }) => {
           reorderTag={reorderTag}
           dontAddSuggestions
         />
-      </InputGroup>
+      </Box>
       <TagCloud minSize={10} maxSize={80} colorOptions={COLOR_OPTIONS[theme]} tags={words} renderer={tagRenderer} />
     </>
   );

@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { useCallback, useContext, useState, useRef, useEffect } from 'react';
-import { Button } from '@mui/material';
+import { Button, Tooltip, Typography } from '@mui/material';
 import { Col, Collapse, Container, Input, Row, UncontrolledAlert } from 'reactstrap';
 import PropTypes from 'prop-types';
 
@@ -27,7 +27,6 @@ import { SORTS, ORDERED_SORTS } from '@cubeartisan/client/utils/Sort.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
 import Query from '@cubeartisan/client/utils/Query.js';
-import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 
 const SortCollapse = ({
   defaultPrimarySort,
@@ -286,7 +285,7 @@ const SortCollapse = ({
               </Button>
             )}
             <Button
-              color={showOther ? 'danger' : 'primary'}
+              color={showOther ? 'warning' : 'primary'}
               onClick={() => {
                 const newShowOther = !showOther;
                 if (newShowOther.toString() === defShow) {
@@ -297,8 +296,8 @@ const SortCollapse = ({
                 changeSort({ showOther: newShowOther });
               }}
             >
-              <Tooltip text="Creates a separate column for cards that would be hidden otherwise.">
-                {showOther ? 'Hide' : 'Show'} Unsorted Cards
+              <Tooltip title="Creates a separate column for cards that would be hidden otherwise.">
+                <Typography variant="body1">{showOther ? 'Hide' : 'Show'} Unsorted Cards</Typography>
               </Tooltip>
             </Button>
           </Col>

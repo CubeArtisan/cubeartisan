@@ -20,7 +20,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import CardPricePropType from '@cubeartisan/client/proptypes/CardPricePropType.js';
 import CardDataPointPropType from '@cubeartisan/client/proptypes/CardDataPointPropType.js';
-import { Badge, Button, IconButton } from '@mui/material';
+import { Badge, Button, IconButton, Link, Tooltip, Typography } from '@mui/material';
 import { Check, ContentCopy, SwapHoriz } from '@mui/icons-material';
 import {
   Card,
@@ -49,7 +49,6 @@ import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
 import CountTableRow from '@cubeartisan/client/components/CountTableRow.js';
-import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 import TextBadge from '@cubeartisan/client/components/TextBadge.js';
 import AddToCubeModal from '@cubeartisan/client/components/modals/AddToCubeModal.js';
 import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
@@ -77,14 +76,8 @@ import {
   nameToDashedUrlComponent,
 } from '@cubeartisan/client/utils/Affiliate.js';
 
-import styled from '@cubeartisan/client/utils/styledHelper.js';
-
-const AutocardA = withAutocard('a');
+const AutocardA = withAutocard(Link);
 const AddModal = withModal(Button, AddToCubeModal);
-
-const AutoSizedAddon = styled(InputGroupAddon)`
-  width: auto;
-`;
 
 const formatDate = (date) => `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
 
@@ -242,11 +235,11 @@ const CardIdBadge = ({ id }) => {
         <InputGroupText>Card ID</InputGroupText>
       </InputGroupAddon>
       <Input className="bg-white" value={id} disabled />
-      <AutoSizedAddon addonType="append">
-        <IconButton size="small" onClick={onCopyClick}>
+      <InputGroupAddon addonType="append">
+        <IconButton size="small" onClick={onCopyClick} sx={{ width: 'auto' }}>
           {copied ? <Check /> : <ContentCopy />}
         </IconButton>
-      </AutoSizedAddon>
+      </InputGroupAddon>
     </InputGroup>
   );
 };
@@ -295,10 +288,9 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
           <Col className="pl-2 pb-2" xs="12" sm="3">
             <ImageFallback className="w-100" src={imageUsed} fallbackSrc="/content/default_card.png" alt={card.name} />
             {card.image_flip && (
-              <IconButton
+              <Button
                 color="success"
                 variant="outlined"
-                fullWidth
                 onClick={() => {
                   if (imageUsed === card.image_normal) {
                     setImageUsed(card.image_flip);
@@ -306,9 +298,10 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
                     setImageUsed(card.image_normal);
                   }
                 }}
+                endIcon={<SwapHoriz />}
               >
-                <SwapHoriz /> Transform
-              </IconButton>
+                Transform
+              </Button>
             )}
             <CardBody className="breakdown p-1">
               <p>
@@ -320,28 +313,38 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
               </AddModal>
               <CardIdBadge id={card._id} />
               {card.prices && Number.isFinite(cardPrice({ details: card })) && (
-                <TextBadge name="Price" className="mt-1" fill>
-                  <Tooltip text="TCGPlayer Market Price">${cardPrice({ details: card }).toFixed(2)}</Tooltip>
+                <TextBadge name="Price">
+                  <Tooltip title="TCGPlayer Market Price">
+                    <Typography variant="body1">${cardPrice({ details: card }).toFixed(2)}</Typography>
+                  </Tooltip>
                 </TextBadge>
               )}
               {card.prices && Number.isFinite(cardFoilPrice({ details: card })) && (
-                <TextBadge name="Foil" className="mt-1" fill>
-                  <Tooltip text="TCGPlayer Market Price">${cardFoilPrice({ details: card }).toFixed(2)}</Tooltip>
+                <TextBadge name="Foil">
+                  <Tooltip title="TCGPlayer Market Price">
+                    <Typography variant="body1">${cardFoilPrice({ details: card }).toFixed(2)}</Typography>
+                  </Tooltip>
                 </TextBadge>
               )}
               {card.prices && Number.isFinite(cardPriceEur({ details: card })) && (
-                <TextBadge name="EUR" className="mt-1" fill>
-                  <Tooltip text="Cardmarket Price">€{cardPriceEur({ details: card }).toFixed(2)}</Tooltip>
+                <TextBadge name="EUR">
+                  <Tooltip title="Cardmarket Price">
+                    <Typography variant="body1">€{cardPriceEur({ details: card }).toFixed(2)}</Typography>
+                  </Tooltip>
                 </TextBadge>
               )}
               {card.prices && Number.isFinite(cardTix({ details: card })) && (
-                <TextBadge name="TIX" className="mt-1" fill>
-                  <Tooltip text="MTGO TIX">{cardTix({ details: card }).toFixed(2)}</Tooltip>
+                <TextBadge name="TIX">
+                  <Tooltip title="MTGO TIX">
+                    <Typography variant="body1">{cardTix({ details: card }).toFixed(2)}</Typography>
+                  </Tooltip>
                 </TextBadge>
               )}
               {Number.isFinite(cardElo({ details: card })) && (
-                <TextBadge name="Elo" className="mt-1" fill>
-                  {cardElo({ details: card }).toFixed(0)}
+                <TextBadge name="Elo">
+                  <Tooltip title="Elo">
+                    <Typography variant="body1">{cardElo({ details: card }).toFixed(0)}</Typography>
+                  </Tooltip>
                 </TextBadge>
               )}
             </CardBody>

@@ -25,23 +25,12 @@ import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import useKeyHandlers from '@cubeartisan/client/hooks/UseKeyHandlers.js';
 import DeckDeleteModal from '@cubeartisan/client/components/modals/DeckDeleteModal.js';
-import styled from '@cubeartisan/client/utils/styledHelper.js';
 
 /** 2020-11-17 struesdell:
  *  Pulled constants out of component render so that they are defined only once
  */
 const MAX_LENGTH = 35;
 const DEFAULT_DECK_NAME = 'Untitled Deck.js';
-
-const DeleteButton = styled(Button)`
-  font-size: 0.8rem;
-  text-align: center;
-  width: 19px;
-  height: 19px;
-  padding-bottom: 2px;
-  line-height: 17px;
-  border: 1px solid rgba(0, 0, 0, 0.5);
-`;
 
 /** 2020-11-17 struesdell:
  *  Pulled string truncation logic out of component render and made it more
@@ -90,7 +79,20 @@ const DeckPreview = ({ deck, nextURL }) => {
   return (
     <div className="deck-preview" {...handleClick}>
       {canEdit && (
-        <DeleteButton type="button" className="close" onClick={openDeleteModal}>
+        <Button
+          type="button"
+          className="close"
+          onClick={openDeleteModal}
+          sx={{
+            fontSize: '0.8rem',
+            textAlign: 'center',
+            width: 19,
+            height: 19,
+            paddingBottom: 2,
+            lineHeight: 17,
+            border: '1px solid rgba(0, 0, 0, 0.5)',
+          }}
+        >
           X
           <DeckDeleteModal
             toggle={closeDeleteModal}
@@ -99,7 +101,7 @@ const DeckPreview = ({ deck, nextURL }) => {
             cubeID={deck.cube}
             nextURL={nextURL}
           />
-        </DeleteButton>
+        </Button>
       )}
       <h6 className="mb-0 text-muted">
         <a href={`/deck/${deck._id}`} title={fullName}>

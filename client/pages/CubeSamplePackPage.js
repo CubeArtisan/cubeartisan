@@ -27,17 +27,12 @@ import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
-import styled from '@cubeartisan/client/utils/styledHelper.js';
 import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import SetCardsInRow from '@cubeartisan/client/components/SetCardsInRow.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 
 const CardGrid = lazy(() => import('@cubeartisan/client/components/CardGrid.js'));
 const CardImage = lazy(() => import('@cubeartisan/client/components/CardImage.js'));
-
-const BoundedCol = styled(Col)`
-  max-width: 800px;
-`;
 
 export const SamplePackPage = ({ seed, pack, cube, loginCallback }) => {
   const defaultNumCols = Math.ceil(pack.length / Math.floor(Math.sqrt(pack.length)));
@@ -67,7 +62,7 @@ export const SamplePackPage = ({ seed, pack, cube, loginCallback }) => {
             <div className="card-body">
               <SetCardsInRow />
               <Row noGutters className="justify-content-center">
-                <BoundedCol>
+                <Col sx={{ maxWidth: 800 }}>
                   <Suspense>
                     <CardGrid
                       cardList={pack}
@@ -77,7 +72,7 @@ export const SamplePackPage = ({ seed, pack, cube, loginCallback }) => {
                       className="sample"
                     />
                   </Suspense>
-                </BoundedCol>
+                </Col>
               </Row>
             </div>
           </div>

@@ -21,6 +21,7 @@ import PropTypes from 'prop-types';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
 import { Form, Input } from 'reactstrap';
+import { TableCell } from '@mui/material';
 
 import { cardName, cardsAreEquivalent, normalizeName } from '@cubeartisan/client/utils/Card.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
@@ -34,7 +35,6 @@ import TagInput from '@cubeartisan/client/components/TagInput.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import withLoading from '@cubeartisan/client/components/hoc/WithLoading.js';
 import useAlerts, { Alerts } from '@cubeartisan/client/hooks/UseAlerts.js';
-import styled from '@cubeartisan/client/utils/styledHelper.js';
 
 const colorCombos = [
   'C',
@@ -71,21 +71,13 @@ const colorCombos = [
   'WUBRG',
 ];
 
-const AutocardTd = withAutocard('td');
+const AutocardTd = withAutocard(TableCell);
 
 const LoadingInput = withLoading(Input, ['onBlur']);
 const LoadingInputChange = withLoading(Input, ['onChange']);
 const LoadingTagInput = withLoading(TagInput, ['handleInputBlur']);
 
-const VersionInput = styled(LoadingInputChange)`
-  max-width: 6rem;
-`;
-
-const CmcInput = styled(LoadingInput)`
-  max-width: 3;
-`;
-
-const TagsCell = styled('td')`
+const TagsCell = styled(T)`
   min-width: 15rem;
 `;
 
@@ -299,13 +291,19 @@ const ListViewRow = ({ card, versions, versionsLoading, checked, onCheck, addAle
         {cardName(card)}
       </AutocardTd>
       <td>
-        <VersionInput {...inputProps('cardID')} type="select" className="w-100" loading={versionsLoading ? true : null}>
+        <Input
+          {...inputProps('cardID')}
+          type="select"
+          className="w-100"
+          loading={versionsLoading ? true : null}
+          sx={{ maxWidth: '6rem' }}
+        >
           {versions.map(({ _id, version }) => (
             <option key={_id} value={_id}>
               {version}
             </option>
           ))}
-        </VersionInput>
+        </Input>
       </td>
       <td>
         <LoadingInput {...inputProps('type_line')} type="text" />
@@ -325,7 +323,7 @@ const ListViewRow = ({ card, versions, versionsLoading, checked, onCheck, addAle
         </LoadingInputChange>
       </td>
       <td>
-        <CmcInput {...inputProps('cmc')} type="text" />
+        <Input {...inputProps('cmc')} type="text" sx={{ maxWidth: '1rem' }} />
       </td>
       <td>
         <LoadingInputChange {...inputProps('colors')} type="select">
@@ -334,7 +332,7 @@ const ListViewRow = ({ card, versions, versionsLoading, checked, onCheck, addAle
           ))}
         </LoadingInputChange>
       </td>
-      <TagsCell>
+      <TableCell sx={{ minWidth: '15rem' }}>
         <LoadingTagInput
           tags={tags}
           value={values.tagInput}
@@ -345,7 +343,7 @@ const ListViewRow = ({ card, versions, versionsLoading, checked, onCheck, addAle
           deleteTag={deleteTag}
           reorderTag={reorderTag}
         />
-      </TagsCell>
+      </TableCell>
     </tr>
   );
 };

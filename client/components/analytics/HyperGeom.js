@@ -19,21 +19,16 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Chart as ChartJS } from 'react-chartjs-2';
-import styled from '@cubeartisan/client/utils/styledHelper.js';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { Col, Row, Table, InputGroup, InputGroupAddon, InputGroupText, CustomInput, Input, Form } from 'reactstrap';
 
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import calculate from '@cubeartisan/client/utils/CalculateHyperGeom.js';
 
-const FixedWidthText = styled(InputGroupText)`
-  width: 20rem;
-`;
-
 const TextField = ({ name, humanName, placeholder, value, onChange, ...props }) => (
   <InputGroup className="mb-3" {...props}>
     <InputGroupAddon addonType="prepend">
-      <FixedWidthText>{humanName}</FixedWidthText>
+      <Typography variant="body1">{humanName}</Typography>
     </InputGroupAddon>
     <Input type="text" name={name} placeholder={placeholder} value={value} onChange={onChange} />
   </InputGroup>
@@ -50,7 +45,7 @@ TextField.propTypes = {
 const TextDisplay = ({ humanName, value }) => (
   <InputGroup className="mb-3">
     <InputGroupAddon addonType="prepend">
-      <FixedWidthText>{humanName}</FixedWidthText>
+      <Typography variant="body1">{humanName}</Typography>
     </InputGroupAddon>
     <Input type="text" disabled value={value} />
   </InputGroup>
