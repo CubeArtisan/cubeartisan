@@ -19,6 +19,7 @@ import connectionQ from '@cubeartisan/server/serverjs/mongoConnection.js';
     await mongoose.disconnect();
   } catch (error) {
     winston.error(error, { error });
+    process.exit(1);
   }
 
   process.exit();
