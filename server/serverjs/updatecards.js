@@ -874,7 +874,7 @@ const downloadFromScryfall = async (
     winston.error('Downloading card data failed:');
     winston.error(error.message, error);
     winston.error('Cardbase was not updated');
-    return;
+    throw error;
   }
 
   winston.info('Creating objects...');
@@ -884,6 +884,7 @@ const downloadFromScryfall = async (
     winston.error('Updating cardbase objects failed:');
     winston.error(error.message, error);
     winston.error('Cardbase update may not have fully completed');
+    throw error;
   }
 
   winston.info('Finished cardbase update...');
