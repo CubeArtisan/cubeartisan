@@ -284,3 +284,9 @@ This release is composed of porting over bug fixes for bugs we carried over from
 ##### Bug Fixes
 
 - When looking up card indices use the recorded card index instead of guessing.
+
+#### v1.4.4.7
+
+##### Bug Fixes
+
+- Fix error that caused infinite redirects on overview pages.

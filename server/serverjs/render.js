@@ -92,10 +92,15 @@ export const render = async (req, res, page, reactProps = {}, options = {}) => {
   const sheet = new StyledComponents.ServerStyleSheet();
   const PageElement = await getPage(page, req);
   const props = JSON.parse(JSON.stringify(reactProps));
-  const reactHTML = PageElement
-    ? // eslint-disable-next-line react/jsx-props-no-spreading
-      ReactDOMServer.renderToString(sheet.collectStyles(<PageElement {...props} />))
-    : null;
+  let reactHTML = null;
+  try {
+    reactHTML = PageElement
+      ? // eslint-disable-next-line react/jsx-props-no-spreading
+        ReactDOMServer.renderToString(sheet.collectStyles(<PageElement {...props} />))
+      : null;
+  } catch (e) {
+    req.logger.error('Failed to render', e);
+  }
   const cssStyles = sheet.getStyleTags();
   sheet.seal();
   res.render(`../../client/dist/${page}`, {
