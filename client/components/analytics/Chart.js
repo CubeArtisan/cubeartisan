@@ -18,14 +18,18 @@
  */
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { Chart as ChartJS } from 'react-chartjs-2';
-import { Col, Row, InputGroup, InputGroupAddon, CustomInput, InputGroupText } from 'reactstrap';
+import { Chart as ReactChart } from 'react-chartjs-2';
+import { BarElement, CategoryScale, Chart as ChartJS, LinearScale } from 'chart.js';
+import { Typography, useTheme } from '@mui/material';
 
 import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { sortIntoGroups, SORTS } from '@cubeartisan/client/utils/Sort.js';
+import LabeledSelect from '@cubeartisan/client/components/LabeledSelect.js';
+
+ChartJS.register(BarElement, CategoryScale, LinearScale);
 
 const colorMap = {
   White: '#D8CEAB',
@@ -41,7 +45,8 @@ const getColor = (label, index) => colorMap[label] ?? colors[index % colors.leng
 
 const Chart = ({ cards, characteristics, setAsfans, cube, defaultFormatId }) => {
   const [sort, setSort] = useQueryParam('sort', 'Color Identity');
-  const [characteristic, setcharacteristic] = useQueryParam('field', 'Mana Value');
+  const [characteristic, setCharacteristic] = useQueryParam('field', 'Mana Value');
+  const { palette } = useTheme();
 
   const groups = sortIntoGroups(cards, sort);
 
@@ -56,24 +61,28 @@ const Chart = ({ cards, characteristics, setAsfans, cube, defaultFormatId }) => 
       intersect: true,
     },
     scales: {
-      xAxes: [
-        {
+      x: {
+        display: true,
+        grid: { color: palette.grey['500'] },
+        title: {
           display: true,
-          scaleLabel: {
-            display: true,
-            labelString: characteristic,
-          },
+          labelString: characteristic,
         },
-      ],
-      yAxes: [
-        {
+        ticks: {
+          color: palette.text.primary,
+        },
+      },
+      y: {
+        display: true,
+        grid: { color: palette.grey['500'] },
+        title: {
           display: true,
-          scaleLabel: {
-            display: true,
-            labelString: 'Count',
-          },
+          labelString: 'Count',
         },
-      ],
+        ticks: {
+          color: palette.text.primary,
+        },
+      },
     },
   };
 
@@ -93,7 +102,6 @@ const Chart = ({ cards, characteristics, setAsfans, cube, defaultFormatId }) => 
             .reduce((acc, card) => acc + card.asfan, 0),
         ),
         backgroundColor: getColor(key, index),
-        borderColor: getColor(key, index),
       })),
     }),
     [labels, characteristic, characteristics, groups],
@@ -101,42 +109,22 @@ const Chart = ({ cards, characteristics, setAsfans, cube, defaultFormatId }) => 
 
   return (
     <>
-      <Row>
-        <Col>
-          <h4 className="d-lg-block d-none">Chart</h4>
-          <p>View the counts of a characteristic on a chart. For unstacked columns, use 'Unsorted'.</p>
-          <InputGroup className="mb-3">
-            <InputGroupAddon addonType="prepend">
-              <InputGroupText>Group by: </InputGroupText>
-            </InputGroupAddon>
-            <CustomInput type="select" value={sort} onChange={(event) => setSort(event.target.value)}>
-              {SORTS.map((item) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ))}
-            </CustomInput>
-          </InputGroup>
-          <InputGroup className="mb-3">
-            <InputGroupAddon addonType="prepend">
-              <InputGroupText>Characteristic: </InputGroupText>
-            </InputGroupAddon>
-            <CustomInput
-              type="select"
-              value={characteristic}
-              onChange={(event) => setcharacteristic(event.target.value)}
-            >
-              {Object.keys(characteristics).map((key) => (
-                <option key={key} value={key}>
-                  {key}
-                </option>
-              ))}
-            </CustomInput>
-          </InputGroup>
-        </Col>
-      </Row>
+      <Typography variant="h4" key="title">
+        Chart
+      </Typography>
+      <Typography variant="subtitle1" key="subtitle">
+        View the counts of a characteristic on a chart. For unstacked columns, use 'Unsorted'.
+      </Typography>
+      <LabeledSelect baseId="chart-group" label="Group By:" values={SORTS} value={sort} setValue={setSort} />
+      <LabeledSelect
+        baseId="chart-characteristic"
+        label="Characteristic:"
+        values={Object.keys(characteristics)}
+        value={characteristic}
+        setValue={setCharacteristic}
+      />
       <AsfanDropdown cube={cube} defaultFormatId={defaultFormatId} setAsfans={setAsfans} />
-      <ChartJS options={options} data={data} type="bar" />
+      <ReactChart type="bar" options={options} data={data} />
     </>
   );
 };

@@ -94,10 +94,8 @@ const PlaytestData = ({ cards: allCards, cubeAnalytics }) => {
     </ErrorBoundary>
   );
 };
-
 PlaytestData.propTypes = {
   cards: PropTypes.arrayOf(CardPropType.isRequired).isRequired,
   cubeAnalytics: CubeAnalyticPropType.isRequired,
 };
-
 export default PlaytestData;

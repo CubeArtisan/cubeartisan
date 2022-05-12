@@ -18,8 +18,7 @@
  */
 import React, { lazy, useContext, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-
-import { Col, Nav, NavLink, Row, Card, CardBody, Spinner } from 'reactstrap';
+import { Box, Button, Card, CardContent, Grid, Typography } from '@mui/material';
 
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
@@ -307,29 +306,29 @@ export const CubeAnalyticsPage = ({
         >
           <DynamicFlash />
           {cube.cards.length === 0 ? (
-            <h5 className="mt-3 mb-3">This cube doesn't have any cards. Add cards to see analytics.</h5>
+            <Typography variant="h5">This cube doesn't have any cards. Add cards to see analytics.</Typography>
           ) : (
-            <Row className="mt-3">
-              <Col xs="12" lg="2">
-                <Nav vertical="lg" pills className="justify-content-sm-start justify-content-center mb-3">
+            <Grid container>
+              <Grid item xs={12} lg={2}>
+                <Box sx={{ flexDirection: 'column', display: 'flex' }}>
                   {analytics.map((analytic, index) => (
-                    <NavLink
+                    <Button
                       key={analytic.name}
-                      active={activeTab === index}
+                      variant={activeTab === index ? 'outlined' : 'text'}
                       onClick={() => setActiveTab(index)}
-                      href="#"
+                      sx={{ marginY: 1 }}
                     >
                       {analytic.name}
-                    </NavLink>
+                    </Button>
                   ))}
-                </Nav>
-              </Col>
-              <Col xs="12" lg="10" className="overflow-x">
+                </Box>
+              </Grid>
+              <Grid xs={12} lg={10}>
                 <Card className="mb-3">
-                  <CardBody>
-                    <NavLink href="#" onClick={toggleFilterCollapse}>
+                  <CardContent>
+                    <Button onClick={toggleFilterCollapse}>
                       <h5>{filterCollapseOpen ? 'Hide Filter' : 'Show Filter'}</h5>
-                    </NavLink>
+                    </Button>
                     <FilterCollapse
                       defaultFilterText={defaultFilterText}
                       filter={filter}
@@ -337,12 +336,12 @@ export const CubeAnalyticsPage = ({
                       numCards={cards.length}
                       isOpen={filterCollapseOpen}
                     />
-                  </CardBody>
+                  </CardContent>
                 </Card>
                 <Card>
-                  <CardBody>
+                  <CardContent>
                     <ErrorBoundary>
-                      <Suspense fallback={<Spinner />}>
+                      <Suspense>
                         {analytics[activeTab].component({
                           collection: cards,
                           cube,
@@ -355,10 +354,10 @@ export const CubeAnalyticsPage = ({
                         })}
                       </Suspense>
                     </ErrorBoundary>
-                  </CardBody>
+                  </CardContent>
                 </Card>
-              </Col>
-            </Row>
+              </Grid>
+            </Grid>
           )}
         </TagContextProvider>
       </CubeLayout>

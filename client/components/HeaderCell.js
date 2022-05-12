@@ -32,7 +32,7 @@ const HeaderCell = ({ label, fieldName, sortConfig, requestSort, tooltip, ...pro
   const direction = active ? sortConfig.direction : 'nosort';
 
   return (
-    <TableCell component="th" align="center" scope="col" {...props}>
+    <TableCell component="th" align="center" scope="col" sx={{ width: '100%' }} {...props}>
       <Button onClick={() => requestSort(fieldName)} endIcon={ICON_LOOKUP[direction]}>
         {tooltip ? (
           <Tooltip title={tooltip}>

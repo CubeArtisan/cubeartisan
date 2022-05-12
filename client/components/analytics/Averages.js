@@ -18,8 +18,7 @@
  */
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-
-import { Col, Row, InputGroup, InputGroupAddon, InputGroupText, CustomInput } from 'reactstrap';
+import { Grid, Typography } from '@mui/material';
 
 import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown.js';
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
@@ -28,6 +27,7 @@ import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import { cardType } from '@cubeartisan/client/utils/Card.js';
 import { weightedAverage, weightedMedian, weightedStdDev } from '@cubeartisan/client/drafting/createdraft.js';
 import { sortIntoGroups, SORTS } from '@cubeartisan/client/utils/Sort.js';
+import LabeledSelect from '@cubeartisan/client/components/LabeledSelect.js';
 
 const Averages = ({ cards, characteristics, defaultFormatId, cube, setAsfans }) => {
   const [sort, setSort] = useQueryParam('sort', 'Color');
@@ -71,40 +71,22 @@ const Averages = ({ cards, characteristics, defaultFormatId, cube, setAsfans }) 
 
   return (
     <>
-      <Row>
-        <Col>
-          <h4 className="d-lg-block d-none">Averages</h4>
-          <p>View the averages of a characteristic for all the cards, grouped by category.</p>
-          <InputGroup className="mb-3">
-            <InputGroupAddon addonType="prepend">
-              <InputGroupText>Order By: </InputGroupText>
-            </InputGroupAddon>
-            <CustomInput type="select" value={sort} onChange={(event) => setSort(event.target.value)}>
-              {SORTS.map((item) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ))}
-            </CustomInput>
-          </InputGroup>
-          <InputGroup className="mb-3">
-            <InputGroupAddon addonType="prepend">
-              <InputGroupText>Characteristic: </InputGroupText>
-            </InputGroupAddon>
-            <CustomInput
-              type="select"
-              value={characteristic}
-              onChange={(event) => setCharacteristic(event.target.value)}
-            >
-              {Object.keys(characteristics).map((key) => (
-                <option key={key} value={key}>
-                  {key}
-                </option>
-              ))}
-            </CustomInput>
-          </InputGroup>
-        </Col>
-      </Row>
+      <Grid container>
+        <Grid item>
+          <Typography variant="h4">Averages</Typography>
+          <Typography variant="body1">
+            View the averages of a characteristic for all the cards, grouped by category.
+          </Typography>
+          <LabeledSelect label="Order By:" baseId="averages-sort" values={SORTS} value={sort} setValue={setSort} />
+          <LabeledSelect
+            label="Characteristic:"
+            baseId="averages-characteristic"
+            values={Object.keys(characteristics)}
+            value={characteristic}
+            setValue={setCharacteristic}
+          />
+        </Grid>
+      </Grid>
       <AsfanDropdown cube={cube} defaultFormatId={defaultFormatId} setAsfans={setAsfans} />
       <ErrorBoundary>
         <SortableTable

@@ -17,8 +17,8 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React from 'react';
-import { Row, Col, Card, CardBody } from 'reactstrap';
 import PropTypes from 'prop-types';
+import { Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 
 import { getTCGLink } from '@cubeartisan/client/utils/Affiliate.js';
 
@@ -65,31 +65,33 @@ const Tokens = ({ cube }) => {
 
   return (
     <>
-      <h4>Tokens</h4>
-      <p>All the tokens and emblems your cube uses and what cards require each of them.</p>
-      <Row className="mb-3">
-        <Col>
-          <MassBuyButton color="success" cards={data.map(({ card }) => card)}>
-            Buy All Tokens
-          </MassBuyButton>
-        </Col>
-      </Row>
-      <Row>
+      <Typography variant="h4" key="title">
+        Tokens
+      </Typography>
+      <Typography variant="subtitle1">
+        All the tokens and emblems your cube uses and what cards require each of them.
+      </Typography>
+      <MassBuyButton color="success" cards={data.map(({ card }) => card)}>
+        Buy All Tokens
+      </MassBuyButton>
+      <Grid container spacing={1} columns={{ xs: 12, md: 12, lg: 12, xl: 15 }}>
         {data.map(({ card, cardDescription }) => (
-          <Col key={card.cardID} xs={6} md={4} lg={3}>
-            <Card className="mb-3">
-              <a href={getTCGLink(card)}>
-                <img src={card.details.image_normal} className="card-img-top" alt={cardName(card)} />
-              </a>
-              <CardBody>
-                <p className="card-text">
-                  <Markdown markdown={cardDescription} cube={cube} />
-                </p>
-              </CardBody>
+          <Grid item key={card.cardID} xs={6} md={4} lg={3}>
+            <Card sx={{ backgroundColor: 'background.hover' }}>
+              <CardContent>
+                <CardMedia
+                  component="img"
+                  href={getTCGLink(card)}
+                  src={card.details.image_normal}
+                  className="card-img-top"
+                  alt={cardName(card)}
+                />
+                <Markdown markdown={cardDescription} cube={cube} />
+              </CardContent>
             </Card>
-          </Col>
+          </Grid>
         ))}
-      </Row>
+      </Grid>
     </>
   );
 };
