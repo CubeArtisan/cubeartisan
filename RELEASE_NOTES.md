@@ -290,3 +290,9 @@ This release is composed of porting over bug fixes for bugs we carried over from
 ##### Bug Fixes
 
 - Fix error that caused infinite redirects on overview pages.
+
+#### v1.4.4.8
+
+##### Bug Fixes
+
+- Resize cube functionality now respects the given filter.
