@@ -18,6 +18,7 @@
  */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Typography } from '@mui/material';
 import PivotTableUI from 'react-pivottable/PivotTableUI.js';
 
 const PivotTable = ({ cards, characteristics }) => {
@@ -32,7 +33,7 @@ const PivotTable = ({ cards, characteristics }) => {
 
   return (
     <>
-      <h4>Pivot Table</h4>
+      <Typography variant="h4">Pivot Table</Typography>
       <PivotTableUI data={data} onChange={updateState} {...state} />
     </>
   );

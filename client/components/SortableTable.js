@@ -18,8 +18,8 @@
  */
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { Table } from 'reactstrap';
 import { CSVLink } from 'react-csv';
+import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 
 import HeaderCell from '@cubeartisan/client/components/HeaderCell.js';
 import useSortableData from '@cubeartisan/client/hooks/UseSortableData.js';
@@ -58,9 +58,9 @@ export const SortableTable = ({ data, defaultSortConfig, sortFns, columnProps, t
       <CSVLink data={exportData} filename="export.csv">
         Download CSV
       </CSVLink>
-      <Table bordered responsive {...props}>
-        <thead>
-          <tr>
+      <Table stickyHeader sx={{ width: 'min-content' }} {...props}>
+        <TableHead>
+          <TableRow>
             {columnProps.map(({ title, key, sortable, heading, tooltip }) => {
               if (sortable) {
                 return (
@@ -77,30 +77,30 @@ export const SortableTable = ({ data, defaultSortConfig, sortFns, columnProps, t
               }
               if (heading) {
                 return (
-                  <th key={key} scope="col">
+                  <TableHead component="th" scope="col" key={key}>
                     {title}
-                  </th>
+                  </TableHead>
                 );
               }
-              return <td key={key}>{title}</td>;
+              return <TableCell key={key}>{title}</TableCell>;
             })}
-          </tr>
-        </thead>
-        <tbody className="breakdown">
+          </TableRow>
+        </TableHead>
+        <TableBody>
           {items.map((row, idx) => (
-            <tr key={`row-${idx}` /* eslint-disable-line react/no-array-index-key */}>
+            <TableRow key={`row-${idx}` /* eslint-disable-line react/no-array-index-key */}>
               {columnProps.map(({ key, heading, renderFn }) =>
                 heading ? (
-                  <th scope="row" key={key}>
+                  <TableHead component="th" scope="row" key={key}>
                     {(renderFn ?? valueRenderer)(row[key], row, key)}
-                  </th>
+                  </TableHead>
                 ) : (
-                  <td key={key}>{(renderFn ?? valueRenderer)(row[key], row, key)}</td>
+                  <TableCell key={key}>{(renderFn ?? valueRenderer)(row[key], row, key)}</TableCell>
                 ),
               )}
-            </tr>
+            </TableRow>
           ))}
-        </tbody>
+        </TableBody>
       </Table>
     </>
   );

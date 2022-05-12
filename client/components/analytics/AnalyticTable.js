@@ -18,8 +18,7 @@
  */
 import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
-
-import { Col, Row, InputGroup, InputGroupAddon, InputGroupText, CustomInput } from 'reactstrap';
+import { Typography } from '@mui/material';
 
 import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown.js';
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
@@ -28,6 +27,7 @@ import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { SORTS, cardCanBeSorted, sortGroupsOrdered } from '@cubeartisan/client/utils/Sort.js';
+import LabeledSelect from '@cubeartisan/client/components/LabeledSelect.js';
 
 const sortWithTotal = (pool, sort) =>
   [...sortGroupsOrdered(pool, sort), ['Total', pool]].map(([label, cards]) => [
@@ -35,10 +35,12 @@ const sortWithTotal = (pool, sort) =>
     cards.reduce((acc, card) => acc + card.asfan, 0),
   ]);
 
+const PERCENT_OF_VALUES = ['Table Total', 'Row Total', 'Column Total', 'No Percents'];
+
 const AnalyticTable = ({ cards: allCards, cube, defaultFormatId, setAsfans }) => {
   const [column, setColumn] = useQueryParam('column', 'Color Identity');
   const [row, setRow] = useQueryParam('row', 'Type');
-  const [percentOf, setPercentOf] = useQueryParam('percentOf', 'total');
+  const [percentOf, setPercentOf] = useQueryParam('percentOf', 'Table Total');
 
   // some criteria cannot be applied to some cards
   const cards = useMemo(
@@ -64,9 +66,9 @@ const AnalyticTable = ({ cards: allCards, cube, defaultFormatId, setAsfans }) =>
     (value, { Total: rowTotal }, columnLabel) => {
       value = Number.isFinite(value) ? value : 0;
       let scalingFactor = null;
-      if (percentOf === 'total') scalingFactor = 100 / columnCounts.Total;
-      else if (percentOf === 'row') scalingFactor = 100 / rowTotal;
-      else if (percentOf === 'column') scalingFactor = 100 / columnCounts[columnLabel];
+      if (percentOf === 'Table Total') scalingFactor = 100 / columnCounts.Total;
+      else if (percentOf === 'Row Total') scalingFactor = 100 / rowTotal;
+      else if (percentOf === 'Column Total') scalingFactor = 100 / columnCounts[columnLabel];
       return (
         <>
           {valueRenderer(value)}
@@ -87,65 +89,21 @@ const AnalyticTable = ({ cards: allCards, cube, defaultFormatId, setAsfans }) =>
 
   return (
     <>
-      <Row>
-        <Col>
-          <h4 className="d-lg-block d-none">Table</h4>
-          <p>View card counts and percentages.</p>
-          <InputGroup className="mb-3">
-            <InputGroupAddon addonType="prepend">
-              <InputGroupText>Columns: </InputGroupText>
-            </InputGroupAddon>
-            <CustomInput
-              id="columnSort"
-              type="select"
-              value={column}
-              onChange={(event) => setColumn(event.target.value)}
-            >
-              {SORTS.map((item) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ))}
-            </CustomInput>
-          </InputGroup>
-          <InputGroup className="mb-3">
-            <InputGroupAddon addonType="prepend">
-              <InputGroupText>Rows: </InputGroupText>
-            </InputGroupAddon>
-            <CustomInput id="rowSort" type="select" value={row} onChange={(event) => setRow(event.target.value)}>
-              {SORTS.map((item) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ))}
-            </CustomInput>
-          </InputGroup>
-          <InputGroup className="mb-3">
-            <InputGroupAddon addonType="prepend">
-              <InputGroupText>Show Percent Of: </InputGroupText>
-            </InputGroupAddon>
-            <CustomInput
-              id="percentOf"
-              type="select"
-              value={percentOf}
-              onChange={(event) => setPercentOf(event.target.value)}
-            >
-              <option key="total" value="total">
-                Total
-              </option>
-              <option key="row" value="row">
-                Row Total
-              </option>
-              <option key="column" value="column">
-                Column Total
-              </option>
-              <option key="none" value="none">
-                No Percent
-              </option>
-            </CustomInput>
-          </InputGroup>
-        </Col>
-      </Row>
+      <Typography variant="h4" key="header">
+        Table
+      </Typography>
+      <Typography variant="subtitle1" key="subtitle">
+        View card counts and percentages.
+      </Typography>
+      <LabeledSelect baseId="table-column-sort" label="Columns:" values={SORTS} setValue={setColumn} value={column} />
+      <LabeledSelect baseId="table-row-sort" label="Rows:" values={SORTS} setValue={setRow} value={row} />
+      <LabeledSelect
+        baseId="table-percent"
+        label="Show Percent Of:"
+        values={PERCENT_OF_VALUES}
+        value={percentOf}
+        setValue={setPercentOf}
+      />
       <AsfanDropdown cube={cube} defaultFormatId={defaultFormatId} setAsfans={setAsfans} />
       <ErrorBoundary>
         <SortableTable columnProps={columnProps} data={rows} sortFns={{ rowLabel: compareStrings }} />

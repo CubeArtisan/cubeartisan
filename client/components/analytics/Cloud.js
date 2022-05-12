@@ -30,7 +30,7 @@ import DisplayContext from '@cubeartisan/client/components/contexts/DisplayConte
 
 const TagCloudTag = ({ tag, size, color }) => (
   <Tooltip title={Number.isInteger(tag.count) ? tag.count : tag.count.toFixed(2)}>
-    <Typography sx={{ fontSize: size, color }} align="center">
+    <Typography sx={{ fontSize: size, color, display: 'inline-block', marginX: 0.25 }} align="center">
       {tag.value}
     </Typography>
   </Tooltip>

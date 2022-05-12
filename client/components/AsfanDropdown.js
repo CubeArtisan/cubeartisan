@@ -64,7 +64,7 @@ const AsfanDropdown = ({ cube, defaultFormatId, setAsfans }) => {
         />
       </Grid>
       {draftFormat !== null && (
-        <Grid item xs="12" sm="6">
+        <Grid item xs={12} sm={6}>
           <FormControl>
             <InputLabel id="draftformat-selector-label">Draft Format</InputLabel>
             <Select

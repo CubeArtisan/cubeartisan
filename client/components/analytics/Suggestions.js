@@ -18,6 +18,18 @@
  */
 import React, { useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CircularProgress,
+  FormControl,
+  FormControlLabel,
+  Grid,
+  Link,
+  Switch,
+  Typography,
+} from '@mui/material';
 
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import AddToCubeModal from '@cubeartisan/client/components/modals/AddToCubeModal.js';
@@ -27,41 +39,27 @@ import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { cardName, cardNameLower, encodeName } from '@cubeartisan/client/utils/Card.js';
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  Col,
-  Label,
-  ListGroup,
-  ListGroupItem,
-  ListGroupItemHeading,
-  Row,
-  Spinner,
-} from 'reactstrap';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 
-const AutocardA = withAutocard('a');
+const AutocardA = withAutocard(Link);
 const AddModal = withModal(AutocardA, AddToCubeModal);
 
-const elementWrapper = (element) => <CardBody>{element}</CardBody>;
+const elementWrapper = (element) => element;
 
 const Suggestion = ({ card, score, index, cube }) => (
-  <ListGroupItem>
-    <h6>
-      {index + 1}
-      {'. '}
-      <AddModal
-        front={card.details.image_normal}
-        back={card.details.image_flip ?? undefined}
-        href={`/card/${encodeName(card.cardID)}`}
-        modalProps={{ card: card.details, hideAnalytics: false, cubeContext: cube._id }}
-      >
-        {cardName(card)}
-      </AddModal>
-      {` (${(score * 100).toFixed(2)}%)`}
-    </h6>
-  </ListGroupItem>
+  <Typography variant="h6">
+    {index + 1}
+    {'. '}
+    <AddModal
+      front={card.details.image_normal}
+      back={card.details.image_flip ?? undefined}
+      href={`/card/${encodeName(card.cardID)}`}
+      modalProps={{ card: card.details, hideAnalytics: false, cubeContext: cube._id }}
+    >
+      {cardName(card)}
+    </AddModal>
+    {` (${(score * 100).toFixed(2)}%)`}
+  </Typography>
 );
 
 Suggestion.propTypes = {
@@ -92,87 +90,89 @@ const Suggestions = ({ adds, cuts, loadState, cube, filter }) => {
 
   return (
     <>
-      <h4 className="d-lg-block d-none">Recommender</h4>
-      <p>
+      <Typography variant="h4">Recommender</Typography>
+      <Typography variant="subtitle1">
         View recommended additions and cuts. This data is generated using a machine learning algorithm trained over all
         cubes on {siteName}.
-      </p>
+      </Typography>
       {loadState === 'error' ? (
         <Card>
           <CardHeader>
-            <h5>Service Unavailable</h5>
+            <Typography variant="h5">Service Unavailable</Typography>
           </CardHeader>
-          <CardBody>
-            <p>We encountered an unexpected error while connecting to the recommender. Please try again later.</p>
-          </CardBody>
+          <CardContent>
+            <Typography variant="body1">
+              We encountered an unexpected error while connecting to the recommender. Please try again later.
+            </Typography>
+          </CardContent>
         </Card>
       ) : (
-        <Row>
-          <Col xs="12" lg="6">
+        <Grid container spacing={2}>
+          <Grid item xs={12} lg={6}>
             <Card>
               <CardHeader>
-                <ListGroupItemHeading>Recommended Additions</ListGroupItemHeading>
-                <input className="mr-2" type="checkbox" checked={maybeOnly} onClick={toggleMaybeOnly} />
-                <Label for="toggleMaybeboard">Show cards from my Maybeboard only.</Label>
+                <Typography variant="h6">Recommended Additions</Typography>
+                <FormControl component="fieldset" variant="standard">
+                  <FormControlLabel
+                    control={<Switch checked={maybeOnly} onClick={toggleMaybeOnly} name="maybe-only" />}
+                    label="Show cards from my Maybeboard only."
+                  />
+                </FormControl>
               </CardHeader>
-              <ListGroup className="pb-3">
-                {loadState === 'loading' && (
-                  <CardBody>
-                    <div className="centered py-3">
-                      <Spinner className="position-absolute" />
-                    </div>
-                  </CardBody>
-                )}
-                {loadState === 'loaded' &&
-                  (filteredAdds.length > 0 ? (
-                    <PagedList
-                      pageSize={20}
-                      showBottom
-                      pageWrap={elementWrapper}
-                      rows={filteredAdds.slice(0).map(([add, index]) => (
-                        <Suggestion key={add.card.cardID} index={index} card={add.card} score={add.score} cube={cube} />
-                      ))}
-                    />
-                  ) : (
-                    <CardBody>
-                      <em>No results with the given filter.</em>
-                    </CardBody>
-                  ))}
-              </ListGroup>
+              {loadState === 'loading' && (
+                <CardContent sx={{ paddingY: 3 }}>
+                  <CircularProgress sx={{ position: 'absolute' }} />
+                </CardContent>
+              )}
+              {loadState === 'loaded' &&
+                (filteredAdds.length > 0 ? (
+                  <PagedList
+                    pageSize={20}
+                    showBottom
+                    pageWrap={elementWrapper}
+                    rows={filteredAdds.slice(0).map(([add, index]) => (
+                      <Suggestion key={add.card.cardID} index={index} card={add.card} score={add.score} cube={cube} />
+                    ))}
+                  />
+                ) : (
+                  <CardContent>
+                    <Typography variant="subtitle1" component="em">
+                      No results with the given filter.
+                    </Typography>
+                  </CardContent>
+                ))}
             </Card>
-          </Col>
-          <Col xs="12" lg="6">
+          </Grid>
+          <Grid item xs={12} lg={6}>
             <Card>
               <CardHeader>
-                <ListGroupItemHeading>Recommended Cuts</ListGroupItemHeading>
+                <Typography variant="h6">Recommended Cuts</Typography>
               </CardHeader>
-              <ListGroup className="pb-3">
-                {loadState === 'loading' && (
-                  <CardBody>
-                    <div className="centered py-3">
-                      <Spinner className="position-absolute" />
-                    </div>
-                  </CardBody>
-                )}
-                {loadState === 'loaded' &&
-                  (filteredCuts.length > 0 ? (
-                    <PagedList
-                      pageSize={20}
-                      showBottom
-                      pageWrap={elementWrapper}
-                      rows={filteredCuts.slice(0).map(([cut, index]) => (
-                        <Suggestion key={cut.card.cardID} index={index} card={cut.card} score={cut.score} cube={cube} />
-                      ))}
-                    />
-                  ) : (
-                    <CardBody>
-                      <em>No results with the given filter.</em>
-                    </CardBody>
-                  ))}
-              </ListGroup>
+              {loadState === 'loading' && (
+                <CardContent sx={{ paddingY: 3 }}>
+                  <CircularProgress sx={{ position: 'absolute' }} />
+                </CardContent>
+              )}
+              {loadState === 'loaded' &&
+                (filteredCuts.length > 0 ? (
+                  <PagedList
+                    pageSize={20}
+                    showBottom
+                    pageWrap={elementWrapper}
+                    rows={filteredCuts.slice(0).map(([cut, index]) => (
+                      <Suggestion key={cut.card.cardID} index={index} card={cut.card} score={cut.score} cube={cube} />
+                    ))}
+                  />
+                ) : (
+                  <CardContent>
+                    <Typography variant="subtitle1" component="em">
+                      No results with the given filter.
+                    </Typography>
+                  </CardContent>
+                ))}
             </Card>
-          </Col>
-        </Row>
+          </Grid>
+        </Grid>
       )}
     </>
   );
