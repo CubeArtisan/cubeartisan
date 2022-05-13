@@ -69,7 +69,7 @@
     "express-rate-limit": "^6.3.0",
     "express-session": "^1.17.2",
     "express-validator": "^6.14.0",
-    "glob": "^7.2.0",
+    "glob": "^8.0.3",
     "mongodb": "^4.5.0",
     "mongodb-client-encryption": "^2.1.0",
     "mongoose": "^6.3.1",
