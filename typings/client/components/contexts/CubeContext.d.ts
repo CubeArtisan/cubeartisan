@@ -15,6 +15,13 @@ export namespace CubeContextProvider {
                 colors: PropTypes.Requireable<string[]>;
                 tags: PropTypes.Requireable<string[]>;
                 details: PropTypes.Requireable<PropTypes.InferProps<{
+                    /**
+                     * @typedef {import('react').Context<{ cube: any, canEdit: Boolean, cubeID: string?, hasCustomImages: Boolean,
+                     *           setCube: ((cube: any) => void) | ((replacer: (cube: any) => any) => void),
+                     *           updateCubeCard: (index: number, card: any) => void,
+                     *           updateCubeCards: (cards: any[]) => void }>} ContextType
+                     * @type ContextType
+                     */
                     _id: PropTypes.Validator<string>;
                     name: PropTypes.Validator<string>;
                     image_normal: PropTypes.Validator<string>;

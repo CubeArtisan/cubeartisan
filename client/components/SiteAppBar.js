@@ -12,6 +12,7 @@ import UserContext from '@cubeartisan/client/components/contexts/UserContext.js'
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 import StyledButtonMenu from '@cubeartisan/client/components/StyledButtonMenu.js';
+import { getCubeId } from '@cubeartisan/client/utils/Util.js';
 
 const LoginModal = lazy(() => import('@cubeartisan/client/components/modals/LoginModal.js'));
 const CreateCubeModal = lazy(() => import('@cubeartisan/client/components/modals/CreateCubeModal.js'));
@@ -65,7 +66,7 @@ const SiteAppBar = ({ loginCallback }) => {
     () =>
       user?.cubes
         ? [
-            ...user.cubes.map((item) => ({ link: `/cube/${item.shortId}`, text: item.name, component: MenuItem })),
+            ...user.cubes.map((item) => ({ link: `/cube/${getCubeId(item)}`, text: item.name, component: MenuItem })),
             CREATE_CUBE_ITEM,
           ]
         : [],
@@ -86,7 +87,7 @@ const SiteAppBar = ({ loginCallback }) => {
     [user],
   );
   return (
-    <AppBar color="appbar" enableColorOnDark>
+    <AppBar color="appbar" enableColorOnDark position="static">
       <Toolbar>
         <Container maxWidth="xl" sx={{ display: 'flex', maxHeight: 64 }}>
           <Box
@@ -99,13 +100,14 @@ const SiteAppBar = ({ loginCallback }) => {
               marginRight: 'auto',
             }}
           >
-            <Link
-              component="img"
-              href="/"
-              src="/content/banner.png"
-              sx={{ maxHeight: 48 }}
-              alt={`${siteName}: a site for cubing Magic: the Gathering.`}
-            />
+            <Link href="/">
+              <Box
+                component="img"
+                src="/content/banner.png"
+                alt={`${siteName}: a site for cubing Magic: the Gathering.`}
+                sx={{ maxHeight: 48 }}
+              />
+            </Link>
             <IconButton onClick={toggleTheme} color="info">
               {theme === 'dark' ? <Brightness7 /> : <Brightness4 />}
             </IconButton>

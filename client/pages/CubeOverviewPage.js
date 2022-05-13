@@ -34,7 +34,7 @@ import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
-import CardHeader from '@cubeartisan/client/components/CardHeader.js';
+import PaperHeader from '@cubeartisan/client/components/PaperHeader.js';
 
 const BlogPost = lazy(() => import('@cubeartisan/client/components/BlogPost.js'));
 const CubeIdModal = lazy(() => import('@cubeartisan/client/components/modals/CubeIdModal.js'));
@@ -50,10 +50,6 @@ const CubeSettingsModalLink = withModal(Button, CubeSettingsModal);
 const DeleteCubeModalLink = withModal(Button, DeleteCubeModal);
 const CustomizeBasicsModalLink = withModal(Button, CustomizeBasicsModal);
 const CubeIdModalLink = withModal(Box, CubeIdModal);
-
-// position: relative;
-// top: 5px;
-// `; // the icon needs to be pulled down.
 
 const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followers, loginCallback }) => {
   const user = useContext(UserContext);
@@ -151,13 +147,11 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
         ))}
         <Box sx={{ marginY: 2, display: 'grid', gridTemplateColumns: '1fr 2fr', gridAutoRows: 'minmax(100px, auto)' }}>
           <Card sx={{ marginRight: 2, borderRadius: '2em', padding: 0 }}>
-            <CardHeader sx={{ marginBottom: 1 }}>
-              <Typography variant="h3">{cubeState.name}</Typography>
-            </CardHeader>
+            <PaperHeader title={cubeState.name} variant="h3" />
             <Box display="flex">
               <Typography variant="h6" sx={{ marginBottom: 0, width: 'fit-content' }}>
                 <Suspense>
-                  <FollowersModalLink href="#" modalProps={{ followers }}>
+                  <FollowersModalLink modalProps={{ followers }}>
                     {cubeState.users_following.length}{' '}
                     {cubeState.users_following.length === 1 ? 'follower' : 'followers'}
                   </FollowersModalLink>
@@ -167,7 +161,6 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
                 <TextBadge name="Cube ID">
                   <Tooltip title="Click to copy to clipboard">
                     <Button
-                      onKeyDown={() => {}}
                       onClick={(e) => {
                         navigator.clipboard.writeText(getCubeId(cubeState));
                         e.target.blur();
@@ -248,10 +241,10 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
               ))}
           </Card>
           <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', borderRadius: '2rem' }}>
-            <CardHeader sx={{ marginBottom: 1 }}>
-              <Typography variant="h4">Description</Typography>
-            </CardHeader>
-            <Markdown markdown={cubeState.description || ''} />
+            <PaperHeader title="Description" variant="h3" />
+            <Box sx={{ paddingX: 2, marginTop: 2 }}>
+              <Markdown markdown={cubeState.description ?? ''} />
+            </Box>
             <Box sx={{ display: 'flex', marginTop: 'auto' }}>
               {cubeState.tags.map((tag) => (
                 <Link

@@ -1,4 +1,4 @@
-export const CUBE_PREVIEW_FIELDS: "_id shortID image_uri image_name image_artist name owner owner_name type card_count overrideCategory categoryPrefixes categoryOverride";
+export const CUBE_PREVIEW_FIELDS: "_id shortID image_uri image_name image_artist name owner owner_name type card_count overrideCategory categoryPrefixes categoryOverride date_updated";
 export function redirectToLandingOrDash(req: any, res: any): any;
 export const getChildComments: (req: any, res: any, next: any) => Promise<any>;
 export function showDowntimePage(req: any, res: any): Promise<void>;

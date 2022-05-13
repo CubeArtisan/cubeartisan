@@ -35,7 +35,7 @@ const BlogPost = ({ post, onEdit }) => {
   const canEdit = user && user._id === post.owner;
 
   return (
-    <Paper elevation={3} sx={{ borderRadius: '2em', marginBottom: 2 }}>
+    <Paper elevation={3} sx={{ borderRadius: '2em', marginY: 2 }}>
       <CardHeader>
         <Grid container spacing={1}>
           <Grid item xs={11}>
@@ -44,7 +44,7 @@ const BlogPost = ({ post, onEdit }) => {
             </Link>
           </Grid>
           <Grid item xs={1}>
-            {canEdit && <BlogContextMenu className="float-sm-right" post={post} value="..." onEdit={onEdit} />}
+            {canEdit && <BlogContextMenu post={post} value="..." onEdit={onEdit} />}
           </Grid>
         </Grid>
         <Typography variant="subtitle1">
@@ -59,7 +59,7 @@ const BlogPost = ({ post, onEdit }) => {
           <TimeAgo date={post.date} />
         </Typography>
       </CardHeader>
-      <Stack divider={<Divider orientation="horizontal" flexItem />} spacing={1}>
+      <Stack divider={<Divider orientation="horizontal" flexItem />} spacing={1} sx={{ marginY: 1, marginX: 2 }}>
         <Markdown markdown={post.markdown} limited />
         <Suspense>
           <CommentsSection parentType="blog" parent={post._id} collapse={false} />
@@ -72,5 +72,4 @@ BlogPost.propTypes = {
   post: BlogPostPropType.isRequired,
   onEdit: PropTypes.func.isRequired,
 };
-
 export default BlogPost;

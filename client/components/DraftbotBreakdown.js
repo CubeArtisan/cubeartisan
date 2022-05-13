@@ -75,7 +75,9 @@ export const DraftbotBreakdownTable = ({ drafterState }) => {
     return [iOracles, iWeights];
   }, [botResult]);
   const renderWithTooltip = (iTitle) => (
-    <Tooltip title={oracles.find(({ title }) => title === iTitle)?.tooltip ?? ''}>{iTitle}</Tooltip>
+    <Tooltip title={oracles.find(({ title }) => title === iTitle)?.tooltip ?? ''}>
+      <Typography variant="body1">{iTitle}</Typography>
+    </Tooltip>
   );
   const WEIGHT_COLUMNS = [
     { title: 'Oracle', sortable: true, key: 'title', heading: true, renderFn: renderWithTooltip },

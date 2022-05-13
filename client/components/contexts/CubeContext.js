@@ -20,6 +20,7 @@ import React, { createContext, useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import { getCubeId } from '@cubeartisan/client/utils/Util.js';
 
 /**
  * @typedef {import('react').Context<{ cube: any, canEdit: Boolean, cubeID: string?, hasCustomImages: Boolean,
@@ -64,7 +65,7 @@ export const CubeContextProvider = ({ initialCube, canEdit, ...props }) => {
     });
   }, []);
 
-  const cubeID = cube._id;
+  const cubeID = getCubeId(cube);
 
   const hasCustomImages = cube.cards.some(
     (card) => (card.imgUrl && card.imgUrl.length > 0) || (card.imgBackUrl && card.imgBackUrl.length > 0),

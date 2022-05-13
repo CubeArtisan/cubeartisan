@@ -18,7 +18,7 @@
  */
 import React, { lazy, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Button, Grid, Link, Paper, Typography } from '@mui/material';
+import { Box, Button, Divider, Grid, Link, Paper, Stack, Typography } from '@mui/material';
 
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
@@ -30,6 +30,7 @@ import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import PaperHeader from '@cubeartisan/client/components/PaperHeader.js';
 
 const CreateCubeModal = lazy(() => import('@cubeartisan/client/components/modals/CreateCubeModal.js'));
 const Feed = lazy(() => import('@cubeartisan/client/components/Feed.js'));
@@ -62,95 +63,86 @@ export const DashboardPage = ({ posts, cubes, decks, loginCallback, content }) =
   return (
     <MainLayout loginCallback={loginCallback}>
       <DynamicFlash />
-      <Grid container spacing={1} sx={{ marginBottom: 1 }}>
-        <Grid item xs={12} md={6}>
+      <Grid container spacing={2} sx={{ marginBottom: 2 }}>
+        <Grid item xs={12} lg={6}>
           <Paper elevation={4}>
-            <Typography variant="h5" sx={{ backgroundColor: 'background.darker' }}>
-              Your Cubes
-            </Typography>
+            <PaperHeader title="Your Cubes" />
             <Box>
               <Suspense>
-                <Grid container sx={{ padding: 0 }}>
-                  {cubes.length > 0 ? (
-                    cubes.slice(0, 4).map((cube) => (
-                      <Grid item key={cube._id} xs={12} md={6} sx={{ padding: 1 }}>
+                {cubes.length > 0 ? (
+                  <Grid container sx={{ padding: 1 }}>
+                    {cubes.slice(0, 4).map((cube) => (
+                      <Grid item key={cube._id} xs={12} lg={6} sx={{ padding: 1 }}>
                         <CubePreview cube={cube} />
                       </Grid>
-                    ))
-                  ) : (
-                    <Typography variant="body1">
-                      You don't have any cubes.{' '}
-                      <CreateCubeModalButton color="success">Add a new cube?</CreateCubeModalButton>
-                    </Typography>
-                  )}
-                </Grid>
+                    ))}
+                  </Grid>
+                ) : (
+                  <Typography variant="body1">
+                    You don't have any cubes.{' '}
+                    <CreateCubeModalButton modalProps={{}} color="success">
+                      Add a new cube?
+                    </CreateCubeModalButton>
+                  </Typography>
+                )}
               </Suspense>
             </Box>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={6} spacing={1}>
+        <Grid item xs={12} lg={6}>
           <Paper elevation={4}>
-            <Typography variant="h5" sx={{ backgroundColor: 'background.darker' }}>
-              Recent Drafts of Your Cubes
-            </Typography>
+            <PaperHeader title="Recent Drafts of Your Cube" />
             <Box>
               {decks.length > 0 ? (
-                filteredDecks.map((deck) => (
-                  <Suspense>
-                    <DeckPreview key={deck._id} deck={deck} nextURL="/dashboard" />
-                  </Suspense>
-                ))
+                <Stack spacing={1} sx={{ paddingX: 1 }}>
+                  {filteredDecks.map((deck) => (
+                    <Suspense>
+                      <DeckPreview key={deck._id} deck={deck} nextURL="/dashboard" />
+                    </Suspense>
+                  ))}
+                </Stack>
               ) : (
-                <p className="m-2">
+                <Typography variant="body1">
                   Nobody has drafted your cubes! Perhaps try reaching out on the{' '}
-                  <a href={discordUrl}>Discord draft exchange?</a>
-                </p>
+                  <Link href={discordUrl}>Discord draft exchange?</Link>
+                </Typography>
               )}
             </Box>
-            <Link variant="body1" href="/dashboard/decks/0" sx={{ marginLeft: 1 }}>
+            <Divider sx={{ marginY: 1 }} />
+            <Link variant="body1" href="/dashboard/decks/0" sx={{ marginLeft: 2, marginBottom: 1 }}>
               View All
             </Link>
           </Paper>
         </Grid>
-      </Grid>
-      <Grid container spacing={1}>
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} lg={8}>
           <Paper elevation={4}>
-            <Typography variant="h5" color="text.primary" sx={{ backgroundColor: 'background.darker', width: '100%' }}>
-              Feed
-            </Typography>
+            <PaperHeader title="Your Feed" />
             <Suspense>
               <Feed items={posts} />
             </Suspense>
           </Paper>
         </Grid>
-        <Grid item md={4} sx={{ padding: 0 }}>
-          <Paper elevation={4}>
-            <Grid container spacing={1}>
-              <Grid item xs={12}>
-                <Grid container spacing={1} sx={{ backgroundColor: 'background.darker' }}>
-                  <Grid item xs={6}>
-                    <Typography variant="h5" color="text.primary">
-                      Latest Content
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Link sx={{ float: 'right' }} href="/content">
-                      View more...
-                    </Link>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Suspense>
-                {content.map((item) => (
-                  <Grid item xs={12} key={item.content._id} sx={{ padding: 1, marginLeft: 1 }}>
-                    {item.type === 'article' && <ArticlePreview article={item.content} />}
-                    {item.type === 'video' && <VideoPreview video={item.content} />}
-                    {item.type === 'episode' && <PodcastEpisodePreview episode={item.content} />}
-                  </Grid>
-                ))}
-              </Suspense>
-            </Grid>
+        <Grid item xs={12} lg={4} sx={{ padding: 2 }}>
+          <Paper elevation={4} sx={{ paddingBottom: 1 }}>
+            <PaperHeader title="Latest Content" sx={{ display: 'flex', alignItems: 'center' }}>
+              <Link sx={{ marginLeft: 'auto' }} href="/content">
+                View more...
+              </Link>
+            </PaperHeader>
+            <Suspense>
+              {content.map((item) => {
+                if (item.type === 'article') {
+                  return <ArticlePreview key={item.content._id} article={item.content} />;
+                }
+                if (item.type === 'video') {
+                  return <VideoPreview key={item.content._id} video={item.content} />;
+                }
+                if (item.type === 'episode') {
+                  return <PodcastEpisodePreview key={item.content._id} episode={item.content} />;
+                }
+                return null;
+              })}
+            </Suspense>
           </Paper>
         </Grid>
       </Grid>
