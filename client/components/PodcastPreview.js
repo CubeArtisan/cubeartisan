@@ -16,53 +16,22 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useState, useCallback } from 'react';
+import React from 'react';
+
 import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType.js';
+import PreviewCard from '@cubeartisan/client/components/PreviewCard.js';
 
-import { Card } from 'reactstrap';
-import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox.js';
-
-const PodcastPreview = ({ podcast }) => {
-  const [hover, setHover] = useState(false);
-  const handleMouseOver = useCallback((event) => setHover(!event.target.getAttribute('data-sublink')), []);
-  const handleMouseOut = useCallback(() => setHover(false), []);
-  const handleClick = useCallback(
-    (event) => {
-      if (!event.target.getAttribute('data-sublink')) {
-        window.location.href = `/creators/podcast/${podcast._id}`;
-      }
-    },
-    [podcast],
-  );
-  return (
-    <Card
-      className={hover ? 'cube-preview-card hover' : 'cube-preview-card'}
-      onClick={handleClick}
-      onMouseOver={handleMouseOver}
-      onFocus={handleMouseOver}
-      onMouseOut={handleMouseOut}
-      onBlur={handleMouseOut}
-    >
-      <AspectRatioBox ratio={1} className="text-ellipsis">
-        <img className="w-100" alt={podcast.title} src={podcast.image} />
-      </AspectRatioBox>
-      <div className="w-100 py-1 px-2">
-        <h5 className="text-muted text-ellipsis my-0">{podcast.title}</h5>
-        <small>
-          <em className="text-muted text-ellipsis">
-            By{' '}
-            <a data-sublink href={`/user/${podcast.owner}`}>
-              {podcast.username}
-            </a>
-          </em>
-        </small>
-      </div>
-    </Card>
-  );
-};
-
+const PodcastPreview = ({ podcast }) => (
+  <PreviewCard
+    href={`/creators/podcast/${podcast._id}`}
+    date={podcast.date}
+    image={podcast.image}
+    title={podcast.title}
+    subtitle={podcast.short}
+    username={podcast.username}
+  />
+);
 PodcastPreview.propTypes = {
   podcast: PodcastPropType.isRequired,
 };
-
 export default PodcastPreview;

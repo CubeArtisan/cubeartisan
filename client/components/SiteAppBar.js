@@ -12,12 +12,13 @@ import UserContext from '@cubeartisan/client/components/contexts/UserContext.js'
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 import StyledButtonMenu from '@cubeartisan/client/components/StyledButtonMenu.js';
+import { getCubeId } from '@cubeartisan/client/utils/Util.js';
 
 const LoginModal = lazy(() => import('@cubeartisan/client/components/modals/LoginModal.js'));
 const CreateCubeModal = lazy(() => import('@cubeartisan/client/components/modals/CreateCubeModal.js'));
 
 const LoginModalLink = withModal(Button, LoginModal);
-const CreateCubeModalLink = withModal(MenuItem, CreateCubeModal);
+const CreateCubeModalLink = withModal(Button, CreateCubeModal);
 
 const CONTENT_DASHBOARD_ITEM = { text: 'Content Creator Dashboard', link: '/creators/dashboard', component: MenuItem };
 
@@ -29,13 +30,10 @@ const CONTENT_MENU = [
   CONTENT_DASHBOARD_ITEM,
 ];
 
-const CREATE_CUBE_ITEM = { text: 'Create A New Cube', link: null, component: CreateCubeModalLink };
-
 const CUBES_MENU = [
   { text: 'Explore Cubes', link: '/cubes/explore', component: MenuItem },
   { text: 'Search Cubes', link: '/cubes/search', component: MenuItem },
   { text: 'Random Cube', link: '/cubes/random', component: MenuItem },
-  CREATE_CUBE_ITEM,
 ];
 
 const CARDS_MENU = [
@@ -64,10 +62,9 @@ const SiteAppBar = ({ loginCallback }) => {
   const userCubesMenuItems = useMemo(
     () =>
       user?.cubes
-        ? [
-            ...user.cubes.map((item) => ({ link: `/cube/${item.shortId}`, text: item.name, component: MenuItem })),
-            CREATE_CUBE_ITEM,
-          ]
+        ? Array.from(
+            user.cubes.map((item) => ({ link: `/cube/${getCubeId(item)}`, text: item.name, component: MenuItem })),
+          )
         : [],
     [user],
   );
@@ -79,14 +76,13 @@ const SiteAppBar = ({ loginCallback }) => {
             { link: `/user/${user._id}/social`, text: 'Your Social Feed', component: MenuItem },
             { link: `/user/${user._id}/account`, text: 'Account Information and Setting', component: MenuItem },
             CONTENT_DASHBOARD_ITEM,
-            CREATE_CUBE_ITEM,
             { link: '/logout', text: 'Logout', component: MenuItem },
           ]
         : [],
     [user],
   );
   return (
-    <AppBar color="appbar" enableColorOnDark>
+    <AppBar color="appbar" enableColorOnDark position="static">
       <Toolbar>
         <Container maxWidth="xl" sx={{ display: 'flex', maxHeight: 64 }}>
           <Box
@@ -99,13 +95,14 @@ const SiteAppBar = ({ loginCallback }) => {
               marginRight: 'auto',
             }}
           >
-            <Link
-              component="img"
-              href="/"
-              src="/content/banner.png"
-              sx={{ maxHeight: 48 }}
-              alt={`${siteName}: a site for cubing Magic: the Gathering.`}
-            />
+            <Link href="/">
+              <Box
+                component="img"
+                src="/content/banner.png"
+                alt={`${siteName}: a site for cubing Magic: the Gathering.`}
+                sx={{ maxHeight: 48 }}
+              />
+            </Link>
             <IconButton onClick={toggleTheme} color="info">
               {theme === 'dark' ? <Brightness7 /> : <Brightness4 />}
             </IconButton>
@@ -125,9 +122,12 @@ const SiteAppBar = ({ loginCallback }) => {
             </StyledButtonMenu>
             {user?._id ? (
               <>
-                <StyledButtonMenu tooltip="Access your cubes or create a new one." menuItems={userCubesMenuItems}>
+                <StyledButtonMenu tooltip="Access your cubes." menuItems={userCubesMenuItems}>
                   Your Cubes
                 </StyledButtonMenu>
+                <CreateCubeModalLink modalProps={{}} sx={{ color: 'text.primary' }}>
+                  Create a new Cube
+                </CreateCubeModalLink>
                 <NotificationsNav />
                 <StyledButtonMenu
                   tooltip="Access your profile, the content creator dashboard, or logout."

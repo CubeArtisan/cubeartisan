@@ -33,7 +33,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export const CUBE_PREVIEW_FIELDS =
-  '_id shortID image_uri image_name image_artist name owner owner_name type card_count overrideCategory categoryPrefixes categoryOverride';
+  '_id shortID image_uri image_name image_artist name owner owner_name type card_count overrideCategory categoryPrefixes categoryOverride date_updated';
 
 export const redirectToLandingOrDash = (req, res) =>
   req.user ? res.redirect(302, '/dashboard') : res.redirect(302, '/landing');

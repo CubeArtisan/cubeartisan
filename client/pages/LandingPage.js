@@ -26,14 +26,12 @@ import LoginModal from '@cubeartisan/client/components/modals/LoginModal.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import CardSearchBar from '@cubeartisan/client/components/CardSearchBar.js';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
-import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 
 const LoginModalButton = withModal(Button, LoginModal);
 
 const BUTTON_SX = { maxWidth: '500', width: '33%', minWidth: 150, marginX: 'auto', marginY: 1 };
 
 export const LandingPage = ({ numusers, numcubes, numdrafts }) => {
-  const [loginIsOpen, toggleLoginModal] = useToggle(false);
   const { siteName } = useContext(SiteCustomizationContext);
   return (
     <Grid container sx={{ width: '100hw', minHeight: '100vh' }}>
@@ -67,13 +65,7 @@ export const LandingPage = ({ numusers, numcubes, numdrafts }) => {
           <Button href="/user" color="primary" variant="contained" sx={BUTTON_SX}>
             Sign Up
           </Button>
-          <LoginModalButton
-            modalProps={{ loginCallback: '/', isOpen: loginIsOpen, toggle: toggleLoginModal }}
-            color="primary"
-            variant="contained"
-            onClick={toggleLoginModal}
-            sx={BUTTON_SX}
-          >
+          <LoginModalButton modalProps={{ loginCallback: '/' }} color="primary" variant="contained" sx={BUTTON_SX}>
             Login
           </LoginModalButton>
         </Stack>

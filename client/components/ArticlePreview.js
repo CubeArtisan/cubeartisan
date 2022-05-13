@@ -16,42 +16,21 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback } from 'react';
-import { Card, CardActionArea, CardContent, CardMedia, Link, Typography } from '@mui/material';
+import React from 'react';
 
 import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType.js';
-import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
+import PreviewCard from '@cubeartisan/client/components/PreviewCard.js';
 
-const ArticlePreview = ({ article }) => {
-  const handleClick = useCallback(
-    (event) => {
-      if (!event.target.getAttribute('data-sublink')) {
-        window.location.href = `/creators/article/${article._id}`;
-      }
-    },
-    [article._id],
-  );
-  return (
-    <Card>
-      <CardActionArea onClick={handleClick}>
-        <CardMedia component="img" alt={article.title} src={article.image} />
-        <CardContent>
-          <Typography variant="h6">{article.title}</Typography>
-          <Typography variant="subtitle2">{article.short}</Typography>
-        </CardContent>
-      </CardActionArea>
-      <Typography variant="caption">
-        Written by{' '}
-        <Link data-sublink href={`/user/${article.owner}`}>
-          {article.username}
-        </Link>
-        {' — '}
-        <TimeAgo date={article.date} />
-      </Typography>
-    </Card>
-  );
-};
-
+const ArticlePreview = ({ article }) => (
+  <PreviewCard
+    href={`/creators/article/${article._id}`}
+    date={article.date}
+    image={article.image}
+    title={article.title}
+    subtitle={article.short}
+    username={article.username}
+  />
+);
 ArticlePreview.propTypes = {
   article: ArticlePropType.isRequired,
 };

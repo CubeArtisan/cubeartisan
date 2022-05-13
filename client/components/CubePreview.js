@@ -17,40 +17,22 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React from 'react';
-import { Card, CardActionArea, CardContent, CardMedia, Link, Typography } from '@mui/material';
 
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { getCubeDescription, getCubeId } from '@cubeartisan/client/utils/Util.js';
+import PreviewCard from '@cubeartisan/client/components/PreviewCard.js';
 
 const CubePreview = ({ cube }) => (
-  <Card>
-    <CardActionArea href={`/cube/${encodeURIComponent(getCubeId(cube))}`}>
-      <CardMedia
-        component="img"
-        alt={`cube.image_name Art by ${cube.image_artist}`}
-        src={cube.image_uri}
-        sx={{ aspectRatio: 626 / 457 }}
-      />
-      <CardContent>
-        <Typography variant="caption" sx={{ fontStyle: 'italic' }}>
-          Art by {cube.image_artist}
-        </Typography>
-        <Typography variant="h5" title={cube.name} noWrap>
-          {cube.name}
-        </Typography>
-        <Typography variant="body1" noWrap>
-          {getCubeDescription(cube)}
-        </Typography>
-        <Typography nowrap variant="caption">
-          Designed by <Link href={`/user/${cube.owner}`}>{cube.owner_name}</Link>
-        </Typography>
-      </CardContent>
-    </CardActionArea>
-  </Card>
+  <PreviewCard
+    href={`/cube/${encodeURIComponent(getCubeId(cube))}`}
+    date={cube.date_updated}
+    image={cube.image_uri}
+    title={cube.name}
+    subtitle={getCubeDescription(cube)}
+    username={cube.owner_name}
+  />
 );
-
 CubePreview.propTypes = {
   cube: CubePropType.isRequired,
 };
-
 export default CubePreview;

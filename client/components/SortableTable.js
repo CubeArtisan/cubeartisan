@@ -19,7 +19,7 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { CSVLink } from 'react-csv';
-import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { Box, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 
 import HeaderCell from '@cubeartisan/client/components/HeaderCell.js';
 import useSortableData from '@cubeartisan/client/hooks/UseSortableData.js';
@@ -54,7 +54,7 @@ export const SortableTable = ({ data, defaultSortConfig, sortFns, columnProps, t
   );
 
   return (
-    <>
+    <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <CSVLink data={exportData} filename="export.csv">
         Download CSV
       </CSVLink>
@@ -71,7 +71,6 @@ export const SortableTable = ({ data, defaultSortConfig, sortFns, columnProps, t
                     sortConfig={sortConfig}
                     requestSort={requestSort}
                     tooltip={tooltip}
-                    className={heading ? 'corner' : ''}
                   />
                 );
               }
@@ -91,18 +90,20 @@ export const SortableTable = ({ data, defaultSortConfig, sortFns, columnProps, t
             <TableRow key={`row-${idx}` /* eslint-disable-line react/no-array-index-key */}>
               {columnProps.map(({ key, heading, renderFn }) =>
                 heading ? (
-                  <TableHead component="th" scope="row" key={key}>
+                  <TableCell component="th" scope="row" key={key} sx={{ width: 'fit-content' }}>
                     {(renderFn ?? valueRenderer)(row[key], row, key)}
-                  </TableHead>
+                  </TableCell>
                 ) : (
-                  <TableCell key={key}>{(renderFn ?? valueRenderer)(row[key], row, key)}</TableCell>
+                  <TableCell key={key} sx={{ width: 'fit-content' }}>
+                    {(renderFn ?? valueRenderer)(row[key], row, key)}
+                  </TableCell>
                 ),
               )}
             </TableRow>
           ))}
         </TableBody>
       </Table>
-    </>
+    </Box>
   );
 };
 

@@ -18,50 +18,52 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from '@mui/material';
-import { Col, Modal, ModalBody, ModalHeader, Row, FormGroup, Label, Input, ModalFooter } from 'reactstrap';
+import { Box, Button, Divider, Modal, TextField, Typography } from '@mui/material';
 
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 
 const LoginModal = ({ isOpen, toggle, loginCallback }) => (
-  <Modal size="lg" isOpen={isOpen} toggle={toggle}>
-    <ModalHeader toggle={toggle}>Login</ModalHeader>
-    <CSRFForm method="POST" action="/login">
-      <ModalBody>
-        <FormGroup>
-          <Row>
-            <Col sm="3">
-              <Label>Username or Email Address:</Label>
-            </Col>
-            <Col sm="9">
-              <Input maxLength="1000" name="username" id="email" type="text" />
-            </Col>
-          </Row>
-        </FormGroup>
-        <FormGroup>
-          <Row>
-            <Col sm="3">
-              <Label>Password:</Label>
-            </Col>
-            <Col sm="9">
-              <Input maxLength="1000" name="password" id="password" type="password" />
-            </Col>
-          </Row>
-          <Row>
-            <Col sm="3" />
-            <Col sm="9">
-              <a href="/lostpassword">Forgot password?</a>
-            </Col>
-          </Row>
-        </FormGroup>
-        <Input type="hidden" name="loginCallback" value={loginCallback} />
-      </ModalBody>
-      <ModalFooter>
-        <Button type="submit" color="success" fullWidth variant="outlined">
+  <Modal open={isOpen} onClose={toggle}>
+    <Box
+      sx={{
+        display: 'block',
+        padding: 4,
+        backgroundColor: 'background.paper',
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        border: '2px solid',
+        boxShadow: 24,
+      }}
+    >
+      <Typography variant="h4">Login</Typography>
+      <Divider sx={{ marginY: 1 }} />
+      <CSRFForm method="POST" action="/login">
+        <TextField
+          label="Username or Email Address:"
+          maxLength="1000"
+          name="username"
+          id="email"
+          sx={{ marginY: 1 }}
+          fullWidth
+        />
+        <TextField
+          label="Password:"
+          maxLength="1000"
+          name="password"
+          id="password"
+          type="password"
+          sx={{ marginY: 1 }}
+          fullWidth
+        />
+        <input type="hidden" name="loginCallback" value={loginCallback} />
+        <Button type="submit" color="success" fullWidth variant="contained">
           Login
         </Button>
-      </ModalFooter>
-    </CSRFForm>
+      </CSRFForm>
+    </Box>
   </Modal>
 );
 
