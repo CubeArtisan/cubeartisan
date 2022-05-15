@@ -97,10 +97,15 @@ export const render = async (req, res, page, reactProps = {}, options = {}) => {
 
   const PageElement = await getPage(page, req);
   const props = JSON.parse(JSON.stringify(reactProps));
-  const reactHTML = PageElement
-    ? // eslint-disable-next-line react/jsx-props-no-spreading
-      renderToString(<CacheProvider value={cache}><PageElement {...props} /></CacheProvider>)
-    : '';
+  let reactHTML = null;
+  try {
+    reactHTML = PageElement
+      ? // eslint-disable-next-line react/jsx-props-no-spreading
+        renderToString(<CacheProvider value={cache}><PageElement {...props} /></CacheProvider>)
+      : null;
+  } catch (e) {
+    req.logger.error('Failed to render', e);
+  }
   const emotionChunks = extractCriticalToChunks(reactHTML);
   const emotionCss = constructStyleTagsFromChunks(emotionChunks);
   res.render(`../../client/dist/${page}`, {

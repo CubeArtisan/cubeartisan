@@ -64,7 +64,7 @@ const DeckbuilderNavbar = ({ deck, addBasics, name, description, className, setS
         for (const column of row) {
           column.forEach((card, index) => {
             if (!Number.isFinite(card)) {
-              column[index] = deck.cards.findIndex((deckCard) => deckCard.cardID === card.cardID);
+              column[index] = card.index;
             }
           });
         }

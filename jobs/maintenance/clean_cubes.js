@@ -15,7 +15,7 @@ const processCube = async (leanCube) => {
   if (needsCleaning(leanCube)) {
     const cube = await Cube.findById(leanCube._id);
 
-    winston.log(`Cleaning cube ${cube.name}: ${cube._id}`);
+    winston.info(`Cleaning cube ${cube.name}: ${cube._id}`);
 
     if (!cube.cards) {
       cube.cards = [];
@@ -32,7 +32,7 @@ try {
   await carddb.initializeCardDb('./private', true);
 
   // process all cube objects
-  winston.log('Started clean_cubes');
+  winston.info('Started clean_cubes');
   const count = await Cube.countDocuments();
   const cursor = Cube.find().lean().cursor();
 
@@ -50,13 +50,13 @@ try {
 
     await Promise.all(cubes.map(processCube));
 
-    winston.log(`Finished: ${Math.min(count, i + batchSize)} of ${count} cubes`);
+    winston.info(`Finished: ${Math.min(count, i + batchSize)} of ${count} cubes`);
   }
 
   mongoose.disconnect();
-  winston.log('done');
-  process.exit();
+  winston.info('done');
+  process.exit(0);
 } catch (err) {
   winston.error(err.message, err);
-  process.exit();
+  process.exit(1);
 }

@@ -266,6 +266,7 @@ const createUserHandler = async (req, res) => {
   const attempt = { email, username };
 
   if (!req.validated) {
+    req.flash('danger', 'Request was not validated.');
     return render(req, res, 'RegisterPage', attempt);
   }
   const user = await User.findOne({
