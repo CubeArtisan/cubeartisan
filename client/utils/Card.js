@@ -9,7 +9,7 @@
  * CubeArtisan is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
+ * GNU Affero General Public License for more details?.
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with CubeArtisan.  If not, see <https://www.gnu.org/licenses/>.
@@ -103,119 +103,119 @@ export const mainboardRate = ({ mainboards, sideboards }) =>
 
 export const pickRate = ({ picks, passes }) => (picks + passes > 0 ? picks / (picks + passes) : 0);
 
-export const cardTags = (card) => card.tags;
+export const cardTags = (card) => card?.tags;
 
-export const cardFinish = (card) => card.finish;
+export const cardFinish = (card) => card?.finish;
 
-export const cardStatus = (card) => card.status;
+export const cardStatus = (card) => card?.status;
 
-export const cardColorIdentity = (card) => card.colors ?? card.details.color_identity;
+export const cardColorIdentity = (card) => card?.colors ?? card?.details?.color_identity;
 
 export const cardCmc = (card) => card?.cmc ?? card?.details?.cmc;
 
-export const cardId = (card) => card.cardID ?? card.details._id;
+export const cardId = (card) => card?.cardID ?? card?.details?._id;
 
-export const cardType = (card) => card.type_line ?? card.details.type;
+export const cardType = (card) => card?.type_line ?? card?.details?.type;
 
-export const cardRarity = (card) => card.rarity ?? card.details.rarity;
+export const cardRarity = (card) => card?.rarity ?? card?.details?.rarity;
 
-export const cardAddedTime = (card) => card.addedTmsp;
+export const cardAddedTime = (card) => card?.addedTmsp;
 
-export const cardImageUrl = (card) => card.imgUrl ?? card.details.image_normal ?? card.details.image_small;
+export const cardImageUrl = (card) => card?.imgUrl ?? card?.details?.image_normal ?? card?.details?.image_small;
 
-export const cardImageBackUrl = (card) => card.imgBackUrl ?? card.details.image_flip;
+export const cardImageBackUrl = (card) => card?.imgBackUrl ?? card?.details?.image_flip;
 
-export const cardNotes = (card) => card.notes;
+export const cardNotes = (card) => card?.notes;
 
-export const cardColorCategory = (card) => card.colorCategory ?? card.details.color_category;
+export const cardColorCategory = (card) => card?.colorCategory ?? card?.details?.color_category;
 
 // prices being null causes unwanted coercing behaviour in price filters,
 // so nullish price values are transformed to undefined instead
 export const cardPrice = (card) =>
   (cardFinish(card) === 'Foil'
-    ? card.details.prices.usd_foil ?? card.details.prices.usd
-    : card.details.prices.usd ?? card.details.prices.usd_foil) ?? undefined;
+    ? card?.details?.prices.usd_foil ?? card?.details?.prices.usd
+    : card?.details?.prices.usd ?? card?.details?.prices.usd_foil) ?? undefined;
 
-export const cardNormalPrice = (card) => card.details.prices.usd ?? undefined;
+export const cardNormalPrice = (card) => card?.details?.prices.usd ?? undefined;
 
-export const cardFoilPrice = (card) => card.details.prices.usd_foil ?? undefined;
+export const cardFoilPrice = (card) => card?.details?.prices.usd_foil ?? undefined;
 
-export const cardPriceEur = (card) => card.details.prices.eur ?? undefined;
+export const cardPriceEur = (card) => card?.details?.prices.eur ?? undefined;
 
-export const cardTix = (card) => card.details.prices.tix ?? undefined;
+export const cardTix = (card) => card?.details?.prices.tix ?? undefined;
 
-export const cardIsFullArt = (card) => card.details.full_art;
+export const cardIsFullArt = (card) => card?.details?.full_art;
 
-export const cardCost = (card) => card.details.parsed_cost;
+export const cardCost = (card) => card?.details?.parsed_cost;
 
-export const cardSet = (card) => card.details.set;
+export const cardSet = (card) => card?.details?.set;
 
-export const cardCollectorNumber = (card) => card.details.collector_number;
+export const cardCollectorNumber = (card) => card?.details?.collector_number;
 
-export const cardPromo = (card) => card.details.promo;
+export const cardPromo = (card) => card?.details?.promo;
 
-export const cardDigital = (card) => card.details.digital;
+export const cardDigital = (card) => card?.details?.digital;
 
-export const cardIsToken = (card) => card.details.is_token;
+export const cardIsToken = (card) => card?.details?.is_token;
 
-export const cardBorderColor = (card) => card.details.border_color;
+export const cardBorderColor = (card) => card?.details?.border_color;
 
 export const cardName = (card) => card?.name ?? card?.details?.name;
 
 export const cardNameLower = (card) => card?.name?.toLowerCase?.() ?? card?.details?.name_lower;
 
-export const cardFullName = (card) => card?.name ?? card.details.full_name;
+export const cardFullName = (card) => card?.name ?? card?.details?.full_name;
 
-export const cardArtist = (card) => card.details.artist;
+export const cardArtist = (card) => card?.details?.artist;
 
-export const cardScryfallUri = (card) => card.details.scryfall_uri;
+export const cardScryfallUri = (card) => card?.details?.scryfall_uri;
 
-export const cardOracleText = (card) => card.details.oracle_text;
+export const cardOracleText = (card) => card?.details?.oracle_text;
 
-export const cardOracleId = (card) => card.details.oracle_id;
+export const cardOracleId = (card) => card?.details?.oracle_id;
 
-export const cardLegalities = (card) => card.details.legalities;
+export const cardLegalities = (card) => card?.details?.legalities;
 
 export const cardLegalIn = (card) => {
   const legalities = cardLegalities(card);
   return Object.keys(legalities).filter((format) => legalities[format] === 'legal');
 };
 
-export const cardColors = (card) => card.details.colors;
+export const cardColors = (card) => card?.details?.colors;
 
-export const cardLanguage = (card) => card.details.language;
+export const cardLanguage = (card) => card?.details?.language;
 
-export const cardMtgoId = (card) => card.details.mtgo_id;
+export const cardMtgoId = (card) => card?.details?.mtgo_id;
 
-export const cardTcgplayerId = (card) => card.details.tcgplayer_id;
+export const cardTcgplayerId = (card) => card?.details?.tcgplayer_id;
 
-export const cardLoyalty = (card) => card.details.loyalty;
+export const cardLoyalty = (card) => card?.details?.loyalty;
 
-export const cardPower = (card) => card.details.power;
+export const cardPower = (card) => card?.details?.power;
 
-export const cardToughness = (card) => card.details.toughness;
+export const cardToughness = (card) => card?.details?.toughness;
 
-export const cardImageSmall = (card) => card.details.image_small;
+export const cardImageSmall = (card) => card?.details?.image_small;
 
-export const cardImageNormal = (card) => card.details.image_normal;
+export const cardImageNormal = (card) => card?.details?.image_normal;
 
-export const cardArtCrop = (card) => card.details.art_crop;
+export const cardArtCrop = (card) => card?.details?.art_crop;
 
-export const cardImageFlip = (card) => card.details.image_flip;
+export const cardImageFlip = (card) => card?.details?.image_flip;
 
-export const cardTokens = (card) => card.details.tokens;
+export const cardTokens = (card) => card?.details?.tokens;
 
-export const cardElo = (card) => (card.details ? card.details.elo || 1200 : 1200);
+export const cardElo = (card) => (card?.details ? card?.details?.elo || 1200 : 1200);
 
-export const cardPopularity = (card) => parseFloat(card.details.popularity || 0).toFixed(2);
+export const cardPopularity = (card) => parseFloat(card?.details?.popularity || 0).toFixed(2);
 
-export const cardCubeCount = (card) => (card.details ? card.details.cubeCount || 0 : 0);
+export const cardCubeCount = (card) => (card?.details ? card?.details?.cubeCount || 0 : 0);
 
-export const cardPickCount = (card) => (card.details ? card.details.pickCount || 0 : 0);
+export const cardPickCount = (card) => (card?.details ? card?.details?.pickCount || 0 : 0);
 
-export const cardLayout = (card) => card.details.layout;
+export const cardLayout = (card) => card?.details?.layout;
 
-export const cardReleaseDate = (card) => card.details.released_at;
+export const cardReleaseDate = (card) => card?.details?.released_at;
 
 export const cardDevotion = (card, color) => {
   let cost = cardCost(card);
@@ -227,75 +227,75 @@ export const cardIsSpecialZoneType = (card) =>
   /\b(plane|phenomenon|vanguard|scheme|conspiracy|contraption)\b/i.test(cardType(card));
 
 const isCreatureLand = (details) =>
-  details.type.includes('Land') && details.oracle_text.match(/\bbecomes? a .*\bcreature\b/);
+  details?.type.includes('Land') && details?.oracle_text.match(/\bbecomes? a .*\bcreature\b/);
 
 export const CARD_CATEGORY_DETECTORS = {
-  gold: (details) => details.colors.length > 1 && details.parsed_cost.every((symbol) => !symbol.includes('-')),
-  twobrid: (details) => details.parsed_cost.some((symbol) => symbol.includes('-') && symbol.includes('2')),
+  gold: (details) => details?.colors.length > 1 && details?.parsed_cost.every((symbol) => !symbol.includes('-')),
+  twobrid: (details) => details?.parsed_cost.some((symbol) => symbol.includes('-') && symbol.includes('2')),
   hybrid: (details) =>
-    details.colors.length > 1 && details.parsed_cost.some((symbol) => symbol.includes('-') && !symbol.includes('-p')),
-  phyrexian: (details) => details.parsed_cost.some((symbol) => symbol.includes('-p')),
-  promo: (details) => details.promo,
-  reprint: (details) => details.reprint,
-  firstprint: (details) => !details.reprint,
-  firtprinting: (details) => !details.reprint,
-  digital: (details) => details.digital,
+    details?.colors.length > 1 && details?.parsed_cost.some((symbol) => symbol.includes('-') && !symbol.includes('-p')),
+  phyrexian: (details) => details?.parsed_cost.some((symbol) => symbol.includes('-p')),
+  promo: (details) => details?.promo,
+  reprint: (details) => details?.reprint,
+  firstprint: (details) => !details?.reprint,
+  firtprinting: (details) => !details?.reprint,
+  digital: (details) => details?.digital,
   reasonable: (details) =>
-    !details.promo &&
-    !details.digital &&
-    details.border_color !== 'gold' &&
-    details.language === 'en' &&
-    details.tcgplayer_id &&
-    details.set !== 'myb' &&
-    details.set !== 'mb1' &&
-    details.collector_number.indexOf('★') === -1,
-  dfc: (details) => ['transform', 'modal_dfc', 'meld', 'double_faced_token', 'double_sided'].includes(details.layout),
-  mdfc: (details) => details.layout === 'modal_dfc',
-  meld: (details) => details.layout === 'meld',
-  tdfc: (details) => details.layout === 'transform',
-  transform: (details) => details.layout === 'transform',
-  flip: (details) => details.layout === 'flip',
-  split: (details) => details.layout === 'split',
-  leveler: (details) => details.layout === 'leveler',
+    !details?.promo &&
+    !details?.digital &&
+    details?.border_color !== 'gold' &&
+    details?.language === 'en' &&
+    details?.tcgplayer_id &&
+    details?.set !== 'myb' &&
+    details?.set !== 'mb1' &&
+    details?.collector_number.indexOf('★') === -1,
+  dfc: (details) => ['transform', 'modal_dfc', 'meld', 'double_faced_token', 'double_sided'].includes(details?.layout),
+  mdfc: (details) => details?.layout === 'modal_dfc',
+  meld: (details) => details?.layout === 'meld',
+  tdfc: (details) => details?.layout === 'transform',
+  transform: (details) => details?.layout === 'transform',
+  flip: (details) => details?.layout === 'flip',
+  split: (details) => details?.layout === 'split',
+  leveler: (details) => details?.layout === 'leveler',
   commander: (details) =>
-    details.legalities.Commander === 'legal' &&
-    ((details.type.includes('Legendary') && details.type.includes('Creature')) ||
-      details.oracle_text.includes('can be your commander') ||
-      CategoryOverrides.commander.includes(details.name)),
-  spell: (details) => !details.type.includes('Land') && !cardIsSpecialZoneType({ details }),
+    details?.legalities.Commander === 'legal' &&
+    ((details?.type.includes('Legendary') && details?.type.includes('Creature')) ||
+      details?.oracle_text.includes('can be your commander') ||
+      CategoryOverrides.commander.includes(details?.name)),
+  spell: (details) => !details?.type.includes('Land') && !cardIsSpecialZoneType({ details }),
   permanent: (details) =>
-    !details.type.includes('Instant') && !details.type.includes('Sorcery') && !cardIsSpecialZoneType({ details }),
+    !details?.type.includes('Instant') && !details?.type.includes('Sorcery') && !cardIsSpecialZoneType({ details }),
   historic: (details) =>
-    details.type.includes('Legendary') || details.type.includes('Artifact') || details.type.includes('Saga'),
-  vanilla: (details) => !details.oracle_text,
-  modal: (details) => details.oracle_text.includes('•'),
+    details?.type.includes('Legendary') || details?.type.includes('Artifact') || details?.type.includes('Saga'),
+  vanilla: (details) => !details?.oracle_text,
+  modal: (details) => details?.oracle_text.includes('•'),
   creatureland: isCreatureLand,
   manland: isCreatureLand,
-  foil: (details, card) => (cardFinish(card) ? cardFinish(card) === 'Foil' : details.foil),
-  nonfoil: (details, card) => (cardFinish(card) ? cardFinish(card) === 'Non-foil' : details.nonfoil),
-  fullart: (details) => details.full_art,
+  foil: (details, card) => (cardFinish(card) ? cardFinish(card) === 'Foil' : details?.foil),
+  nonfoil: (details, card) => (cardFinish(card) ? cardFinish(card) === 'Non-foil' : details?.nonfoil),
+  fullart: (details) => details?.full_art,
 
-  bikeland: (details) => LandCategories.CYCLE.includes(details.name),
-  cycleland: (details) => LandCategories.CYCLE.includes(details.name),
-  bicycleland: (details) => LandCategories.CYCLE.includes(details.name),
-  bounceland: (details) => LandCategories.BOUNCE.includes(details.name),
-  karoo: (details) => LandCategories.BOUNCE.includes(details.name),
-  canopyland: (details) => LandCategories.CANOPY.includes(details.name),
-  canland: (details) => LandCategories.CANOPY.includes(details.name),
-  checkland: (details) => LandCategories.CHECK.includes(details.name),
-  dual: (details) => LandCategories.DUAL.includes(details.name),
-  fastland: (details) => LandCategories.FAST.includes(details.name),
-  filterland: (details) => LandCategories.FILTER.includes(details.name),
-  fetchland: (details) => LandCategories.FETCH.includes(details.name),
-  gainland: (details) => LandCategories.GAIN.includes(details.name),
-  painland: (details) => LandCategories.PAIN.includes(details.name),
-  scryland: (details) => LandCategories.SCRY.includes(details.name),
-  shadowland: (details) => LandCategories.SHADOW.includes(details.name),
-  shockland: (details) => LandCategories.SHOCK.includes(details.name),
-  storageland: (details) => LandCategories.STORAGE.includes(details.name),
-  triland: (details) => LandCategories.TRI.includes(details.name),
-  tangoland: (details) => LandCategories.TANGO.includes(details.name),
-  battleland: (details) => LandCategories.TANGO.includes(details.name),
+  bikeland: (details) => LandCategories.CYCLE.includes(details?.name),
+  cycleland: (details) => LandCategories.CYCLE.includes(details?.name),
+  bicycleland: (details) => LandCategories.CYCLE.includes(details?.name),
+  bounceland: (details) => LandCategories.BOUNCE.includes(details?.name),
+  karoo: (details) => LandCategories.BOUNCE.includes(details?.name),
+  canopyland: (details) => LandCategories.CANOPY.includes(details?.name),
+  canland: (details) => LandCategories.CANOPY.includes(details?.name),
+  checkland: (details) => LandCategories.CHECK.includes(details?.name),
+  dual: (details) => LandCategories.DUAL.includes(details?.name),
+  fastland: (details) => LandCategories.FAST.includes(details?.name),
+  filterland: (details) => LandCategories.FILTER.includes(details?.name),
+  fetchland: (details) => LandCategories.FETCH.includes(details?.name),
+  gainland: (details) => LandCategories.GAIN.includes(details?.name),
+  painland: (details) => LandCategories.PAIN.includes(details?.name),
+  scryland: (details) => LandCategories.SCRY.includes(details?.name),
+  shadowland: (details) => LandCategories.SHADOW.includes(details?.name),
+  shockland: (details) => LandCategories.SHOCK.includes(details?.name),
+  storageland: (details) => LandCategories.STORAGE.includes(details?.name),
+  triland: (details) => LandCategories.TRI.includes(details?.name),
+  tangoland: (details) => LandCategories.TANGO.includes(details?.name),
+  battleland: (details) => LandCategories.TANGO.includes(details?.name),
 
   // Others from Scryfall:
   //   reserved, new, old, hires,

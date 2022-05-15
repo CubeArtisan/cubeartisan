@@ -260,6 +260,43 @@ This release is composed of porting over bug fixes for bugs we carried over from
 
 - Fix how trash actions work to be as expected.
 
+#### v1.4.4.3
+
+##### Bug Fixes
+
+- Fix error where login and forgot password routes would say user not found.
+
+#### v1.4.4.4
+
+##### Bug Fixes
+
+- When looking up card indices use imageUrl as the unique field.
+
+
+#### v1.4.4.5
+
+##### Bug Fixes
+
+- Fix occasional crash when accessing card properties.
+
+#### v1.4.4.6
+
+##### Bug Fixes
+
+- When looking up card indices use the recorded card index instead of guessing.
+
+#### v1.4.4.7
+
+##### Bug Fixes
+
+- Fix error that caused infinite redirects on overview pages.
+
+#### v1.4.4.8
+
+##### Bug Fixes
+
+- Resize cube functionality now respects the given filter.
+
 ## v2.0.0
 
 This release is largely about quality of life improvements and migrating to the new design library.

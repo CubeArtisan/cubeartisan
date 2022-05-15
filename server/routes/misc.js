@@ -526,9 +526,9 @@ export const submitLostPassword = [
       });
 
       req.flash('success', `Password recovery email sent to ${recoveryEmail}`);
-      return res.redirect('/user/lostpassword');
+      return res.redirect('/login');
     } catch (err) {
-      return handleRouteError(req, res, err, `/user/lostpassword`);
+      return handleRouteError(req, res, err, `/lostpassword`);
     }
   },
 ];
@@ -573,7 +573,7 @@ const resetPasswordHandler = async (req, res) => {
         try {
           await user.save();
           req.flash('success', 'Password updated successfully');
-          return res.redirect('/user/login');
+          return res.redirect('/login');
         } catch (err6) {
           return handleRouteError(req, res, err6, `/`);
         }
