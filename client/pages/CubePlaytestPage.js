@@ -18,7 +18,20 @@
  */
 import React, { lazy, useContext, useCallback, useMemo, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Button, Divider, Modal, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Collapse,
+  Divider,
+  InputLabel,
+  Grid,
+  Modal,
+  Paper,
+  Switch,
+  TextField,
+  Toolbar,
+  Typography,
+} from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
@@ -38,14 +51,13 @@ import { allBotsDraft } from '@cubeartisan/client/drafting/draftutil.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import LabeledSelect from '@cubeartisan/client/components/LabeledSelect.js';
+import PaperHeader from '@cubeartisan/client/components/PaperHeader.js';
 
 const DeckPreview = lazy(() => import('@cubeartisan/client/components/DeckPreview.js'));
 const CustomDraftFormatModal = lazy(() => import('@cubeartisan/client/components/modals/CustomDraftFormatModal.js'));
 
 const range = (lo, hi) => Array.from(Array(hi - lo).keys(), (n) => n + lo);
-const rangeOptions = (lo, hi) => range(lo, hi).map((n) => <option key={n}>{n}</option>);
-
-const CardTitleH5 = ({ ...props }) => <CardTitle tag="h5" className="mb-0" {...props} />;
 
 const UploadDecklistModal = ({ isOpen, toggle }) => {
   const { cubeID } = useContext(CubeContext);
@@ -63,7 +75,6 @@ const UploadDecklistModal = ({ isOpen, toggle }) => {
           rows={10}
           multiline
           label="Your Decklist"
-          InputProps={{ maxLength: '20000' }}
           placeholder="Paste Decklist Here (max length 20000)"
           name="body"
         />
@@ -86,24 +97,7 @@ UploadDecklistModal.propTypes = {
   toggle: PropTypes.func.isRequired,
 };
 
-const UploadDecklistModalLink = withModal(NavLink, UploadDecklistModal);
-
-const LabelRow = ({ htmlFor, label, children, ...props }) => (
-  <FormGroup row {...props}>
-    <Label xs="4" md="6" lg="5" htmlFor={htmlFor}>
-      {label}
-    </Label>
-    <Col xs="8" md="6" lg="7">
-      {children}
-    </Col>
-  </FormGroup>
-);
-
-LabelRow.propTypes = {
-  htmlFor: PropTypes.string.isRequired,
-  label: PropTypes.node.isRequired,
-  children: PropTypes.node.isRequired,
-};
+const UploadDecklistModalLink = withModal(Button, UploadDecklistModal);
 
 const useBotsOnlyCallback = (botsOnly, cubeID) => {
   console.log(cubeID);
@@ -147,63 +141,59 @@ const useBotsOnlyCallback = (botsOnly, cubeID) => {
   return [submitForm, formRef, loading];
 };
 
-const CustomDraftCard = ({
-  format,
-  onEditFormat,
-  onDeleteFormat,
-  onSetDefaultFormat,
-  defaultDraftFormat,
-  ...props
-}) => {
+const CustomDraftCard = ({ format, onEditFormat, onDeleteFormat, onSetDefaultFormat, defaultDraftFormat }) => {
   const { cubeID, canEdit } = useContext(CubeContext);
   const { index } = format;
   const [botsOnly, toggleBotsOnly] = useToggle(false);
   const [submitForm, formRef, loading] = useBotsOnlyCallback(botsOnly, cubeID);
+  const [seats, setSeats] = useState(`${format.defaultSeats ?? 8}`);
+  const [humanSeats, setHumanSeats] = useState('1');
+  const [timeout, setTimeout] = useState('0');
+  const [collapseOpen, setCollapseOpen] = useState(false);
   return (
-    <Card {...props}>
-      <CSRFForm
-        method="POST"
-        key="createDraft"
-        action={`/cube/${cubeID}/playtest/draft`}
-        ref={formRef}
-        onSubmit={submitForm}
-      >
-        <CardHeader>
-          <CardTitleH5>
-            {defaultDraftFormat === index && 'Default Format: '}
-            {format.title} (Custom Draft)
-          </CardTitleH5>
-        </CardHeader>
-        <CardBody>
-          <div className="mb-3">
-            <Markdown markdown={format.markdown} />
-          </div>
-
-          <LabelRow htmlFor={`seats-${index}`} label="Total Seats">
-            <Input type="select" name="seats" id={`seats-${index}`} defaultValue={format.defaultSeats ?? 8}>
-              {rangeOptions(2, 17)}
-            </Input>
-          </LabelRow>
-          <LabelRow htmlFor="humanSeats" label="Number of Human Seats">
-            <Input type="select" name="humanSeats" id="humanSeats" defaultValue="1">
-              {rangeOptions(1, 16)}
-            </Input>
-          </LabelRow>
-          <LabelRow htmlFor="timeout" label="Timer: Seconds Per Card In Pack (Use 0 to disable timer).">
-            <Input type="select" name="timeout" id="timeout" defaultValue="0">
-              {rangeOptions(0, 31)}
-            </Input>
-          </LabelRow>
-          <FormGroup check>
-            <Label check>
-              <Input type="checkbox" name="botsOnly" value={botsOnly} onClick={toggleBotsOnly} /> Have just bots draft.
-            </Label>
-          </FormGroup>
-        </CardBody>
-        <CardFooter>
-          <Input type="hidden" name="id" value={index} />
-          <div className="justify-content-center align-items-center">
-            {loading && <Spinner className="position-absolute" />}
+    <Paper sx={{ marginBottom: 2 }}>
+      <PaperHeader
+        title={`${defaultDraftFormat === index ? 'Default Format: ' : ''}${format.title} (Custom Draft)`}
+        variant="h5"
+      />
+      <Box sx={{ padding: 2 }}>
+        <Markdown markdown={format.markdown} />
+        <CSRFForm
+          method="POST"
+          key="createDraft"
+          action={`/cube/${cubeID}/playtest/draft`}
+          ref={formRef}
+          onSubmit={submitForm}
+        >
+          <LabeledSelect
+            baseId={`seats-${index}`}
+            value={seats}
+            setValue={setSeats}
+            values={range(2, 17)}
+            label="Total Seats:"
+            name="seats"
+          />
+          <LabeledSelect
+            baseId={`human-seats-${index}`}
+            value={humanSeats}
+            setValue={setHumanSeats}
+            values={range(1, seats)}
+            label=" Seats:"
+            name="humanSeats"
+          />
+          <LabeledSelect
+            baseId={`timeout-${index}`}
+            value={timeout}
+            setValue={setTimeout}
+            values={range(0, 31)}
+            label="Timer: Seconds Per Card In Pack (Use 0 to disable timer)."
+            name="timeout"
+          />
+          <InputLabel id={`bots-only-${index}-label`}>Have just bots draft:</InputLabel>
+          <Switch id={`bots-only-${index}-switch`} checked={botsOnly} onChange={toggleBotsOnly} />
+          <Divider sx={{ marginY: 1 }} />
+          <input type="hidden" name="id" value={index} />
+          <Box sx={{ display: 'flex' }}>
             <LoadingButton color="success" variant="contained" loading={loading} type="submit">
               Start Draft
             </LoadingButton>
@@ -217,21 +207,23 @@ const CustomDraftCard = ({
                     Make Default
                   </Button>
                 )}
-                <Button color="warning" id={`deleteToggler-${index}`}>
+                <Button color="warning" id={`deleteToggler-${index}`} onClick={() => setCollapseOpen(true)}>
                   Delete
                 </Button>
-                <UncontrolledCollapse toggler={`#deleteToggler-${index}`}>
-                  <h6 className="my-4">Are you sure? This action cannot be undone.</h6>
-                  <Button color="warning" onClick={onDeleteFormat} data-index={index}>
-                    Yes, delete this format
-                  </Button>
-                </UncontrolledCollapse>
               </>
             )}
-          </div>
-        </CardFooter>
-      </CSRFForm>
-    </Card>
+          </Box>
+          <Collapse in={collapseOpen}>
+            <Typography variant="h6" sx={{ marginY: 2 }}>
+              Are you sure? This action cannot be undone.
+            </Typography>
+            <Button color="warning" onClick={onDeleteFormat} data-index={index}>
+              Yes, delete this format
+            </Button>
+          </Collapse>
+        </CSRFForm>
+      </Box>
+    </Paper>
   );
 };
 
@@ -252,149 +244,165 @@ CustomDraftCard.propTypes = {
 const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
   const { cubeID, canEdit } = useContext(CubeContext);
   const [botsOnly, toggleBotsOnly] = useToggle(false);
-  const [submitForm, formRef] = useBotsOnlyCallback(botsOnly, cubeID);
+  const [submitForm, formRef, loading] = useBotsOnlyCallback(botsOnly, cubeID);
+  const [seats, setSeats] = useState('8');
+  const [humanSeats, setHumanSeats] = useState('1');
+  const [timeout, setTimeout] = useState('0');
+  const [cards, setCards] = useState('15');
+  const [packs, setPacks] = useState('3');
   return (
-    <Card className="mb-3">
-      <CSRFForm method="POST" action={`/cube/${cubeID}/playtest/draft`} onSubmit={submitForm} ref={formRef}>
-        <CardHeader>
-          <CardTitleH5>{defaultDraftFormat === -1 && 'Default Format: '}Standard Draft</CardTitleH5>
-        </CardHeader>
-        <CardBody>
-          <LabelRow htmlFor="packs" label="Number of Packs">
-            <Input type="select" name="packs" id="packs" defaultValue="3">
-              {rangeOptions(1, 16)}
-            </Input>
-          </LabelRow>
-          <LabelRow htmlFor="cards" label="Cards per Pack">
-            <Input type="select" name="cards" id="cards" defaultValue="15">
-              {rangeOptions(1, 25)}
-            </Input>
-          </LabelRow>
-          <LabelRow htmlFor="seats" label="Total Seats">
-            <Input type="select" name="seats" id="seats" defaultValue="8">
-              {rangeOptions(2, 17)}
-            </Input>
-          </LabelRow>
-          <LabelRow htmlFor="humanSeats" label="Number of Human Seats">
-            <Input type="select" name="humanSeats" id="humanSeats" defaultValue="1">
-              {rangeOptions(1, 16)}
-            </Input>
-          </LabelRow>
-          <LabelRow htmlFor="timeout" label="Timer: Seconds Per Card In Pack (Use 0 to disable timer).">
-            <Input type="select" name="timeout" id="timeout" defaultValue="0">
-              {rangeOptions(0, 31)}
-            </Input>
-          </LabelRow>
-          <FormGroup check>
-            <Label check>
-              <Input type="checkbox" name="botsOnly" onChange={toggleBotsOnly} checked={botsOnly} /> Have just bots
-              draft.
-            </Label>
-          </FormGroup>
-        </CardBody>
-        <CardFooter>
-          <Input type="hidden" name="id" value="-1" />
-          <div className="justify-content-center align-items-center">
-            <LoadingButton color="success" variant="contained" type="submit">
+    <Paper sx={{ marginBottom: 2 }}>
+      <PaperHeader variant="h5" title={`${defaultDraftFormat === -1 ? 'Default Format: ' : ''}Standard Draft`} />
+      <Box sx={{ padding: 2 }}>
+        <CSRFForm method="POST" action={`/cube/${cubeID}/playtest/draft`} onSubmit={submitForm} ref={formRef}>
+          <LabeledSelect
+            baseId="packs-standard"
+            value={packs}
+            setValue={setPacks}
+            values={range(1, 16)}
+            label="Number of Packs:"
+            name="packs"
+          />
+          <LabeledSelect
+            baseId="cards-standard"
+            value={cards}
+            setValue={setCards}
+            values={range(1, 25)}
+            label="Cards per Pack:"
+            name="cards"
+          />
+          <LabeledSelect
+            baseId="seats-standard"
+            value={seats}
+            setValue={setSeats}
+            values={range(2, 17)}
+            label="Total Seats:"
+            name="seats"
+          />
+          <LabeledSelect
+            baseId="human-seats-standard"
+            value={humanSeats}
+            setValue={setHumanSeats}
+            values={range(1, seats)}
+            label=" Seats:"
+            name="humanSeats"
+          />
+          <LabeledSelect
+            baseId="timeout-standard"
+            value={timeout}
+            setValue={setTimeout}
+            values={range(0, 31)}
+            label="Timer: Seconds Per Card In Pack (Use 0 to disable timer)."
+            name="timeout"
+          />
+          <InputLabel id="bots-only-standard-label">Have just bots draft.</InputLabel>
+          <Switch id="bots-only-standard-switch" checked={botsOnly} onChange={toggleBotsOnly} />
+          <Divider sx={{ marginY: 1 }} />
+          <input type="hidden" name="id" value="-1" />
+          <Box sx={{ display: 'flex' }}>
+            <LoadingButton color="success" variant="contained" loading={loading} type="submit">
               Start Draft
             </LoadingButton>
-          </div>
-          {canEdit && defaultDraftFormat !== -1 && (
-            <Button color="success" onClick={onSetDefaultFormat} data-index={-1}>
-              Make Default
-            </Button>
-          )}
-        </CardFooter>
-      </CSRFForm>
-    </Card>
+            {canEdit && defaultDraftFormat !== -1 && (
+              <Button color="success" onClick={onSetDefaultFormat} data-index={-1}>
+                Make Default
+              </Button>
+            )}
+          </Box>
+        </CSRFForm>
+      </Box>
+    </Paper>
   );
 };
-
 StandardDraftCard.propTypes = {
   onSetDefaultFormat: PropTypes.func.isRequired,
   defaultDraftFormat: PropTypes.number.isRequired,
 };
 
+const TYPES_VALUES = ['Against Bot', '2 Player Local'];
+const TYPES_KEYS = ['bot', '2playerlocal'];
+
 const GridCard = () => {
   const { cubeID } = useContext(CubeContext);
+  const [packs, setPacks] = useState('18');
+  const [type, setType] = useState('bot');
   return (
-    <Card className="mb-3">
-      <CSRFForm method="POST" action={`/cube/${cubeID}/playtest/griddraft`}>
-        <CardHeader>
-          <CardTitleH5>Grid Draft</CardTitleH5>
-        </CardHeader>
-        <CardBody>
-          <div className="description-area">
-            <p>Grid drafting is a strategic 2 player draft with completely open information.</p>
-          </div>
-          <LabelRow htmlFor="packs-grid" label="Number of Packs">
-            <Input type="select" name="packs" id="packs-grid" defaultValue="18">
-              {rangeOptions(1, 30)}
-            </Input>
-          </LabelRow>
-          <LabelRow htmlFor="type-grid" label="Type">
-            <Input type="select" name="type" id="type-grid" defaultValue="18">
-              <option value="bot">Against Bot</option>
-              <option value="2playerlocal">2 Player Local</option>
-            </Input>
-          </LabelRow>
-        </CardBody>
-        <CardFooter>
-          <Button color="success">Start Grid Draft</Button>
-        </CardFooter>
-      </CSRFForm>
-    </Card>
+    <Paper sx={{ marginBottom: 2 }}>
+      <PaperHeader variant="h5" title="Grid Draft" />
+      <Box sx={{ padding: 2 }}>
+        <Typography variant="subtitle1">
+          Grid drafting is a strategic 2 player draft with completely open information.
+        </Typography>
+        <CSRFForm method="POST" action={`/cube/${cubeID}/playtest/griddraft`}>
+          <LabeledSelect
+            baseId="packs-grid"
+            value={packs}
+            setValue={setPacks}
+            values={range(1, 30)}
+            label="Number of Packs:"
+            name="packs"
+          />
+          <LabeledSelect
+            baseId="type-grid"
+            value={type}
+            setValue={setType}
+            values={TYPES_VALUES}
+            keys={TYPES_KEYS}
+            label="Type of Grid Draft"
+            name="type"
+          />
+          <Divider sx={{ marginY: 1 }} />
+          <Button color="success" type="submit" variant="contained">
+            Start Draft
+          </Button>
+        </CSRFForm>
+      </Box>
+    </Paper>
   );
 };
 
-const DecksCard = ({ decks, ...props }) => {
+const DecksCard = ({ decks }) => {
   const { cubeID } = useContext(CubeContext);
   return (
-    <Card {...props}>
-      <CardHeader>
-        <CardTitleH5>Recent Decks</CardTitleH5>
-      </CardHeader>
-      <CardBody className="p-0">
+    <Paper sx={{ marginBottom: 2 }}>
+      <Box sx={{ padding: 2 }}>
+        <PaperHeader variant="h5" title="Recent Decks" />
         <Suspense>
           {decks.map((deck) => (
             <DeckPreview key={deck._id} deck={deck} />
           ))}
         </Suspense>
-      </CardBody>
-      <CardFooter>
-        <a href={`/cube/${cubeID}/playtest/decks`}>View all</a>
-      </CardFooter>
-    </Card>
+        <Button href={`/cube/${cubeID}/playtest/decks`}>View all</Button>
+      </Box>
+    </Paper>
   );
 };
-
 DecksCard.propTypes = {
   decks: PropTypes.arrayOf(DeckPropType).isRequired,
 };
 
-const SamplePackCard = (props) => {
+const SamplePackCard = () => {
   const { cubeID } = useContext(CubeContext);
   const [seed, setSeed] = useState('');
   const handleChange = useCallback((event) => setSeed(event.target.value), []);
   return (
-    <Card {...props}>
-      <CardHeader>
-        <CardTitleH5>View sample pack</CardTitleH5>
-      </CardHeader>
-      <CardBody>
-        <LabelRow htmlFor="seed" label="Seed" className="mb-0">
-          <Input type="text" name="seed" id="seed" value={seed} onChange={handleChange} />
-        </LabelRow>
-      </CardBody>
-      <CardFooter>
-        <Button color="success" href={`/cube/${cubeID}/playtest/sample`}>
-          View Random
-        </Button>
-        <Button color="success" disabled={!seed} href={`/cube/${cubeID}/playtest/sample/${seed}`}>
-          View Seeded
-        </Button>
-      </CardFooter>
-    </Card>
+    <Paper sx={{ marginBottom: 2 }}>
+      <PaperHeader title="View Sample Pack" variant="h5" />
+      <Box sx={{ padding: 2 }}>
+        <InputLabel htmlFor="sample-seed-text" id="sample-seed-label">
+          Seed (the same seed will give the same pack unless the cube is changed)
+        </InputLabel>
+        <TextField id="sample-seed-text" label="Seed" name="seed" value={seed} onChange={handleChange} />
+        <Box sx={{ display: 'flex' }}>
+          <Button color="success" href={`/cube/${cubeID}/playtest/sample`}>
+            View With Random Seed
+          </Button>
+          <Button color="success" disabled={!seed} href={`/cube/${cubeID}/playtest/sample/${seed}`}>
+            View Seeded
+          </Button>
+        </Box>
+      </Box>
+    </Paper>
   );
 };
 
@@ -496,26 +504,16 @@ export const CubePlaytestPage = ({ cube, decks, loginCallback }) => {
   return (
     <MainLayout loginCallback={loginCallback}>
       <CubeLayout cube={cube} activeLink="playtest">
-        {user && cube.owner === user._id ? (
-          <Navbar light expand className="usercontrols mb-3">
-            <Nav navbar>
-              <NavItem>
-                <NavLink onClick={handleCreateFormat} className="clickable">
-                  Create Custom Draft
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <UploadDecklistModalLink className="clickable">Upload Decklist</UploadDecklistModalLink>
-              </NavItem>
-            </Nav>
-          </Navbar>
-        ) : (
-          <Row className="mb-3" />
+        {user && cube.owner === user._id && (
+          <Toolbar sx={{ backgroundColor: 'background.paper', marginBottom: 1, borderRadius: '0 0 2rem 2rem' }}>
+            <Button onClick={handleCreateFormat}>Create Custom Draft</Button>
+            <UploadDecklistModalLink modalProps={{}}>Upload Decklist</UploadDecklistModalLink>
+          </Toolbar>
         )}
         <DynamicFlash />
         <Alerts alerts={alerts} />
-        <Row className="justify-content-center">
-          <Col xs="12" md="6" xl="6">
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
             {defaultDraftFormat === -1 && (
               <StandardDraftCard onSetDefaultFormat={handleSetDefaultFormat} defaultDraftFormat={defaultDraftFormat} />
             )}
@@ -527,19 +525,18 @@ export const CubePlaytestPage = ({ cube, decks, loginCallback }) => {
                 onSetDefaultFormat={handleSetDefaultFormat}
                 onEditFormat={handleEditFormat}
                 defaultDraftFormat={defaultDraftFormat}
-                className="mb-3"
               />
             ))}
             {defaultDraftFormat !== -1 && (
               <StandardDraftCard onSetDefaultFormat={handleSetDefaultFormat} defaultDraftFormat={defaultDraftFormat} />
             )}
-            <GridCard className="mb-3" />
-          </Col>
-          <Col xs="12" md="6" xl="6">
-            {decks.length !== 0 && <DecksCard decks={decks} className="mb-3" />}
-            <SamplePackCard className="mb-3" />
-          </Col>
-        </Row>
+            <GridCard />
+          </Grid>
+          <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
+            {decks.length !== 0 && <DecksCard decks={decks} />}
+            <SamplePackCard />
+          </Grid>
+        </Grid>
         <Suspense>
           <CustomDraftFormatModal
             isOpen={editModalOpen}
@@ -553,7 +550,6 @@ export const CubePlaytestPage = ({ cube, decks, loginCallback }) => {
     </MainLayout>
   );
 };
-
 CubePlaytestPage.propTypes = {
   cube: PropTypes.shape({
     cards: PropTypes.arrayOf(CardPropType),
@@ -584,9 +580,7 @@ CubePlaytestPage.propTypes = {
   decks: PropTypes.arrayOf(DeckPropType).isRequired,
   loginCallback: PropTypes.string,
 };
-
 CubePlaytestPage.defaultProps = {
   loginCallback: '/',
 };
-
 export default RenderToRoot(CubePlaytestPage);

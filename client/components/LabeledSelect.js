@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { InputLabel, MenuItem, Select } from '@mui/material';
 
-const LabeledSelect = ({ label, baseId, values, value, setValue, labelSx, selectSx, keys }) => (
+const LabeledSelect = ({ label, baseId, values, value, setValue, labelSx, selectSx, keys, name }) => (
   <>
     <InputLabel id={`${baseId}-label`} sx={labelSx}>
       {label}
@@ -14,6 +14,7 @@ const LabeledSelect = ({ label, baseId, values, value, setValue, labelSx, select
       label={label}
       onChange={(event) => setValue(event.target.value)}
       sx={selectSx}
+      name={name ?? baseId}
     >
       {values.map((item, idx) => (
         <MenuItem key={keys ? keys[idx] : item} value={keys ? keys[idx] : item}>
@@ -32,11 +33,13 @@ LabeledSelect.propTypes = {
   labelSx: PropTypes.shape({}),
   selectSx: PropTypes.shape({}),
   keys: PropTypes.arrayOf(PropTypes.string.isRequired),
+  name: PropTypes.string,
 };
 LabeledSelect.defaultProps = {
   value: null,
   labelSx: {},
   selectSx: { marginY: 1 },
   keys: null,
+  name: null,
 };
 export default LabeledSelect;

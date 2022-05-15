@@ -1,5 +1,5 @@
 export default LabeledSelect;
-declare function LabeledSelect({ label, baseId, values, value, setValue, labelSx, selectSx }: {
+declare function LabeledSelect({ label, baseId, values, value, setValue, labelSx, selectSx, keys, name }: {
     label: any;
     baseId: any;
     values: any;
@@ -7,6 +7,8 @@ declare function LabeledSelect({ label, baseId, values, value, setValue, labelSx
     setValue: any;
     labelSx: any;
     selectSx: any;
+    keys: any;
+    name: any;
 }): JSX.Element;
 declare namespace LabeledSelect {
     namespace propTypes {
@@ -17,6 +19,8 @@ declare namespace LabeledSelect {
         const setValue: PropTypes.Validator<(...args: any[]) => any>;
         const labelSx: PropTypes.Requireable<PropTypes.InferProps<{}>>;
         const selectSx: PropTypes.Requireable<PropTypes.InferProps<{}>>;
+        const keys: PropTypes.Requireable<string[]>;
+        const name: PropTypes.Requireable<string>;
     }
     namespace defaultProps {
         const value_1: any;
@@ -27,6 +31,10 @@ declare namespace LabeledSelect {
             const marginY: number;
         }
         export { selectSx_1 as selectSx };
+        const keys_1: any;
+        export { keys_1 as keys };
+        const name_1: any;
+        export { name_1 as name };
     }
 }
 import PropTypes from "prop-types";

@@ -46,9 +46,7 @@ const CubeNavbar = ({ activeLink }) => {
   const { cube } = useContext(CubeContext);
   const subtitle = getCubeDescription(cube);
   return (
-    <Toolbar
-      sx={{ width: '100%', backgroundColor: 'background.darker', alignItems: 'end', display: 'flex', marginBottom: 2 }}
-    >
+    <Toolbar sx={{ width: '100%', backgroundColor: 'background.darker', alignItems: 'end', display: 'flex' }}>
       <Box component="span" sx={{ marginRight: 'auto' }}>
         <Typography variant="h5">{cube.name}</Typography>
         {cube.type && <Typography variant="subtitle1"> ({subtitle})</Typography>}
