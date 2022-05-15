@@ -18,30 +18,8 @@
  */
 import React, { lazy, useContext, useCallback, useMemo, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from '@mui/material';
+import { Box, Button, Divider, Modal, TextField, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-  Col,
-  FormGroup,
-  Input,
-  Label,
-  Nav,
-  Navbar,
-  NavLink,
-  NavItem,
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  Row,
-  Spinner,
-  UncontrolledCollapse,
-} from 'reactstrap';
 
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
@@ -72,32 +50,32 @@ const CardTitleH5 = ({ ...props }) => <CardTitle tag="h5" className="mb-0" {...p
 const UploadDecklistModal = ({ isOpen, toggle }) => {
   const { cubeID } = useContext(CubeContext);
   return (
-    <Modal isOpen={isOpen} toggle={toggle} labelledBy="uploadDecklistModalTitle">
+    <Modal open={isOpen} onClose={toggle} aria-labelledby="uploadDecklistModalTitle">
       <CSRFForm method="POST" action={`/cube/${cubeID}/playtest/deck/import/plaintext`}>
-        <ModalHeader toggle={toggle} id="uploadDecklistModalTitle">
+        <Typography variant="h4" id="uploadDecklistModalTitle" sx={{ padding: 2, marginBottom: 1 }}>
           Upload Decklist
-        </ModalHeader>
-        <ModalBody>
-          <p>
-            Acceptable formats are: one card name per line, or one card name per line prepended with #x, such as
-            &quot;2x island&quot;
-          </p>
-          <Input
-            type="textarea"
-            maxLength="20000"
-            rows="10"
-            placeholder="Paste Decklist Here (max length 20000)"
-            name="body"
-          />
-        </ModalBody>
-        <ModalFooter>
+        </Typography>
+        <Typography variant="body1">
+          Acceptable formats are: one card name per line, or one card name per line prepended with #x, such as &quot;2x
+          island&quot;
+        </Typography>
+        <TextField
+          rows={10}
+          multiline
+          label="Your Decklist"
+          InputProps={{ maxLength: '20000' }}
+          placeholder="Paste Decklist Here (max length 20000)"
+          name="body"
+        />
+        <Divider sx={{ marginY: 1 }} />
+        <Box sx={{ display: 'flex' }}>
           <Button color="success" type="submit">
             Upload
           </Button>
           <Button color="secondary" onClick={toggle}>
             Close
           </Button>
-        </ModalFooter>
+        </Box>
       </CSRFForm>
     </Modal>
   );

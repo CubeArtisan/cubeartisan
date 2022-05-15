@@ -100,8 +100,8 @@ const analytics = [
   },
   {
     name: 'Recommender',
-    component: ({ cube, collection, addCards, cutCards, filter, loading }) => (
-      <Suggestions cards={collection} cube={cube} adds={addCards} cuts={cutCards} filter={filter} loadState={loading} />
+    component: ({ cube, addCards, cutCards, filter, loading }) => (
+      <Suggestions cube={cube} adds={addCards} cuts={cutCards} filter={filter} loadState={loading} />
     ),
   },
   {
@@ -124,7 +124,7 @@ const analytics = [
   },
   {
     name: 'Hypergeometric Calculator',
-    component: ({ collection }) => <HyperGeom cards={collection} />,
+    component: () => <HyperGeom />,
   },
 ];
 
