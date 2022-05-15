@@ -1,4 +1,5 @@
-export function valueRenderer(value: any): any;
+export function roundNumber(value: any): any;
+export function valueRenderer(value: any): JSX.Element;
 export function percentRenderer(value: any): JSX.Element;
 export function compareStrings(a: any, b: any): any;
 export function SortableTable({ data, defaultSortConfig, sortFns, columnProps, totalRow, totalCol, ...props }: {

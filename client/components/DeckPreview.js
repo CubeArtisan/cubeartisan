@@ -16,14 +16,13 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useMemo, useState, useContext } from 'react';
+import React, { useMemo, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from '@mui/material';
+import { Box, Button, Link, Typography } from '@mui/material';
 
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import useKeyHandlers from '@cubeartisan/client/hooks/UseKeyHandlers.js';
 import DeckDeleteModal from '@cubeartisan/client/components/modals/DeckDeleteModal.js';
 
 /** 2020-11-17 struesdell:
@@ -61,12 +60,6 @@ const DeckPreview = ({ deck, nextURL }) => {
     [deck],
   );
 
-  const handleClick = useKeyHandlers(
-    useCallback(() => {
-      window.location.href = `/deck/${deck._id}`;
-    }, [deck._id]),
-  );
-
   const openDeleteModal = (event) => {
     event.stopPropagation();
     setDeleteModalOpen(true);
@@ -77,20 +70,34 @@ const DeckPreview = ({ deck, nextURL }) => {
   };
 
   return (
-    <div className="deck-preview" {...handleClick}>
+    <Box sx={{ marginY: 0.5, display: 'flex' }}>
+      <Typography variant="body1">
+        <Link href={`/deck/${deck._id}`} title={fullName}>
+          {name}
+        </Link>
+        {' by '}
+        {deck.seats[0].userid && deck.seats[0].username ? (
+          <Link href={`/user/${deck.seats[0].userid}`}>{deck.seats[0].username}</Link>
+        ) : (
+          'Anonymous'
+        )}
+        {' — '}
+        <TimeAgo date={date} />
+      </Typography>
       {canEdit && (
         <Button
           type="button"
           className="close"
           onClick={openDeleteModal}
           sx={{
+            marginLeft: 'auto',
             fontSize: '0.8rem',
             textAlign: 'center',
             width: 19,
             height: 19,
             paddingBottom: 2,
             lineHeight: 17,
-            border: '1px solid rgba(0, 0, 0, 0.5)',
+            border: '1px solid',
           }}
         >
           X
@@ -103,19 +110,7 @@ const DeckPreview = ({ deck, nextURL }) => {
           />
         </Button>
       )}
-      <h6 className="mb-0 text-muted">
-        <a href={`/deck/${deck._id}`} title={fullName}>
-          {name}
-        </a>{' '}
-        by{' '}
-        {deck.seats[0].userid && deck.seats[0].username ? (
-          <a href={`/user/${deck.seats[0].userid}`}>{deck.seats[0].username}</a>
-        ) : (
-          'Anonymous'
-        )}{' '}
-        - <TimeAgo date={date} />
-      </h6>
-    </div>
+    </Box>
   );
 };
 DeckPreview.propTypes = {
@@ -125,5 +120,4 @@ DeckPreview.propTypes = {
 DeckPreview.defaultProps = {
   nextURL: null,
 };
-
 export default DeckPreview;

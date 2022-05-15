@@ -22,7 +22,12 @@ import { Typography } from '@mui/material';
 
 import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown.js';
 import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
-import { SortableTable, compareStrings, valueRenderer } from '@cubeartisan/client/components/SortableTable.js';
+import {
+  SortableTable,
+  compareStrings,
+  percentRenderer,
+  valueRenderer,
+} from '@cubeartisan/client/components/SortableTable.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
@@ -66,13 +71,13 @@ const AnalyticTable = ({ cards: allCards, cube, defaultFormatId, setAsfans }) =>
     (value, { Total: rowTotal }, columnLabel) => {
       value = Number.isFinite(value) ? value : 0;
       let scalingFactor = null;
-      if (percentOf === 'Table Total') scalingFactor = 100 / columnCounts.Total;
-      else if (percentOf === 'Row Total') scalingFactor = 100 / rowTotal;
-      else if (percentOf === 'Column Total') scalingFactor = 100 / columnCounts[columnLabel];
+      if (percentOf === 'Table Total') scalingFactor = 1 / columnCounts.Total;
+      else if (percentOf === 'Row Total') scalingFactor = 1 / rowTotal;
+      else if (percentOf === 'Column Total') scalingFactor = 1 / columnCounts[columnLabel];
       return (
         <>
           {valueRenderer(value)}
-          {scalingFactor && <span className="percent">{valueRenderer(value * scalingFactor)}%</span>}
+          {scalingFactor && percentRenderer(value * scalingFactor)}
         </>
       );
     },

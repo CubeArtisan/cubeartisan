@@ -100,8 +100,8 @@ const analytics = [
   },
   {
     name: 'Recommender',
-    component: ({ cube, collection, addCards, cutCards, filter, loading }) => (
-      <Suggestions cards={collection} cube={cube} adds={addCards} cuts={cutCards} filter={filter} loadState={loading} />
+    component: ({ cube, addCards, cutCards, filter, loading }) => (
+      <Suggestions cube={cube} adds={addCards} cuts={cutCards} filter={filter} loadState={loading} />
     ),
   },
   {
@@ -124,7 +124,7 @@ const analytics = [
   },
   {
     name: 'Hypergeometric Calculator',
-    component: ({ collection }) => <HyperGeom cards={collection} />,
+    component: () => <HyperGeom />,
   },
 ];
 
@@ -296,7 +296,7 @@ export const CubeAnalyticsPage = ({
 
   return (
     <MainLayout loginCallback={loginCallback}>
-      <CubeLayout cube={cube} canEdit={false} activeLink="analysis">
+      <CubeLayout cube={cube} activeLink="analysis">
         <TagContextProvider
           cubeID={cube._id}
           defaultTagColors={cube.tag_colors}
@@ -308,9 +308,16 @@ export const CubeAnalyticsPage = ({
           {cube.cards.length === 0 ? (
             <Typography variant="h5">This cube doesn't have any cards. Add cards to see analytics.</Typography>
           ) : (
-            <Grid container>
-              <Grid item xs={12} lg={2}>
-                <Box sx={{ flexDirection: 'column', display: 'flex' }}>
+            <Grid container sx={{ paddingBottom: 2 }}>
+              <Grid item xs={12} lg={2} sx={{ paddingRight: 2, paddingTop: 0 }}>
+                <Box
+                  sx={{
+                    backgroundColor: 'background.hover',
+                    flexDirection: 'column',
+                    display: 'flex',
+                    height: '100%',
+                  }}
+                >
                   {analytics.map((analytic, index) => (
                     <Button
                       key={analytic.name}
@@ -324,21 +331,23 @@ export const CubeAnalyticsPage = ({
                 </Box>
               </Grid>
               <Grid xs={12} lg={10}>
-                <Card className="mb-3">
+                <Card>
                   <CardContent>
                     <Button onClick={toggleFilterCollapse}>
-                      <h5>{filterCollapseOpen ? 'Hide Filter' : 'Show Filter'}</h5>
+                      <Typography variant="h5">{filterCollapseOpen ? 'Hide Filter' : 'Show Filter'}</Typography>
                     </Button>
                     <FilterCollapse
+                      numShown={cards.length}
+                      numCards={cube.cards.length}
+                      noCount={false}
                       defaultFilterText={defaultFilterText}
                       filter={filter}
                       setFilter={setFilter}
-                      numCards={cards.length}
                       isOpen={filterCollapseOpen}
                     />
                   </CardContent>
                 </Card>
-                <Card>
+                <Card sx={{ marginTop: 2 }}>
                   <CardContent>
                     <ErrorBoundary>
                       <Suspense>
@@ -364,7 +373,6 @@ export const CubeAnalyticsPage = ({
     </MainLayout>
   );
 };
-
 CubeAnalyticsPage.propTypes = {
   cube: CubePropType.isRequired,
   cubeID: PropTypes.string.isRequired,
@@ -375,7 +383,6 @@ CubeAnalyticsPage.propTypes = {
   loginCallback: PropTypes.string,
   cubeAnalytics: CubeAnalyticPropType.isRequired,
 };
-
 CubeAnalyticsPage.defaultProps = {
   defaultFilterText: '',
   defaultTab: 0,
@@ -383,5 +390,4 @@ CubeAnalyticsPage.defaultProps = {
   defaultShowTagColors: true,
   loginCallback: '/',
 };
-
 export default RenderToRoot(CubeAnalyticsPage);

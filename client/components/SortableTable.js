@@ -19,19 +19,29 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { CSVLink } from 'react-csv';
-import { Box, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { Box, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
 
 import HeaderCell from '@cubeartisan/client/components/HeaderCell.js';
 import useSortableData from '@cubeartisan/client/hooks/UseSortableData.js';
 
-export const valueRenderer = (value) => {
+export const roundNumber = (value) => {
   if (!Number.isFinite(value) || Number.isInteger(value)) {
     return value;
   }
   return value.toFixed(2);
 };
 
-export const percentRenderer = (value) => <span>{valueRenderer(value * 100)}%</span>;
+export const valueRenderer = (value) => (
+  <Typography variant="body1" sx={{ width: 'max-content' }}>
+    {roundNumber(value)}
+  </Typography>
+);
+
+export const percentRenderer = (value) => (
+  <Typography variant="overline" sx={{ width: 'max-content' }}>
+    {`(${roundNumber(value * 100)}%)`}
+  </Typography>
+);
 
 export const compareStrings = (a, b) => a?.toString?.()?.localeCompare?.(b?.toString?.());
 
@@ -58,7 +68,7 @@ export const SortableTable = ({ data, defaultSortConfig, sortFns, columnProps, t
       <CSVLink data={exportData} filename="export.csv">
         Download CSV
       </CSVLink>
-      <Table stickyHeader sx={{ width: 'min-content' }} {...props}>
+      <Table stickyHeader sx={{ width: 'min-content', backgroundColor: 'background.darker' }} {...props}>
         <TableHead>
           <TableRow>
             {columnProps.map(({ title, key, sortable, heading, tooltip }) => {
@@ -90,11 +100,11 @@ export const SortableTable = ({ data, defaultSortConfig, sortFns, columnProps, t
             <TableRow key={`row-${idx}` /* eslint-disable-line react/no-array-index-key */}>
               {columnProps.map(({ key, heading, renderFn }) =>
                 heading ? (
-                  <TableCell component="th" scope="row" key={key} sx={{ width: 'fit-content' }}>
+                  <TableCell component="th" scope="row" key={key} sx={{ width: 'max-content' }}>
                     {(renderFn ?? valueRenderer)(row[key], row, key)}
                   </TableCell>
                 ) : (
-                  <TableCell key={key} sx={{ width: 'fit-content' }}>
+                  <TableCell key={key} sx={{ width: 'max-content' }}>
                     {(renderFn ?? valueRenderer)(row[key], row, key)}
                   </TableCell>
                 ),

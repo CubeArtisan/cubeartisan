@@ -31,19 +31,16 @@ const CubeLayout = ({ cube, activeLink, children }) => {
   return (
     <CubeContextProvider cubeID={cube._id} initialCube={cube} canEdit={user && cube.owner === user._id}>
       <CubeNavbar activeLink={activeLink} />
-      <ErrorBoundary className="mt-3">{children}</ErrorBoundary>
+      <ErrorBoundary>{children}</ErrorBoundary>
     </CubeContextProvider>
   );
 };
-
 CubeLayout.propTypes = {
   cube: CubePropType.isRequired,
   activeLink: PropTypes.string.isRequired,
   children: PropTypes.node,
 };
-
 CubeLayout.defaultProps = {
   children: false,
 };
-
 export default CubeLayout;

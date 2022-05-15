@@ -85,8 +85,8 @@ const DARK_PALETTE = {
     primary: 'hsl(265, 35%, 10%)',
     paper: 'hsl(200, 55%, 15%)',
     default: 'hsl(0, 0%, 0%)',
-    darker: 'hsl(270, 20%, 30%)',
-    hover: 'hsl(270, 60%, 9%)',
+    darker: 'hsl(275, 20%, 30%)',
+    hover: 'hsl(265, 40%, 22%)',
   },
   cards: {
     white: 'hsl(55, 10%, 20%)',
