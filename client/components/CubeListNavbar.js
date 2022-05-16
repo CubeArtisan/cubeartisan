@@ -29,11 +29,7 @@ import {
   DialogContentText,
   DialogTitle,
   FormControl,
-  InputLabel,
-  Menu,
   MenuItem,
-  Select,
-  // TextareaAutosize,
   TextField,
   Toolbar,
   Tooltip,
@@ -54,6 +50,8 @@ import SortContext from '@cubeartisan/client/components/contexts/SortContext.js'
 import TagColorsModal from '@cubeartisan/client/components/modals/TagColorsModal.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import StyledButtonMenu from '@cubeartisan/client/components/StyledButtonMenu.js';
+import LabeledSelect from '@cubeartisan/client/components/LabeledSelect.js';
 
 const CustomizeBasicsModalLink = withModal(Button, CustomizeBasicsModal);
 
@@ -106,7 +104,6 @@ PasteBulkModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   toggle: PropTypes.func.isRequired,
 };
-
 const PasteBulkModalItem = withModal(MenuItem, PasteBulkModal);
 
 const UploadBulkModal = ({ isOpen, toggle }) => {
@@ -250,10 +247,8 @@ const CubeListNavbar = ({
   const [selectEmptyModalOpen, setSelectEmptyModalOpen] = useState(false);
   const [isSortUsed, setIsSortUsed] = useState(true);
   const [isFilterUsed, setIsFilterUsed] = useState(true);
-  const [displayAnchorEl, setDisplayAnchorEl] = useState(null);
-  const [importAnchorEl, setImportAnchorEl] = useState(null);
 
-  const { cube, canEdit, cubeID, hasCustomImages, setCube } = useContext(CubeContext);
+  const { cube, canEdit, cubeID, setCube } = useContext(CubeContext);
   const { groupModalCards, openGroupModal } = useContext(GroupModalContext);
   const { primary, secondary, tertiary, quaternary, showOther, changeSort } = useContext(SortContext);
   const openCardModal = useContext(CardModalContext);
@@ -279,15 +274,6 @@ const CubeListNavbar = ({
     [addAlert, setCube],
   );
 
-  const handleChangeCubeView = useCallback(
-    (event) => {
-      const { target } = event;
-      const { value } = target;
-      setCubeView(value);
-    },
-    [setCubeView],
-  );
-
   const handleMassEdit = useCallback(
     (event) => {
       event.preventDefault();
@@ -311,7 +297,6 @@ const CubeListNavbar = ({
       event.preventDefault();
       const { currentTarget } = event;
       const collapse = currentTarget.getAttribute('data-target');
-      console.log(collapse);
       // Avoid shadowing the openCollapse prop
       setOpenCollapse(
         /**
@@ -322,7 +307,6 @@ const CubeListNavbar = ({
     },
     [setOpenCollapse],
   );
-  console.log(openCollapse);
 
   const handleOpenTagColorsModal = useCallback(() => setTagColorsModalOpen(true), []);
   const handleToggleTagColorsModal = useCallback(() => setTagColorsModalOpen(false), []);
@@ -339,95 +323,94 @@ const CubeListNavbar = ({
   let editMenuItems = [];
   if (canEdit) {
     editMenuItems = [
-      <MenuItem disabled>Import</MenuItem>,
-      <PasteBulkModalItem modalProps={{}}>Paste Text</PasteBulkModalItem>,
-      <UploadBulkModalItem modalProps={{}}>Upload File</UploadBulkModalItem>,
-      <UploadBulkReplaceModalItem modalProps={{}}>Replace with CSV File Upload</UploadBulkReplaceModalItem>,
-      <MenuItem divider />,
+      { text: 'Import', extraProps: { disabled: true } },
+      { text: 'Paste Text', component: PasteBulkModalItem },
+      { text: 'Upload File', component: UploadBulkModalItem },
+      { text: 'Replace with CSV File Upload', component: UploadBulkReplaceModalItem },
+      { extraProps: { divider: true } },
     ];
   }
   const importMenuItems = [
     ...editMenuItems,
-    <MenuItem disabled>Export</MenuItem>,
-    <MenuItem onClick={() => cloneCube(cubeID)}>Clone Cube</MenuItem>,
-    <MenuItem href={`/cube/${cubeID}/export/cubecobra?${urlSegment}`}>CubeCobra (.txt)</MenuItem>,
-    <MenuItem href={`/cube/${cubeID}/export/plaintext?${urlSegment}`}>Card Names (.txt)</MenuItem>,
-    <MenuItem href={`/cube/${cubeID}/export/csv?${urlSegment}`}>Comma-Separated (.csv)</MenuItem>,
-    <MenuItem href={`/cube/${cubeID}/export/forge?${urlSegment}`}>Forge (.dck)</MenuItem>,
-    <MenuItem href={`/cube/${cubeID}/export/mtgo?${urlSegment}`}>MTGO (.txt)</MenuItem>,
-    <MenuItem href={`/cube/${cubeID}/export/xmage${urlSegment}`}>XMage (.dck)</MenuItem>,
-    <MenuItem divider />,
-    <MenuItem>
-      <Tooltip title="Order export using current sort options.">
-        <FormControl>
-          <Checkbox checked={isSortUsed} onChange={(event) => setIsSortUsed(event.target.checked)} />
-          <Typography variant="caption">Use Sort for Export.</Typography>
-        </FormControl>
-      </Tooltip>
-    </MenuItem>,
-    <MenuItem>
-      <Tooltip title="Include in export only cards matching current filter.">
-        <FormControl>
-          <Checkbox checked={isFilterUsed} onChange={(event) => setIsFilterUsed(event.target.checked)} />
-          <Typography variant="caption">Use Filter</Typography>
-        </FormControl>
-      </Tooltip>
-    </MenuItem>,
+    { text: 'Export', extraProps: { disabled: true } },
+    { text: 'CloneCube', onClick: () => cloneCube(cubeID) },
+    { text: 'CubeCobra (.txt)', link: `/cube/${cubeID}/export/cubecobra?${urlSegment}` },
+    { text: 'Card Names (.txt)', link: `/cube/${cubeID}/export/plaintext?${urlSegment}` },
+    { text: 'Comma-Separated (.csv)', link: `/cube/${cubeID}/export/csv?${urlSegment}` },
+    { text: 'Forge (.dck)', link: `/cube/${cubeID}/export/forge?${urlSegment}` },
+    { text: 'MTGO (.txt)', link: `/cube/${cubeID}/export/mtgo?${urlSegment}` },
+    { text: 'XMage (.dck)', link: `/cube/${cubeID}/export/xmage?${urlSegment}` },
+    {
+      extraProps: {
+        children: (
+          <Tooltip title="Order export using current sort options.">
+            <FormControl>
+              <Checkbox checked={isSortUsed} onChange={(event) => setIsSortUsed(event.target.checked)} />
+              <Typography variant="caption">Use Sort for Export.</Typography>
+            </FormControl>
+          </Tooltip>
+        ),
+      },
+    },
+    {
+      extraProps: {
+        children: (
+          <Tooltip title="Include in export only cards matching current filter.">
+            <FormControl>
+              <Checkbox checked={isFilterUsed} onChange={(event) => setIsFilterUsed(event.target.checked)} />
+              <Typography variant="caption">Use Filter</Typography>
+            </FormControl>
+          </Tooltip>
+        ),
+      },
+    },
+  ];
+
+  const STYLE_VALUES = ['Table View', 'Visual Spoiler', ...(canEdit ? ['List View'] : []), 'Curve View'];
+  const STYLE_KEYS = ['table', 'spoiler', ...(canEdit ? ['list'] : []), 'curve'];
+  const DISPLAY_MENU = [
+    { onClick: handleOpenTagColorsModal, text: canEdit ? 'Set Tag Colors' : 'View Tag Colors' },
+    { onClick: toggleShowCustomImages, text: showCustomImages ? 'Hide Custom Images' : 'Show Custom Images' },
+    { onClick: toggleShowMaybeboard, text: showMaybeboard ? 'Hide Maybeboard' : 'Show Maybeboard' },
+    {
+      onClick: () => changeSort({ showOther: !showOther }),
+      text: showOther ? 'Hide Unsorted Cards' : 'Show Unsorted Cards',
+    },
+    { onClick: toggleUseSticky, text: `${useSticky ? 'Disable' : 'Enable'} Sticky Column Headers` },
   ];
 
   return (
     <>
       <Toolbar sx={{ backgroundColor: 'background.paper' }}>
-        <FormControl sx={{ marginY: 1 }}>
-          <InputLabel id="cube-view-style-label">Cube View Style</InputLabel>
-          <Select
-            id="cube-view-style-select"
-            labelId="cube-view-style-label"
-            value={cubeView}
-            onChange={handleChangeCubeView}
-            autoWidth
-            label="Cube View Style"
-          >
-            <MenuItem value="table">Table View</MenuItem>
-            <MenuItem value="spoiler">Visual Spoiler</MenuItem>
-            {!canEdit ? '' : <MenuItem value="list">List View</MenuItem>}
-            <MenuItem value="curve">Curve View</MenuItem>
-          </Select>
-        </FormControl>
+        <LabeledSelect
+          baseId="cube-view-style"
+          values={STYLE_VALUES}
+          keys={STYLE_KEYS}
+          value={cubeView}
+          setValue={setCubeView}
+        />
         <Box component="nav" sx={{ marginLeft: 'auto' }}>
           {!canEdit ? (
             ''
           ) : (
             <Button data-target="edit" onClick={handleOpenCollapse}>
-              <Typography color="primary" variant="subtitle1">
-                Add/Remove
-              </Typography>
+              Add/Remove
             </Button>
           )}
           <Button data-target="sort" onClick={handleOpenCollapse}>
-            <Typography color="primary" variant="subtitle1">
-              Sort
-            </Typography>
+            Sort
           </Button>
           <Button data-target="filter" onClick={handleOpenCollapse}>
-            <Typography color="primary" variant="subtitle1">
-              Filter
-            </Typography>
+            Filter
           </Button>
           <Button data-target="compare" onClick={handleOpenCollapse}>
-            <Typography color="primary" variant="subtitle1">
-              Compare
-            </Typography>
+            Compare
           </Button>
           {!canEdit ? (
             ''
           ) : (
             <>
-              <Button onClick={handleMassEdit}>
-                <Typography color="primary" variant="subtitle1">
-                  {cubeView === 'list' ? 'Edit Selected' : 'Mass Edit'}
-                </Typography>
-              </Button>
+              <Button onClick={handleMassEdit}>{cubeView === 'list' ? 'Edit Selected' : 'Mass Edit'}</Button>
               <CustomizeBasicsModalLink
                 modalProps={{
                   cube,
@@ -447,60 +430,20 @@ const CubeListNavbar = ({
                   },
                 }}
               >
-                <Typography color="primary" variant="subtitle1">
-                  Customize Basics
-                </Typography>
+                Customize Basics
               </CustomizeBasicsModalLink>
             </>
           )}
-          <Button
-            id="display-menu-button"
-            aria-controls={displayAnchorEl ? 'display-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={displayAnchorEl ? 'true' : undefined}
-            onClick={(event) => setDisplayAnchorEl(event.currentTarget)}
+          <StyledButtonMenu
+            menuItems={DISPLAY_MENU}
+            tooltip="Settings to control the UI of the CubeView."
+            color="primary"
           >
             Display
-          </Button>
-          <Menu
-            id="display-menu"
-            anchorEl={displayAnchorEl}
-            open={!!displayAnchorEl}
-            onClose={() => setDisplayAnchorEl(null)}
-            MenuListProps={{ 'aria-labelledby': 'display-menu-button' }}
-          >
-            <MenuItem onClick={handleOpenTagColorsModal}>{canEdit ? 'Set Tag Colors' : 'View Tag Colors'}</MenuItem>
-            {!hasCustomImages && (
-              <MenuItem onClick={toggleShowCustomImages}>
-                {showCustomImages ? 'Hide Custom Images' : 'Show Custom Images'}
-              </MenuItem>
-            )}
-            <MenuItem onClick={toggleShowMaybeboard}>{showMaybeboard ? 'Hide Maybeboard' : 'Show Maybeboard'}</MenuItem>
-            <MenuItem onClick={() => changeSort({ showOther: !showOther })}>
-              {showOther ? 'Hide Unsorted Cards' : 'Show Unsorted Cards'}
-            </MenuItem>
-            <MenuItem onClick={() => toggleUseSticky()}>
-              {`${useSticky ? 'Disable' : 'Enable'} Sticky Column Headers.`}
-            </MenuItem>
-          </Menu>
-          <Button
-            id="import-menu-button"
-            aria-controls={importAnchorEl ? 'import-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={importAnchorEl ? 'true' : undefined}
-            onClick={(event) => setImportAnchorEl(event.currentTarget)}
-          >
+          </StyledButtonMenu>
+          <StyledButtonMenu menuItems={importMenuItems} tooltip="Import or Export cards from the cube" color="primary">
             {canEdit ? 'Import/Export' : 'Export'}
-          </Button>
-          <Menu
-            id="import-menu"
-            anchorEl={importAnchorEl}
-            open={!!importAnchorEl}
-            onClose={() => setImportAnchorEl(null)}
-            MenuListProps={{ 'aria-labelledby': 'import-menu-button' }}
-          >
-            {importMenuItems}
-          </Menu>
+          </StyledButtonMenu>
         </Box>
       </Toolbar>
       {!canEdit ? '' : <EditCollapse isOpen={openCollapse === 'edit'} />}

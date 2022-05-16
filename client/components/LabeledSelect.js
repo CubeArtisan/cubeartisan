@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { InputLabel, MenuItem, Select } from '@mui/material';
+import { Box, InputLabel, MenuItem, Select } from '@mui/material';
 
 const LabeledSelect = ({ label, baseId, values, value, setValue, labelSx, selectSx, keys, name }) => (
-  <>
+  <Box sx={{ display: 'flex', alignItems: 'center' }}>
     <InputLabel id={`${baseId}-label`} sx={labelSx}>
       {label}
     </InputLabel>
@@ -13,7 +13,7 @@ const LabeledSelect = ({ label, baseId, values, value, setValue, labelSx, select
       value={value}
       label={label}
       onChange={(event) => setValue(event.target.value)}
-      sx={selectSx}
+      sx={{ marginLeft: 2, ...selectSx }}
       name={name ?? baseId}
     >
       {values.map((item, idx) => (
@@ -22,7 +22,7 @@ const LabeledSelect = ({ label, baseId, values, value, setValue, labelSx, select
         </MenuItem>
       ))}
     </Select>
-  </>
+  </Box>
 );
 LabeledSelect.propTypes = {
   label: PropTypes.string.isRequired,

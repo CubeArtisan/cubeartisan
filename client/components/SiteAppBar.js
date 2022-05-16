@@ -82,9 +82,9 @@ const SiteAppBar = ({ loginCallback }) => {
     [user],
   );
   return (
-    <AppBar color="appbar" enableColorOnDark position="static">
+    <AppBar color="appbar" enableColorOnDark position="static" sx={{ flex: '0 1 auto', width: '100%' }}>
       <Toolbar>
-        <Container maxWidth="xl" sx={{ display: 'flex', maxHeight: 64 }}>
+        <Container maxWidth="xl" sx={{ display: 'flex', maxHeight: 48 }}>
           <Box
             key="left"
             sx={{
@@ -125,7 +125,7 @@ const SiteAppBar = ({ loginCallback }) => {
                 <StyledButtonMenu tooltip="Access your cubes." menuItems={userCubesMenuItems}>
                   Your Cubes
                 </StyledButtonMenu>
-                <CreateCubeModalLink modalProps={{}} sx={{ color: 'text.primary' }}>
+                <CreateCubeModalLink modalProps={{}} color="inherit">
                   Create a new Cube
                 </CreateCubeModalLink>
                 <NotificationsNav />

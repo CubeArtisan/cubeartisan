@@ -35,9 +35,7 @@ const MainLayout = ({ children, loginCallback }) => (
     sx={{ minHeight: '100vh', backgroundColor: 'background.primary', flexFlow: 'column' }}
     alignItems="center"
   >
-    <Grid item sx={{ flex: '0 1 auto', width: '100%', minHeight: 64 }}>
-      <SiteAppBar loginCallback={loginCallback} />
-    </Grid>
+    <SiteAppBar loginCallback={loginCallback} />
     <Grid item sx={{ flex: '1 1 auto', width: '100%' }}>
       <Container maxWidth="xl" sx={{ flex: '1 1 auto', padding: 0 }}>
         <ErrorBoundary>{children}</ErrorBoundary>

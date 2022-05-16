@@ -19,6 +19,21 @@ const defaultTheme = (palette) => ({
         },
       },
     },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          padding: '4px 6px 2px 6px',
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        select: {
+          padding: '4px 6px 4px 6px',
+          marginTop: 4,
+        },
+      },
+    },
   },
   shape: {
     borderRadius: 10,
@@ -30,13 +45,7 @@ const defaultTheme = (palette) => ({
   },
   mixins: {
     toolbar: {
-      minHeight: 56,
-      '@media (min-width:0px) and (orientation: landscape)': {
-        minHeight: 48,
-      },
-      '@media (min-width:600px)': {
-        minHeight: 64,
-      },
+      minHeight: 48,
     },
   },
   shadows: [
@@ -76,5 +85,4 @@ const defaultTheme = (palette) => ({
     tooltip: 1500,
   },
 });
-
 export default defaultTheme;

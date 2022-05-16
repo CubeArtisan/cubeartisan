@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Box, Button, Link, Toolbar, Typography } from '@mui/material';
+import { Box, Button, Toolbar, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
@@ -9,29 +9,12 @@ const CubeNavItem = ({ link, activeLink, children }) => {
   const { cube } = useContext(CubeContext);
   if (link === activeLink) {
     return (
-      <Button sx={{ borderRadius: 8 }}>
-        <Link
-          variant="subtitle1"
-          href={`/cube/${encodeURIComponent(getCubeId(cube))}/${link}`}
-          sx={{ backgroundColor: 'background.paper', height: '100%', padding: 2, lineHeight: 1.5, borderRadius: 2 }}
-        >
-          {children}
-        </Link>
+      <Button href={`/cube/${encodeURIComponent(getCubeId(cube))}/${link}`} variant="outlined">
+        {children}
       </Button>
     );
   }
-  return (
-    <Button>
-      <Link
-        variant="subtitle1"
-        href={`/cube/${encodeURIComponent(getCubeId(cube))}/${link}`}
-        color="primary"
-        sx={{ height: '100%', padding: 2, lineHeight: 1.5 }}
-      >
-        {children}
-      </Link>
-    </Button>
-  );
+  return <Button href={`/cube/${encodeURIComponent(getCubeId(cube))}/${link}`}>{children}</Button>;
 };
 CubeNavItem.propTypes = {
   link: PropTypes.string.isRequired,
@@ -46,16 +29,15 @@ const CubeNavbar = ({ activeLink }) => {
   const { cube } = useContext(CubeContext);
   const subtitle = getCubeDescription(cube);
   return (
-    <Toolbar sx={{ width: '100%', backgroundColor: 'background.darker', alignItems: 'end', display: 'flex' }}>
-      <Box component="span" sx={{ marginRight: 'auto' }}>
-        <Typography variant="h5">{cube.name}</Typography>
-        {cube.type && <Typography variant="subtitle1"> ({subtitle})</Typography>}
+    <Toolbar sx={{ width: '100%', backgroundColor: 'background.darker', alignItems: 'center', display: 'flex' }}>
+      <Box component="span">
+        <Typography variant="h6">{cube.name}</Typography>
+        {cube.type && <Typography variant="subtitle2"> ({subtitle})</Typography>}
       </Box>
       <Box
         component="span"
         sx={{
           marginLeft: 'auto',
-          flexFlow: 'row',
           flexWrap: 'wrap',
           height: '100%',
           display: 'flex',

@@ -2,8 +2,8 @@ export default DARK_PALETTE;
 declare namespace DARK_PALETTE {
     const mode: string;
     namespace common {
-        const black: string;
         const white: string;
+        const black: string;
     }
     namespace primary {
         const main: string;

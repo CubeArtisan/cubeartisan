@@ -189,8 +189,15 @@ const CustomDraftCard = ({ format, onEditFormat, onDeleteFormat, onSetDefaultFor
             label="Timer: Seconds Per Card In Pack (Use 0 to disable timer)."
             name="timeout"
           />
-          <InputLabel id={`bots-only-${index}-label`}>Have just bots draft:</InputLabel>
-          <Switch id={`bots-only-${index}-switch`} checked={botsOnly} onChange={toggleBotsOnly} />
+          <Box sx={{ display: 'flex' }}>
+            <InputLabel id={`bots-only-${index}-label`}>Have just bots draft:</InputLabel>
+            <Switch
+              id={`bots-only-${index}-switch`}
+              checked={botsOnly}
+              onChange={toggleBotsOnly}
+              sx={{ marginLeft: 2 }}
+            />
+          </Box>
           <Divider sx={{ marginY: 1 }} />
           <input type="hidden" name="id" value={index} />
           <Box sx={{ display: 'flex' }}>
@@ -295,8 +302,15 @@ const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
             label="Timer: Seconds Per Card In Pack (Use 0 to disable timer)."
             name="timeout"
           />
-          <InputLabel id="bots-only-standard-label">Have just bots draft.</InputLabel>
-          <Switch id="bots-only-standard-switch" checked={botsOnly} onChange={toggleBotsOnly} />
+          <Box sx={{ display: 'flex' }}>
+            <InputLabel id="bots-only-standard-label">Have just bots draft.</InputLabel>
+            <Switch
+              id="bots-only-standard-switch"
+              checked={botsOnly}
+              onChange={toggleBotsOnly}
+              sx={{ marginLeft: 2 }}
+            />
+          </Box>
           <Divider sx={{ marginY: 1 }} />
           <input type="hidden" name="id" value="-1" />
           <Box sx={{ display: 'flex' }}>
@@ -365,8 +379,8 @@ const DecksCard = ({ decks }) => {
   const { cubeID } = useContext(CubeContext);
   return (
     <Paper sx={{ marginBottom: 2 }}>
+      <PaperHeader variant="h5" title="Recent Decks" />
       <Box sx={{ padding: 2 }}>
-        <PaperHeader variant="h5" title="Recent Decks" />
         <Suspense>
           {decks.map((deck) => (
             <DeckPreview key={deck._id} deck={deck} />
@@ -393,6 +407,7 @@ const SamplePackCard = () => {
           Seed (the same seed will give the same pack unless the cube is changed)
         </InputLabel>
         <TextField id="sample-seed-text" label="Seed" name="seed" value={seed} onChange={handleChange} />
+        <Divider sx={{ marginY: 1 }} />
         <Box sx={{ display: 'flex' }}>
           <Button color="success" href={`/cube/${cubeID}/playtest/sample`}>
             View With Random Seed
