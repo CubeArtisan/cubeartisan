@@ -20,6 +20,21 @@ declare function defaultTheme(palette: any): {
                 };
             };
         };
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    padding: string;
+                };
+            };
+        };
+        MuiSelect: {
+            styleOverrides: {
+                select: {
+                    padding: string;
+                    marginTop: number;
+                };
+            };
+        };
     };
     shape: {
         borderRadius: number;
@@ -32,12 +47,6 @@ declare function defaultTheme(palette: any): {
     mixins: {
         toolbar: {
             minHeight: number;
-            '@media (min-width:0px) and (orientation: landscape)': {
-                minHeight: number;
-            };
-            '@media (min-width:600px)': {
-                minHeight: number;
-            };
         };
     };
     shadows: string[];

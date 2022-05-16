@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Button, Link, Menu, MenuItem, Tooltip } from '@mui/material';
 import { ArrowDropDown, Menu as MenuIcon } from '@mui/icons-material';
 
-const StyledButtonMenu = ({ tooltip, menuItems, children }) => {
+const StyledButtonMenu = ({ tooltip, menuItems, color, children }) => {
   const [anchorEl, setAnchorEl] = useState();
   const open = Boolean(anchorEl);
   const handleClick = useCallback((event) => {
@@ -18,7 +18,7 @@ const StyledButtonMenu = ({ tooltip, menuItems, children }) => {
   return (
     <>
       <Tooltip title={tooltip} enterDelay={300} arrow>
-        <Button color="inherit" onClick={handleClick} endIcon={<ArrowDropDown />}>
+        <Button color={color} onClick={handleClick} endIcon={<ArrowDropDown />}>
           {children}
         </Button>
       </Tooltip>
@@ -30,7 +30,7 @@ const StyledButtonMenu = ({ tooltip, menuItems, children }) => {
           open={open}
           onClose={handleClose}
         >
-          {menuItems.map(({ text, link, onClick, component: Component = MenuItem }) => (
+          {menuItems.map(({ text, link, onClick, component: Component = MenuItem, extraProps = {} }) => (
             <Component
               key={text}
               component={Link}
@@ -39,6 +39,7 @@ const StyledButtonMenu = ({ tooltip, menuItems, children }) => {
                 handleClose();
                 onClick?.(event);
               }}
+              {...extraProps}
             >
               {text}
             </Component>
@@ -55,14 +56,17 @@ StyledButtonMenu.propTypes = {
       link: PropTypes.string,
       onClick: PropTypes.func,
       component: PropTypes.func,
+      extraProps: PropTypes.shape({}),
     }),
   ),
   children: PropTypes.node,
   tooltip: PropTypes.string,
+  color: PropTypes.string,
 };
 StyledButtonMenu.defaultProps = {
   menuItems: [],
   children: MenuIcon,
   tooltip: null,
+  color: 'inherit',
 };
 export default StyledButtonMenu;
