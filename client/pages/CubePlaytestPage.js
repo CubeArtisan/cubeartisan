@@ -341,7 +341,7 @@ const GridCard = () => {
   const [type, setType] = useState('bot');
   return (
     <CSRFForm method="POST" action={`/cube/${cubeID}/playtest/griddraft`}>
-      <LayoutContainer>
+      <LayoutContainer sx={{}}>
         <ContainerHeader variant="h5" title="Grid Draft" />
         <ContainerBody>
           <Typography variant="subtitle1">
