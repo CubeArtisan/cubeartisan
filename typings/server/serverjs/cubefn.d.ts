@@ -20,6 +20,7 @@ export function getCardElo(cardname: any, round: any): Promise<any>;
 export function CSVtoCards(csvString: any, carddb: any): {
     newCards: {
         name: any;
+        overrideName: any;
         cmc: any;
         type_line: any;
         colors: any;
@@ -27,6 +28,7 @@ export function CSVtoCards(csvString: any, carddb: any): {
         collector_number: any;
         status: any;
         finish: any;
+        maybeboard: any;
         imgUrl: any;
         imgBackUrl: any;
         tags: any;
@@ -36,6 +38,7 @@ export function CSVtoCards(csvString: any, carddb: any): {
     }[];
     newMaybe: {
         name: any;
+        overrideName: any;
         cmc: any;
         type_line: any;
         colors: any;
@@ -43,6 +46,7 @@ export function CSVtoCards(csvString: any, carddb: any): {
         collector_number: any;
         status: any;
         finish: any;
+        maybeboard: any;
         imgUrl: any;
         imgBackUrl: any;
         tags: any;
