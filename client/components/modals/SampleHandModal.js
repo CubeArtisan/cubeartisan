@@ -22,7 +22,7 @@ import { Button } from '@mui/material';
 import { Modal, ModalBody, ModalFooter, ModalHeader, NavLink } from 'reactstrap';
 
 import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
-import CardGrid from '@cubeartisan/client/components/CardGrid.js';
+import CardGrid from '@cubeartisan/client/components/containers/CardGrid.js';
 import { arrayShuffle } from '@cubeartisan/client/utils/Util.js';
 
 class SampleHandModal extends Component {

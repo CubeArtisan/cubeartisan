@@ -22,7 +22,7 @@ import { Button } from '@mui/material';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Card, Input } from 'reactstrap';
 
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
-import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import FilterCollapse from '@cubeartisan/client/components/FilterCollapse.js';
 import TextField from '@cubeartisan/client/components/TextField.js';
 

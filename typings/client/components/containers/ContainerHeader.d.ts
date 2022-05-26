@@ -1,11 +1,11 @@
-export default PaperHeader;
-declare function PaperHeader({ title, variant, sx, children }: {
+export default ContainerHeader;
+declare function ContainerHeader({ title, variant, sx, children }: {
     title: any;
     variant: any;
     sx: any;
     children: any;
 }): JSX.Element;
-declare namespace PaperHeader {
+declare namespace ContainerHeader {
     namespace propTypes {
         const title: PropTypes.Validator<string>;
         const variant: PropTypes.Requireable<string>;

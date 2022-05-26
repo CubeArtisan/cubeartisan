@@ -20,7 +20,9 @@ declare namespace DeckPreview {
                 name: PropTypes.Validator<string>;
             }>[]>;
             date: PropTypes.Requireable<string | Date>;
-            comments: PropTypes.Requireable<PropTypes.InferProps<{}>[]>;
+            comments: PropTypes.Requireable<PropTypes.InferProps<{}>[]>; /** 2020-11-17 struesdell:
+             *  Pulled constants out of component render so that they are defined only once
+             */
             basics: PropTypes.Validator<number[]>;
         }>>;
         const nextURL: PropTypes.Requireable<string>;

@@ -33,11 +33,11 @@ import {
 } from 'reactstrap';
 
 import CommentPropType from '@cubeartisan/client/proptypes/CommentPropType.js';
-import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
+import TimeAgo from '@cubeartisan/client/components/utils/TimeAgo.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import LinkButton from '@cubeartisan/client/components/LinkButton.js';
 import CommentContextMenu from '@cubeartisan/client/components/CommentContextMenu.js';
-import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import useComments from '@cubeartisan/client/hooks/UseComments.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 import CommentEntry from '@cubeartisan/client/components/CommentEntry.js';

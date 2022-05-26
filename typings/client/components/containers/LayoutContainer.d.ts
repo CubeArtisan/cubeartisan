@@ -1,4 +1,5 @@
-export function LayoutContainer({ children, sx }: {
+export function LayoutContainer({ children, sx, ...props }: {
+    [x: string]: any;
     children: any;
     sx: any;
 }): JSX.Element;

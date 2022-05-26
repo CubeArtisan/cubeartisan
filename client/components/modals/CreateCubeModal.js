@@ -22,7 +22,7 @@ import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
 import { Col, Modal, ModalBody, ModalHeader, Row, FormGroup, Label, Input, ModalFooter } from 'reactstrap';
 
-import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 
 const CreateCubeModal = ({ isOpen, toggle }) => (
   <Modal size="lg" isOpen={isOpen} toggle={toggle}>

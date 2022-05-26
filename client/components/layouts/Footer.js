@@ -19,7 +19,7 @@
 import React, { useContext } from 'react';
 import { Box, Container, Grid, Link, Typography } from '@mui/material';
 
-import Copyright from '@cubeartisan/client/components/Copyright.js';
+import Copyright from '@cubeartisan/client/components/utils/Copyright.js';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 
 const Footer = () => {

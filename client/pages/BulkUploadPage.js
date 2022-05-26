@@ -23,7 +23,7 @@ import { LoadingButton } from '@mui/lab';
 import { Col, Form, Input, Label, Row, Card, CardBody, CardHeader } from 'reactstrap';
 
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
-import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import Changelist from '@cubeartisan/client/components/Changelist.js';
 import ChangelistContext, {
   ChangelistContextProvider,

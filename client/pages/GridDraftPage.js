@@ -21,12 +21,12 @@ import PropTypes from 'prop-types';
 import { Badge, Button } from '@mui/material';
 import { Card, CardBody, CardHeader, CardTitle, Collapse, Nav, Navbar, Col, Row, Input } from 'reactstrap';
 
-import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
 import DeckStacks from '@cubeartisan/client/components/DeckStacks.js';
-import DndProvider from '@cubeartisan/client/components/DndProvider.js';
+import DndProvider from '@cubeartisan/client/components/utils/DndProvider.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
+import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
 import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';

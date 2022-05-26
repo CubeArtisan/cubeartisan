@@ -33,7 +33,7 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import CustomPackCard from '@cubeartisan/client/components/CustomPackCard.js';
 import TextEntry from '@cubeartisan/client/components/TextEntry.js';

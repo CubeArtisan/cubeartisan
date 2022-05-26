@@ -23,7 +23,7 @@ import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import { CubeContextProvider } from '@cubeartisan/client/components/contexts/CubeContext.js';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
+import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import CubeNavbar from '@cubeartisan/client/components/CubeNavbar.js';
 
 const CubeLayout = ({ cube, activeLink, children }) => {

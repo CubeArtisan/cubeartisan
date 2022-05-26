@@ -22,7 +22,7 @@ import PropTypes from 'prop-types';
 import { CardHeader, Card, Row, Col } from 'reactstrap';
 
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import Paginate from '@cubeartisan/client/components/Paginate.js';
+import Paginate from '@cubeartisan/client/components/containers/Paginate.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';

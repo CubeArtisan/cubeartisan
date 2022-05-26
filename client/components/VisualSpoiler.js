@@ -24,7 +24,7 @@ import { sortDeep } from '@cubeartisan/client/utils/Sort.js';
 
 import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
 import SpoilerImage from '@cubeartisan/client/components/SpoilerImage.js';
-import CardGrid from '@cubeartisan/client/components/CardGrid.js';
+import CardGrid from '@cubeartisan/client/components/containers/CardGrid.js';
 import SetCardsInRow from '@cubeartisan/client/components/SetCardsInRow.js';
 
 const VisualSpoiler = ({ cards }) => {

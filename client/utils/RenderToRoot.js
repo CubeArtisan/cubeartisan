@@ -21,7 +21,7 @@ import ReactDOM from 'react-dom';
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
 
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
+import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import SiteCustomizationContext, {
   DEFAULT_SITE_CUSTOMIZATIONS,
 } from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';

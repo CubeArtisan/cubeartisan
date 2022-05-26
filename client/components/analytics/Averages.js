@@ -21,8 +21,8 @@ import PropTypes from 'prop-types';
 import { Grid, Typography } from '@mui/material';
 
 import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown.js';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
-import { compareStrings, SortableTable } from '@cubeartisan/client/components/SortableTable.js';
+import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
+import { compareStrings, SortableTable } from '@cubeartisan/client/components/containers/SortableTable.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import { cardType } from '@cubeartisan/client/utils/Card.js';
 import { weightedAverage, weightedMedian, weightedStdDev } from '@cubeartisan/client/drafting/createdraft.js';

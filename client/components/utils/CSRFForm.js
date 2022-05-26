@@ -27,6 +27,9 @@ import { getCsrfToken } from '@cubeartisan/client/utils/CSRF.js';
  * @type ComponentType
  */
 const CSRFForm = forwardRef(({ children, ...props }, ref) => {
+  /**
+   * @typedef {import('react').FC}
+   */
   const CSRFFormInternal = useCallback(
     () => (
       <form ref={ref} {...props}>

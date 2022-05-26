@@ -39,7 +39,7 @@ import {
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext.js';
 import CustomizeBasicsModal from '@cubeartisan/client/components/modals/CustomizeBasicsModal.js';
-import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import EditCollapse from '@cubeartisan/client/components/EditCollapse.js';

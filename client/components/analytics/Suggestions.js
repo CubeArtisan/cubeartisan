@@ -33,7 +33,7 @@ import {
 
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import AddToCubeModal from '@cubeartisan/client/components/modals/AddToCubeModal.js';
-import PagedList from '@cubeartisan/client/components/PagedList.js';
+import PagedList from '@cubeartisan/client/components/containers/PagedList.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';

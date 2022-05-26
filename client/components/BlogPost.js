@@ -21,7 +21,7 @@ import PropTypes from 'prop-types';
 import { Divider, Grid, Link, Paper, Stack, Typography } from '@mui/material';
 
 import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType.js';
-import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
+import TimeAgo from '@cubeartisan/client/components/utils/TimeAgo.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import BlogContextMenu from '@cubeartisan/client/components/BlogContextMenu.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';

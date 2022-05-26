@@ -21,13 +21,13 @@ import PropTypes from 'prop-types';
 import { Typography } from '@mui/material';
 
 import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown.js';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
+import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import {
   SortableTable,
   compareStrings,
   percentRenderer,
   valueRenderer,
-} from '@cubeartisan/client/components/SortableTable.js';
+} from '@cubeartisan/client/components/containers/SortableTable.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';

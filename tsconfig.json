@@ -8,6 +8,11 @@
       "@cubeartisan/client/*": ["./client/*"],
       "@cubeartisan/jobs/*": ["./jobs/*"]
     },
+    "plugins": [
+      {
+        "transform": "ts-react-display-name"
+      }
+    ],
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
     "moduleResolution": "node",

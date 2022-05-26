@@ -21,7 +21,7 @@ import PropTypes from 'prop-types';
 import { CSVLink } from 'react-csv';
 import { Box, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
 
-import HeaderCell from '@cubeartisan/client/components/HeaderCell.js';
+import HeaderCell from '@cubeartisan/client/components/containers/HeaderCell.js';
 import useSortableData from '@cubeartisan/client/hooks/UseSortableData.js';
 
 export const roundNumber = (value) => {

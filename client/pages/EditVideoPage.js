@@ -22,7 +22,7 @@ import { Spinner, Nav, CardBody, Card, TabContent, TabPane, Input, FormGroup, Ro
 import { Button } from '@mui/material';
 
 import VideoPropType from '@cubeartisan/client/proptypes/VideoPropType.js';
-import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import Tab from '@cubeartisan/client/components/Tab.js';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';

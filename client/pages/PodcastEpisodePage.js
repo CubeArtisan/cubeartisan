@@ -27,7 +27,7 @@ import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox.js';
 import ReactAudioPlayer from 'react-audio-player';
-import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
+import TimeAgo from '@cubeartisan/client/components/utils/TimeAgo.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 
 const CommentsSection = lazy(() => import('@cubeartisan/client/components/CommentsSection.js'));

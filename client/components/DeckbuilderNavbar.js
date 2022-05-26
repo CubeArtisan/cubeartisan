@@ -23,7 +23,7 @@ import DeckDeleteModal from '@cubeartisan/client/components/modals/DeckDeleteMod
 
 import { Collapse, Nav, Navbar, NavbarToggler, NavItem, NavLink, Input } from 'reactstrap';
 
-import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
 import BasicsModal from '@cubeartisan/client/components/modals/BasicsModal.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';

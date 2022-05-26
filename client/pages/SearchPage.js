@@ -23,7 +23,7 @@ import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { Card, CardHeader, Row, Col, CardBody } from 'reactstrap';
 
 import CubeSearchNavBar from '@cubeartisan/client/components/CubeSearchNavBar.js';
-import Paginate from '@cubeartisan/client/components/Paginate.js';
+import Paginate from '@cubeartisan/client/components/containers/Paginate.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';

@@ -41,7 +41,7 @@ import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.
 import Changelist from '@cubeartisan/client/components/Changelist.js';
 import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
-import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import ResizeModal from '@cubeartisan/client/components/modals/ResizeModal.js';
 import TextEntry from '@cubeartisan/client/components/TextEntry.js';

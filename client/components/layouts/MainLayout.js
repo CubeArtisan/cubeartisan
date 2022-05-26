@@ -20,7 +20,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Grid } from '@mui/material';
 
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
+import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import Footer from '@cubeartisan/client/components/layouts/Footer.js';
 import SiteAppBar from '@cubeartisan/client/components/SiteAppBar.js';
 

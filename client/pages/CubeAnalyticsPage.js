@@ -21,7 +21,7 @@ import PropTypes from 'prop-types';
 import { Box, Button, Card, CardContent, Grid, Typography } from '@mui/material';
 
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
+import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import FilterCollapse from '@cubeartisan/client/components/FilterCollapse.js';
 import { TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';

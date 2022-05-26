@@ -31,7 +31,7 @@ import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/
 import SetCardsInRow from '@cubeartisan/client/components/SetCardsInRow.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 
-const CardGrid = lazy(() => import('@cubeartisan/client/components/CardGrid.js'));
+const CardGrid = lazy(() => import('@cubeartisan/client/components/containers/CardGrid.js'));
 const CardImage = lazy(() => import('@cubeartisan/client/components/CardImage.js'));
 
 export const SamplePackPage = ({ seed, pack, cube, loginCallback }) => {

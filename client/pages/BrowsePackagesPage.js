@@ -45,7 +45,7 @@ import Tab from '@cubeartisan/client/components/Tab.js';
 import CreatePackageModal from '@cubeartisan/client/components/modals/CreatePackageModal.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import CardPackage from '@cubeartisan/client/components/CardPackage.js';
-import Paginate from '@cubeartisan/client/components/Paginate.js';
+import Paginate from '@cubeartisan/client/components/containers/Paginate.js';
 
 const CreatePackageModalLink = withModal(Button, CreatePackageModal);
 

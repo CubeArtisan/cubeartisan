@@ -28,7 +28,7 @@ import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import { getLabels, sortDeep } from '@cubeartisan/client/utils/Sort.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext.js';
-import PagedTable from '@cubeartisan/client/components/PagedTable.js';
+import PagedTable from '@cubeartisan/client/components/containers/PagedTable.js';
 import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
 import TagContext from '@cubeartisan/client/components/contexts/TagContext.js';
 import TagInput from '@cubeartisan/client/components/TagInput.js';

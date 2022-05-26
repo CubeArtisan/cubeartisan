@@ -35,10 +35,10 @@ import {
 } from 'reactstrap';
 
 import BlogPost from '@cubeartisan/client/components/BlogPost.js';
-import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import Paginate from '@cubeartisan/client/components/Paginate.js';
+import Paginate from '@cubeartisan/client/components/containers/Paginate.js';
 import TextEntry from '@cubeartisan/client/components/TextEntry.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';

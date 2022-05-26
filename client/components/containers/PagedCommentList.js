@@ -21,7 +21,7 @@ import PropTypes from 'prop-types';
 import CommentPropType from '@cubeartisan/client/proptypes/CommentPropType.js';
 
 import Comment from '@cubeartisan/client/components/Comment.js';
-import PagedList from '@cubeartisan/client/components/PagedList.js';
+import PagedList from '@cubeartisan/client/components/containers/PagedList.js';
 
 const CommentList = ({ comments, startIndex, editComment }) => (
   <PagedList

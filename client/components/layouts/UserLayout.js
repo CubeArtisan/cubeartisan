@@ -22,7 +22,7 @@ import { Button, Typography } from '@mui/material';
 import { Nav, Navbar, NavItem, NavLink, Row } from 'reactstrap';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
+import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import FollowersModal from '@cubeartisan/client/components/modals/FollowersModal.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import CreateCubeModal from '@cubeartisan/client/components/modals/CreateCubeModal.js';

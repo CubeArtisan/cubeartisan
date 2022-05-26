@@ -27,7 +27,7 @@ import Tab from '@cubeartisan/client/components/Tab.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
-import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 
 const PodcastPreview = lazy(() => import('@cubeartisan/client/components/PodcastPreview.js'));

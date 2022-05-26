@@ -21,7 +21,7 @@ import PropTypes from 'prop-types';
 import { Box, Button, Link, Typography } from '@mui/material';
 
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
-import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
+import TimeAgo from '@cubeartisan/client/components/utils/TimeAgo.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DeckDeleteModal from '@cubeartisan/client/components/modals/DeckDeleteModal.js';
 

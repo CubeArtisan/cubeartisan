@@ -42,9 +42,9 @@ import {
 import { Chart as ChartJS } from 'react-chartjs-2';
 
 import CardImage from '@cubeartisan/client/components/CardImage.js';
-import CardGrid from '@cubeartisan/client/components/CardGrid.js';
+import CardGrid from '@cubeartisan/client/components/containers/CardGrid.js';
 import ImageFallback from '@cubeartisan/client/components/ImageFallback.js';
-import PagedList from '@cubeartisan/client/components/PagedList.js';
+import PagedList from '@cubeartisan/client/components/containers/PagedList.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';

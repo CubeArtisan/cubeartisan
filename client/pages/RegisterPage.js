@@ -21,7 +21,7 @@ import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
 import { Card, CardBody, FormGroup, Label, Input, Col, Row, CardHeader } from 'reactstrap';
 
-import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';

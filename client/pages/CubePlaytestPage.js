@@ -26,7 +26,6 @@ import {
   InputLabel,
   Grid,
   Modal,
-  Paper,
   Switch,
   TextField,
   Toolbar,
@@ -37,7 +36,7 @@ import { LoadingButton } from '@mui/lab';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
-import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
@@ -103,11 +102,9 @@ UploadDecklistModal.propTypes = {
 const UploadDecklistModalLink = withModal(Button, UploadDecklistModal);
 
 const useBotsOnlyCallback = (botsOnly, cubeID) => {
-  console.log(cubeID);
   const formRef = useRef();
   const [loading, setLoading] = useState(false);
   const { mtgmlServer } = useContext(SiteCustomizationContext);
-  console.log(mtgmlServer);
   const submitForm = useCallback(
     async (e) => {
       setLoading(true);

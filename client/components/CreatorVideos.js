@@ -22,7 +22,7 @@ import { Navbar, Nav, NavItem, Row, Col, CardBody } from 'reactstrap';
 
 import LoadingPage from '@cubeartisan/client/pages/LoadingPage.js';
 import VideoPreview from '@cubeartisan/client/components/VideoPreview.js';
-import Paginate from '@cubeartisan/client/components/Paginate.js';
+import Paginate from '@cubeartisan/client/components/containers/Paginate.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';

@@ -19,13 +19,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Table } from 'reactstrap';
-
-import Paginate from '@cubeartisan/client/components/Paginate.js';
+import Paginate from '@cubeartisan/client/components/containers/Paginate.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 
-const PagedTable = ({ pageSize, rows, children, ...props }) => {
-  const [page, setPage] = useQueryParam('page', '0');
+const PagedList = ({ pageSize, rows, showBottom, pageWrap }) => {
+  const [page, setPage] = useQueryParam('page', 0);
 
   const validPages = Array.from(Array(Math.ceil(rows.length / pageSize)).keys());
   const current = Math.min(parseInt(page, 10), validPages.length - 1);
@@ -34,25 +32,25 @@ const PagedTable = ({ pageSize, rows, children, ...props }) => {
   return (
     <>
       {validPages.length > 1 && <Paginate count={validPages.length} active={current} onClick={(i) => setPage(i)} />}
-      <div className="table-responsive">
-        <Table {...props}>
-          {children}
-          <tbody>{displayRows}</tbody>
-        </Table>
-      </div>
-      {validPages.length > 1 && <Paginate count={validPages.length} active={current} onClick={(i) => setPage(i)} />}
+      {pageWrap(displayRows)}
+      {showBottom && validPages.length > 1 && (
+        <Paginate count={validPages.length} active={current} onClick={(i) => setPage(i)} />
+      )}
     </>
   );
 };
 
-PagedTable.propTypes = {
-  children: PropTypes.element.isRequired,
+PagedList.propTypes = {
   pageSize: PropTypes.number,
+  showBottom: PropTypes.bool,
   rows: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  pageWrap: PropTypes.func,
 };
 
-PagedTable.defaultProps = {
+PagedList.defaultProps = {
   pageSize: 60,
+  showBottom: false,
+  pageWrap: (element) => element,
 };
 
-export default PagedTable;
+export default PagedList;

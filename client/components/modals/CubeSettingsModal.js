@@ -25,7 +25,7 @@ import { CustomInput, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, Mo
 import { putJson } from '@cubeartisan/client/utils/CSRF.js';
 import { formDataObject } from '@cubeartisan/client/utils/Form.js';
 
-import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 
 const CubeSettingsModal = ({ addAlert, onCubeUpdate, isOpen, toggle }) => {

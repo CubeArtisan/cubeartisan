@@ -18,7 +18,7 @@
  */
 import React, { lazy, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Button, Divider, Grid, Link, Paper, Stack, Typography } from '@mui/material';
+import { Button, Grid, Link, Stack, Typography } from '@mui/material';
 
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
@@ -70,7 +70,7 @@ export const DashboardPage = ({ posts, cubes, decks, loginCallback, content }) =
       <DynamicFlash />
       <Grid container spacing={2} sx={{ marginBottom: 2 }}>
         <Grid item xs={12} lg={6}>
-          <LayoutContainer elevation={4}>
+          <LayoutContainer elevation={4} sx={{}}>
             <ContainerHeader title="Your Cubes" />
             <ContainerBody>
               <Suspense>

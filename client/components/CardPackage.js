@@ -20,7 +20,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Container, Divider, Grid, Link, Paper, Stack, Tooltip, Typography } from '@mui/material';
 
-import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
+import TimeAgo from '@cubeartisan/client/components/utils/TimeAgo.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import CardPackagePropType from '@cubeartisan/client/proptypes/CardPackagePropType.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';

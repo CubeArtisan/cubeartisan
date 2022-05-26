@@ -34,10 +34,10 @@ import {
 } from 'reactstrap';
 
 import Query from '@cubeartisan/client/utils/Query.js';
-import Paginate from '@cubeartisan/client/components/Paginate.js';
+import Paginate from '@cubeartisan/client/components/containers/Paginate.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
-import CardGrid from '@cubeartisan/client/components/CardGrid.js';
+import CardGrid from '@cubeartisan/client/components/containers/CardGrid.js';
 import CardImage from '@cubeartisan/client/components/CardImage.js';
 import FilterCollapse from '@cubeartisan/client/components/FilterCollapse.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';

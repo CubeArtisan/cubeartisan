@@ -28,7 +28,7 @@ import CompareView from '@cubeartisan/client/components/CompareView.js';
 import CubeCompareNavbar from '@cubeartisan/client/components/CubeCompareNavbar.js';
 import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
+import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import { SortContextProvider } from '@cubeartisan/client/components/contexts/SortContext.js';
 import { TAG_COLORS, TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';

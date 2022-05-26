@@ -22,7 +22,7 @@ import PropTypes from 'prop-types';
 import { Collapse, Spinner } from 'reactstrap';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import CommentList from '@cubeartisan/client/components/PagedCommentList.js';
+import CommentList from '@cubeartisan/client/components/containers/PagedCommentList.js';
 import LinkButton from '@cubeartisan/client/components/LinkButton.js';
 import CommentEntry from '@cubeartisan/client/components/CommentEntry.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';

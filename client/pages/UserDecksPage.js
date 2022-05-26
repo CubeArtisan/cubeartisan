@@ -22,7 +22,7 @@ import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 
 import { Card, CardBody, CardHeader } from 'reactstrap';
 
-import Paginate from '@cubeartisan/client/components/Paginate.js';
+import Paginate from '@cubeartisan/client/components/containers/Paginate.js';
 import UserLayout from '@cubeartisan/client/components/layouts/UserLayout.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';

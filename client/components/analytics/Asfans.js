@@ -20,8 +20,8 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Typography } from '@mui/material';
 
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
-import { compareStrings, SortableTable } from '@cubeartisan/client/components/SortableTable.js';
+import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
+import { compareStrings, SortableTable } from '@cubeartisan/client/components/containers/SortableTable.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import { calculateAsfans } from '@cubeartisan/client/drafting/createdraft.js';
 import { SORTS, sortIntoGroups } from '@cubeartisan/client/utils/Sort.js';

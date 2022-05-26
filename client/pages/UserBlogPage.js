@@ -21,7 +21,7 @@ import PropTypes from 'prop-types';
 
 import UserLayout from '@cubeartisan/client/components/layouts/UserLayout.js';
 import BlogPost from '@cubeartisan/client/components/BlogPost.js';
-import Paginate from '@cubeartisan/client/components/Paginate.js';
+import Paginate from '@cubeartisan/client/components/containers/Paginate.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';

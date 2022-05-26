@@ -23,7 +23,7 @@ import { Card, CardHeader, Input, Nav, TabPane, TabContent, CardBody } from 'rea
 
 import Tab from '@cubeartisan/client/components/Tab.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
+import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 
 const TextEntry = ({ name, value, onChange, maxLength }) => {
   const [tab, setTab] = useState('0');
