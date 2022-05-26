@@ -16,8 +16,8 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { arrayIsSubset, arraysAreEqualSets } from '@cubeartisan/client/utils/Util.js';
 import { cardDevotion } from '@cubeartisan/client/utils/Card.js';
+import { arrayIsSubset, arraysAreEqualSets } from '@cubeartisan/client/utils/Util.js';
 
 export const defaultOperation = (op, value) => {
   switch (op.toString()) {

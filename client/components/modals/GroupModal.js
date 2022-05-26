@@ -16,41 +16,41 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useContext, useMemo, useState } from 'react';
-import { Button, Tooltip, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+import { Button, Tooltip, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
 import {
-  Row,
   Col,
   CustomInput,
   Form,
   FormGroup,
   FormText,
   Input,
-  Label,
   InputGroup,
   InputGroupAddon,
   InputGroupText,
+  Label,
   ListGroup,
   Modal,
   ModalBody,
   ModalFooter,
   ModalHeader,
+  Row,
   UncontrolledAlert,
 } from 'reactstrap';
-import PropTypes from 'prop-types';
 
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
-import { arrayMove } from '@cubeartisan/client/utils/Util.js';
-import { cardPrice, cardFoilPrice, cardPriceEur, cardTix } from '@cubeartisan/client/utils/Card.js';
 import AutocardListItem from '@cubeartisan/client/components/AutocardListItem.js';
-import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';
 import { ColorChecksAddon } from '@cubeartisan/client/components/ColorCheck.js';
+import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext.js';
 import MassBuyButton from '@cubeartisan/client/components/MassBuyButton.js';
 import TagInput from '@cubeartisan/client/components/TagInput.js';
 import TextBadge from '@cubeartisan/client/components/TextBadge.js';
+import { cardFoilPrice, cardPrice, cardPriceEur, cardTix } from '@cubeartisan/client/utils/Card.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import { arrayMove } from '@cubeartisan/client/utils/Util.js';
 
 const DEFAULT_FORM_VALUES = {
   status: '',

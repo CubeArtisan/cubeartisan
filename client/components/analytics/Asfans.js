@@ -16,16 +16,16 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
 import { Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useMemo } from 'react';
 
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import { compareStrings, SortableTable } from '@cubeartisan/client/components/containers/SortableTable.js';
-import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
-import { calculateAsfans } from '@cubeartisan/client/drafting/createdraft.js';
-import { SORTS, sortIntoGroups } from '@cubeartisan/client/utils/Sort.js';
 import LabeledSelect from '@cubeartisan/client/components/LabeledSelect.js';
+import { calculateAsfans } from '@cubeartisan/client/drafting/createdraft.js';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import { sortIntoGroups, SORTS } from '@cubeartisan/client/utils/Sort.js';
 
 const Asfans = ({ cards: cardsNoAsfan, cube, defaultFormatId }) => {
   const [sort, setSort] = useQueryParam('sort', 'Color');

@@ -16,14 +16,14 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useMemo, useState, useContext } from 'react';
-import PropTypes from 'prop-types';
 import { Box, Button, Link, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useContext, useMemo, useState } from 'react';
 
-import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
-import TimeAgo from '@cubeartisan/client/components/utils/TimeAgo.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DeckDeleteModal from '@cubeartisan/client/components/modals/DeckDeleteModal.js';
+import TimeAgo from '@cubeartisan/client/components/utils/TimeAgo.js';
+import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 
 /** 2020-11-17 struesdell:
  *  Pulled constants out of component render so that they are defined only once

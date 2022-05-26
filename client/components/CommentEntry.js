@@ -16,8 +16,8 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import { Collapse } from 'reactstrap';
 
 import LinkButton from '@cubeartisan/client/components/LinkButton.js';

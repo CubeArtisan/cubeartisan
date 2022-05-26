@@ -17,6 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import nearley from 'nearley';
+
 import filterCardGrammar from '@cubeartisan/client/generated/filtering/cardFilters.js';
 
 const { Grammar, Parser } = nearley;

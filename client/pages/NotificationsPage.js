@@ -16,14 +16,13 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+import { Card, CardBody, CardHeader } from 'reactstrap';
 
-import { Card, CardHeader, CardBody } from 'reactstrap';
-
-import Notification from '@cubeartisan/client/components/Notification.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
+import Notification from '@cubeartisan/client/components/Notification.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 export const NotificationsPage = ({ notifications, loginCallback, siteCustomizations: { discordUrl, siteName } }) => (

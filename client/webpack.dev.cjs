@@ -16,8 +16,8 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-const { merge } = require('webpack-merge');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const { merge } = require('webpack-merge');
 
 const { clientConfig: common } = require('./webpack.common.cjs');
 

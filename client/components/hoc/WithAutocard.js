@@ -1,9 +1,10 @@
-import React, { forwardRef, useContext, useRef } from 'react';
-import PropTypes from 'prop-types';
 import { Box, Stack, styled, Tooltip, tooltipClasses, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { forwardRef, useContext, useRef } from 'react';
 
-import TagContext from '@cubeartisan/client/components/contexts/TagContext.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import TagContext from '@cubeartisan/client/components/contexts/TagContext.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import {
   cardFinish,
   cardFullName,
@@ -14,7 +15,6 @@ import {
   cardName,
   cardTags,
 } from '@cubeartisan/client/utils/Card.js';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
 const placeholderClass = () => '';
 

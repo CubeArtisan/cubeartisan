@@ -1,9 +1,9 @@
 import React, { lazy } from 'react';
 
+import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import ExternalLink from '@cubeartisan/client/components/markdown/ExternalLink.js';
 import MarkdownCardImage from '@cubeartisan/client/components/markdown/MarkdownCardImage.js';
 import MarkdownCardLink from '@cubeartisan/client/components/markdown/MarkdownCardLink.js';
-import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 
 const GenericMarkdown = lazy(() => import('@cubeartisan/markdown'));

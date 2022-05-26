@@ -16,14 +16,13 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { Card, CardBody, CardHeader, Input, Nav, TabContent, TabPane } from 'reactstrap';
 
-import { Card, CardHeader, Input, Nav, TabPane, TabContent, CardBody } from 'reactstrap';
-
-import Tab from '@cubeartisan/client/components/Tab.js';
-import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
+import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
+import Tab from '@cubeartisan/client/components/Tab.js';
 
 const TextEntry = ({ name, value, onChange, maxLength }) => {
   const [tab, setTab] = useState('0');

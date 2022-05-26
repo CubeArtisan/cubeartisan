@@ -16,8 +16,6 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import PropTypes from 'prop-types';
-import React, { useCallback, useEffect } from 'react';
 import {
   Checkbox,
   FormControl,
@@ -28,9 +26,11 @@ import {
   MenuItem,
   Select,
 } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useCallback, useEffect } from 'react';
 
-import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import { calculateAsfans } from '@cubeartisan/client/drafting/createdraft.js';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 
 const AsfanDropdown = ({ cube, defaultFormatId, setAsfans }) => {
   const [draftFormat, setDraftFormat] = useQueryParam('formatId', null);

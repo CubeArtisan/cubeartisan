@@ -16,18 +16,18 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useState, useContext } from 'react';
-import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useContext, useState } from 'react';
 import {
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
+  CustomInput,
   InputGroup,
   InputGroupAddon,
   InputGroupText,
-  CustomInput,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
   UncontrolledAlert,
 } from 'reactstrap';
 

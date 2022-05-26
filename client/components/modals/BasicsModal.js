@@ -16,13 +16,13 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useState } from 'react';
-import PropTypes from 'prop-types';
-import { Row, Col, Modal, ModalBody, ModalFooter, ModalHeader, Input, Card } from 'reactstrap';
 import { Button } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useCallback, useState } from 'react';
+import { Card, Col, Input, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
 
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { buildDeck } from '@cubeartisan/client/drafting/deckutil.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { cardName } from '@cubeartisan/client/utils/Card.js';
 
 const MAX_BASICS = 21;

@@ -16,8 +16,6 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useContext, useState } from 'react';
-import PropTypes from 'prop-types';
 import {
   Box,
   Button,
@@ -35,23 +33,25 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useCallback, useContext, useState } from 'react';
 
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext.js';
-import CustomizeBasicsModal from '@cubeartisan/client/components/modals/CustomizeBasicsModal.js';
-import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext.js';
+import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
 import EditCollapse from '@cubeartisan/client/components/EditCollapse.js';
 import FilterCollapse from '@cubeartisan/client/components/FilterCollapse.js';
-import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext.js';
-import SortCollapse from '@cubeartisan/client/components/SortCollapse.js';
-import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
-import TagColorsModal from '@cubeartisan/client/components/modals/TagColorsModal.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
-import StyledButtonMenu from '@cubeartisan/client/components/StyledButtonMenu.js';
 import LabeledSelect from '@cubeartisan/client/components/LabeledSelect.js';
+import CustomizeBasicsModal from '@cubeartisan/client/components/modals/CustomizeBasicsModal.js';
+import TagColorsModal from '@cubeartisan/client/components/modals/TagColorsModal.js';
+import SortCollapse from '@cubeartisan/client/components/SortCollapse.js';
+import StyledButtonMenu from '@cubeartisan/client/components/StyledButtonMenu.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 const CustomizeBasicsModalLink = withModal(Button, CustomizeBasicsModal);
 

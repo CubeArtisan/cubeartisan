@@ -16,17 +16,17 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col } from 'reactstrap';
+import React, { useCallback, useMemo } from 'react';
+import { Col, Row } from 'reactstrap';
 
 import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
+import PickSelector from '@cubeartisan/client/components/PickSelector.js';
+import { getDrafterState } from '@cubeartisan/client/drafting/draftutil.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import { DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
 import { cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
-import { getDrafterState } from '@cubeartisan/client/drafting/draftutil.js';
 import { toNullableInt } from '@cubeartisan/client/utils/Util.js';
-import PickSelector from '@cubeartisan/client/components/PickSelector.js';
 
 export const usePickListAndDrafterState = ({ draft, seatIndex, defaultIndex }) => {
   const [pickNumber, setPickNumber] = useQueryParam('pick', defaultIndex ?? 0);

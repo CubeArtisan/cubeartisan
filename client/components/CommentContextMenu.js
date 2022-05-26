@@ -16,10 +16,9 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
 import PropTypes from 'prop-types';
-
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import React from 'react';
+import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 

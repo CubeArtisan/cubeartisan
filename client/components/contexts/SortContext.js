@@ -16,8 +16,8 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { createContext, useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import React, { createContext, useCallback, useMemo, useState } from 'react';
 
 const DEFAULT_SORTS = ['Color Category', 'Types-Multicolor', 'Mana Value', 'Alphabetical'];
 

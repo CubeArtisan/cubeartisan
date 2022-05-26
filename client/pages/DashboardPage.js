@@ -16,26 +16,26 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { lazy, useContext } from 'react';
-import PropTypes from 'prop-types';
 import { Button, Grid, Link, Stack, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { lazy, useContext } from 'react';
 
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
-import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
-import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType.js';
-import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
-import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
-import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
-import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 import {
-  LayoutContainer,
-  ContainerHeader,
   ContainerBody,
   ContainerFooter,
+  ContainerHeader,
+  LayoutContainer,
 } from '@cubeartisan/client/components/containers/LayoutContainer.js';
+import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType.js';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
+import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const CreateCubeModal = lazy(() => import('@cubeartisan/client/components/modals/CreateCubeModal.js'));
 const Feed = lazy(() => import('@cubeartisan/client/components/Feed.js'));

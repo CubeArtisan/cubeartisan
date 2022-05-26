@@ -16,9 +16,9 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import PropTypes from 'prop-types';
 import React, { Component, Fragment } from 'react';
 import { Card, Container } from 'reactstrap';
-import PropTypes from 'prop-types';
 
 class ErrorBoundary extends Component {
   constructor(props) {

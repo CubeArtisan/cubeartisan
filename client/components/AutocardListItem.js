@@ -16,14 +16,14 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useContext, useMemo } from 'react';
-import PropTypes from 'prop-types';
 import { ListItem, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useCallback, useContext, useMemo } from 'react';
 
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext.js';
 import TagContext from '@cubeartisan/client/components/contexts/TagContext.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { cardName } from '@cubeartisan/client/utils/Card.js';
 
 const AutocardLI = withAutocard(ListItem);

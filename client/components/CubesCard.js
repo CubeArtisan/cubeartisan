@@ -16,14 +16,14 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useState } from 'react';
-import PropTypes from 'prop-types';
-import { Accordion, AccordionDetails, AccordionSummary, Grid, Link, Paper, Typography } from '@mui/material';
-
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
-import CubePreview from '@cubeartisan/client/components/CubePreview.js';
 import { ExpandMore } from '@mui/icons-material';
+import { Accordion, AccordionDetails, AccordionSummary, Grid, Link, Paper, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useCallback, useState } from 'react';
+
 import CardHeader from '@cubeartisan/client/components/CardHeader.js';
+import CubePreview from '@cubeartisan/client/components/CubePreview.js';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 
 /**
  * @typedef { import('react').FunctionComponent<{ cubes: [any], title: string, lean: Boolean, header?: { sideLink: string, sideText: string, hLevel: number } }>} ComponentType

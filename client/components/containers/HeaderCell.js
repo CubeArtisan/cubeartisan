@@ -16,11 +16,10 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
-import PropTypes from 'prop-types';
-
-import { Button, TableCell, Tooltip, Typography } from '@mui/material';
 import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material';
+import { Button, TableCell, Tooltip, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const ICON_LOOKUP = {
   ascending: <ArrowDropUp />,

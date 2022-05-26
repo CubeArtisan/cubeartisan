@@ -16,11 +16,11 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-
 import { Button } from '@mui/material';
-import { Modal, ModalBody, ModalHeader, Input, ModalFooter } from 'reactstrap';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { Input, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
+
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 const deleteCube = async (cubeid) => {

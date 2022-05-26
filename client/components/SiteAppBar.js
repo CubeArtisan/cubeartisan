@@ -1,17 +1,17 @@
-import React, { lazy, useCallback, useContext, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { AppBar, Box, Button, Collapse, Container, IconButton, Link, MenuItem, Toolbar } from '@mui/material';
 import { Brightness4, Brightness7 } from '@mui/icons-material';
+import { AppBar, Box, Button, Collapse, Container, IconButton, Link, MenuItem, Toolbar } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { lazy, useCallback, useContext, useMemo } from 'react';
 
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 // TODO: Add back in
-import NotificationsNav from '@cubeartisan/client/components/NotificationsNav.js';
-import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
-import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
+import NotificationsNav from '@cubeartisan/client/components/NotificationsNav.js';
 import StyledButtonMenu from '@cubeartisan/client/components/StyledButtonMenu.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 import { getCubeId } from '@cubeartisan/client/utils/Util.js';
 
 const LoginModal = lazy(() => import('@cubeartisan/client/components/modals/LoginModal.js'));

@@ -16,36 +16,35 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useState, useEffect, useContext } from 'react';
-import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useContext, useEffect, useState } from 'react';
 import {
-  Spinner,
   Card,
   CardBody,
-  Row,
   Col,
-  Nav,
-  UncontrolledAlert,
+  CustomInput,
+  Input,
   InputGroup,
   InputGroupAddon,
   InputGroupText,
-  CustomInput,
-  Input,
+  Nav,
+  Row,
+  Spinner,
+  UncontrolledAlert,
 } from 'reactstrap';
 
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
-
-import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
-import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
-import Tab from '@cubeartisan/client/components/Tab.js';
-import CreatePackageModal from '@cubeartisan/client/components/modals/CreatePackageModal.js';
-import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import CardPackage from '@cubeartisan/client/components/CardPackage.js';
 import Paginate from '@cubeartisan/client/components/containers/Paginate.js';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
+import CreatePackageModal from '@cubeartisan/client/components/modals/CreatePackageModal.js';
+import Tab from '@cubeartisan/client/components/Tab.js';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const CreatePackageModalLink = withModal(Button, CreatePackageModal);
 

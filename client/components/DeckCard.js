@@ -16,19 +16,19 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { lazy, useContext } from 'react';
-import PropTypes from 'prop-types';
 import { Box, CircularProgress, Grid, Paper, Stack, Typography } from '@mui/material';
-import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import PropTypes from 'prop-types';
+import React, { lazy, useContext } from 'react';
 
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
-import DraftSeatPropType from '@cubeartisan/client/proptypes/DraftSeatPropType.js';
-import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
+import CardHeader from '@cubeartisan/client/components/CardHeader.js';
 import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
+import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
-import CardHeader from '@cubeartisan/client/components/CardHeader.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
+import DraftSeatPropType from '@cubeartisan/client/proptypes/DraftSeatPropType.js';
 
 const DecksPickBreakdown = lazy(async () => import('@cubeartisan/client/components/DecksPickBreakdown.js'));
 const DraftbotBreakdown = lazy(async () => import('@cubeartisan/client/components/DraftbotBreakdown.js'));

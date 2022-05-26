@@ -16,15 +16,15 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import { Box, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
-import { countGroup, sortDeep } from '@cubeartisan/client/utils/Sort.js';
 import AutocardListGroup from '@cubeartisan/client/components/AutocardListGroup.js';
 import AutocardListItem from '@cubeartisan/client/components/AutocardListItem.js';
 import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import { countGroup, sortDeep } from '@cubeartisan/client/utils/Sort.js';
 
 const TableView = ({ cards, rowTag, noGroupModal }) => {
   const { primary, secondary, tertiary, quaternary, showOther } = useContext(SortContext);

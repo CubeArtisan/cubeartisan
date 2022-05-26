@@ -16,18 +16,17 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useContext } from 'react';
-import PropTypes from 'prop-types';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { Divider, List, ListSubheader, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/node/styles/index.js';
-
-import { sortDeep } from '@cubeartisan/client/utils/Sort.js';
+import PropTypes from 'prop-types';
+import React, { useCallback, useContext } from 'react';
 
 import AutocardListItem from '@cubeartisan/client/components/AutocardListItem.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
-import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import { sortDeep } from '@cubeartisan/client/utils/Sort.js';
 
 const AutocardListGroup = ({ cards, heading, sort, orderedSort, showOther, rowTag, noGroupModal }) => {
   const RowTag = rowTag;

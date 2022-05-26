@@ -16,12 +16,12 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import { Autocomplete, Chip, TextField } from '@mui/material';
+import PropTypes from 'prop-types';
 import React, { forwardRef, useCallback, useEffect, useMemo, useState } from 'react';
 import { Input } from 'reactstrap';
-import PropTypes from 'prop-types';
 
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
-import { Autocomplete, Chip, TextField } from '@mui/material';
 
 const AutocardLi = withAutocard('li');
 

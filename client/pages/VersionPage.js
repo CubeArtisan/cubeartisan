@@ -16,10 +16,9 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
 import PropTypes from 'prop-types';
-
-import { Card, CardHeader, CardBody } from 'reactstrap';
+import React from 'react';
+import { Card, CardBody, CardHeader } from 'reactstrap';
 
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';

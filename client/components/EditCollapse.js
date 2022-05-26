@@ -16,35 +16,35 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useContext, useState } from 'react';
+
+import { findUserLinks } from '@cubeartisan/markdown';
 import { Button } from '@mui/material';
+import React, { useCallback, useContext, useState } from 'react';
 import {
+  Card,
   Col,
   Collapse,
   Form,
+  FormGroup,
+  FormText,
+  Input,
   InputGroup,
   InputGroupAddon,
+  InputGroupText,
+  Label,
   Row,
   UncontrolledAlert,
-  FormGroup,
-  Label,
-  Input,
-  Card,
-  FormText,
-  InputGroupText,
 } from 'reactstrap';
 
-import { findUserLinks } from '@cubeartisan/markdown';
-
-import { cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
 import Changelist from '@cubeartisan/client/components/Changelist.js';
 import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
-import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import ResizeModal from '@cubeartisan/client/components/modals/ResizeModal.js';
 import TextEntry from '@cubeartisan/client/components/TextEntry.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
+import { cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
 
 export const getCard = async (cubeID, name, setAlerts) => {
   if (name && name.length > 0) {

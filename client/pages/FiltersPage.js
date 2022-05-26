@@ -16,12 +16,12 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { Card, CardHeader } from 'reactstrap';
 
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import Accordion from '@cubeartisan/client/components/containers/Accordion.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 

@@ -16,9 +16,9 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback } from 'react';
-import PropTypes from 'prop-types';
 import { ButtonGroup, IconButton } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useCallback } from 'react';
 import { FormGroup, Input, InputGroupAddon, Label } from 'reactstrap';
 
 import { COLORS } from '@cubeartisan/client/utils/Util.js';

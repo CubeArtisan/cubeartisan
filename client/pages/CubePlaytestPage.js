@@ -16,47 +16,47 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { lazy, useContext, useCallback, useMemo, useState, useRef } from 'react';
-import PropTypes from 'prop-types';
+import { LoadingButton } from '@mui/lab';
 import {
   Box,
   Button,
   Collapse,
   Divider,
-  InputLabel,
   Grid,
+  InputLabel,
   Modal,
   Switch,
   TextField,
   Toolbar,
   Typography,
 } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
+import PropTypes from 'prop-types';
+import React, { lazy, useCallback, useContext, useMemo, useRef, useState } from 'react';
 
-import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
-import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
-import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
-import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
-import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
-import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
-import useAlerts, { Alerts } from '@cubeartisan/client/hooks/UseAlerts.js';
-import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
-import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
-import { allBotsDraft } from '@cubeartisan/client/drafting/draftutil.js';
-import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
-import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
-import LabeledSelect from '@cubeartisan/client/components/LabeledSelect.js';
 import {
-  LayoutContainer,
-  ContainerHeader,
   ContainerBody,
   ContainerFooter,
+  ContainerHeader,
+  LayoutContainer,
 } from '@cubeartisan/client/components/containers/LayoutContainer.js';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
+import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
+import LabeledSelect from '@cubeartisan/client/components/LabeledSelect.js';
+import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
+import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import { allBotsDraft } from '@cubeartisan/client/drafting/draftutil.js';
+import useAlerts, { Alerts } from '@cubeartisan/client/hooks/UseAlerts.js';
+import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const DeckPreview = lazy(() => import('@cubeartisan/client/components/DeckPreview.js'));
 const CustomDraftFormatModal = lazy(() => import('@cubeartisan/client/components/modals/CustomDraftFormatModal.js'));

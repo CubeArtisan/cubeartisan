@@ -16,18 +16,18 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useContext, useEffect, useMemo, useState } from 'react';
-import PropTypes from 'prop-types';
 import { Grid, Link, Tooltip, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 
+import { compareStrings, SortableTable } from '@cubeartisan/client/components/containers/SortableTable.js';
+import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import { usePickListAndDrafterState } from '@cubeartisan/client/components/DecksPickBreakdown.js';
-import { SortableTable, compareStrings } from '@cubeartisan/client/components/containers/SortableTable.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
+import PickSelector from '@cubeartisan/client/components/PickSelector.js';
+import { convertDrafterState, getDraftbotScores } from '@cubeartisan/client/drafting/draftutil.js';
 import { DrafterStatePropType, DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
 import { cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
-import { convertDrafterState, getDraftbotScores } from '@cubeartisan/client/drafting/draftutil.js';
-import PickSelector from '@cubeartisan/client/components/PickSelector.js';
-import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 
 const AutocardLink = withAutocard(Link);
 

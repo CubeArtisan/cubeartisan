@@ -16,28 +16,28 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import {
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
+  CustomInput,
   InputGroup,
   InputGroupAddon,
   InputGroupText,
-  CustomInput,
-  UncontrolledAlert,
-  Spinner,
   ListGroup,
   ListGroupItem,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  Spinner,
+  UncontrolledAlert,
 } from 'reactstrap';
 
+import { getCardColorClass } from '@cubeartisan/client/components/contexts/TagContext.js';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
-import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
-import { getCardColorClass } from '@cubeartisan/client/components/contexts/TagContext.js';
 
 const AutocardItem = withAutocard(ListGroupItem);
 

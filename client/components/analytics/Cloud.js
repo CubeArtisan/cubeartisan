@@ -16,17 +16,17 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import { Box, Tooltip, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { TagCloud } from 'react-tagcloud';
-import PropTypes from 'prop-types';
-import { Box, Tooltip, Typography } from '@mui/material';
 
 import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown.js';
+import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import TagInput from '@cubeartisan/client/components/TagInput.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import CubePropTypes from '@cubeartisan/client/proptypes/CubePropType.js';
-import TagInput from '@cubeartisan/client/components/TagInput.js';
 import { arrayMove } from '@cubeartisan/client/utils/Util.js';
-import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 
 const TagCloudTag = ({ tag, size, color }) => (
   <Tooltip title={Number.isInteger(tag.count) ? tag.count : tag.count.toFixed(2)}>

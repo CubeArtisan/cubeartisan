@@ -16,12 +16,12 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import { Grid } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
 function cardImage(Tag, card, cardProps, linkDetails) {
   const cardTag = <Tag card={card} {...cardProps} />;

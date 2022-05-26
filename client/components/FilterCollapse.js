@@ -16,12 +16,11 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Col,
-  Row,
   Collapse,
   CustomInput,
   Form,
@@ -33,17 +32,18 @@ import {
   ModalBody,
   ModalFooter,
   ModalHeader,
+  Row,
 } from 'reactstrap';
 
-import { makeFilter } from '@cubeartisan/client/filtering/FilterCards.js';
-import { ColorChecksAddon, ColorChecksControl } from '@cubeartisan/client/components/ColorCheck.js';
-import TextField from '@cubeartisan/client/components/TextField.js';
-import NumericField from '@cubeartisan/client/components/NumericField.js';
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
+import { ColorChecksAddon, ColorChecksControl } from '@cubeartisan/client/components/ColorCheck.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
-import { CARD_CATEGORY_DETECTORS } from '@cubeartisan/client/utils/Card.js';
-import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
+import NumericField from '@cubeartisan/client/components/NumericField.js';
+import TextField from '@cubeartisan/client/components/TextField.js';
+import { makeFilter } from '@cubeartisan/client/filtering/FilterCards.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
+import { CARD_CATEGORY_DETECTORS } from '@cubeartisan/client/utils/Card.js';
 
 const allFields = [
   'name',

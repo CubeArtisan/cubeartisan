@@ -16,12 +16,12 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
 import PropTypes from 'prop-types';
-import CommentPropType from '@cubeartisan/client/proptypes/CommentPropType.js';
+import React from 'react';
 
 import Comment from '@cubeartisan/client/components/Comment.js';
 import PagedList from '@cubeartisan/client/components/containers/PagedList.js';
+import CommentPropType from '@cubeartisan/client/proptypes/CommentPropType.js';
 
 const CommentList = ({ comments, startIndex, editComment }) => (
   <PagedList

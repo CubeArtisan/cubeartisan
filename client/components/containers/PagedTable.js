@@ -16,9 +16,8 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
 import PropTypes from 'prop-types';
-
+import React from 'react';
 import { Table } from 'reactstrap';
 
 import Paginate from '@cubeartisan/client/components/containers/Paginate.js';

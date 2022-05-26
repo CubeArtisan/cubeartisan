@@ -16,30 +16,30 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { lazy, useState, useContext } from 'react';
-import PropTypes from 'prop-types';
-import { Box, Button, Grid, IconButton, Link, Toolbar, Tooltip, Typography } from '@mui/material';
 import { HelpOutline } from '@mui/icons-material';
+import { Box, Button, Grid, IconButton, Link, Toolbar, Tooltip, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { lazy, useContext, useState } from 'react';
 
-import Alert from '@cubeartisan/client/components/wrappers/Alert.js';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
-import { getCubeId, getCubeDescription } from '@cubeartisan/client/utils/Util.js';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
-import TextBadge from '@cubeartisan/client/components/TextBadge.js';
-import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
-import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
-import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
-import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 import {
-  LayoutContainer,
-  ContainerHeader,
   ContainerBody,
   ContainerFooter,
+  ContainerHeader,
+  LayoutContainer,
 } from '@cubeartisan/client/components/containers/LayoutContainer.js';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
+import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
+import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
+import TextBadge from '@cubeartisan/client/components/TextBadge.js';
+import Alert from '@cubeartisan/client/components/wrappers/Alert.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import { getCubeDescription, getCubeId } from '@cubeartisan/client/utils/Util.js';
 
 const BlogPost = lazy(() => import('@cubeartisan/client/components/BlogPost.js'));
 const CubeIdModal = lazy(() => import('@cubeartisan/client/components/modals/CubeIdModal.js'));

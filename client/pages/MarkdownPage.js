@@ -16,18 +16,18 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 
 import { MarkdownHelp } from '@cubeartisan/markdown';
+import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 
+import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
-import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import ExternalLink from '@cubeartisan/client/components/markdown/ExternalLink.js';
 import MarkdownCardImage from '@cubeartisan/client/components/markdown/MarkdownCardImage.js';
 import MarkdownCardLink from '@cubeartisan/client/components/markdown/MarkdownCardLink.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 export const MarkdownPage = ({ loginCallback }) => {
   const { siteName } = useContext(SiteCustomizationContext);

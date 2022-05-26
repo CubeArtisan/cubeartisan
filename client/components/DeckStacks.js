@@ -16,14 +16,14 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Box, Grid, Stack, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import CardStack from '@cubeartisan/client/components/CardStack.js';
 import DraggableCard from '@cubeartisan/client/components/DraggableCard.js';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import Location from '@cubeartisan/client/drafting/DraftLocation.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
 const DeckStacks = ({
   cards,

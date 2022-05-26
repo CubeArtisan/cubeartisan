@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
 import { Box, Button, Toolbar, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import { getCubeDescription, getCubeId } from '@cubeartisan/client/utils/Util.js';

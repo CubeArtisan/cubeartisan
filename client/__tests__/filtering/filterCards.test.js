@@ -1,8 +1,8 @@
-import { makeFilter } from '@cubeartisan/client/filtering/FilterCards.js';
-import { expectOperator } from '@cubeartisan/client/__tests__/helpers/helpers.js';
+import carddb from '@cubeartisan/server/serverjs/cards.js';
 
 import cubefixture from '@cubeartisan/client/__tests__/fixtures/examplecube.js';
-import carddb from '@cubeartisan/server/serverjs/cards.js';
+import { expectOperator } from '@cubeartisan/client/__tests__/helpers/helpers.js';
+import { makeFilter } from '@cubeartisan/client/filtering/FilterCards.js';
 
 const COLOR_IDENTITY_ACCESSOR = (card) => card.colors ?? card.details.color_identity;
 

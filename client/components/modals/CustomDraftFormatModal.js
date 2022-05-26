@@ -16,8 +16,9 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useContext, useCallback, useMemo } from 'react';
 import { Button } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useCallback, useContext, useMemo } from 'react';
 import {
   Alert,
   Col,
@@ -31,12 +32,11 @@ import {
   ModalHeader,
   Row,
 } from 'reactstrap';
-import PropTypes from 'prop-types';
 
-import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import CustomPackCard from '@cubeartisan/client/components/CustomPackCard.js';
 import TextEntry from '@cubeartisan/client/components/TextEntry.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import { toNullableInt } from '@cubeartisan/client/utils/Util.js';
 
 export const DEFAULT_PACK = Object.freeze({ slots: [''], steps: null });

@@ -16,11 +16,11 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
-import { Button, IconButton } from '@mui/material';
-import { Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, InputGroup, InputGroupAddon } from 'reactstrap';
-import PropTypes from 'prop-types';
 import { ContentCopy } from '@mui/icons-material';
+import { Button, IconButton } from '@mui/material';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Input, InputGroup, InputGroupAddon, Label, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
 const CubeIdModal = ({ toggle, isOpen, shortID, fullID, alert }) => {
   const onCopyClick = async (id, label) => {

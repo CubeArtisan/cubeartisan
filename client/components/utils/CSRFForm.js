@@ -16,8 +16,8 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { forwardRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import React, { forwardRef, useCallback } from 'react';
 
 import { getCsrfToken } from '@cubeartisan/client/utils/CSRF.js';
 

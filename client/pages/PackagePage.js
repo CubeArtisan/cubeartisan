@@ -16,13 +16,13 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
 import PropTypes from 'prop-types';
-import CardPackagePropType from '@cubeartisan/client/proptypes/CardPackagePropType.js';
+import React from 'react';
 
 import CardPackage from '@cubeartisan/client/components/CardPackage.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
+import CardPackagePropType from '@cubeartisan/client/proptypes/CardPackagePropType.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 export const PackagePage = ({ pack, loginCallback }) => (

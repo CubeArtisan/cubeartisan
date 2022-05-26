@@ -16,9 +16,9 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
+import { AccordionDetails, AccordionSummary, Accordion as MuiAccordion } from '@mui/material';
 import PropTypes from 'prop-types';
-import { Accordion as MuiAccordion, AccordionDetails, AccordionSummary } from '@mui/material';
+import React from 'react';
 
 const Accordion = ({ defaultExpand, children, title }) => (
   <MuiAccordion defaultExpanded={defaultExpand}>

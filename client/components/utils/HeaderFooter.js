@@ -1,6 +1,6 @@
-import React, { Children } from 'react';
-import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { Children } from 'react';
 
 const HeaderFooter = ({ children, component: Component, sx, ...props }) => {
   const childArray = Children.toArray(children);

@@ -16,15 +16,15 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
-import { Button } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Card } from 'reactstrap';
+import { Button } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { Card, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
 
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 const CustomizeBasicsModal = ({ isOpen, toggle, cube, updateBasics, onError }) => {
   const [basics, setBasics] = useState(cube.basics.slice());

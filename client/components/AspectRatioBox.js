@@ -16,9 +16,9 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 /** 2020-11-17 struesdell:
  * - Added classnames dependency, allowing for terse classname construction

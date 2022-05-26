@@ -16,18 +16,17 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { lazy } from 'react';
 import PropTypes from 'prop-types';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
+import React, { lazy } from 'react';
+import { Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
 
-import { Card, CardHeader, Row, Col, CardBody } from 'reactstrap';
-
-import CubeSearchNavBar from '@cubeartisan/client/components/CubeSearchNavBar.js';
 import Paginate from '@cubeartisan/client/components/containers/Paginate.js';
+import CubeSearchNavBar from '@cubeartisan/client/components/CubeSearchNavBar.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const CubePreview = lazy(() => import('@cubeartisan/client/components/CubePreview.js'));
 

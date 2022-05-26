@@ -17,7 +17,6 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React, { useCallback, useState } from 'react';
-
 import { UncontrolledAlert } from 'reactstrap';
 
 export const Alerts = ({ alerts, ...props }) =>

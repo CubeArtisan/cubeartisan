@@ -16,16 +16,16 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { lazy } from 'react';
 import PropTypes from 'prop-types';
-import { Card, Col, Row, CardHeader, CardBody, CardFooter } from 'reactstrap';
+import React, { lazy } from 'react';
+import { Card, CardBody, CardFooter, CardHeader, Col, Row } from 'reactstrap';
 
-import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 import Paginate from '@cubeartisan/client/components/containers/Paginate.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const DeckPreview = lazy(() => import('@cubeartisan/client/components/DeckPreview.js'));
 

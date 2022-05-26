@@ -16,10 +16,10 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { CSVLink } from 'react-csv';
 import { Box, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useMemo } from 'react';
+import { CSVLink } from 'react-csv';
 
 import HeaderCell from '@cubeartisan/client/components/containers/HeaderCell.js';
 import useSortableData from '@cubeartisan/client/hooks/UseSortableData.js';

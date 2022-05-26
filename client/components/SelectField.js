@@ -16,10 +16,9 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
 import PropTypes from 'prop-types';
-
-import { InputGroup, InputGroupAddon, InputGroupText, CustomInput } from 'reactstrap';
+import React from 'react';
+import { CustomInput, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 
 const SelectField = ({ name, humanName, value, onChange, options, ...props }) => (
   <InputGroup className="mb-3" {...props}>

@@ -16,40 +16,38 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-
+import React, { useCallback, useContext, useState } from 'react';
 import {
   Col,
   Collapse,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Input,
+  Label,
   Nav,
   Navbar,
   NavbarToggler,
   NavItem,
   NavLink,
   Row,
-  Label,
-  Input,
   UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
 } from 'reactstrap';
 
+import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
 import DeckCard from '@cubeartisan/client/components/DeckCard.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import SampleHandModal from '@cubeartisan/client/components/modals/SampleHandModal.js';
-import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
-import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
+import SampleHandModal from '@cubeartisan/client/components/modals/SampleHandModal.js';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
-
-import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import { DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 export const CubeDeckPage = ({ cube, deck, draft, loginCallback }) => {
   const user = useContext(UserContext);

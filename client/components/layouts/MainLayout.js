@@ -16,9 +16,9 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Container, Grid } from '@mui/material';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import Footer from '@cubeartisan/client/components/layouts/Footer.js';

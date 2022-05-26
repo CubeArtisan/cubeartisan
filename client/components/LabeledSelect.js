@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Box, InputLabel, MenuItem, Select } from '@mui/material';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const LabeledSelect = ({ label, baseId, values, value, setValue, labelSx, selectSx, keys, name }) => (
   <Box sx={{ display: 'flex', alignItems: 'center' }}>

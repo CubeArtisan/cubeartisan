@@ -16,10 +16,10 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useContext, useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
+import { findUserLinks } from '@cubeartisan/markdown';
 import { Button } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useCallback, useContext, useState } from 'react';
 import {
   Collapse,
   Input,
@@ -35,15 +35,15 @@ import {
 } from 'reactstrap';
 
 import BlogPost from '@cubeartisan/client/components/BlogPost.js';
-import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
+import Paginate from '@cubeartisan/client/components/containers/Paginate.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import Paginate from '@cubeartisan/client/components/containers/Paginate.js';
-import TextEntry from '@cubeartisan/client/components/TextEntry.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
+import TextEntry from '@cubeartisan/client/components/TextEntry.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
-import { findUserLinks } from '@cubeartisan/markdown';
 
 const EditBlogModal = ({ isOpen, toggle, markdown, setMarkdown, post }) => {
   const { cubeID } = useContext(CubeContext);

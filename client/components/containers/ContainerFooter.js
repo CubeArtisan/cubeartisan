@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const ContainerFooter = ({ children, sx }) => (
   <Box

@@ -16,15 +16,15 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { Col, ListGroup, ListGroupItem, Row } from 'reactstrap';
 import PropTypes from 'prop-types';
-
-import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
-import { getLabels, sortIntoGroups } from '@cubeartisan/client/utils/Sort.js';
-import AutocardListItem from '@cubeartisan/client/components/AutocardListItem.js';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import React, { useContext } from 'react';
+import { Col, ListGroup, ListGroupItem, Row } from 'reactstrap';
+
+import AutocardListItem from '@cubeartisan/client/components/AutocardListItem.js';
+import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { cardName } from '@cubeartisan/client/utils/Card.js';
+import { getLabels, sortIntoGroups } from '@cubeartisan/client/utils/Sort.js';
 
 const CompareGroup = ({ heading, both, onlyA, onlyB }) => {
   const bothCmc = sortIntoGroups(both, 'Mana Value');

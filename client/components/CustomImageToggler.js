@@ -16,8 +16,8 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useContext } from 'react';
 import { Button } from '@mui/material';
+import React, { useContext } from 'react';
 
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 

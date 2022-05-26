@@ -16,15 +16,14 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
 import PropTypes from 'prop-types';
-import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType.js';
+import React from 'react';
+import { CardBody, CardHeader, Col, Row } from 'reactstrap';
 
+import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox.js';
 import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
 import PodcastEpisodePreview from '@cubeartisan/client/components/PodcastEpisodePreview.js';
-import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox.js';
-
-import { CardBody, CardHeader, Row, Col } from 'reactstrap';
+import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType.js';
 
 const Podcast = ({ podcast, episodes }) => (
   <>

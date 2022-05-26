@@ -16,32 +16,32 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useState, useContext } from 'react';
-import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useContext, useState } from 'react';
 import {
   Collapse,
-  Modal,
-  ModalHeader,
-  ModalBody,
+  CustomInput,
+  Input,
   InputGroup,
   InputGroupAddon,
   InputGroupText,
-  CustomInput,
+  Modal,
+  ModalBody,
   ModalFooter,
-  Input,
+  ModalHeader,
 } from 'reactstrap';
 
-import CommentPropType from '@cubeartisan/client/proptypes/CommentPropType.js';
-import TimeAgo from '@cubeartisan/client/components/utils/TimeAgo.js';
+import CommentContextMenu from '@cubeartisan/client/components/CommentContextMenu.js';
+import CommentEntry from '@cubeartisan/client/components/CommentEntry.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import LinkButton from '@cubeartisan/client/components/LinkButton.js';
-import CommentContextMenu from '@cubeartisan/client/components/CommentContextMenu.js';
+import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
+import TimeAgo from '@cubeartisan/client/components/utils/TimeAgo.js';
 import useComments from '@cubeartisan/client/hooks/UseComments.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
-import CommentEntry from '@cubeartisan/client/components/CommentEntry.js';
-import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
+import CommentPropType from '@cubeartisan/client/proptypes/CommentPropType.js';
 
 const maxDepth = 4;
 

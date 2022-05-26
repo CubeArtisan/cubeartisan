@@ -16,16 +16,16 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import { Button, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import { Nav, Navbar, NavItem, NavLink, Row } from 'reactstrap';
 
-import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
-import FollowersModal from '@cubeartisan/client/components/modals/FollowersModal.js';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import CreateCubeModal from '@cubeartisan/client/components/modals/CreateCubeModal.js';
+import FollowersModal from '@cubeartisan/client/components/modals/FollowersModal.js';
 
 const FollowersModalLink = withModal(Button, FollowersModal);
 const CreateCubeModalLink = withModal(NavLink, CreateCubeModal);

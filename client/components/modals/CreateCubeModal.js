@@ -16,11 +16,10 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
-import PropTypes from 'prop-types';
-
 import { Button } from '@mui/material';
-import { Col, Modal, ModalBody, ModalHeader, Row, FormGroup, Label, Input, ModalFooter } from 'reactstrap';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Col, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
 
 import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 

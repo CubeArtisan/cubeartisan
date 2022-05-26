@@ -16,8 +16,8 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 const ButtonLink = ({ children, outline, color, block, ...props }) => {
   const type = outline ? `btn-outline-${color}` : `btn-${color}`;

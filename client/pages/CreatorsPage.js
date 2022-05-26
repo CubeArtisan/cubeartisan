@@ -16,17 +16,16 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { lazy } from 'react';
 import PropTypes from 'prop-types';
-
-import { Nav, CardHeader, Card, TabContent, TabPane, Spinner } from 'reactstrap';
+import React, { lazy } from 'react';
+import { Card, CardHeader, Nav, Spinner, TabContent, TabPane } from 'reactstrap';
 
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import Tab from '@cubeartisan/client/components/Tab.js';
-import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import Tab from '@cubeartisan/client/components/Tab.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const CreatorArticles = lazy(() => import('@cubeartisan/client/components/CreatorArticles.js'));
 const CreatorPodcasts = lazy(() => import('@cubeartisan/client/components/CreatorPodcasts.js'));

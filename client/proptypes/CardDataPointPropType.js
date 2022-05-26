@@ -17,6 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
+
 import CardPricePropType from '@cubeartisan/client/proptypes/CardPricePropType.js';
 
 const CardDataPointPropType = PropTypes.shape({

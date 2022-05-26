@@ -16,10 +16,9 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
 import PropTypes from 'prop-types';
-
-import { Card, CardHeader, CardBody } from 'reactstrap';
+import React from 'react';
+import { Card, CardBody, CardHeader } from 'reactstrap';
 
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';

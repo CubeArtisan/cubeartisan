@@ -17,10 +17,10 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 const glob = require('glob');
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const { merge } = require('webpack-merge');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 
 // Multi page entry
 function getEntries() {

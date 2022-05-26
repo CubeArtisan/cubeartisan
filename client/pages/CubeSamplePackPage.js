@@ -16,20 +16,19 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { lazy } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
+import React, { lazy } from 'react';
+import { Col, Row } from 'reactstrap';
 
-import { Row, Col } from 'reactstrap';
-
-import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import SetCardsInRow from '@cubeartisan/client/components/SetCardsInRow.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const CardGrid = lazy(() => import('@cubeartisan/client/components/containers/CardGrid.js'));
 const CardImage = lazy(() => import('@cubeartisan/client/components/CardImage.js'));

@@ -16,14 +16,14 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Card, CardHeader, CardBody, CardFooter } from 'reactstrap';
 import { Button } from '@mui/material';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Card, CardBody, CardFooter, CardHeader } from 'reactstrap';
 
+import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const back = () => (window.history.length > 1 ? window.history.back() : window.close());

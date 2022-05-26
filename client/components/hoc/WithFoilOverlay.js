@@ -16,13 +16,13 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { forwardRef } from 'react';
-import PropTypes from 'prop-types';
-// import Image from 'mui-image/lib/index.js';
 import { Box } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { forwardRef } from 'react';
+// import Image from 'mui-image/lib/index.js';
 
-import { cardFinish } from '@cubeartisan/client/utils/Card.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import { cardFinish } from '@cubeartisan/client/utils/Card.js';
 
 const withFoilOverlay = (Tag) => {
   const WithFoilOverlay = forwardRef(({ card, finish: finishOverride, sx, ...props }, ref) => {

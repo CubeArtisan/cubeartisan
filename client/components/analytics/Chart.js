@@ -16,18 +16,18 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { Chart as ReactChart } from 'react-chartjs-2';
-import { BarElement, CategoryScale, Chart as ChartJS, LinearScale } from 'chart.js';
 import { Typography, useTheme } from '@mui/material';
+import { BarElement, CategoryScale, Chart as ChartJS, LinearScale } from 'chart.js';
+import PropTypes from 'prop-types';
+import React, { useMemo } from 'react';
+import { Chart as ReactChart } from 'react-chartjs-2';
 
 import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown.js';
+import LabeledSelect from '@cubeartisan/client/components/LabeledSelect.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { sortIntoGroups, SORTS } from '@cubeartisan/client/utils/Sort.js';
-import LabeledSelect from '@cubeartisan/client/components/LabeledSelect.js';
 
 ChartJS.register(BarElement, CategoryScale, LinearScale);
 

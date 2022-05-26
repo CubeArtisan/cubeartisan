@@ -16,15 +16,15 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
-import { Modal, ModalHeader, ModalBody, ModalFooter, Card, Input } from 'reactstrap';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { Card, Input, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
-import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
-import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import FilterCollapse from '@cubeartisan/client/components/FilterCollapse.js';
 import TextField from '@cubeartisan/client/components/TextField.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
+import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 
 const ResizeModal = ({ cubeID }) => {
   const [open, toggleOpen] = useToggle(false);
