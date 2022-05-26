@@ -41,7 +41,7 @@
     "start": "yarn webpack-dev-server & yarn nodemon",
     "test": "yarn workspaces foreach --include '@cubeartisan/*' run g:test",
     "test-loud": "yarn workspaces foreach --include '@cubeartisan/*' run g:test:loud",
-    "updatetypes": "yarn pnpify tsc -p tsconfig.lax.json",
+    "updatetypes": "rm -r typings; yarn pnpify tsc -p tsconfig.lax.json",
     "webpack-dev-server": "yarn workspace @cubeartisan/client webpack-dev-server"
   },
   "engines": {
