@@ -2,28 +2,9 @@ import { Box, Button, Toolbar, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 
+import CollapsingNavbar from '@cubeartisan/client/components/containers/CollapsingNavbar.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import { getCubeDescription, getCubeId } from '@cubeartisan/client/utils/Util.js';
-
-const CubeNavItem = ({ link, activeLink, children }) => {
-  const { cube } = useContext(CubeContext);
-  if (link === activeLink) {
-    return (
-      <Button href={`/cube/${encodeURIComponent(getCubeId(cube))}/${link}`} variant="outlined">
-        {children}
-      </Button>
-    );
-  }
-  return <Button href={`/cube/${encodeURIComponent(getCubeId(cube))}/${link}`}>{children}</Button>;
-};
-CubeNavItem.propTypes = {
-  link: PropTypes.string.isRequired,
-  activeLink: PropTypes.string.isRequired,
-  children: PropTypes.node,
-};
-CubeNavItem.defaultProps = {
-  children: false,
-};
 
 const CubeNavbar = ({ activeLink }) => {
   const { cube } = useContext(CubeContext);
@@ -34,32 +15,49 @@ const CubeNavbar = ({ activeLink }) => {
         <Typography variant="h6">{cube.name}</Typography>
         {cube.type && <Typography variant="subtitle2"> ({subtitle})</Typography>}
       </Box>
-      <Box
-        component="span"
+      <CollapsingNavbar
         sx={{
           marginLeft: 'auto',
-          flexWrap: 'wrap',
           height: '100%',
-          display: 'flex',
-          alignItems: 'center',
         }}
+        breakpoint={720}
       >
-        <CubeNavItem link="overview" activeLink={activeLink}>
+        <Button
+          key="overview"
+          href={`/cube/${encodeURIComponent(getCubeId(cube))}/overview`}
+          variant={activeLink === 'overview' ? 'outlined' : 'text'}
+        >
           Overview
-        </CubeNavItem>
-        <CubeNavItem link="list" activeLink={activeLink}>
+        </Button>
+        <Button
+          key="list"
+          href={`/cube/${encodeURIComponent(getCubeId(cube))}/list`}
+          variant={activeLink === 'list' ? 'outlined' : 'text'}
+        >
           List
-        </CubeNavItem>
-        <CubeNavItem link="playtest" activeLink={activeLink}>
+        </Button>
+        <Button
+          key="playtest"
+          href={`/cube/${encodeURIComponent(getCubeId(cube))}/playtest`}
+          variant={activeLink === 'playtest' ? 'outlined' : 'text'}
+        >
           Playtest
-        </CubeNavItem>
-        <CubeNavItem link="analytics" activeLink={activeLink}>
+        </Button>
+        <Button
+          key="analytics"
+          href={`/cube/${encodeURIComponent(getCubeId(cube))}/analytics`}
+          variant={activeLink === 'analytics' ? 'outlined' : 'text'}
+        >
           Analytics
-        </CubeNavItem>
-        <CubeNavItem link="blog" activeLink={activeLink}>
+        </Button>
+        <Button
+          key="blog"
+          href={`/cube/${encodeURIComponent(getCubeId(cube))}/blog`}
+          variant={activeLink === 'blog' ? 'outlined' : 'text'}
+        >
           Blog
-        </CubeNavItem>
-      </Box>
+        </Button>
+      </CollapsingNavbar>
     </Toolbar>
   );
 };

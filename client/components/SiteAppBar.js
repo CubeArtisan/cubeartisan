@@ -1,8 +1,9 @@
 import { Brightness4, Brightness7 } from '@mui/icons-material';
-import { AppBar, Box, Button, Collapse, Container, IconButton, Link, MenuItem, Toolbar } from '@mui/material';
+import { AppBar, Box, Button, Container, IconButton, Link, MenuItem, Toolbar } from '@mui/material';
 import PropTypes from 'prop-types';
 import React, { lazy, useCallback, useContext, useMemo } from 'react';
 
+import CollapsingNavbar from '@cubeartisan/client/components/containers/CollapsingNavbar.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 // TODO: Add back in
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
@@ -11,7 +12,6 @@ import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import NotificationsNav from '@cubeartisan/client/components/NotificationsNav.js';
 import StyledButtonMenu from '@cubeartisan/client/components/StyledButtonMenu.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
-import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 import { getCubeId } from '@cubeartisan/client/utils/Util.js';
 
 const LoginModal = lazy(() => import('@cubeartisan/client/components/modals/LoginModal.js'));
@@ -52,7 +52,6 @@ const ABOUT_MENU = [
 const SiteAppBar = ({ loginCallback }) => {
   const user = useContext(UserContext);
   const { siteName, sourceRepo } = useContext(SiteCustomizationContext);
-  const [expanded] = useToggle(true);
   const { updateTheme, theme } = useContext(DisplayContext);
   const toggleTheme = useCallback(() => updateTheme(), [updateTheme]);
   const aboutMenuItems = useMemo(
@@ -107,7 +106,7 @@ const SiteAppBar = ({ loginCallback }) => {
               {theme === 'dark' ? <Brightness7 /> : <Brightness4 />}
             </IconButton>
           </Box>
-          <Collapse in={expanded} sx={{ marginLeft: 'auto' }}>
+          <CollapsingNavbar sx={{ marginLeft: 'auto' }} breakpoint={1000}>
             <StyledButtonMenu menuItems={CONTENT_MENU} tooltip="Content posted by content creators.">
               Content
             </StyledButtonMenu>
@@ -148,7 +147,7 @@ const SiteAppBar = ({ loginCallback }) => {
                 </Suspense>
               </>
             )}
-          </Collapse>
+          </CollapsingNavbar>
         </Container>
       </Toolbar>
     </AppBar>

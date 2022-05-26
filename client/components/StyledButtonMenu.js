@@ -3,7 +3,7 @@ import { Button, Link, Menu, MenuItem, Tooltip } from '@mui/material';
 import PropTypes from 'prop-types';
 import React, { useCallback, useState } from 'react';
 
-const StyledButtonMenu = ({ tooltip, menuItems, color, children }) => {
+const StyledButtonMenu = ({ tooltip, menuItems, color, arrow, children }) => {
   const [anchorEl, setAnchorEl] = useState();
   const open = Boolean(anchorEl);
   const handleClick = useCallback((event) => {
@@ -17,7 +17,7 @@ const StyledButtonMenu = ({ tooltip, menuItems, color, children }) => {
   return (
     <>
       <Tooltip title={tooltip} enterDelay={300} arrow>
-        <Button color={color} onClick={handleClick} endIcon={<ArrowDropDown />}>
+        <Button color={color} onClick={handleClick} endIcon={arrow && <ArrowDropDown />}>
           {children}
         </Button>
       </Tooltip>
@@ -28,6 +28,10 @@ const StyledButtonMenu = ({ tooltip, menuItems, color, children }) => {
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
           open={open}
           onClose={handleClose}
+          sx={{ display: 'flex', flexFlow: 'column' }}
+          MenuListProps={{
+            sx: { display: 'flex', flexFlow: 'column' },
+          }}
         >
           {menuItems.map(({ text, link, onClick, component: Component = MenuItem, extraProps = {} }) => (
             <Component
@@ -61,11 +65,13 @@ StyledButtonMenu.propTypes = {
   children: PropTypes.node,
   tooltip: PropTypes.string,
   color: PropTypes.string,
+  arrow: PropTypes.bool,
 };
 StyledButtonMenu.defaultProps = {
   menuItems: [],
-  children: MenuIcon,
+  children: <MenuIcon />,
   tooltip: null,
   color: 'inherit',
+  arrow: true,
 };
 export default StyledButtonMenu;

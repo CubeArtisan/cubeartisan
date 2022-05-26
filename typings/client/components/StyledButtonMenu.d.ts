@@ -1,8 +1,9 @@
 export default StyledButtonMenu;
-declare function StyledButtonMenu({ tooltip, menuItems, color, children }: {
+declare function StyledButtonMenu({ tooltip, menuItems, color, arrow, children }: {
     tooltip: any;
     menuItems: any;
     color: any;
+    arrow: any;
     children: any;
 }): JSX.Element;
 declare namespace StyledButtonMenu {
@@ -17,17 +18,20 @@ declare namespace StyledButtonMenu {
         const children: PropTypes.Requireable<PropTypes.ReactNodeLike>;
         const tooltip: PropTypes.Requireable<string>;
         const color: PropTypes.Requireable<string>;
+        const arrow: PropTypes.Requireable<boolean>;
     }
     namespace defaultProps {
         const menuItems_1: any[];
         export { menuItems_1 as menuItems };
-        export { MenuIcon as children };
+        const children_1: JSX.Element;
+        export { children_1 as children };
         const tooltip_1: any;
         export { tooltip_1 as tooltip };
         const color_1: string;
         export { color_1 as color };
+        const arrow_1: boolean;
+        export { arrow_1 as arrow };
     }
 }
 import PropTypes from "prop-types";
-import { Menu as MenuIcon } from "@mui/icons-material";
 //# sourceMappingURL=StyledButtonMenu.d.ts.map
