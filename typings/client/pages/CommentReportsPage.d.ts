@@ -16,7 +16,7 @@ export namespace CommentReportsPage {
         export { loginCallback_1 as loginCallback };
     }
 }
-declare var _default: (providedReactProps: any) => JSX.Element;
+declare const _default: (providedReactProps: any) => JSX.Element;
 export default _default;
 import PropTypes from "prop-types";
 //# sourceMappingURL=CommentReportsPage.d.ts.map

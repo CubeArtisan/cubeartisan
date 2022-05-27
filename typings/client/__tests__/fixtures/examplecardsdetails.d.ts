@@ -1,4 +1,4 @@
-declare var _default: ({
+declare const _default: ({
     _id: string;
     tags: string[];
     colors: string[];
