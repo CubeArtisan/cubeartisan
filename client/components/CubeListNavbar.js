@@ -36,6 +36,7 @@ import {
 import PropTypes from 'prop-types';
 import React, { useCallback, useContext, useState } from 'react';
 
+import CollapsingNavbar from '@cubeartisan/client/components/containers/CollapsingNavbar.js';
 import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
@@ -383,13 +384,14 @@ const CubeListNavbar = ({
     <>
       <Toolbar sx={{ backgroundColor: 'background.paper' }}>
         <LabeledSelect
+          label="View"
           baseId="cube-view-style"
           values={STYLE_VALUES}
           keys={STYLE_KEYS}
           value={cubeView}
           setValue={setCubeView}
         />
-        <Box component="nav" sx={{ marginLeft: 'auto' }}>
+        <CollapsingNavbar breakpoint={1000} sx={{ marginLeft: 'auto' }}>
           {!canEdit ? (
             ''
           ) : (
@@ -444,7 +446,7 @@ const CubeListNavbar = ({
           <StyledButtonMenu menuItems={importMenuItems} tooltip="Import or Export cards from the cube" color="primary">
             {canEdit ? 'Import/Export' : 'Export'}
           </StyledButtonMenu>
-        </Box>
+        </CollapsingNavbar>
       </Toolbar>
       {!canEdit ? '' : <EditCollapse isOpen={openCollapse === 'edit'} />}
       <SortCollapse
