@@ -47,7 +47,7 @@
   "engines": {
     "node": "16.11.1"
   },
-  "packageManager": "yarn@3.2.0",
+  "packageManager": "yarn@3.2.1",
   "devDependencies": {
     "@cubeartisan/client": "workspace:^",
     "@date-io/core": "^2.14.0",
