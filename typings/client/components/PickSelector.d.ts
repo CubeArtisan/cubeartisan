@@ -1,8 +1,8 @@
 export const ACTION_LABELS: Readonly<{
-    pick: string;
-    trash: string;
-    pickrandom: string;
-    trashrandom: string;
+    pick: "Picked ";
+    trash: "Trash ";
+    pickrandom: "Randomly Picked ";
+    trashrandom: "Randomly Trashed ";
 }>;
 export default PickSelector;
 declare function PickSelector({ picksList, curPickNumber, setPickNumberFromEvent }: {
