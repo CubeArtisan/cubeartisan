@@ -308,7 +308,7 @@ export const CubeAnalyticsPage = ({
           {cube.cards.length === 0 ? (
             <Typography variant="h5">This cube doesn't have any cards. Add cards to see analytics.</Typography>
           ) : (
-            <Grid container sx={{ paddingBottom: 2 }}>
+            <Grid container sx={{ paddingY: 1 }}>
               <Grid item xs={12} lg={2} sx={{ paddingRight: 2, paddingTop: 0 }}>
                 <Box
                   sx={{

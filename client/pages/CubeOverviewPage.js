@@ -151,7 +151,7 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
           </Alert>
         ))}
         <Grid container sx={{ marginY: 2 }}>
-          <Grid item xs={12} lg={4} sx={{ paddingX: 1 }}>
+          <Grid item xs={12} md={4} sx={{ paddingX: 1 }}>
             <LayoutContainer sx={{}}>
               <ContainerHeader title={cubeState.name} variant="h3" />
               <ContainerBody>
@@ -249,7 +249,7 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
               </ContainerBody>
             </LayoutContainer>
           </Grid>
-          <Grid item xs={12} lg={8} sx={{ paddingX: 1 }}>
+          <Grid item xs={12} md={8} sx={{ paddingX: 1 }}>
             <LayoutContainer sx={{ height: '100%' }}>
               <ContainerHeader title="Description" variant="h3" />
               <ContainerBody>
