@@ -70,5 +70,8 @@
     "typescript": "^4.6.3",
     "winston": "^3.7.2",
     "winston2": "npm:winston@2.4.5"
+  },
+  "resolutions": {
+    "@types/react": "^17.0.44"
   }
 }
