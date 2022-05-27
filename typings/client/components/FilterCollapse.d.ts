@@ -1,12 +1,12 @@
 export default FilterCollapse;
-declare function FilterCollapse({ filter, setFilter, numCards, numShown, defaultFilterText, noCount, ...props }: {
-    [x: string]: any;
+declare function FilterCollapse({ filter, setFilter, numCards, numShown, defaultFilterText, noCount, isOpen }: {
     filter: any;
     setFilter: any;
     numCards: any;
     numShown: any;
     defaultFilterText: any;
     noCount: any;
+    isOpen: any;
 }): JSX.Element;
 declare namespace FilterCollapse {
     namespace propTypes {
@@ -16,6 +16,7 @@ declare namespace FilterCollapse {
         const numShown: PropTypes.Requireable<number>;
         const defaultFilterText: PropTypes.Requireable<string>;
         const noCount: PropTypes.Requireable<boolean>;
+        const isOpen: PropTypes.Requireable<boolean>;
     }
     namespace defaultProps {
         const filter_1: any;
@@ -28,6 +29,8 @@ declare namespace FilterCollapse {
         export { defaultFilterText_1 as defaultFilterText };
         const noCount_1: boolean;
         export { noCount_1 as noCount };
+        const isOpen_1: boolean;
+        export { isOpen_1 as isOpen };
     }
 }
 import PropTypes from "prop-types";

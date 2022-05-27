@@ -16,171 +16,68 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { ButtonGroup, IconButton } from '@mui/material';
+import { Box, Checkbox } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useCallback } from 'react';
-import { FormGroup, Input, InputGroupAddon, Label } from 'reactstrap';
+import React from 'react';
 
 import { COLORS } from '@cubeartisan/client/utils/Util.js';
 
-export const ColorChecks = ({ prefix, values, onChange }) =>
-  COLORS.map(([color, short]) => (
-    <FormGroup key={short} check inline>
-      <Label check>
-        <ColorCheck
-          key={short}
-          prefix={prefix}
-          color={color}
-          short={short}
-          value={values[`${prefix || 'color'}${short}`]}
-          onChange={onChange}
-        />
-        <img src={`/content/symbols/${short.toLowerCase()}.png`} alt={color} title={color} />
-      </Label>
-    </FormGroup>
-  ));
-
-export const ColorCheckButton = ({ prefix, size, color, short, value, onChange }) => {
-  const handleClick = useCallback(
-    (event) => {
-      event.preventDefault();
-      const name = prefix + short;
-      onChange({
-        target: { name, value: !value },
-      });
-      if (short === 'C' && !value) {
-        for (const other of Array.from('WUBRG')) {
-          onChange({
-            target: {
-              name: prefix + other,
-              value: false,
-            },
-          });
-        }
-      } else if (Array.from('WUBRG').includes(short) && !value) {
-        onChange({
-          target: {
-            name: `${prefix}C`,
-            value: false,
-          },
-        });
-      }
-    },
-    [prefix, short, value, onChange],
-  );
-  const symbolClassName = size ? `mana-symbol-${size}` : 'mana-symbol';
-  return (
-    <IconButton
-      className={`color-check-button${value ? ' active' : ''}`}
-      size={size ?? 'sm'}
-      onClick={handleClick}
-      aria-label={color}
-    >
-      <img src={`/content/symbols/${short.toLowerCase()}.png`} alt={color} title={color} className={symbolClassName} />
-    </IconButton>
-  );
-};
-ColorCheckButton.propTypes = {
-  prefix: PropTypes.string.isRequired,
-  size: PropTypes.string,
-  color: PropTypes.string.isRequired,
+const ColorIcon = ({ short, checked, color }) => (
+  <Box
+    component="img"
+    src={`/content/symbols/${short.toLowerCase()}.png`}
+    alt={color}
+    title={color}
+    sx={{
+      backgroundColor: checked ? 'background.darker' : 'background.paper',
+      width: '2.5rem',
+    }}
+  />
+);
+ColorIcon.propTypes = {
   short: PropTypes.string.isRequired,
-  value: PropTypes.bool,
-  onChange: PropTypes.func.isRequired,
-};
-ColorCheckButton.defaultProps = {
-  value: false,
-  size: null,
+  checked: PropTypes.bool.isRequired,
+  color: PropTypes.string.isRequired,
 };
 
-export const ColorChecksControl = ({ colorless, prefix, size, values, onChange, style, ...props }) => {
+const ColorChecks = ({ prefix, values, onChange, colors }) => (
+  <Box sx={{ display: 'flex', borderRadius: '1rem', border: '1px solid', borderColor: 'text.primary' }}>
+    {colors.map(([color, short]) => (
+      <Checkbox
+        sx={{ paddingX: 0.5 }}
+        key={short}
+        icon={<ColorIcon short={short} color={color} checked={false} />}
+        checkedIcon={<ColorIcon short={short} color={color} checked />}
+        checked={values[`${prefix || 'color'}${short}`]}
+        onChange={onChange}
+        inputProps={{ 'aria-label': 'controlled' }}
+      />
+    ))}
+  </Box>
+);
+ColorChecks.propTypes = {
+  prefix: PropTypes.string,
+  values: PropTypes.shape({}).isRequired,
+  onChange: PropTypes.func.isRequired,
+  colors: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string.isRequired).isRequired),
+};
+ColorChecks.defaultProps = {
+  prefix: 'colors',
+  colors: COLORS,
+};
+
+const ColorChecksControl = ({ colorless, prefix, values, onChange }) => {
   const colors = colorless ? [...COLORS, ['Colorless', 'C']] : COLORS;
-  // eslint-disable-next-line react/prop-types
-  delete props.width;
-  // eslint-disable-next-line react/prop-types
-  delete props.height;
-  const adjustedStyle = { ...style };
-  if (size === 'sm') {
-    adjustedStyle.height = 'calc(1.5em + .5rem + 2px)';
-    adjustedStyle.fontSize = '0.875rem';
-  }
-  return (
-    <ButtonGroup variant="text" size={size} style={adjustedStyle} {...props}>
-      {colors.map(([color, short]) => (
-        <ColorCheckButton
-          key={short}
-          prefix={prefix}
-          size={size}
-          color={color}
-          short={short}
-          value={values[prefix + short]}
-          onChange={onChange}
-        />
-      ))}
-    </ButtonGroup>
-  );
+  return <ColorChecks prefix={prefix} values={values} onChange={onChange} colors={colors} />;
 };
 ColorChecksControl.propTypes = {
   colorless: PropTypes.bool,
   prefix: PropTypes.string,
-  size: PropTypes.string.isRequired,
   values: PropTypes.shape({}).isRequired,
   onChange: PropTypes.func.isRequired,
-  style: PropTypes.shape({ height: PropTypes.string, fontSize: PropTypes.string }),
 };
 ColorChecksControl.defaultProps = {
   colorless: false,
   prefix: 'color',
-  style: {},
 };
-
-export const ColorChecksAddon = ({ addonType, colorless, prefix, size, values, onChange }) => {
-  const colors = Array.from(COLORS);
-  if (colorless) {
-    colors.push(['Colorless', 'C']);
-  }
-  return (
-    <>
-      {colors.map(([color, short]) => (
-        <InputGroupAddon key={short} addonType={addonType}>
-          <ColorCheckButton
-            prefix={prefix}
-            size={size}
-            color={color}
-            short={short}
-            value={values[prefix + short]}
-            onChange={onChange}
-          />
-        </InputGroupAddon>
-      ))}
-    </>
-  );
-};
-ColorChecksAddon.propTypes = {
-  colorless: PropTypes.bool,
-  prefix: PropTypes.string,
-  size: PropTypes.string.isRequired,
-  values: PropTypes.shape({}).isRequired,
-  onChange: PropTypes.func.isRequired,
-  addonType: PropTypes.string,
-};
-ColorChecksAddon.defaultProps = {
-  addonType: 'prepend',
-  colorless: false,
-  prefix: 'color',
-};
-
-const ColorCheck = ({ prefix, short, value, onChange }) => (
-  <Input type="checkbox" name={`${prefix}${short.toUpperCase()}`} checked={value} onChange={onChange} />
-);
-ColorCheck.propTypes = {
-  prefix: PropTypes.string,
-  short: PropTypes.string.isRequired,
-  value: PropTypes.bool,
-  onChange: PropTypes.func.isRequired,
-};
-ColorCheck.defaultProps = {
-  prefix: 'color',
-  value: false,
-};
-export default ColorCheck;
+export default ColorChecksControl;

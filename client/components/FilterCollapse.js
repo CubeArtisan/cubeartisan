@@ -16,30 +16,20 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { Button } from '@mui/material';
+import { Box, Button, Collapse, Divider, Grid, InputLabel, Modal, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useCallback, useEffect, useState } from 'react';
-import {
-  Col,
-  Collapse,
-  CustomInput,
-  Form,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  Row,
-} from 'reactstrap';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
-import { ColorChecksAddon, ColorChecksControl } from '@cubeartisan/client/components/ColorCheck.js';
+import ColorChecksControl from '@cubeartisan/client/components/ColorCheck.js';
+import {
+  ContainerBody,
+  ContainerFooter,
+  ContainerHeader,
+  LayoutContainer,
+} from '@cubeartisan/client/components/containers/LayoutContainer.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
-import NumericField from '@cubeartisan/client/components/NumericField.js';
-import TextField from '@cubeartisan/client/components/TextField.js';
+import LabeledSelect from '@cubeartisan/client/components/LabeledSelect.js';
 import { makeFilter } from '@cubeartisan/client/filtering/FilterCards.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
@@ -83,270 +73,272 @@ const numFields = [
 ];
 const colorFields = ['color', 'identity'];
 
-// TODO: Port to @mui
-
-const AdvancedFilterModal = ({ isOpen, toggle, apply, values, onChange, ...props }) => (
-  <Modal isOpen={isOpen} toggle={toggle} size="lg" {...props}>
-    <Form
+const AdvancedFilterModal = ({ isOpen, toggle, apply, values, onChange, cubeID }) => (
+  <Modal open={isOpen} onClose={toggle} sx={{ width: '60%' }}>
+    <form
       onSubmit={(e) => {
         e.preventDefault();
         apply();
       }}
     >
-      <ModalHeader toggle={toggle}>Advanced Filters</ModalHeader>
-      <ModalBody>
-        <TextField
-          name="name"
-          humanName="Card Name"
-          placeholder={'Any words in the name, e.g. "Fire"'}
-          value={values.name}
-          onChange={onChange}
-        />
-        <TextField
-          name="oracle"
-          humanName="Oracle Text"
-          placeholder={'Any text, e.g. "Draw a card"'}
-          value={values.oracle}
-          onChange={onChange}
-        />
-        <NumericField
-          name="mv"
-          humanName="Mana Value"
-          placeholder={'Any value, e.g. "2"'}
-          value={values.cmc}
-          valueOp={values.cmcOp}
-          onChange={onChange}
-        />
-        <InputGroup className="mb-3">
-          <InputGroupAddon addonType="prepend">
-            <InputGroupText>Color</InputGroupText>
-          </InputGroupAddon>
-          <ColorChecksAddon colorless prefix="color" values={values} onChange={onChange} />
-          <CustomInput type="select" id="colorOp" name="colorOp" value={values.colorOp} onChange={onChange}>
-            <option value="=">Exactly these colors</option>
-            <option value=">=">Including these colors</option>
-            <option value="<=">At most these colors</option>
-          </CustomInput>
-        </InputGroup>
-        <InputGroup className="mb-3">
-          <InputGroupAddon addonType="prepend">
-            <InputGroupText>Color Identity</InputGroupText>
-          </InputGroupAddon>
-          <ColorChecksAddon colorless prefix="identity" values={values} onChange={onChange} />
-          <CustomInput type="select" id="identityOp" name="identityOp" value={values.identityOp} onChange={onChange}>
-            <option value="=">Exactly these colors</option>
-            <option value=">=">Including these colors</option>
-            <option value="<=">At most these colors</option>
-          </CustomInput>
-        </InputGroup>
-        <TextField
-          name="mana"
-          humanName="Mana Cost"
-          placeholder={'Any mana cost, e.g. "{1}{W}"'}
-          value={values.mana}
-          onChange={onChange}
-        />
-        <InputGroup className="mb-3">
-          <InputGroupAddon addonType="prepend">
-            <InputGroupText>Manacost Type</InputGroupText>
-          </InputGroupAddon>
-          <Input type="select" name="is" value={values.is} onChange={onChange}>
-            {Object.keys(CARD_CATEGORY_DETECTORS).map((type) => (
-              <option key={type}>{type}</option>
-            ))}
-          </Input>
-        </InputGroup>
-        <TextField
-          name="type"
-          humanName="Type Line"
-          placeholder="Choose any card type, supertype, or subtypes to match"
-          value={values.type}
-          onChange={onChange}
-        />
-        <TextField
-          name="set"
-          humanName="Set"
-          placeholder={'Any set code, e.g. "WAR"'}
-          value={values.set}
-          onChange={onChange}
-        />
-        <CubeContext.Consumer>
-          {
-            ({ cubeID }) =>
-              cubeID && (
-                <InputGroup className="mb-3" {...props}>
-                  <InputGroupAddon addonType="prepend">
-                    <InputGroupText>Tag</InputGroupText>
-                  </InputGroupAddon>
-                  <AutocompleteInput
-                    treeUrl={`/cube/${cubeID}/cards/tags`}
-                    treePath="tags"
-                    type="text"
-                    name="tag"
-                    value={values.tag}
-                    onChange={onChange}
-                    placeholder={'Any text, e.g. "Zombie Testing"'}
-                    autoComplete="off"
-                    data-lpignore
-                    className="tag-autocomplete-input"
-                    wrapperClassName="tag-autocomplete-wrapper"
-                  />
-                </InputGroup>
-              )
-            // eslint-disable-next-line react/jsx-curly-newline
-          }
-        </CubeContext.Consumer>
-        <Row className="row-mid-padding">
-          <Col md={6}>
-            <InputGroup className="mb-3">
-              <InputGroupAddon addonType="prepend">
-                <InputGroupText>Status</InputGroupText>
-              </InputGroupAddon>
-              <Input type="select" name="status" value={values.status} onChange={onChange}>
-                {['', 'Not Owned', 'Ordered', 'Owned', 'Premium Owned', 'Proxied'].map((status) => (
-                  <option key={status}>{status}</option>
-                ))}
-              </Input>
-            </InputGroup>
-          </Col>
-          <Col md={6}>
-            <InputGroup className="mb-3">
-              <InputGroupAddon addonType="prepend">
-                <InputGroupText>Finish</InputGroupText>
-              </InputGroupAddon>
-              <Input type="select" name="finish" value={values.finish} onChange={onChange}>
-                {['', 'Foil', 'Non-foil'].map((finish) => (
-                  <option key={finish}>{finish}</option>
-                ))}
-              </Input>
-            </InputGroup>
-          </Col>
-        </Row>
-        <Row className="row-mid-padding">
-          <Col md={6}>
-            <NumericField
-              name="price"
-              humanName="Price USD"
-              placeholder={'Any decimal number, e.g. "3.50"'}
-              value={values.price}
-              valueOp={values.priceOp}
-              onChange={onChange}
+      <LayoutContainer>
+        <ContainerHeader title="Advanced Filters" variant="h4" />
+        <ContainerBody>
+          <Box sx={{ display: 'flex', marginBottom: 2, alignItems: 'center' }}>
+            <TextField
+              name="name"
+              label="Card Name"
+              placeholder={'Any words in the name, e.g. "Fire"'}
+              value={values.name}
+              onChange={(value) => onChange({ target: { name: 'name', value } })}
             />
-          </Col>
-          <Col md={6}>
-            <NumericField
-              name="priceFoil"
-              humanName="Price USD Foil"
-              placeholder={'Any decimal number, e.g. "14.00"'}
-              value={values.priceFoil}
-              valueOp={values.priceFoilOp}
-              onChange={onChange}
+            <TextField
+              name="oracle"
+              label="Oracle Text"
+              placeholder={'Any text, e.g. "Draw a card"'}
+              value={values.oracle}
+              onChange={(value) => onChange({ target: { name: 'oracle', value } })}
             />
-          </Col>
-          <Col md={6}>
-            <NumericField
-              name="priceEur"
-              humanName="Price EUR"
-              placeholder={'Any decimal number, e.g. "14.00"'}
-              value={values.priceEur}
-              valueOp={values.priceEurOp}
-              onChange={onChange}
+            <TextField
+              name="mv"
+              label="Mana Value"
+              placeholder={'Any value, e.g. "2"'}
+              value={values.cmc}
+              valueOp={values.cmcOp}
+              onChange={(value) => onChange({ target: { name: 'mv', value } })}
             />
-          </Col>
-          <Col md={6}>
-            <NumericField
-              name="priceTix"
-              humanName="MTGO TIX"
-              placeholder={'Any decimal number, e.g. "14.00"'}
-              value={values.priceTix}
-              valueOp={values.priceTixOp}
-              onChange={onChange}
+          </Box>
+          <Box sx={{ display: 'flex', marginBottom: 2, alignItems: 'center' }}>
+            <LabeledSelect
+              baseId="colorOp"
+              name="colorOp"
+              label="Color"
+              value={values.colorOp}
+              setValue={(value) => onChange({ target: { name: 'colorOp', value } })}
+              values={['Exactly these colors', 'Including these colors', 'At most these colors']}
+              keys={['=', '>=', '<=']}
+              selectSx={{ marginRight: 1 }}
             />
-          </Col>
-        </Row>
-        <NumericField
-          name="elo"
-          humanName="Elo"
-          placeholder={'Any integer number, e.g. "1200"'}
-          value={values.elo}
-          valueOp={values.eloOp}
-          onChange={onChange}
-        />
-        <NumericField
-          name="power"
-          humanName="Power"
-          placeholder={'Any value, e.g. "2"'}
-          value={values.power}
-          valueOp={values.powerOp}
-          onChange={onChange}
-        />
-        <NumericField
-          name="toughness"
-          humanName="Toughness"
-          placeholder={'Any value, e.g. "2"'}
-          value={values.toughness}
-          valueOp={values.toughnessOp}
-          onChange={onChange}
-        />
-        <NumericField
-          name="loyalty"
-          humanName="Loyalty"
-          placeholder={'Any value, e.g. "3"'}
-          value={values.loyalty}
-          valueOp={values.loyaltyOp}
-          onChange={onChange}
-        />
-        <NumericField
-          name="rarity"
-          humanName="Rarity"
-          placeholder={'Any rarity, e.g. "common"'}
-          value={values.rarity}
-          valueOp={values.rarityOp}
-          onChange={onChange}
-        />
-        <InputGroup className="mb-3" {...props}>
-          <InputGroupAddon addonType="prepend">
-            <InputGroupText>Legality</InputGroupText>
-          </InputGroupAddon>
-          <CustomInput type="select" id="legalityOp" name="legalityOp" onChange={onChange}>
-            <option value="=">legal</option>
-            <option value="!=">not legal</option>
-          </CustomInput>
-          <Input type="select" name="legality" value={values.legality} onChange={onChange}>
-            {[
-              '',
-              'Standard',
-              'Pioneer',
-              'Modern',
-              'Legacy',
-              'Vintage',
-              'Brawl',
-              'Historic',
-              'Pauper',
-              'Penny',
-              'Commander',
-            ].map((legality) => (
-              <option key={legality}>{legality}</option>
-            ))}
-          </Input>
-        </InputGroup>
-        <TextField
-          name="artist"
-          humanName="Artist"
-          placeholder={'Any text, e.g. "seb"'}
-          value={values.artist}
-          onChange={onChange}
-        />
-      </ModalBody>
-      <ModalFooter>
-        <Button color="warning" aria-label="Close" onClick={toggle}>
-          Cancel
-        </Button>
-        <Button color="success" type="submit">
-          Apply
-        </Button>
-      </ModalFooter>
-    </Form>
+            <ColorChecksControl colorless prefix="color" values={values} onChange={onChange} />
+          </Box>
+          <Box sx={{ display: 'flex', marginBottom: 2, alignItems: 'center' }}>
+            <LabeledSelect
+              baseId="identityOp"
+              label="Color Identity"
+              name="identityOp"
+              value={values.identityOp}
+              setValue={(value) => onChange({ target: { name: 'identityOp', value } })}
+              values={['Exactly these colors', 'Including these colors', 'At most these colors']}
+              keys={['=', '>=', '<=']}
+              selectSx={{ marginRight: 1 }}
+            />
+            <ColorChecksControl colorless prefix="identity" values={values} onChange={onChange} />
+          </Box>
+          <TextField
+            name="mana"
+            label="Mana Cost"
+            placeholder={'Any mana cost, e.g. "{1}{W}"'}
+            value={values.mana}
+            onChange={(value) => onChange({ target: { name: 'mana', value } })}
+            sx={{ marginBottom: 2 }}
+          />
+          <LabeledSelect
+            baseId="is-filter"
+            label="Card Category"
+            name="is"
+            value={values.is}
+            setValue={(value) => onChange({ target: { name: 'is', value } })}
+            values={Object.keys(CARD_CATEGORY_DETECTORS)}
+            selectSx={{ marginBottom: 2 }}
+          />
+          <TextField
+            name="type"
+            label="Type Line"
+            placeholder="Choose any card type, supertype, or subtypes to match"
+            value={values.type}
+            onChange={(value) => onChange({ target: { name: 'type', value } })}
+            sx={{ marginBottom: 2, width: '12rem' }}
+          />
+          <TextField
+            name="set"
+            label="Set"
+            placeholder={'Any set code, e.g. "WAR"'}
+            value={values.set}
+            onChange={(value) => onChange({ target: { name: 'set', value } })}
+            sx={{ marginBottom: 2, width: '7rem' }}
+          />
+          {cubeID && (
+            <Box sx={{ display: 'flex', marginBottom: 2, alignItems: 'center' }}>
+              <InputLabel>Tag</InputLabel>
+              <AutocompleteInput
+                treeUrl={`/cube/${cubeID}/cards/tags`}
+                treePath="tags"
+                type="text"
+                name="tag"
+                value={values.tag}
+                onChange={onChange}
+                placeholder={'Any text, e.g. "Zombie Testing"'}
+                autoComplete="off"
+                data-lpignore
+                className="tag-autocomplete-input"
+                wrapperClassName="tag-autocomplete-wrapper"
+              />
+            </Box>
+          )}
+          <Grid container sx={{ marginBottom: 2 }}>
+            <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
+              <LabeledSelect
+                baseId="status"
+                label="Status"
+                value={values.status}
+                values={['', 'Not Owned', 'Ordered', 'Owned', 'Premium Owned', 'Proxied']}
+                setValue={(value) => onChange({ target: { name: 'status', value } })}
+                selectSx={{ marginBottom: 2 }}
+              />
+            </Grid>
+            <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
+              <LabeledSelect
+                baseId="finish"
+                label="Finish"
+                value={values.finish}
+                values={['', 'Foil', 'Non-foil']}
+                setValue={(value) => onChange({ target: { name: 'finish', value } })}
+                selectSx={{ marginBottom: 2 }}
+              />
+            </Grid>
+            <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
+              <TextField
+                name="price"
+                label="Price USD"
+                placeholder={'Any decimal number, e.g. "3.50"'}
+                value={values.price}
+                valueOp={values.priceOp}
+                onChange={(value) => onChange({ target: { name: 'price', value } })}
+                sx={{ marginBottom: 2 }}
+              />
+            </Grid>
+            <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
+              <TextField
+                name="priceFoil"
+                label="Price USD Foil"
+                placeholder={'Any decimal number, e.g. "14.00"'}
+                value={values.priceFoil}
+                valueOp={values.priceFoilOp}
+                onChange={(value) => onChange({ target: { name: 'priceFoil', value } })}
+                sx={{ marginBottom: 2 }}
+              />
+            </Grid>
+            <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
+              <TextField
+                name="priceEur"
+                label="Price EUR"
+                placeholder={'Any decimal number, e.g. "14.00"'}
+                value={values.priceEur}
+                valueOp={values.priceEurOp}
+                onChange={(value) => onChange({ target: { name: 'priceEur', value } })}
+                sx={{ marginBottom: 2 }}
+              />
+            </Grid>
+            <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
+              <TextField
+                name="priceTix"
+                label="MTGO TIX"
+                placeholder={'Any decimal number, e.g. "14.00"'}
+                value={values.priceTix}
+                valueOp={values.priceTixOp}
+                onChange={(value) => onChange({ target: { name: 'priceTix', value } })}
+                sx={{ marginBottom: 2 }}
+              />
+            </Grid>
+            <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
+              <TextField
+                name="elo"
+                label="Elo"
+                placeholder={'Any integer number, e.g. "1200"'}
+                value={values.elo}
+                valueOp={values.eloOp}
+                onChange={(value) => onChange({ target: { name: 'elo', value } })}
+                sx={{ marginBottom: 2 }}
+              />
+            </Grid>
+            <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
+              <TextField
+                name="power"
+                label="Power"
+                placeholder={'Any value, e.g. "2"'}
+                value={values.power}
+                valueOp={values.powerOp}
+                onChange={(value) => onChange({ target: { name: 'power', value } })}
+                sx={{ marginBottom: 2 }}
+              />
+            </Grid>
+            <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
+              <TextField
+                name="toughness"
+                label="Toughness"
+                placeholder={'Any value, e.g. "2"'}
+                value={values.toughness}
+                valueOp={values.toughnessOp}
+                onChange={(value) => onChange({ target: { name: 'toughness', value } })}
+                sx={{ marginBottom: 2 }}
+              />
+            </Grid>
+            <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
+              <TextField
+                name="loyalty"
+                label="Loyalty"
+                placeholder={'Any value, e.g. "3"'}
+                value={values.loyalty}
+                valueOp={values.loyaltyOp}
+                onChange={(value) => onChange({ target: { name: 'loyalty', value } })}
+                sx={{ marginBottom: 2 }}
+              />
+            </Grid>
+            <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
+              <TextField
+                name="rarity"
+                label="Rarity"
+                placeholder={'Any rarity, e.g. "common"'}
+                value={values.rarity}
+                valueOp={values.rarityOp}
+                onChange={(value) => onChange({ target: { name: 'rarity', value } })}
+                sx={{ marginBottom: 2 }}
+              />
+            </Grid>
+            <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
+              <LabeledSelect
+                baseId="legalityOp"
+                name="legalityOp"
+                label="Legality"
+                value={values.legalityOp}
+                values={['Legal', 'Not Legal']}
+                keys={['=', '!=']}
+                setValue={(value) => onChange({ target: { name: 'legalityOp', value } })}
+                selectSx={{ marginBottom: 2 }}
+              />
+            </Grid>
+            <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
+              <TextField
+                name="artist"
+                label="Artist"
+                placeholder={'Any text, e.g. "seb"'}
+                value={values.artist}
+                onChange={onChange}
+                sx={{ marginBottom: 2 }}
+              />
+            </Grid>
+          </Grid>
+        </ContainerBody>
+        <ContainerFooter sx={{ display: 'flex' }}>
+          <Button color="warning" aria-label="Close" onClick={toggle} variant="contained" sx={{ marginLeft: 'auto' }}>
+            Cancel
+          </Button>
+          <Button color="success" type="submit" variant="contained" sx={{ marginX: 2 }}>
+            Apply
+          </Button>
+        </ContainerFooter>
+      </LayoutContainer>
+    </form>
   </Modal>
 );
 AdvancedFilterModal.propTypes = {
@@ -392,9 +384,13 @@ AdvancedFilterModal.propTypes = {
     artist: PropTypes.string,
   }).isRequired,
   onChange: PropTypes.func.isRequired,
+  cubeID: PropTypes.string,
+};
+AdvancedFilterModal.defaultProps = {
+  cubeID: null,
 };
 
-const FilterCollapse = ({ filter, setFilter, numCards, numShown, defaultFilterText, noCount, ...props }) => {
+const FilterCollapse = ({ filter, setFilter, numCards, numShown, defaultFilterText, noCount, isOpen }) => {
   const [advancedOpen, toggleAdvancedOpen, , closeAdvanced] = useToggle(false);
   const [filterInput, setFilterInput] = useQueryParam('filter', defaultFilterText ?? '');
   const [values, setValues] = useState({
@@ -407,6 +403,9 @@ const FilterCollapse = ({ filter, setFilter, numCards, numShown, defaultFilterTe
     cmcQuickOp: '<=',
     textQuick: '',
   });
+
+  const cube = useContext(CubeContext);
+  const cubeID = cube?.cubeID;
 
   const updateFilter = useCallback(
     async (filterValue) => {
@@ -523,139 +522,104 @@ const FilterCollapse = ({ filter, setFilter, numCards, numShown, defaultFilterTe
   const appliedText = `Filters applied${typeof numCards !== 'undefined' ? `: ${numCards} cards` : ''}${
     typeof numShown !== 'undefined' ? `, ${numShown} shown` : ''
   }.`;
+  let filterInputColor = 'primary';
+  if (filterInput.length > 0) {
+    if (valid) filterInputColor = 'success';
+    else filterInputColor = 'error';
+  }
   return (
-    <Collapse className="px-3" {...props}>
-      <Row>
-        <Col>
-          <Form>
-            <InputGroup className="mb-3">
-              <InputGroupAddon addonType="prepend">
-                <InputGroupText htmlFor="filterInput">Filter</InputGroupText>
-              </InputGroupAddon>
-              <Input
-                type="text"
-                id="filterInput"
-                name="filterInput"
-                placeholder={'name:"Ambush Viper"'}
-                valid={filterInput.length > 0 && valid}
-                invalid={filterInput.length > 0 && !valid}
-                value={filterInput}
-                onChange={changeFilterInput}
-                onKeyDown={handleKeyDown}
-              />
-              <InputGroupAddon addonType="append">
-                <Button color="success" variant="contained" onClick={apply}>
-                  Apply
-                </Button>
-              </InputGroupAddon>
-            </InputGroup>
-          </Form>
-        </Col>
-      </Row>
-      <Row sx={{ margin: '0, -5' }}>
-        <Form inline>
-          <Col sx={{ padding: '0 5' }} xs="auto">
-            <ColorChecksControl
-              size="sm"
-              className="mb-3"
-              colorless
-              prefix="colorQuick"
-              values={values}
-              onChange={handleChange}
+    <Collapse in={isOpen} sx={{ backgroundColor: 'background.paper', paddingX: 2 }}>
+      <Divider sx={{ marginBottom: 2 }} />
+      <Box sx={{ display: 'flex', marginBottom: 1 }}>
+        <TextField
+          id="filterInput"
+          name="filterInput"
+          placeholder={'name:"Ambush Viper"'}
+          color={filterInputColor}
+          value={filterInput}
+          onChange={changeFilterInput}
+          onKeyDown={handleKeyDown}
+          sx={{ width: '60%', marginLeft: 'auto', marginRight: 1 }}
+        />
+        <Button
+          color="success"
+          variant="contained"
+          disabled={!valid}
+          onClick={apply}
+          sx={{ paddingX: 2, marginRight: 'auto' }}
+        >
+          Apply
+        </Button>
+      </Box>
+      <Grid container sx={{ margin: '0, 5' }}>
+        <Grid item sx={{ padding: 2 }} xs="auto">
+          <ColorChecksControl colorless prefix="colorQuick" values={values} onChange={handleChange} />
+        </Grid>
+        <Grid item sx={{ padding: 2 }} xs="auto">
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <LabeledSelect
+              baseId="cmcQuickOp"
+              name="cmcQuickOp"
+              label="Mana Value"
+              value={values.cmcQuickOp}
+              setValue={(value) => handleChange({ target: { name: 'cmcQuickOp', value } })}
+              values={['>', '>=', '=', '<=', '<']}
             />
-          </Col>
-          <Col sx={{ padding: '0 5' }} xs="auto">
-            <InputGroup size="sm" className="mb-3">
-              <InputGroupAddon addonType="prepend">
-                <InputGroupText htmlFor="cmcQuick">Mana Value</InputGroupText>
-              </InputGroupAddon>
-              <Input
-                sx={{ alignText: 'center', maxWidth: '3.5rem' }}
-                id="cmcQickOp"
-                type="select"
-                name="cmcQuickOp"
-                value={values.cmcQuickOp}
-                onChange={handleChange}
-                bsSize="sm"
-              >
-                <option>{'>'}</option>
-                <option>{'>='}</option>
-                <option>=</option>
-                <option>{'<='}</option>
-                <option>{'<'}</option>
-              </Input>
-              <InputGroupAddon addonType="append">
-                <Input
-                  name="cmcQuick"
-                  id="cmcQuick"
-                  value={values.cmcQuick}
-                  onChange={handleChange}
-                  bsSize="sm"
-                  className="square-left"
-                  sx={{ maxWidth: '3rem' }}
-                />
-              </InputGroupAddon>
-            </InputGroup>
-          </Col>
-          <Col sx={{ padding: '0 5' }} xs="auto">
-            <InputGroup size="sm" className="mb-3">
-              <InputGroupAddon addonType="prepend">
-                <InputGroupText htmlFor="typeQuick">Type</InputGroupText>
-              </InputGroupAddon>
-              <Input
-                name="typeQuick"
-                id="typeQuick"
-                value={values.typeQuick}
-                onChange={handleChange}
-                sx={{ width: '8rem' }}
-              />
-            </InputGroup>
-          </Col>
-          <Col sx={{ padding: '0 5' }} xs="auto">
-            <InputGroup size="sm" className="mb-3">
-              <InputGroupAddon addonType="prepend">
-                <InputGroupText htmlFor="textQuick">Text</InputGroupText>
-              </InputGroupAddon>
-              <Input
-                name="textQuick"
-                id="textQuick"
-                value={values.textQuick}
-                onChange={handleChange}
-                sx={{ width: '8rem' }}
-              />
-            </InputGroup>
-          </Col>
-          <Col sx={{ padding: '0 5' }} xs="auto">
-            <Button type="submit" onClick={applyQuick} size="small" color="success" variant="outlined">
-              Quick Filter
-            </Button>
-          </Col>
-        </Form>
-      </Row>
-      <Row>
-        <Col>
-          {!noCount && <p>{!filter || filter.length === 0 ? <em>No filters applied.</em> : <em>{appliedText}</em>}</p>}
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <Button color="warning" variant="outlined" onClick={reset}>
-            Reset Filters
+            <TextField
+              name="cmcQuick"
+              id="cmcQuick"
+              label="MV"
+              value={values.cmcQuick}
+              onChange={handleChange}
+              sx={{ marginLeft: 1, maxWidth: '4rem' }}
+            />
+          </Box>
+        </Grid>
+        <Grid item sx={{ padding: 2 }} xs="auto">
+          <TextField
+            name="typeQuick"
+            id="typeQuick"
+            label="Type"
+            value={values.typeQuick}
+            onChange={handleChange}
+            sx={{ width: '12rem' }}
+          />
+        </Grid>
+        <Grid item sx={{ padding: 2 }} xs="auto">
+          <TextField
+            name="textQuick"
+            id="textQuick"
+            label="Oracle Text"
+            value={values.textQuick}
+            onChange={handleChange}
+            sx={{ width: '20rem' }}
+          />
+        </Grid>
+        <Grid item sx={{ paddingY: 2 }} xs="auto">
+          <Button type="submit" onClick={applyQuick} color="success" variant="contained">
+            Quick Filter
           </Button>
-          <Button color="primary" variant="outlined" onClick={toggleAdvancedOpen}>
-            Advanced...
-          </Button>
-          <Button color="secondary" variant="outlined" href="/filters">
-            Syntax Guide
-          </Button>
-        </Col>
-      </Row>
+        </Grid>
+      </Grid>
+      {!noCount && <p>{!filter || filter.length === 0 ? <em>No filters applied.</em> : <em>{appliedText}</em>}</p>}
+      <Box sx={{ display: 'flex', marginBottom: 2 }}>
+        <Button color="warning" variant="outlined" onClick={reset} sx={{ marginX: 1 }}>
+          Reset Filters
+        </Button>
+        <Button color="primary" variant="outlined" onClick={toggleAdvancedOpen} sx={{ marginX: 1 }}>
+          Advanced...
+        </Button>
+        <Button color="secondary" variant="outlined" href="/filters" sx={{ marginX: 1 }}>
+          Syntax Guide
+        </Button>
+      </Box>
       <AdvancedFilterModal
         isOpen={advancedOpen}
         toggle={toggleAdvancedOpen}
         apply={applyAdvanced}
         values={values}
         onChange={handleChange}
+        cubeID={cubeID}
       />
     </Collapse>
   );
@@ -667,6 +631,7 @@ FilterCollapse.propTypes = {
   numShown: PropTypes.number,
   defaultFilterText: PropTypes.string,
   noCount: PropTypes.bool,
+  isOpen: PropTypes.bool,
 };
 FilterCollapse.defaultProps = {
   filter: null,
@@ -674,5 +639,6 @@ FilterCollapse.defaultProps = {
   numShown: 0,
   defaultFilterText: null,
   noCount: false,
+  isOpen: false,
 };
 export default FilterCollapse;

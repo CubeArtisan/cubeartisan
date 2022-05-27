@@ -34,7 +34,7 @@ import {
   Row,
 } from 'reactstrap';
 
-import { ColorChecksAddon } from '@cubeartisan/client/components/ColorCheck.js';
+import ColorChecksControl from '@cubeartisan/client/components/ColorCheck.js';
 import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
 import withLoading from '@cubeartisan/client/components/hoc/WithLoading.js';
 import TagInput from '@cubeartisan/client/components/TagInput.js';
@@ -185,7 +185,7 @@ const CardModal = ({
             </InputGroup>
             <InputGroup className="mb-3">
               <InputGroupText className="square-right">Color</InputGroupText>
-              <ColorChecksAddon addonType="append" prefix="color" values={values} onChange={onChange} />
+              <ColorChecksControl prefix="color" values={values} onChange={onChange} />
             </InputGroup>
             <InputGroup className="mb-3">
               <InputGroupAddon addonType="prepend">

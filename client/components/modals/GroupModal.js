@@ -41,7 +41,7 @@ import {
 } from 'reactstrap';
 
 import AutocardListItem from '@cubeartisan/client/components/AutocardListItem.js';
-import { ColorChecksAddon } from '@cubeartisan/client/components/ColorCheck.js';
+import ColorChecksControl from '@cubeartisan/client/components/ColorCheck.js';
 import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext.js';
@@ -378,13 +378,7 @@ const GroupModal = ({ cubeID, canEdit, children, ...props }) => {
 
                 <InputGroup>
                   <InputGroupText className="square-right">Color Identity</InputGroupText>
-                  <ColorChecksAddon
-                    addonType="append"
-                    colorless
-                    prefix="color"
-                    values={formValues}
-                    onChange={handleChange}
-                  />
+                  <ColorChecksControl colorless prefix="color" values={formValues} onChange={handleChange} />
                 </InputGroup>
                 <FormText>
                   Selecting no mana symbols will cause the selected cards' color identity to remain unchanged. Selecting
