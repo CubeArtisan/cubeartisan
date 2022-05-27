@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { Box, Button, Collapse, Divider, Grid, InputLabel, Modal, TextField } from '@mui/material';
+import { Box, Button, Collapse, Grid, InputLabel, Modal, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 
@@ -529,7 +529,6 @@ const FilterCollapse = ({ filter, setFilter, numCards, numShown, defaultFilterTe
   }
   return (
     <Collapse in={isOpen} sx={{ backgroundColor: 'background.paper', paddingX: 2 }}>
-      <Divider sx={{ marginBottom: 2 }} />
       <Box sx={{ display: 'flex', marginBottom: 1 }}>
         <TextField
           id="filterInput"

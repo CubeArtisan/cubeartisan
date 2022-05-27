@@ -9,39 +9,41 @@ const CollapsingNavbar = ({ children, sx, breakpoint, component }) => {
   const collapse = useMediaQuery(breakpoints.down(breakpoint));
   const collapsedMenuItems = useMemo(() => {
     const menuItems = [];
-    const processElement = (element) => {
-      if (isValidElement(element)) {
-        if (element.type === StyledButtonMenu) {
-          menuItems.push({
-            text: element.props.children,
-            component: StyledButtonMenu,
-            extraProps: { ...element.props, arrow: false },
-          });
-        } else if (element.type === Link) {
-          menuItems.push({
-            text: element.props.children,
-            component: MenuItem,
-            link: element.props.href,
-          });
-        } else if (element.type === Button) {
-          menuItems.push({
-            text: element.props.children,
-            component: Button,
-            onClick: element.props.onClick,
-            extraProps: { variant: element.props.variant },
-            link: element.props.href,
-          });
-        } else if (element.type === Fragment) {
-          Children.forEach(element.props.children, processElement);
-        } else {
-          console.error('Could not translate element', element);
-          menuItems.push({ component: element.type, extraProps: element.props });
+    if (collapse) {
+      const processElement = (element) => {
+        if (isValidElement(element)) {
+          if (element.type === StyledButtonMenu) {
+            menuItems.push({
+              text: element.props.children,
+              component: StyledButtonMenu,
+              extraProps: { ...element.props, arrow: false },
+            });
+          } else if (element.type === Link) {
+            menuItems.push({
+              text: element.props.children,
+              component: MenuItem,
+              link: element.props.href,
+            });
+          } else if (element.type === Button) {
+            menuItems.push({
+              text: element.props.children,
+              component: Button,
+              onClick: element.props.onClick,
+              extraProps: { variant: element.props.variant },
+              link: element.props.href,
+            });
+          } else if (element.type === Fragment) {
+            Children.forEach(element.props.children, processElement);
+          } else {
+            console.error('Could not translate element', element);
+            menuItems.push({ component: element.type, extraProps: element.props });
+          }
         }
-      }
-    };
-    Children.forEach(children, processElement);
+      };
+      Children.forEach(children, processElement);
+    }
     return menuItems;
-  }, [children]);
+  }, [children, collapse]);
   return (
     <Box component={component} sx={{ display: 'flex', alignItems: 'center', ...sx }}>
       {collapse ? <StyledButtonMenu arrow={false} menuItems={collapsedMenuItems} /> : children}
