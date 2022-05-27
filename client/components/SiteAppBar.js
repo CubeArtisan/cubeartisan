@@ -23,10 +23,10 @@ const CreateCubeModalLink = withModal(Button, CreateCubeModal);
 const CONTENT_DASHBOARD_ITEM = { text: 'Content Creator Dashboard', link: '/creators/dashboard', component: MenuItem };
 
 const CONTENT_MENU = [
-  { text: 'Browse All Content', link: '/content', component: MenuItem },
-  { text: 'Browse Articles', link: '/articles', component: MenuItem },
-  { text: 'Browse Podcasts', link: '/podcasts', component: MenuItem },
-  { text: 'Browse Videos', link: '/videos', component: MenuItem },
+  { text: 'Browse All Content', link: '/creators/browse', component: MenuItem },
+  { text: 'Browse Articles', link: '/creators/articles', component: MenuItem },
+  { text: 'Browse Podcasts', link: '/creators/podcasts', component: MenuItem },
+  { text: 'Browse Videos', link: '/creators/videos', component: MenuItem },
   CONTENT_DASHBOARD_ITEM,
 ];
 
