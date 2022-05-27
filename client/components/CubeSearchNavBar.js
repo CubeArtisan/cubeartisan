@@ -16,15 +16,14 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-
 import { Button } from '@mui/material';
-import { Modal, ModalBody, ModalFooter, ModalHeader, Navbar, Input, CardBody } from 'reactstrap';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { CardBody, Input, Modal, ModalBody, ModalFooter, ModalHeader, Navbar } from 'reactstrap';
 
-import TextField from '@cubeartisan/client/components/TextField.js';
 import NumericField from '@cubeartisan/client/components/NumericField.js';
 import SelectField from '@cubeartisan/client/components/SelectField.js';
+import TextField from '@cubeartisan/client/components/TextField.js';
 
 const AdvancedSearchModal = ({ isOpen, toggle }) => {
   const [keyword, setKeyword] = useState('');

@@ -17,9 +17,9 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import React from 'react';
-import VideoPropType from '@cubeartisan/client/proptypes/VideoPropType.js';
 
 import PreviewCard from '@cubeartisan/client/components/PreviewCard.js';
+import VideoPropType from '@cubeartisan/client/proptypes/VideoPropType.js';
 
 const VideoPreview = ({ video }) => (
   <PreviewCard

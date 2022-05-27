@@ -16,65 +16,63 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import CardPricePropType from '@cubeartisan/client/proptypes/CardPricePropType.js';
-import CardDataPointPropType from '@cubeartisan/client/proptypes/CardDataPointPropType.js';
-import { Badge, Button, IconButton, Link, Tooltip, Typography } from '@mui/material';
 import { Check, ContentCopy, SwapHoriz } from '@mui/icons-material';
+import { Badge, Button, IconButton, Link, Tooltip, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { Chart as ChartJS } from 'react-chartjs-2';
 import {
   Card,
-  CardHeader,
-  Row,
-  Col,
   CardBody,
-  Nav,
-  TabContent,
-  TabPane,
+  CardHeader,
+  Col,
+  CustomInput,
+  Input,
   InputGroup,
   InputGroupAddon,
   InputGroupText,
-  CustomInput,
+  Nav,
+  Row,
+  TabContent,
   Table,
-  Input,
+  TabPane,
 } from 'reactstrap';
 
-import { Chart as ChartJS } from 'react-chartjs-2';
-
-import CardImage from '@cubeartisan/client/components/CardImage.js';
-import CardGrid from '@cubeartisan/client/components/CardGrid.js';
-import ImageFallback from '@cubeartisan/client/components/ImageFallback.js';
-import PagedList from '@cubeartisan/client/components/PagedList.js';
-import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
-import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
-import CountTableRow from '@cubeartisan/client/components/CountTableRow.js';
-import TextBadge from '@cubeartisan/client/components/TextBadge.js';
-import AddToCubeModal from '@cubeartisan/client/components/modals/AddToCubeModal.js';
+import CardImage from '@cubeartisan/client/components/CardImage.js';
 import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
-import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
+import CardGrid from '@cubeartisan/client/components/containers/CardGrid.js';
+import PagedList from '@cubeartisan/client/components/containers/PagedList.js';
+import CountTableRow from '@cubeartisan/client/components/CountTableRow.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
+import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
+import ImageFallback from '@cubeartisan/client/components/ImageFallback.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
+import AddToCubeModal from '@cubeartisan/client/components/modals/AddToCubeModal.js';
 import Tab from '@cubeartisan/client/components/Tab.js';
-
+import TextBadge from '@cubeartisan/client/components/TextBadge.js';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import CardDataPointPropType from '@cubeartisan/client/proptypes/CardDataPointPropType.js';
+import CardPricePropType from '@cubeartisan/client/proptypes/CardPricePropType.js';
 import {
-  cardPrice,
-  cardFoilPrice,
-  cardPriceEur,
-  cardTix,
-  cardElo,
-  cardPopularity,
-  cardCubeCount,
-} from '@cubeartisan/client/utils/Card.js';
-import {
-  getTCGLink,
-  getCardMarketLink,
   getCardHoarderLink,
   getCardKingdomLink,
+  getCardMarketLink,
+  getTCGLink,
   nameToDashedUrlComponent,
 } from '@cubeartisan/client/utils/Affiliate.js';
+import {
+  cardCubeCount,
+  cardElo,
+  cardFoilPrice,
+  cardPopularity,
+  cardPrice,
+  cardPriceEur,
+  cardTix,
+} from '@cubeartisan/client/utils/Card.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const AutocardA = withAutocard(Link);
 const AddModal = withModal(Button, AddToCubeModal);
@@ -286,7 +284,7 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
         </CardHeader>
         <Row className="mt-2" noGutters>
           <Col className="pl-2 pb-2" xs="12" sm="3">
-            <ImageFallback className="w-100" src={imageUsed} fallbackSrc="/content/default_card.png" alt={card.name} />
+            <ImageFallback src={imageUsed} fallbackSrc="/content/default_card.png" alt={card.name} />
             {card.image_flip && (
               <Button
                 color="success"

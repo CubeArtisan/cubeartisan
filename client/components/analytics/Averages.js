@@ -16,18 +16,18 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
 import { Grid, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useMemo } from 'react';
 
 import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown.js';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
-import { compareStrings, SortableTable } from '@cubeartisan/client/components/SortableTable.js';
+import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
+import { compareStrings, SortableTable } from '@cubeartisan/client/components/containers/SortableTable.js';
+import LabeledSelect from '@cubeartisan/client/components/LabeledSelect.js';
+import { weightedAverage, weightedMedian, weightedStdDev } from '@cubeartisan/client/drafting/createdraft.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import { cardType } from '@cubeartisan/client/utils/Card.js';
-import { weightedAverage, weightedMedian, weightedStdDev } from '@cubeartisan/client/drafting/createdraft.js';
 import { sortIntoGroups, SORTS } from '@cubeartisan/client/utils/Sort.js';
-import LabeledSelect from '@cubeartisan/client/components/LabeledSelect.js';
 
 const Averages = ({ cards, characteristics, defaultFormatId, cube, setAsfans }) => {
   const [sort, setSort] = useQueryParam('sort', 'Color');

@@ -16,17 +16,16 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useContext, useState, useRef, useEffect } from 'react';
 import { Button, Tooltip, Typography } from '@mui/material';
-import { Col, Collapse, Container, Input, Row, UncontrolledAlert } from 'reactstrap';
 import PropTypes from 'prop-types';
-
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
-import { SORTS, ORDERED_SORTS } from '@cubeartisan/client/utils/Sort.js';
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { Col, Collapse, Container, Input, Row, UncontrolledAlert } from 'reactstrap';
 
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import Query from '@cubeartisan/client/utils/Query.js';
+import { ORDERED_SORTS, SORTS } from '@cubeartisan/client/utils/Sort.js';
 
 const SortCollapse = ({
   defaultPrimarySort,

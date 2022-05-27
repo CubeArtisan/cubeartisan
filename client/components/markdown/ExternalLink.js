@@ -1,8 +1,8 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
-import LinkModal from '@cubeartisan/client/components/modals/LinkModal.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
+import LinkModal from '@cubeartisan/client/components/modals/LinkModal.js';
 
 const Link = withModal('a', LinkModal);
 

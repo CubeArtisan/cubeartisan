@@ -16,8 +16,8 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
 import { Button } from '@mui/material';
+import React from 'react';
 import { Input, InputGroup, InputGroupAddon } from 'reactstrap';
 
 const CardSearchBar = () => (

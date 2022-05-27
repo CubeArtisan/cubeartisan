@@ -16,9 +16,10 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
-import { Button, Tooltip, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+import { Button, Tooltip, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React from 'react';
 import {
   Col,
   CustomInput,
@@ -32,18 +33,16 @@ import {
   ModalHeader,
   Row,
 } from 'reactstrap';
-import PropTypes from 'prop-types';
 
-import { getTCGLink } from '@cubeartisan/client/utils/Affiliate.js';
-import { getLabels, cardGetLabels } from '@cubeartisan/client/utils/Sort.js';
-import { cardName, cardPrice, cardFoilPrice, cardPriceEur, cardTix, cardElo } from '@cubeartisan/client/utils/Card.js';
-
-import { ColorChecksAddon } from '@cubeartisan/client/components/ColorCheck.js';
+import ColorChecksControl from '@cubeartisan/client/components/ColorCheck.js';
 import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
+import withLoading from '@cubeartisan/client/components/hoc/WithLoading.js';
 import TagInput from '@cubeartisan/client/components/TagInput.js';
 import TextBadge from '@cubeartisan/client/components/TextBadge.js';
-import withLoading from '@cubeartisan/client/components/hoc/WithLoading.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import { getTCGLink } from '@cubeartisan/client/utils/Affiliate.js';
+import { cardElo, cardFoilPrice, cardName, cardPrice, cardPriceEur, cardTix } from '@cubeartisan/client/utils/Card.js';
+import { cardGetLabels, getLabels } from '@cubeartisan/client/utils/Sort.js';
 
 const LoadingCustomInput = withLoading(CustomInput, []);
 
@@ -186,7 +185,7 @@ const CardModal = ({
             </InputGroup>
             <InputGroup className="mb-3">
               <InputGroupText className="square-right">Color</InputGroupText>
-              <ColorChecksAddon addonType="append" prefix="color" values={values} onChange={onChange} />
+              <ColorChecksControl prefix="color" values={values} onChange={onChange} />
             </InputGroup>
             <InputGroup className="mb-3">
               <InputGroupAddon addonType="prepend">

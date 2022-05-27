@@ -16,21 +16,21 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import { Button, Container, Divider, Grid, Link, Paper, Stack, Tooltip, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 
-import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
-import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import CardPackagePropType from '@cubeartisan/client/proptypes/CardPackagePropType.js';
-import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
-import AddGroupToCubeModal from '@cubeartisan/client/components/modals/AddGroupToCubeModal.js';
-import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
-import TextBadge from '@cubeartisan/client/components/TextBadge.js';
-import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
-import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import CardHeader from '@cubeartisan/client/components/CardHeader.js';
+import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
+import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
+import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
+import AddGroupToCubeModal from '@cubeartisan/client/components/modals/AddGroupToCubeModal.js';
+import TextBadge from '@cubeartisan/client/components/TextBadge.js';
+import TimeAgo from '@cubeartisan/client/components/utils/TimeAgo.js';
+import CardPackagePropType from '@cubeartisan/client/proptypes/CardPackagePropType.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 const AddGroupToCubeModalLink = withModal(Button, AddGroupToCubeModal);
 const AutocardA = withAutocard(Link);

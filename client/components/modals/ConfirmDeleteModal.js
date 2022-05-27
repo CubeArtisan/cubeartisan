@@ -16,10 +16,9 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
-import PropTypes from 'prop-types';
-
 import { Button } from '@mui/material';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
 const ConfirmDeleteModal = ({ isOpen, toggle, text, submitDelete }) => (

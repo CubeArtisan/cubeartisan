@@ -16,10 +16,10 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { responsiveFontSizes, ThemeProvider } from '@mui/material/node/styles/index.js';
 import PropTypes from 'prop-types';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 // import useMediaQuery from '@mui/material/useMediaQuery/index.js';
-import { ThemeProvider, responsiveFontSizes } from '@mui/material/node/styles/index.js';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import getTheme from '@cubeartisan/client/theming/theme.js';

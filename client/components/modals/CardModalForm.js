@@ -16,18 +16,18 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 
-import { cardName, cardsAreEquivalent, normalizeName } from '@cubeartisan/client/utils/Card.js';
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
-import { arrayMove } from '@cubeartisan/client/utils/Util.js';
-import CardModal from '@cubeartisan/client/components/modals/CardModal.js';
 import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext.js';
 import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import MaybeboardContext from '@cubeartisan/client/components/contexts/MaybeboardContext.js';
+import CardModal from '@cubeartisan/client/components/modals/CardModal.js';
+import { cardName, cardsAreEquivalent, normalizeName } from '@cubeartisan/client/utils/Card.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import { cardGetLabels } from '@cubeartisan/client/utils/Sort.js';
+import { arrayMove } from '@cubeartisan/client/utils/Util.js';
 
 const CardModalForm = ({ children, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);

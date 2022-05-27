@@ -16,31 +16,30 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-
+import React, { useEffect, useState } from 'react';
 import {
   Card,
-  CardHeader,
-  CardFooter,
   CardBody,
-  Spinner,
-  Row,
+  CardFooter,
+  CardHeader,
   Col,
+  CustomInput,
   InputGroup,
   InputGroupAddon,
   InputGroupText,
-  CustomInput,
+  Row,
+  Spinner,
 } from 'reactstrap';
 
-import Query from '@cubeartisan/client/utils/Query.js';
-import Paginate from '@cubeartisan/client/components/Paginate.js';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
-import CardGrid from '@cubeartisan/client/components/CardGrid.js';
 import CardImage from '@cubeartisan/client/components/CardImage.js';
+import CardGrid from '@cubeartisan/client/components/containers/CardGrid.js';
+import Paginate from '@cubeartisan/client/components/containers/Paginate.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import FilterCollapse from '@cubeartisan/client/components/FilterCollapse.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
+import Query from '@cubeartisan/client/utils/Query.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import { ORDERED_SORTS } from '@cubeartisan/client/utils/Sort.js';
 

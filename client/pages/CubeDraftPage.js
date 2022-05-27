@@ -16,9 +16,6 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-import { io } from 'socket.io-client';
 import {
   Button,
   ButtonGroup,
@@ -31,37 +28,40 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { io } from 'socket.io-client';
 
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import CardHeader from '@cubeartisan/client/components/CardHeader.js';
+import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
+import DisplayContext, { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
 import DeckStacks from '@cubeartisan/client/components/DeckStacks.js';
-import DndProvider from '@cubeartisan/client/components/DndProvider.js';
 import { DraftbotBreakdownTable } from '@cubeartisan/client/components/DraftbotBreakdown.js';
 import DraggableCard from '@cubeartisan/client/components/DraggableCard.js';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
-import DisplayContext, { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
-import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
+import SetCardsInRow from '@cubeartisan/client/components/SetCardsInRow.js';
+import TextBadge from '@cubeartisan/client/components/TextBadge.js';
+import DndProvider from '@cubeartisan/client/components/utils/DndProvider.js';
+import DraftLocation from '@cubeartisan/client/drafting/DraftLocation.js';
+import {
+  convertDrafterState,
+  getBestOption,
+  getDefaultPosition,
+  getDraftbotScores,
+  getWorstOption,
+  validActions,
+} from '@cubeartisan/client/drafting/draftutil.js';
+import useTimer from '@cubeartisan/client/hooks/UseTimer.js';
+import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { DrafterStatePropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
 import { makeSubtitle } from '@cubeartisan/client/utils/Card.js';
-import DraftLocation from '@cubeartisan/client/drafting/DraftLocation.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
-import TextBadge from '@cubeartisan/client/components/TextBadge.js';
-import SetCardsInRow from '@cubeartisan/client/components/SetCardsInRow.js';
-import useTimer from '@cubeartisan/client/hooks/UseTimer.js';
-import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import {
-  getDraftbotScores,
-  getDefaultPosition,
-  getWorstOption,
-  getBestOption,
-  convertDrafterState,
-  validActions,
-} from '@cubeartisan/client/drafting/draftutil.js';
-import CardHeader from '@cubeartisan/client/components/CardHeader.js';
 
 const oppositeLocation = {
   [DraftLocation.PICKS]: DraftLocation.SIDEBOARD,

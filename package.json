@@ -41,7 +41,7 @@
     "start": "yarn webpack-dev-server & yarn nodemon",
     "test": "yarn workspaces foreach --include '@cubeartisan/*' run g:test",
     "test-loud": "yarn workspaces foreach --include '@cubeartisan/*' run g:test:loud",
-    "updatetypes": "yarn pnpify tsc -p tsconfig.lax.json",
+    "updatetypes": "rm -r typings; yarn pnpify tsc -p tsconfig.lax.json",
     "webpack-dev-server": "yarn workspace @cubeartisan/client webpack-dev-server"
   },
   "engines": {
@@ -65,9 +65,13 @@
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "socket.io": "^4.4.1",
+    "ts-react-display-name": "^1.2.2",
     "type-fest": "^2.12.2",
     "typescript": "^4.6.3",
     "winston": "^3.7.2",
     "winston2": "npm:winston@2.4.5"
+  },
+  "resolutions": {
+    "@types/react": "^17.0.44"
   }
 }

@@ -16,29 +16,29 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { lazy, useContext, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
+import React, { lazy, useContext, useEffect, useMemo, useState } from 'react';
 import { UncontrolledAlert } from 'reactstrap';
 
-import LocalStorage from '@cubeartisan/client/utils/LocalStorage.js';
-import Query from '@cubeartisan/client/utils/Query.js';
+import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import { ChangelistContextProvider } from '@cubeartisan/client/components/contexts/ChangelistContext.js';
-import ClientOnly from '@cubeartisan/client/components/ClientOnly.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
-import CubeListNavbar from '@cubeartisan/client/components/CubeListNavbar.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
-import GroupModal from '@cubeartisan/client/components/modals/GroupModal.js';
 import { MaybeboardContextProvider } from '@cubeartisan/client/components/contexts/MaybeboardContext.js';
 import { SortContextProvider } from '@cubeartisan/client/components/contexts/SortContext.js';
 import { TAG_COLORS, TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext.js';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import CubeListNavbar from '@cubeartisan/client/components/CubeListNavbar.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
-import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
-import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import GroupModal from '@cubeartisan/client/components/modals/GroupModal.js';
+import ClientOnly from '@cubeartisan/client/components/utils/ClientOnly.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import LocalStorage from '@cubeartisan/client/utils/LocalStorage.js';
+import Query from '@cubeartisan/client/utils/Query.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const CardModalForm = lazy(() => import('@cubeartisan/client/components/modals/CardModalForm.js'));
 const VisualSpoiler = lazy(() => import('@cubeartisan/client/components/VisualSpoiler.js'));

@@ -16,23 +16,23 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { alphaCompare, arrayIsSubset } from '@cubeartisan/client/utils/Util.js';
 import {
-  cardColorIdentity,
-  cardDevotion,
-  cardPriceEur,
-  cardPrice,
-  cardTix,
-  cardType,
   cardCmc,
+  cardColorIdentity,
+  cardCubeCount,
+  cardDevotion,
   cardElo,
   cardPickCount,
-  cardCubeCount,
-  cardReleaseDate,
-  COLOR_COMBINATIONS,
-  cardRarity,
   cardPopularity,
+  cardPrice,
+  cardPriceEur,
+  cardRarity,
+  cardReleaseDate,
+  cardTix,
+  cardType,
+  COLOR_COMBINATIONS,
 } from '@cubeartisan/client/utils/Card.js';
+import { alphaCompare, arrayIsSubset } from '@cubeartisan/client/utils/Util.js';
 
 const COLOR_MAP = {
   W: 'White',

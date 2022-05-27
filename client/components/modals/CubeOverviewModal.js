@@ -16,33 +16,33 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import PropTypes from 'prop-types';
-import { Button } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+import { Button } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
+  Card,
+  CardBody,
+  CardHeader,
+  Col,
+  FormGroup,
+  FormText,
+  Input,
+  Label,
   Modal,
   ModalBody,
   ModalFooter,
   ModalHeader,
-  Card,
-  CardHeader,
   Row,
-  Col,
-  FormGroup,
-  Label,
-  Input,
-  CardBody,
-  FormText,
 } from 'reactstrap';
 
+import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
+import { TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext.js';
+import TagInput from '@cubeartisan/client/components/TagInput.js';
+import TextEntry from '@cubeartisan/client/components/TextEntry.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import { getCubeDescription, getCubeId } from '@cubeartisan/client/utils/Util.js';
-import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
-import TagInput from '@cubeartisan/client/components/TagInput.js';
-import { TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext.js';
-import TextEntry from '@cubeartisan/client/components/TextEntry.js';
-import React, { useCallback, useEffect, useState } from 'react';
 
 /**
  * A utility for safely picking the current working description from a Cube.

@@ -16,17 +16,16 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-
+import React, { useContext } from 'react';
 import { Collapse, Spinner } from 'reactstrap';
 
-import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import CommentList from '@cubeartisan/client/components/PagedCommentList.js';
-import LinkButton from '@cubeartisan/client/components/LinkButton.js';
 import CommentEntry from '@cubeartisan/client/components/CommentEntry.js';
-import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
+import CommentList from '@cubeartisan/client/components/containers/PagedCommentList.js';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import LinkButton from '@cubeartisan/client/components/LinkButton.js';
 import useComments from '@cubeartisan/client/hooks/UseComments.js';
+import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 
 const CommentsSection = ({ parent, parentType, collapse }) => {
   const user = useContext(UserContext);

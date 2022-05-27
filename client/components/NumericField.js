@@ -16,10 +16,9 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
 import PropTypes from 'prop-types';
-
-import { Input, InputGroup, InputGroupAddon, InputGroupText, CustomInput } from 'reactstrap';
+import React from 'react';
+import { CustomInput, Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 
 const NumericField = ({ name, humanName, placeholder, valueOp, value, onChange, ...props }) => (
   <InputGroup className="mb-3" {...props}>

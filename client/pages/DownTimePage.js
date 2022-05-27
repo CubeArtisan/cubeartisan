@@ -16,10 +16,10 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Row, Col, Card, CardHeader, CardBody } from 'reactstrap';
 import { Box } from '@mui/material';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
 
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 

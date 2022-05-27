@@ -16,17 +16,16 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useContext, useRef } from 'react';
-import PropTypes from 'prop-types';
-import { Button } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+import { Button } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useCallback, useContext, useRef } from 'react';
 import { CustomInput, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import { putJson } from '@cubeartisan/client/utils/CSRF.js';
 import { formDataObject } from '@cubeartisan/client/utils/Form.js';
-
-import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
-import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 
 const CubeSettingsModal = ({ addAlert, onCubeUpdate, isOpen, toggle }) => {
   const { cube, cubeID, setCube } = useContext(CubeContext);

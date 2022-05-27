@@ -16,9 +16,9 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { Form, Input } from 'reactstrap';
 
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';

@@ -1,9 +1,9 @@
 import createTheme from '@mui/material/node/styles/createTheme.js';
 
 import getBase from '@cubeartisan/client/theming/base.js';
-import typography from '@cubeartisan/client/theming/typography.js';
-import lightPalette from '@cubeartisan/client/theming/palettes/light.js';
 import darkPalette from '@cubeartisan/client/theming/palettes/dark.js';
+import lightPalette from '@cubeartisan/client/theming/palettes/light.js';
+import typography from '@cubeartisan/client/theming/typography.js';
 
 /**
  * @param {'default'|'dark'} themeType

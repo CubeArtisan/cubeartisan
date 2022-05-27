@@ -16,17 +16,17 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { lazy, useContext } from 'react';
-import PropTypes from 'prop-types';
 import { Divider, Grid, Link, Paper, Stack, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { lazy, useContext } from 'react';
 
-import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType.js';
-import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
-import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import BlogContextMenu from '@cubeartisan/client/components/BlogContextMenu.js';
-import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
-import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 import CardHeader from '@cubeartisan/client/components/CardHeader.js';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
+import TimeAgo from '@cubeartisan/client/components/utils/TimeAgo.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType.js';
 
 const CommentsSection = lazy(() => import('@cubeartisan/client/components/CommentsSection.js'));
 

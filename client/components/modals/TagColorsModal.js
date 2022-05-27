@@ -16,13 +16,8 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import PropTypes from 'prop-types';
-import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
+import { DragHandle } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-
-import TagContext, { TAG_COLORS } from '@cubeartisan/client/components/contexts/TagContext.js';
-import { arrayMove } from '@cubeartisan/client/utils/Util.js';
 import {
   Dialog,
   DialogActions,
@@ -36,7 +31,12 @@ import {
   Select,
   Typography,
 } from '@mui/material';
-import { DragHandle } from '@mui/icons-material';
+import PropTypes from 'prop-types';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
+
+import TagContext, { TAG_COLORS } from '@cubeartisan/client/components/contexts/TagContext.js';
+import { arrayMove } from '@cubeartisan/client/utils/Util.js';
 
 const SortableDragHandle = SortableHandle(() => <DragHandle />);
 

@@ -16,23 +16,23 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useMemo } from 'react';
-import PropTypes from 'prop-types';
 import { Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useCallback, useMemo } from 'react';
 
 import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown.js';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
+import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import {
-  SortableTable,
   compareStrings,
   percentRenderer,
+  SortableTable,
   valueRenderer,
-} from '@cubeartisan/client/components/SortableTable.js';
+} from '@cubeartisan/client/components/containers/SortableTable.js';
+import LabeledSelect from '@cubeartisan/client/components/LabeledSelect.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
-import { SORTS, cardCanBeSorted, sortGroupsOrdered } from '@cubeartisan/client/utils/Sort.js';
-import LabeledSelect from '@cubeartisan/client/components/LabeledSelect.js';
+import { cardCanBeSorted, sortGroupsOrdered, SORTS } from '@cubeartisan/client/utils/Sort.js';
 
 const sortWithTotal = (pool, sort) =>
   [...sortGroupsOrdered(pool, sort), ['Total', pool]].map(([label, cards]) => [

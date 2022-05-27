@@ -16,15 +16,14 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import { Box, Card, CardContent, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 
-import { getLabels, sortDeep } from '@cubeartisan/client/utils/Sort.js';
-
+import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox.js';
 import AutocardListGroup from '@cubeartisan/client/components/AutocardListGroup.js';
 import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
-import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox.js';
+import { getLabels, sortDeep } from '@cubeartisan/client/utils/Sort.js';
 
 const cmc2Labels = getLabels(null, 'Mana Value 2');
 

@@ -1,7 +1,8 @@
+import carddb from '@cubeartisan/server/serverjs/cards.js';
+
+import cubefixture from '@cubeartisan/client/__tests__/fixtures/examplecube.js';
 import { createDraft, getDraftFormat } from '@cubeartisan/client/drafting/createdraft.js';
 import { makeFilter } from '@cubeartisan/client/filtering/FilterCards.js';
-import carddb from '@cubeartisan/server/serverjs/cards.js';
-import cubefixture from '@cubeartisan/client/__tests__/fixtures/examplecube.js';
 
 describe('getDraftFormat', () => {
   let exampleCube;

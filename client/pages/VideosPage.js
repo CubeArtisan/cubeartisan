@@ -16,16 +16,15 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
 import PropTypes from 'prop-types';
-import VideoPropType from '@cubeartisan/client/proptypes/VideoPropType.js';
+import React from 'react';
+import { Col, Row } from 'reactstrap';
 
-import { Row, Col } from 'reactstrap';
-
+import Paginate from '@cubeartisan/client/components/containers/Paginate.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import VideoPreview from '@cubeartisan/client/components/VideoPreview.js';
-import Paginate from '@cubeartisan/client/components/Paginate.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
+import VideoPreview from '@cubeartisan/client/components/VideoPreview.js';
+import VideoPropType from '@cubeartisan/client/proptypes/VideoPropType.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const PAGE_SIZE = 24;

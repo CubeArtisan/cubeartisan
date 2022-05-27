@@ -16,18 +16,16 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useMemo } from 'react';
 
+import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
+import { compareStrings, SortableTable } from '@cubeartisan/client/components/containers/SortableTable.js';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import CubeAnalyticPropType from '@cubeartisan/client/proptypes/CubeAnalyticPropType.js';
-
-import { compareStrings, SortableTable } from '@cubeartisan/client/components/SortableTable.js';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
-import { cardName, mainboardRate, pickRate, encodeName } from '@cubeartisan/client/utils/Card.js';
-
-import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
+import { cardName, encodeName, mainboardRate, pickRate } from '@cubeartisan/client/utils/Card.js';
 
 const AutocardLink = withAutocard(Link);
 

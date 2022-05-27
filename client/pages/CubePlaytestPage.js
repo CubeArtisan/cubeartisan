@@ -16,43 +16,47 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { lazy, useContext, useCallback, useMemo, useState, useRef } from 'react';
-import PropTypes from 'prop-types';
+import { LoadingButton } from '@mui/lab';
 import {
   Box,
   Button,
   Collapse,
   Divider,
-  InputLabel,
   Grid,
+  InputLabel,
   Modal,
-  Paper,
   Switch,
   TextField,
   Toolbar,
   Typography,
 } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
+import PropTypes from 'prop-types';
+import React, { lazy, useCallback, useContext, useMemo, useRef, useState } from 'react';
 
-import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
-import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
-import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import {
+  ContainerBody,
+  ContainerFooter,
+  ContainerHeader,
+  LayoutContainer,
+} from '@cubeartisan/client/components/containers/LayoutContainer.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
+import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
+import LabeledSelect from '@cubeartisan/client/components/LabeledSelect.js';
+import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
+import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import { allBotsDraft } from '@cubeartisan/client/drafting/draftutil.js';
 import useAlerts, { Alerts } from '@cubeartisan/client/hooks/UseAlerts.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
-import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
-import { allBotsDraft } from '@cubeartisan/client/drafting/draftutil.js';
-import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
-import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
-import LabeledSelect from '@cubeartisan/client/components/LabeledSelect.js';
-import PaperHeader from '@cubeartisan/client/components/PaperHeader.js';
 
 const DeckPreview = lazy(() => import('@cubeartisan/client/components/DeckPreview.js'));
 const CustomDraftFormatModal = lazy(() => import('@cubeartisan/client/components/modals/CustomDraftFormatModal.js'));
@@ -91,20 +95,16 @@ const UploadDecklistModal = ({ isOpen, toggle }) => {
     </Modal>
   );
 };
-
 UploadDecklistModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   toggle: PropTypes.func.isRequired,
 };
-
 const UploadDecklistModalLink = withModal(Button, UploadDecklistModal);
 
 const useBotsOnlyCallback = (botsOnly, cubeID) => {
-  console.log(cubeID);
   const formRef = useRef();
   const [loading, setLoading] = useState(false);
   const { mtgmlServer } = useContext(SiteCustomizationContext);
-  console.log(mtgmlServer);
   const submitForm = useCallback(
     async (e) => {
       setLoading(true);
@@ -151,20 +151,20 @@ const CustomDraftCard = ({ format, onEditFormat, onDeleteFormat, onSetDefaultFor
   const [timeout, setTimeout] = useState('0');
   const [collapseOpen, setCollapseOpen] = useState(false);
   return (
-    <Paper sx={{ marginBottom: 2 }}>
-      <PaperHeader
-        title={`${defaultDraftFormat === index ? 'Default Format: ' : ''}${format.title} (Custom Draft)`}
-        variant="h5"
-      />
-      <Box sx={{ padding: 2 }}>
-        <Markdown markdown={format.markdown} />
-        <CSRFForm
-          method="POST"
-          key="createDraft"
-          action={`/cube/${cubeID}/playtest/draft`}
-          ref={formRef}
-          onSubmit={submitForm}
-        >
+    <CSRFForm
+      method="POST"
+      key="createDraft"
+      action={`/cube/${cubeID}/playtest/draft`}
+      ref={formRef}
+      onSubmit={submitForm}
+    >
+      <LayoutContainer sx={{ marginBottom: 2 }}>
+        <ContainerHeader
+          title={`${defaultDraftFormat === index ? 'Default Format: ' : ''}${format.title} (Custom Draft)`}
+          variant="h5"
+        />
+        <ContainerBody>
+          <Markdown markdown={format.markdown} />
           <LabeledSelect
             baseId={`seats-${index}`}
             value={seats}
@@ -198,8 +198,9 @@ const CustomDraftCard = ({ format, onEditFormat, onDeleteFormat, onSetDefaultFor
               sx={{ marginLeft: 2 }}
             />
           </Box>
-          <Divider sx={{ marginY: 1 }} />
           <input type="hidden" name="id" value={index} />
+        </ContainerBody>
+        <ContainerFooter>
           <Box sx={{ display: 'flex' }}>
             <LoadingButton color="success" variant="contained" loading={loading} type="submit">
               Start Draft
@@ -228,12 +229,11 @@ const CustomDraftCard = ({ format, onEditFormat, onDeleteFormat, onSetDefaultFor
               Yes, delete this format
             </Button>
           </Collapse>
-        </CSRFForm>
-      </Box>
-    </Paper>
+        </ContainerFooter>
+      </LayoutContainer>
+    </CSRFForm>
   );
 };
-
 CustomDraftCard.propTypes = {
   format: PropTypes.shape({
     index: PropTypes.number.isRequired,
@@ -258,10 +258,10 @@ const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
   const [cards, setCards] = useState('15');
   const [packs, setPacks] = useState('3');
   return (
-    <Paper sx={{ marginBottom: 2 }}>
-      <PaperHeader variant="h5" title={`${defaultDraftFormat === -1 ? 'Default Format: ' : ''}Standard Draft`} />
-      <Box sx={{ padding: 2 }}>
-        <CSRFForm method="POST" action={`/cube/${cubeID}/playtest/draft`} onSubmit={submitForm} ref={formRef}>
+    <CSRFForm method="POST" action={`/cube/${cubeID}/playtest/draft`} onSubmit={submitForm} ref={formRef}>
+      <LayoutContainer sx={{ marginBottom: 2 }}>
+        <ContainerHeader variant="h5" title={`${defaultDraftFormat === -1 ? 'Default Format: ' : ''}Standard Draft`} />
+        <ContainerBody>
           <LabeledSelect
             baseId="packs-standard"
             value={packs}
@@ -311,21 +311,20 @@ const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
               sx={{ marginLeft: 2 }}
             />
           </Box>
-          <Divider sx={{ marginY: 1 }} />
           <input type="hidden" name="id" value="-1" />
-          <Box sx={{ display: 'flex' }}>
-            <LoadingButton color="success" variant="contained" loading={loading} type="submit">
-              Start Draft
-            </LoadingButton>
-            {canEdit && defaultDraftFormat !== -1 && (
-              <Button color="success" onClick={onSetDefaultFormat} data-index={-1}>
-                Make Default
-              </Button>
-            )}
-          </Box>
-        </CSRFForm>
-      </Box>
-    </Paper>
+        </ContainerBody>
+        <ContainerFooter sx={{ display: 'flex' }}>
+          <LoadingButton color="success" variant="contained" loading={loading} type="submit">
+            Start Draft
+          </LoadingButton>
+          {canEdit && defaultDraftFormat !== -1 && (
+            <Button color="success" onClick={onSetDefaultFormat} data-index={-1}>
+              Make Default
+            </Button>
+          )}
+        </ContainerFooter>
+      </LayoutContainer>
+    </CSRFForm>
   );
 };
 StandardDraftCard.propTypes = {
@@ -341,13 +340,13 @@ const GridCard = () => {
   const [packs, setPacks] = useState('18');
   const [type, setType] = useState('bot');
   return (
-    <Paper sx={{ marginBottom: 2 }}>
-      <PaperHeader variant="h5" title="Grid Draft" />
-      <Box sx={{ padding: 2 }}>
-        <Typography variant="subtitle1">
-          Grid drafting is a strategic 2 player draft with completely open information.
-        </Typography>
-        <CSRFForm method="POST" action={`/cube/${cubeID}/playtest/griddraft`}>
+    <CSRFForm method="POST" action={`/cube/${cubeID}/playtest/griddraft`}>
+      <LayoutContainer sx={{}}>
+        <ContainerHeader variant="h5" title="Grid Draft" />
+        <ContainerBody>
+          <Typography variant="subtitle1">
+            Grid drafting is a strategic 2 player draft with completely open information.
+          </Typography>
           <LabeledSelect
             baseId="packs-grid"
             value={packs}
@@ -365,30 +364,33 @@ const GridCard = () => {
             label="Type of Grid Draft"
             name="type"
           />
-          <Divider sx={{ marginY: 1 }} />
+        </ContainerBody>
+        <ContainerFooter>
           <Button color="success" type="submit" variant="contained">
             Start Draft
           </Button>
-        </CSRFForm>
-      </Box>
-    </Paper>
+        </ContainerFooter>
+      </LayoutContainer>
+    </CSRFForm>
   );
 };
 
 const DecksCard = ({ decks }) => {
   const { cubeID } = useContext(CubeContext);
   return (
-    <Paper sx={{ marginBottom: 2 }}>
-      <PaperHeader variant="h5" title="Recent Decks" />
-      <Box sx={{ padding: 2 }}>
+    <LayoutContainer sx={{ marginBottom: 2 }}>
+      <ContainerHeader variant="h5" title="Recent Decks" />
+      <ContainerBody>
         <Suspense>
           {decks.map((deck) => (
             <DeckPreview key={deck._id} deck={deck} />
           ))}
         </Suspense>
+      </ContainerBody>
+      <ContainerFooter>
         <Button href={`/cube/${cubeID}/playtest/decks`}>View all</Button>
-      </Box>
-    </Paper>
+      </ContainerFooter>
+    </LayoutContainer>
   );
 };
 DecksCard.propTypes = {
@@ -400,24 +402,23 @@ const SamplePackCard = () => {
   const [seed, setSeed] = useState('');
   const handleChange = useCallback((event) => setSeed(event.target.value), []);
   return (
-    <Paper sx={{ marginBottom: 2 }}>
-      <PaperHeader title="View Sample Pack" variant="h5" />
-      <Box sx={{ padding: 2 }}>
+    <LayoutContainer sx={{ marginBottom: 2 }}>
+      <ContainerHeader title="View Sample Pack" variant="h5" />
+      <ContainerBody>
         <InputLabel htmlFor="sample-seed-text" id="sample-seed-label">
           Seed (the same seed will give the same pack unless the cube is changed)
         </InputLabel>
         <TextField id="sample-seed-text" label="Seed" name="seed" value={seed} onChange={handleChange} />
-        <Divider sx={{ marginY: 1 }} />
-        <Box sx={{ display: 'flex' }}>
-          <Button color="success" href={`/cube/${cubeID}/playtest/sample`}>
-            View With Random Seed
-          </Button>
-          <Button color="success" disabled={!seed} href={`/cube/${cubeID}/playtest/sample/${seed}`}>
-            View Seeded
-          </Button>
-        </Box>
-      </Box>
-    </Paper>
+      </ContainerBody>
+      <ContainerFooter sx={{ display: 'flex' }}>
+        <Button color="success" href={`/cube/${cubeID}/playtest/sample`}>
+          View With Random Seed
+        </Button>
+        <Button color="success" disabled={!seed} href={`/cube/${cubeID}/playtest/sample/${seed}`}>
+          View Seeded
+        </Button>
+      </ContainerFooter>
+    </LayoutContainer>
   );
 };
 

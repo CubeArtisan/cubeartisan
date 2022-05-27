@@ -16,14 +16,13 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import { Notifications, NotificationsActive } from '@mui/icons-material';
+import { IconButton } from '@mui/material';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import { IconButton } from '@mui/material';
-
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
-import { Notifications, NotificationsActive } from '@mui/icons-material';
 import StyledButtonMenu from '@cubeartisan/client/components/StyledButtonMenu.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 const NotificationsNav = () => {
   const user = useContext(UserContext);

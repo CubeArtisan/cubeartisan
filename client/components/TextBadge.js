@@ -16,9 +16,9 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Box, Button } from '@mui/material';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const TextBadge = ({ name, children, sx }) => (
   <Box sx={{ ...sx, flexDirection: 'row', display: 'flex' }}>

@@ -26,7 +26,27 @@ rules:
   import/extensions:
     - error
     - always
-  import/no-extraneous-dependencies: ["error", {"devDependencies": true}]
+  import/no-extraneous-dependencies:
+    - error
+    - devDependencies: true
+  import/order:
+    - error
+    - groups:
+        - builtin
+        - external
+        - parent
+      pathGroups:
+        - pattern: "@cubeartisan/client/**"
+          group: parent
+          position: after
+      newlines-between: always
+      alphabetize:
+        order: 'asc'
+        caseInsensitive: true
+  sort-imports: 
+    - error
+    - ignoreCase: true
+      ignoreDeclarationSort: true
   prettier/prettier:
     - error
     - endOfLine: lf

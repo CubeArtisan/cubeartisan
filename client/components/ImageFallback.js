@@ -16,9 +16,9 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { forwardRef, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { forwardRef, useEffect, useState } from 'react';
 // import Image from 'mui-image/lib/index.js';
 
 const ImageFallback = forwardRef(({ src, fallbackSrc, alt, ...props }, ref) => {

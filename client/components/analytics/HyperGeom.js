@@ -16,10 +16,6 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { Chart as ReactChart } from 'react-chartjs-2';
-import { CategoryScale, Chart as ChartJS, LineElement, LinearScale, PointElement } from 'chart.js';
 import {
   Button,
   Grid,
@@ -34,10 +30,14 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
+import { CategoryScale, Chart as ChartJS, LinearScale, LineElement, PointElement } from 'chart.js';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { Chart as ReactChart } from 'react-chartjs-2';
 
+import LabeledSelect from '@cubeartisan/client/components/LabeledSelect.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import calculate from '@cubeartisan/client/utils/CalculateHyperGeom.js';
-import LabeledSelect from '@cubeartisan/client/components/LabeledSelect.js';
 
 ChartJS.register(CategoryScale, LineElement, LinearScale, PointElement);
 

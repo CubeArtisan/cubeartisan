@@ -16,17 +16,16 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import VideoPropType from '@cubeartisan/client/proptypes/VideoPropType.js';
+import React, { useContext } from 'react';
+import { Card, CardHeader } from 'reactstrap';
 
-import { CardHeader, Card } from 'reactstrap';
-
+import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import Video from '@cubeartisan/client/components/Video.js';
-import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
+import Video from '@cubeartisan/client/components/Video.js';
+import VideoPropType from '@cubeartisan/client/proptypes/VideoPropType.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 export const VideoPage = ({ loginCallback, video }) => {

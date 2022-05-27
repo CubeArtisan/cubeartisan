@@ -16,8 +16,8 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { createContext, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+import React, { createContext, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import Query from '@cubeartisan/client/utils/Query.js';
 

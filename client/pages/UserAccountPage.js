@@ -16,12 +16,19 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useEffect, useState, useContext } from 'react';
+import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import {
+  Card,
+  CardBody,
   Col,
+  CustomInput,
   FormGroup,
   Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
   Label,
   Nav,
   NavItem,
@@ -29,24 +36,17 @@ import {
   Row,
   TabContent,
   TabPane,
-  Card,
-  CardBody,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  CustomInput,
 } from 'reactstrap';
-import { Button } from '@mui/material';
 
-import Query from '@cubeartisan/client/utils/Query.js';
-import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
-import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import TextEntry from '@cubeartisan/client/components/TextEntry.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import Query from '@cubeartisan/client/utils/Query.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 export const UserAccountPage = ({ defaultNav, loginCallback }) => {
   const user = useContext(UserContext);

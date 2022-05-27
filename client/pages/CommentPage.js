@@ -16,16 +16,15 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import CommentPropType from '@cubeartisan/client/proptypes/CommentPropType.js';
-
+import React, { useState } from 'react';
 import { Card, CardHeader } from 'reactstrap';
 
 import Comment from '@cubeartisan/client/components/Comment.js';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
+import CommentPropType from '@cubeartisan/client/proptypes/CommentPropType.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const translateType = {

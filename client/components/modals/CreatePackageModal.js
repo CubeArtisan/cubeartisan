@@ -16,26 +16,26 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { Button } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+import { Button } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import {
-  Modal,
-  ModalBody,
-  ModalHeader,
-  ModalFooter,
-  Row,
-  Col,
   Card,
+  Col,
+  Input,
   InputGroup,
   InputGroupAddon,
   InputGroupText,
-  Input,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  Row,
 } from 'reactstrap';
 
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 const CreatePackageModal = ({ isOpen, toggle, onError, onSuccess }) => {
   const [cards, setCards] = useState([]);

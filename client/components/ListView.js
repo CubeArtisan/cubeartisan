@@ -16,25 +16,25 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useContext, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
-import { Form, Input } from 'reactstrap';
 import { TableCell } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { Form, Input } from 'reactstrap';
 
+import PagedTable from '@cubeartisan/client/components/containers/PagedTable.js';
+import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
+import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext.js';
+import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
+import TagContext from '@cubeartisan/client/components/contexts/TagContext.js';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
+import withLoading from '@cubeartisan/client/components/hoc/WithLoading.js';
+import TagInput from '@cubeartisan/client/components/TagInput.js';
+import useAlerts, { Alerts } from '@cubeartisan/client/hooks/UseAlerts.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { cardName, cardsAreEquivalent, normalizeName } from '@cubeartisan/client/utils/Card.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import { getLabels, sortDeep } from '@cubeartisan/client/utils/Sort.js';
-import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
-import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext.js';
-import PagedTable from '@cubeartisan/client/components/PagedTable.js';
-import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
-import TagContext from '@cubeartisan/client/components/contexts/TagContext.js';
-import TagInput from '@cubeartisan/client/components/TagInput.js';
-import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
-import withLoading from '@cubeartisan/client/components/hoc/WithLoading.js';
-import useAlerts, { Alerts } from '@cubeartisan/client/hooks/UseAlerts.js';
 
 const colorCombos = [
   'C',

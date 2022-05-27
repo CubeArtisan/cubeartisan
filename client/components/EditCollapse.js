@@ -16,35 +16,32 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useContext, useState } from 'react';
-import { Button } from '@mui/material';
+
 import {
-  Col,
+  Alert,
+  Box,
+  Button,
   Collapse,
-  Form,
-  InputGroup,
-  InputGroupAddon,
-  Row,
-  UncontrolledAlert,
-  FormGroup,
-  Label,
-  Input,
-  Card,
-  FormText,
-  InputGroupText,
-} from 'reactstrap';
+  Divider,
+  FormControlLabel,
+  Grid,
+  Link,
+  Switch,
+  TextField,
+  Typography,
+} from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useCallback, useContext, useState } from 'react';
 
-import { findUserLinks } from '@cubeartisan/markdown';
-
-import { cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
 import Changelist from '@cubeartisan/client/components/Changelist.js';
 import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
-import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import ResizeModal from '@cubeartisan/client/components/modals/ResizeModal.js';
-import TextEntry from '@cubeartisan/client/components/TextEntry.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
+import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
+import { cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
 
 export const getCard = async (cubeID, name, setAlerts) => {
   if (name && name.length > 0) {
@@ -75,11 +72,9 @@ export const getCard = async (cubeID, name, setAlerts) => {
   return null;
 };
 
-const EditCollapse = ({ ...props }) => {
+const EditCollapse = ({ isOpen }) => {
   const [alerts, setAlerts] = useState([]);
-  const [postContent, setPostContent] = useState('');
-  const [mentions, setMentions] = useState('');
-  const [specifyEdition, setSpecifyEdition] = useState(false);
+  const [specifyEdition, toggleSpecifyEdition] = useToggle(false);
 
   const {
     changes,
@@ -102,7 +97,6 @@ const EditCollapse = ({ ...props }) => {
   const handleChange = useCallback(
     (event) =>
       ({
-        textarea: setPostContent,
         add: setAddValue,
         remove: setRemoveValue,
       }[event.target.name](event.target.value)),
@@ -178,142 +172,121 @@ const EditCollapse = ({ ...props }) => {
     setChanges([]);
   }, [setChanges]);
 
-  const handleMentions = useCallback(() => {
-    setMentions(findUserLinks(postContent).join(';'));
-  }, [postContent]);
-
   return (
-    <Collapse className="px-3" {...props}>
-      {alerts.map(({ color, message }) => (
-        <UncontrolledAlert color={color} className="mt-2">
-          {message}
-        </UncontrolledAlert>
-      ))}
-      <Row noGutters>
-        <Row noGutters className="mr-auto">
-          <Form inline className="mb-2 mr-2" onSubmit={handleAdd}>
-            <InputGroup className="flex-nowrap">
-              <AutocompleteInput
-                treeUrl={specifyEdition ? '/cards/names/full' : '/cards/names'}
-                treePath="cardnames"
-                type="text"
-                innerRef={addInputRef}
-                name="add"
-                value={addValue}
-                onChange={handleChange}
-                onSubmit={handleAdd}
-                placeholder="Card to Add"
-                autoComplete="off"
-                data-lpignore
-                className="square-right"
+    <Collapse in={isOpen} sx={{ backgroundColor: 'background.paper' }}>
+      <Box sx={{ padding: 2 }}>
+        {alerts.map(({ color, message }, index) => (
+          <Alert
+            color={color}
+            sx={{ marginY: 1 }}
+            onClose={() => setAlerts((old) => old.filter((_, idx) => idx !== index))}
+            key={/* eslint-disable-line react/no-array-index-key */ index}
+          >
+            {message}
+          </Alert>
+        ))}
+        <Box sx={{ display: 'flex' }}>
+          <Box component="form" sx={{ marginRight: 2, marginBottom: 2, display: 'flex' }} onSubmit={handleAdd}>
+            <AutocompleteInput
+              treeUrl={specifyEdition ? '/cards/names/full' : '/cards/names'}
+              treePath="cardnames"
+              type="text"
+              innerRef={addInputRef}
+              name="add"
+              value={addValue}
+              onChange={handleChange}
+              onSubmit={handleAdd}
+              placeholder="Card to Add"
+              autoComplete="off"
+              data-lpignore
+              className="square-right"
+            />
+            <Button color="success" type="submit" disabled={addValue.length === 0}>
+              Add
+            </Button>
+          </Box>
+          <Box
+            component="form"
+            sx={{ marginRight: 2, marginBottom: 2, display: 'flex' }}
+            onSubmit={handleRemoveReplace}
+          >
+            <AutocompleteInput
+              cubeId={cube._id}
+              treeUrl={`/cube/${cubeID}/cards/names`}
+              treePath="cardnames"
+              type="text"
+              innerRef={removeInputRef}
+              name="remove"
+              value={removeValue}
+              onChange={handleChange}
+              onSubmit={handleRemoveReplace}
+              placeholder="Card to Remove"
+              autoComplete="off"
+              data-lpignore
+              className="square-right"
+            />
+            <Button color="success" type="submit" disabled={removeValue.length === 0}>
+              Remove/Replace
+            </Button>
+          </Box>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={specifyEdition}
+                onChange={toggleSpecifyEdition}
+                inputProps={{ 'aria-label': 'controlled' }}
               />
-              <InputGroupAddon addonType="append">
-                <Button color="success" type="submit" disabled={addValue.length === 0}>
-                  Add
-                </Button>
-              </InputGroupAddon>
-            </InputGroup>
-          </Form>
-          <Form inline className="mb-2 mr-2" onSubmit={handleRemoveReplace}>
-            <InputGroup className="flex-nowrap">
-              <AutocompleteInput
-                cubeId={cube._id}
-                treeUrl={`/cube/${cubeID}/cards/names`}
-                treePath="cardnames"
-                type="text"
-                innerRef={removeInputRef}
-                name="remove"
-                value={removeValue}
-                onChange={handleChange}
-                onSubmit={handleRemoveReplace}
-                placeholder="Card to Remove"
-                autoComplete="off"
-                data-lpignore
-                className="square-right"
-              />
-              <InputGroupAddon addonType="append">
-                <Button color="success" type="submit" disabled={removeValue.length === 0}>
-                  Remove/Replace
-                </Button>
-              </InputGroupAddon>
-            </InputGroup>
-          </Form>
-          <Form inline className="mb-2 mr-2">
-            <InputGroup>
-              <InputGroupAddon addonType="prepend">
-                <InputGroupText>
-                  <Input
-                    addon
-                    type="checkbox"
-                    aria-label="Checkbox for following text input"
-                    checked={specifyEdition}
-                    onChange={() => setSpecifyEdition(!specifyEdition)}
-                  />
-                </InputGroupText>
-              </InputGroupAddon>
-              <Input disabled value="Specify Versions" />
-            </InputGroup>
-          </Form>
-        </Row>
-        <ResizeModal cubeID={cubeID} />
-        <Button color="success" size="medium" onClick={toggleShowMaybeboard}>
-          Maybeboard
-        </Button>
-      </Row>
-      <Collapse isOpen={changes.length > 0} className="pt-1">
-        <CSRFForm method="POST" action={`/cube/${cubeID}`} onSubmit={handleMentions}>
-          <Row>
-            <Col>
-              <h6>
-                <Row>
-                  <Col>Changelist</Col>
-                  <Col className="col-sm-auto">
-                    <div className="text-secondary">
-                      +{additions}, -{removals}, {newTotal} Total
-                    </div>
-                  </Col>
-                </Row>
-              </h6>
-              <div className="changelist-container mb-2">
+            }
+            label="Specify Versions"
+          />
+          <ResizeModal cubeID={cubeID} />
+          <Button color="success" onClick={toggleShowMaybeboard}>
+            Maybeboard
+          </Button>
+        </Box>
+        <Collapse in={changes.length > 0}>
+          <CSRFForm method="POST" action={`/cube/${cubeID}`}>
+            <Grid container>
+              <Grid item xs={12} lg={4} sx={{ paddingX: 1 }}>
+                <Typography variant="h6">Changelist</Typography>
+                <Typography
+                  variant="subtitle1"
+                  sx={{ marginLeft: 'auto' }}
+                >{`+${additions}, -${removals}, ${newTotal} Total`}</Typography>
+                <Divider sx={{ marginY: 1 }} />
                 <Changelist />
-              </div>
-            </Col>
-            <Col>
-              <h6>Blog Post</h6>
-              <FormGroup>
-                <Label className="sr-only">Blog Title</Label>
-                <Input type="text" name="title" defaultValue="Cube Updated – Automatic Post" />
-              </FormGroup>
-              <FormGroup>
-                <Label className="sr-only">Blog Body</Label>
-                <Card>
-                  <TextEntry name="blog" value={postContent} onChange={handleChange} maxLength={10000} />
-                </Card>
-                <Input type="hidden" name="mentions" value={mentions} />
-                <FormText>
+              </Grid>
+              <Grid item xs={12} lg={8} sx={{ display: 'flex', flexFlow: 'column', paddingX: 1 }}>
+                <Typography variant="h6">Blog Post</Typography>
+                <TextField id="blog-post-name" name="title" label="Blog Title" sx={{ marginBottom: 1 }} />
+                <TextField id="blog-post-body" name="blog" label="Blog Body" multiline rows={16} />
+                <Typography variant="body1">
                   Having trouble formatting your posts? Check out the{' '}
-                  <a href="/markdown" target="_blank">
+                  <Link href="/markdown" target="_blank">
                     markdown guide
-                  </a>
+                  </Link>
                   .
-                </FormText>
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row className="mb-2">
-            <Col>
+                </Typography>
+              </Grid>
+            </Grid>
+            <Box sx={{ display: 'flex', marginBottom: 2 }}>
               <Button color="success" size="medium" type="submit">
                 Save Changes
               </Button>
               <Button color="warning" onClick={handleDiscardAll}>
                 Discard All
               </Button>
-            </Col>
-          </Row>
-        </CSRFForm>
-      </Collapse>
+            </Box>
+          </CSRFForm>
+        </Collapse>
+      </Box>
     </Collapse>
   );
 };
-
+EditCollapse.propTypes = {
+  isOpen: PropTypes.bool,
+};
+EditCollapse.defaultProps = {
+  isOpen: false,
+};
 export default EditCollapse;

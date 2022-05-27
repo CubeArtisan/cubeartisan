@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { useState, useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 const useSortableData = (data, config = null, sortFns = {}) => {
   const [sortConfig, setSortConfig] = useState(config);

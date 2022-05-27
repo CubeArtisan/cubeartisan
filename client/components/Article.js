@@ -16,13 +16,13 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
 import { Box, Divider, Stack, Typography } from '@mui/material';
+import React from 'react';
 
-import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType.js';
-import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
-import TimeAgo from '@cubeartisan/client/components/TimeAgo.js';
+import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
+import TimeAgo from '@cubeartisan/client/components/utils/TimeAgo.js';
+import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType.js';
 
 const Article = ({ article }) => (
   <Stack divider={<Divider />}>

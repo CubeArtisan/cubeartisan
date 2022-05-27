@@ -16,11 +16,11 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Box, Button, Divider, Modal, TextField, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React from 'react';
 
-import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 
 const LoginModal = ({ isOpen, toggle, loginCallback }) => (
   <Modal open={isOpen} onClose={toggle}>

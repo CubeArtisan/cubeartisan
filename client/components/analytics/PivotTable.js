@@ -16,9 +16,9 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import PivotTableUI from 'react-pivottable/PivotTableUI.js';
 
 const PivotTable = ({ cards, characteristics }) => {

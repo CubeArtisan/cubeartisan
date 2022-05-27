@@ -16,18 +16,17 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
 import PropTypes from 'prop-types';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
-import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
-
+import React from 'react';
 import { Card, CardBody, CardHeader } from 'reactstrap';
 
+import Paginate from '@cubeartisan/client/components/containers/Paginate.js';
 import DeckPreview from '@cubeartisan/client/components/DeckPreview.js';
-import Paginate from '@cubeartisan/client/components/Paginate.js';
-import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
+import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 export const CubeDecksPage = ({ cube, decks, pages, activePage, loginCallback }) => (

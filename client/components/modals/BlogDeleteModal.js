@@ -16,12 +16,11 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
 import PropTypes from 'prop-types';
-
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import React from 'react';
 
 import ConfirmDeleteModal from '@cubeartisan/client/components/modals/ConfirmDeleteModal.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 const BlogDeleteModal = ({ isOpen, toggle, postID, cubeID }) => {
   const confirm = async () => {

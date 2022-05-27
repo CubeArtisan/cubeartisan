@@ -16,27 +16,26 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useContext, useMemo, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
-import { Button } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+import { Button } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useCallback, useContext, useMemo, useRef, useState } from 'react';
 import { Col, Form, ListGroupItem, Row, Spinner } from 'reactstrap';
-
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
 import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext.js';
-import CardModalForm from '@cubeartisan/client/components/modals/CardModalForm.js';
 import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
-import { getCard } from '@cubeartisan/client/components/EditCollapse.js';
 import MaybeboardContext from '@cubeartisan/client/components/contexts/MaybeboardContext.js';
-import TableView from '@cubeartisan/client/components/TableView.js';
 import { getCardColorClass } from '@cubeartisan/client/components/contexts/TagContext.js';
+import { getCard } from '@cubeartisan/client/components/EditCollapse.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
+import CardModalForm from '@cubeartisan/client/components/modals/CardModalForm.js';
+import TableView from '@cubeartisan/client/components/TableView.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { cardName } from '@cubeartisan/client/utils/Card.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 const AutocardDiv = withAutocard('div');
 

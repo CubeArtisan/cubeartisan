@@ -16,20 +16,22 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { lazy, useContext, useEffect, useMemo, useState } from 'react';
-import PropTypes from 'prop-types';
 import { Box, Button, Card, CardContent, Grid, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { lazy, useContext, useEffect, useMemo, useState } from 'react';
 
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
-import FilterCollapse from '@cubeartisan/client/components/FilterCollapse.js';
+import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import { TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext.js';
-import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
-import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import FilterCollapse from '@cubeartisan/client/components/FilterCollapse.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 import CubeAnalyticPropType from '@cubeartisan/client/proptypes/CubeAnalyticPropType.js';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import {
   cardCmc,
   cardDevotion,
@@ -38,17 +40,15 @@ import {
   cardNormalPrice,
   cardPower,
   cardPrice,
-  cardToughness,
   cardPriceEur,
   cardTix,
+  cardToughness,
   mainboardRate,
   pickRate,
 } from '@cubeartisan/client/utils/Card.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
-import { getLabels, cardIsLabel } from '@cubeartisan/client/utils/Sort.js';
-import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import { cardIsLabel, getLabels } from '@cubeartisan/client/utils/Sort.js';
 
 const Averages = lazy(() => import('@cubeartisan/client/components/analytics/Averages.js'));
 const Chart = lazy(() => import('@cubeartisan/client/components/analytics/Chart.js'));
@@ -308,7 +308,7 @@ export const CubeAnalyticsPage = ({
           {cube.cards.length === 0 ? (
             <Typography variant="h5">This cube doesn't have any cards. Add cards to see analytics.</Typography>
           ) : (
-            <Grid container sx={{ paddingBottom: 2 }}>
+            <Grid container sx={{ paddingY: 1 }}>
               <Grid item xs={12} lg={2} sx={{ paddingRight: 2, paddingTop: 0 }}>
                 <Box
                   sx={{

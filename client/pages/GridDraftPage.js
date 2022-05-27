@@ -16,25 +16,22 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useState, useRef, useCallback, useEffect, useMemo, useContext } from 'react';
-import PropTypes from 'prop-types';
 import { Badge, Button } from '@mui/material';
-import { Card, CardBody, CardHeader, CardTitle, Collapse, Nav, Navbar, Col, Row, Input } from 'reactstrap';
+import PropTypes from 'prop-types';
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { Card, CardBody, CardHeader, CardTitle, Col, Collapse, Input, Nav, Navbar, Row } from 'reactstrap';
 
-import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
+import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
+import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
 import DeckStacks from '@cubeartisan/client/components/DeckStacks.js';
-import DndProvider from '@cubeartisan/client/components/DndProvider.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
 import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
-import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
-import { makeSubtitle } from '@cubeartisan/client/utils/Card.js';
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
+import DndProvider from '@cubeartisan/client/components/utils/DndProvider.js';
 import Location, { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation.js';
 import {
   convertDrafterState,
@@ -43,9 +40,12 @@ import {
   getDraftbotScores,
 } from '@cubeartisan/client/drafting/draftutil.js';
 import { getGridDrafterState } from '@cubeartisan/client/drafting/griddraftutils.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
+import { makeSubtitle } from '@cubeartisan/client/utils/Card.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import { toNullableInt } from '@cubeartisan/client/utils/Util.js';
-import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 
 const GRID_DRAFT_OPTIONS = [0, 1, 2].flatMap((ind) => [
   [0, 1, 2].map((offset) => 3 * ind + offset),

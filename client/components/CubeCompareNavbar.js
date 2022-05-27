@@ -16,17 +16,17 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Collapse, Nav, NavItem, NavLink, Navbar, NavbarToggler } from 'reactstrap';
 import { Link, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Collapse, Nav, Navbar, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 
 import FilterCollapse from '@cubeartisan/client/components/FilterCollapse.js';
-import SortCollapse from '@cubeartisan/client/components/SortCollapse.js';
 import TagColorsModal from '@cubeartisan/client/components/modals/TagColorsModal.js';
+import SortCollapse from '@cubeartisan/client/components/SortCollapse.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 
 const CubeCompareNavbar = ({ cubeA, cubeB, cards, filter, setFilter, setOpenCollapse, openCollapse }) => {
   const [isOpen, toggleOpen] = useToggle(false);

@@ -16,17 +16,16 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { lazy } from 'react';
 import PropTypes from 'prop-types';
-import CommentPropType from '@cubeartisan/client/proptypes/CommentPropType.js';
-
+import React, { lazy } from 'react';
 import { Card, CardHeader } from 'reactstrap';
 
+import Paginate from '@cubeartisan/client/components/containers/Paginate.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import Paginate from '@cubeartisan/client/components/Paginate.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import CommentPropType from '@cubeartisan/client/proptypes/CommentPropType.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const Comment = lazy(() => import('@cubeartisan/client/components/Comment.js'));
 

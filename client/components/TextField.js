@@ -16,9 +16,8 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
 import PropTypes from 'prop-types';
-
+import React from 'react';
 import { Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 
 const TextField = ({ name, humanName, placeholder, value, onChange, ...props }) => (

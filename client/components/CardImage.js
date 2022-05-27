@@ -16,13 +16,13 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { forwardRef, useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import React, { forwardRef, useContext, useRef } from 'react';
 
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
-import ImageFallback from '@cubeartisan/client/components/ImageFallback.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
+import ImageFallback from '@cubeartisan/client/components/ImageFallback.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { cardName } from '@cubeartisan/client/utils/Card.js';
 
 const ImageAutocard = withAutocard(ImageFallback);

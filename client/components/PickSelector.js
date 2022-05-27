@@ -1,11 +1,11 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { ListGroup, ListGroupItem } from 'reactstrap';
-import PropTypes from 'prop-types';
 
 import { getCardColorClass } from '@cubeartisan/client/components/contexts/TagContext.js';
-import { cardName } from '@cubeartisan/client/utils/Card.js';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import { cardName } from '@cubeartisan/client/utils/Card.js';
 
 export const ACTION_LABELS = Object.freeze({
   pick: 'Picked ',

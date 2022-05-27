@@ -18,8 +18,8 @@
  */
 import React from 'react';
 
-import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType.js';
 import PreviewCard from '@cubeartisan/client/components/PreviewCard.js';
+import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType.js';
 
 const PodcastPreview = ({ podcast }) => (
   <PreviewCard

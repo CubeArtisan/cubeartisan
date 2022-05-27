@@ -16,18 +16,18 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { lazy, useContext } from 'react';
-import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
-import { Card, CardBody, FormGroup, Label, Input } from 'reactstrap';
+import PropTypes from 'prop-types';
+import React, { lazy, useContext } from 'react';
+import { Card, CardBody, FormGroup, Input, Label } from 'reactstrap';
 
+import Paginate from '@cubeartisan/client/components/containers/Paginate.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import Paginate from '@cubeartisan/client/components/Paginate.js';
-import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
-import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const BlogPost = lazy(() => import('@cubeartisan/client/components/BlogPost.js'));
 

@@ -16,9 +16,10 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useMemo } from 'react';
 import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 import { Button, IconButton } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useMemo } from 'react';
 import {
   Card,
   CardBody,
@@ -36,7 +37,6 @@ import {
   Label,
   UncontrolledDropdown,
 } from 'reactstrap';
-import PropTypes from 'prop-types';
 
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 

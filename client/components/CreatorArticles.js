@@ -16,16 +16,16 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useState, useEffect, useContext } from 'react';
 import { Button } from '@mui/material';
-import { Navbar, Nav, NavItem, Row, Col, CardBody } from 'reactstrap';
+import React, { useContext, useEffect, useState } from 'react';
+import { CardBody, Col, Nav, Navbar, NavItem, Row } from 'reactstrap';
 
-import LoadingPage from '@cubeartisan/client/pages/LoadingPage.js';
-import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import ArticlePreview from '@cubeartisan/client/components/ArticlePreview.js';
-import Paginate from '@cubeartisan/client/components/Paginate.js';
-import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+import Paginate from '@cubeartisan/client/components/containers/Paginate.js';
+import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import LoadingPage from '@cubeartisan/client/pages/LoadingPage.js';
+import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 const PAGE_SIZE = 24;
 

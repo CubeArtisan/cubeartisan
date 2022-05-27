@@ -4284,18 +4284,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*":
-  version: 17.0.39
-  resolution: "@types/react@npm:17.0.39"
-  dependencies:
-    "@types/prop-types": "*"
-    "@types/scheduler": "*"
-    csstype: ^3.0.2
-  checksum: bf04d3c2894559012710d595553e12b422d3b91cd8f4f7e122d8cb044ba9c2ba17f6e8a4e09581359cc5509ddc59cd8c8fabd6774f3505a40a45393f074d6e6e
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:^17, @types/react@npm:^17.0.44":
+"@types/react@npm:^17.0.44":
   version: 17.0.44
   resolution: "@types/react@npm:17.0.44"
   dependencies:
@@ -7034,6 +7023,7 @@ __metadata:
     prop-types: ^15.8.1
     react: ^17.0.2
     socket.io: ^4.4.1
+    ts-react-display-name: ^1.2.2
     type-fest: ^2.12.2
     typescript: ^4.6.3
     winston: ^3.7.2
@@ -16914,6 +16904,13 @@ __metadata:
   version: 1.0.5
   resolution: "trough@npm:1.0.5"
   checksum: d6c8564903ed00e5258bab92134b020724dbbe83148dc72e4bf6306c03ed8843efa1bcc773fa62410dd89161ecb067432dd5916501793508a9506cacbc408e25
+  languageName: node
+  linkType: hard
+
+"ts-react-display-name@npm:^1.2.2":
+  version: 1.2.2
+  resolution: "ts-react-display-name@npm:1.2.2"
+  checksum: c09421fdc5e5cb8530fad6fee494e91671cce9ce14c9058158c446f89e1af3a8659c7b44d365d82e4f806aa5cb12385dc8b6a91b0f38c2b7a1607f800673fb94
   languageName: node
   linkType: hard
 

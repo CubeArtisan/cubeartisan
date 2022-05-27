@@ -16,17 +16,17 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useMemo } from 'react';
-import ReactDOM from 'react-dom';
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
+import React, { useMemo } from 'react';
+import ReactDOM from 'react-dom';
 
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
+import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
+import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import SiteCustomizationContext, {
   DEFAULT_SITE_CUSTOMIZATIONS,
 } from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
 
 const RenderToRoot = (Element) => {
   const defaultReactProps = typeof window !== 'undefined' ? window?.reactProps ?? {} : {};

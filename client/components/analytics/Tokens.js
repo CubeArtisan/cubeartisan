@@ -16,14 +16,13 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
-
-import { getTCGLink } from '@cubeartisan/client/utils/Affiliate.js';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import MassBuyButton from '@cubeartisan/client/components/MassBuyButton.js';
+import { getTCGLink } from '@cubeartisan/client/utils/Affiliate.js';
 import { cardName } from '@cubeartisan/client/utils/Card.js';
 
 const compareCards = (x, y) => cardName(x).localeCompare(cardName(y));

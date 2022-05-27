@@ -16,21 +16,21 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { lazy, useState, useEffect, useContext } from 'react';
-import PropTypes from 'prop-types';
-import { Spinner, Nav, CardBody, Card, TabContent, TabPane, Input, FormGroup, Row, Col, Label } from 'reactstrap';
 import { Button } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { lazy, useContext, useEffect, useState } from 'react';
+import { Card, CardBody, Col, FormGroup, Input, Label, Nav, Row, Spinner, TabContent, TabPane } from 'reactstrap';
 
-import VideoPropType from '@cubeartisan/client/proptypes/VideoPropType.js';
-import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import Tab from '@cubeartisan/client/components/Tab.js';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+import Tab from '@cubeartisan/client/components/Tab.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import VideoPropType from '@cubeartisan/client/proptypes/VideoPropType.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const AutocompleteInput = lazy(() => import('@cubeartisan/client/components/AutocompleteInput.js'));
 const Video = lazy(() => import('@cubeartisan/client/components/Video.js'));

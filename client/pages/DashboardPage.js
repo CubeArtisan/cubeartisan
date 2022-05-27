@@ -16,21 +16,26 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { lazy, useContext } from 'react';
+import { Button, Grid, Link, Stack, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import { Box, Button, Divider, Grid, Link, Paper, Stack, Typography } from '@mui/material';
+import React, { lazy, useContext } from 'react';
 
-import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
-import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
-import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType.js';
+import {
+  ContainerBody,
+  ContainerFooter,
+  ContainerHeader,
+  LayoutContainer,
+} from '@cubeartisan/client/components/containers/LayoutContainer.js';
+import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
-import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
+import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
-import PaperHeader from '@cubeartisan/client/components/PaperHeader.js';
+import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType.js';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
+import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
+import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const CreateCubeModal = lazy(() => import('@cubeartisan/client/components/modals/CreateCubeModal.js'));
 const Feed = lazy(() => import('@cubeartisan/client/components/Feed.js'));
@@ -65,9 +70,9 @@ export const DashboardPage = ({ posts, cubes, decks, loginCallback, content }) =
       <DynamicFlash />
       <Grid container spacing={2} sx={{ marginBottom: 2 }}>
         <Grid item xs={12} lg={6}>
-          <Paper elevation={4}>
-            <PaperHeader title="Your Cubes" />
-            <Box>
+          <LayoutContainer elevation={4} sx={{}}>
+            <ContainerHeader title="Your Cubes" />
+            <ContainerBody>
               <Suspense>
                 {cubes.length > 0 ? (
                   <Grid container sx={{ padding: 1 }}>
@@ -86,13 +91,13 @@ export const DashboardPage = ({ posts, cubes, decks, loginCallback, content }) =
                   </Typography>
                 )}
               </Suspense>
-            </Box>
-          </Paper>
+            </ContainerBody>
+          </LayoutContainer>
         </Grid>
         <Grid item xs={12} lg={6}>
-          <Paper elevation={4}>
-            <PaperHeader title="Recent Drafts of Your Cube" />
-            <Box>
+          <LayoutContainer elevation={4} sx={{}}>
+            <ContainerHeader title="Recent Drafts of Your Cube" />
+            <ContainerBody>
               {decks.length > 0 ? (
                 <Stack spacing={1} sx={{ paddingX: 1 }}>
                   {filteredDecks.map((deck) => (
@@ -107,43 +112,48 @@ export const DashboardPage = ({ posts, cubes, decks, loginCallback, content }) =
                   <Link href={discordUrl}>Discord draft exchange?</Link>
                 </Typography>
               )}
-            </Box>
-            <Divider sx={{ marginY: 1 }} />
-            <Link variant="body1" href="/dashboard/decks/0" sx={{ marginLeft: 2, marginBottom: 1 }}>
-              View All
-            </Link>
-          </Paper>
+            </ContainerBody>
+            <ContainerFooter>
+              <Link variant="body1" href="/dashboard/decks/0" sx={{ marginLeft: 2, marginBottom: 1 }}>
+                View All
+              </Link>
+            </ContainerFooter>
+          </LayoutContainer>
         </Grid>
         <Grid item xs={12} lg={8}>
-          <Paper elevation={4}>
-            <PaperHeader title="Your Feed" />
-            <Suspense>
-              <Feed items={posts} />
-            </Suspense>
-          </Paper>
+          <LayoutContainer elevation={4} sx={{}}>
+            <ContainerHeader title="Your Feed" />
+            <ContainerBody>
+              <Suspense>
+                <Feed items={posts} />
+              </Suspense>
+            </ContainerBody>
+          </LayoutContainer>
         </Grid>
         <Grid item xs={12} lg={4} sx={{ padding: 2 }}>
-          <Paper elevation={4} sx={{ paddingBottom: 1 }}>
-            <PaperHeader title="Latest Content" sx={{ display: 'flex', alignItems: 'center' }}>
+          <LayoutContainer elevation={4} sx={{}}>
+            <ContainerHeader title="Latest Content" sx={{ display: 'flex', alignItems: 'center' }}>
               <Link sx={{ marginLeft: 'auto' }} href="/content">
                 View more...
               </Link>
-            </PaperHeader>
-            <Suspense>
-              {content.map((item) => {
-                if (item.type === 'article') {
-                  return <ArticlePreview key={item.content._id} article={item.content} />;
-                }
-                if (item.type === 'video') {
-                  return <VideoPreview key={item.content._id} video={item.content} />;
-                }
-                if (item.type === 'episode') {
-                  return <PodcastEpisodePreview key={item.content._id} episode={item.content} />;
-                }
-                return null;
-              })}
-            </Suspense>
-          </Paper>
+            </ContainerHeader>
+            <ContainerBody>
+              <Suspense>
+                {content.map((item) => {
+                  if (item.type === 'article') {
+                    return <ArticlePreview key={item.content._id} article={item.content} />;
+                  }
+                  if (item.type === 'video') {
+                    return <VideoPreview key={item.content._id} video={item.content} />;
+                  }
+                  if (item.type === 'episode') {
+                    return <PodcastEpisodePreview key={item.content._id} episode={item.content} />;
+                  }
+                  return null;
+                })}
+              </Suspense>
+            </ContainerBody>
+          </LayoutContainer>
         </Grid>
       </Grid>
     </MainLayout>

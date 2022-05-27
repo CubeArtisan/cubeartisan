@@ -18,8 +18,8 @@
  */
 import React from 'react';
 
-import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType.js';
 import PreviewCard from '@cubeartisan/client/components/PreviewCard.js';
+import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType.js';
 
 const ArticlePreview = ({ article }) => (
   <PreviewCard

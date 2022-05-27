@@ -16,17 +16,15 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+import React, { useCallback, useRef, useState } from 'react';
+import { Collapse, Input, Nav, Navbar, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 
-import DeckDeleteModal from '@cubeartisan/client/components/modals/DeckDeleteModal.js';
-
-import { Collapse, Nav, Navbar, NavbarToggler, NavItem, NavLink, Input } from 'reactstrap';
-
-import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
-import BasicsModal from '@cubeartisan/client/components/modals/BasicsModal.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
+import BasicsModal from '@cubeartisan/client/components/modals/BasicsModal.js';
+import DeckDeleteModal from '@cubeartisan/client/components/modals/DeckDeleteModal.js';
+import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 
 const DeleteDeckModalLink = withModal(NavLink, DeckDeleteModal);

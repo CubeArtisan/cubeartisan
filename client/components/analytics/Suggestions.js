@@ -16,8 +16,6 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useContext, useMemo } from 'react';
-import PropTypes from 'prop-types';
 import {
   Card,
   CardContent,
@@ -30,16 +28,18 @@ import {
   Switch,
   Typography,
 } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useContext, useMemo } from 'react';
 
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
-import AddToCubeModal from '@cubeartisan/client/components/modals/AddToCubeModal.js';
-import PagedList from '@cubeartisan/client/components/PagedList.js';
+import PagedList from '@cubeartisan/client/components/containers/PagedList.js';
+import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
-import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
+import AddToCubeModal from '@cubeartisan/client/components/modals/AddToCubeModal.js';
+import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { cardName, cardNameLower, encodeName } from '@cubeartisan/client/utils/Card.js';
-import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 
 const AutocardA = withAutocard(Link);
 const AddModal = withModal(AutocardA, AddToCubeModal);
