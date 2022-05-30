@@ -18,15 +18,14 @@
  */
 import { Box, Tooltip, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useCallback, useContext, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useMemo } from 'react';
 import { TagCloud } from 'react-tagcloud';
 
 import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown.js';
+import { AutocompleteTagField } from '@cubeartisan/client/components/AutocompleteInput.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
-import TagInput from '@cubeartisan/client/components/TagInput.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import CubePropTypes from '@cubeartisan/client/proptypes/CubePropType.js';
-import { arrayMove } from '@cubeartisan/client/utils/Util.js';
 
 const TagCloudTag = ({ tag, size, color }) => (
   <Tooltip title={Number.isInteger(tag.count) ? tag.count : tag.count.toFixed(2)}>
@@ -55,7 +54,6 @@ const Cloud = ({ cards, cube, setAsfans, defaultFormatId }) => {
   const { theme } = useContext(DisplayContext);
 
   const [exclude, setExclude] = useQueryParam('exclude', '');
-  const [tagInput, setTagInput] = useState('');
   const excludeList = useMemo(
     () =>
       (exclude ?? '')
@@ -86,27 +84,7 @@ const Cloud = ({ cards, cube, setAsfans, defaultFormatId }) => {
     <TagCloudTag tag={tag} size={size} color={color} key={tag.key || tag.value} />
   );
 
-  const addTag = useCallback(
-    ({ text }) => {
-      text = text.trim();
-      if (text && !excludeList.includes(text)) {
-        setExclude([...excludeList, text].join(','));
-      }
-      setTagInput('');
-    },
-    [excludeList, setExclude],
-  );
-  const addTagText = useCallback((tag) => tag.trim() && addTag({ text: tag }), [addTag]);
-  const deleteTag = useCallback(
-    (tagIndex) => setExclude(excludeList.filter((_, i) => i !== tagIndex).join(',')),
-    [excludeList, setExclude],
-  );
-  const reorderTag = useCallback(
-    (_, currIndex, newIndex) => {
-      setExclude(arrayMove(excludeList, currIndex, newIndex));
-    },
-    [excludeList, setExclude],
-  );
+  const updateTags = useCallback((newTags) => setExclude(newTags.join(',')), [setExclude]);
 
   return (
     <>
@@ -118,22 +96,17 @@ const Cloud = ({ cards, cube, setAsfans, defaultFormatId }) => {
       <AsfanDropdown cube={cube} defaultFormatId={defaultFormatId} setAsfans={setAsfans} />
       <Box component="span">
         <Typography variant="body1">Tags to exclude</Typography>
-        <TagInput
+        <AutocompleteTagField
           tags={excludeList.map((t) => ({ text: t, id: t }))}
-          inputValue={tagInput}
-          handleInputChange={setTagInput}
-          handleInputBlur={addTagText}
-          addTag={addTag}
-          deleteTag={deleteTag}
-          reorderTag={reorderTag}
-          dontAddSuggestions
+          updateTags={updateTags}
+          multiple
+          InputProps={{ name: 'excludedTags', placeholder: 'Tags to exclude from the cloud.', fullWidth: true }}
         />
       </Box>
       <TagCloud minSize={10} maxSize={80} colorOptions={COLOR_OPTIONS[theme]} tags={words} renderer={tagRenderer} />
     </>
   );
 };
-
 Cloud.propTypes = {
   cards: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   cube: CubePropTypes.isRequired,
@@ -143,5 +116,4 @@ Cloud.propTypes = {
 Cloud.defaultProps = {
   defaultFormatId: null,
 };
-
 export default Cloud;

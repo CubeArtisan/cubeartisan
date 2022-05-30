@@ -28,6 +28,8 @@ export type DisplayContextValue = {
     toggleUseSticky: () => void;
     theme: ThemeType;
     updateTheme: (theme?: ThemeType) => void;
+    autoCardSize: number | string;
+    setAutoCardSize: (size: number | string) => void;
 };
 export type ContextType = import('react').Context<DisplayContextValue>;
 import PropTypes from "prop-types";
@@ -44,6 +46,8 @@ import PropTypes from "prop-types";
  * @property {() => void} toggleUseSticky
  * @property {ThemeType} theme
  * @property {(theme?: ThemeType) => void} updateTheme
+ * @property {number | string} autoCardSize
+ * @property {(size: number | string) => void} setAutoCardSize
  */
 /**
  * @typedef {import('react').Context<DisplayContextValue>} ContextType

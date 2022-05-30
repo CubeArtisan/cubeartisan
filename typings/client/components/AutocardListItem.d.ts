@@ -1,7 +1,8 @@
 export default AutocardListItem;
-declare function AutocardListItem({ card, noCardModal }: {
+declare function AutocardListItem({ card, noCardModal, children }: {
     card: any;
     noCardModal: any;
+    children: any;
 }): JSX.Element;
 declare namespace AutocardListItem {
     namespace propTypes {
@@ -23,10 +24,13 @@ declare namespace AutocardListItem {
             }>>;
         }>>;
         const noCardModal: PropTypes.Requireable<boolean>;
+        const children: PropTypes.Requireable<PropTypes.ReactNodeLike>;
     }
     namespace defaultProps {
         const noCardModal_1: boolean;
         export { noCardModal_1 as noCardModal };
+        const children_1: any;
+        export { children_1 as children };
     }
 }
 import PropTypes from "prop-types";

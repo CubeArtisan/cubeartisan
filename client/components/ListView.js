@@ -22,6 +22,7 @@ import PropTypes from 'prop-types';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Form, Input } from 'reactstrap';
 
+import { AutocompleteTagField } from '@cubeartisan/client/components/AutocompleteInput.js';
 import PagedTable from '@cubeartisan/client/components/containers/PagedTable.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext.js';
@@ -29,7 +30,6 @@ import SortContext from '@cubeartisan/client/components/contexts/SortContext.js'
 import TagContext from '@cubeartisan/client/components/contexts/TagContext.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import withLoading from '@cubeartisan/client/components/hoc/WithLoading.js';
-import TagInput from '@cubeartisan/client/components/TagInput.js';
 import useAlerts, { Alerts } from '@cubeartisan/client/hooks/UseAlerts.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { cardName, cardsAreEquivalent, normalizeName } from '@cubeartisan/client/utils/Card.js';
@@ -75,7 +75,6 @@ const AutocardTd = withAutocard(TableCell);
 
 const LoadingInput = withLoading(Input, ['onBlur']);
 const LoadingInputChange = withLoading(Input, ['onChange']);
-const LoadingTagInput = withLoading(TagInput, ['handleInputBlur']);
 
 const defaultVersions = (card) => {
   const fullName = card.details.full_name;
@@ -153,9 +152,9 @@ const ListViewRow = ({ card, versions, versionsLoading, checked, onCheck, addAle
     [cubeID, card, updateCubeCard, addAlert],
   );
 
-  const addTag = useCallback(
-    async (tag) => {
-      const newTags = [...tags, tag];
+  const updateTags = useCallback(
+    async (newTags) => {
+      console.log(newTags);
       setTags(newTags);
       try {
         await syncCard({ tags: newTags.map((newTag) => newTag.text) });
@@ -164,46 +163,6 @@ const ListViewRow = ({ card, versions, versionsLoading, checked, onCheck, addAle
       }
     },
     [syncCard, tags],
-  );
-
-  const deleteTag = useCallback(
-    async (deleteIndex) => {
-      const newTags = tags.filter((tag, tagIndex) => tagIndex !== deleteIndex);
-      setTags(newTags);
-      try {
-        await syncCard({ tags: newTags.map((newTag) => newTag.text) });
-      } catch (err) {
-        setTags(tags);
-      }
-    },
-    [syncCard, tags],
-  );
-
-  const reorderTag = useCallback(
-    async (tag, currIndex, newIndex) => {
-      const newTags = Array.from(tags);
-      newTags.splice(currIndex, 1);
-      newTags.splice(newIndex, 0, tag);
-      setTags(newTags);
-      try {
-        await syncCard({ tags: newTags.map((newTag) => newTag.text) });
-      } catch (err) {
-        setTags(tags);
-      }
-    },
-    [syncCard, tags],
-  );
-
-  const tagBlur = useCallback(
-    async (tag) => {
-      if (tag.trim()) {
-        await addTag({
-          id: tag.trim(),
-          text: tag.trim(),
-        });
-      }
-    },
-    [addTag],
   );
 
   const handleChange = useCallback(
@@ -329,15 +288,12 @@ const ListViewRow = ({ card, versions, versionsLoading, checked, onCheck, addAle
         </LoadingInputChange>
       </td>
       <TableCell sx={{ minWidth: '15rem' }}>
-        <LoadingTagInput
+        <AutocompleteTagField
+          updateTags={updateTags}
           tags={tags}
-          value={values.tagInput}
-          name="tagInput"
-          onChange={handleChange}
-          handleInputBlur={tagBlur}
-          addTag={addTag}
-          deleteTag={deleteTag}
-          reorderTag={reorderTag}
+          InputProps={{ name: 'tagInput', fullWidth: true }}
+          freeSolo
+          multiple
         />
       </TableCell>
     </tr>

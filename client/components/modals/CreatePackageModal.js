@@ -34,7 +34,7 @@ import {
   Row,
 } from 'reactstrap';
 
-import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
+import { AutocompleteCardField } from '@cubeartisan/client/components/AutocompleteInput.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 const CreatePackageModal = ({ isOpen, toggle, onError, onSuccess }) => {
@@ -103,33 +103,13 @@ const CreatePackageModal = ({ isOpen, toggle, onError, onSuccess }) => {
             onChange={(e) => setPackageName(e.target.value)}
           />
         </InputGroup>
-        <Row className="pb-3">
-          <Col xs="12" md="8">
-            <AutocompleteInput
-              treeUrl="/cards/names/full"
-              treePath="cardnames"
-              type="text"
-              className="mr-2"
-              name="remove"
-              value={cardName}
-              onChange={(event) => setCardName(event.target.value)}
-              onSubmit={(event) => event.preventDefault()}
-              placeholder="Card name and version"
-              autoComplete="off"
-              data-lpignore
-            />
-          </Col>
-          <Col xs="12" md="4">
-            <Button
-              color="success"
-              fullWidth
-              onClick={submitCard}
-              disabled={!(imageDict && imageDict[cardName.toLowerCase()])}
-            >
-              Add Card
-            </Button>
-          </Col>
-        </Row>
+        <AutocompleteCardField
+          fullNames
+          InputProps={{ name: 'remove', placeholder: 'Card name and version' }}
+          onSubmit={submitCard}
+          submitButtonText="Add Card"
+          submitBUttonProps={{ color: 'success', fullWidth: true }}
+        />
         <Row>
           {cards.map((cardId, index) => (
             <Col key={cardId} className="col-6 col-md-2-4 col-lg-2-4 col-xl-2-4">
@@ -138,7 +118,7 @@ const CreatePackageModal = ({ isOpen, toggle, onError, onSuccess }) => {
                 <Button
                   className="mt-1"
                   color="warning"
-                  variant="outline"
+                  variant="outlined"
                   fullWidth
                   onClick={() => {
                     const temp = cards.slice();

@@ -16,13 +16,12 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { LoadingButton } from '@mui/lab';
 import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
 import React, { Fragment, useCallback, useContext, useRef, useState } from 'react';
-import { Card, CardBody, CardHeader, Col, Form, Input, Label, Row } from 'reactstrap';
+import { Card, CardBody, CardHeader, Col, Input, Label, Row } from 'reactstrap';
 
-import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
+import { AutocompleteCardField } from '@cubeartisan/client/components/AutocompleteInput.js';
 import Changelist from '@cubeartisan/client/components/Changelist.js';
 import ChangelistContext, {
   ChangelistContextProvider,
@@ -35,36 +34,27 @@ import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const BulkUploadPageRaw = ({ cubeID, missing, blogpost, cube }) => {
-  const [addValue, setAddValue] = useState('');
   const [loading, setLoading] = useState(false);
 
   const { addChange } = useContext(ChangelistContext);
 
-  const addInput = useRef();
   const formRef = useRef();
 
-  const handleChange = useCallback((event) => setAddValue(event.target.value), []);
-
   const handleAdd = useCallback(
-    async (event, newValue) => {
-      event.preventDefault();
+    async (addValue) => {
       try {
         setLoading(true);
-        const card = await getCard(cubeID, newValue || addValue);
+        const card = await getCard(cubeID, addValue);
         if (!card) {
           return;
         }
         addChange({ add: { details: card } });
-        setAddValue('');
         setLoading(false);
-        if (addInput.current) {
-          addInput.current.focus();
-        }
       } catch (e) {
         console.error(e);
       }
     },
-    [addChange, addValue, addInput, cubeID],
+    [addChange, cubeID],
   );
 
   return (
@@ -88,22 +78,12 @@ const BulkUploadPageRaw = ({ cubeID, missing, blogpost, cube }) => {
               ))}
             </Col>
             <Col>
-              <Form inline className="mb-2" onSubmit={handleAdd}>
-                <AutocompleteInput
-                  treeUrl="/cards/names"
-                  treePath="cardnames"
-                  type="text"
-                  className="mr-2"
-                  innerRef={addInput}
-                  value={addValue}
-                  onChange={handleChange}
-                  onSubmit={handleAdd}
-                  placeholder="Card to Add"
-                />
-                <LoadingButton color="success" type="submit" disabled={addValue.length === 0} loading={loading}>
-                  Add
-                </LoadingButton>
-              </Form>
+              <AutocompleteCardField
+                InputProps={{ placeholder: 'Card to Add' }}
+                submitButtonText="Add card"
+                submitButtonProps={{ color: 'success', loading }}
+                onSubmit={handleAdd}
+              />
               <CSRFForm method="POST" action={`/cube/${cubeID}`} ref={formRef}>
                 <Label>Changelist:</Label>
                 <div className="changelist-container mb-2">
@@ -122,7 +102,6 @@ const BulkUploadPageRaw = ({ cubeID, missing, blogpost, cube }) => {
     </CubeLayout>
   );
 };
-
 BulkUploadPageRaw.propTypes = {
   cubeID: PropTypes.string.isRequired,
   missing: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
@@ -145,7 +124,6 @@ export const BulkUploadPage = ({ cubeID, added, loginCallback, ...props }) => (
     </ChangelistContextProvider>
   </MainLayout>
 );
-
 BulkUploadPage.propTypes = {
   cubeID: PropTypes.string.isRequired,
   added: PropTypes.arrayOf(
@@ -157,9 +135,7 @@ BulkUploadPage.propTypes = {
   ...BulkUploadPageRaw.propTypes,
   loginCallback: PropTypes.string,
 };
-
 BulkUploadPage.defaultProps = {
   loginCallback: '/',
 };
-
 export default RenderToRoot(BulkUploadPage);

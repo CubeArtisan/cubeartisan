@@ -16,7 +16,6 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-
 import {
   Alert,
   Box,
@@ -33,7 +32,7 @@ import {
 import PropTypes from 'prop-types';
 import React, { useCallback, useContext, useState } from 'react';
 
-import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
+import { AutocompleteCardField } from '@cubeartisan/client/components/AutocompleteInput.js';
 import Changelist from '@cubeartisan/client/components/Changelist.js';
 import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
@@ -76,17 +75,7 @@ const EditCollapse = ({ isOpen }) => {
   const [alerts, setAlerts] = useState([]);
   const [specifyEdition, toggleSpecifyEdition] = useToggle(false);
 
-  const {
-    changes,
-    addValue,
-    setAddValue,
-    removeValue,
-    setRemoveValue,
-    addInputRef,
-    removeInputRef,
-    addChange,
-    setChanges,
-  } = useContext(ChangelistContext);
+  const { changes, addChange, setChanges } = useContext(ChangelistContext);
   const { cube, cubeID } = useContext(CubeContext);
   const { toggleShowMaybeboard } = useContext(DisplayContext);
 
@@ -94,44 +83,26 @@ const EditCollapse = ({ isOpen }) => {
   const removals = changes.filter((change) => change.remove || change.replace).length;
   const newTotal = cube.cards.length + additions - removals;
 
-  const handleChange = useCallback(
-    (event) =>
-      ({
-        add: setAddValue,
-        remove: setRemoveValue,
-      }[event.target.name](event.target.value)),
-    [setAddValue, setRemoveValue],
-  );
-
   const handleAdd = useCallback(
-    async (event, newValue) => {
-      event.preventDefault();
+    async (addValue) => {
       try {
-        const card = await getCard(cubeID, newValue || addValue, setAlerts);
-        if (!card) {
-          return;
-        }
+        const card = await getCard(cubeID, addValue, setAlerts);
+        if (!card) return;
         addChange({ add: { details: card } });
-        setAddValue('');
-        setRemoveValue('');
-        if (addInputRef.current) {
-          addInputRef.current.focus();
-        }
       } catch (e) {
         console.error(e);
       }
     },
-    [addChange, addValue, addInputRef, cubeID, setAddValue, setRemoveValue],
+    [addChange, cubeID],
   );
 
+  // TODO: Handle Replace
   const handleRemoveReplace = useCallback(
-    async (event, newValue) => {
-      event.preventDefault();
-      const replace = addValue.length > 0;
+    async (removeValue) => {
       try {
         const cardOut = cube.cards.find(
           (card) =>
-            cardName(card).toLowerCase() === (newValue || removeValue).toLowerCase() &&
+            cardName(card).toLowerCase() === removeValue.toLowerCase() &&
             !changes.some(
               (change) =>
                 (change.remove && change.remove.index === card.index) ||
@@ -141,31 +112,16 @@ const EditCollapse = ({ isOpen }) => {
         if (!cardOut) {
           setAlerts((items) => [
             ...items,
-            { color: 'danger', message: `Couldn't find a card with name [${newValue || removeValue}].` },
+            { color: 'danger', message: `Couldn't find a card with name [${removeValue}].` },
           ]);
           return;
         }
-        if (replace) {
-          const cardIn = await getCard(cubeID, addValue, setAlerts);
-          if (!cardIn) {
-            return;
-          }
-          addChange({ replace: [cardOut, { details: cardIn }] });
-        } else {
-          addChange({ remove: cardOut });
-        }
-        setAddValue('');
-        setRemoveValue('');
-        /* If replace, put focus back in addInputRef; otherwise leave it here. */
-        const focus = replace ? addInputRef : removeInputRef;
-        if (focus.current) {
-          focus.current.focus();
-        }
+        addChange({ remove: cardOut });
       } catch (e) {
         console.error(e);
       }
     },
-    [addChange, addInputRef, addValue, removeInputRef, removeValue, cube, cubeID, changes, setAddValue, setRemoveValue],
+    [addChange, cube, changes],
   );
 
   const handleDiscardAll = useCallback(() => {
@@ -185,65 +141,53 @@ const EditCollapse = ({ isOpen }) => {
             {message}
           </Alert>
         ))}
-        <Box sx={{ display: 'flex' }}>
-          <Box component="form" sx={{ marginRight: 2, marginBottom: 2, display: 'flex' }} onSubmit={handleAdd}>
-            <AutocompleteInput
-              treeUrl={specifyEdition ? '/cards/names/full' : '/cards/names'}
-              treePath="cardnames"
-              type="text"
-              innerRef={addInputRef}
-              name="add"
-              value={addValue}
-              onChange={handleChange}
+        <Grid container spacing={1}>
+          <Grid item>
+            <AutocompleteCardField
+              InputProps={{
+                name: 'add',
+                placeholder: 'Card to Add',
+              }}
+              fullNames={specifyEdition}
               onSubmit={handleAdd}
-              placeholder="Card to Add"
-              autoComplete="off"
-              data-lpignore
-              className="square-right"
+              submitButtonText="Add"
+              submitButtonProps={{ color: 'success' }}
             />
-            <Button color="success" type="submit" disabled={addValue.length === 0}>
-              Add
-            </Button>
-          </Box>
-          <Box
-            component="form"
-            sx={{ marginRight: 2, marginBottom: 2, display: 'flex' }}
-            onSubmit={handleRemoveReplace}
-          >
-            <AutocompleteInput
-              cubeId={cube._id}
-              treeUrl={`/cube/${cubeID}/cards/names`}
-              treePath="cardnames"
-              type="text"
-              innerRef={removeInputRef}
-              name="remove"
-              value={removeValue}
-              onChange={handleChange}
+          </Grid>
+          <Grid item>
+            <AutocompleteCardField
+              cubeID={cube._id}
+              InputProps={{
+                name: 'remove',
+                placeholder: 'Card to Remove',
+              }}
               onSubmit={handleRemoveReplace}
-              placeholder="Card to Remove"
-              autoComplete="off"
-              data-lpignore
-              className="square-right"
+              submitButtonText="Remove"
+              submitButtonProps={{ color: 'warning' }}
             />
-            <Button color="success" type="submit" disabled={removeValue.length === 0}>
-              Remove/Replace
+          </Grid>
+          <Grid item xs={1} sx={{ display: 'flex', alignItems: 'center' }}>
+            <FormControlLabel
+              labelPlacement="top"
+              control={
+                <Switch
+                  checked={specifyEdition}
+                  onChange={toggleSpecifyEdition}
+                  inputProps={{ 'aria-label': 'controlled' }}
+                />
+              }
+              label="Specify Versions"
+            />
+          </Grid>
+          <Grid item xs={1} sx={{ display: 'flex', alignItems: 'center' }}>
+            <ResizeModal cubeID={cubeID} />
+          </Grid>
+          <Grid item xs={1} sx={{ display: 'flex', alignItems: 'center' }}>
+            <Button color="success" onClick={toggleShowMaybeboard}>
+              Maybeboard
             </Button>
-          </Box>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={specifyEdition}
-                onChange={toggleSpecifyEdition}
-                inputProps={{ 'aria-label': 'controlled' }}
-              />
-            }
-            label="Specify Versions"
-          />
-          <ResizeModal cubeID={cubeID} />
-          <Button color="success" onClick={toggleShowMaybeboard}>
-            Maybeboard
-          </Button>
-        </Box>
+          </Grid>
+        </Grid>
         <Collapse in={changes.length > 0}>
           <CSRFForm method="POST" action={`/cube/${cubeID}`}>
             <Grid container>

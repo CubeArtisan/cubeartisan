@@ -60,13 +60,13 @@ const AutocardListGroup = ({ cards, heading, sort, orderedSort, showOther, rowTa
       >
         <Typography variant="subtitle2">{heading}</Typography>
       </ListSubheader>
-      {sorted.map(([, group]) => (
-        <>
+      {sorted.map(([, group], idx) => (
+        <React.Fragment key={idx /* eslint-disable-line */}>
           {group.map((card, index) => (
             <RowTag key={typeof card.index === 'undefined' ? `${card._id}-${index}` : card.index} card={card} />
           ))}
           <Divider />
-        </>
+        </React.Fragment>
       ))}
     </List>
   );

@@ -38,7 +38,7 @@ import {
   TabPane,
 } from 'reactstrap';
 
-import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
+import { AutocompleteCardField } from '@cubeartisan/client/components/AutocompleteInput.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
@@ -70,14 +70,6 @@ export const UserAccountPage = ({ defaultNav, loginCallback }) => {
     },
     [setNav],
   );
-
-  const handleChangeImage = useCallback((event) => {
-    setImageValue(event.target.value);
-  }, []);
-
-  const handleSubmitImage = useCallback((event) => {
-    event.preventDefault();
-  }, []);
 
   const handleChangeMarkdown = useCallback((event) => setMarkdown(event.target.value), [setMarkdown]);
 
@@ -162,18 +154,11 @@ export const UserAccountPage = ({ defaultNav, loginCallback }) => {
                               </div>
                             </Col>
                             <Col xs={6}>
-                              <AutocompleteInput
-                                treeUrl="/cards/names/full"
-                                treePath="cardnames"
-                                type="text"
-                                className="mr-2"
-                                name="remove"
-                                value={imageValue}
-                                onChange={handleChangeImage}
-                                onSubmit={handleSubmitImage}
-                                placeholder="Cardname for Image"
-                                autoComplete="off"
-                                data-lpignore
+                              <AutocompleteCardField
+                                fullNames
+                                InputProps={{ name: 'remove', placeholder: 'Cardname for Image' }}
+                                noButton
+                                onInputChange={(_, value) => setImageValue(value)}
                               />
                               {result && <Input type="hidden" name="image" value={imageValue.toLowerCase()} />}
                             </Col>

@@ -1,5 +1,5 @@
 import { Brightness4, Brightness7 } from '@mui/icons-material';
-import { AppBar, Box, Button, Container, IconButton, Link, MenuItem, Toolbar } from '@mui/material';
+import { AppBar, Box, Button, Container, IconButton, Link, Toolbar } from '@mui/material';
 import PropTypes from 'prop-types';
 import React, { lazy, useCallback, useContext, useMemo } from 'react';
 
@@ -20,33 +20,33 @@ const CreateCubeModal = lazy(() => import('@cubeartisan/client/components/modals
 const LoginModalLink = withModal(Button, LoginModal);
 const CreateCubeModalLink = withModal(Button, CreateCubeModal);
 
-const CONTENT_DASHBOARD_ITEM = { text: 'Content Creator Dashboard', link: '/creators/dashboard', component: MenuItem };
+const CONTENT_DASHBOARD_ITEM = { text: 'Content Creator Dashboard', link: '/creators/dashboard' };
 
 const CONTENT_MENU = [
-  { text: 'Browse All Content', link: '/creators/browse', component: MenuItem },
-  { text: 'Browse Articles', link: '/creators/articles', component: MenuItem },
-  { text: 'Browse Podcasts', link: '/creators/podcasts', component: MenuItem },
-  { text: 'Browse Videos', link: '/creators/videos', component: MenuItem },
+  { text: 'Browse All Content', link: '/creators/browse' },
+  { text: 'Browse Articles', link: '/creators/articles' },
+  { text: 'Browse Podcasts', link: '/creators/podcasts' },
+  { text: 'Browse Videos', link: '/creators/videos' },
   CONTENT_DASHBOARD_ITEM,
 ];
 
 const CUBES_MENU = [
-  { text: 'Explore Cubes', link: '/cubes/explore', component: MenuItem },
-  { text: 'Search Cubes', link: '/cubes/search', component: MenuItem },
-  { text: 'Random Cube', link: '/cubes/random', component: MenuItem },
+  { text: 'Explore Cubes', link: '/cubes/explore' },
+  { text: 'Search Cubes', link: '/cubes/search' },
+  { text: 'Random Cube', link: '/cubes/random' },
 ];
 
 const CARDS_MENU = [
-  { text: 'Search Cards', link: '/cards/search', component: MenuItem },
-  { text: 'Packages', link: '/packages', component: MenuItem },
-  { text: 'Random Card', link: '/cards/random', component: MenuItem },
+  { text: 'Search Cards', link: '/cards/search' },
+  { text: 'Packages', link: '/packages' },
+  { text: 'Random Card', link: '/cards/random' },
 ];
 
 const ABOUT_MENU = [
-  { text: 'Contact', link: '/contact', component: MenuItem },
-  { text: 'Filter Syntax', link: '/filters', component: MenuItem },
-  { text: 'FAQ', link: '/faq', component: MenuItem },
-  { text: 'Our Story', link: '/ourstory', component: MenuItem },
+  { text: 'Contact', link: '/contact' },
+  { text: 'Filter Syntax', link: '/filters' },
+  { text: 'FAQ', link: '/faq' },
+  { text: 'Our Story', link: '/ourstory' },
 ];
 
 const SiteAppBar = ({ loginCallback }) => {
@@ -55,27 +55,23 @@ const SiteAppBar = ({ loginCallback }) => {
   const { updateTheme, theme } = useContext(DisplayContext);
   const toggleTheme = useCallback(() => updateTheme(), [updateTheme]);
   const aboutMenuItems = useMemo(
-    () => [...ABOUT_MENU, { link: sourceRepo, text: 'GitHub Source Repository', component: MenuItem }],
+    () => [...ABOUT_MENU, { link: sourceRepo, text: 'GitHub Source Repository' }],
     [sourceRepo],
   );
   const userCubesMenuItems = useMemo(
     () =>
-      user?.cubes
-        ? Array.from(
-            user.cubes.map((item) => ({ link: `/cube/${getCubeId(item)}`, text: item.name, component: MenuItem })),
-          )
-        : [],
+      user?.cubes ? Array.from(user.cubes.map((item) => ({ link: `/cube/${getCubeId(item)}`, text: item.name }))) : [],
     [user],
   );
   const userProfileMenuItems = useMemo(
     () =>
       user?._id
         ? [
-            { link: `/user/${user._id}`, text: 'Your Profile', component: MenuItem },
-            { link: `/user/${user._id}/social`, text: 'Your Social Feed', component: MenuItem },
-            { link: `/user/${user._id}/account`, text: 'Account Information and Setting', component: MenuItem },
+            { link: `/user/${user._id}`, text: 'Your Profile' },
+            { link: `/user/${user._id}/social`, text: 'Your Social Feed' },
+            { link: `/user/${user._id}/account`, text: 'Account Information and Setting' },
             CONTENT_DASHBOARD_ITEM,
-            { link: '/logout', text: 'Logout', component: MenuItem },
+            { link: '/logout', text: 'Logout' },
           ]
         : [],
     [user],

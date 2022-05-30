@@ -36,16 +36,16 @@ const CARD_ID_FALLBACK = 'undefined.js';
  */
 const noOp = () => undefined;
 
-const AutocardListItem = ({ card, noCardModal }) => {
+const AutocardListItem = ({ card, noCardModal, children }) => {
   const { cardColorClass } = useContext(TagContext);
   const openCardModal = useContext(CardModalContext);
 
   /** 2020-11-18 struesdell:
    *  Replaced destructuring with `useMemo` tuple to minimize rerenders
    */
-  const [name, cardId] = useMemo(
-    () => [cardName(card) ?? CARD_NAME_FALLBACK, card?.details?._id ?? CARD_ID_FALLBACK],
-    [card],
+  const [name, cardId, backgroundColor] = useMemo(
+    () => [cardName(card) ?? CARD_NAME_FALLBACK, card?.details?._id ?? CARD_ID_FALLBACK, cardColorClass(card)],
+    [card, cardColorClass],
   );
 
   const openCardToolWindow = useCallback(() => {
@@ -74,31 +74,29 @@ const AutocardListItem = ({ card, noCardModal }) => {
     [openCardToolWindow],
   );
 
-  /** 2020-11-18 struesdell:
-   *  Memoized card color (WUBRG) derivation to minimize rerenders
-   *  @note: tag coloring is handled by AutocardDiv automatically.
-   */
-  const backgroundColor = useMemo(() => cardColorClass(card), [card, cardColorClass]);
-
   return (
     <AutocardLI
       card={card}
       onAuxClick={noCardModal ? noOp : handleAuxClick}
       onClick={noCardModal ? noOp : handleClick}
+      data-index={card?.index}
       role="button"
-      sx={{ paddingLeft: 0.5, paddingRight: 0, paddingY: 0.25, backgroundColor }}
+      sx={{ paddingLeft: 0.5, paddingRight: 0.25, paddingY: 0.25, backgroundColor, width: '100%', display: 'flex' }}
     >
-      <Typography noWrap sx={{ width: '100%' }} variant="body2">
+      <Typography noWrap variant="body2">
         {name}
       </Typography>
+      {children}
     </AutocardLI>
   );
 };
 AutocardListItem.propTypes = {
   card: CardPropType.isRequired,
   noCardModal: PropTypes.bool,
+  children: PropTypes.node,
 };
 AutocardListItem.defaultProps = {
   noCardModal: false,
+  children: null,
 };
 export default AutocardListItem;

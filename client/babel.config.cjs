@@ -18,10 +18,15 @@ module.exports = (api) => {
             proposals: true,
           },
           shippedProposals: true,
-          modules: 'cjs',
+          modules: isTest ? 'cjs' : false,
         },
       ],
-      '@babel/preset-react',
+      [
+        '@babel/preset-react',
+        {
+          runtime: 'automatic',
+        },
+      ],
     ],
     plugins: [
       !isTest && [
@@ -33,8 +38,5 @@ module.exports = (api) => {
       isDevelopment && require.resolve('react-refresh/babel'),
     ].filter(Boolean),
   };
-  if (!isTest) {
-    config.presets[0][1].modules = false;
-  }
   return config;
 };

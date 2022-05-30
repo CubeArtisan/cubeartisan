@@ -82,6 +82,7 @@ const LIGHT_PALETTE = {
   },
   divider: 'hsla(0, 0%, 0%, 0.12)',
   background: {
+    primary: 'hsl(260, 35%, 90%)',
     paper: 'hsl(240, 90%, 95%)',
     default: 'hsl(0, 0%, 100%)',
     darker: 'hsl(270, 40%, 75%)',
@@ -98,7 +99,7 @@ const LIGHT_PALETTE = {
     lands: 'hsl(32, 42%, 85%)',
   },
   tags: {
-    none: 'hsl(0, 0%, 70%)',
+    none: 'hsl(200, 20%, 80%)',
     red: 'hsl(9, 90%, 80%)',
     brown: 'hsl(30, 50%, 80%)',
     yellow: 'hsl(45, 82%, 80%)',

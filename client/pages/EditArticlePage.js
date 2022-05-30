@@ -21,6 +21,7 @@ import PropTypes from 'prop-types';
 import React, { lazy, useContext, useEffect, useState } from 'react';
 import { Card, CardBody, Col, FormGroup, Input, Label, Nav, Row, Spinner, TabContent, TabPane } from 'reactstrap';
 
+import { AutocompleteCardField } from '@cubeartisan/client/components/AutocompleteInput.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
@@ -33,7 +34,6 @@ import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const ArticlePreview = lazy(() => import('@cubeartisan/client/components/ArticlePreview.js'));
 const Article = lazy(() => import('@cubeartisan/client/components/Article.js'));
-const AutocompleteInput = lazy(() => import('@cubeartisan/client/components/AutocompleteInput.js'));
 
 export const EditArticlePage = ({ loginCallback, article, siteCustomizations }) => {
   const user = useContext(UserContext);
@@ -164,21 +164,14 @@ export const EditArticlePage = ({ loginCallback, article, siteCustomizations }) 
                     <Label>Thumbnail:</Label>
                   </Col>
                   <Col sm="5">
-                    <Suspense>
-                      <AutocompleteInput
-                        treeUrl="/cards/names/full"
-                        treePath="cardnames"
-                        type="text"
-                        className="mr-2"
-                        name="remove"
-                        value={imageName}
-                        onChange={(event) => setImageName(event.target.value)}
-                        onSubmit={(event) => event.preventDefault()}
-                        placeholder="Cardname for Image"
-                        autoComplete="off"
-                        data-lpignore
-                      />
-                    </Suspense>
+                    <AutocompleteCardField
+                      fullNames
+                      InputProps={{ name: 'remove', placeholder: 'Cardname for Image', 'data-lpignore': true }}
+                      name="remove"
+                      value={imageName}
+                      onInputChange={(_, value) => setImageName(value)}
+                      noButton
+                    />
                   </Col>
                   <Col sm="5">
                     <Card>

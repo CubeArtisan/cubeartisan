@@ -60,13 +60,13 @@
     "react-pivottable": "^0.11.0",
     "react-player": "^2.10.1",
     "react-sortable-hoc": "^2.0.0",
-    "react-tag-input": "^6.8.0",
     "react-tagcloud": "^2.2.0",
     "react-timeago": "^6.2.1",
-    "reactstrap": "^9.0.3",
+    "reactstrap": "8.10.1",
     "seedrandom": "^3.0.5",
     "shuffle-seed": "^1.1.6",
     "socket.io-client": "^4.5.1",
+    "swr": "^1.3.0",
     "terser-webpack-plugin": "^5.3.1"
   },
   "devDependencies": {
@@ -77,7 +77,6 @@
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^12.1.5",
-    "@types/react-tag-input": "^6",
     "babel-jest": "^28.1.0",
     "browserslist": "^4.20.3",
     "eslint": "^8.16.0",

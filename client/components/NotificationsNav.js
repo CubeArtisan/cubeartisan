@@ -17,14 +17,14 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import { Notifications, NotificationsActive } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
+import PropTypes from 'prop-types';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import StyledButtonMenu from '@cubeartisan/client/components/StyledButtonMenu.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
-const NotificationsNav = () => {
+const NotificationsNav = ({ inMenu }) => {
   const user = useContext(UserContext);
 
   const [notifications, setNotifications] = useState(user.notifications);
@@ -44,11 +44,18 @@ const NotificationsNav = () => {
     ],
     [user._id, notifications, clear],
   );
-
+  const buttonText = notifications.length > 0 ? 'View your notifications' : 'No new notifications';
+  const buttonIcon = notifications.length > 0 ? <NotificationsActive /> : <Notifications />;
   return (
-    <StyledButtonMenu tooltip="Your notifications." menuItems={notificationItems}>
-      <IconButton>{notifications.length > 0 ? <NotificationsActive /> : <Notifications />}</IconButton>
+    <StyledButtonMenu tooltip="Your notifications." menuItems={notificationItems} arrow={null}>
+      {inMenu ? buttonText : buttonIcon}
     </StyledButtonMenu>
   );
+};
+NotificationsNav.propTypes = {
+  inMenu: PropTypes.bool,
+};
+NotificationsNav.defaultProps = {
+  inMenu: false,
 };
 export default NotificationsNav;

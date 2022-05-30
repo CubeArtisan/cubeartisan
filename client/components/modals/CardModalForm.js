@@ -27,7 +27,6 @@ import CardModal from '@cubeartisan/client/components/modals/CardModal.js';
 import { cardName, cardsAreEquivalent, normalizeName } from '@cubeartisan/client/utils/Card.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import { cardGetLabels } from '@cubeartisan/client/utils/Sort.js';
-import { arrayMove } from '@cubeartisan/client/utils/Util.js';
 
 const CardModalForm = ({ children, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -59,36 +58,9 @@ const CardModalForm = ({ children, ...props }) => {
     wrapper();
   }, [cube]);
 
-  const setTagInput = useCallback(
-    (value) =>
-      setFormValues((oldFormValues) => ({
-        ...oldFormValues,
-        tagInput: value,
-      })),
-    [],
-  );
-
-  const setTags = useCallback((tagF) => {
-    setFormValues(({ tags, ...oldFormValues }) => ({ ...oldFormValues, tags: tagF(tags) }));
+  const updateTags = useCallback((newTags) => {
+    setFormValues(({ tags, ...oldFormValues }) => ({ ...oldFormValues, tags: newTags }));
   }, []);
-  const addTag = useCallback(
-    (tag) => {
-      setTags((oldTags) => [...oldTags, tag]);
-      setTagInput('');
-    },
-    [setTags, setTagInput],
-  );
-  const addTagText = useCallback((tag) => tag.trim() && addTag({ text: tag.trim(), id: tag.trim() }), [addTag]);
-  const deleteTag = useCallback(
-    (deleteIndex) => setTags((oldTags) => oldTags.filter((_, i) => i !== deleteIndex)),
-    [setTags],
-  );
-  const reorderTag = useCallback(
-    (_, currIndex, newIndex) => {
-      setTags((oldTags) => arrayMove(oldTags, currIndex, newIndex));
-    },
-    [setTags],
-  );
 
   const handleChange = useCallback((event) => {
     const { target } = event;
@@ -254,9 +226,7 @@ const CardModalForm = ({ children, ...props }) => {
         disabled={!canEdit}
         saveChanges={saveChanges}
         queueRemoveCard={queueRemoveCard}
-        setTagInput={setTagInput}
-        addTagText={addTagText}
-        tagActions={{ addTag, deleteTag, reorderTag }}
+        updateTags={updateTags}
         {...props}
       />
     </CardModalContext.Provider>
