@@ -36,9 +36,8 @@ import {
   Row,
 } from 'reactstrap';
 
-import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
+import { AutocompleteCardField, AutocompleteTagField } from '@cubeartisan/client/components/AutocompleteInput.js';
 import { TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext.js';
-import TagInput from '@cubeartisan/client/components/TagInput.js';
 import TextEntry from '@cubeartisan/client/components/TextEntry.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
@@ -81,18 +80,8 @@ const CubeOverviewModal = ({ cube: savedCube, onError, onCubeUpdate, userID, isO
     [setCube],
   );
 
-  const addTag = useCallback((tag) => setTags((prevTags) => [...prevTags, tag]), [setTags]);
-
-  const deleteTag = useCallback(
-    (tagIndex) => setTags((prevTags) => prevTags.filter((_tag, i) => i !== tagIndex)),
-    [setTags],
-  );
-
   const changeImageName = useCallback(
-    (event) => {
-      const {
-        target: { value },
-      } = event;
+    (value) => {
       if (imageDict[value.toLowerCase()]) {
         const { uri, artist } = imageDict[value.toLowerCase()];
         setCube((prevCube) => ({ ...prevCube, image_name: value, imageArtist: artist, image_uri: uri }));
@@ -265,17 +254,11 @@ const CubeOverviewModal = ({ cube: savedCube, onError, onCubeUpdate, userID, isO
               </Col>
             </Row>
             <br />
-            <AutocompleteInput
-              treeUrl="/cards/names/full"
-              treePath="cardnames"
-              type="text"
-              className="mr-2"
-              name="remove"
-              value={cube.image_name}
-              onChange={changeImageName}
-              placeholder="Cardname for Image"
-              autoComplete="off"
-              data-lpignore
+            <AutocompleteCardField
+              fullNames
+              InputProps={{ name: 'remove', placeholder: 'Cardname for Image' }}
+              defaultValue={{ name: cube.image_name, cubeID: null }}
+              onSubmit={changeImageName}
             />
             <br />
 
@@ -296,7 +279,13 @@ const CubeOverviewModal = ({ cube: savedCube, onError, onCubeUpdate, userID, isO
             <br />
 
             <h6>Tags</h6>
-            <TagInput tags={tags} addTag={addTag} deleteTag={deleteTag} />
+            <AutocompleteTagField
+              tags={tags}
+              updateTags={setTags}
+              freeSolo
+              multiple
+              InputProps={{ name: 'tagInput', placeholder: 'Tags to describe your cube', fullWidth: true }}
+            />
             <br />
 
             <h6>Short ID</h6>

@@ -18,6 +18,8 @@ const CollapsingNavbar = ({ children, sx, breakpoint, component }) => {
               component: StyledButtonMenu,
               extraProps: { ...element.props, arrow: false },
             });
+          } else if (element.type.name === 'NotificationsNav') {
+            menuItems.push({ component: element.type, extraProps: { ...element.props, inMenu: true } });
           } else if (element.type === Link) {
             menuItems.push({
               text: element.props.children,

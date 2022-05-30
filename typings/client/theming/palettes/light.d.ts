@@ -113,6 +113,8 @@ declare namespace LIGHT_PALETTE {
     }
     const divider: string;
     namespace background {
+        const primary_2: string;
+        export { primary_2 as primary };
         export const paper: string;
         const _default: string;
         export { _default as default };

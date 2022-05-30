@@ -20,6 +20,7 @@ import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
 import React, { useMemo } from 'react';
 import ReactDOM from 'react-dom';
+import { SWRConfig } from 'swr';
 
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
@@ -27,6 +28,7 @@ import SiteCustomizationContext, {
   DEFAULT_SITE_CUSTOMIZATIONS,
 } from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import { DEFAULT_AXIOS_OPTIONS } from '@cubeartisan/client/utils/SWRFetchers.js';
 
 const RenderToRoot = (Element) => {
   const defaultReactProps = typeof window !== 'undefined' ? window?.reactProps ?? {} : {};
@@ -43,14 +45,16 @@ const RenderToRoot = (Element) => {
       [reactProps],
     );
     return (
-      <ErrorBoundary className="mt-3">
-        <UserContext.Provider value={defaultUserProps}>
-          <SiteCustomizationContext.Provider value={reactProps?.siteCustomizations ?? DEFAULT_SITE_CUSTOMIZATIONS}>
-            <DisplayContextProvider>
-              <Element {...reactProps} />
-            </DisplayContextProvider>
-          </SiteCustomizationContext.Provider>
-        </UserContext.Provider>
+      <ErrorBoundary>
+        <SWRConfig value={DEFAULT_AXIOS_OPTIONS}>
+          <UserContext.Provider value={defaultUserProps}>
+            <SiteCustomizationContext.Provider value={reactProps?.siteCustomizations ?? DEFAULT_SITE_CUSTOMIZATIONS}>
+              <DisplayContextProvider>
+                <Element {...reactProps} />
+              </DisplayContextProvider>
+            </SiteCustomizationContext.Provider>
+          </UserContext.Provider>
+        </SWRConfig>
       </ErrorBoundary>
     );
   };

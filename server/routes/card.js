@@ -290,7 +290,7 @@ export const getDetailsForCards = wrapAsyncApi(getDetailsForCardsHandler);
 const listCardNamesHandler = (_, res) =>
   res.status(200).send({
     success: 'true',
-    cardnames: carddb.cardtree,
+    cardnames: carddb.cardnames,
   });
 export const listCardNames = [cacheImmutableResponse, wrapAsyncApi(listCardNamesHandler)];
 

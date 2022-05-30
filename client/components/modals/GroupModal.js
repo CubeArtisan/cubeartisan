@@ -41,16 +41,15 @@ import {
 } from 'reactstrap';
 
 import AutocardListItem from '@cubeartisan/client/components/AutocardListItem.js';
+import { AutocompleteTagField } from '@cubeartisan/client/components/AutocompleteInput.js';
 import ColorChecksControl from '@cubeartisan/client/components/ColorCheck.js';
 import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext.js';
 import MassBuyButton from '@cubeartisan/client/components/MassBuyButton.js';
-import TagInput from '@cubeartisan/client/components/TagInput.js';
 import TextBadge from '@cubeartisan/client/components/TextBadge.js';
 import { cardFoilPrice, cardPrice, cardPriceEur, cardTix } from '@cubeartisan/client/utils/Card.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
-import { arrayMove } from '@cubeartisan/client/utils/Util.js';
 
 const DEFAULT_FORM_VALUES = {
   status: '',
@@ -132,42 +131,6 @@ const GroupModal = ({ cubeID, canEdit, children, ...props }) => {
     [cards, close, setCardIndices],
   );
 
-  const setTagInput = useCallback(
-    (value) =>
-      setFormValues((oldFormValues) => ({
-        ...oldFormValues,
-        tagInput: value,
-      })),
-    [setFormValues],
-  );
-
-  const setTags = useCallback(
-    (tagF) => {
-      setFormValues(({ tags, ...oldFormValues }) => ({ ...oldFormValues, tags: tagF(tags) }));
-    },
-    [setFormValues],
-  );
-  const addTag = useCallback(
-    (tag) => {
-      setTags((tags) => [...tags, tag]);
-      setTagInput('');
-    },
-    [setTags, setTagInput],
-  );
-  const addTagText = useCallback((tag) => tag.trim() && addTag({ text: tag.trim(), id: tag.trim() }), [addTag]);
-  const deleteTag = useCallback(
-    (tagIndex) => {
-      setTags((tags) => tags.filter((tag, i) => i !== tagIndex));
-    },
-    [setTags],
-  );
-  const reorderTag = useCallback(
-    (tag, currIndex, newIndex) => {
-      setTags((tags) => arrayMove(tags, currIndex, newIndex));
-    },
-    [setTags],
-  );
-
   const handleApply = useCallback(
     async (event) => {
       event.preventDefault();
@@ -238,6 +201,13 @@ const GroupModal = ({ cubeID, canEdit, children, ...props }) => {
     [cube.cards, cubeID, cardIndices, formValues, updateCubeCards, close, error],
   );
 
+  const setTags = useCallback(
+    (tagF) => {
+      setFormValues(({ tags, ...oldFormValues }) => ({ ...oldFormValues, tags: tagF(tags) }));
+    },
+    [setFormValues],
+  );
+
   const handleRemoveAll = useCallback(
     (event) => {
       event.preventDefault();
@@ -281,7 +251,7 @@ const GroupModal = ({ cubeID, canEdit, children, ...props }) => {
               <Row noGutters className="w-100" sx={{ overflow: 'scroll', flexShrink: 1 }}>
                 <ListGroup className="list-outline w-100">
                   {cards.map((card) => (
-                    <AutocardListItem key={card.index} card={card} noCardModal inModal>
+                    <AutocardListItem key={card.index} card={card} noCardModal>
                       <Button data-index={card.index} onClick={handleRemoveCard}>
                         X
                       </Button>
@@ -400,14 +370,12 @@ const GroupModal = ({ cubeID, canEdit, children, ...props }) => {
                     </Label>
                   </FormGroup>
                 </FormGroup>
-                <TagInput
+                <AutocompleteTagField
+                  updateTags={setTags}
                   tags={formValues.tags}
-                  inputValue={formValues.tagInput}
-                  handleInputChange={setTagInput}
-                  handleInputBlur={addTagText}
-                  addTag={addTag}
-                  deleteTag={deleteTag}
-                  reorderTag={reorderTag}
+                  InputProps={{ name: 'tagInput', fullWidth: true, placeholder: 'Tags to remove from all selected.' }}
+                  freeSolo
+                  multiple
                 />
               </Form>
             </Col>

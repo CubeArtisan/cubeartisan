@@ -1387,10 +1387,10 @@ const getCardNamesForCubeHandler = async (req, res) => {
     binaryInsert(carddb.cardFromId(card.cardID).name, cardnames);
   }
 
-  const result = turnToTree(cardnames);
+  // const result = turnToTree(cardnames);
   return res.status(200).send({
     success: 'true',
-    cardnames: result,
+    cardnames,
   });
 };
 export const getCardNamesForCube = wrapAsyncApi(getCardNamesForCubeHandler);

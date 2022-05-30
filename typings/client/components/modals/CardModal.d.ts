@@ -1,5 +1,5 @@
 export default CardModal;
-declare function CardModal({ card, maybe, versions, versionsLoading, toggle, disabled, values, onChange, saveChanges, queueRemoveCard, setTagInput, addTagText, tagActions, ...props }: {
+declare function CardModal({ card, maybe, versions, versionsLoading, toggle, disabled, values, onChange, saveChanges, queueRemoveCard, updateTags, ...props }: {
     [x: string]: any;
     card: any;
     maybe: any;
@@ -11,9 +11,7 @@ declare function CardModal({ card, maybe, versions, versionsLoading, toggle, dis
     onChange: any;
     saveChanges: any;
     queueRemoveCard: any;
-    setTagInput: any;
-    addTagText: any;
-    tagActions: any;
+    updateTags: any;
 }): JSX.Element;
 declare namespace CardModal {
     namespace propTypes {
@@ -66,12 +64,7 @@ declare namespace CardModal {
         const onChange: PropTypes.Validator<(...args: any[]) => any>;
         const saveChanges: PropTypes.Validator<(...args: any[]) => any>;
         const queueRemoveCard: PropTypes.Validator<(...args: any[]) => any>;
-        const setTagInput: PropTypes.Validator<(...args: any[]) => any>;
-        const addTagText: PropTypes.Validator<(...args: any[]) => any>;
-        const tagActions: PropTypes.Validator<PropTypes.InferProps<{
-            addTag: PropTypes.Validator<(...args: any[]) => any>;
-            deleteTag: PropTypes.Validator<(...args: any[]) => any>;
-        }>>;
+        const updateTags: PropTypes.Validator<(...args: any[]) => any>;
     }
     namespace defaultProps {
         const disabled_1: boolean;

@@ -16,52 +16,26 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { LoadingButton } from '@mui/lab';
-import { Button } from '@mui/material';
+import { Box, Button, CircularProgress, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useCallback, useContext, useMemo, useRef, useState } from 'react';
-import { Col, Form, ListGroupItem, Row, Spinner } from 'reactstrap';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
 
-import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
-import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext.js';
+import AutocardListItem from '@cubeartisan/client/components/AutocardListItem.js';
+import { AutocompleteCardField } from '@cubeartisan/client/components/AutocompleteInput.js';
 import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import MaybeboardContext from '@cubeartisan/client/components/contexts/MaybeboardContext.js';
-import { getCardColorClass } from '@cubeartisan/client/components/contexts/TagContext.js';
 import { getCard } from '@cubeartisan/client/components/EditCollapse.js';
-import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
-import CardModalForm from '@cubeartisan/client/components/modals/CardModalForm.js';
 import TableView from '@cubeartisan/client/components/TableView.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
-import { cardName } from '@cubeartisan/client/utils/Card.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
-const AutocardDiv = withAutocard('div');
-
-const MaybeboardListItem = ({ card, className }) => {
+const MaybeboardListItem = ({ card }) => {
   const { canEdit, cubeID } = useContext(CubeContext);
   const { removeMaybeboardCard } = useContext(MaybeboardContext);
   const { removeInputRef, setAddValue, openEditCollapse } = useContext(ChangelistContext);
-  const openCardModal = useContext(CardModalContext);
   const [loading, setLoading] = useState(false);
-
-  const handleEdit = useCallback(() => {
-    openCardModal(card, true);
-  }, [card, openCardModal]);
-
-  const handleAdd = useCallback(
-    (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      setAddValue(card.details.name);
-      openEditCollapse();
-      if (removeInputRef.current) {
-        removeInputRef.current.focus();
-      }
-    },
-    [card, setAddValue, openEditCollapse, removeInputRef],
-  );
 
   const handleRemove = useCallback(
     async (event) => {
@@ -88,76 +62,85 @@ const MaybeboardListItem = ({ card, className }) => {
         if (json.success === 'true') {
           removeMaybeboardCard(index);
         } else {
-          setLoading(false);
           console.error(json.message);
         }
       }
+      setLoading(false);
     },
     [removeMaybeboardCard, cubeID],
   );
 
+  const handleAdd = useCallback(
+    (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      setAddValue(card.details.name);
+      openEditCollapse();
+      if (removeInputRef.current) {
+        removeInputRef.current.focus();
+      }
+    },
+    [card, setAddValue, openEditCollapse, removeInputRef],
+  );
+
   return (
-    <ListGroupItem
-      className={`d-flex card-list-item ${className || ''} ${getCardColorClass(card)}`}
-      data-index={card.index}
-      onClick={handleEdit}
-      role="button"
-    >
-      <AutocardDiv className="name" card={card}>
-        {cardName(card)}
-      </AutocardDiv>
-      {canEdit &&
-        (loading ? (
-          <Spinner size="sm" className="ml-auto" />
-        ) : (
-          <>
-            <button
-              type="button"
-              className="icon-button ml-auto"
-              data-index={card.index}
-              onClick={handleAdd}
-              aria-label="Add"
-            >
-              <span aria-hidden="true">+</span>
-            </button>
-            <Button
-              size="small"
-              className="float-none"
-              data-index={card.index}
-              onClick={handleRemove}
-              aria-label="Remove"
-            >
-              X
-            </Button>
-          </>
-        ))}
-    </ListGroupItem>
+    <AutocardListItem card={card} noCardModal>
+      {canEdit && (
+        <Box sx={{ display: 'flex', marginLeft: 'auto', width: 'min-content' }}>
+          {loading ? (
+            <CircularProgress />
+          ) : (
+            <>
+              <Button
+                color="primary"
+                data-index={card.index}
+                onClick={handleAdd}
+                aria-label="Add"
+                sx={{ minWidth: 0 }}
+                size="small"
+                disableRipple
+              >
+                +
+              </Button>
+              <Button
+                color="warning"
+                data-index={card.index}
+                onClick={handleRemove}
+                aria-label="Remove"
+                size="small"
+                sx={{ minWidth: 0 }}
+              >
+                X
+              </Button>
+            </>
+          )}
+        </Box>
+      )}
+    </AutocardListItem>
   );
 };
-
 MaybeboardListItem.propTypes = {
   card: CardPropType.isRequired,
-  className: PropTypes.string,
-};
-
-MaybeboardListItem.defaultProps = {
-  className: null,
 };
 
 const Maybeboard = ({ filter, ...props }) => {
   const { canEdit, cubeID } = useContext(CubeContext);
   const { toggleShowMaybeboard } = useContext(DisplayContext);
   const { maybeboard, addMaybeboardCard } = useContext(MaybeboardContext);
-  const addInput = useRef();
   const [loading, setLoading] = useState(false);
 
+  const maybeboardIndex = useMemo(() => maybeboard.map((card, index) => ({ ...card, index })), [maybeboard]);
+
+  const filteredMaybeboard = useMemo(
+    () => (filter ? maybeboardIndex.filter(filter) : maybeboardIndex),
+    [filter, maybeboardIndex],
+  );
+
   const handleAdd = useCallback(
-    async (event, newValue) => {
-      event.preventDefault();
-      if (!addInput.current) return;
+    async (addValue) => {
       try {
         setLoading(true);
-        const card = await getCard(cubeID, newValue || addInput.current.value);
+        const card = await getCard(cubeID, addValue);
         if (!card) {
           setLoading(false);
           return;
@@ -181,78 +164,49 @@ const Maybeboard = ({ filter, ...props }) => {
           }
         }
         setLoading(false);
-
-        addInput.current.value = '';
-        addInput.current.focus();
       } catch (e) {
         console.error(e);
       }
+      setLoading(false);
     },
-    [addMaybeboardCard, addInput, cubeID],
-  );
-
-  const maybeboardIndex = useMemo(() => maybeboard.map((card, index) => ({ ...card, index })), [maybeboard]);
-
-  const filteredMaybeboard = useMemo(
-    () => (filter ? maybeboardIndex.filter(filter) : maybeboardIndex),
-    [filter, maybeboardIndex],
+    [addMaybeboardCard, cubeID, setLoading],
   );
 
   return (
-    <CardModalForm>
-      <Row>
-        <Col className="mr-auto">
-          <h4>Maybeboard</h4>
-        </Col>
-        <Col xs="auto">
-          <Button color="primary" size="small" onClick={toggleShowMaybeboard}>
-            Hide <span className="d-none d-sm-inline">Maybeboard</span>
-          </Button>
-        </Col>
-      </Row>
-      {canEdit && (
-        <Form className="mt-2 w-100" onSubmit={handleAdd}>
-          <Row noGutters>
-            <Col xs="9" sm="auto" className="pr-2">
-              <AutocompleteInput
-                treeUrl="/card/names"
-                treePath="cardnames"
-                type="text"
-                className="w-100"
-                disabled={loading}
-                innerRef={addInput}
-                onSubmit={handleAdd}
-                placeholder="Card to Add"
-                autoComplete="off"
-                data-lpignore
-              />
-            </Col>
-            <Col xs="3" sm="auto">
-              <LoadingButton color="success" type="submit" loading={loading}>
-                Add
-              </LoadingButton>
-            </Col>
-          </Row>
-        </Form>
-      )}
+    <>
+      <Typography variant="h4" sx={{ marginBottom: 2 }}>
+        Maybeboard
+      </Typography>
+      <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}>
+        {canEdit && (
+          <AutocompleteCardField
+            disabled={loading}
+            InputProps={{ placeholder: 'Card to Add' }}
+            submitButtonProps={{ color: 'success', loading, size: 'large' }}
+            submitButtonText="Add"
+            onSubmit={handleAdd}
+            sx={{ marginRight: 1 }}
+          />
+        )}
+        <Button color="primary" onClick={toggleShowMaybeboard} sx={{ marginLeft: 2 }}>
+          Hide Maybeboard
+        </Button>
+      </Box>
       {maybeboard.length === 0 ? (
-        <h5 className="mt-3">
+        <Typography variant="h5" sx={{ marginTop: 2 }}>
           No cards in maybeboard
           {filter && filter.length > 0 ? ' matching filter.' : '.'}
-        </h5>
+        </Typography>
       ) : (
-        <TableView className="mt-3" cards={filteredMaybeboard} rowTag={MaybeboardListItem} noGroupModal {...props} />
+        <TableView cards={filteredMaybeboard} rowTag={MaybeboardListItem} noGroupModal {...props} />
       )}
-      <hr />
-    </CardModalForm>
+    </>
   );
 };
-
 Maybeboard.propTypes = {
   filter: PropTypes.func,
 };
 Maybeboard.defaultProps = {
   filter: () => {},
 };
-
 export default Maybeboard;

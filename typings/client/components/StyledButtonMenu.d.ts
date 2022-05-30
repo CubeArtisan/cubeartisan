@@ -1,5 +1,6 @@
 export default StyledButtonMenu;
-declare function StyledButtonMenu({ tooltip, menuItems, color, arrow, children }: {
+declare function StyledButtonMenu({ component: Component, tooltip, menuItems, color, arrow, children }: {
+    component: any;
     tooltip: any;
     menuItems: any;
     color: any;
@@ -19,6 +20,7 @@ declare namespace StyledButtonMenu {
         const tooltip: PropTypes.Requireable<string>;
         const color: PropTypes.Requireable<string>;
         const arrow: PropTypes.Requireable<boolean>;
+        const component: PropTypes.Requireable<PropTypes.ReactComponentLike>;
     }
     namespace defaultProps {
         const menuItems_1: any[];
@@ -31,7 +33,9 @@ declare namespace StyledButtonMenu {
         export { color_1 as color };
         const arrow_1: boolean;
         export { arrow_1 as arrow };
+        export { Button as component };
     }
 }
 import PropTypes from "prop-types";
+import { Button } from "@mui/material";
 //# sourceMappingURL=StyledButtonMenu.d.ts.map

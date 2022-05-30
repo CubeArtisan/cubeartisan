@@ -22,13 +22,12 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { Card, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
 
-import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
+import { AutocompleteCardField } from '@cubeartisan/client/components/AutocompleteInput.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 const CustomizeBasicsModal = ({ isOpen, toggle, cube, updateBasics, onError }) => {
   const [basics, setBasics] = useState(cube.basics.slice());
-  const [cardName, setCardName] = useState('');
   const [imageDict, setImageDict] = useState({});
 
   useEffect(() => {
@@ -39,12 +38,11 @@ const CustomizeBasicsModal = ({ isOpen, toggle, cube, updateBasics, onError }) =
     })();
   }, []);
 
-  const submitCard = () => {
+  const submitCard = (cardName) => {
     if (imageDict) {
       const result = imageDict[cardName.toLowerCase()];
       if (result) {
         setBasics([...basics, result.id]);
-        setCardName('');
       }
     }
   };
@@ -75,33 +73,13 @@ const CustomizeBasicsModal = ({ isOpen, toggle, cube, updateBasics, onError }) =
           snow-covered basics. These don't necessarily have to be basic lands, but using an unconventional setup here
           may result in confusing our draft bots' deckbuilding.
         </p>
-        <Row className="pb-3">
-          <Col xs="12" md="8">
-            <AutocompleteInput
-              treeUrl="/cards/names/full"
-              treePath="cardnames"
-              type="text"
-              className="mr-2"
-              name="remove"
-              value={cardName}
-              onChange={(event) => setCardName(event.target.value)}
-              onSubmit={(event) => event.preventDefault()}
-              placeholder="Card name and version"
-              autoComplete="off"
-              data-lpignore
-            />
-          </Col>
-          <Col xs="12" md="4">
-            <Button
-              color="success"
-              fullWidth
-              onClick={submitCard}
-              disabled={!(imageDict && imageDict[cardName.toLowerCase()])}
-            >
-              Add Card
-            </Button>
-          </Col>
-        </Row>
+        <AutocompleteCardField
+          fullNames
+          InputProps={{ name: 'remove', placeholder: 'Card name and version.' }}
+          submitButtonText="Add Card"
+          submitButtonProps={{ color: 'success', fullWidth: true }}
+          onSubmit={submitCard}
+        />
         <Row>
           {basics.map((cardId, index) => (
             <Col key={cardId} className="col-6 col-md-2-4 col-lg-2-4 col-xl-2-4">

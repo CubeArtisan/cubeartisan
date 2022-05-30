@@ -134,6 +134,7 @@ declare namespace DARK_PALETTE {
         export const lands: string;
     }
     namespace tags {
+        export const none: string;
         const red_1: string;
         export { red_1 as red };
         export const brown: string;

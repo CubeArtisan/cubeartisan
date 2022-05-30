@@ -34,10 +34,10 @@ import {
   Row,
 } from 'reactstrap';
 
+import { AutocompleteTagField } from '@cubeartisan/client/components/AutocompleteInput.js';
 import ColorChecksControl from '@cubeartisan/client/components/ColorCheck.js';
 import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
 import withLoading from '@cubeartisan/client/components/hoc/WithLoading.js';
-import TagInput from '@cubeartisan/client/components/TagInput.js';
 import TextBadge from '@cubeartisan/client/components/TextBadge.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { getTCGLink } from '@cubeartisan/client/utils/Affiliate.js';
@@ -57,9 +57,7 @@ const CardModal = ({
   onChange,
   saveChanges,
   queueRemoveCard,
-  setTagInput,
-  addTagText,
-  tagActions,
+  updateTags,
   ...props
 }) => (
   <Modal size="lg" labelledby="cardModalHeader" toggle={toggle} {...props}>
@@ -94,10 +92,18 @@ const CardModal = ({
             )}
             {card.details.prices && Number.isFinite(cardTix(card)) && (
               <TextBadge name="TIX">
-                <Tooltip title="MTGO TIX">{cardTix(card).toFixed(2)}</Tooltip>
+                <Tooltip title="MTGO TIX">
+                  <Typography variant="body1">{cardTix(card).toFixed(2)}</Typography>
+                </Tooltip>
               </TextBadge>
             )}
-            {Number.isFinite(cardElo(card)) && <TextBadge name="Elo">{cardElo(card).toFixed(0)}</TextBadge>}
+            {Number.isFinite(cardElo(card)) && (
+              <TextBadge name="Elo">
+                <Tooltip title="ELO">
+                  <Typography variant="body1">{cardElo(card).toFixed(0)}</Typography>
+                </Tooltip>
+              </TextBadge>
+            )}
           </Row>
         </Col>
         <Col xs="12" sm="8">
@@ -210,13 +216,13 @@ const CardModal = ({
             </InputGroup>
 
             <h5>Tags</h5>
-            <TagInput
+            <AutocompleteTagField
               tags={values.tags}
-              readOnly={disabled}
-              inputValue={values.tagInput}
-              handleInputChange={setTagInput}
-              handleInputBlur={addTagText}
-              {...tagActions}
+              disabled={disabled}
+              InputProps={{ name: 'tagInput', fullWidth: true, placeholder: 'Tags to describe this card' }}
+              freeSolo
+              multiple
+              updateTags={updateTags}
             />
           </fieldset>
         </Col>
@@ -266,9 +272,7 @@ CardModal.propTypes = {
   onChange: PropTypes.func.isRequired,
   saveChanges: PropTypes.func.isRequired,
   queueRemoveCard: PropTypes.func.isRequired,
-  setTagInput: PropTypes.func.isRequired,
-  addTagText: PropTypes.func.isRequired,
-  tagActions: PropTypes.shape({ addTag: PropTypes.func.isRequired, deleteTag: PropTypes.func.isRequired }).isRequired,
+  updateTags: PropTypes.func.isRequired,
 };
 CardModal.defaultProps = {
   disabled: false,

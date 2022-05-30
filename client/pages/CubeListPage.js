@@ -62,7 +62,7 @@ const CubeListPageRaw = ({
 
   const [cubeView, setCubeView] = useQueryParam('view', defaultView);
   const [openCollapse, setOpenCollapse] = useState(null);
-  const [filter, setFilter] = useState(null);
+  const [filter, setFilter] = useState(() => () => true);
   const [sorts, setSorts] = useState(null);
   const [alerts, setAlerts] = useState([]);
 
@@ -119,7 +119,6 @@ const CubeListPageRaw = ({
                   filter={filter}
                   setFilter={setFilter}
                   cards={filteredCards}
-                  className="mb-3"
                   alerts={alerts}
                   setAlerts={setAlerts}
                 />
@@ -168,7 +167,7 @@ CubeListPageRaw.propTypes = {
   defaultSecondarySort: PropTypes.string.isRequired,
   defaultTertiarySort: PropTypes.string.isRequired,
   defaultQuaternarySort: PropTypes.string.isRequired,
-  defaultShowUnsorted: PropTypes.bool.isRequired,
+  defaultShowUnsorted: PropTypes.string.isRequired,
 };
 
 const CubeListPage = ({
@@ -202,10 +201,12 @@ const CubeListPage = ({
 CubeListPage.propTypes = {
   cube: PropTypes.shape({
     cards: PropTypes.arrayOf(PropTypes.shape({ cardID: PropTypes.string.isRequired })).isRequired,
-    tag_colors: PropTypes.shape({
-      tag: PropTypes.string.isRequired,
-      color: PropTypes.oneOf(TAG_COLORS.map(([, c]) => c)),
-    }),
+    tag_colors: PropTypes.arrayOf(
+      PropTypes.shape({
+        tag: PropTypes.string.isRequired,
+        color: PropTypes.oneOf(TAG_COLORS.map(([, c]) => c)),
+      }).isRequired,
+    ).isRequired,
     default_sorts: PropTypes.arrayOf(PropTypes.string).isRequired,
     maybe: PropTypes.arrayOf(PropTypes.shape({ cardID: PropTypes.string.isRequired })).isRequired,
     _id: PropTypes.string.isRequired,
@@ -218,7 +219,7 @@ CubeListPage.propTypes = {
   defaultSecondarySort: PropTypes.string.isRequired,
   defaultTertiarySort: PropTypes.string.isRequired,
   defaultQuaternarySort: PropTypes.string.isRequired,
-  defaultShowUnsorted: PropTypes.bool.isRequired,
+  defaultShowUnsorted: PropTypes.string.isRequired,
   loginCallback: PropTypes.string,
 };
 

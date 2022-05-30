@@ -13,9 +13,15 @@ export function TagContextProvider({ children, cubeID, defaultTagColors, default
 export namespace TagContextProvider {
     namespace propTypes {
         const cubeID: PropTypes.Validator<string>;
-        const defaultTagColors: PropTypes.Requireable<string[]>;
+        const defaultTagColors: PropTypes.Requireable<PropTypes.InferProps<{
+            tag: PropTypes.Requireable<string>;
+            color: PropTypes.Requireable<string>;
+        }>[]>;
         const defaultShowTagColors: PropTypes.Requireable<boolean>;
-        const defaultTags: PropTypes.Requireable<string[]>;
+        const defaultTags: PropTypes.Requireable<PropTypes.InferProps<{
+            id: PropTypes.Requireable<string>;
+            text: PropTypes.Requireable<string>;
+        }>[]>;
         const children: PropTypes.Validator<PropTypes.ReactNodeLike>;
         const userID: PropTypes.Validator<string>;
     }

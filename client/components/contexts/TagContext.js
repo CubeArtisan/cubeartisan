@@ -68,9 +68,9 @@ export const getCardTagColorClass = (tagColors, card) => {
 export const getTagColorClass = (tagColors, tag) => {
   const tagColor = tagColors.find((tagColorB) => tag === tagColorB.tag);
   if (tagColor && tagColor.color) {
-    return `tag.${tagColor.color}`;
+    return `tags.${tagColor.color}`;
   }
-  return '';
+  return 'tags.none';
 };
 
 export const TAG_COLORS = [
@@ -183,7 +183,7 @@ export const TagContextProvider = ({
   const tagColorClass = useCallback(
     (tag) => {
       if (showTagColors) return getTagColorClass(tagColors, tag);
-      return '';
+      return 'tags.none';
     },
     [tagColors, showTagColors],
   );
@@ -206,9 +206,9 @@ export const TagContextProvider = ({
 };
 TagContextProvider.propTypes = {
   cubeID: PropTypes.string.isRequired,
-  defaultTagColors: PropTypes.arrayOf(PropTypes.string),
+  defaultTagColors: PropTypes.arrayOf(PropTypes.shape({ tag: PropTypes.string, color: PropTypes.string })),
   defaultShowTagColors: PropTypes.bool,
-  defaultTags: PropTypes.arrayOf(PropTypes.string),
+  defaultTags: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string, text: PropTypes.string })),
   children: PropTypes.node.isRequired,
   userID: PropTypes.string.isRequired,
 };

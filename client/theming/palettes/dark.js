@@ -99,6 +99,7 @@ const DARK_PALETTE = {
     lands: 'hsl(32, 60%, 20%)',
   },
   tags: {
+    none: 'hsl(200, 15%, 25%)',
     red: 'hsl(9, 80%, 25%)',
     brown: 'hsl(30, 50%, 25%)',
     yellow: 'hsl(45, 72%, 25%)',

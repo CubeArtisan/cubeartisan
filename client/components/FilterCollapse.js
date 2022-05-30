@@ -20,7 +20,7 @@ import { Box, Button, Collapse, Grid, InputLabel, Modal, TextField } from '@mui/
 import PropTypes from 'prop-types';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 
-import AutocompleteInput from '@cubeartisan/client/components/AutocompleteInput.js';
+import { AutocompleteTagField } from '@cubeartisan/client/components/AutocompleteInput.js';
 import ColorChecksControl from '@cubeartisan/client/components/ColorCheck.js';
 import {
   ContainerBody,
@@ -170,18 +170,10 @@ const AdvancedFilterModal = ({ isOpen, toggle, apply, values, onChange, cubeID }
           {cubeID && (
             <Box sx={{ display: 'flex', marginBottom: 2, alignItems: 'center' }}>
               <InputLabel>Tag</InputLabel>
-              <AutocompleteInput
-                treeUrl={`/cube/${cubeID}/cards/tags`}
-                treePath="tags"
-                type="text"
-                name="tag"
-                value={values.tag}
-                onChange={onChange}
-                placeholder={'Any text, e.g. "Zombie Testing"'}
-                autoComplete="off"
-                data-lpignore
-                className="tag-autocomplete-input"
-                wrapperClassName="tag-autocomplete-wrapper"
+              <AutocompleteTagField
+                InputProps={{ name: 'tag', placeholder: 'Any text, e.g. "Zombie Testing"' }}
+                onInputChange={(_, value) => onChange({ target: { name: 'tag', value } })}
+                noButton
               />
             </Box>
           )}
@@ -342,7 +334,7 @@ const AdvancedFilterModal = ({ isOpen, toggle, apply, values, onChange, cubeID }
   </Modal>
 );
 AdvancedFilterModal.propTypes = {
-  isOpen: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool,
   toggle: PropTypes.func.isRequired,
   apply: PropTypes.func.isRequired,
   values: PropTypes.shape({
@@ -387,6 +379,7 @@ AdvancedFilterModal.propTypes = {
   cubeID: PropTypes.string,
 };
 AdvancedFilterModal.defaultProps = {
+  isOpen: false,
   cubeID: null,
 };
 

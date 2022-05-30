@@ -48,7 +48,7 @@ declare namespace CubeListNavbar {
         const sorts: PropTypes.Requireable<string[]>;
         const setSorts: PropTypes.Validator<(...args: any[]) => any>;
         const defaultSorts: PropTypes.Validator<string[]>;
-        const cubeDefaultShowUnsorted: PropTypes.Validator<boolean>;
+        const cubeDefaultShowUnsorted: PropTypes.Requireable<boolean>;
         const defaultFilterText: PropTypes.Validator<string>;
         const filter: PropTypes.Requireable<(...args: any[]) => any>;
         const setFilter: PropTypes.Validator<(...args: any[]) => any>;
@@ -65,6 +65,8 @@ declare namespace CubeListNavbar {
         export { sorts_1 as sorts };
         const filter_1: any;
         export { filter_1 as filter };
+        const cubeDefaultShowUnsorted_1: boolean;
+        export { cubeDefaultShowUnsorted_1 as cubeDefaultShowUnsorted };
     }
 }
 import PropTypes from "prop-types";

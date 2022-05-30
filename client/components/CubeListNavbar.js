@@ -490,7 +490,7 @@ CubeListNavbar.propTypes = {
   sorts: PropTypes.arrayOf(PropTypes.string),
   setSorts: PropTypes.func.isRequired,
   defaultSorts: PropTypes.arrayOf(PropTypes.string).isRequired,
-  cubeDefaultShowUnsorted: PropTypes.bool.isRequired,
+  cubeDefaultShowUnsorted: PropTypes.bool,
   defaultFilterText: PropTypes.string.isRequired,
   filter: PropTypes.func,
   setFilter: PropTypes.func.isRequired,
@@ -502,5 +502,6 @@ CubeListNavbar.defaultProps = {
   openCollapse: null,
   sorts: null,
   filter: null,
+  cubeDefaultShowUnsorted: false,
 };
 export default CubeListNavbar;

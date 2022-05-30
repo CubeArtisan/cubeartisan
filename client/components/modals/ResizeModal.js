@@ -29,7 +29,8 @@ import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 const ResizeModal = ({ cubeID }) => {
   const [open, toggleOpen] = useToggle(false);
   const [size, setSize] = useState('720');
-  const [filter, setFilter] = useState('');
+  // We need the nested lambda because react will evaluate the outer one for lazy initialization.
+  const [filter, setFilter] = useState(() => () => true);
   const [valid, setValid] = useState(true);
 
   useEffect(() => {
@@ -54,6 +55,7 @@ const ResizeModal = ({ cubeID }) => {
             <TextField
               name="size"
               humanName="New Size"
+              placeholder="Desired New Size"
               value={size}
               valid={size.length > 0 && valid}
               invalid={size.length > 0 && !valid}

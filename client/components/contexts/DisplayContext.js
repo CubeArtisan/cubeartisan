@@ -38,6 +38,8 @@ import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
  * @property {() => void} toggleUseSticky
  * @property {ThemeType} theme
  * @property {(theme?: ThemeType) => void} updateTheme
+ * @property {number | string} autoCardSize
+ * @property {(size: number | string) => void} setAutoCardSize
  */
 
 /**
@@ -55,6 +57,8 @@ const DisplayContext = createContext({
   toggleUseSticky: () => {},
   theme: 'default',
   updateTheme: () => {},
+  autoCardSize: '24rem',
+  setAutoCardSize: () => {},
 });
 
 export const DisplayContextProvider = ({ cubeID, defaultNumCols, ...props }) => {
@@ -69,8 +73,10 @@ export const DisplayContextProvider = ({ cubeID, defaultNumCols, ...props }) => 
     () => typeof localStorage !== 'undefined' && cubeID && localStorage.getItem(`maybeboard-${cubeID}`) === 'true',
   );
   const toggleShowMaybeboard = useCallback(() => {
-    if (cubeID) localStorage.setItem(`maybeboard-${cubeID}`, !showMaybeboard);
-    setShowMaybeboard(!showMaybeboard);
+    setShowMaybeboard((oldValue) => {
+      if (cubeID) localStorage.setItem(`maybeboard-${cubeID}`, oldValue ? 'false' : 'true');
+      return !showMaybeboard;
+    });
   }, [cubeID, showMaybeboard]);
 
   const [cardsInRow, setCardsInRow] = useState(
@@ -116,12 +122,19 @@ export const DisplayContextProvider = ({ cubeID, defaultNumCols, ...props }) => 
             body: formData,
           });
         }
-        console.log('Setting theme to', newTheme);
         return newTheme;
       });
     },
     [user],
   );
+  const [autoCardSize, setAutoCardSize] = useState(
+    (typeof localStorage !== 'undefined' && localStorage.getItem('autocard-size')) || '18rem',
+  );
+  const updateAutoCardSize = useCallback((newSize) => {
+    localStorage.setItem('autocard-size', newSize);
+    setAutoCardSize(newSize);
+  }, []);
+
   useEffect(() => {
     if (user._id && user.theme) setTheme(user.theme);
   }, [user._id, user.theme]);
@@ -141,6 +154,8 @@ export const DisplayContextProvider = ({ cubeID, defaultNumCols, ...props }) => 
       toggleUseSticky,
       theme,
       updateTheme,
+      autoCardSize,
+      setAutoCardSize: updateAutoCardSize,
     }),
     [
       showCustomImages,
@@ -153,6 +168,8 @@ export const DisplayContextProvider = ({ cubeID, defaultNumCols, ...props }) => 
       toggleUseSticky,
       theme,
       updateTheme,
+      autoCardSize,
+      updateAutoCardSize,
     ],
   );
   return (
