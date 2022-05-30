@@ -76,7 +76,7 @@
     "@emotion/styled": "^11.8.1",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
     "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^12.1.5",
+    "@testing-library/react": "^13.3.0",
     "babel-jest": "^28.1.0",
     "browserslist": "^4.20.3",
     "eslint": "^8.16.0",
