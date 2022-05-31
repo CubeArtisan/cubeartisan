@@ -6,20 +6,20 @@ declare function TableView({ cards, rowTag, noGroupModal }: {
 }): JSX.Element;
 declare namespace TableView {
     namespace propTypes {
-        const cards: PropTypes.Validator<PropTypes.InferProps<{
+        const cards: PropTypes.Validator<(PropTypes.InferProps<{
             _id: PropTypes.Requireable<string>;
             index: PropTypes.Requireable<number>;
             imgUrl: PropTypes.Requireable<string>;
             imgBackUrl: PropTypes.Requireable<string>;
             cardID: PropTypes.Validator<string>;
-            colors: PropTypes.Requireable<string[]>;
-            tags: PropTypes.Requireable<string[]>;
+            colors: PropTypes.Requireable<(string | null | undefined)[]>;
+            tags: PropTypes.Requireable<(string | null | undefined)[]>;
             details: PropTypes.Requireable<PropTypes.InferProps<{
                 _id: PropTypes.Validator<string>;
                 name: PropTypes.Validator<string>;
                 image_normal: PropTypes.Validator<string>;
             }>>;
-        }>[]>;
+        }> | null | undefined)[]>;
         const rowTag: PropTypes.Requireable<string | ((...args: any[]) => any)>;
         const noGroupModal: PropTypes.Requireable<boolean>;
     }

@@ -14,9 +14,9 @@ export const COLORS: string[][];
 export function getCubeId(cube: any): any;
 export function getCubeDescription(cube: any): string;
 export function isInternalURL(to: any): boolean;
-export function toNullableInt(str: any): number;
+export function toNullableInt(str: any): number | null;
 export function isSamePageURL(to: any): boolean;
-export function isObject(obj: any): boolean;
+export function isObject(obj: any): any;
 export function areDeepEqual(obj1: any, obj2: any): boolean;
 declare namespace _default {
     export { COLORS };

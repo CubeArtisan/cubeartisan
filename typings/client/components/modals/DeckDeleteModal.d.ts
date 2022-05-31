@@ -15,7 +15,7 @@ declare namespace DeckDeleteModal {
         const nextURL: PropTypes.Requireable<string>;
     }
     namespace defaultProps {
-        const nextURL_1: any;
+        const nextURL_1: null;
         export { nextURL_1 as nextURL };
     }
 }

@@ -9,7 +9,7 @@ declare namespace PagedTable {
     namespace propTypes {
         const children: PropTypes.Validator<PropTypes.ReactElementLike>;
         const pageSize: PropTypes.Requireable<number>;
-        const rows: PropTypes.Validator<PropTypes.InferProps<{}>[]>;
+        const rows: PropTypes.Validator<(PropTypes.InferProps<{}> | null | undefined)[]>;
     }
     namespace defaultProps {
         const pageSize_1: number;

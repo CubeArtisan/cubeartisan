@@ -22,9 +22,9 @@ import { Col, Row } from 'reactstrap';
 
 import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import SetCardsInRow from '@cubeartisan/client/components/inputs/SetCardsInRow.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import SetCardsInRow from '@cubeartisan/client/components/SetCardsInRow.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';

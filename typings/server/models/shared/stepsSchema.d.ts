@@ -6,7 +6,7 @@ declare const stepsSchema: {
     };
     amount: {
         type: NumberConstructor;
-        default: any;
+        default: null;
     };
 }[];
 //# sourceMappingURL=stepsSchema.d.ts.map

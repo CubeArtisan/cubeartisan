@@ -13,10 +13,10 @@ export namespace BulkUploadPage {
             title: PropTypes.Validator<string>;
             html: PropTypes.Validator<string>;
         }>>;
-        const added: PropTypes.Validator<PropTypes.InferProps<{
+        const added: PropTypes.Validator<(PropTypes.InferProps<{
             name: PropTypes.Validator<string>;
             image_normal: PropTypes.Validator<string>;
-        }>[]>;
+        }> | null | undefined)[]>;
     }
     namespace defaultProps {
         const loginCallback_1: string;

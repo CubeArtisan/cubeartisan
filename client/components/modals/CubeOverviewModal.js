@@ -36,9 +36,12 @@ import {
   Row,
 } from 'reactstrap';
 
-import { AutocompleteCardField, AutocompleteTagField } from '@cubeartisan/client/components/AutocompleteInput.js';
 import { TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext.js';
-import TextEntry from '@cubeartisan/client/components/TextEntry.js';
+import {
+  AutocompleteCardField,
+  AutocompleteTagField,
+} from '@cubeartisan/client/components/inputs/AutocompleteInput.js';
+import TextEntry from '@cubeartisan/client/components/inputs/TextEntry.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import { getCubeDescription, getCubeId } from '@cubeartisan/client/utils/Util.js';

@@ -7,13 +7,13 @@ declare function AsfanDropdown({ cube, defaultFormatId, setAsfans }: {
 declare namespace AsfanDropdown {
     namespace propTypes {
         const cube: PropTypes.Validator<PropTypes.InferProps<{
-            cards: PropTypes.Validator<PropTypes.InferProps<{
+            cards: PropTypes.Validator<(PropTypes.InferProps<{
                 cardID: PropTypes.Validator<string>;
-            }>[]>;
-            draft_formats: PropTypes.Validator<PropTypes.InferProps<{
+            }> | null | undefined)[]>;
+            draft_formats: PropTypes.Validator<(PropTypes.InferProps<{
                 title: PropTypes.Validator<string>;
                 _id: PropTypes.Validator<string>;
-            }>[]>;
+            }> | null | undefined)[]>;
             defaultDraftFormat: PropTypes.Requireable<number>;
         }>>;
         const defaultFormatId: PropTypes.Requireable<number>;

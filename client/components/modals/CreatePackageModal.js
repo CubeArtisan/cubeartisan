@@ -34,7 +34,7 @@ import {
   Row,
 } from 'reactstrap';
 
-import { AutocompleteCardField } from '@cubeartisan/client/components/AutocompleteInput.js';
+import { AutocompleteCardField } from '@cubeartisan/client/components/inputs/AutocompleteInput.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 const CreatePackageModal = ({ isOpen, toggle, onError, onSuccess }) => {

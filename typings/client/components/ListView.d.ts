@@ -4,9 +4,9 @@ declare function ListView({ cards }: {
 }): JSX.Element;
 declare namespace ListView {
     namespace propTypes {
-        const cards: PropTypes.Validator<PropTypes.InferProps<{
+        const cards: PropTypes.Validator<(PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
-        }>[]>;
+        }> | null | undefined)[]>;
     }
 }
 import PropTypes from "prop-types";

@@ -21,6 +21,6 @@ export default _default;
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-declare function get(key: any): string;
+declare function get(key: any): string | null;
 declare function set(key: any, value: any): void;
 //# sourceMappingURL=LocalStorage.d.ts.map

@@ -1,7 +1,7 @@
 export default useCardNames;
 declare function useCardNames({ cubeID, fullNames }: {
-    cubeID?: any;
-    fullNames?: boolean;
+    cubeID?: null | undefined;
+    fullNames?: boolean | undefined;
 }): {
     names: any;
     loading: boolean;

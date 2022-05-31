@@ -11,7 +11,7 @@ declare namespace UserLayout {
             _id: PropTypes.Validator<string>;
             username: PropTypes.Validator<string>;
         }>>;
-        const followers: PropTypes.Validator<PropTypes.InferProps<{}>[]>;
+        const followers: PropTypes.Validator<(PropTypes.InferProps<{}> | null | undefined)[]>;
         const activeLink: PropTypes.Validator<string>;
         const children: PropTypes.Requireable<PropTypes.ReactNodeLike>;
     }

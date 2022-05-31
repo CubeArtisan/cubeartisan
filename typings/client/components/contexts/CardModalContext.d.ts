@@ -1,8 +1,8 @@
 export default CardModalContext;
-export type ContextType = import("react").Context<(card: any) => void>;
+export type ContextType = import("react").Context<(card: import('@cubeartisan/client/proptypes/CardPropType.js').Card) => void>;
 /**
- * @typedef {import('react').Context<(card: any) => void>} ContextType
+ * @typedef {import('react').Context<(card: import('@cubeartisan/client/proptypes/CardPropType.js').Card) => void>} ContextType
  * @type ContextType
  */
-declare const CardModalContext: import("react").Context<(card: any) => void>;
+declare const CardModalContext: import("react").Context<(card: import('@cubeartisan/client/proptypes/CardPropType.js').Card) => void>;
 //# sourceMappingURL=CardModalContext.d.ts.map

@@ -32,12 +32,12 @@ import {
   Spinner,
 } from 'reactstrap';
 
-import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
 import CardImage from '@cubeartisan/client/components/CardImage.js';
 import CardGrid from '@cubeartisan/client/components/containers/CardGrid.js';
 import Paginate from '@cubeartisan/client/components/containers/Paginate.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import FilterCollapse from '@cubeartisan/client/components/FilterCollapse.js';
+import ButtonLink from '@cubeartisan/client/components/inputs/ButtonLink.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import Query from '@cubeartisan/client/utils/Query.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';

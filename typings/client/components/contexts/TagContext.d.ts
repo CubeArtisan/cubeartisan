@@ -1,7 +1,7 @@
 export function getCardColorClass(card: any): any;
 export function getCardTagColorClass(tagColors: any, card: any): any;
 export function getTagColorClass(tagColors: TagColor[], tag: string): string;
-export const TAG_COLORS: string[][];
+export const TAG_COLORS: (string | null)[][];
 export function TagContextProvider({ children, cubeID, defaultTagColors, defaultShowTagColors, defaultTags, userID, }: {
     children: any;
     cubeID: any;
@@ -13,24 +13,24 @@ export function TagContextProvider({ children, cubeID, defaultTagColors, default
 export namespace TagContextProvider {
     namespace propTypes {
         const cubeID: PropTypes.Validator<string>;
-        const defaultTagColors: PropTypes.Requireable<PropTypes.InferProps<{
+        const defaultTagColors: PropTypes.Requireable<(PropTypes.InferProps<{
             tag: PropTypes.Requireable<string>;
             color: PropTypes.Requireable<string>;
-        }>[]>;
+        }> | null | undefined)[]>;
         const defaultShowTagColors: PropTypes.Requireable<boolean>;
-        const defaultTags: PropTypes.Requireable<PropTypes.InferProps<{
+        const defaultTags: PropTypes.Requireable<(PropTypes.InferProps<{
             id: PropTypes.Requireable<string>;
             text: PropTypes.Requireable<string>;
-        }>[]>;
-        const children: PropTypes.Validator<PropTypes.ReactNodeLike>;
+        }> | null | undefined)[]>;
+        const children: PropTypes.Validator<string | number | boolean | {} | PropTypes.ReactElementLike | PropTypes.ReactNodeArray>;
         const userID: PropTypes.Validator<string>;
     }
     namespace defaultProps {
-        const defaultTagColors_1: any[];
+        const defaultTagColors_1: never[];
         export { defaultTagColors_1 as defaultTagColors };
         const defaultShowTagColors_1: boolean;
         export { defaultShowTagColors_1 as defaultShowTagColors };
-        const defaultTags_1: any[];
+        const defaultTags_1: never[];
         export { defaultTags_1 as defaultTags };
     }
 }

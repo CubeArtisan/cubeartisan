@@ -22,7 +22,7 @@ import React, { useMemo } from 'react';
 
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import { compareStrings, SortableTable } from '@cubeartisan/client/components/containers/SortableTable.js';
-import LabeledSelect from '@cubeartisan/client/components/LabeledSelect.js';
+import LabeledSelect from '@cubeartisan/client/components/inputs/LabeledSelect.js';
 import { calculateAsfans } from '@cubeartisan/client/drafting/createdraft.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import { sortIntoGroups, SORTS } from '@cubeartisan/client/utils/Sort.js';

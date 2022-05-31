@@ -6,7 +6,7 @@ declare function withModal(Tag: any, ModalTag: any): {
         modalProps: any;
     }): JSX.Element;
     propTypes: {
-        children: PropTypes.Validator<PropTypes.ReactNodeLike>;
+        children: PropTypes.Validator<string | number | boolean | {} | PropTypes.ReactElementLike | PropTypes.ReactNodeArray>;
         modalProps: PropTypes.Requireable<PropTypes.InferProps<{}>>;
     };
     defaultProps: {

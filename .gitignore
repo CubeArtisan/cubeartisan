@@ -556,3 +556,6 @@ yarn-project.nix
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# Ignore typescript source map files
+*.d.ts.map

@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "baseUrl": "./",
+    "paths": {
+      "@cubeartisan/server/*": ["server/*"],
+      "@cubeartisan/client/*": ["client/*"],
+      "@cubeartisan/jobs/*": ["jobs/*"]
+    },
+    "allowSyntheticDefaultImports": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "alwaysStrict": true,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": false,
+    "noImplicitOverride": false,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "noUncheckedIndexedAccess": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": false,
+    "useUnknownInCatchVariables": true,
+    "allowUmdGlobalAccess": false,
+    "module": "es2022",
+    "noResolve": false,
+    "resolveJsonModule": false,
+    "importsNotUsedAsValues": "error",
+    "newLine": "lf",
+    "disableSizeLimit": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react-jsx",
+    "moduleResolution": "nodenext",
+    "allowJs": true
+  },
+  "include": ["server/**/*", "client/**/*", "./jobs/**/*"],
+  "exclude": ["**/node_modules/**/*", "**/dist/**/*", "**/coverage/**/*", "**typings/**/*"]
+}

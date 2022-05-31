@@ -38,11 +38,11 @@ import {
   TabPane,
 } from 'reactstrap';
 
-import { AutocompleteCardField } from '@cubeartisan/client/components/AutocompleteInput.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import { AutocompleteCardField } from '@cubeartisan/client/components/inputs/AutocompleteInput.js';
+import TextEntry from '@cubeartisan/client/components/inputs/TextEntry.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import TextEntry from '@cubeartisan/client/components/TextEntry.js';
 import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import Query from '@cubeartisan/client/utils/Query.js';

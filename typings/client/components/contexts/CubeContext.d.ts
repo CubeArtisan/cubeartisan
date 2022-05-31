@@ -6,27 +6,33 @@ export function CubeContextProvider({ initialCube, canEdit, ...props }: {
 export namespace CubeContextProvider {
     namespace propTypes {
         const initialCube: PropTypes.Requireable<PropTypes.InferProps<{
-            cards: PropTypes.Requireable<PropTypes.InferProps<{
+            cards: PropTypes.Requireable<(PropTypes.InferProps<{
                 _id: PropTypes.Requireable<string>;
                 index: PropTypes.Requireable<number>;
                 imgUrl: PropTypes.Requireable<string>;
                 imgBackUrl: PropTypes.Requireable<string>;
                 cardID: PropTypes.Validator<string>;
-                colors: PropTypes.Requireable<string[]>;
-                tags: PropTypes.Requireable<string[]>;
+                colors: PropTypes.Requireable<(string | null | undefined)[]>;
+                tags: PropTypes.Requireable<(string | null | undefined)[]>;
                 details: PropTypes.Requireable<PropTypes.InferProps<{
                     /**
-                     * @typedef {import('react').Context<{ cube: any, canEdit: Boolean, cubeID: string?, hasCustomImages: Boolean,
-                     *           setCube: ((cube: any) => void) | ((replacer: (cube: any) => any) => void),
-                     *           updateCubeCard: (index: number, card: any) => void,
-                     *           updateCubeCards: (cards: any[]) => void }>} ContextType
-                     * @type ContextType
+                     @typedef {import('@cubeartisan/client/proptypes/CubePropType.js').Cube} Cube
+                     @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
+                     * @typedef CubeContextValue
+                     * @property {Cube?} cube
+                     * @property {boolean} canEdit
+                     * @property {string?} cubeID
+                     * @property {boolean} hasCustomImages
+                     * @property {((cube: Cube) => void) | ((replacer: (cube: Cube) => Cube) => void)}
+                     * @property {(index: number, card: Card) => void} updateCubeCard
+                     * @property {(cards: Card[]) => void} updateCubeCards
+                     * @type {import('react').Context<CubeContextValue>}
                      */
                     _id: PropTypes.Validator<string>;
                     name: PropTypes.Validator<string>;
                     image_normal: PropTypes.Validator<string>;
                 }>>;
-            }>[]>;
+            }> | null | undefined)[]>;
         }>>;
         const canEdit: PropTypes.Requireable<boolean>;
         const cubeID: PropTypes.Validator<string>;
@@ -39,31 +45,31 @@ export namespace CubeContextProvider {
     }
 }
 export default CubeContext;
-export type ContextType = React.Context<{
-    cube: any;
-    canEdit: boolean;
-    cubeID: string | null;
-    hasCustomImages: boolean;
-    setCube: ((cube: any) => void) | ((replacer: (cube: any) => any) => void);
-    updateCubeCard: (index: number, card: any) => void;
-    updateCubeCards: (cards: any[]) => void;
-}>;
+export type Cube = import('@cubeartisan/client/proptypes/CubePropType.js').Cube;
+export type Card = import('@cubeartisan/client/proptypes/CardPropType.js').Card;
+export type CubeContextValue = import('react').Context<CubeContextValue>;
 import PropTypes from "prop-types";
 /**
- * @typedef {import('react').Context<{ cube: any, canEdit: Boolean, cubeID: string?, hasCustomImages: Boolean,
- *           setCube: ((cube: any) => void) | ((replacer: (cube: any) => any) => void),
- *           updateCubeCard: (index: number, card: any) => void,
- *           updateCubeCards: (cards: any[]) => void }>} ContextType
- * @type ContextType
+ @typedef {import('@cubeartisan/client/proptypes/CubePropType.js').Cube} Cube
+ @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
+ * @typedef CubeContextValue
+ * @property {Cube?} cube
+ * @property {boolean} canEdit
+ * @property {string?} cubeID
+ * @property {boolean} hasCustomImages
+ * @property {((cube: Cube) => void) | ((replacer: (cube: Cube) => Cube) => void)}
+ * @property {(index: number, card: Card) => void} updateCubeCard
+ * @property {(cards: Card[]) => void} updateCubeCards
+ * @type {import('react').Context<CubeContextValue>}
  */
 declare const CubeContext: React.Context<{
-    cube: any;
+    cube: {};
     canEdit: boolean;
-    cubeID: string | null;
+    cubeID: null;
     hasCustomImages: boolean;
-    setCube: ((cube: any) => void) | ((replacer: (cube: any) => any) => void);
-    updateCubeCard: (index: number, card: any) => void;
-    updateCubeCards: (cards: any[]) => void;
+    setCube: () => void;
+    updateCubeCard: () => void;
+    updateCubeCards: () => void;
 }>;
 import React from "react";
 //# sourceMappingURL=CubeContext.d.ts.map

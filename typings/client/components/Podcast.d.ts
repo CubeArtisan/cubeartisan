@@ -19,10 +19,10 @@ declare namespace Podcast {
             podcast: PropTypes.Validator<string>;
             podcastname: PropTypes.Validator<string>;
         }>>;
-        const episodes: PropTypes.Requireable<PropTypes.InferProps<{}>[]>;
+        const episodes: PropTypes.Requireable<(PropTypes.InferProps<{}> | null | undefined)[]>;
     }
     namespace defaultProps {
-        const episodes_1: any[];
+        const episodes_1: never[];
         export { episodes_1 as episodes };
     }
 }

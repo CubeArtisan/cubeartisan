@@ -3,8 +3,8 @@ declare class SampleHandModal extends React.Component<any, any, any> {
     constructor(props: any);
     state: {
         isOpen: boolean;
-        hand: any[];
-        pool: any[];
+        hand: never[];
+        pool: never[];
     };
     open(event: any): void;
     close(): void;

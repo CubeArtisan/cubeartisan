@@ -1,4 +1,4 @@
-export function getCsrfToken(): string;
+export function getCsrfToken(): string | null;
 export function csrfFetch(resource: any, init?: {
     method: string;
 }): Promise<Response>;

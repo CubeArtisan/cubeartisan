@@ -22,7 +22,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { Card, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
 
-import { AutocompleteCardField } from '@cubeartisan/client/components/AutocompleteInput.js';
+import { AutocompleteCardField } from '@cubeartisan/client/components/inputs/AutocompleteInput.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 

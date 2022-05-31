@@ -24,10 +24,10 @@ declare function initializeCatalog(): void;
 declare const catalog: {};
 declare function addCardToCatalog(card: any, isExtra: any): void;
 declare function addLanguageMapping(card: any): void;
-declare function updateCardbase(ratings: any, histories: any, basePath?: string, defaultPath?: any, allPath?: any): Promise<void>;
+declare function updateCardbase(ratings: any, histories: any, basePath?: string, defaultPath?: null, allPath?: null): Promise<void>;
 declare function downloadCardbase(basePath?: string): Promise<boolean>;
-declare function downloadDefaultCards(basePath?: string, defaultSourcePath?: any, allSourcePath?: any): Promise<[any, any]>;
-declare function saveAllCards(ratings?: any[], histories?: any[], basePath?: string, defaultPath?: any, allPath?: any): Promise<void>;
+declare function downloadDefaultCards(basePath?: string, defaultSourcePath?: null, allSourcePath?: null): Promise<[any, any]>;
+declare function saveAllCards(ratings?: any[], histories?: any[], basePath?: string, defaultPath?: null, allPath?: null): Promise<void>;
 declare function writeCatalog(basePath?: string): Promise<any[]>;
 declare function convertCard(card: any, isExtra: any): {
     color_identity: any[];
@@ -40,10 +40,10 @@ declare function convertCard(card: any, isExtra: any): {
     reprint: any;
     promo: any;
     prices: {
-        usd: number;
-        usd_foil: number;
-        eur: number;
-        tix: number;
+        usd: number | null;
+        usd_foil: number | null;
+        eur: number | null;
+        tix: number | null;
     };
     elo: any;
     popularity: any;

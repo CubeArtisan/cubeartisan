@@ -8,8 +8,8 @@ export function PodcastsPage({ loginCallback, podcasts, episodes, count, page }:
 export namespace PodcastsPage {
     namespace propTypes {
         const loginCallback: PropTypes.Requireable<string>;
-        const podcasts: PropTypes.Validator<PropTypes.InferProps<{}>[]>;
-        const episodes: PropTypes.Validator<PropTypes.InferProps<{}>[]>;
+        const podcasts: PropTypes.Validator<(PropTypes.InferProps<{}> | null | undefined)[]>;
+        const episodes: PropTypes.Validator<(PropTypes.InferProps<{}> | null | undefined)[]>;
         const count: PropTypes.Validator<number>;
         const page: PropTypes.Validator<number>;
     }

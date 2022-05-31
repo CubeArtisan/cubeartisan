@@ -5,7 +5,7 @@ export function LayoutContainer({ children, sx, ...props }: {
 }): JSX.Element;
 export namespace LayoutContainer {
     namespace propTypes {
-        const children: PropTypes.Validator<PropTypes.ReactNodeLike>;
+        const children: PropTypes.Validator<string | number | boolean | {} | PropTypes.ReactElementLike | PropTypes.ReactNodeArray>;
         const sx: PropTypes.Requireable<PropTypes.InferProps<{}>>;
     }
     namespace defaultProps {

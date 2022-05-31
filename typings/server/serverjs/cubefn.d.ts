@@ -1,10 +1,10 @@
 export function getCubeId(cube: any): any;
 export function buildIdQuery(id: any): {
     _id: any;
-    shortID?: undefined;
+    shortID?: never;
 } | {
     shortID: string;
-    _id?: undefined;
+    _id?: never;
 };
 export function generateShortId(): Promise<string>;
 export function intToLegality(val: any): string;

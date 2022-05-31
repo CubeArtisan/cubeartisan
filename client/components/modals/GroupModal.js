@@ -41,12 +41,12 @@ import {
 } from 'reactstrap';
 
 import AutocardListItem from '@cubeartisan/client/components/AutocardListItem.js';
-import { AutocompleteTagField } from '@cubeartisan/client/components/AutocompleteInput.js';
-import ColorChecksControl from '@cubeartisan/client/components/ColorCheck.js';
 import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext.js';
-import MassBuyButton from '@cubeartisan/client/components/MassBuyButton.js';
+import { AutocompleteTagField } from '@cubeartisan/client/components/inputs/AutocompleteInput.js';
+import ColorChecksControl from '@cubeartisan/client/components/inputs/ColorCheck.js';
+import MassBuyButton from '@cubeartisan/client/components/inputs/MassBuyButton.js';
 import TextBadge from '@cubeartisan/client/components/TextBadge.js';
 import { cardFoilPrice, cardPrice, cardPriceEur, cardTix } from '@cubeartisan/client/utils/Card.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';

@@ -7,7 +7,7 @@ declare function TextBadge({ name, children, sx }: {
 declare namespace TextBadge {
     namespace propTypes {
         const name: PropTypes.Validator<string>;
-        const children: PropTypes.Validator<PropTypes.ReactNodeLike>;
+        const children: PropTypes.Validator<string | number | boolean | {} | PropTypes.ReactElementLike | PropTypes.ReactNodeArray>;
         const sx: PropTypes.Requireable<PropTypes.InferProps<{}>>;
     }
     namespace defaultProps {

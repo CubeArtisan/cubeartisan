@@ -21,11 +21,20 @@ import React, { createContext, useCallback, useMemo, useState } from 'react';
 
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
+/**
+ * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
+ * @typedef MaybeboardContextValue
+ * @property {(card: Card) => void} addMaybeboardCard
+ * @property {(cardIdx: number) => void} removeMaybeboardCard
+ * @property {(card: Card) => void} updateMaybeboardCard
+ * @property {Card[]} maybeboard
+ * @type {React.Context<MaybeboardContextValue>}
+ */
 const MaybeboardContext = createContext({
   maybeboard: [],
-  addCard: () => {},
-  removeCard: () => {},
-  updateCard: () => {},
+  addMaybeboardCard: () => {},
+  removeMaybeboardCard: () => {},
+  updateMaybeboardCard: () => {},
 });
 
 export const MaybeboardContextProvider = ({ initialCards, ...props }) => {
@@ -55,7 +64,6 @@ export const MaybeboardContextProvider = ({ initialCards, ...props }) => {
 
   return <MaybeboardContext.Provider value={value} {...props} />;
 };
-
 MaybeboardContextProvider.propTypes = {
   initialCards: PropTypes.arrayOf(CardPropType).isRequired,
 };

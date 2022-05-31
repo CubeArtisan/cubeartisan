@@ -32,11 +32,11 @@ import {
 import PropTypes from 'prop-types';
 import React, { useCallback, useContext, useState } from 'react';
 
-import { AutocompleteCardField } from '@cubeartisan/client/components/AutocompleteInput.js';
 import Changelist from '@cubeartisan/client/components/Changelist.js';
 import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import { AutocompleteCardField } from '@cubeartisan/client/components/inputs/AutocompleteInput.js';
 import ResizeModal from '@cubeartisan/client/components/modals/ResizeModal.js';
 import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';

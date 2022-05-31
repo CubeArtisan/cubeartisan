@@ -22,12 +22,12 @@ import { Card, CardBody, CardHeader, CardTitle, Col, Row } from 'reactstrap';
 
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
-import DeckbuilderNavbar from '@cubeartisan/client/components/DeckbuilderNavbar.js';
 import DeckStacks from '@cubeartisan/client/components/DeckStacks.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import TextEntry from '@cubeartisan/client/components/inputs/TextEntry.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import TextEntry from '@cubeartisan/client/components/TextEntry.js';
+import DeckbuilderNavbar from '@cubeartisan/client/components/navbars/DeckbuilderNavbar.js';
 import DndProvider from '@cubeartisan/client/components/utils/DndProvider.js';
 import DraftLocation, { moveOrAddCard, removeCard } from '@cubeartisan/client/drafting/DraftLocation.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';

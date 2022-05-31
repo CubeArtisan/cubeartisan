@@ -4,13 +4,13 @@ declare const UserPropType: PropTypes.Requireable<PropTypes.InferProps<{
     email: PropTypes.Requireable<string>;
     username: PropTypes.Requireable<string>;
     about: PropTypes.Requireable<string>;
-    notifications: PropTypes.Requireable<PropTypes.InferProps<{}>[]>;
+    notifications: PropTypes.Requireable<(PropTypes.InferProps<{}> | null | undefined)[]>;
     image_name: PropTypes.Requireable<string>;
     image: PropTypes.Requireable<string>;
     artist: PropTypes.Requireable<string>;
     theme: PropTypes.Requireable<string>;
     users_following: PropTypes.Requireable<string[]>;
-    roles: PropTypes.Validator<string[]>;
+    roles: PropTypes.Validator<(string | null | undefined)[]>;
     hide_featured: PropTypes.Requireable<boolean>;
 }>>;
 import PropTypes from "prop-types";

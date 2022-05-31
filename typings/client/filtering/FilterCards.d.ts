@@ -1,6 +1,6 @@
 export function makeFilter(filterText: any): {
-    err: any;
-    filter: any;
+    err: unknown;
+    filter: null;
 } | {
     err: boolean;
     filter: any;

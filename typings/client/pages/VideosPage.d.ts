@@ -7,7 +7,7 @@ export function VideosPage({ loginCallback, videos, count, page }: {
 export namespace VideosPage {
     namespace propTypes {
         const loginCallback: PropTypes.Requireable<string>;
-        const videos: PropTypes.Validator<PropTypes.InferProps<{
+        const videos: PropTypes.Validator<(PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
             title: PropTypes.Validator<string>;
             body: PropTypes.Validator<string>;
@@ -20,7 +20,7 @@ export namespace VideosPage {
             short: PropTypes.Validator<string>;
             image: PropTypes.Validator<string>;
             imagename: PropTypes.Validator<string>;
-        }>[]>;
+        }> | null | undefined)[]>;
         const count: PropTypes.Validator<number>;
         const page: PropTypes.Validator<number>;
     }

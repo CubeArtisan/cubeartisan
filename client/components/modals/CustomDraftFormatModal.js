@@ -35,7 +35,7 @@ import {
 
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import CustomPackCard from '@cubeartisan/client/components/CustomPackCard.js';
-import TextEntry from '@cubeartisan/client/components/TextEntry.js';
+import TextEntry from '@cubeartisan/client/components/inputs/TextEntry.js';
 import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import { toNullableInt } from '@cubeartisan/client/utils/Util.js';
 

@@ -7,50 +7,50 @@ export function ExplorePage({ recents, featured, drafted, recentlyDrafted, login
 }): JSX.Element;
 export namespace ExplorePage {
     namespace propTypes {
-        const recents: PropTypes.Validator<PropTypes.InferProps<{
-            cards: PropTypes.Requireable<PropTypes.InferProps<{
+        const recents: PropTypes.Validator<(PropTypes.InferProps<{
+            cards: PropTypes.Requireable<(PropTypes.InferProps<{
                 cardName: PropTypes.Requireable<string>;
                 picks: PropTypes.Requireable<number>;
                 passes: PropTypes.Requireable<number>;
                 elo: PropTypes.Requireable<number>;
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
-            }>[]>;
+            }> | null | undefined)[]>;
             useCubeElo: PropTypes.Requireable<boolean>;
-        }>[]>;
-        const featured: PropTypes.Validator<PropTypes.InferProps<{
-            cards: PropTypes.Requireable<PropTypes.InferProps<{
+        }> | null | undefined)[]>;
+        const featured: PropTypes.Validator<(PropTypes.InferProps<{
+            cards: PropTypes.Requireable<(PropTypes.InferProps<{
                 cardName: PropTypes.Requireable<string>;
                 picks: PropTypes.Requireable<number>;
                 passes: PropTypes.Requireable<number>;
                 elo: PropTypes.Requireable<number>;
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
-            }>[]>;
+            }> | null | undefined)[]>;
             useCubeElo: PropTypes.Requireable<boolean>;
-        }>[]>;
-        const drafted: PropTypes.Validator<PropTypes.InferProps<{
-            cards: PropTypes.Requireable<PropTypes.InferProps<{
+        }> | null | undefined)[]>;
+        const drafted: PropTypes.Validator<(PropTypes.InferProps<{
+            cards: PropTypes.Requireable<(PropTypes.InferProps<{
                 cardName: PropTypes.Requireable<string>;
                 picks: PropTypes.Requireable<number>;
                 passes: PropTypes.Requireable<number>;
                 elo: PropTypes.Requireable<number>;
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
-            }>[]>;
+            }> | null | undefined)[]>;
             useCubeElo: PropTypes.Requireable<boolean>;
-        }>[]>;
-        const recentlyDrafted: PropTypes.Validator<PropTypes.InferProps<{
-            cards: PropTypes.Requireable<PropTypes.InferProps<{
+        }> | null | undefined)[]>;
+        const recentlyDrafted: PropTypes.Validator<(PropTypes.InferProps<{
+            cards: PropTypes.Requireable<(PropTypes.InferProps<{
                 cardName: PropTypes.Requireable<string>;
                 picks: PropTypes.Requireable<number>;
                 passes: PropTypes.Requireable<number>;
                 elo: PropTypes.Requireable<number>;
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
-            }>[]>;
+            }> | null | undefined)[]>;
             useCubeElo: PropTypes.Requireable<boolean>;
-        }>[]>;
+        }> | null | undefined)[]>;
         const loginCallback: PropTypes.Requireable<string>;
     }
     namespace defaultProps {

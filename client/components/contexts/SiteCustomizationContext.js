@@ -24,9 +24,8 @@ export const DEFAULT_SITE_CUSTOMIZATIONS = {
   siteRoot: 'http://localhost:8080',
   sourceRepo: 'https://github.com/cubeartisan/CubeArtisan',
   supportEmail: 'support@localhost',
-  mtgmlServer: null,
+  mtgmlServer: 'https://mtgml.cubeartisan.net',
 };
 
 const SiteCustomizationContext = createContext(DEFAULT_SITE_CUSTOMIZATIONS);
-
 export default SiteCustomizationContext;

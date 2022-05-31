@@ -22,7 +22,7 @@ import React from 'react';
 
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import Footer from '@cubeartisan/client/components/layouts/Footer.js';
-import SiteAppBar from '@cubeartisan/client/components/SiteAppBar.js';
+import SiteAppBar from '@cubeartisan/client/components/navbars/SiteAppBar.js';
 
 /**
  * @typedef { import("react").ReactNode } ReactNode

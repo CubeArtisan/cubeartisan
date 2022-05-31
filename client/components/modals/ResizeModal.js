@@ -22,7 +22,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Input, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
 import FilterCollapse from '@cubeartisan/client/components/FilterCollapse.js';
-import TextField from '@cubeartisan/client/components/TextField.js';
+import TextField from '@cubeartisan/client/components/inputs/TextField.js';
 import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 

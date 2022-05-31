@@ -13,9 +13,9 @@ export namespace UserBlogPage {
             _id: PropTypes.Validator<string>;
             username: PropTypes.Validator<string>;
         }>>;
-        const followers: PropTypes.Validator<PropTypes.InferProps<{}>[]>;
+        const followers: PropTypes.Validator<(PropTypes.InferProps<{}> | null | undefined)[]>;
         const following: PropTypes.Validator<boolean>;
-        const posts: PropTypes.Validator<PropTypes.InferProps<{}>[]>;
+        const posts: PropTypes.Validator<(PropTypes.InferProps<{}> | null | undefined)[]>;
         const pages: PropTypes.Validator<number>;
         const activePage: PropTypes.Validator<number>;
         const loginCallback: PropTypes.Requireable<string>;

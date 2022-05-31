@@ -51,8 +51,8 @@ declare const _default: ({
         image_normal: string;
         art_crop: string;
         colorcategory: string;
-        tokens?: undefined;
-        loyalty?: undefined;
+        tokens?: never;
+        loyalty?: never;
     };
 } | {
     _id: string;
@@ -108,7 +108,7 @@ declare const _default: ({
         art_crop: string;
         colorcategory: string;
         tokens: string[];
-        loyalty?: undefined;
+        loyalty?: never;
     };
 } | {
     _id: string;
@@ -161,10 +161,10 @@ declare const _default: ({
         image_normal: string;
         art_crop: string;
         colorcategory: string;
-        power?: undefined;
-        toughness?: undefined;
-        tokens?: undefined;
-        loyalty?: undefined;
+        power?: never;
+        toughness?: never;
+        tokens?: never;
+        loyalty?: never;
     };
 } | {
     _id: string;
@@ -218,9 +218,9 @@ declare const _default: ({
         art_crop: string;
         colorcategory: string;
         tokens: string[];
-        power?: undefined;
-        toughness?: undefined;
-        loyalty?: undefined;
+        power?: never;
+        toughness?: never;
+        loyalty?: never;
     };
 } | {
     _id: string;
@@ -275,8 +275,8 @@ declare const _default: ({
         art_crop: string;
         colorcategory: string;
         tokens: string[];
-        power?: undefined;
-        toughness?: undefined;
+        power?: never;
+        toughness?: never;
     };
 })[];
 export default _default;

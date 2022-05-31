@@ -16,10 +16,10 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import { Box, CircularProgress } from '@mui/material';
 import PropTypes from 'prop-types';
 import React, { useContext, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { Spinner } from 'reactstrap';
 
 import BlogPost from '@cubeartisan/client/components/BlogPost.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
@@ -63,9 +63,9 @@ const Feed = ({ items }) => {
   };
 
   const loader = (
-    <div className="centered py-3 my-4">
-      <Spinner className="position-absolute" />
-    </div>
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <CircularProgress sx={{ marginX: 'auto' }} />
+    </Box>
   );
 
   return (
@@ -76,9 +76,7 @@ const Feed = ({ items }) => {
     </InfiniteScroll>
   );
 };
-
 Feed.propTypes = {
   items: PropTypes.arrayOf(BlogPostPropType.isRequired).isRequired,
 };
-
 export default Feed;

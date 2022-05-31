@@ -37,9 +37,9 @@ import {
 
 import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
 import DeckCard from '@cubeartisan/client/components/DeckCard.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import CustomImageToggler from '@cubeartisan/client/components/inputs/CustomImageToggler.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import SampleHandModal from '@cubeartisan/client/components/modals/SampleHandModal.js';

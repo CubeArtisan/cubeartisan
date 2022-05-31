@@ -34,10 +34,10 @@ import {
   Row,
 } from 'reactstrap';
 
-import { AutocompleteTagField } from '@cubeartisan/client/components/AutocompleteInput.js';
-import ColorChecksControl from '@cubeartisan/client/components/ColorCheck.js';
 import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
 import withLoading from '@cubeartisan/client/components/hoc/WithLoading.js';
+import { AutocompleteTagField } from '@cubeartisan/client/components/inputs/AutocompleteInput.js';
+import ColorChecksControl from '@cubeartisan/client/components/inputs/ColorCheck.js';
 import TextBadge from '@cubeartisan/client/components/TextBadge.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { getTCGLink } from '@cubeartisan/client/utils/Affiliate.js';

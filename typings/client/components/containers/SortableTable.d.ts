@@ -31,7 +31,7 @@ export namespace SortableTable {
         const totalCol: PropTypes.Requireable<boolean>;
     }
     namespace defaultProps {
-        const defaultSortConfig_1: any;
+        const defaultSortConfig_1: null;
         export { defaultSortConfig_1 as defaultSortConfig };
         const sortFns_1: {};
         export { sortFns_1 as sortFns };

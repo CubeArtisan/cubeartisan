@@ -6,20 +6,20 @@ export function CubePlaytestPage({ cube, decks, loginCallback }: {
 export namespace CubePlaytestPage {
     namespace propTypes {
         const cube: PropTypes.Validator<PropTypes.InferProps<{
-            cards: PropTypes.Requireable<PropTypes.InferProps<{
+            cards: PropTypes.Requireable<(PropTypes.InferProps<{
                 _id: PropTypes.Requireable<string>;
                 index: PropTypes.Requireable<number>;
                 imgUrl: PropTypes.Requireable<string>;
                 imgBackUrl: PropTypes.Requireable<string>;
                 cardID: PropTypes.Validator<string>;
-                colors: PropTypes.Requireable<string[]>;
-                tags: PropTypes.Requireable<string[]>;
+                colors: PropTypes.Requireable<(string | null | undefined)[]>;
+                tags: PropTypes.Requireable<(string | null | undefined)[]>;
                 details: PropTypes.Requireable<PropTypes.InferProps<{
                     _id: PropTypes.Validator<string>;
                     name: PropTypes.Validator<string>;
                     image_normal: PropTypes.Validator<string>;
                 }>>;
-            }>[]>;
+            }> | null | undefined)[]>;
             defaultDraftFormat: PropTypes.Requireable<number>;
             _id: PropTypes.Validator<string>;
             shortID: PropTypes.Validator<string>;
@@ -31,31 +31,31 @@ export namespace CubePlaytestPage {
                 defaultSeats: PropTypes.Requireable<number>;
                 packs: PropTypes.Validator<PropTypes.InferProps<{
                     slots: PropTypes.Validator<string[]>;
-                    steps: PropTypes.Requireable<PropTypes.InferProps<{
+                    steps: PropTypes.Requireable<(PropTypes.InferProps<{
                         action: PropTypes.Requireable<string>;
                         amount: PropTypes.Requireable<number>;
-                    }>[]>;
+                    }> | null | undefined)[]>;
                 }>[]>;
             }>[]>;
         }>>;
-        const decks: PropTypes.Validator<PropTypes.InferProps<{
+        const decks: PropTypes.Validator<(PropTypes.InferProps<{
             _id: PropTypes.Requireable<string>;
             cube: PropTypes.Requireable<string>;
             owner: PropTypes.Requireable<string>;
             cubeOwner: PropTypes.Requireable<string>;
-            seats: PropTypes.Requireable<PropTypes.InferProps<{
+            seats: PropTypes.Requireable<(PropTypes.InferProps<{
                 description: PropTypes.Validator<string>;
-                deck: PropTypes.Validator<number[][][]>;
-                sideboard: PropTypes.Validator<number[][][]>;
+                deck: PropTypes.Validator<(number | null | undefined)[][][]>;
+                sideboard: PropTypes.Validator<(number | null | undefined)[][][]>;
                 username: PropTypes.Validator<string>;
                 userid: PropTypes.Requireable<string>;
-                bot: PropTypes.Requireable<string[]>;
+                bot: PropTypes.Requireable<(string | null | undefined)[]>;
                 name: PropTypes.Validator<string>;
-            }>[]>;
+            }> | null | undefined)[]>;
             date: PropTypes.Requireable<string | Date>;
-            comments: PropTypes.Requireable<PropTypes.InferProps<{}>[]>;
+            comments: PropTypes.Requireable<(PropTypes.InferProps<{}> | null | undefined)[]>;
             basics: PropTypes.Validator<number[]>;
-        }>[]>;
+        }> | null | undefined)[]>;
         const loginCallback: PropTypes.Requireable<string>;
     }
     namespace defaultProps {

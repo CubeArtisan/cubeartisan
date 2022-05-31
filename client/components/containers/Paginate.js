@@ -32,14 +32,12 @@ const RealPage = ({ index, active, urlF, onClick }) => (
     </PaginationLink>
   </PaginationItem>
 );
-
 RealPage.propTypes = {
   index: PropTypes.number.isRequired,
   active: PropTypes.number.isRequired,
   urlF: PropTypes.func,
   onClick: PropTypes.func,
 };
-
 RealPage.defaultProps = {
   urlF: undefined,
   onClick: () => {},
@@ -50,7 +48,6 @@ const FakePage = ({ text }) => (
     <PaginationLink>{text}</PaginationLink>
   </PaginationItem>
 );
-
 FakePage.propTypes = {
   text: PropTypes.string.isRequired,
 };
@@ -123,17 +120,14 @@ const Paginate = ({ count, active, urlF, onClick }) => {
     </Pagination>
   );
 };
-
 Paginate.propTypes = {
   count: PropTypes.number.isRequired,
   active: PropTypes.number.isRequired,
   urlF: PropTypes.func,
   onClick: PropTypes.func,
 };
-
 Paginate.defaultProps = {
   urlF: undefined,
   onClick: () => {},
 };
-
 export default Paginate;

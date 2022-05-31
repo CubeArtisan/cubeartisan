@@ -2,7 +2,7 @@ import { Box, Button, Link, MenuItem, useMediaQuery, useTheme } from '@mui/mater
 import PropTypes from 'prop-types';
 import React, { Children, Fragment, isValidElement, useMemo } from 'react';
 
-import StyledButtonMenu from '@cubeartisan/client/components/StyledButtonMenu.js';
+import StyledButtonMenu from '@cubeartisan/client/components/inputs/StyledButtonMenu.js';
 
 const CollapsingNavbar = ({ children, sx, breakpoint, component }) => {
   const { breakpoints } = useTheme();

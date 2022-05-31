@@ -3,21 +3,21 @@ export const validActions: string[];
 export function getAllDrafterStates({ draft, seatNumber, pickNumber, stepNumber }: {
     draft: any;
     seatNumber: any;
-    pickNumber?: number;
-    stepNumber?: any;
+    pickNumber?: number | undefined;
+    stepNumber?: null | undefined;
 }): {
     step: {
         action: any;
         amount: number;
     };
     cards: any;
-    picked: any[];
-    trashed: any[];
+    picked: never[];
+    trashed: never[];
     drafted: any;
     sideboard: any;
     seatNum: number;
-    seen: any[];
-    cardsInPack: any[];
+    seen: never[];
+    cardsInPack: never[];
     basics: any;
     packNum: number;
     pickNum: number;
@@ -36,13 +36,13 @@ export function getDrafterState(args: any): {
         amount: number;
     };
     cards: any;
-    picked: any[];
-    trashed: any[];
+    picked: never[];
+    trashed: never[];
     drafted: any;
     sideboard: any;
     seatNum: number;
-    seen: any[];
-    cardsInPack: any[];
+    seen: never[];
+    cardsInPack: never[];
     basics: any;
     packNum: number;
     pickNum: number;

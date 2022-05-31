@@ -8,21 +8,21 @@ export function CubeBlogPage({ cube, pages, activePage, posts, loginCallback }: 
 export namespace CubeBlogPage {
     namespace propTypes {
         const cube: PropTypes.Validator<PropTypes.InferProps<{
-            cards: PropTypes.Requireable<PropTypes.InferProps<{
+            cards: PropTypes.Requireable<(PropTypes.InferProps<{
                 cardName: PropTypes.Requireable<string>;
                 picks: PropTypes.Requireable<number>;
                 passes: PropTypes.Requireable<number>;
                 elo: PropTypes.Requireable<number>;
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
-            }>[]>;
+            }> | null | undefined)[]>;
             useCubeElo: PropTypes.Requireable<boolean>;
         }>>;
         const pages: PropTypes.Validator<number>;
         const activePage: PropTypes.Validator<number>;
-        const posts: PropTypes.Validator<PropTypes.InferProps<{
+        const posts: PropTypes.Validator<(PropTypes.InferProps<{
             markdown: PropTypes.Requireable<string>;
-        }>[]>;
+        }> | null | undefined)[]>;
         const loginCallback: PropTypes.Requireable<string>;
     }
     namespace defaultProps {

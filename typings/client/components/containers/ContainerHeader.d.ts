@@ -17,7 +17,7 @@ declare namespace ContainerHeader {
         export { variant_1 as variant };
         const sx_1: {};
         export { sx_1 as sx };
-        const children_1: any;
+        const children_1: null;
         export { children_1 as children };
     }
 }

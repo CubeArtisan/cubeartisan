@@ -1,14 +1,14 @@
 export function calculateBasicCounts(): {
-    lands: any[];
-    remainingLands: any[];
-    colors: any[];
+    lands: never[];
+    remainingLands: never[];
+    colors: never[];
 };
 export function buildDeck({ cards, picked }: {
     cards: any;
     picked: any;
 }): {
-    deck: any[][][];
-    sideboard: any[][][];
-    colors: any[];
+    deck: never[][][];
+    sideboard: never[][][];
+    colors: never[];
 };
 //# sourceMappingURL=deckutil.d.ts.map

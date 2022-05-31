@@ -38,7 +38,6 @@ import {
   TabPane,
 } from 'reactstrap';
 
-import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
 import CardImage from '@cubeartisan/client/components/CardImage.js';
 import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
 import CardGrid from '@cubeartisan/client/components/containers/CardGrid.js';
@@ -48,6 +47,7 @@ import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import ImageFallback from '@cubeartisan/client/components/ImageFallback.js';
+import ButtonLink from '@cubeartisan/client/components/inputs/ButtonLink.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import AddToCubeModal from '@cubeartisan/client/components/modals/AddToCubeModal.js';

@@ -20,9 +20,9 @@ import PropTypes from 'prop-types';
 import React, { lazy } from 'react';
 import { Col, Row } from 'reactstrap';
 
-import CubeSearchNavBar from '@cubeartisan/client/components/CubeSearchNavBar.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
+import CubeSearchNavBar from '@cubeartisan/client/components/navbars/CubeSearchNavBar.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';

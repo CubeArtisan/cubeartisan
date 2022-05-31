@@ -25,10 +25,10 @@ import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/
 import { SortContextProvider } from '@cubeartisan/client/components/contexts/SortContext.js';
 import { TAG_COLORS, TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import CubeCompareNavbar from '@cubeartisan/client/components/CubeCompareNavbar.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import CardModalForm from '@cubeartisan/client/components/modals/CardModalForm.js';
+import CubeCompareNavbar from '@cubeartisan/client/components/navbars/CubeCompareNavbar.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import Query from '@cubeartisan/client/utils/Query.js';

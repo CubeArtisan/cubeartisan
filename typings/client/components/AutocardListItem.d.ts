@@ -15,8 +15,8 @@ declare namespace AutocardListItem {
              *  Added noOp callback to allow props to fall through without passing undefined to children.
              */
             cardID: PropTypes.Validator<string>;
-            colors: PropTypes.Requireable<string[]>;
-            tags: PropTypes.Requireable<string[]>;
+            colors: PropTypes.Requireable<(string | null | undefined)[]>;
+            tags: PropTypes.Requireable<(string | null | undefined)[]>;
             details: PropTypes.Requireable<PropTypes.InferProps<{
                 _id: PropTypes.Validator<string>;
                 name: PropTypes.Validator<string>;
@@ -29,7 +29,7 @@ declare namespace AutocardListItem {
     namespace defaultProps {
         const noCardModal_1: boolean;
         export { noCardModal_1 as noCardModal };
-        const children_1: any;
+        const children_1: null;
         export { children_1 as children };
     }
 }

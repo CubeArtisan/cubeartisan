@@ -24,7 +24,7 @@ import { compareStrings, SortableTable } from '@cubeartisan/client/components/co
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import { usePickListAndDrafterState } from '@cubeartisan/client/components/DecksPickBreakdown.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
-import PickSelector from '@cubeartisan/client/components/PickSelector.js';
+import PickSelector from '@cubeartisan/client/components/inputs/PickSelector.js';
 import { convertDrafterState, getDraftbotScores } from '@cubeartisan/client/drafting/draftutil.js';
 import { DrafterStatePropType, DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
 import { cardName, encodeName } from '@cubeartisan/client/utils/Card.js';

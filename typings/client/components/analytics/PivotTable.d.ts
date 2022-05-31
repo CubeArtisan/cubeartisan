@@ -5,7 +5,7 @@ declare function PivotTable({ cards, characteristics }: {
 }): JSX.Element;
 declare namespace PivotTable {
     namespace propTypes {
-        const cards: PropTypes.Validator<PropTypes.InferProps<{}>[]>;
+        const cards: PropTypes.Validator<(PropTypes.InferProps<{}> | null | undefined)[]>;
         const characteristics: PropTypes.Validator<PropTypes.InferProps<{
             'Cube Elo': PropTypes.Validator<(...args: any[]) => any>;
             'Mainboard Rate': PropTypes.Validator<(...args: any[]) => any>;

@@ -1,30 +1,12 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "module": "es2022",
-    "target": "es2021",
-    "baseUrl": "./",
-    "paths": {
-      "@cubeartisan/server/*": ["./server/*"],
-      "@cubeartisan/client/*": ["./client/*"],
-      "@cubeartisan/jobs/*": ["./jobs/*"]
-    },
-    "plugins": [
-      {
-        "transform": "ts-react-display-name"
-      }
-    ],
-    "allowSyntheticDefaultImports": true,
-    "jsx": "react",
-    "moduleResolution": "node",
     "checkJs": false,
-    "allowJs": true,
     "declaration": true,
+    "declarationDir": "./typings",
     "emitDeclarationOnly": true,
-    "outDir": "typings",
     "declarationMap": true,
-    "typeRoots": [
-      "./typings"
-    ]
+    "sourceMap": true
   },
   "include": ["server/**/*", "client/**/*", "jobs/**/*"],
   "exclude": ["**/dist/**/*", "**/coverage/**/*", "**/node_modules/**/*"]
