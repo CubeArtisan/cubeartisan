@@ -237,13 +237,15 @@ export const CSVtoCards = (csvString, carddb) => {
     'image back url': imageBackUrl,
     tags,
     notes,
-    'Color Category': colorCategory,
+    'color category': colorCategory,
     rarity,
+    'override name': overrideName,
   } of data) {
     if (name) {
       const upperSet = (set || '').toUpperCase();
       const card = {
         name,
+        overrideName: overrideName || null,
         cmc: cmc || null,
         type_line: (type || null) && type.replace('-', '—'),
         colors: (color || null) && color.split('').filter((c) => Array.from('WUBRG').includes(c)),
@@ -251,6 +253,7 @@ export const CSVtoCards = (csvString, carddb) => {
         collector_number: collectorNumber && collectorNumber.toUpperCase(),
         status: status || 'Not Owned',
         finish: finish || 'Non-foil',
+        maybeboard: maybeboard || 'false',
         imgUrl: (imageUrl || null) && imageUrl !== 'undefined' ? imageUrl : null,
         imgBackUrl: (imageBackUrl || null) && imageBackUrl !== 'undefined' ? imageBackUrl : null,
         tags: tags && tags.length > 0 ? tags.split(';').map((t) => t.trim()) : [],
@@ -272,6 +275,7 @@ export const CSVtoCards = (csvString, carddb) => {
         const nonPromo = potentialIds.find(carddb.reasonableId);
         const first = potentialIds[0];
         card.cardID = matchingSetAndNumber || matchingSet || nonPromo || first;
+        card.name = card.overrideName ?? card.name;
         if (maybeboard.toLowerCase() === 'true') {
           newMaybe.push(card);
         } else {
