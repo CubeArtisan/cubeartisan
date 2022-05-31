@@ -6,23 +6,23 @@ export function UserSocialPage({ followedCubes, followedUsers, followers, loginC
 }): JSX.Element;
 export namespace UserSocialPage {
     namespace propTypes {
-        const followedCubes: PropTypes.Validator<PropTypes.InferProps<{
-            cards: PropTypes.Requireable<PropTypes.InferProps<{
+        const followedCubes: PropTypes.Validator<(PropTypes.InferProps<{
+            cards: PropTypes.Requireable<(PropTypes.InferProps<{
                 cardName: PropTypes.Requireable<string>;
                 picks: PropTypes.Requireable<number>;
                 passes: PropTypes.Requireable<number>;
                 elo: PropTypes.Requireable<number>;
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
-            }>[]>;
+            }> | null | undefined)[]>;
             useCubeElo: PropTypes.Requireable<boolean>;
-        }>[]>;
-        const followedUsers: PropTypes.Validator<PropTypes.InferProps<{
+        }> | null | undefined)[]>;
+        const followedUsers: PropTypes.Validator<(PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
-        }>[]>;
-        const followers: PropTypes.Validator<PropTypes.InferProps<{
+        }> | null | undefined)[]>;
+        const followers: PropTypes.Validator<(PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
-        }>[]>;
+        }> | null | undefined)[]>;
         const loginCallback: PropTypes.Requireable<string>;
     }
     namespace defaultProps {

@@ -21,7 +21,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
-import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
+import ButtonLink from '@cubeartisan/client/components/inputs/ButtonLink.js';
 
 const LinkModal = ({ link, isOpen, toggle }) => (
   <Modal isOpen={isOpen} toggle={toggle} size="xs">

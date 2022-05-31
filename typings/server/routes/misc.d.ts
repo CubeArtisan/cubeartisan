@@ -16,8 +16,8 @@ export function browsePackages(req: any, res: any): Promise<void>;
 export function loginUser(req: any, res: any, next: any): void;
 export function logoutUser(req: any, res: any): void;
 export function addMinutes(date: any, minutes: any): Date;
-export const submitLostPassword: ((req: any, _res: any, next: any) => void)[];
-export const resetPassword: ((req: any, _res: any, next: any) => void)[];
+export const submitLostPassword: (import("express-validator").ValidationChain | ((req: any, _res: any, next: any) => void))[];
+export const resetPassword: (import("express-validator").ValidationChain | ((req: any, _res: any, next: any) => void))[];
 export const viewLostPasswordPage: (req: any, res: any, next: any) => Promise<any>;
 export const viewLoginPage: (req: any, res: any, next: any) => Promise<any>;
 //# sourceMappingURL=misc.d.ts.map

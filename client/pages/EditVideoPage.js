@@ -21,10 +21,10 @@ import PropTypes from 'prop-types';
 import React, { lazy, useContext, useEffect, useState } from 'react';
 import { Card, CardBody, Col, FormGroup, Input, Label, Nav, Row, Spinner, TabContent, TabPane } from 'reactstrap';
 
-import { AutocompleteCardField } from '@cubeartisan/client/components/AutocompleteInput.js';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import { AutocompleteCardField } from '@cubeartisan/client/components/inputs/AutocompleteInput.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import Tab from '@cubeartisan/client/components/Tab.js';
 import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';

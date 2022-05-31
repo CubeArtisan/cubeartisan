@@ -22,8 +22,8 @@ import React, { useCallback, useContext, useMemo } from 'react';
 import { TagCloud } from 'react-tagcloud';
 
 import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown.js';
-import { AutocompleteTagField } from '@cubeartisan/client/components/AutocompleteInput.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import { AutocompleteTagField } from '@cubeartisan/client/components/inputs/AutocompleteInput.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import CubePropTypes from '@cubeartisan/client/proptypes/CubePropType.js';
 

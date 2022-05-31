@@ -1,3 +1,3 @@
 export default DynamicFlash;
-declare function DynamicFlash(props: any): JSX.Element;
+declare function DynamicFlash(props: any): false | JSX.Element;
 //# sourceMappingURL=DynamicFlash.d.ts.map

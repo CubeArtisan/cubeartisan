@@ -39,18 +39,15 @@ const PagedList = ({ pageSize, rows, showBottom, pageWrap }) => {
     </>
   );
 };
-
 PagedList.propTypes = {
   pageSize: PropTypes.number,
   showBottom: PropTypes.bool,
   rows: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   pageWrap: PropTypes.func,
 };
-
 PagedList.defaultProps = {
   pageSize: 60,
   showBottom: false,
   pageWrap: (element) => element,
 };
-
 export default PagedList;

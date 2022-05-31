@@ -18,6 +18,17 @@
  */
 import { createContext } from 'react';
 
-const GroupModalContext = createContext();
-
+/**
+ * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
+ * @typedef GroupModalContextValue
+ * @property {Card[]} groupModalCards
+ * @property {() => void} openGroupModal
+ * @property {(cards: Card[]) => void} setGroupModalCards
+ * @type {React.Context<GroupModalContextValue>}
+ */
+const GroupModalContext = createContext({
+  groupModalCards: [],
+  openGroupModal: () => {},
+  setGroupModalCards: () => {},
+});
 export default GroupModalContext;

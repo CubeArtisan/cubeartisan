@@ -10,10 +10,7 @@
   ],
   "sideEffects": [
     "**/RenderToRoot.js",
-    "**/pages/*.js",
-    "**/*.js",
-    "**/*.css",
-    "**/*.scss"
+    "**/pages/*.js"
   ],
   "license": "AGPL-3.0-only",
   "repository": "https://github.com/CubeArtisan/cubeartisan",
@@ -29,8 +26,9 @@
     "build": "yarn workspace @cubeartisan/client build",
     "build-dev": "yarn workspace @cubeartisan/client build-dev",
     "cards": "yarn workspace @cubeartisan/server cards",
-    "checktypes": "tsc -p tsconfig.json | loose-ts-check",
-    "checktypes-update": "tsc -p tsconfig.json | loose-ts-check --auto-update",
+    "checktypes-strict": "yarn pnpify tsc -p tsconfig.json",
+    "checktypes": "yarn pnpify tsc -p tsconfig.json | loose-ts-check",
+    "checktypes-update": "yarn pnpify tsc -p tsconfig.json | loose-ts-check --auto-update",
     "ci": "yarn nearley; yarn updatetypes; yarn lint && yarn checktypes && yarn test-loud",
     "lint": "yarn workspaces foreach -p --include '@cubeartisan/*' run g:lint",
     "lint-fix": "yarn workspaces foreach -p --include '@cubeartisan/*' run g:lint-fix",
@@ -65,7 +63,6 @@
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "socket.io": "^4.5.1",
-    "ts-react-display-name": "^1.2.2",
     "type-fest": "^2.13.0",
     "typescript": "^4.7.2",
     "winston": "^3.7.2",

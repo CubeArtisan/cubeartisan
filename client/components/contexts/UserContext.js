@@ -18,6 +18,8 @@
  */
 import { createContext } from 'react';
 
+/**
+ * @type {React.Context<import('@cubeartisan/client/proptypes/UserPropType.js').User>}
+ */
 const UserContext = createContext();
-
 export default UserContext;

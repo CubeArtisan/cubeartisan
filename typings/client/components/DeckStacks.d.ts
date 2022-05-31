@@ -18,8 +18,8 @@ declare namespace DeckStacks {
             imgUrl: PropTypes.Requireable<string>;
             imgBackUrl: PropTypes.Requireable<string>;
             cardID: PropTypes.Validator<string>;
-            colors: PropTypes.Requireable<string[]>;
-            tags: PropTypes.Requireable<string[]>;
+            colors: PropTypes.Requireable<(string | null | undefined)[]>;
+            tags: PropTypes.Requireable<(string | null | undefined)[]>;
             details: PropTypes.Requireable<PropTypes.InferProps<{
                 _id: PropTypes.Validator<string>;
                 name: PropTypes.Validator<string>;

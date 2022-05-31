@@ -7,7 +7,7 @@ export function ArticlesPage({ loginCallback, articles, count, page }: {
 export namespace ArticlesPage {
     namespace propTypes {
         const loginCallback: PropTypes.Requireable<string>;
-        const articles: PropTypes.Validator<PropTypes.InferProps<{
+        const articles: PropTypes.Validator<(PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
             title: PropTypes.Validator<string>;
             body: PropTypes.Validator<string>;
@@ -19,7 +19,7 @@ export namespace ArticlesPage {
             artist: PropTypes.Validator<string>;
             image: PropTypes.Validator<string>;
             imagename: PropTypes.Validator<string>;
-        }>[]>;
+        }> | null | undefined)[]>;
         const count: PropTypes.Validator<number>;
         const page: PropTypes.Validator<number>;
     }

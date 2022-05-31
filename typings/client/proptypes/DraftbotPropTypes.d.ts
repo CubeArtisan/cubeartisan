@@ -4,20 +4,20 @@ export const StepPropType: PropTypes.Requireable<PropTypes.InferProps<{
 }>>;
 export const ColorPropType: PropTypes.Requireable<string>;
 export const DrafterStatePropType: PropTypes.Requireable<PropTypes.InferProps<{
-    cards: PropTypes.Validator<PropTypes.InferProps<{
+    cards: PropTypes.Validator<(PropTypes.InferProps<{
         _id: PropTypes.Requireable<string>;
         index: PropTypes.Requireable<number>;
         imgUrl: PropTypes.Requireable<string>;
         imgBackUrl: PropTypes.Requireable<string>;
         cardID: PropTypes.Validator<string>;
-        colors: PropTypes.Requireable<string[]>;
-        tags: PropTypes.Requireable<string[]>;
+        colors: PropTypes.Requireable<(string | null | undefined)[]>;
+        tags: PropTypes.Requireable<(string | null | undefined)[]>;
         details: PropTypes.Requireable<PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
             name: PropTypes.Validator<string>;
             image_normal: PropTypes.Validator<string>;
         }>>;
-    }>[]>;
+    }> | null | undefined)[]>;
     picked: PropTypes.Validator<number[]>;
     trashed: PropTypes.Validator<number[]>;
     seen: PropTypes.Requireable<number[]>;
@@ -38,20 +38,20 @@ export const DrafterStatePropType: PropTypes.Requireable<PropTypes.InferProps<{
 export const BotStatePropType: PropTypes.Requireable<PropTypes.InferProps<{
     cardIndex: PropTypes.Validator<number>;
     probabilities: PropTypes.Requireable<PropTypes.InferProps<{}>>;
-    cards: PropTypes.Validator<PropTypes.InferProps<{
+    cards: PropTypes.Validator<(PropTypes.InferProps<{
         _id: PropTypes.Requireable<string>;
         index: PropTypes.Requireable<number>;
         imgUrl: PropTypes.Requireable<string>;
         imgBackUrl: PropTypes.Requireable<string>;
         cardID: PropTypes.Validator<string>;
-        colors: PropTypes.Requireable<string[]>;
-        tags: PropTypes.Requireable<string[]>;
+        colors: PropTypes.Requireable<(string | null | undefined)[]>;
+        tags: PropTypes.Requireable<(string | null | undefined)[]>;
         details: PropTypes.Requireable<PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
             name: PropTypes.Validator<string>;
             image_normal: PropTypes.Validator<string>;
         }>>;
-    }>[]>;
+    }> | null | undefined)[]>;
     picked: PropTypes.Validator<number[]>;
     trashed: PropTypes.Validator<number[]>;
     seen: PropTypes.Requireable<number[]>;
@@ -118,8 +118,8 @@ export const DraftPropType: PropTypes.Requireable<PropTypes.InferProps<{
         imgUrl: PropTypes.Requireable<string>;
         imgBackUrl: PropTypes.Requireable<string>;
         cardID: PropTypes.Validator<string>;
-        colors: PropTypes.Requireable<string[]>;
-        tags: PropTypes.Requireable<string[]>;
+        colors: PropTypes.Requireable<(string | null | undefined)[]>;
+        tags: PropTypes.Requireable<(string | null | undefined)[]>;
         details: PropTypes.Requireable<PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
             name: PropTypes.Validator<string>;

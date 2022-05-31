@@ -24,10 +24,10 @@ import { Card, CardBody, CardHeader, CardTitle, Col, Collapse, Input, Nav, Navba
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
-import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
 import DeckStacks from '@cubeartisan/client/components/DeckStacks.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
+import CustomImageToggler from '@cubeartisan/client/components/inputs/CustomImageToggler.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';

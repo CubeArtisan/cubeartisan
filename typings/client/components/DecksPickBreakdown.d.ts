@@ -3,20 +3,20 @@ export function usePickListAndDrafterState({ draft, seatIndex, defaultIndex }: {
     seatIndex: any;
     defaultIndex: any;
 }): {
-    picksList: any[][];
+    picksList: never[][];
     drafterState: {
         step: {
             action: any;
             amount: number;
         };
         cards: any;
-        picked: any[];
-        trashed: any[];
+        picked: never[];
+        trashed: never[];
         drafted: any;
         sideboard: any;
         seatNum: number;
-        seen: any[];
-        cardsInPack: any[];
+        seen: never[];
+        cardsInPack: never[];
         basics: any;
         packNum: number;
         pickNum: number;
@@ -47,8 +47,8 @@ declare namespace DecksPickBreakdown {
                 imgUrl: PropTypes.Requireable<string>;
                 imgBackUrl: PropTypes.Requireable<string>;
                 cardID: PropTypes.Validator<string>;
-                colors: PropTypes.Requireable<string[]>;
-                tags: PropTypes.Requireable<string[]>;
+                colors: PropTypes.Requireable<(string | null | undefined)[]>;
+                tags: PropTypes.Requireable<(string | null | undefined)[]>;
                 details: PropTypes.Requireable<PropTypes.InferProps<{
                     _id: PropTypes.Validator<string>;
                     name: PropTypes.Validator<string>;

@@ -23,11 +23,17 @@ import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { getCubeId } from '@cubeartisan/client/utils/Util.js';
 
 /**
- * @typedef {import('react').Context<{ cube: any, canEdit: Boolean, cubeID: string?, hasCustomImages: Boolean,
- *           setCube: ((cube: any) => void) | ((replacer: (cube: any) => any) => void),
- *           updateCubeCard: (index: number, card: any) => void,
- *           updateCubeCards: (cards: any[]) => void }>} ContextType
- * @type ContextType
+ @typedef {import('@cubeartisan/client/proptypes/CubePropType.js').Cube} Cube
+ @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
+ * @typedef CubeContextValue
+ * @property {Cube?} cube
+ * @property {boolean} canEdit
+ * @property {string?} cubeID
+ * @property {boolean} hasCustomImages
+ * @property {((cube: Cube) => void) | ((replacer: (cube: Cube) => Cube) => void)}
+ * @property {(index: number, card: Card) => void} updateCubeCard
+ * @property {(cards: Card[]) => void} updateCubeCards
+ * @type {import('react').Context<CubeContextValue>}
  */
 const CubeContext = createContext({
   cube: {},

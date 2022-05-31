@@ -7,7 +7,7 @@ export function CommentReportsPage({ loginCallback, reports, count, page }: {
 export namespace CommentReportsPage {
     namespace propTypes {
         const loginCallback: PropTypes.Requireable<string>;
-        const reports: PropTypes.Validator<PropTypes.InferProps<{}>[]>;
+        const reports: PropTypes.Validator<(PropTypes.InferProps<{}> | null | undefined)[]>;
         const count: PropTypes.Validator<number>;
         const page: PropTypes.Validator<number>;
     }

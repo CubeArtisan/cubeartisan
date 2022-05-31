@@ -14,7 +14,7 @@ declare function _exports(api: any): {
     })[] | (string | {
         runtime: string;
     })[])[];
-    plugins: (string | (string | {
+    plugins: (string | false | (string | {
         modules: string[];
     })[])[];
 };

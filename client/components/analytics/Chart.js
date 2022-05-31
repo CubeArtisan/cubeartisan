@@ -23,7 +23,7 @@ import React, { useMemo } from 'react';
 import { Chart as ReactChart } from 'react-chartjs-2';
 
 import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown.js';
-import LabeledSelect from '@cubeartisan/client/components/LabeledSelect.js';
+import LabeledSelect from '@cubeartisan/client/components/inputs/LabeledSelect.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';

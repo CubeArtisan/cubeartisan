@@ -22,9 +22,9 @@ export namespace ErrorPage {
     namespace defaultProps {
         const loginCallback_1: string;
         export { loginCallback_1 as loginCallback };
-        const requestId_1: any;
+        const requestId_1: null;
         export { requestId_1 as requestId };
-        const error_1: any;
+        const error_1: null;
         export { error_1 as error };
     }
 }

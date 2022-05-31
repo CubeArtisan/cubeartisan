@@ -1,7 +1,7 @@
 export default getBlankCardHistory;
 declare function getBlankCardHistory(id: any): {
     current: {
-        rating: any;
+        rating: null;
         elo: any;
         picks: number;
         total: number[];
@@ -19,14 +19,14 @@ declare function getBlankCardHistory(id: any): {
         prices: any;
     };
     cubedWith: {
-        synergistic: any[];
-        top: any[];
-        creatures: any[];
-        spells: any[];
-        other: any[];
+        synergistic: never[];
+        top: never[];
+        creatures: never[];
+        spells: never[];
+        other: never[];
     };
     versions: any;
-    cubes: any[];
+    cubes: never[];
     history: {
         data: {
             size180: number[];
@@ -40,11 +40,11 @@ declare function getBlankCardHistory(id: any): {
             standard: number[];
             vintage: number[];
             total: number[];
-            rating: any;
-            elo: any;
+            rating: null;
+            elo: null;
             picks: number;
             cubes: number;
-            prices: any[];
+            prices: never[];
         };
         date: string;
     }[];

@@ -20,5 +20,5 @@ export default _default;
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-declare function expectOperator(test: any, operator: any, number: any): any;
+declare function expectOperator(test: any, operator: any, number: any): void;
 //# sourceMappingURL=helpers.d.ts.map

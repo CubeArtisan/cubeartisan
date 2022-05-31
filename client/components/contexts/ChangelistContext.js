@@ -17,19 +17,35 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import React, { createContext, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { createContext, useCallback, useEffect, useMemo, useState } from 'react';
 
 import Query from '@cubeartisan/client/utils/Query.js';
 
+/**
+ * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
+ * @typedef AddChange
+ * @property {number} id
+ * @property {Card} add
+ * @typedef RemoveChange
+ * @property {number} id
+ * @property {Card} remove
+ * @typedef ReplaceChange
+ * @property {number} id
+ * @property {Card[2]} replace
+ * @typedef {AddChange | RemoveChange | ReplaceChange} Change
+ * @typedef ChangelistContextValue
+ * @property {Change[]} changes
+ * @property {(changes: Change[]) => void} setChanges
+ * @property {(changes: Change[]) => void} addChanges
+ * @property {(change: Change) => void} addChange
+ * @property {(changeId: number) => void} removeChange
+ * @property {() => void} openEditCollapse
+ * @type {React.Context<ChangelistContextValue>}
+ */
 const ChangelistContext = createContext({});
 
 export const ChangelistContextProvider = ({ cubeID, setOpenCollapse, initialChanges, noSave, ...props }) => {
   const [changes, setChanges] = useState(initialChanges || []);
-  const [addValue, setAddValue] = useState('');
-  const [removeValue, setRemoveValue] = useState('');
-
-  const addInputRef = useRef();
-  const removeInputRef = useRef();
 
   useEffect(() => {
     if (noSave || !cubeID) {
@@ -117,32 +133,13 @@ export const ChangelistContextProvider = ({ cubeID, setOpenCollapse, initialChan
   const value = useMemo(
     () => ({
       changes,
-      addValue,
-      setAddValue,
-      removeValue,
-      setRemoveValue,
-      addInputRef,
-      removeInputRef,
       setChanges,
       addChange,
       addChanges,
       removeChange,
       openEditCollapse,
     }),
-    [
-      changes,
-      addValue,
-      setAddValue,
-      removeValue,
-      setRemoveValue,
-      addInputRef,
-      removeInputRef,
-      setChanges,
-      addChange,
-      addChanges,
-      removeChange,
-      openEditCollapse,
-    ],
+    [changes, setChanges, addChange, addChanges, removeChange, openEditCollapse],
   );
 
   return <ChangelistContext.Provider value={value} {...props} />;

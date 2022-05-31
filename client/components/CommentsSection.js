@@ -21,9 +21,9 @@ import React, { useContext } from 'react';
 import { Collapse, Spinner } from 'reactstrap';
 
 import CommentEntry from '@cubeartisan/client/components/CommentEntry.js';
-import CommentList from '@cubeartisan/client/components/containers/PagedCommentList.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import LinkButton from '@cubeartisan/client/components/LinkButton.js';
+import LinkButton from '@cubeartisan/client/components/inputs/LinkButton.js';
+import CommentList from '@cubeartisan/client/components/PagedCommentList.js';
 import useComments from '@cubeartisan/client/hooks/UseComments.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 

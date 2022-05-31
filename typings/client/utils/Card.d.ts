@@ -81,7 +81,7 @@ export namespace CARD_CATEGORY_DETECTORS {
     export function firstprint(details: any): boolean;
     export function firtprinting(details: any): boolean;
     export function digital(details: any): any;
-    export function reasonable(details: any): boolean;
+    export function reasonable(details: any): any;
     export function dfc(details: any): boolean;
     export function mdfc(details: any): boolean;
     export function meld(details: any): boolean;
@@ -125,7 +125,7 @@ export namespace CARD_CATEGORY_DETECTORS {
 }
 export const CARD_CATEGORIES: string[];
 export function makeSubtitle(cards: any): string;
-export function reasonableCard(card: any): boolean;
+export function reasonableCard(card: any): any;
 declare namespace _default {
     export { cardTags };
     export { cardFinish };

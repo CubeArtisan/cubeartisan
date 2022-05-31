@@ -19,9 +19,8 @@
 import { createContext } from 'react';
 
 /**
- * @typedef {import('react').Context<(card: any) => void>} ContextType
+ * @typedef {import('react').Context<(card: import('@cubeartisan/client/proptypes/CardPropType.js').Card) => void>} ContextType
  * @type ContextType
  */
 const CardModalContext = createContext(() => {});
-
 export default CardModalContext;

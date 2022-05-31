@@ -6,9 +6,9 @@ declare const CardPropType: PropTypes.Requireable<PropTypes.InferProps<{
     userid: PropTypes.Validator<string>;
     username: PropTypes.Validator<string>;
     approved: PropTypes.Validator<boolean>;
-    cards: PropTypes.Validator<string[]>;
+    cards: PropTypes.Validator<(string | null | undefined)[]>;
     votes: PropTypes.Validator<number>;
-    voters: PropTypes.Validator<string[]>;
+    voters: PropTypes.Validator<(string | null | undefined)[]>;
 }>>;
 import PropTypes from "prop-types";
 //# sourceMappingURL=CardPackagePropType.d.ts.map

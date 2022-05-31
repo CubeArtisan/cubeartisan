@@ -3,13 +3,13 @@ declare namespace data {
     const cardtree: {};
     const imagedict: {};
     const cardimages: {};
-    const cardnames: any[];
-    const full_names: any[];
+    const cardnames: never[];
+    const full_names: never[];
     const nameToId: {};
     const oracleToId: {};
     const english: {};
     const _carddict: {};
-    const printedCardList: any[];
-    const fullCardList: any[];
+    const printedCardList: never[];
+    const fullCardList: never[];
 }
 //# sourceMappingURL=cards.d.ts.map

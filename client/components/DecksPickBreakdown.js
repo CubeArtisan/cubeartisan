@@ -21,7 +21,7 @@ import React, { useCallback, useMemo } from 'react';
 import { Col, Row } from 'reactstrap';
 
 import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
-import PickSelector from '@cubeartisan/client/components/PickSelector.js';
+import PickSelector from '@cubeartisan/client/components/inputs/PickSelector.js';
 import { getDrafterState } from '@cubeartisan/client/drafting/draftutil.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import { DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';

@@ -1,4 +1,4 @@
-export function expectOperator(test: any, operator: any, number: any): any;
+export function expectOperator(test: any, operator: any, number: any): void;
 declare namespace _default {
     export { expectOperator };
 }

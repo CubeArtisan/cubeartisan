@@ -12,8 +12,8 @@ declare function withLoading(Tag: any, handlers: any): {
         spinnerSize: PropTypes.Requireable<string>;
     };
     defaultProps: {
-        loading: any;
-        spinnerSize: any;
+        loading: null;
+        spinnerSize: undefined;
         opacity: number;
     };
     displayName: string;

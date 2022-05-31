@@ -21,7 +21,7 @@ declare namespace AddToCubeModal {
     namespace defaultProps {
         const hideAnalytics_1: boolean;
         export { hideAnalytics_1 as hideAnalytics };
-        const cubeContext_1: any;
+        const cubeContext_1: null;
         export { cubeContext_1 as cubeContext };
     }
 }

@@ -20,8 +20,6 @@ import { Box, Button, Collapse, Grid, InputLabel, Modal, TextField } from '@mui/
 import PropTypes from 'prop-types';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 
-import { AutocompleteTagField } from '@cubeartisan/client/components/AutocompleteInput.js';
-import ColorChecksControl from '@cubeartisan/client/components/ColorCheck.js';
 import {
   ContainerBody,
   ContainerFooter,
@@ -29,7 +27,9 @@ import {
   LayoutContainer,
 } from '@cubeartisan/client/components/containers/LayoutContainer.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
-import LabeledSelect from '@cubeartisan/client/components/LabeledSelect.js';
+import { AutocompleteTagField } from '@cubeartisan/client/components/inputs/AutocompleteInput.js';
+import ColorChecksControl from '@cubeartisan/client/components/inputs/ColorCheck.js';
+import LabeledSelect from '@cubeartisan/client/components/inputs/LabeledSelect.js';
 import { makeFilter } from '@cubeartisan/client/filtering/FilterCards.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';

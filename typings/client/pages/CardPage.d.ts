@@ -19,7 +19,7 @@ export namespace CardPage {
             set_name: PropTypes.Validator<string>;
             collector_number: PropTypes.Validator<string>;
             legalities: PropTypes.Validator<PropTypes.InferProps<{}>>;
-            parsed_cost: PropTypes.Validator<string[]>;
+            parsed_cost: PropTypes.Validator<(string | null | undefined)[]>;
             oracle_text: PropTypes.Validator<string>;
             oracle_id: PropTypes.Validator<string>;
             type: PropTypes.Validator<string>;
@@ -35,13 +35,13 @@ export namespace CardPage {
             }>>;
         }>>;
         const data: PropTypes.Validator<PropTypes.InferProps<{
-            history: PropTypes.Validator<PropTypes.InferProps<{
-                prices: PropTypes.Validator<PropTypes.InferProps<{
+            history: PropTypes.Validator<(PropTypes.InferProps<{
+                prices: PropTypes.Validator<(PropTypes.InferProps<{
                     usd: PropTypes.Requireable<number>;
                     usd_foil: PropTypes.Requireable<number>;
                     eur: PropTypes.Requireable<number>;
                     tix: PropTypes.Requireable<number>;
-                }>[]>;
+                }> | null | undefined)[]>;
                 vintage: PropTypes.Validator<boolean>;
                 legacy: PropTypes.Validator<boolean>;
                 modern: PropTypes.Validator<boolean>;
@@ -53,15 +53,15 @@ export namespace CardPage {
                 size450: PropTypes.Validator<number>;
                 size540: PropTypes.Validator<number>;
                 size720: PropTypes.Validator<number>;
-                total: PropTypes.Validator<number[]>;
-            }>[]>;
+                total: PropTypes.Validator<(number | null | undefined)[]>;
+            }> | null | undefined)[]>;
             current: PropTypes.Requireable<PropTypes.InferProps<{
-                prices: PropTypes.Validator<PropTypes.InferProps<{
+                prices: PropTypes.Validator<(PropTypes.InferProps<{
                     usd: PropTypes.Requireable<number>;
                     usd_foil: PropTypes.Requireable<number>;
                     eur: PropTypes.Requireable<number>;
                     tix: PropTypes.Requireable<number>;
-                }>[]>;
+                }> | null | undefined)[]>;
                 vintage: PropTypes.Validator<boolean>;
                 legacy: PropTypes.Validator<boolean>;
                 modern: PropTypes.Validator<boolean>;
@@ -73,30 +73,30 @@ export namespace CardPage {
                 size450: PropTypes.Validator<number>;
                 size540: PropTypes.Validator<number>;
                 size720: PropTypes.Validator<number>;
-                total: PropTypes.Validator<number[]>;
+                total: PropTypes.Validator<(number | null | undefined)[]>;
             }>>;
         }>>;
         const related: PropTypes.Validator<PropTypes.InferProps<{
-            top: PropTypes.Validator<PropTypes.InferProps<{
+            top: PropTypes.Validator<(PropTypes.InferProps<{
                 name: PropTypes.Validator<string>;
                 image_normal: PropTypes.Validator<string>;
-            }>[]>;
-            synergistic: PropTypes.Validator<PropTypes.InferProps<{
+            }> | null | undefined)[]>;
+            synergistic: PropTypes.Validator<(PropTypes.InferProps<{
                 name: PropTypes.Validator<string>;
                 image_normal: PropTypes.Validator<string>;
-            }>[]>;
-            creatures: PropTypes.Validator<PropTypes.InferProps<{
+            }> | null | undefined)[]>;
+            creatures: PropTypes.Validator<(PropTypes.InferProps<{
                 name: PropTypes.Validator<string>;
                 image_normal: PropTypes.Validator<string>;
-            }>[]>;
-            spells: PropTypes.Validator<PropTypes.InferProps<{
+            }> | null | undefined)[]>;
+            spells: PropTypes.Validator<(PropTypes.InferProps<{
                 name: PropTypes.Validator<string>;
                 image_normal: PropTypes.Validator<string>;
-            }>[]>;
-            other: PropTypes.Validator<PropTypes.InferProps<{
+            }> | null | undefined)[]>;
+            other: PropTypes.Validator<(PropTypes.InferProps<{
                 name: PropTypes.Validator<string>;
                 image_normal: PropTypes.Validator<string>;
-            }>[]>;
+            }> | null | undefined)[]>;
         }>>;
         const versions: PropTypes.Validator<PropTypes.InferProps<{
             set_name: PropTypes.Validator<string>;

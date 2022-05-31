@@ -16,134 +16,134 @@ declare function defaultOperation(op: any, value: any): {
 declare function stringOperation(op: any, value: any): {
     $regex: any;
     $options: string;
-    $eq?: undefined;
-    $ne?: undefined;
+    $eq?: never;
+    $ne?: never;
 } | {
     $eq: any;
-    $regex?: undefined;
-    $options?: undefined;
-    $ne?: undefined;
+    $regex?: never;
+    $options?: never;
+    $ne?: never;
 } | {
     $ne: any;
-    $regex?: undefined;
-    $options?: undefined;
-    $eq?: undefined;
+    $regex?: never;
+    $options?: never;
+    $eq?: never;
 };
 declare function stringContainOperation(op: any, value: any): {
     $regex: any;
     $options: string;
-    $not?: undefined;
-    $ne?: undefined;
+    $not?: never;
+    $ne?: never;
 } | {
     $not: {
         $regex: any;
         $options: string;
     };
-    $regex?: undefined;
-    $options?: undefined;
-    $ne?: undefined;
+    $regex?: never;
+    $options?: never;
+    $ne?: never;
 } | {
     $ne: any;
-    $regex?: undefined;
-    $options?: undefined;
-    $not?: undefined;
+    $regex?: never;
+    $options?: never;
+    $not?: never;
 };
 declare function equalityOperation(op: any, value: any): {
     $eq: any;
-    $ne?: undefined;
+    $ne?: never;
 } | {
     $ne: any;
-    $eq?: undefined;
+    $eq?: never;
 };
 declare function setOperation(op: any, value: any): {
     $all: any;
-    $and?: undefined;
-    $or?: undefined;
-    $not?: undefined;
+    $and?: never;
+    $or?: never;
+    $not?: never;
 } | {
     $and: ({
         $all: any;
-        $not?: undefined;
+        $not?: never;
     } | {
         $not: {
             $elemMatch: {
                 $nin: any;
             };
         };
-        $all?: undefined;
+        $all?: never;
     })[];
-    $all?: undefined;
-    $or?: undefined;
-    $not?: undefined;
+    $all?: never;
+    $or?: never;
+    $not?: never;
 } | {
     $or: ({
         $not: {
             $all: any;
         };
-        $elemMatch?: undefined;
+        $elemMatch?: never;
     } | {
         $elemMatch: {
             $nin: any;
         };
-        $not?: undefined;
+        $not?: never;
     })[];
-    $all?: undefined;
-    $and?: undefined;
-    $not?: undefined;
+    $all?: never;
+    $and?: never;
+    $not?: never;
 } | {
     $and: ({
         $not: {
             $elemMatch: {
                 $nin: any;
             };
-            $all?: undefined;
+            $all?: never;
         };
     } | {
         $not: {
             $all: any;
-            $elemMatch?: undefined;
+            $elemMatch?: never;
         };
     })[];
-    $all?: undefined;
-    $or?: undefined;
-    $not?: undefined;
+    $all?: never;
+    $or?: never;
+    $not?: never;
 } | {
     $not: {
         $elemMatch: {
             $nin: any;
         };
     };
-    $all?: undefined;
-    $and?: undefined;
-    $or?: undefined;
+    $all?: never;
+    $and?: never;
+    $or?: never;
 } | {
     $and: ({
         $elemMatch: {
             $nin: any;
         };
-        $all?: undefined;
+        $all?: never;
     } | {
         $all: any;
-        $elemMatch?: undefined;
+        $elemMatch?: never;
     })[];
-    $all?: undefined;
-    $or?: undefined;
-    $not?: undefined;
+    $all?: never;
+    $or?: never;
+    $not?: never;
 };
 declare function rarityOperation(op: any, value: any): {
     $eq: any;
-    $ne?: undefined;
+    $ne?: never;
 } | {
     $ne: any;
-    $eq?: undefined;
+    $eq?: never;
 };
 declare function convertParsedCost(parsedCost: any): any;
 declare function manaCostOperation(op: any, value: any): {
     $eq: any;
-    $ne?: undefined;
+    $ne?: never;
 } | {
     $ne: any;
-    $eq?: undefined;
+    $eq?: never;
 };
 declare function setElementOperation(value: any): any;
 //# sourceMappingURL=mongoOperations.d.ts.map

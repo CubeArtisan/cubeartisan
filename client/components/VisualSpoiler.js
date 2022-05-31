@@ -21,7 +21,7 @@ import React, { useContext } from 'react';
 
 import CardGrid from '@cubeartisan/client/components/containers/CardGrid.js';
 import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
-import SetCardsInRow from '@cubeartisan/client/components/SetCardsInRow.js';
+import SetCardsInRow from '@cubeartisan/client/components/inputs/SetCardsInRow.js';
 import SpoilerImage from '@cubeartisan/client/components/SpoilerImage.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { sortDeep } from '@cubeartisan/client/utils/Sort.js';
@@ -40,8 +40,7 @@ const VisualSpoiler = ({ cards }) => {
     </>
   );
 };
-
 VisualSpoiler.propTypes = {
-  cards: PropTypes.arrayOf(CardPropType).isRequired,
+  cards: PropTypes.arrayOf(CardPropType.isRequired).isRequired,
 };
 export default VisualSpoiler;

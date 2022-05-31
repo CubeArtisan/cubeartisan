@@ -9,7 +9,7 @@ declare namespace PagedList {
     namespace propTypes {
         const pageSize: PropTypes.Requireable<number>;
         const showBottom: PropTypes.Requireable<boolean>;
-        const rows: PropTypes.Validator<PropTypes.InferProps<{}>[]>;
+        const rows: PropTypes.Validator<(PropTypes.InferProps<{}> | null | undefined)[]>;
         const pageWrap: PropTypes.Requireable<(...args: any[]) => any>;
     }
     namespace defaultProps {

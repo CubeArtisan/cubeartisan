@@ -7,7 +7,7 @@ export function AdminCommentsPage({ loginCallback, comments, count, page }: {
 export namespace AdminCommentsPage {
     namespace propTypes {
         const loginCallback: PropTypes.Requireable<string>;
-        const comments: PropTypes.Validator<PropTypes.InferProps<{
+        const comments: PropTypes.Validator<(PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
             timePosted: PropTypes.Validator<string>;
             ownerName: PropTypes.Validator<string>;
@@ -18,7 +18,7 @@ export namespace AdminCommentsPage {
             image: PropTypes.Validator<string>;
             content: PropTypes.Validator<string>;
             updated: PropTypes.Validator<boolean>;
-        }>[]>;
+        }> | null | undefined)[]>;
         const count: PropTypes.Validator<number>;
         const page: PropTypes.Validator<number>;
     }

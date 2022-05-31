@@ -40,11 +40,7 @@ import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
  * @property {(theme?: ThemeType) => void} updateTheme
  * @property {number | string} autoCardSize
  * @property {(size: number | string) => void} setAutoCardSize
- */
-
-/**
- * @typedef {import('react').Context<DisplayContextValue>} ContextType
- * @type ContextType
+ * @type {import('react').Context<DisplayContextValue>}
  */
 const DisplayContext = createContext({
   showCustomImages: true,

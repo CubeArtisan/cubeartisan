@@ -13,8 +13,8 @@ export namespace serverConfig {
         } | {
             test: RegExp;
             use: string[];
-            type?: undefined;
-            exclude?: undefined;
+            type?: never;
+            exclude?: never;
         })[];
     }
     const devtool: string;

@@ -8,7 +8,7 @@ declare namespace CommentContextMenu {
     namespace propTypes {
         const edit: PropTypes.Validator<(...args: any[]) => any>;
         const remove: PropTypes.Validator<(...args: any[]) => any>;
-        const children: PropTypes.Validator<PropTypes.ReactNodeLike>;
+        const children: PropTypes.Validator<string | number | boolean | {} | PropTypes.ReactElementLike | PropTypes.ReactNodeArray>;
     }
 }
 import PropTypes from "prop-types";

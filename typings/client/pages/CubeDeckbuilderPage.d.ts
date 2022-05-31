@@ -6,14 +6,14 @@ export function CubeDeckbuilderPage({ cube, initialDeck, loginCallback }: {
 export namespace CubeDeckbuilderPage {
     namespace propTypes {
         const cube: PropTypes.Validator<PropTypes.InferProps<{
-            cards: PropTypes.Requireable<PropTypes.InferProps<{
+            cards: PropTypes.Requireable<(PropTypes.InferProps<{
                 cardName: PropTypes.Requireable<string>;
                 picks: PropTypes.Requireable<number>;
                 passes: PropTypes.Requireable<number>;
                 elo: PropTypes.Requireable<number>;
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
-            }>[]>;
+            }> | null | undefined)[]>;
             useCubeElo: PropTypes.Requireable<boolean>;
         }>>;
         const initialDeck: PropTypes.Validator<PropTypes.InferProps<{
@@ -21,17 +21,17 @@ export namespace CubeDeckbuilderPage {
             cube: PropTypes.Requireable<string>;
             owner: PropTypes.Requireable<string>;
             cubeOwner: PropTypes.Requireable<string>;
-            seats: PropTypes.Requireable<PropTypes.InferProps<{
+            seats: PropTypes.Requireable<(PropTypes.InferProps<{
                 description: PropTypes.Validator<string>;
-                deck: PropTypes.Validator<number[][][]>;
-                sideboard: PropTypes.Validator<number[][][]>;
+                deck: PropTypes.Validator<(number | null | undefined)[][][]>;
+                sideboard: PropTypes.Validator<(number | null | undefined)[][][]>;
                 username: PropTypes.Validator<string>;
                 userid: PropTypes.Requireable<string>;
-                bot: PropTypes.Requireable<string[]>;
+                bot: PropTypes.Requireable<(string | null | undefined)[]>;
                 name: PropTypes.Validator<string>;
-            }>[]>;
+            }> | null | undefined)[]>;
             date: PropTypes.Requireable<string | Date>;
-            comments: PropTypes.Requireable<PropTypes.InferProps<{}>[]>;
+            comments: PropTypes.Requireable<(PropTypes.InferProps<{}> | null | undefined)[]>;
             basics: PropTypes.Validator<number[]>;
         }>>;
         const loginCallback: PropTypes.Requireable<string>;

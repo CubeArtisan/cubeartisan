@@ -22,7 +22,6 @@ import PropTypes from 'prop-types';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Form, Input } from 'reactstrap';
 
-import { AutocompleteTagField } from '@cubeartisan/client/components/AutocompleteInput.js';
 import PagedTable from '@cubeartisan/client/components/containers/PagedTable.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import GroupModalContext from '@cubeartisan/client/components/contexts/GroupModalContext.js';
@@ -30,6 +29,7 @@ import SortContext from '@cubeartisan/client/components/contexts/SortContext.js'
 import TagContext from '@cubeartisan/client/components/contexts/TagContext.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import withLoading from '@cubeartisan/client/components/hoc/WithLoading.js';
+import { AutocompleteTagField } from '@cubeartisan/client/components/inputs/AutocompleteInput.js';
 import useAlerts, { Alerts } from '@cubeartisan/client/hooks/UseAlerts.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { cardName, cardsAreEquivalent, normalizeName } from '@cubeartisan/client/utils/Card.js';

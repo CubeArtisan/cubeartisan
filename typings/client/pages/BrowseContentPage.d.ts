@@ -5,7 +5,7 @@ export function BrowseContentPage({ loginCallback, content }: {
 export namespace BrowseContentPage {
     namespace propTypes {
         const loginCallback: PropTypes.Requireable<string>;
-        const content: PropTypes.Validator<PropTypes.InferProps<{}>[]>;
+        const content: PropTypes.Validator<(PropTypes.InferProps<{}> | null | undefined)[]>;
     }
     namespace defaultProps {
         const loginCallback_1: string;

@@ -5,7 +5,7 @@ declare function CurveView({ cards, ...props }: {
 }): JSX.Element;
 declare namespace CurveView {
     namespace propTypes {
-        const cards: PropTypes.Validator<PropTypes.InferProps<{}>[]>;
+        const cards: PropTypes.Validator<(PropTypes.InferProps<{}> | null | undefined)[]>;
     }
 }
 import PropTypes from "prop-types";

@@ -20,9 +20,9 @@ import PropTypes from 'prop-types';
 import React, { lazy, useContext } from 'react';
 import { Card, CardHeader } from 'reactstrap';
 
-import ButtonLink from '@cubeartisan/client/components/ButtonLink.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import ButtonLink from '@cubeartisan/client/components/inputs/ButtonLink.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType.js';

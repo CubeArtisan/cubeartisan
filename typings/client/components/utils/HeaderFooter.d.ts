@@ -7,7 +7,7 @@ declare function HeaderFooter({ children, component: Component, sx, ...props }: 
 }): JSX.Element;
 declare namespace HeaderFooter {
     namespace propTypes {
-        const children: PropTypes.Validator<PropTypes.ReactNodeLike>;
+        const children: PropTypes.Validator<string | number | boolean | {} | PropTypes.ReactElementLike | PropTypes.ReactNodeArray>;
         const component: PropTypes.Requireable<PropTypes.ReactComponentLike>;
         const sx: PropTypes.Requireable<PropTypes.InferProps<{}>>;
     }

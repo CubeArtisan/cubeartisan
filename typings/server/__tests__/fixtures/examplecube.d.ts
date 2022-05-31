@@ -6,8 +6,8 @@ export default _default;
 declare namespace exampleCube {
     const isListed: boolean;
     const privatePrices: boolean;
-    const decks: any[];
-    const default_sorts: any[];
+    const decks: never[];
+    const default_sorts: never[];
     const cards: {
         tags: string[];
         colors: string[];
@@ -18,7 +18,7 @@ declare namespace exampleCube {
         addedTmsp: string;
         finish: string;
     }[];
-    const tag_colors: any[];
+    const tag_colors: never[];
     const shortID: string;
     const name: string;
     const owner: string;
@@ -75,7 +75,7 @@ declare namespace examplePack {
         image_normal: string;
         art_crop: string;
         colorcategory: string;
-        tokens?: undefined;
+        tokens?: never;
     } | {
         color_identity: string[];
         set: string;
@@ -118,9 +118,9 @@ declare namespace examplePack {
         image_normal: string;
         art_crop: string;
         colorcategory: string;
-        power?: undefined;
-        toughness?: undefined;
-        tokens?: undefined;
+        power?: never;
+        toughness?: never;
+        tokens?: never;
     } | {
         color_identity: string[];
         set: string;
@@ -209,8 +209,8 @@ declare namespace examplePack {
         art_crop: string;
         colorcategory: string;
         tokens: string[];
-        power?: undefined;
-        toughness?: undefined;
+        power?: never;
+        toughness?: never;
     })[];
     const seed: number;
 }

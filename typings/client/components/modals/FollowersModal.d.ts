@@ -6,9 +6,9 @@ declare function FollowersModal({ followers, isOpen, toggle }: {
 }): JSX.Element;
 declare namespace FollowersModal {
     namespace propTypes {
-        const followers: PropTypes.Validator<PropTypes.InferProps<{
+        const followers: PropTypes.Validator<(PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
-        }>[]>;
+        }> | null | undefined)[]>;
         const isOpen: PropTypes.Validator<boolean>;
         const toggle: PropTypes.Validator<(...args: any[]) => any>;
     }

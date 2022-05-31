@@ -23,7 +23,7 @@ import React, { useMemo } from 'react';
 import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown.js';
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import { compareStrings, SortableTable } from '@cubeartisan/client/components/containers/SortableTable.js';
-import LabeledSelect from '@cubeartisan/client/components/LabeledSelect.js';
+import LabeledSelect from '@cubeartisan/client/components/inputs/LabeledSelect.js';
 import { weightedAverage, weightedMedian, weightedStdDev } from '@cubeartisan/client/drafting/createdraft.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import { cardType } from '@cubeartisan/client/utils/Card.js';

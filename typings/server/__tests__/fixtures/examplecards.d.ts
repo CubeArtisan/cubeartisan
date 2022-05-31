@@ -57,7 +57,7 @@ declare namespace exampleCard {
     namespace prices {
         const usd: string;
         const usd_foil: string;
-        const eur: any;
+        const eur: null;
         const tix: string;
     }
     const games: string[];
@@ -158,7 +158,7 @@ declare namespace exampleDoubleFacedCard {
             art_crop: string;
             border_crop: string;
         };
-        color_indicator?: undefined;
+        color_indicator?: never;
     } | {
         object: string;
         name: string;
@@ -275,7 +275,7 @@ declare namespace exampleDoubleFacedCard {
         export { usd_1 as usd };
         const usd_foil_1: string;
         export { usd_foil_1 as usd_foil };
-        const eur_1: any;
+        const eur_1: null;
         export { eur_1 as eur };
         const tix_1: string;
         export { tix_1 as tix };
@@ -353,8 +353,8 @@ declare namespace exampleDoubleFacedPlaneswalkerCard {
             art_crop: string;
             border_crop: string;
         };
-        color_indicator?: undefined;
-        loyalty?: undefined;
+        color_indicator?: never;
+        loyalty?: never;
     } | {
         object: string;
         name: string;
@@ -375,8 +375,8 @@ declare namespace exampleDoubleFacedPlaneswalkerCard {
             art_crop: string;
             border_crop: string;
         };
-        power?: undefined;
-        toughness?: undefined;
+        power?: never;
+        toughness?: never;
     })[];
     export { card_faces_1 as card_faces };
     export const all_parts: {
@@ -586,10 +586,10 @@ declare namespace exampleAdventureCard {
         oracle_text: string;
         artist: string;
         artist_id: string;
-        power?: undefined;
-        toughness?: undefined;
-        flavor_text?: undefined;
-        illustration_id?: undefined;
+        power?: never;
+        toughness?: never;
+        flavor_text?: never;
+        illustration_id?: never;
     })[];
     export { card_faces_2 as card_faces };
     const all_parts_1: {
@@ -635,7 +635,7 @@ declare namespace exampleAdventureCard {
         export { usd_3 as usd };
         const usd_foil_3: string;
         export { usd_foil_3 as usd_foil };
-        const eur_3: any;
+        const eur_3: null;
         export { eur_3 as eur };
         const tix_3: string;
         export { tix_3 as tix };
@@ -873,13 +873,13 @@ declare namespace exampleForeignCard {
     const edhrec_rank_4: number;
     export { edhrec_rank_4 as edhrec_rank };
     export namespace prices_4 {
-        const usd_4: any;
+        const usd_4: null;
         export { usd_4 as usd };
-        const usd_foil_4: any;
+        const usd_foil_4: null;
         export { usd_foil_4 as usd_foil };
-        const eur_4: any;
+        const eur_4: null;
         export { eur_4 as eur };
-        const tix_4: any;
+        const tix_4: null;
         export { tix_4 as tix };
     }
     export { prices_4 as prices };
@@ -965,7 +965,7 @@ declare namespace exampleNonFoilCard {
     export { colors_3 as colors };
     const color_identity_5: string[];
     export { color_identity_5 as color_identity };
-    export const keywords: any[];
+    export const keywords: never[];
     export namespace legalities_5 {
         const standard_5: string;
         export { standard_5 as standard };
@@ -1062,11 +1062,11 @@ declare namespace exampleNonFoilCard {
     export namespace prices_5 {
         const usd_5: string;
         export { usd_5 as usd };
-        const usd_foil_5: any;
+        const usd_foil_5: null;
         export { usd_foil_5 as usd_foil };
         const eur_5: string;
         export { eur_5 as eur };
-        export const eur_foil: any;
+        export const eur_foil: null;
         const tix_5: string;
         export { tix_5 as tix };
     }
@@ -1097,7 +1097,7 @@ declare namespace exampleReversibleCard {
     export { object_6 as object };
     const id_6: string;
     export { id_6 as id };
-    const multiverse_ids_6: any[];
+    const multiverse_ids_6: never[];
     export { multiverse_ids_6 as multiverse_ids };
     const name_6: string;
     export { name_6 as name };
@@ -1116,7 +1116,7 @@ declare namespace exampleReversibleCard {
     export const image_status: string;
     const color_identity_6: string[];
     export { color_identity_6 as color_identity };
-    const keywords_1: any[];
+    const keywords_1: never[];
     export { keywords_1 as keywords };
     const card_faces_3: {
         object: string;
@@ -1241,16 +1241,16 @@ declare namespace exampleReversibleCard {
     const edhrec_rank_6: number;
     export { edhrec_rank_6 as edhrec_rank };
     export namespace prices_6 {
-        const usd_6: any;
+        const usd_6: null;
         export { usd_6 as usd };
-        const usd_foil_6: any;
+        const usd_foil_6: null;
         export { usd_foil_6 as usd_foil };
-        export const usd_etched: any;
-        const eur_6: any;
+        export const usd_etched: null;
+        const eur_6: null;
         export { eur_6 as eur };
-        const eur_foil_1: any;
+        const eur_foil_1: null;
         export { eur_foil_1 as eur_foil };
-        const tix_6: any;
+        const tix_6: null;
         export { tix_6 as tix };
     }
     export { prices_6 as prices };

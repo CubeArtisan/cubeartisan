@@ -1,6 +1,6 @@
 export const DEFAULT_PACK: Readonly<{
     slots: string[];
-    steps: any;
+    steps: null;
 }>;
 export default CustomDraftFormatModal;
 declare function CustomDraftFormatModal({ isOpen, toggle, formatIndex, format, setFormat }: {

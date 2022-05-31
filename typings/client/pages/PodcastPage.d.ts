@@ -20,7 +20,7 @@ export namespace PodcastPage {
             podcast: PropTypes.Validator<string>;
             podcastname: PropTypes.Validator<string>;
         }>>;
-        const episodes: PropTypes.Validator<PropTypes.InferProps<{}>[]>;
+        const episodes: PropTypes.Validator<(PropTypes.InferProps<{}> | null | undefined)[]>;
     }
     namespace defaultProps {
         const loginCallback_1: string;

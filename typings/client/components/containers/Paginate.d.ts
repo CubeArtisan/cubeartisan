@@ -13,7 +13,7 @@ declare namespace Paginate {
         const onClick: PropTypes.Requireable<(...args: any[]) => any>;
     }
     namespace defaultProps {
-        const urlF_1: any;
+        const urlF_1: undefined;
         export { urlF_1 as urlF };
         export function onClick_1(): void;
         export { onClick_1 as onClick };

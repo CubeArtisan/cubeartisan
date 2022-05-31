@@ -7,10 +7,10 @@ declare function Asfans({ cards: cardsNoAsfan, cube, defaultFormatId }: {
 declare namespace Asfans {
     namespace propTypes {
         const cube: PropTypes.Validator<PropTypes.InferProps<{
-            cards: PropTypes.Requireable<PropTypes.InferProps<{}>[]>;
-            draft_formats: PropTypes.Requireable<PropTypes.InferProps<{}>[]>;
+            cards: PropTypes.Requireable<(PropTypes.InferProps<{}> | null | undefined)[]>;
+            draft_formats: PropTypes.Requireable<(PropTypes.InferProps<{}> | null | undefined)[]>;
         }>>;
-        const cards: PropTypes.Validator<PropTypes.InferProps<{}>[]>;
+        const cards: PropTypes.Validator<(PropTypes.InferProps<{}> | null | undefined)[]>;
         const defaultFormatId: PropTypes.Requireable<number>;
     }
     namespace defaultProps {

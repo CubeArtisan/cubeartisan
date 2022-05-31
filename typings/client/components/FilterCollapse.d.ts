@@ -19,13 +19,13 @@ declare namespace FilterCollapse {
         const isOpen: PropTypes.Requireable<boolean>;
     }
     namespace defaultProps {
-        const filter_1: any;
+        const filter_1: null;
         export { filter_1 as filter };
         const numCards_1: number;
         export { numCards_1 as numCards };
         const numShown_1: number;
         export { numShown_1 as numShown };
-        const defaultFilterText_1: any;
+        const defaultFilterText_1: null;
         export { defaultFilterText_1 as defaultFilterText };
         const noCount_1: boolean;
         export { noCount_1 as noCount };

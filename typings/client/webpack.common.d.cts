@@ -20,19 +20,19 @@ export namespace clientConfig {
                     configFile: string;
                 };
             };
-            sideEffects?: undefined;
+            sideEffects?: never;
         } | {
             test: RegExp;
             type: string;
-            exclude?: undefined;
-            use?: undefined;
-            sideEffects?: undefined;
+            exclude?: never;
+            use?: never;
+            sideEffects?: never;
         } | {
             test: RegExp;
             sideEffects: boolean;
             use: string[];
-            type?: undefined;
-            exclude?: undefined;
+            type?: never;
+            exclude?: never;
         })[];
     }
     namespace resolve {

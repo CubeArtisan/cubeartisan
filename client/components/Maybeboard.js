@@ -21,12 +21,12 @@ import PropTypes from 'prop-types';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 
 import AutocardListItem from '@cubeartisan/client/components/AutocardListItem.js';
-import { AutocompleteCardField } from '@cubeartisan/client/components/AutocompleteInput.js';
 import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import MaybeboardContext from '@cubeartisan/client/components/contexts/MaybeboardContext.js';
 import { getCard } from '@cubeartisan/client/components/EditCollapse.js';
+import { AutocompleteCardField } from '@cubeartisan/client/components/inputs/AutocompleteInput.js';
 import TableView from '@cubeartisan/client/components/TableView.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';

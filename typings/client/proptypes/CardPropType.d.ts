@@ -1,11 +1,11 @@
 export default CardPropType;
 export type Card = {
-    _id?: string;
-    index?: number;
-    imgUrl?: string;
-    imgBackUrl?: string;
+    _id?: string | undefined;
+    index?: number | undefined;
+    imgUrl?: string | undefined;
+    imgBackUrl?: string | undefined;
     cardID: string;
-    colors?: import('@cubeartisan/client/proptypes/CardDetailsPropType.js').Color[];
+    colors?: import("@cubeartisan/client/proptypes/CardDetailsPropType.js").Color[] | undefined;
     tags: string[];
     details: import('@cubeartisan/client/proptypes/CardDetailsPropType.js').CardDetails;
 };
@@ -26,8 +26,8 @@ declare const CardPropType: PropTypes.Requireable<PropTypes.InferProps<{
     imgUrl: PropTypes.Requireable<string>;
     imgBackUrl: PropTypes.Requireable<string>;
     cardID: PropTypes.Validator<string>;
-    colors: PropTypes.Requireable<string[]>;
-    tags: PropTypes.Requireable<string[]>;
+    colors: PropTypes.Requireable<(string | null | undefined)[]>;
+    tags: PropTypes.Requireable<(string | null | undefined)[]>;
     details: PropTypes.Requireable<PropTypes.InferProps<{
         _id: PropTypes.Validator<string>;
         name: PropTypes.Validator<string>;

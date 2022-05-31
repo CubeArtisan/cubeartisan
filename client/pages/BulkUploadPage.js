@@ -21,13 +21,13 @@ import PropTypes from 'prop-types';
 import React, { Fragment, useCallback, useContext, useRef, useState } from 'react';
 import { Card, CardBody, CardHeader, Col, Input, Label, Row } from 'reactstrap';
 
-import { AutocompleteCardField } from '@cubeartisan/client/components/AutocompleteInput.js';
 import Changelist from '@cubeartisan/client/components/Changelist.js';
 import ChangelistContext, {
   ChangelistContextProvider,
 } from '@cubeartisan/client/components/contexts/ChangelistContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import { getCard } from '@cubeartisan/client/components/EditCollapse.js';
+import { AutocompleteCardField } from '@cubeartisan/client/components/inputs/AutocompleteInput.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';

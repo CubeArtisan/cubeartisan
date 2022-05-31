@@ -5,7 +5,7 @@ declare function ContainerFooter({ children, sx }: {
 }): JSX.Element;
 declare namespace ContainerFooter {
     namespace propTypes {
-        const children: PropTypes.Validator<PropTypes.ReactNodeLike>;
+        const children: PropTypes.Validator<string | number | boolean | {} | PropTypes.ReactElementLike | PropTypes.ReactNodeArray>;
         const sx: PropTypes.Requireable<PropTypes.InferProps<{}>>;
     }
     namespace defaultProps {

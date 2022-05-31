@@ -28,11 +28,11 @@ import { MaybeboardContextProvider } from '@cubeartisan/client/components/contex
 import { SortContextProvider } from '@cubeartisan/client/components/contexts/SortContext.js';
 import { TAG_COLORS, TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import CubeListNavbar from '@cubeartisan/client/components/CubeListNavbar.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import GroupModal from '@cubeartisan/client/components/modals/GroupModal.js';
+import CubeListNavbar from '@cubeartisan/client/components/navbars/CubeListNavbar.js';
 import ClientOnly from '@cubeartisan/client/components/utils/ClientOnly.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';

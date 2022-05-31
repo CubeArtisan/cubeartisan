@@ -7,25 +7,25 @@ export function GridDraftPage({ cube, initialDraft, seatNumber, loginCallback }:
 export namespace GridDraftPage {
     namespace propTypes {
         const cube: PropTypes.Validator<PropTypes.InferProps<{
-            cards: PropTypes.Requireable<PropTypes.InferProps<{
+            cards: PropTypes.Requireable<(PropTypes.InferProps<{
                 cardName: PropTypes.Requireable<string>;
                 picks: PropTypes.Requireable<number>;
                 passes: PropTypes.Requireable<number>;
                 elo: PropTypes.Requireable<number>;
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
-            }>[]>;
+            }> | null | undefined)[]>;
             useCubeElo: PropTypes.Requireable<boolean>;
         }>>;
         const initialDraft: PropTypes.Validator<PropTypes.InferProps<{
-            cards: PropTypes.Validator<PropTypes.InferProps<{
+            cards: PropTypes.Validator<(PropTypes.InferProps<{
                 cardID: PropTypes.Requireable<string>;
-            }>[]>;
+            }> | null | undefined)[]>;
             _id: PropTypes.Requireable<string>;
             ratings: PropTypes.Requireable<{
-                [x: string]: number;
+                [x: string]: number | null | undefined;
             }>;
-            initial_state: PropTypes.Validator<number[][]>;
+            initial_state: PropTypes.Validator<(number[] | null | undefined)[]>;
             basics: PropTypes.Validator<number[]>;
             cube: PropTypes.Validator<string>;
             draftType: PropTypes.Validator<string>;

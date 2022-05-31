@@ -44,7 +44,7 @@ import SiteCustomizationContext from '@cubeartisan/client/components/contexts/Si
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
-import LabeledSelect from '@cubeartisan/client/components/LabeledSelect.js';
+import LabeledSelect from '@cubeartisan/client/components/inputs/LabeledSelect.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';

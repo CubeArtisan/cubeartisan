@@ -19,9 +19,9 @@ declare namespace HeaderCell {
         const tooltip: PropTypes.Requireable<string>;
     }
     namespace defaultProps {
-        const tooltip_1: any;
+        const tooltip_1: null;
         export { tooltip_1 as tooltip };
-        const sortConfig_1: any;
+        const sortConfig_1: null;
         export { sortConfig_1 as sortConfig };
     }
 }

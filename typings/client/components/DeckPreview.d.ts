@@ -10,23 +10,23 @@ declare namespace DeckPreview {
             cube: PropTypes.Requireable<string>;
             owner: PropTypes.Requireable<string>;
             cubeOwner: PropTypes.Requireable<string>;
-            seats: PropTypes.Requireable<PropTypes.InferProps<{
+            seats: PropTypes.Requireable<(PropTypes.InferProps<{
                 description: PropTypes.Validator<string>;
-                deck: PropTypes.Validator<number[][][]>;
-                sideboard: PropTypes.Validator<number[][][]>;
+                deck: PropTypes.Validator<(number | null | undefined)[][][]>;
+                sideboard: PropTypes.Validator<(number | null | undefined)[][][]>;
                 username: PropTypes.Validator<string>;
                 userid: PropTypes.Requireable<string>;
-                bot: PropTypes.Requireable<string[]>;
+                bot: PropTypes.Requireable<(string | null | undefined)[]>;
                 name: PropTypes.Validator<string>;
-            }>[]>;
+            }> | null | undefined)[]>;
             date: PropTypes.Requireable<string | Date>;
-            comments: PropTypes.Requireable<PropTypes.InferProps<{}>[]>;
+            comments: PropTypes.Requireable<(PropTypes.InferProps<{}> | null | undefined)[]>;
             basics: PropTypes.Validator<number[]>;
         }>>;
         const nextURL: PropTypes.Requireable<string>;
     }
     namespace defaultProps {
-        const nextURL_1: any;
+        const nextURL_1: null;
         export { nextURL_1 as nextURL };
     }
 }

@@ -35,7 +35,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Chart as ReactChart } from 'react-chartjs-2';
 
-import LabeledSelect from '@cubeartisan/client/components/LabeledSelect.js';
+import LabeledSelect from '@cubeartisan/client/components/inputs/LabeledSelect.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import calculate from '@cubeartisan/client/utils/CalculateHyperGeom.js';
 

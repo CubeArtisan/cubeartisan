@@ -35,7 +35,7 @@ declare namespace exampleBasics {
             const Oldschool: string;
         }
         const parsed_cost: string[];
-        const colors: any[];
+        const colors: never[];
         const type: string;
         const tcgplayer_id: number;
         const image_small: string;
@@ -105,7 +105,7 @@ declare namespace exampleBasics {
         export { legalities_1 as legalities };
         const parsed_cost_1: string[];
         export { parsed_cost_1 as parsed_cost };
-        const colors_1: any[];
+        const colors_1: never[];
         export { colors_1 as colors };
         const type_1: string;
         export { type_1 as type };
@@ -182,7 +182,7 @@ declare namespace exampleBasics {
         export { legalities_2 as legalities };
         const parsed_cost_2: string[];
         export { parsed_cost_2 as parsed_cost };
-        const colors_2: any[];
+        const colors_2: never[];
         export { colors_2 as colors };
         const type_2: string;
         export { type_2 as type };
@@ -259,7 +259,7 @@ declare namespace exampleBasics {
         export { legalities_3 as legalities };
         const parsed_cost_3: string[];
         export { parsed_cost_3 as parsed_cost };
-        const colors_3: any[];
+        const colors_3: never[];
         export { colors_3 as colors };
         const type_3: string;
         export { type_3 as type };
@@ -336,7 +336,7 @@ declare namespace exampleBasics {
         export { legalities_4 as legalities };
         const parsed_cost_4: string[];
         export { parsed_cost_4 as parsed_cost };
-        const colors_4: any[];
+        const colors_4: never[];
         export { colors_4 as colors };
         const type_4: string;
         export { type_4 as type };
@@ -352,7 +352,7 @@ declare namespace exampleBasics {
         export { colorcategory_4 as colorcategory };
     }
     namespace wastes {
-        const color_identity_5: any[];
+        const color_identity_5: never[];
         export { color_identity_5 as color_identity };
         const set_5: string;
         export { set_5 as set };
@@ -399,7 +399,7 @@ declare namespace exampleBasics {
         export { legalities_5 as legalities };
         const parsed_cost_5: string[];
         export { parsed_cost_5 as parsed_cost };
-        const colors_5: any[];
+        const colors_5: never[];
         export { colors_5 as colors };
         const type_5: string;
         export { type_5 as type };

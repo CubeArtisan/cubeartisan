@@ -11,14 +11,14 @@ export function CubeAnalyticsPage({ cube, cubeID, defaultFilterText, defaultTab,
 export namespace CubeAnalyticsPage {
     namespace propTypes {
         const cube: PropTypes.Validator<PropTypes.InferProps<{
-            cards: PropTypes.Requireable<PropTypes.InferProps<{
+            cards: PropTypes.Requireable<(PropTypes.InferProps<{
                 cardName: PropTypes.Requireable<string>;
                 picks: PropTypes.Requireable<number>;
                 passes: PropTypes.Requireable<number>;
                 elo: PropTypes.Requireable<number>;
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
-            }>[]>;
+            }> | null | undefined)[]>;
             useCubeElo: PropTypes.Requireable<boolean>;
         }>>;
         const cubeID: PropTypes.Validator<string>;
@@ -32,24 +32,24 @@ export namespace CubeAnalyticsPage {
             shortID: PropTypes.Requireable<string>;
             name: PropTypes.Requireable<string>;
             card_count: PropTypes.Requireable<number>;
-            cards: PropTypes.Requireable<PropTypes.InferProps<{
+            cards: PropTypes.Requireable<(PropTypes.InferProps<{
                 _id: PropTypes.Requireable<string>;
                 index: PropTypes.Requireable<number>;
                 imgUrl: PropTypes.Requireable<string>;
                 imgBackUrl: PropTypes.Requireable<string>;
                 cardID: PropTypes.Validator<string>;
-                colors: PropTypes.Requireable<string[]>;
-                tags: PropTypes.Requireable<string[]>;
+                colors: PropTypes.Requireable<(string | null | undefined)[]>;
+                tags: PropTypes.Requireable<(string | null | undefined)[]>;
                 details: PropTypes.Requireable<PropTypes.InferProps<{
                     _id: PropTypes.Validator<string>;
                     name: PropTypes.Validator<string>;
                     image_normal: PropTypes.Validator<string>;
                 }>>;
-            }>[]>;
+            }> | null | undefined)[]>;
             type: PropTypes.Requireable<string>;
             overrideCategory: PropTypes.Requireable<boolean>;
             categoryOverride: PropTypes.Requireable<string>;
-            categoryPrefixes: PropTypes.Requireable<string[]>;
+            categoryPrefixes: PropTypes.Requireable<(string | null | undefined)[]>;
             image_name: PropTypes.Requireable<string>;
             image_artist: PropTypes.Requireable<string>;
             image_uri: PropTypes.Requireable<string>;
@@ -63,7 +63,7 @@ export namespace CubeAnalyticsPage {
         export { defaultFilterText_1 as defaultFilterText };
         const defaultTab_1: number;
         export { defaultTab_1 as defaultTab };
-        const defaultFormatId_1: any;
+        const defaultFormatId_1: null;
         export { defaultFormatId_1 as defaultFormatId };
         const defaultShowTagColors_1: boolean;
         export { defaultShowTagColors_1 as defaultShowTagColors };
