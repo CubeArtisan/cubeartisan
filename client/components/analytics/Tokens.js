@@ -16,13 +16,13 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
+import { Card, CardContent, CardHeader, CardMedia, Grid, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 
 import MassBuyButton from '@cubeartisan/client/components/inputs/MassBuyButton.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import { getTCGLink } from '@cubeartisan/client/utils/Affiliate.js';
-import { cardName } from '@cubeartisan/client/utils/Card.js';
+import { cardFullName, cardName } from '@cubeartisan/client/utils/Card.js';
 
 const compareCards = (x, y) => cardName(x).localeCompare(cardName(y));
 const sortCards = (cards) => Array.from(cards).sort(compareCards);
@@ -76,14 +76,9 @@ const Tokens = ({ cube }) => {
         {data.map(({ card, cardDescription }) => (
           <Grid item key={card.cardID} xs={6} md={4} lg={3}>
             <Card sx={{ backgroundColor: 'background.hover' }}>
+              <CardHeader title={cardFullName(card)} titleTypographyProps={{ variant: 'h6' }} />
+              <CardMedia component="img" href={getTCGLink(card)} src={card.details.image_normal} alt={cardName(card)} />
               <CardContent>
-                <CardMedia
-                  component="img"
-                  href={getTCGLink(card)}
-                  src={card.details.image_normal}
-                  className="card-img-top"
-                  alt={cardName(card)}
-                />
                 <Markdown markdown={cardDescription} cube={cube} />
               </CardContent>
             </Card>
