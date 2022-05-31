@@ -23,7 +23,7 @@ import Paginate from '@cubeartisan/client/components/containers/Paginate.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import ButtonLink from '@cubeartisan/client/components/inputs/ButtonLink.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import TimeAgo from '@cubeartisan/client/components/utils/TimeAgo.js';
+import TimeAgo from '@cubeartisan/client/components/wrappers/TimeAgo.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const PAGE_SIZE = 24;

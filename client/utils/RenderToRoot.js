@@ -16,10 +16,8 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import createCache from '@emotion/cache';
-import { CacheProvider } from '@emotion/react';
 import { useMemo } from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot, hydrateRoot } from 'react-dom/client'; // eslint-disable-line
 import { SWRConfig } from 'swr';
 
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
@@ -40,7 +38,7 @@ const RenderToRoot = (Element) => {
           _id: null,
           username: 'Anonymous User',
           notifications: [],
-          theme: null,
+          theme: 'default',
         },
       [reactProps],
     );
@@ -49,7 +47,7 @@ const RenderToRoot = (Element) => {
         <SWRConfig value={DEFAULT_AXIOS_OPTIONS}>
           <UserContext.Provider value={defaultUserProps}>
             <SiteCustomizationContext.Provider value={reactProps?.siteCustomizations ?? DEFAULT_SITE_CUSTOMIZATIONS}>
-              <DisplayContextProvider>
+              <DisplayContextProvider cubeID={null} defaultNumCols={5}>
                 <Element {...reactProps} />
               </DisplayContextProvider>
             </SiteCustomizationContext.Provider>
@@ -59,19 +57,20 @@ const RenderToRoot = (Element) => {
     );
   };
   if (typeof document !== 'undefined') {
-    const cache = createCache({ key: 'css' });
+    // const cache = createCache({ key: 'css' });
     // import('bootstrap/dist/css/bootstrap.min.css');
     const wrapper = document.getElementById('react-root');
     const element = (
-      <CacheProvider value={cache}>
-        <Wrapped />
-      </CacheProvider>
+      // <CacheProvider value={cache}>
+      <Wrapped />
+      // </CacheProvider>
     );
     if (wrapper) {
       if (wrapper.children.length === 0) {
-        ReactDOM.render(element, wrapper);
+        const root = createRoot(wrapper);
+        root.render(element);
       } else {
-        ReactDOM.hydrate(element, wrapper);
+        hydrateRoot(wrapper, element);
       }
     }
   }

@@ -44,11 +44,11 @@ import SiteCustomizationContext from '@cubeartisan/client/components/contexts/Si
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
+import CSRFForm from '@cubeartisan/client/components/inputs/CSRFForm.js';
 import LabeledSelect from '@cubeartisan/client/components/inputs/LabeledSelect.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
-import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 import { allBotsDraft } from '@cubeartisan/client/drafting/draftutil.js';
 import useAlerts, { Alerts } from '@cubeartisan/client/hooks/UseAlerts.js';

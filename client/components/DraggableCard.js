@@ -20,15 +20,19 @@ import PropTypes from 'prop-types';
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 
-import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
+import CardImage from '@cubeartisan/client/components/CardImage.js';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import { cardType } from '@cubeartisan/client/utils/Card.js';
+
+const AutocardImage = withAutocard(CardImage);
 
 const DraggableCard = ({ card, location, canDrop, onMoveCard, className, onClick, ...props }) => {
   // eslint-disable-next-line react/prop-types
   delete props.width;
   // eslint-disable-next-line react/prop-types
   delete props.height;
-  const [{ isDragging }, drag, preview] = useDrag({
+  const [, drag, preview] = useDrag({
     type: 'card',
     item: { location },
     end: (item, monitor) => {
@@ -44,7 +48,7 @@ const DraggableCard = ({ card, location, canDrop, onMoveCard, className, onClick
   const imageRef = useRef();
   preview(imageRef);
 
-  const [{ isAcceptable }, drop] = useDrop({
+  const [, drop] = useDrop({
     accept: 'card',
     drop: () => location,
     canDrop: (item) => canDrop(item.location, location),
@@ -53,26 +57,17 @@ const DraggableCard = ({ card, location, canDrop, onMoveCard, className, onClick
     }),
   });
 
-  const previewClasses = [].concat(isAcceptable ? ['outline'] : [], isDragging ? ['transparent'] : []);
-  if (className) {
-    Array.prototype.push.apply(previewClasses, className.split(' '));
-  }
-
-  const oldClasses = [].concat(['position-absolute'], isDragging ? ['transparent'] : ['d-none']);
-
-  const typeLine = (card.type_line || card.details.type).toLowerCase();
+  const typeLine = cardType(card)?.toLowerCase?.();
   const cmc = typeLine.includes('creature');
 
   return (
     <>
-      <FoilCardImage card={card} ref={imageRef} className={oldClasses.join(' ')} />
-      <div ref={drag} className={onMoveCard ?? onClick ? 'clickable' : undefined}>
+      <CardImage card={card} ref={imageRef} />
+      <div ref={drag}>
         <div ref={drop}>
-          <FoilCardImage
+          <AutocardImage
             card={card}
             tags={[]}
-            autocard
-            className={previewClasses.join(' ')}
             data-location-type={location.type}
             data-location-data={JSON.stringify(location.data)}
             data-cmc={cmc.toString()}

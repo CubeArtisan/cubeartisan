@@ -24,8 +24,8 @@ import BlogContextMenu from '@cubeartisan/client/components/BlogContextMenu.js';
 import CardHeader from '@cubeartisan/client/components/CardHeader.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
-import TimeAgo from '@cubeartisan/client/components/utils/TimeAgo.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import TimeAgo from '@cubeartisan/client/components/wrappers/TimeAgo.js';
 import BlogPostPropType from '@cubeartisan/client/proptypes/BlogPostPropType.js';
 
 const CommentsSection = lazy(() => import('@cubeartisan/client/components/CommentsSection.js'));

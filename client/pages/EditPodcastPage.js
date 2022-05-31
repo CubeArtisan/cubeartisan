@@ -22,9 +22,9 @@ import { lazy, useState } from 'react';
 import { Card, CardBody, Col, FormGroup, Input, Label, Nav, Row, TabContent, TabPane } from 'reactstrap';
 
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import CSRFForm from '@cubeartisan/client/components/inputs/CSRFForm.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import Tab from '@cubeartisan/client/components/Tab.js';
-import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType.js';

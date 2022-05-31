@@ -22,7 +22,10 @@ export namespace CubeComparePage {
                 _id: PropTypes.Validator<string>;
                 name: PropTypes.Validator<string>;
                 image_normal: PropTypes.Validator<string>;
+                image_flip: PropTypes.Requireable<string>;
+                image_small: PropTypes.Requireable<string>;
             }>>;
+            addedTmsp: PropTypes.Requireable<string>;
         }> | null | undefined)[]>;
         const cube: PropTypes.Validator<PropTypes.InferProps<{
             cards: PropTypes.Requireable<(PropTypes.InferProps<{
@@ -33,7 +36,6 @@ export namespace CubeComparePage {
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
             }> | null | undefined)[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
         }>>;
         const cubeB: PropTypes.Validator<PropTypes.InferProps<{
             cards: PropTypes.Requireable<(PropTypes.InferProps<{
@@ -44,7 +46,6 @@ export namespace CubeComparePage {
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
             }> | null | undefined)[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
         }>>;
         const defaultTagColors: PropTypes.Validator<(PropTypes.InferProps<{
             tag: PropTypes.Validator<string>;

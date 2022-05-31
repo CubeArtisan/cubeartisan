@@ -20,7 +20,6 @@ declare namespace CubeOverviewModal {
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
             }> | null | undefined)[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
         }>>;
         const onError: PropTypes.Validator<(...args: any[]) => any>;
         const onCubeUpdate: PropTypes.Validator<(...args: any[]) => any>;

@@ -20,7 +20,10 @@ declare namespace CompareView {
                 _id: PropTypes.Validator<string>;
                 name: PropTypes.Validator<string>;
                 image_normal: PropTypes.Validator<string>;
+                image_flip: PropTypes.Requireable<string>;
+                image_small: PropTypes.Requireable<string>;
             }>>;
+            addedTmsp: PropTypes.Requireable<string>;
         }>[]>;
         const onlyA: PropTypes.Validator<PropTypes.InferProps<{
             _id: PropTypes.Requireable<string>;
@@ -34,7 +37,10 @@ declare namespace CompareView {
                 _id: PropTypes.Validator<string>;
                 name: PropTypes.Validator<string>;
                 image_normal: PropTypes.Validator<string>;
+                image_flip: PropTypes.Requireable<string>;
+                image_small: PropTypes.Requireable<string>;
             }>>;
+            addedTmsp: PropTypes.Requireable<string>;
         }>[]>;
         const onlyB: PropTypes.Validator<PropTypes.InferProps<{
             _id: PropTypes.Requireable<string>;
@@ -48,7 +54,10 @@ declare namespace CompareView {
                 _id: PropTypes.Validator<string>;
                 name: PropTypes.Validator<string>;
                 image_normal: PropTypes.Validator<string>;
+                image_flip: PropTypes.Requireable<string>;
+                image_small: PropTypes.Requireable<string>;
             }>>;
+            addedTmsp: PropTypes.Requireable<string>;
         }>[]>;
         const cards: PropTypes.Validator<PropTypes.InferProps<{
             _id: PropTypes.Requireable<string>;
@@ -62,7 +71,10 @@ declare namespace CompareView {
                 _id: PropTypes.Validator<string>;
                 name: PropTypes.Validator<string>;
                 image_normal: PropTypes.Validator<string>;
+                image_flip: PropTypes.Requireable<string>;
+                image_small: PropTypes.Requireable<string>;
             }>>;
+            addedTmsp: PropTypes.Requireable<string>;
         }>[]>;
     }
 }

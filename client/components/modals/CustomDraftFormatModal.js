@@ -35,8 +35,8 @@ import {
 
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import CustomPackCard from '@cubeartisan/client/components/CustomPackCard.js';
+import CSRFForm from '@cubeartisan/client/components/inputs/CSRFForm.js';
 import TextEntry from '@cubeartisan/client/components/inputs/TextEntry.js';
-import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import { toNullableInt } from '@cubeartisan/client/utils/Util.js';
 
 export const DEFAULT_PACK = Object.freeze({ slots: [''], steps: null });

@@ -22,11 +22,11 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 // import useMediaQuery from '@mui/material/useMediaQuery/index.js';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 import getTheme from '@cubeartisan/client/theming/theme.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 /**
- * @typedef {'default' | 'dark'} ThemeType
  * @typedef DisplayContextValue
  * @property {boolean} showCustomImages
  * @property {() => void} toggleShowCustomImages
@@ -36,11 +36,13 @@ import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
  * @property {(cardsInRow: number) => void} setCardsInRow
  * @property {boolean} useSticky
  * @property {() => void} toggleUseSticky
- * @property {ThemeType} theme
- * @property {(theme?: ThemeType) => void} updateTheme
+ * @property {string} theme
+ * @property {(theme?: string) => void} updateTheme
  * @property {number | string} autoCardSize
  * @property {(size: number | string) => void} setAutoCardSize
- * @type {import('react').Context<DisplayContextValue>}
+ */
+/*
+ * @type {React.Context<DisplayContextValue>}
  */
 const DisplayContext = createContext({
   showCustomImages: true,
@@ -60,10 +62,7 @@ const DisplayContext = createContext({
 export const DisplayContextProvider = ({ cubeID, defaultNumCols, ...props }) => {
   const user = useContext(UserContext);
   const userTheme = user.theme;
-  const [showCustomImages, setShowCustomImages] = useState(true);
-  const toggleShowCustomImages = useCallback(() => {
-    setShowCustomImages(!showCustomImages);
-  }, [showCustomImages]);
+  const [showCustomImages, toggleShowCustomImages] = useToggle(true);
 
   const [showMaybeboard, setShowMaybeboard] = useState(
     () => typeof localStorage !== 'undefined' && cubeID && localStorage.getItem(`maybeboard-${cubeID}`) === 'true',
@@ -76,7 +75,7 @@ export const DisplayContextProvider = ({ cubeID, defaultNumCols, ...props }) => 
   }, [cubeID, showMaybeboard]);
 
   const [cardsInRow, setCardsInRow] = useState(
-    () => (typeof localStorage !== 'undefined' && parseInt(localStorage.getItem('cardsInRow'), 10)) || null,
+    () => (typeof localStorage !== 'undefined' && parseInt(localStorage.getItem('cardsInRow') ?? '', 10)) || 5,
   );
   const updateCardsInRow = useCallback((newCardsInRow) => {
     localStorage.setItem('cardsInRow', newCardsInRow);

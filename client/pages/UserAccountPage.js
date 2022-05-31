@@ -41,9 +41,9 @@ import {
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import { AutocompleteCardField } from '@cubeartisan/client/components/inputs/AutocompleteInput.js';
+import CSRFForm from '@cubeartisan/client/components/inputs/CSRFForm.js';
 import TextEntry from '@cubeartisan/client/components/inputs/TextEntry.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import Query from '@cubeartisan/client/utils/Query.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';

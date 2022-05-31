@@ -6,7 +6,7 @@ import lightPalette from '@cubeartisan/client/theming/palettes/light.js';
 import typography from '@cubeartisan/client/theming/typography.js';
 
 /**
- * @param {'default'|'dark'} themeType
+ * @param {string} themeType
  */
 const getTheme = (themeType) => {
   const palette = themeType === 'dark' ? darkPalette : lightPalette;

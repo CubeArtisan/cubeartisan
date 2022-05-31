@@ -21,8 +21,8 @@ import PropTypes from 'prop-types';
 import { Card, CardBody, CardHeader, Col, FormGroup, Input, Label, Row } from 'reactstrap';
 
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import CSRFForm from '@cubeartisan/client/components/inputs/CSRFForm.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const LostPassword = ({ loginCallback }) => (

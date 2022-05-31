@@ -16,7 +16,6 @@ export namespace CubeDecksPage {
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
             }> | null | undefined)[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
         }>>;
         const decks: PropTypes.Validator<(PropTypes.InferProps<{
             _id: PropTypes.Requireable<string>;

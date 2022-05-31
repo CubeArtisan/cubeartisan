@@ -22,7 +22,7 @@ import { useContext, useMemo, useState } from 'react';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DeckDeleteModal from '@cubeartisan/client/components/modals/DeckDeleteModal.js';
-import TimeAgo from '@cubeartisan/client/components/utils/TimeAgo.js';
+import TimeAgo from '@cubeartisan/client/components/wrappers/TimeAgo.js';
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 
 /** 2020-11-17 struesdell:

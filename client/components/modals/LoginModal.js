@@ -19,7 +19,7 @@
 import { Box, Button, Divider, Modal, TextField, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 
-import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
+import CSRFForm from '@cubeartisan/client/components/inputs/CSRFForm.js';
 
 const LoginModal = ({ isOpen, toggle, loginCallback }) => (
   <Modal open={isOpen} onClose={toggle}>

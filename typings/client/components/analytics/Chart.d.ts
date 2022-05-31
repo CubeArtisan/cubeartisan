@@ -20,7 +20,10 @@ declare namespace Chart {
                 _id: PropTypes.Validator<string>;
                 name: PropTypes.Validator<string>;
                 image_normal: PropTypes.Validator<string>;
+                image_flip: PropTypes.Requireable<string>;
+                image_small: PropTypes.Requireable<string>;
             }>>;
+            addedTmsp: PropTypes.Requireable<string>;
         }> | null | undefined)[]>;
         const characteristics: PropTypes.Validator<PropTypes.InferProps<{}>>;
         const cube: PropTypes.Validator<PropTypes.InferProps<{
@@ -32,7 +35,6 @@ declare namespace Chart {
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
             }> | null | undefined)[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
         }>>;
         const defaultFormatId: PropTypes.Requireable<number>;
         const setAsfans: PropTypes.Validator<(...args: any[]) => any>;

@@ -2,47 +2,13 @@ import { Box, Stack, Tooltip, tooltipClasses, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import { forwardRef, useContext } from 'react';
 
+import CardImage from '@cubeartisan/client/components/CardImage.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import TagContext from '@cubeartisan/client/components/contexts/TagContext.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
-import {
-  cardFinish,
-  cardFullName,
-  cardImageBackUrl,
-  cardImageFlip,
-  cardImageNormal,
-  cardImageUrl,
-  cardTags,
-} from '@cubeartisan/client/utils/Card.js';
+import { cardFullName, cardTags } from '@cubeartisan/client/utils/Card.js';
 
 const placeholderClass = () => '';
-
-const RenderImage = ({ name, src, foil }) => {
-  const { autoCardSize } = useContext(DisplayContext);
-  return (
-    <Box>
-      {foil && (
-        <Box
-          component="img"
-          key="foil"
-          alt="Foil Overlay"
-          src="/content/foilOverlay.png"
-          sx={{ width: autoCardSize, position: 'absolute', pointerEvents: 'none', mixBlendMode: 'color-burn' }}
-        />
-      )}
-      <Box component="img" key="frontImage" src={src} alt={name} sx={{ width: autoCardSize }} />
-    </Box>
-  );
-};
-RenderImage.propTypes = {
-  name: PropTypes.string,
-  src: PropTypes.string.isRequired,
-  foil: PropTypes.bool,
-};
-RenderImage.defaultProps = {
-  name: 'Unknown Card Image',
-  foil: false,
-};
 
 /**
  * @typedef {{ card?: import('@cubeartisan/client/proptypes/CardPropType.js').Card, front?: string, back?: string, tags?: string[] }} AutocardProps
@@ -51,7 +17,7 @@ RenderImage.defaultProps = {
 /**
  * @template {object} P
  * @param {import('react').ComponentType<P>} Tag - The tag for the autocard components
- * @returns {import('react').ForwardRefExoticComponent<AutocardProps & P>}
+ * @returns {React.ForwardRefExoticComponent<AutocardProps & P>}
  */
 const withAutocard = (Tag) => {
   /**
@@ -62,12 +28,8 @@ const withAutocard = (Tag) => {
   const WithAutocard = forwardRef(({ card, front, back, tags, ...props }, ref) => {
     const tagContext = useContext(TagContext);
     const tagColorClass = tagContext?.tagColorClass ?? placeholderClass;
-    const { autoCardSize, showCustomImages } = useContext(DisplayContext);
-    card = card ?? { cardID: '', tags: [], details: { image_normal: '', _id: '', name: '' } };
+    const { autoCardSize } = useContext(DisplayContext);
     tags = tags ?? cardTags(card) ?? [];
-    front = front || (showCustomImages && cardImageUrl(card)) || cardImageNormal(card);
-    back = back || (showCustomImages && cardImageBackUrl(card)) || cardImageFlip(card);
-    const foil = cardFinish(card) === 'Foil';
     const name = cardFullName(card);
     const width = back ? `calc(${autoCardSize} * 2)` : autoCardSize;
     const cardRender = (
@@ -76,8 +38,8 @@ const withAutocard = (Tag) => {
           {name}
         </Typography>
         <Stack direction="row">
-          <RenderImage key="front" name={`${name}${back ? ' Front' : ''}`} src={front} foil={foil} />
-          {back && <RenderImage key="back" name={`${name} Back`} src={back} foil={foil} />}
+          <CardImage key="front" card={card} width={autoCardSize} />
+          {back && <CardImage key="back" card={card} width={autoCardSize} back />}
         </Stack>
         {tags && tags.length > 0 && (
           <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'row', width: '100%', padding: 1 }}>
@@ -114,12 +76,12 @@ const withAutocard = (Tag) => {
           },
         }}
       >
-        <Tag ref={ref} {...props} />
+        <Tag ref={ref} card={card} {...props} />
       </Tooltip>
     );
   });
   WithAutocard.propTypes = {
-    card: CardPropType,
+    card: CardPropType.isRequired,
     front: PropTypes.string,
     back: PropTypes.string,
     tags: PropTypes.arrayOf(PropTypes.string.isRequired),
@@ -143,5 +105,4 @@ const withAutocard = (Tag) => {
   }
   return WithAutocard;
 };
-
 export default withAutocard;

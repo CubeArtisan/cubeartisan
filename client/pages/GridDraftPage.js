@@ -21,16 +21,17 @@ import PropTypes from 'prop-types';
 import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Card, CardBody, CardHeader, CardTitle, Col, Collapse, Input, Nav, Navbar, Row } from 'reactstrap';
 
+import CardImage from '@cubeartisan/client/components/CardImage.js';
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import DeckStacks from '@cubeartisan/client/components/DeckStacks.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
+import CSRFForm from '@cubeartisan/client/components/inputs/CSRFForm.js';
 import CustomImageToggler from '@cubeartisan/client/components/inputs/CustomImageToggler.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import DndProvider from '@cubeartisan/client/components/utils/DndProvider.js';
 import Location, { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation.js';
 import {
@@ -46,6 +47,8 @@ import { makeSubtitle } from '@cubeartisan/client/utils/Card.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import { toNullableInt } from '@cubeartisan/client/utils/Util.js';
+
+const AutocardImage = withAutocard(CardImage);
 
 const GRID_DRAFT_OPTIONS = [0, 1, 2].flatMap((ind) => [
   [0, 1, 2].map((offset) => 3 * ind + offset),
@@ -111,7 +114,7 @@ const Pack = ({ pack, packNumber, pickNumber, makePick, seatIndex, turn }) => (
           {[0, 1, 2].map((col) => (
             <Col key={`cell-${col}-${row}`} className="px-0" xs="3" md="2">
               {pack[row * 3 + col] ? (
-                <FoilCardImage card={pack[row * 3 + col]} tags={[]} autocard />
+                <AutocardImage card={pack[row * 3 + col]} tags={[]} />
               ) : (
                 <img
                   src="/content/default_card.png"

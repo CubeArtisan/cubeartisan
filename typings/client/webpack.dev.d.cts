@@ -40,8 +40,6 @@ declare const clientConfig: {
         alias: {
             '@cubeartisan/client': string;
             '@cubeartisan/server': string;
-            'react/jsx-dev-runtime': string;
-            'react/jsx-runtime': string;
         };
     };
 };

@@ -44,12 +44,10 @@ const BlogDeleteModal = ({ isOpen, toggle, postID, cubeID }) => {
     />
   );
 };
-
 BlogDeleteModal.propTypes = {
   toggle: PropTypes.func.isRequired,
   postID: PropTypes.string.isRequired,
   isOpen: PropTypes.bool.isRequired,
   cubeID: PropTypes.string.isRequired,
 };
-
 export default BlogDeleteModal;

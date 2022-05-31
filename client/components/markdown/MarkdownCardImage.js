@@ -1,18 +1,20 @@
 import { Grid, Link } from '@mui/material';
 import PropTypes from 'prop-types';
 
-import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
+import CardImage from '@cubeartisan/client/components/CardImage.js';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
+
+const AutocardImage = withAutocard(CardImage);
 
 const MarkdownCardImage = ({ id, dfc }) => {
   const idURL = encodeURIComponent(id);
-  const details = { image_normal: `/card/${idURL}/image/redirect` };
+  const details = { _id: id, name: '', image_normal: `/card/${idURL}/image/redirect` };
   if (dfc) details.image_flip = `/card/${idURL}/image/flip`;
-  console.log(id);
 
   return (
-    <Grid item className="card-image" xs="6" md="4" lg="3">
+    <Grid item xs="6" md="4" lg="3">
       <Link href={`/card/${idURL}`} target="_blank" rel="noopener noreferrer">
-        <FoilCardImage autocard card={{ details }} className="clickable" />
+        <AutocardImage card={{ cardID: id, tags: [], details }} />
       </Link>
     </Grid>
   );

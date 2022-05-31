@@ -42,13 +42,13 @@ const CardGrid = ({ cardList, Tag, cardProps, linkDetails }) => {
   );
 };
 CardGrid.propTypes = {
-  cardList: PropTypes.arrayOf(CardPropType).isRequired,
-  Tag: PropTypes.node.isRequired,
+  cardList: PropTypes.arrayOf(CardPropType.isRequired).isRequired,
+  Tag: PropTypes.elementType.isRequired,
   cardProps: PropTypes.shape({}),
   linkDetails: PropTypes.bool,
 };
 CardGrid.defaultProps = {
-  cardProps: null,
+  cardProps: {},
   linkDetails: false,
 };
 export default CardGrid;

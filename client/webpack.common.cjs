@@ -125,8 +125,6 @@ const config = {
     alias: {
       '@cubeartisan/client': path.resolve(__dirname, './'),
       '@cubeartisan/server': path.resolve(__dirname, '../server'),
-      'react/jsx-dev-runtime': 'react/jsx-dev-runtime.js',
-      'react/jsx-runtime': 'react/jsx-runtime.js',
     },
   },
 };

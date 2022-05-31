@@ -45,12 +45,12 @@ import SortContext from '@cubeartisan/client/components/contexts/SortContext.js'
 import EditCollapse from '@cubeartisan/client/components/EditCollapse.js';
 import FilterCollapse from '@cubeartisan/client/components/FilterCollapse.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
+import CSRFForm from '@cubeartisan/client/components/inputs/CSRFForm.js';
 import LabeledSelect from '@cubeartisan/client/components/inputs/LabeledSelect.js';
 import StyledButtonMenu from '@cubeartisan/client/components/inputs/StyledButtonMenu.js';
 import CustomizeBasicsModal from '@cubeartisan/client/components/modals/CustomizeBasicsModal.js';
 import TagColorsModal from '@cubeartisan/client/components/modals/TagColorsModal.js';
 import SortCollapse from '@cubeartisan/client/components/SortCollapse.js';
-import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 

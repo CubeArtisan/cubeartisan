@@ -25,7 +25,6 @@ export namespace UserCubePage {
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
             }> | null | undefined)[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
         }> | null | undefined)[]>;
         const loginCallback: PropTypes.Requireable<string>;
     }

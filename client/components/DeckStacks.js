@@ -65,7 +65,6 @@ const DeckStacks = ({
     ))}
   </Box>
 );
-
 DeckStacks.propTypes = {
   cards: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.arrayOf(CardPropType.isRequired).isRequired).isRequired)
     .isRequired,
@@ -77,7 +76,6 @@ DeckStacks.propTypes = {
   canDrop: PropTypes.func,
   cardsInRow: PropTypes.number,
 };
-
 DeckStacks.defaultProps = {
   subtitle: false,
   onMoveCard: () => {},
@@ -85,5 +83,4 @@ DeckStacks.defaultProps = {
   canDrop: () => true,
   cardsInRow: 8,
 };
-
 export default DeckStacks;

@@ -16,11 +16,22 @@ export namespace DisplayContextProvider {
     }
 }
 export default DisplayContext;
-export type ThemeType = 'default' | 'dark';
-export type DisplayContextValue = import('react').Context<DisplayContextValue>;
+export type DisplayContextValue = {
+    showCustomImages: boolean;
+    toggleShowCustomImages: () => void;
+    showMaybeboard: boolean;
+    toggleShowMaybeboard: () => void;
+    cardsInRow: number;
+    setCardsInRow: (cardsInRow: number) => void;
+    useSticky: boolean;
+    toggleUseSticky: () => void;
+    theme: string;
+    updateTheme: (theme?: string) => void;
+    autoCardSize: number | string;
+    setAutoCardSize: (size: number | string) => void;
+};
 import PropTypes from "prop-types";
 /**
- * @typedef {'default' | 'dark'} ThemeType
  * @typedef DisplayContextValue
  * @property {boolean} showCustomImages
  * @property {() => void} toggleShowCustomImages
@@ -30,11 +41,10 @@ import PropTypes from "prop-types";
  * @property {(cardsInRow: number) => void} setCardsInRow
  * @property {boolean} useSticky
  * @property {() => void} toggleUseSticky
- * @property {ThemeType} theme
- * @property {(theme?: ThemeType) => void} updateTheme
+ * @property {string} theme
+ * @property {(theme?: string) => void} updateTheme
  * @property {number | string} autoCardSize
  * @property {(size: number | string) => void} setAutoCardSize
- * @type {import('react').Context<DisplayContextValue>}
  */
 declare const DisplayContext: import("react").Context<{
     showCustomImages: boolean;

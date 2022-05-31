@@ -11,7 +11,7 @@ export type AutocardProps = {
 /**
  * @template {object} P
  * @param {import('react').ComponentType<P>} Tag - The tag for the autocard components
- * @returns {import('react').ForwardRefExoticComponent<AutocardProps & P>}
+ * @returns {React.ForwardRefExoticComponent<AutocardProps & P>}
  */
 declare function withAutocard<P extends unknown>(Tag: import("react").ComponentType<P>): import("react").ForwardRefExoticComponent<AutocardProps & P>;
 //# sourceMappingURL=WithAutocard.d.ts.map

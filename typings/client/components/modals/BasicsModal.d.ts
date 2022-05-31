@@ -26,7 +26,10 @@ declare namespace BasicsModal {
                 _id: PropTypes.Validator<string>;
                 name: PropTypes.Validator<string>;
                 image_normal: PropTypes.Validator<string>;
+                image_flip: PropTypes.Requireable<string>;
+                image_small: PropTypes.Requireable<string>;
             }>>;
+            addedTmsp: PropTypes.Requireable<string>;
         }> | null | undefined)[]>;
     }
 }

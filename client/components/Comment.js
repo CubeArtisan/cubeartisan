@@ -35,10 +35,10 @@ import {
 import CommentContextMenu from '@cubeartisan/client/components/CommentContextMenu.js';
 import CommentEntry from '@cubeartisan/client/components/CommentEntry.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
+import CSRFForm from '@cubeartisan/client/components/inputs/CSRFForm.js';
 import LinkButton from '@cubeartisan/client/components/inputs/LinkButton.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
-import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
-import TimeAgo from '@cubeartisan/client/components/utils/TimeAgo.js';
+import TimeAgo from '@cubeartisan/client/components/wrappers/TimeAgo.js';
 import useComments from '@cubeartisan/client/hooks/UseComments.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 import CommentPropType from '@cubeartisan/client/proptypes/CommentPropType.js';

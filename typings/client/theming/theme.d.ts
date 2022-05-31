@@ -1,6 +1,6 @@
 export default getTheme;
 /**
- * @param {'default'|'dark'} themeType
+ * @param {string} themeType
  */
-declare function getTheme(themeType: 'default' | 'dark'): any;
+declare function getTheme(themeType: string): any;
 //# sourceMappingURL=theme.d.ts.map

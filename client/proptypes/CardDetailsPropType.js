@@ -27,12 +27,15 @@ import PropTypes from 'prop-types';
  * @property {string} _id
  * @property {string} name
  * @property {string} image_normal
+ * @property {string} [image_flip]
+ * @property {string} [image_small]
  */
 
 const CardDetailsPropType = PropTypes.shape({
   _id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   image_normal: PropTypes.string.isRequired,
+  image_flip: PropTypes.string,
+  image_small: PropTypes.string,
 });
-
 export default CardDetailsPropType;

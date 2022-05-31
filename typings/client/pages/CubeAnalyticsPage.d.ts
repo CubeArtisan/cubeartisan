@@ -19,7 +19,6 @@ export namespace CubeAnalyticsPage {
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
             }> | null | undefined)[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
         }>>;
         const cubeID: PropTypes.Validator<string>;
         const defaultFilterText: PropTypes.Requireable<string>;
@@ -44,7 +43,10 @@ export namespace CubeAnalyticsPage {
                     _id: PropTypes.Validator<string>;
                     name: PropTypes.Validator<string>;
                     image_normal: PropTypes.Validator<string>;
+                    image_flip: PropTypes.Requireable<string>;
+                    image_small: PropTypes.Requireable<string>;
                 }>>;
+                addedTmsp: PropTypes.Requireable<string>;
             }> | null | undefined)[]>;
             type: PropTypes.Requireable<string>;
             overrideCategory: PropTypes.Requireable<boolean>;

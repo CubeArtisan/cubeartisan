@@ -122,14 +122,12 @@ export const DraftbotBreakdownTable = ({ drafterState }) => {
     </>
   );
 };
-
 DraftbotBreakdownTable.propTypes = {
   drafterState: DrafterStatePropType.isRequired,
 };
 
 const DraftbotBreakdown = (props) => {
   const { picksList, drafterState, setPickNumberFromEvent } = usePickListAndDrafterState(props);
-
   return (
     <Grid container>
       <Grid item xs={12} sm={3}>
@@ -146,7 +144,6 @@ const DraftbotBreakdown = (props) => {
     </Grid>
   );
 };
-
 DraftbotBreakdown.propTypes = {
   // eslint-disable-next-line
   draft: DraftPropType.isRequired,
@@ -155,9 +152,7 @@ DraftbotBreakdown.propTypes = {
   // eslint-disable-next-line
   defaultIndex: PropTypes.number,
 };
-
 DraftbotBreakdown.defaultProps = {
   defaultIndex: 0,
 };
-
 export default DraftbotBreakdown;

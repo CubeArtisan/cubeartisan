@@ -25,5 +25,4 @@ import { isTouchDevice } from '@cubeartisan/client/utils/Util.js';
 const backend = isTouchDevice() ? TouchBackend : HTML5Backend;
 
 const DndProviderWithBackend = (props) => <DndProvider backend={backend} {...props} />;
-
 export default DndProviderWithBackend;

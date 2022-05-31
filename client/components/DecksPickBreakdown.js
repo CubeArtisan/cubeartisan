@@ -20,13 +20,16 @@ import PropTypes from 'prop-types';
 import { useCallback, useMemo } from 'react';
 import { Col, Row } from 'reactstrap';
 
-import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
+import CardImage from '@cubeartisan/client/components/CardImage.js';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import PickSelector from '@cubeartisan/client/components/inputs/PickSelector.js';
 import { getDrafterState } from '@cubeartisan/client/drafting/draftutil.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import { DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
 import { cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
 import { toNullableInt } from '@cubeartisan/client/utils/Util.js';
+
+const AutocardImage = withAutocard(CardImage);
 
 export const usePickListAndDrafterState = ({ draft, seatIndex, defaultIndex }) => {
   const [pickNumber, setPickNumber] = useQueryParam('pick', defaultIndex ?? 0);
@@ -103,7 +106,7 @@ const DecksPickBreakdownInternal = ({ draft, seatIndex, defaultIndex }) => {
           {cardsInPack.map((cardIndex) => (
             <Col key={/* eslint-disable-line react/no-array-index-key */ cardIndex} xs={4} sm={2}>
               <a href={`/card/${encodeName(cardName(cards[cardIndex]))}`}>
-                <FoilCardImage autocard data-in-modal card={cards[cardIndex]} className="clickable" />
+                <AutocardImage data-in-modal card={cards[cardIndex]} />
               </a>
             </Col>
           ))}

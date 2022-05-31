@@ -13,7 +13,6 @@ declare namespace CubePreview {
                 mainboards: import("prop-types").Requireable<number>;
                 sideboards: import("prop-types").Requireable<number>;
             }> | null | undefined)[]>;
-            useCubeElo: import("prop-types").Requireable<boolean>;
         }>>;
     }
 }

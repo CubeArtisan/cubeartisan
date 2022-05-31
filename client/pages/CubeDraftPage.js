@@ -127,10 +127,8 @@ const Pack = ({
               item
               xs={1}
               key={/* eslint-disable-line react/no-array-index-key */ `${packNumber}:${pickNumber}:${index}`}
-              cardsinrow={cardsInRow}
-              className="justify-content-center align-items-center"
             >
-              {picking === index && <CircularProgress className="position-relative" />}
+              {picking === index && <CircularProgress sx={{ position: 'absolute' }} />}
               <DraggableCard
                 location={DraftLocation.pack([index])}
                 data-index={index}
@@ -145,13 +143,12 @@ const Pack = ({
         </Grid>
       ) : (
         <>
-          <CircularProgress /> <h6>{waitingMessage}</h6>
+          <CircularProgress /> <Typography variant="h6">{waitingMessage}</Typography>
         </>
       )}
     </Stack>
   );
 };
-
 Pack.propTypes = {
   pack: PropTypes.arrayOf(CardPropType).isRequired,
   packNumber: PropTypes.number.isRequired,
@@ -164,7 +161,6 @@ Pack.propTypes = {
   seconds: PropTypes.number,
   waitingMessage: PropTypes.string.isRequired,
 };
-
 Pack.defaultProps = {
   picking: null,
   instructions: null,

@@ -16,9 +16,8 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import PropTypes from 'prop-types';
-
-import TimeAgo from '@cubeartisan/client/components/utils/TimeAgo.js';
+import TimeAgo from '@cubeartisan/client/components/wrappers/TimeAgo.js';
+import NotificationPropType from '@cubeartisan/client/proptypes/NotificationPropType.js';
 
 const Notification = ({ notification }) => {
   const texts = notification.text.split(notification.user_from_name);
@@ -36,15 +35,7 @@ const Notification = ({ notification }) => {
     </a>
   );
 };
-
 Notification.propTypes = {
-  notification: PropTypes.shape({
-    text: PropTypes.string,
-    user_from_name: PropTypes.string,
-    url: PropTypes.string,
-    user_from: PropTypes.string,
-    date: PropTypes.string,
-  }).isRequired,
+  notification: NotificationPropType.isRequired,
 };
-
 export default Notification;

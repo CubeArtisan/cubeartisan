@@ -33,7 +33,7 @@ import {
   Row,
 } from 'reactstrap';
 
-import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
+import CardImage from '@cubeartisan/client/components/CardImage.js';
 import withLoading from '@cubeartisan/client/components/hoc/WithLoading.js';
 import { AutocompleteTagField } from '@cubeartisan/client/components/inputs/AutocompleteInput.js';
 import ColorChecksControl from '@cubeartisan/client/components/inputs/ColorCheck.js';
@@ -66,7 +66,7 @@ const CardModal = ({
     <ModalBody>
       <Row>
         <Col xs="12" sm="4">
-          <FoilCardImage card={card} finish={values.finish} />
+          <CardImage card={card} />
           <Row noGutters className="mb-2">
             {card.details.prices && Number.isFinite(cardPrice(card)) && (
               <TextBadge name="Price">

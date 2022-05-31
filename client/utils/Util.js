@@ -216,7 +216,7 @@ export const isSamePageURL = (to) => {
   }
 };
 
-export const isObject = (obj) => obj && typeof object === 'object';
+export const isObject = (obj) => obj && typeof obj === 'object';
 
 export const areDeepEqual = (obj1, obj2) => {
   if (isObject(obj1) && isObject(obj2)) {

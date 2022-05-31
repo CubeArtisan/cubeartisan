@@ -19,7 +19,6 @@ declare namespace CustomizeBasicsModal {
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
             }> | null | undefined)[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
         }>>;
         const updateBasics: PropTypes.Validator<(...args: any[]) => any>;
         const onError: PropTypes.Validator<(...args: any[]) => any>;
