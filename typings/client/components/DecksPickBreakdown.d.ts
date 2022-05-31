@@ -53,7 +53,10 @@ declare namespace DecksPickBreakdown {
                     _id: PropTypes.Validator<string>;
                     name: PropTypes.Validator<string>;
                     image_normal: PropTypes.Validator<string>;
+                    image_flip: PropTypes.Requireable<string>;
+                    image_small: PropTypes.Requireable<string>;
                 }>>;
+                addedTmsp: PropTypes.Requireable<string>;
             }>[]>;
             cube: PropTypes.Validator<string>;
             initial_state: PropTypes.Validator<PropTypes.InferProps<{

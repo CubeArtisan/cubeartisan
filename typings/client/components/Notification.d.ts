@@ -4,14 +4,13 @@ declare function Notification({ notification }: {
 }): JSX.Element;
 declare namespace Notification {
     namespace propTypes {
-        const notification: PropTypes.Validator<PropTypes.InferProps<{
-            text: PropTypes.Requireable<string>;
-            user_from_name: PropTypes.Requireable<string>;
-            url: PropTypes.Requireable<string>;
-            user_from: PropTypes.Requireable<string>;
-            date: PropTypes.Requireable<string>;
+        const notification: import("prop-types").Validator<import("prop-types").InferProps<{
+            text: import("prop-types").Requireable<string>;
+            user_from_name: import("prop-types").Requireable<string>;
+            url: import("prop-types").Requireable<string>;
+            user_from: import("prop-types").Requireable<string>;
+            date: import("prop-types").Requireable<string>;
         }>>;
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=Notification.d.ts.map

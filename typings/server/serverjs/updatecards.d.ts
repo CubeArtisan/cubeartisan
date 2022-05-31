@@ -54,7 +54,7 @@ declare function convertCard(card: any, isExtra: any): {
     isToken: boolean;
     border_color: any;
     name: any;
-    name_lower: any;
+    name_lower: string;
     full_name: string;
     artist: any;
     scryfall_uri: any;

@@ -21,9 +21,12 @@ import PropTypes from 'prop-types';
 import { Component } from 'react';
 import { Modal, ModalBody, ModalFooter, ModalHeader, NavLink } from 'reactstrap';
 
+import CardImage from '@cubeartisan/client/components/CardImage.js';
 import CardGrid from '@cubeartisan/client/components/containers/CardGrid.js';
-import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import { arrayShuffle } from '@cubeartisan/client/utils/Util.js';
+
+const AutocardImage = withAutocard(CardImage);
 
 class SampleHandModal extends Component {
   constructor(props) {
@@ -103,9 +106,9 @@ class SampleHandModal extends Component {
           <ModalBody className="p-4">
             <CardGrid
               cardList={hand}
-              Tag={FoilCardImage}
-              colProps={{ xs: 4, className: 'col-seventh' }}
-              cardProps={{ autocard: true, 'data-in-modal': true, className: 'clickable' }}
+              Tag={AutocardImage}
+              colProps={{ xs: 4 }}
+              cardProps={{ 'data-in-modal': true }}
               linkDetails
             />
           </ModalBody>

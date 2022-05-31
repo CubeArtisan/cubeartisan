@@ -16,50 +16,58 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
-import { forwardRef, useContext, useRef } from 'react';
+import { forwardRef, useCallback, useContext } from 'react';
 
+import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
-import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
-import ImageFallback from '@cubeartisan/client/components/ImageFallback.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
-import { cardName } from '@cubeartisan/client/utils/Card.js';
+import { CARD_CATEGORY_DETECTORS, cardImageBackUrl, cardImageUrl, cardName } from '@cubeartisan/client/utils/Card.js';
 
-const ImageAutocard = withAutocard(ImageFallback);
-
-const CardImage = forwardRef(({ card, autocard, className, width, height, ...props }, ref) => {
+const CardImage = forwardRef(({ card, width, back, sx, cardModal, ...props }, ref) => {
   const { showCustomImages } = useContext(DisplayContext);
-  const imageSrc = (showCustomImages && card.imgUrl) || card.details.image_normal;
-  const Tag = autocard ? ImageAutocard : ImageFallback;
-  const fallbackRef = useRef();
-
+  const src = back ? cardImageBackUrl(card, showCustomImages) : cardImageUrl(card, showCustomImages);
+  const foil = CARD_CATEGORY_DETECTORS.foil(card?.details, card);
+  const name = cardName(card);
+  const openCardModal = useContext(CardModalContext);
+  const handleClick = useCallback(() => openCardModal(card), [openCardModal, card]);
   return (
-    <Tag
-      card={autocard ? card : undefined}
-      src={imageSrc}
-      fallbackSrc="/content/default_card.png"
-      alt={cardName(card)}
-      width={width || '100%'}
-      height={height || 'auto'}
-      className={className ? `${className} card-border` : 'card-border'}
-      ref={ref ?? fallbackRef}
-      {...props}
-    />
+    <Box sx={{ ...sx, display: 'block', position: 'relative' }}>
+      {foil && (
+        <Box
+          component="img"
+          key="foil"
+          src="/content/foilOverlay.png"
+          sx={{ width, position: 'absolute', pointerEvents: 'none', mixBlendMode: 'color-burn' }}
+        />
+      )}
+      <Box
+        onClick={cardModal ? handleClick : null}
+        component="img"
+        key="cardImage"
+        src={src}
+        alt={name}
+        ref={ref}
+        sx={{ width }}
+        fallbackSrc="/content/default_card.png"
+        {...props}
+      />
+    </Box>
   );
 });
 CardImage.propTypes = {
   card: CardPropType.isRequired,
-  autocard: PropTypes.bool,
-  className: PropTypes.string,
-  width: PropTypes.string,
-  height: PropTypes.string,
+  back: PropTypes.bool,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  sx: PropTypes.shape({}),
+  cardModal: PropTypes.bool,
 };
 CardImage.defaultProps = {
-  autocard: false,
-  className: null,
-  width: null,
-  height: null,
+  back: false,
+  width: '100%',
+  sx: {},
+  cardModal: false,
 };
 CardImage.displayName = 'CardImage';
-
 export default CardImage;

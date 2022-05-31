@@ -21,5 +21,11 @@ import { createContext } from 'react';
 /**
  * @type {React.Context<import('@cubeartisan/client/proptypes/UserPropType.js').User>}
  */
-const UserContext = createContext();
+const UserContext = createContext({
+  id: null,
+  notifications: [],
+  users_following: [],
+  roles: [],
+  hide_featured: false,
+});
 export default UserContext;

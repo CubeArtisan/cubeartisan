@@ -19,12 +19,15 @@
 import PropTypes from 'prop-types';
 import { useContext } from 'react';
 
+import CardImage from '@cubeartisan/client/components/CardImage.js';
 import CardGrid from '@cubeartisan/client/components/containers/CardGrid.js';
 import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import SetCardsInRow from '@cubeartisan/client/components/inputs/SetCardsInRow.js';
-import SpoilerImage from '@cubeartisan/client/components/SpoilerImage.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { sortDeep } from '@cubeartisan/client/utils/Sort.js';
+
+const AutocardImage = withAutocard(CardImage);
 
 const VisualSpoiler = ({ cards }) => {
   const { primary, secondary, tertiary, quaternary, showOther } = useContext(SortContext);
@@ -36,7 +39,7 @@ const VisualSpoiler = ({ cards }) => {
   return (
     <>
       <SetCardsInRow />
-      <CardGrid cardList={cardList} Tag={SpoilerImage} />
+      <CardGrid cardList={cardList} Tag={AutocardImage} cardProps={{ cardModal: true }} />
     </>
   );
 };

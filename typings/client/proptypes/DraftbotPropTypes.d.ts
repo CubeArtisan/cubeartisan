@@ -16,7 +16,10 @@ export const DrafterStatePropType: PropTypes.Requireable<PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
             name: PropTypes.Validator<string>;
             image_normal: PropTypes.Validator<string>;
+            image_flip: PropTypes.Requireable<string>;
+            image_small: PropTypes.Requireable<string>;
         }>>;
+        addedTmsp: PropTypes.Requireable<string>;
     }> | null | undefined)[]>;
     picked: PropTypes.Validator<number[]>;
     trashed: PropTypes.Validator<number[]>;
@@ -50,7 +53,10 @@ export const BotStatePropType: PropTypes.Requireable<PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
             name: PropTypes.Validator<string>;
             image_normal: PropTypes.Validator<string>;
+            image_flip: PropTypes.Requireable<string>;
+            image_small: PropTypes.Requireable<string>;
         }>>;
+        addedTmsp: PropTypes.Requireable<string>;
     }> | null | undefined)[]>;
     picked: PropTypes.Validator<number[]>;
     trashed: PropTypes.Validator<number[]>;
@@ -124,7 +130,10 @@ export const DraftPropType: PropTypes.Requireable<PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
             name: PropTypes.Validator<string>;
             image_normal: PropTypes.Validator<string>;
+            image_flip: PropTypes.Requireable<string>;
+            image_small: PropTypes.Requireable<string>;
         }>>;
+        addedTmsp: PropTypes.Requireable<string>;
     }>[]>;
     cube: PropTypes.Validator<string>;
     initial_state: PropTypes.Validator<PropTypes.InferProps<{

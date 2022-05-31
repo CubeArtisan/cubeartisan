@@ -8,6 +8,7 @@ export type Card = {
     colors?: import("@cubeartisan/client/proptypes/CardDetailsPropType.js").Color[] | undefined;
     tags: string[];
     details: import('@cubeartisan/client/proptypes/CardDetailsPropType.js').CardDetails;
+    addedTmsp?: string | null | undefined;
 };
 /**
  * @typedef Card
@@ -19,6 +20,7 @@ export type Card = {
  * @property {import('@cubeartisan/client/proptypes/CardDetailsPropType.js').Color[]} [colors]
  * @property {string[]} tags
  * @property {import('@cubeartisan/client/proptypes/CardDetailsPropType.js').CardDetails} details
+ * @property {string?} [addedTmsp]
  */
 declare const CardPropType: PropTypes.Requireable<PropTypes.InferProps<{
     _id: PropTypes.Requireable<string>;
@@ -32,7 +34,10 @@ declare const CardPropType: PropTypes.Requireable<PropTypes.InferProps<{
         _id: PropTypes.Validator<string>;
         name: PropTypes.Validator<string>;
         image_normal: PropTypes.Validator<string>;
+        image_flip: PropTypes.Requireable<string>;
+        image_small: PropTypes.Requireable<string>;
     }>>;
+    addedTmsp: PropTypes.Requireable<string>;
 }>>;
 import PropTypes from "prop-types";
 //# sourceMappingURL=CardPropType.d.ts.map

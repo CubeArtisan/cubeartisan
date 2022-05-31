@@ -18,7 +18,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { renderToString } from 'react-dom/server.node.js';
+import ReactDom from 'react-dom';
 import serialize from 'serialize-javascript';
 import createCache from '@emotion/cache';
 // eslint-disable-next-line
@@ -100,7 +100,7 @@ export const render = async (req, res, page, reactProps = {}, options = {}) => {
   try {
     reactHTML = PageElement
       ? // eslint-disable-next-line react/jsx-props-no-spreading
-        renderToString(<CacheProvider value={cache}><PageElement {...props} /></CacheProvider>)
+        ReactDom.renderToString(<CacheProvider value={cache}><PageElement {...props} /></CacheProvider>)
       : null;
   } catch (e) {
     req.logger.error('Failed to render', e);

@@ -21,7 +21,10 @@ declare namespace Suggestions {
                     _id: PropTypes.Validator<string>;
                     name: PropTypes.Validator<string>;
                     image_normal: PropTypes.Validator<string>;
+                    image_flip: PropTypes.Requireable<string>;
+                    image_small: PropTypes.Requireable<string>;
                 }>>;
+                addedTmsp: PropTypes.Requireable<string>;
             }>>;
             score: PropTypes.Validator<number>;
         }>[]>;
@@ -38,7 +41,10 @@ declare namespace Suggestions {
                     _id: PropTypes.Validator<string>;
                     name: PropTypes.Validator<string>;
                     image_normal: PropTypes.Validator<string>;
+                    image_flip: PropTypes.Requireable<string>;
+                    image_small: PropTypes.Requireable<string>;
                 }>>;
+                addedTmsp: PropTypes.Requireable<string>;
             }>>;
             score: PropTypes.Validator<number>;
         }>[]>;

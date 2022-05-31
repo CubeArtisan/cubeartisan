@@ -16,8 +16,6 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import PropTypes from 'prop-types';
-
 import TimeAgo from '@cubeartisan/client/components/wrappers/TimeAgo.js';
 import NotificationPropType from '@cubeartisan/client/proptypes/NotificationPropType.js';
 

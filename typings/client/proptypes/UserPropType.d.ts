@@ -1,7 +1,7 @@
 export default UserPropType;
 export type Notification = import('@cubeartisan/client/proptypes/NotificationPropType.js').Notification;
 export type User = {
-    id: string;
+    _id: string | null;
     email?: string | null | undefined;
     username?: string | null | undefined;
     about?: string | null | undefined;
@@ -12,11 +12,12 @@ export type User = {
     users_following: string[];
     roles: string[];
     hide_featured: boolean;
+    theme: ('default' | 'dark') | null;
 };
 /**
  * @typedef {import('@cubeartisan/client/proptypes/NotificationPropType.js').Notification} Notification
  * @typedef User
- * @property {string} id
+ * @property {string?} _id
  * @property {string?} [email]
  * @property {string?} [username]
  * @property {string?} [about]
@@ -27,9 +28,10 @@ export type User = {
  * @property {string[]} users_following
  * @property {string[]} roles
  * @property {boolean} hide_featured
+ * @property {('default' | 'dark')?} theme
  */
 declare const UserPropType: PropTypes.Requireable<PropTypes.InferProps<{
-    id: PropTypes.Validator<string>;
+    _id: PropTypes.Validator<string>;
     email: PropTypes.Requireable<string>;
     username: PropTypes.Requireable<string>;
     about: PropTypes.Requireable<string>;

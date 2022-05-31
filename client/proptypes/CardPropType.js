@@ -30,6 +30,7 @@ import CardDetailsPropType from '@cubeartisan/client/proptypes/CardDetailsPropTy
  * @property {import('@cubeartisan/client/proptypes/CardDetailsPropType.js').Color[]} [colors]
  * @property {string[]} tags
  * @property {import('@cubeartisan/client/proptypes/CardDetailsPropType.js').CardDetails} details
+ * @property {string?} [addedTmsp]
  */
 
 const CardPropType = PropTypes.shape({
@@ -41,6 +42,6 @@ const CardPropType = PropTypes.shape({
   colors: PropTypes.arrayOf(PropTypes.oneOf(Array.from('WUBRG'))),
   tags: PropTypes.arrayOf(PropTypes.string),
   details: CardDetailsPropType,
+  addedTmsp: PropTypes.string,
 });
-
 export default CardPropType;

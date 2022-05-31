@@ -18,7 +18,10 @@ declare namespace AutocardListItem {
                 _id: PropTypes.Validator<string>;
                 name: PropTypes.Validator<string>;
                 image_normal: PropTypes.Validator<string>;
+                image_flip: PropTypes.Requireable<string>;
+                image_small: PropTypes.Requireable<string>;
             }>>;
+            addedTmsp: PropTypes.Requireable<string>;
         }>>;
         const noCardModal: PropTypes.Requireable<boolean>;
         const children: PropTypes.Requireable<PropTypes.ReactNodeLike>;

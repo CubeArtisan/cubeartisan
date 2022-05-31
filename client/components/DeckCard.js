@@ -21,9 +21,10 @@ import PropTypes from 'prop-types';
 import { lazy, useContext } from 'react';
 
 import CardHeader from '@cubeartisan/client/components/CardHeader.js';
+import CardImage from '@cubeartisan/client/components/CardImage.js';
 import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
-import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
@@ -32,6 +33,8 @@ import DraftSeatPropType from '@cubeartisan/client/proptypes/DraftSeatPropType.j
 
 const DecksPickBreakdown = lazy(async () => import('@cubeartisan/client/components/DecksPickBreakdown.js'));
 const DraftbotBreakdown = lazy(async () => import('@cubeartisan/client/components/DraftbotBreakdown.js'));
+
+const AutocardImage = withAutocard(CardImage);
 
 const DeckStacksStatic = ({ piles, cards, cardsInRow }) => (
   <Grid container columns={cardsInRow}>
@@ -48,13 +51,12 @@ const DeckStacksStatic = ({ piles, cards, cardsInRow }) => (
               {column.map((cardIndex) => {
                 const card = cards[cardIndex];
                 return (
-                  <FoilCardImage
-                    key={/* eslint-disable-line react/no-array-index-key */ `${index}`}
+                  <AutocardImage
+                    key={/* eslint-disable-line react/no-array-index-key */ `${index}-${cardIndex}`}
                     card={card}
                     tags={[]}
-                    autocard
-                    href={card.cardID ? `/card/${card.cardID}` : null}
                     sx={{ marginTop: '-124%' }}
+                    href={card.cardID ? `/card/${card.cardID}` : null}
                   />
                 );
               })}
@@ -67,7 +69,7 @@ const DeckStacksStatic = ({ piles, cards, cardsInRow }) => (
 );
 
 DeckStacksStatic.propTypes = {
-  cards: PropTypes.arrayOf(PropTypes.shape({ cardID: PropTypes.string })).isRequired,
+  cards: PropTypes.arrayOf(CardPropType.isRequired).isRequired,
   piles: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number.isRequired))).isRequired,
   cardsInRow: PropTypes.number.isRequired,
 };
@@ -76,7 +78,6 @@ const DeckCard = ({ seat, deck, seatIndex, draft, view }) => {
   const { cardsInRow } = useContext(DisplayContext);
   const [username] = deck.seats[seatIndex].username.split(':');
   const draftSeatIndex = draft.seats.findIndex(({ name }) => name === username);
-  console.log('draftSeatIndex', draftSeatIndex);
   const stackedDeck = seat.deck.slice();
   const stackedSideboard = seat.sideboard.slice();
   let sbCount = 0;
@@ -133,7 +134,7 @@ const DeckCard = ({ seat, deck, seatIndex, draft, view }) => {
             <DeckStacksStatic piles={stackedDeck} cards={deck.cards} cardsInRow={cardsInRow} />
             {stackedSideboard && stackedSideboard.length > 0 && (
               <>
-                <CardHeader className="border-bottom">
+                <CardHeader>
                   <h4>Sideboard</h4>
                 </CardHeader>
                 <DeckStacksStatic cardsInRow={cardsInRow} piles={stackedSideboard} cards={deck.cards} />
@@ -143,7 +144,7 @@ const DeckCard = ({ seat, deck, seatIndex, draft, view }) => {
         )}
         {view === 'draftbot' &&
           (draft ? (
-            <DraftbotBreakdown deck={deck} seatIndex={draftSeatIndex} draft={draft} />
+            <DraftbotBreakdown seatIndex={draftSeatIndex} draft={draft} />
           ) : (
             <h4>This deck does not have a related draft log.</h4>
           ))}
@@ -168,5 +169,4 @@ DeckCard.propTypes = {
 DeckCard.defaultProps = {
   view: 'deck',
 };
-
 export default DeckCard;

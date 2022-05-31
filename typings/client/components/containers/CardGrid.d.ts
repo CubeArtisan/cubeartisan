@@ -7,7 +7,7 @@ declare function CardGrid({ cardList, Tag, cardProps, linkDetails }: {
 }): JSX.Element;
 declare namespace CardGrid {
     namespace propTypes {
-        const cardList: PropTypes.Validator<(PropTypes.InferProps<{
+        const cardList: PropTypes.Validator<PropTypes.InferProps<{
             _id: PropTypes.Requireable<string>;
             index: PropTypes.Requireable<number>;
             imgUrl: PropTypes.Requireable<string>;
@@ -19,14 +19,17 @@ declare namespace CardGrid {
                 _id: PropTypes.Validator<string>;
                 name: PropTypes.Validator<string>;
                 image_normal: PropTypes.Validator<string>;
+                image_flip: PropTypes.Requireable<string>;
+                image_small: PropTypes.Requireable<string>;
             }>>;
-        }> | null | undefined)[]>;
-        const Tag: PropTypes.Validator<string | number | boolean | {} | PropTypes.ReactElementLike | PropTypes.ReactNodeArray>;
+            addedTmsp: PropTypes.Requireable<string>;
+        }>[]>;
+        const Tag: PropTypes.Validator<PropTypes.ReactComponentLike>;
         const cardProps: PropTypes.Requireable<PropTypes.InferProps<{}>>;
         const linkDetails: PropTypes.Requireable<boolean>;
     }
     namespace defaultProps {
-        const cardProps_1: null;
+        const cardProps_1: {};
         export { cardProps_1 as cardProps };
         const linkDetails_1: boolean;
         export { linkDetails_1 as linkDetails };

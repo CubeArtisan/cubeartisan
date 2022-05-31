@@ -27,7 +27,10 @@ declare namespace CardModal {
                 _id: PropTypes.Validator<string>;
                 name: PropTypes.Validator<string>;
                 image_normal: PropTypes.Validator<string>;
+                image_flip: PropTypes.Requireable<string>;
+                image_small: PropTypes.Requireable<string>;
             }>>;
+            addedTmsp: PropTypes.Requireable<string>;
         }>>;
         const maybe: PropTypes.Requireable<boolean>;
         const versions: PropTypes.Validator<PropTypes.InferProps<{
@@ -42,7 +45,10 @@ declare namespace CardModal {
                 _id: PropTypes.Validator<string>;
                 name: PropTypes.Validator<string>;
                 image_normal: PropTypes.Validator<string>;
+                image_flip: PropTypes.Requireable<string>;
+                image_small: PropTypes.Requireable<string>;
             }>>;
+            addedTmsp: PropTypes.Requireable<string>;
         }>[]>;
         const versionsLoading: PropTypes.Requireable<boolean>;
         const toggle: PropTypes.Validator<(...args: any[]) => any>;
@@ -59,7 +65,10 @@ declare namespace CardModal {
                 _id: PropTypes.Validator<string>;
                 name: PropTypes.Validator<string>;
                 image_normal: PropTypes.Validator<string>;
+                image_flip: PropTypes.Requireable<string>;
+                image_small: PropTypes.Requireable<string>;
             }>>;
+            addedTmsp: PropTypes.Requireable<string>;
         }>>;
         const onChange: PropTypes.Validator<(...args: any[]) => any>;
         const saveChanges: PropTypes.Validator<(...args: any[]) => any>;

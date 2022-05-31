@@ -24,7 +24,10 @@ declare namespace PickSelector {
                 _id: PropTypes.Validator<string>;
                 name: PropTypes.Validator<string>;
                 image_normal: PropTypes.Validator<string>;
+                image_flip: PropTypes.Requireable<string>;
+                image_small: PropTypes.Requireable<string>;
             }>>;
+            addedTmsp: PropTypes.Requireable<string>;
         }>[][]>;
         const curPickNumber: PropTypes.Validator<number>;
         const setPickNumberFromEvent: PropTypes.Validator<(...args: any[]) => any>;
