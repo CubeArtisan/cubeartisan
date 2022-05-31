@@ -18,7 +18,6 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
 import { renderToString } from 'react-dom/server.node.js';
 import serialize from 'serialize-javascript';
 import createCache from '@emotion/cache';

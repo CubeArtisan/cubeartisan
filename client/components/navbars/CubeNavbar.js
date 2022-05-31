@@ -1,6 +1,6 @@
 import { Box, Button, Toolbar, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 import CollapsingNavbar from '@cubeartisan/client/components/containers/CollapsingNavbar.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';

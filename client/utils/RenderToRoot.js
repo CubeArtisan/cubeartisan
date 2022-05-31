@@ -18,7 +18,7 @@
  */
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import ReactDOM from 'react-dom';
 import { SWRConfig } from 'swr';
 

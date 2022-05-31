@@ -18,7 +18,7 @@
  */
 import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useCallback, useContext, useMemo } from 'react';
+import { useCallback, useContext, useMemo } from 'react';
 import {
   Alert,
   Col,

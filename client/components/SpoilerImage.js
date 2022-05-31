@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useCallback, useContext } from 'react';
+import { useCallback, useContext } from 'react';
 
 import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext.js';
 import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';

@@ -32,7 +32,7 @@ import {
 } from '@mui/material';
 import { CategoryScale, Chart as ChartJS, LinearScale, LineElement, PointElement } from 'chart.js';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Chart as ReactChart } from 'react-chartjs-2';
 
 import LabeledSelect from '@cubeartisan/client/components/inputs/LabeledSelect.js';

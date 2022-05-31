@@ -29,7 +29,7 @@ import {
   Typography,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
 
 import CardHeader from '@cubeartisan/client/components/CardHeader.js';

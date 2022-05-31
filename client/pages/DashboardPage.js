@@ -18,7 +18,7 @@
  */
 import { Button, Grid, Link, Stack, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { lazy, useContext } from 'react';
+import { lazy, useContext } from 'react';
 
 import {
   ContainerBody,

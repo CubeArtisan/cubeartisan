@@ -18,7 +18,7 @@
  */
 import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { CardBody, Input, Modal, ModalBody, ModalFooter, ModalHeader, Navbar } from 'reactstrap';
 
 import NumericField from '@cubeartisan/client/components/inputs/NumericField.js';

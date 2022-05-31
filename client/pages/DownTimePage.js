@@ -18,7 +18,6 @@
  */
 import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
-import React from 'react';
 import { Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
 
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';

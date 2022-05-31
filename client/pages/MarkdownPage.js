@@ -19,7 +19,7 @@
 
 import { MarkdownHelp } from '@cubeartisan/markdown';
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';

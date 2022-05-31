@@ -18,7 +18,6 @@
  */
 import { AccordionDetails, AccordionSummary, Accordion as MuiAccordion } from '@mui/material';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 const Accordion = ({ defaultExpand, children, title }) => (
   <MuiAccordion defaultExpanded={defaultExpand}>

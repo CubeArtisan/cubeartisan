@@ -18,7 +18,6 @@
  */
 import { Link, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React from 'react';
 import { Collapse, Nav, Navbar, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 
 import FilterCollapse from '@cubeartisan/client/components/FilterCollapse.js';

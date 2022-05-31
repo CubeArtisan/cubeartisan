@@ -18,7 +18,7 @@
  */
 import { Box, Button, Card, CardContent, Grid, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { lazy, useContext, useEffect, useMemo, useState } from 'react';
+import { lazy, useContext, useEffect, useMemo, useState } from 'react';
 
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import { TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext.js';

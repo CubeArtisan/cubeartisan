@@ -1,5 +1,5 @@
 export default BlogContextMenu;
-declare class BlogContextMenu extends React.Component<any, any, any> {
+declare class BlogContextMenu extends Component<any, any, any> {
     constructor(props: any);
     toggle(): void;
     toggleDeleteModal(): void;
@@ -20,6 +20,6 @@ declare namespace BlogContextMenu {
         const onEdit: PropTypes.Validator<(...args: any[]) => any>;
     }
 }
-import React from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 //# sourceMappingURL=BlogContextMenu.d.ts.map

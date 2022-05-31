@@ -18,7 +18,6 @@
  */
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import CardStack from '@cubeartisan/client/components/CardStack.js';
 import DraggableCard from '@cubeartisan/client/components/DraggableCard.js';

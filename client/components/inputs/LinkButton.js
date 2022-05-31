@@ -17,7 +17,6 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import React from 'react';
 
 const LinkButton = ({ children, onClick, ...props }) => (
   /* eslint-disable-next-line jsx-a11y/anchor-is-valid */

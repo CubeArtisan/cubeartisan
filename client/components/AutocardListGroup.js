@@ -19,7 +19,7 @@
 import { Divider, List, ListSubheader, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/node/styles/index.js';
 import PropTypes from 'prop-types';
-import React, { useCallback, useContext } from 'react';
+import { Fragment, useCallback, useContext } from 'react';
 
 import AutocardListItem from '@cubeartisan/client/components/AutocardListItem.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
@@ -61,12 +61,12 @@ const AutocardListGroup = ({ cards, heading, sort, orderedSort, showOther, rowTa
         <Typography variant="subtitle2">{heading}</Typography>
       </ListSubheader>
       {sorted.map(([, group], idx) => (
-        <React.Fragment key={idx /* eslint-disable-line */}>
+        <Fragment key={idx /* eslint-disable-line */}>
           {group.map((card, index) => (
             <RowTag key={typeof card.index === 'undefined' ? `${card._id}-${index}` : card.index} card={card} />
           ))}
           <Divider />
-        </React.Fragment>
+        </Fragment>
       ))}
     </List>
   );

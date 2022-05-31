@@ -19,7 +19,7 @@
 import { findUserLinks } from '@cubeartisan/markdown';
 import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useCallback, useContext, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import {
   Collapse,
   Input,

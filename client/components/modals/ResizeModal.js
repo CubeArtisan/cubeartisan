@@ -18,7 +18,7 @@
  */
 import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, Input, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
 import FilterCollapse from '@cubeartisan/client/components/FilterCollapse.js';

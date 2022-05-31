@@ -18,7 +18,7 @@
  */
 import { Badge, Button } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Card, CardBody, CardHeader, CardTitle, Col, Collapse, Input, Nav, Navbar, Row } from 'reactstrap';
 
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';

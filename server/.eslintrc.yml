@@ -59,6 +59,8 @@ rules:
   promise/prefer-await-to-then: warn
   promise/prefer-await-to-callbacks: warn
   no-console: error
+  react/jsx-uses-react: off
+  react/react-in-jsx-scope: off
 overrides:
   - files: ['**/*.cjs']
     rules:

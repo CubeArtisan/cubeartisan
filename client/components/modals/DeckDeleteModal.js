@@ -17,7 +17,6 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import ConfirmDeleteModal from '@cubeartisan/client/components/modals/ConfirmDeleteModal.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';

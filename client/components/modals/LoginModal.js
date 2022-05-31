@@ -18,7 +18,6 @@
  */
 import { Box, Button, Divider, Modal, TextField, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 

@@ -18,7 +18,7 @@
  */
 import { Badge, Button } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useCallback, useContext } from 'react';
+import { useCallback, useContext } from 'react';
 
 import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';

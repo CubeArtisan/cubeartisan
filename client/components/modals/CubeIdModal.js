@@ -19,7 +19,6 @@
 import { ContentCopy } from '@mui/icons-material';
 import { Button, IconButton } from '@mui/material';
 import PropTypes from 'prop-types';
-import React from 'react';
 import { Input, InputGroup, InputGroupAddon, Label, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
 const CubeIdModal = ({ toggle, isOpen, shortID, fullID, alert }) => {

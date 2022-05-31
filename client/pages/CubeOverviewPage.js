@@ -19,7 +19,7 @@
 import { HelpOutline } from '@mui/icons-material';
 import { Box, Button, Grid, IconButton, Link, Toolbar, Tooltip, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { lazy, useContext, useState } from 'react';
+import { lazy, useContext, useState } from 'react';
 
 import {
   ContainerBody,

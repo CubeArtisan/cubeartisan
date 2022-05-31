@@ -29,7 +29,7 @@ import {
   Typography,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useContext, useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 
 import PagedList from '@cubeartisan/client/components/containers/PagedList.js';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';

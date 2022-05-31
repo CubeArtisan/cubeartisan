@@ -1,7 +1,7 @@
 import { Brightness4, Brightness7 } from '@mui/icons-material';
 import { AppBar, Box, Button, Container, IconButton, Link, Toolbar } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { lazy, useCallback, useContext, useMemo } from 'react';
+import { lazy, useCallback, useContext, useMemo } from 'react';
 
 import CollapsingNavbar from '@cubeartisan/client/components/containers/CollapsingNavbar.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';

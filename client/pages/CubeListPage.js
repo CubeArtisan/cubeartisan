@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import React, { lazy, useContext, useEffect, useMemo, useState } from 'react';
+import { lazy, useContext, useEffect, useMemo, useState } from 'react';
 import { UncontrolledAlert } from 'reactstrap';
 
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';

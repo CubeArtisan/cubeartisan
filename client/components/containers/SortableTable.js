@@ -18,7 +18,7 @@
  */
 import { Box, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { CSVLink } from 'react-csv';
 
 import HeaderCell from '@cubeartisan/client/components/containers/HeaderCell.js';

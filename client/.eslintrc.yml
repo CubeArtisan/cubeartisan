@@ -77,13 +77,13 @@ rules:
   react/jsx-filename-extension: off
   react/jsx-one-expression-per-line: off
   react/jsx-props-no-spreading: off
+  react/jsx-uses-react: off
   react/no-unescaped-entities:
     - error
     - forbid: ['>', '"', '}']
   react-hooks/rules-of-hooks: error
   react-hooks/exhaustive-deps: error
-  react/jsx-uses-react: error
-  react/react-in-jsx-scope: error
+  react/react-in-jsx-scope: off
   import/no-commonjs: error
   no-restricted-imports:
     - error

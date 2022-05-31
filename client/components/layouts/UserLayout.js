@@ -18,7 +18,7 @@
  */
 import { Button, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { Nav, Navbar, NavItem, NavLink, Row } from 'reactstrap';
 
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';

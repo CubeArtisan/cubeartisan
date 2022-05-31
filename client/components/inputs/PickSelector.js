@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import React from 'react';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 
 import { getCardColorClass } from '@cubeartisan/client/components/contexts/TagContext.js';

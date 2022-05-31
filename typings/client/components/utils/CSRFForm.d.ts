@@ -11,11 +11,10 @@ export type ComponentType = import('react').ForwardRefExoticComponent<{
  * @typedef {import('react').ForwardRefExoticComponent<{ children: ReactNode, action: string, encType?: string, method?: string }>} ComponentType
  * @type ComponentType
  */
-declare const CSRFForm: React.ForwardRefExoticComponent<{
+declare const CSRFForm: import("react").ForwardRefExoticComponent<{
     children: ReactNode;
     action: string;
     encType?: string;
     method?: string;
 }>;
-import React from "react";
 //# sourceMappingURL=CSRFForm.d.ts.map

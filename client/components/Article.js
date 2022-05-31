@@ -17,7 +17,6 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import { Box, Divider, Stack, Typography } from '@mui/material';
-import React from 'react';
 
 import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';

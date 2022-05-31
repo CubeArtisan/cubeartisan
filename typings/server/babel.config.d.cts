@@ -1,5 +1,5 @@
 declare function _exports(api: any): {
-    presets: (string | (string | {
+    presets: ((string | {
         targets: {
             node: string;
         };
@@ -9,7 +9,9 @@ declare function _exports(api: any): {
             proposals: boolean;
         };
         shippedProposals: boolean;
-        modules: string;
+        modules: string | boolean;
+    })[] | (string | {
+        runtime: string;
     })[])[];
     plugins: string[];
     sourceMaps: string;

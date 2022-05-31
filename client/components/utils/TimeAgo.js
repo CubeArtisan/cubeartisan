@@ -1,4 +1,3 @@
-import React from 'react';
 import RealTimeAgo from 'react-timeago';
 
 // This is necessary because on the server react-timeago is not a function, but client it does import correctly..

@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import { Button } from '@mui/material';
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { CardBody, Col, Nav, Navbar, NavItem, Row } from 'reactstrap';
 
 import ArticlePreview from '@cubeartisan/client/components/ArticlePreview.js';

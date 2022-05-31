@@ -18,7 +18,7 @@
  */
 import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { forwardRef, useEffect, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 // import Image from 'mui-image/lib/index.js';
 
 const ImageFallback = forwardRef(({ src, fallbackSrc, alt, ...props }, ref) => {

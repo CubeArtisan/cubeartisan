@@ -34,7 +34,7 @@ export type ReplaceChange = {
     replace: any;
 };
 export type Change = AddChange | RemoveChange | ReplaceChange;
-export type ChangelistContextValue = React.Context<React.Context<ChangelistContextValue>>;
+export type ChangelistContextValue = React.Context<import("react").Context<ChangelistContextValue>>;
 import PropTypes from "prop-types";
 /**
  * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
@@ -57,6 +57,5 @@ import PropTypes from "prop-types";
  * @property {() => void} openEditCollapse
  * @type {React.Context<ChangelistContextValue>}
  */
-declare const ChangelistContext: React.Context<{}>;
-import React from "react";
+declare const ChangelistContext: import("react").Context<{}>;
 //# sourceMappingURL=ChangelistContext.d.ts.map

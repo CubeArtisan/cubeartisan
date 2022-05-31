@@ -1,4 +1,4 @@
-import React, { lazy } from 'react';
+import { lazy } from 'react';
 
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import ExternalLink from '@cubeartisan/client/components/markdown/ExternalLink.js';

@@ -19,7 +19,7 @@
 import { LoadingButton } from '@mui/lab';
 import { Autocomplete, Box, Chip, TextField, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { forwardRef, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { forwardRef, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 
 import TagContext from '@cubeartisan/client/components/contexts/TagContext.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';

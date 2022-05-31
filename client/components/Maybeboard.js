@@ -18,7 +18,7 @@
  */
 import { Box, Button, CircularProgress, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useCallback, useContext, useMemo, useState } from 'react';
+import { useCallback, useContext, useMemo, useState } from 'react';
 
 import AutocardListItem from '@cubeartisan/client/components/AutocardListItem.js';
 import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';

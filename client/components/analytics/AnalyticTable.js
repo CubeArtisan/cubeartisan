@@ -18,7 +18,7 @@
  */
 import { Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useCallback, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown.js';
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';

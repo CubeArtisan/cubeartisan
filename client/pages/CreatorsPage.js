@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import React, { lazy } from 'react';
+import { lazy } from 'react';
 import { Card, CardHeader, Nav, Spinner, TabContent, TabPane } from 'reactstrap';
 
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';

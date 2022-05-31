@@ -18,7 +18,7 @@
  */
 import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 // import Image from 'mui-image/lib/index.js';
 
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';

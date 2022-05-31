@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import React, { lazy } from 'react';
+import { lazy } from 'react';
 import { Card, CardBody, CardHeader } from 'reactstrap';
 
 import Paginate from '@cubeartisan/client/components/containers/Paginate.js';

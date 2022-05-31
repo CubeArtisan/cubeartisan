@@ -19,7 +19,7 @@
 import { Check, ContentCopy, SwapHoriz } from '@mui/icons-material';
 import { Badge, Button, IconButton, Link, Tooltip, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Chart as ChartJS } from 'react-chartjs-2';
 import {
   Card,

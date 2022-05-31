@@ -31,7 +31,7 @@ import {
   Typography,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { lazy, useCallback, useContext, useMemo, useRef, useState } from 'react';
+import { lazy, useCallback, useContext, useMemo, useRef, useState } from 'react';
 
 import {
   ContainerBody,

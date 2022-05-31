@@ -16,8 +16,6 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
-
 import PreviewCard from '@cubeartisan/client/components/utils/PreviewCard.js';
 import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType.js';
 

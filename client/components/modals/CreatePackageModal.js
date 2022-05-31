@@ -19,7 +19,7 @@
 import { LoadingButton } from '@mui/lab';
 import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Card,
   Col,

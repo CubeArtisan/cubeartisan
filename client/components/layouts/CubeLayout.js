@@ -18,7 +18,7 @@
  */
 
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import { CubeContextProvider } from '@cubeartisan/client/components/contexts/CubeContext.js';

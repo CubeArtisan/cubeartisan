@@ -18,7 +18,7 @@
  */
 import { Divider, Grid, Link, Paper, Stack, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { lazy, useContext } from 'react';
+import { lazy, useContext } from 'react';
 
 import BlogContextMenu from '@cubeartisan/client/components/BlogContextMenu.js';
 import CardHeader from '@cubeartisan/client/components/CardHeader.js';

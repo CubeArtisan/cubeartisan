@@ -1,6 +1,5 @@
 import { Box, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 const ContainerHeader = ({ title, variant, sx, children }) => (
   <Box

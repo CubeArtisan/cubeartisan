@@ -18,7 +18,6 @@
  */
 import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
-import React from 'react';
 import { Form, Input } from 'reactstrap';
 
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';

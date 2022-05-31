@@ -1,6 +1,6 @@
 import { Box, Button, Link, MenuItem, useMediaQuery, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { Children, Fragment, isValidElement, useMemo } from 'react';
+import { Children, Fragment, isValidElement, useMemo } from 'react';
 
 import StyledButtonMenu from '@cubeartisan/client/components/inputs/StyledButtonMenu.js';
 

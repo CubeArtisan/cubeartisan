@@ -30,7 +30,7 @@ import {
   Typography,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useCallback, useContext, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 
 import Changelist from '@cubeartisan/client/components/Changelist.js';
 import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';

@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 

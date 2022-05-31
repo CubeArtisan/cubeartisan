@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Card, CardBody, CardHeader, CardTitle, Col, Row } from 'reactstrap';
 
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';

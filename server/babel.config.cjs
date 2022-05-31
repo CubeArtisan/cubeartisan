@@ -13,16 +13,18 @@ module.exports = (api) => {
             proposals: true,
           },
           shippedProposals: true,
-          modules: 'cjs',
+          modules: api.env('test') ? 'cjs' : false,
         },
       ],
-      '@babel/preset-react',
+      [
+        '@babel/preset-react',
+        {
+          runtime: 'automatic',
+        },
+      ],
     ],
     plugins: ['@babel/plugin-syntax-top-level-await'],
     sourceMaps: 'both',
   };
-  if (!api.env('test')) {
-    config.presets[0][1].modules = false;
-  }
   return config;
 };

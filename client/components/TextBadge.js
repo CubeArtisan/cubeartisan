@@ -18,7 +18,6 @@
  */
 import { Box, Button } from '@mui/material';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 const TextBadge = ({ name, children, sx }) => (
   <Box sx={{ ...sx, flexDirection: 'row', display: 'flex', alignItems: 'center' }}>
