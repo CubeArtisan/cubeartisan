@@ -18,7 +18,7 @@
  */
 import { ListItem, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useCallback, useContext, useMemo } from 'react';
+import { useCallback, useContext, useMemo } from 'react';
 
 import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext.js';
 import TagContext from '@cubeartisan/client/components/contexts/TagContext.js';

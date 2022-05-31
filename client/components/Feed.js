@@ -18,7 +18,7 @@
  */
 import { Box, CircularProgress } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import BlogPost from '@cubeartisan/client/components/BlogPost.js';

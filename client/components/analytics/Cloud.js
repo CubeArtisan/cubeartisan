@@ -18,7 +18,7 @@
  */
 import { Box, Tooltip, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useCallback, useContext, useMemo } from 'react';
+import { useCallback, useContext, useMemo } from 'react';
 import { TagCloud } from 'react-tagcloud';
 
 import AsfanDropdown from '@cubeartisan/client/components/AsfanDropdown.js';

@@ -1,6 +1,6 @@
 import { CircularProgress } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { Suspense as ReactSuspense } from 'react';
+import { Suspense as ReactSuspense } from 'react';
 
 /**
  * @type {React.FC<{ fallback?: React.ReactNode }>}

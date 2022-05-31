@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import React, { forwardRef, useContext, useRef } from 'react';
+import { forwardRef, useContext, useRef } from 'react';
 
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';

@@ -19,7 +19,7 @@
 import { LoadingButton } from '@mui/lab';
 import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useCallback, useContext, useRef } from 'react';
+import { useCallback, useContext, useRef } from 'react';
 import { CustomInput, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';

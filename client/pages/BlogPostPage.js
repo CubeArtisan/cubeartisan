@@ -17,7 +17,6 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import BlogPost from '@cubeartisan/client/components/BlogPost.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';

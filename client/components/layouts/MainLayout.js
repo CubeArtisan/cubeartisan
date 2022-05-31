@@ -18,7 +18,6 @@
  */
 import { Container, Grid } from '@mui/material';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import Footer from '@cubeartisan/client/components/layouts/Footer.js';

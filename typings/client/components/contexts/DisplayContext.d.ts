@@ -36,7 +36,7 @@ import PropTypes from "prop-types";
  * @property {(size: number | string) => void} setAutoCardSize
  * @type {import('react').Context<DisplayContextValue>}
  */
-declare const DisplayContext: React.Context<{
+declare const DisplayContext: import("react").Context<{
     showCustomImages: boolean;
     toggleShowCustomImages: () => void;
     showMaybeboard: boolean;
@@ -50,5 +50,4 @@ declare const DisplayContext: React.Context<{
     autoCardSize: string;
     setAutoCardSize: () => void;
 }>;
-import React from "react";
 //# sourceMappingURL=DisplayContext.d.ts.map

@@ -18,7 +18,7 @@
  */
 import { Notifications, NotificationsActive } from '@mui/icons-material';
 import PropTypes from 'prop-types';
-import React, { useCallback, useContext, useMemo, useState } from 'react';
+import { useCallback, useContext, useMemo, useState } from 'react';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import StyledButtonMenu from '@cubeartisan/client/components/inputs/StyledButtonMenu.js';

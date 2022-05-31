@@ -18,7 +18,7 @@
  */
 import { Box, Button, Link, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useContext, useMemo, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DeckDeleteModal from '@cubeartisan/client/components/modals/DeckDeleteModal.js';

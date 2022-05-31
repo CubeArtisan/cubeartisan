@@ -18,7 +18,7 @@
  */
 import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Card, Col, Input, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
 
 import { buildDeck } from '@cubeartisan/client/drafting/deckutil.js';

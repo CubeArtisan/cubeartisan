@@ -18,7 +18,7 @@
  */
 import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';

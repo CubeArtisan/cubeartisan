@@ -22,7 +22,7 @@ export namespace MaybeboardContextProvider {
 }
 export default MaybeboardContext;
 export type Card = import('@cubeartisan/client/proptypes/CardPropType.js').Card;
-export type MaybeboardContextValue = React.Context<React.Context<MaybeboardContextValue>>;
+export type MaybeboardContextValue = React.Context<import("react").Context<MaybeboardContextValue>>;
 import PropTypes from "prop-types";
 /**
  * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
@@ -33,11 +33,10 @@ import PropTypes from "prop-types";
  * @property {Card[]} maybeboard
  * @type {React.Context<MaybeboardContextValue>}
  */
-declare const MaybeboardContext: React.Context<{
+declare const MaybeboardContext: import("react").Context<{
     maybeboard: never[];
     addMaybeboardCard: () => void;
     removeMaybeboardCard: () => void;
     updateMaybeboardCard: () => void;
 }>;
-import React from "react";
 //# sourceMappingURL=MaybeboardContext.d.ts.map

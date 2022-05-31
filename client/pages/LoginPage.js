@@ -18,7 +18,6 @@
  */
 import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
-import React from 'react';
 import { Card, CardBody, CardHeader, Col, FormGroup, Input, Label, Row } from 'reactstrap';
 
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';

@@ -18,7 +18,7 @@
  */
 import { Button, Tooltip, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { Col, Collapse, Container, Input, Row, UncontrolledAlert } from 'reactstrap';
 
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';

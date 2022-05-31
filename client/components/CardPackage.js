@@ -18,7 +18,7 @@
  */
 import { Button, Container, Divider, Grid, Link, Paper, Stack, Tooltip, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 import CardHeader from '@cubeartisan/client/components/CardHeader.js';
 import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';

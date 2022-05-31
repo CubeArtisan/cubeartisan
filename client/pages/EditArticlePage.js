@@ -18,7 +18,7 @@
  */
 import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { lazy, useContext, useEffect, useState } from 'react';
+import { lazy, useContext, useEffect, useState } from 'react';
 import { Card, CardBody, Col, FormGroup, Input, Label, Nav, Row, Spinner, TabContent, TabPane } from 'reactstrap';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';

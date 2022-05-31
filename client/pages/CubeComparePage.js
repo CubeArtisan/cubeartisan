@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 
 import CompareView from '@cubeartisan/client/components/CompareView.js';
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';

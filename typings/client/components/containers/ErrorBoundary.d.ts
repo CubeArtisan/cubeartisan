@@ -1,5 +1,5 @@
 export default ErrorBoundary;
-declare class ErrorBoundary extends React.Component<any, any, any> {
+declare class ErrorBoundary extends Component<any, any, any> {
     static getDerivedStateFromError(error: any): {
         hasError: boolean;
         error: any;
@@ -23,6 +23,6 @@ declare namespace ErrorBoundary {
         export { className_1 as className };
     }
 }
-import React from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 //# sourceMappingURL=ErrorBoundary.d.ts.map

@@ -18,7 +18,7 @@
  */
 import { responsiveFontSizes, ThemeProvider } from '@mui/material/node/styles/index.js';
 import PropTypes from 'prop-types';
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 // import useMediaQuery from '@mui/material/useMediaQuery/index.js';
 
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';

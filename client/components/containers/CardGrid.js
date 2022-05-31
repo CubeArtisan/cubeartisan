@@ -18,7 +18,7 @@
  */
 import { Grid } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';

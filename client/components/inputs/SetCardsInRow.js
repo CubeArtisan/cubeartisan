@@ -1,5 +1,5 @@
 import { Button, Grid, NativeSelect } from '@mui/material';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 

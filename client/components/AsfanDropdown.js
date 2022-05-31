@@ -27,7 +27,7 @@ import {
   Select,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { calculateAsfans } from '@cubeartisan/client/drafting/createdraft.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';

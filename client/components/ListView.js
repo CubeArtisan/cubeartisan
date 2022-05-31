@@ -19,7 +19,7 @@
 
 import { TableCell } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { Form, Input } from 'reactstrap';
 
 import PagedTable from '@cubeartisan/client/components/containers/PagedTable.js';

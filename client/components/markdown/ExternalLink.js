@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import LinkModal from '@cubeartisan/client/components/modals/LinkModal.js';

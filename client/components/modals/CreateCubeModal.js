@@ -18,7 +18,6 @@
  */
 import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
-import React from 'react';
 import { Col, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
 
 import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';

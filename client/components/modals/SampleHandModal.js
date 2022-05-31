@@ -18,7 +18,7 @@
  */
 import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Modal, ModalBody, ModalFooter, ModalHeader, NavLink } from 'reactstrap';
 
 import CardGrid from '@cubeartisan/client/components/containers/CardGrid.js';

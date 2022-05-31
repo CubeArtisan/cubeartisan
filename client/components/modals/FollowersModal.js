@@ -17,7 +17,6 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import React from 'react';
 import { Col, Modal, ModalBody, ModalHeader, Row } from 'reactstrap';
 
 import UserPreview from '@cubeartisan/client/components/UserPreview.js';

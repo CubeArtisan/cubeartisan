@@ -18,7 +18,7 @@
  */
 import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { lazy, useContext } from 'react';
+import { lazy, useContext } from 'react';
 import { Card, CardBody, FormGroup, Input, Label } from 'reactstrap';
 
 import Paginate from '@cubeartisan/client/components/containers/Paginate.js';

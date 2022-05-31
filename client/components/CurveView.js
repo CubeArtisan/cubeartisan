@@ -18,7 +18,7 @@
  */
 import { Box, Card, CardContent, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox.js';
 import AutocardListGroup from '@cubeartisan/client/components/AutocardListGroup.js';

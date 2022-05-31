@@ -17,7 +17,6 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import Comment from '@cubeartisan/client/components/Comment.js';
 import PagedList from '@cubeartisan/client/components/containers/PagedList.js';

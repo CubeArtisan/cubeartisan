@@ -1,6 +1,5 @@
 import { Paper } from '@mui/material';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import ContainerBody from '@cubeartisan/client/components/containers/ContainerBody.js';
 import ContainerFooter from '@cubeartisan/client/components/containers/ContainerFooter.js';

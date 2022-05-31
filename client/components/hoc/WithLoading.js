@@ -18,7 +18,7 @@
  */
 import { Box, CircularProgress } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 const withLoading = (Tag, handlers) => {
   const WithLoading = ({ loading, spinnerSize, opacity, ...props }) => {

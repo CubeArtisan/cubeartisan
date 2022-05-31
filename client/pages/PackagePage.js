@@ -17,7 +17,6 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import CardPackage from '@cubeartisan/client/components/CardPackage.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';

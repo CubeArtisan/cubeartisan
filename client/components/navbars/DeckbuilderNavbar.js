@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import React, { useCallback, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { Collapse, Input, Nav, Navbar, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';

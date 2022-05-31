@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import { Box } from '@mui/material';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import Alert from '@cubeartisan/client/components/wrappers/Alert.js';
 

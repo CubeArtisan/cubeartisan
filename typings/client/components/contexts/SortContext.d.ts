@@ -24,7 +24,7 @@ export type SortContextValuesNoSetter = {
 };
 import PropTypes from "prop-types";
 declare const DEFAULT_SORTS: string[];
-declare const SortContext: React.Context<{
+declare const SortContext: import("react").Context<{
     changeSort: (newValues: SortContextValuesNoSetter) => SortContextValuesNoSetter;
     primary?: string | undefined;
     secondary?: string | undefined;
@@ -32,5 +32,4 @@ declare const SortContext: React.Context<{
     quaternary?: string | undefined;
     showOther?: boolean | undefined;
 }>;
-import React from "react";
 //# sourceMappingURL=SortContext.d.ts.map

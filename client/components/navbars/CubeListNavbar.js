@@ -34,7 +34,7 @@ import {
   Typography,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useCallback, useContext, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 
 import CollapsingNavbar from '@cubeartisan/client/components/containers/CollapsingNavbar.js';
 import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext.js';

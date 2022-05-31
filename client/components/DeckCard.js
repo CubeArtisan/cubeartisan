@@ -18,7 +18,7 @@
  */
 import { Box, CircularProgress, Grid, Paper, Stack, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { lazy, useContext } from 'react';
+import { lazy, useContext } from 'react';
 
 import CardHeader from '@cubeartisan/client/components/CardHeader.js';
 import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';

@@ -16,8 +16,6 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React from 'react';
-
 import PreviewCard from '@cubeartisan/client/components/utils/PreviewCard.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { getCubeDescription, getCubeId } from '@cubeartisan/client/utils/Util.js';

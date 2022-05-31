@@ -18,7 +18,7 @@
  */
 import { Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PivotTableUI from 'react-pivottable/PivotTableUI.js';
 
 const PivotTable = ({ cards, characteristics }) => {

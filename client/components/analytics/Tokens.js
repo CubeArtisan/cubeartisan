@@ -18,7 +18,6 @@
  */
 import { Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import MassBuyButton from '@cubeartisan/client/components/inputs/MassBuyButton.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';

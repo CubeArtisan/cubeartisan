@@ -18,7 +18,6 @@
  */
 import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
-import React from 'react';
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
 const ConfirmDeleteModal = ({ isOpen, toggle, text, submitDelete }) => (

@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Card, CardHeader } from 'reactstrap';
 
 import Comment from '@cubeartisan/client/components/Comment.js';

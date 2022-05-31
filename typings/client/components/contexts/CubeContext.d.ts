@@ -15,19 +15,6 @@ export namespace CubeContextProvider {
                 colors: PropTypes.Requireable<(string | null | undefined)[]>;
                 tags: PropTypes.Requireable<(string | null | undefined)[]>;
                 details: PropTypes.Requireable<PropTypes.InferProps<{
-                    /**
-                     @typedef {import('@cubeartisan/client/proptypes/CubePropType.js').Cube} Cube
-                     @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
-                     * @typedef CubeContextValue
-                     * @property {Cube?} cube
-                     * @property {boolean} canEdit
-                     * @property {string?} cubeID
-                     * @property {boolean} hasCustomImages
-                     * @property {((cube: Cube) => void) | ((replacer: (cube: Cube) => Cube) => void)}
-                     * @property {(index: number, card: Card) => void} updateCubeCard
-                     * @property {(cards: Card[]) => void} updateCubeCards
-                     * @type {import('react').Context<CubeContextValue>}
-                     */
                     _id: PropTypes.Validator<string>;
                     name: PropTypes.Validator<string>;
                     image_normal: PropTypes.Validator<string>;
@@ -62,7 +49,7 @@ import PropTypes from "prop-types";
  * @property {(cards: Card[]) => void} updateCubeCards
  * @type {import('react').Context<CubeContextValue>}
  */
-declare const CubeContext: React.Context<{
+declare const CubeContext: import("react").Context<{
     cube: {};
     canEdit: boolean;
     cubeID: null;
@@ -71,5 +58,4 @@ declare const CubeContext: React.Context<{
     updateCubeCard: () => void;
     updateCubeCards: () => void;
 }>;
-import React from "react";
 //# sourceMappingURL=CubeContext.d.ts.map

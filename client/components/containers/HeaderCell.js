@@ -19,7 +19,6 @@
 import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material';
 import { Button, TableCell, Tooltip, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 const ICON_LOOKUP = {
   ascending: <ArrowDropUp />,

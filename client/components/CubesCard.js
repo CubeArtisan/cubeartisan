@@ -19,7 +19,7 @@
 import { ExpandMore } from '@mui/icons-material';
 import { Accordion, AccordionDetails, AccordionSummary, Grid, Link, Paper, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import CardHeader from '@cubeartisan/client/components/CardHeader.js';
 import CubePreview from '@cubeartisan/client/components/CubePreview.js';

@@ -18,7 +18,7 @@
  */
 import { Grid, Link, Tooltip, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 
 import { compareStrings, SortableTable } from '@cubeartisan/client/components/containers/SortableTable.js';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';

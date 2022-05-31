@@ -1,6 +1,6 @@
 import { Box, Stack, Tooltip, tooltipClasses, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { forwardRef, useContext } from 'react';
+import { forwardRef, useContext } from 'react';
 
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import TagContext from '@cubeartisan/client/components/contexts/TagContext.js';

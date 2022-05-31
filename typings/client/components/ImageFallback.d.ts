@@ -1,4 +1,3 @@
 export default ImageFallback;
-declare const ImageFallback: React.ForwardRefExoticComponent<React.RefAttributes<any>>;
-import React from "react";
+declare const ImageFallback: import("react").ForwardRefExoticComponent<import("react").RefAttributes<any>>;
 //# sourceMappingURL=ImageFallback.d.ts.map

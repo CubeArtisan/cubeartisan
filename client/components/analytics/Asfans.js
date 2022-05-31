@@ -18,7 +18,7 @@
  */
 import { Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import { compareStrings, SortableTable } from '@cubeartisan/client/components/containers/SortableTable.js';
