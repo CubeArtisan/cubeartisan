@@ -14,7 +14,6 @@ export namespace CubeDraftPage {
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
             }> | null | undefined)[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
         }>>;
         const draftid: PropTypes.Validator<string>;
         const loginCallback: PropTypes.Requireable<string>;

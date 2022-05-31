@@ -1,4 +1,33 @@
 export default UserPropType;
+export type Notification = import('@cubeartisan/client/proptypes/NotificationPropType.js').Notification;
+export type User = {
+    id: string;
+    email?: string | null | undefined;
+    username?: string | null | undefined;
+    about?: string | null | undefined;
+    notifications: Notification[];
+    image_name?: string | null | undefined;
+    image?: string | null | undefined;
+    artist?: string | null | undefined;
+    users_following: string[];
+    roles: string[];
+    hide_featured: boolean;
+};
+/**
+ * @typedef {import('@cubeartisan/client/proptypes/NotificationPropType.js').Notification} Notification
+ * @typedef User
+ * @property {string} id
+ * @property {string?} [email]
+ * @property {string?} [username]
+ * @property {string?} [about]
+ * @property {Notification[]} notifications
+ * @property {string?} [image_name]
+ * @property {string?} [image]
+ * @property {string?} [artist]
+ * @property {string[]} users_following
+ * @property {string[]} roles
+ * @property {boolean} hide_featured
+ */
 declare const UserPropType: PropTypes.Requireable<PropTypes.InferProps<{
     id: PropTypes.Validator<string>;
     email: PropTypes.Requireable<string>;

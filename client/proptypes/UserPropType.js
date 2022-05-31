@@ -18,6 +18,22 @@
  */
 import PropTypes from 'prop-types';
 
+/**
+ * @typedef {import('@cubeartisan/client/proptypes/NotificationPropType.js').Notification} Notification
+ * @typedef User
+ * @property {string} id
+ * @property {string?} [email]
+ * @property {string?} [username]
+ * @property {string?} [about]
+ * @property {Notification[]} notifications
+ * @property {string?} [image_name]
+ * @property {string?} [image]
+ * @property {string?} [artist]
+ * @property {string[]} users_following
+ * @property {string[]} roles
+ * @property {boolean} hide_featured
+ */
+
 const UserPropType = PropTypes.shape({
   id: PropTypes.string.isRequired,
   email: PropTypes.string,
@@ -32,5 +48,4 @@ const UserPropType = PropTypes.shape({
   roles: PropTypes.arrayOf(PropTypes.string).isRequired,
   hide_featured: PropTypes.bool,
 });
-
 export default UserPropType;

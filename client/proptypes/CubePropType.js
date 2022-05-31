@@ -18,6 +18,12 @@
  */
 import PropTypes from 'prop-types';
 
+/**
+ * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
+ * @typedef Cube
+ * @property {Card[]} cards
+ */
+
 const CubePropType = PropTypes.shape({
   cards: PropTypes.arrayOf(
     PropTypes.shape({
@@ -29,7 +35,5 @@ const CubePropType = PropTypes.shape({
       sideboards: PropTypes.number,
     }),
   ),
-  useCubeElo: PropTypes.bool,
 });
-
 export default CubePropType;

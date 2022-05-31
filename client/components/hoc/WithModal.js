@@ -63,5 +63,4 @@ const withModal = (Tag, ModalTag) => {
   }
   return WithModal;
 };
-
 export default withModal;

@@ -15,7 +15,6 @@ export namespace UserSocialPage {
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
             }> | null | undefined)[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
         }> | null | undefined)[]>;
         const followedUsers: PropTypes.Validator<(PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;

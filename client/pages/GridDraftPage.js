@@ -27,10 +27,10 @@ import SiteCustomizationContext from '@cubeartisan/client/components/contexts/Si
 import DeckStacks from '@cubeartisan/client/components/DeckStacks.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
+import CSRFForm from '@cubeartisan/client/components/inputs/CSRFForm.js';
 import CustomImageToggler from '@cubeartisan/client/components/inputs/CustomImageToggler.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import DndProvider from '@cubeartisan/client/components/utils/DndProvider.js';
 import Location, { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation.js';
 import {

@@ -16,7 +16,6 @@ export namespace ExplorePage {
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
             }> | null | undefined)[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
         }> | null | undefined)[]>;
         const featured: PropTypes.Validator<(PropTypes.InferProps<{
             cards: PropTypes.Requireable<(PropTypes.InferProps<{
@@ -27,7 +26,6 @@ export namespace ExplorePage {
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
             }> | null | undefined)[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
         }> | null | undefined)[]>;
         const drafted: PropTypes.Validator<(PropTypes.InferProps<{
             cards: PropTypes.Requireable<(PropTypes.InferProps<{
@@ -38,7 +36,6 @@ export namespace ExplorePage {
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
             }> | null | undefined)[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
         }> | null | undefined)[]>;
         const recentlyDrafted: PropTypes.Validator<(PropTypes.InferProps<{
             cards: PropTypes.Requireable<(PropTypes.InferProps<{
@@ -49,7 +46,6 @@ export namespace ExplorePage {
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
             }> | null | undefined)[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
         }> | null | undefined)[]>;
         const loginCallback: PropTypes.Requireable<string>;
     }

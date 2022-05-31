@@ -18,7 +18,6 @@ export namespace SearchPage {
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
             }> | null | undefined)[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
         }> | null | undefined)[]>;
         const query: PropTypes.Requireable<string>;
         const count: PropTypes.Requireable<number>;

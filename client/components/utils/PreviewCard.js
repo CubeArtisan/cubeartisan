@@ -2,7 +2,7 @@ import { Card, CardActionArea, CardContent, CardMedia, Link, Typography } from '
 import PropTypes from 'prop-types';
 import { useCallback } from 'react';
 
-import TimeAgo from '@cubeartisan/client/components/utils/TimeAgo.js';
+import TimeAgo from '@cubeartisan/client/components/wrappers/TimeAgo.js';
 
 const PreviewCard = ({ href, date, image, title, subtitle, username }) => {
   const handleClick = useCallback(

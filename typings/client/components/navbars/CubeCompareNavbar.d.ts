@@ -21,7 +21,6 @@ declare namespace CubeCompareNavbar {
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
             }> | null | undefined)[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
         }>>;
         const cubeB: PropTypes.Validator<PropTypes.InferProps<{
             cards: PropTypes.Requireable<(PropTypes.InferProps<{
@@ -32,7 +31,6 @@ declare namespace CubeCompareNavbar {
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
             }> | null | undefined)[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
         }>>;
         const cards: PropTypes.Validator<PropTypes.InferProps<{
             _id: PropTypes.Requireable<string>;

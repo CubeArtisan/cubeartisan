@@ -28,7 +28,7 @@ import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import AddGroupToCubeModal from '@cubeartisan/client/components/modals/AddGroupToCubeModal.js';
 import TextBadge from '@cubeartisan/client/components/TextBadge.js';
-import TimeAgo from '@cubeartisan/client/components/utils/TimeAgo.js';
+import TimeAgo from '@cubeartisan/client/components/wrappers/TimeAgo.js';
 import CardPackagePropType from '@cubeartisan/client/proptypes/CardPackagePropType.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 

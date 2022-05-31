@@ -17,7 +17,6 @@ declare namespace Cloud {
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
             }> | null | undefined)[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
         }>>;
         const defaultFormatId: PropTypes.Requireable<number>;
         const setAsfans: PropTypes.Validator<(...args: any[]) => any>;

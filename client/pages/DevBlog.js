@@ -24,8 +24,8 @@ import { Card, CardBody, FormGroup, Input, Label } from 'reactstrap';
 import Paginate from '@cubeartisan/client/components/containers/Paginate.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import CSRFForm from '@cubeartisan/client/components/inputs/CSRFForm.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 

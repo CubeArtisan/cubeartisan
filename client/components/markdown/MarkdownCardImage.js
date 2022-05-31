@@ -7,12 +7,11 @@ const MarkdownCardImage = ({ id, dfc }) => {
   const idURL = encodeURIComponent(id);
   const details = { image_normal: `/card/${idURL}/image/redirect` };
   if (dfc) details.image_flip = `/card/${idURL}/image/flip`;
-  console.log(id);
 
   return (
-    <Grid item className="card-image" xs="6" md="4" lg="3">
+    <Grid item xs="6" md="4" lg="3">
       <Link href={`/card/${idURL}`} target="_blank" rel="noopener noreferrer">
-        <FoilCardImage autocard card={{ details }} className="clickable" />
+        <FoilCardImage autocard card={{ details }} />
       </Link>
     </Grid>
   );

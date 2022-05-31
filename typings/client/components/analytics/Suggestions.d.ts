@@ -52,7 +52,6 @@ declare namespace Suggestions {
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
             }> | null | undefined)[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
         }>>;
         const filter: PropTypes.Requireable<(...args: any[]) => any>;
     }

@@ -30,7 +30,6 @@ export namespace SamplePackPage {
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
             }> | null | undefined)[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
         }>>;
         const loginCallback: PropTypes.Requireable<string>;
     }

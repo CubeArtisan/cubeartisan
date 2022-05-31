@@ -24,8 +24,8 @@ import { Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
 import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import TimeAgo from '@cubeartisan/client/components/utils/TimeAgo.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import TimeAgo from '@cubeartisan/client/components/wrappers/TimeAgo.js';
 import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 

@@ -13,16 +13,23 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with CubeArtisan.  If not, see <https://www.gnu.org/licenses/>.
- *
- * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { TouchBackend } from 'react-dnd-touch-backend';
+import PropTypes from 'prop-types';
 
-import { isTouchDevice } from '@cubeartisan/client/utils/Util.js';
+/**
+ * @typedef Notification
+ * @property {string?} [text]
+ * @property {string?} [user_from_name]
+ * @property {string?} [url]
+ * @property {string?} [user_from]
+ * @property {string?} [date]
+ */
 
-const backend = isTouchDevice() ? TouchBackend : HTML5Backend;
-
-const DndProviderWithBackend = (props) => <DndProvider backend={backend} {...props} />;
-export default DndProviderWithBackend;
+const NotificationPropType = PropTypes.shape({
+  text: PropTypes.string,
+  user_from_name: PropTypes.string,
+  url: PropTypes.string,
+  user_from: PropTypes.string,
+  date: PropTypes.string,
+});
+export default NotificationPropType;

@@ -20,7 +20,7 @@ import { Box, Divider, Stack, Typography } from '@mui/material';
 
 import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
-import TimeAgo from '@cubeartisan/client/components/utils/TimeAgo.js';
+import TimeAgo from '@cubeartisan/client/components/wrappers/TimeAgo.js';
 import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType.js';
 
 const Article = ({ article }) => (

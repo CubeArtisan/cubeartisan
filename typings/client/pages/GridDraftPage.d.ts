@@ -15,7 +15,6 @@ export namespace GridDraftPage {
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
             }> | null | undefined)[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
         }>>;
         const initialDraft: PropTypes.Validator<PropTypes.InferProps<{
             cards: PropTypes.Validator<(PropTypes.InferProps<{

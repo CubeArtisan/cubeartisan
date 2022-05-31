@@ -24,9 +24,9 @@ import { Card, CardBody, Col, FormGroup, Input, Label, Nav, Row, Spinner, TabCon
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import { AutocompleteCardField } from '@cubeartisan/client/components/inputs/AutocompleteInput.js';
+import CSRFForm from '@cubeartisan/client/components/inputs/CSRFForm.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import Tab from '@cubeartisan/client/components/Tab.js';
-import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType.js';

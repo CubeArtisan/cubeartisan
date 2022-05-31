@@ -37,8 +37,8 @@ import ChangelistContext from '@cubeartisan/client/components/contexts/Changelis
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import { AutocompleteCardField } from '@cubeartisan/client/components/inputs/AutocompleteInput.js';
+import CSRFForm from '@cubeartisan/client/components/inputs/CSRFForm.js';
 import ResizeModal from '@cubeartisan/client/components/modals/ResizeModal.js';
-import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 import { cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
 

@@ -21,10 +21,10 @@ import { useCallback, useRef, useState } from 'react';
 import { Collapse, Input, Nav, Navbar, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
+import CSRFForm from '@cubeartisan/client/components/inputs/CSRFForm.js';
 import CustomImageToggler from '@cubeartisan/client/components/inputs/CustomImageToggler.js';
 import BasicsModal from '@cubeartisan/client/components/modals/BasicsModal.js';
 import DeckDeleteModal from '@cubeartisan/client/components/modals/DeckDeleteModal.js';
-import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 
 const DeleteDeckModalLink = withModal(NavLink, DeckDeleteModal);

@@ -23,7 +23,7 @@ import { useCallback, useContext, useRef } from 'react';
 import { CustomInput, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
-import CSRFForm from '@cubeartisan/client/components/utils/CSRFForm.js';
+import CSRFForm from '@cubeartisan/client/components/inputs/CSRFForm.js';
 import { putJson } from '@cubeartisan/client/utils/CSRF.js';
 import { formDataObject } from '@cubeartisan/client/utils/Form.js';
 

@@ -68,5 +68,4 @@ const withLoading = (Tag, handlers) => {
   }
   return WithLoading;
 };
-
 export default withLoading;

@@ -1,8 +1,9 @@
+import { Link } from '@mui/material';
 import PropTypes from 'prop-types';
 
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 
-const AutocardLink = withAutocard('a');
+const AutocardLink = withAutocard(Link);
 
 const MarkdownCardLink = ({ name, cardID, dfc }) => {
   const idURL = encodeURIComponent(cardID ?? name);

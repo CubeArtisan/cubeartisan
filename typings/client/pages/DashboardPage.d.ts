@@ -28,7 +28,6 @@ export namespace DashboardPage {
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
             }> | null | undefined)[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
         }> | null | undefined)[]>;
         const decks: PropTypes.Validator<(PropTypes.InferProps<{
             _id: PropTypes.Requireable<string>;

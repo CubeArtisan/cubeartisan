@@ -16,7 +16,6 @@ export namespace CubeBlogPage {
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
             }> | null | undefined)[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
         }>>;
         const pages: PropTypes.Validator<number>;
         const activePage: PropTypes.Validator<number>;

@@ -15,7 +15,6 @@ declare namespace CubeLayout {
                 mainboards: PropTypes.Requireable<number>;
                 sideboards: PropTypes.Requireable<number>;
             }> | null | undefined)[]>;
-            useCubeElo: PropTypes.Requireable<boolean>;
         }>>;
         const activeLink: PropTypes.Validator<string>;
         const children: PropTypes.Requireable<PropTypes.ReactNodeLike>;
