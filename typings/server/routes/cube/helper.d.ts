@@ -1,7 +1,7 @@
 export const DEFAULT_BASICS: string[];
 export const CARD_HEIGHT: 680;
 export const CARD_WIDTH: 488;
-export const CSV_HEADER: "Name,CMC,Type,Color,Set,Collector Number,Rarity,Color Category,Status,Finish,Maybeboard,Image URL,Image Back URL,Tags,Notes,MTGO ID";
+export const CSV_HEADER: "Name,Override Name,CMC,Type,Color,Set,Collector Number,Rarity,Color Category,Status,Finish,Maybeboard,Image URL,Image Back URL,Tags,Notes,MTGO ID";
 export function updateCubeAndBlog(req: any, res: any, cube: any, changelog: any, added: any, missing: any): Promise<any>;
 export function bulkUpload(req: any, res: any, list: any, cube: any): Promise<void>;
 export function writeCard(res: any, card: any, maybe: any): void;
