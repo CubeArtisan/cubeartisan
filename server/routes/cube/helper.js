@@ -18,7 +18,7 @@ export const DEFAULT_BASICS = [
 export const CARD_HEIGHT = 680;
 export const CARD_WIDTH = 488;
 export const CSV_HEADER =
-  'Name,CMC,Type,Color,Set,Collector Number,Rarity,Color Category,Status,Finish,Maybeboard,Image URL,Image Back URL,Tags,Notes,MTGO ID';
+  'Name,Override Name,CMC,Type,Color,Set,Collector Number,Rarity,Color Category,Status,Finish,Maybeboard,Image URL,Image Back URL,Tags,Notes,MTGO ID';
 
 export const updateCubeAndBlog = async (req, res, cube, changelog, added, missing) => {
   try {
@@ -154,6 +154,7 @@ export const writeCard = (res, card, maybe) => {
     imgBackUrl = '';
   }
   res.write(`"${name.replace(/"/g, '""')}",`);
+  res.write(`"${card.name.replace(/"/g, '""')}",`);
   res.write(`${card.cmc},`);
   res.write(`"${card.type_line.replace('—', '-')}",`);
   res.write(`${(card.colors || []).join('')},`);
