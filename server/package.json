@@ -125,7 +125,7 @@
     "nodemon": "^2.0.16",
     "prettier": "^2.6.2",
     "supertest": "^6.2.3",
-    "webpack": "5.72.1",
+    "webpack": "5.73.0",
     "webpack-merge": "5.8.0",
     "winston2": "npm:winston@2.4.5"
   }
