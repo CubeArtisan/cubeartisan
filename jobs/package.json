@@ -62,7 +62,7 @@
     "loose-ts-check": "^1.2.0",
     "mongodb-memory-server": "^8.6.0",
     "prettier": "^2.6.2",
-    "webpack": "5.72.1",
+    "webpack": "5.73.0",
     "webpack-merge": "5.8.0"
   }
 }
