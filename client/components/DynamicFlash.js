@@ -31,8 +31,8 @@ const DynamicFlash = (props) => {
     return [];
   });
 
-  return (
-    messages.length > 0 && (
+  if (messages.length > 0) {
+    return (
       <Box marginY={1}>
         {Object.entries(messages).map(([type, inner]) =>
           inner.map((message, index) => (
@@ -47,7 +47,8 @@ const DynamicFlash = (props) => {
           )),
         )}
       </Box>
-    )
-  );
+    );
+  }
+  return null;
 };
 export default DynamicFlash;

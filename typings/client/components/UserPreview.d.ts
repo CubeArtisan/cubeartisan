@@ -4,14 +4,20 @@ declare function UserPreview({ user }: {
 }): JSX.Element;
 declare namespace UserPreview {
     namespace propTypes {
-        const user: PropTypes.Validator<PropTypes.InferProps<{
-            _id: PropTypes.Validator<string>;
-            username: PropTypes.Validator<string>;
-            image: PropTypes.Validator<string>;
-            artist: PropTypes.Validator<string>;
-            users_following: PropTypes.Requireable<string[]>;
+        const user: import("prop-types").Validator<import("prop-types").InferProps<{
+            _id: import("prop-types").Validator<string>;
+            email: import("prop-types").Requireable<string>;
+            username: import("prop-types").Requireable<string>;
+            about: import("prop-types").Requireable<string>;
+            notifications: import("prop-types").Requireable<(import("prop-types").InferProps<{}> | null | undefined)[]>;
+            image_name: import("prop-types").Requireable<string>;
+            image: import("prop-types").Requireable<string>;
+            artist: import("prop-types").Requireable<string>;
+            theme: import("prop-types").Requireable<string>;
+            users_following: import("prop-types").Requireable<string[]>;
+            roles: import("prop-types").Validator<(string | null | undefined)[]>;
+            hide_featured: import("prop-types").Requireable<boolean>;
         }>>;
     }
 }
-import PropTypes from "prop-types";
 //# sourceMappingURL=UserPreview.d.ts.map

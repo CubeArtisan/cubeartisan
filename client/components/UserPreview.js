@@ -16,51 +16,39 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import PropTypes from 'prop-types';
-import { useCallback, useState } from 'react';
-import { Card } from 'reactstrap';
+import { Box, Typography } from '@mui/material';
+import { useCallback } from 'react';
 
-import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox.js';
+import { ContainerBody, LayoutContainer } from '@cubeartisan/client/components/containers/LayoutContainer.js';
+import UserPropType from '@cubeartisan/client/proptypes/UserPropType.js';
 
 const UserPreview = ({ user }) => {
-  const [hover, setHover] = useState(false);
-  const handleMouseOver = useCallback((event) => setHover(!event.target.getAttribute('data-sublink')), []);
-  const handleMouseOut = useCallback(() => setHover(false), []);
   const handleClick = useCallback((event) => {
     window.location.href = event.currentTarget.getAttribute('data-href');
   }, []);
   const followers = user.users_following.length;
   return (
-    <Card
-      className={hover ? 'cube-preview-card hover' : 'cube-preview-card'}
-      data-href={`/user/${user._id}`}
-      onClick={handleClick}
-      onMouseOver={handleMouseOver}
-      onFocus={handleMouseOver}
-      onMouseOut={handleMouseOut}
-      onBlur={handleMouseOut}
-    >
-      <AspectRatioBox ratio={626 / 457} className="text-ellipsis">
-        {/* eslint-disable-next-line jsx-a11y/alt-text */}
-        <img className="w-100" src={user.image} />
-        <em className="cube-preview-artist">Art by {user.artist}</em>
-      </AspectRatioBox>
-      <div className="w-100 py-1 px-2 text-muted text-truncate">
-        <h5 className="mb-0">{user.username}</h5>
-        {followers} {followers === 1 ? 'follower' : 'followers'}
-      </div>
-    </Card>
+    <LayoutContainer data-href={`/user/${user._id}`} onClick={handleClick}>
+      <ContainerBody>
+        <Box sx={{ aspectRatio: 626 / 457 }}>
+          {/* eslint-disable-next-line jsx-a11y/alt-text */}
+          <Box component="img" src={user.image} alt={user.username} sx={{ width: '100%' }} />
+          <Typography component="em" variant="caption" sx={{ marginX: 2 }}>
+            Art by {user.artist}
+          </Typography>
+        </Box>
+        <Typography variant="h5">{user.username}</Typography>
+        <Typography variant="body1">
+          {' '}
+          {followers} {followers === 1 ? 'follower' : 'followers'}
+        </Typography>
+      </ContainerBody>
+    </LayoutContainer>
   );
 };
 
 UserPreview.propTypes = {
-  user: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    artist: PropTypes.string.isRequired,
-    users_following: PropTypes.arrayOf(PropTypes.string.isRequired),
-  }).isRequired,
+  user: UserPropType.isRequired,
 };
 
 export default UserPreview;

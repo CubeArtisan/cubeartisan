@@ -20,13 +20,22 @@ import { Box, Card, CardContent, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useContext } from 'react';
 
-import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox.js';
 import AutocardListGroup from '@cubeartisan/client/components/AutocardListGroup.js';
 import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { getLabels, sortDeep } from '@cubeartisan/client/utils/Sort.js';
 
-const cmc2Labels = getLabels(null, 'Mana Value 2');
+const cmc2Labels = getLabels([], 'Mana Value 2');
 
+/**
+ * @typedef TypeRowProps
+ * @property {string} cardType
+ * @property {Card[]} group
+ */
+
+/**
+ * @type {React.FC<TypeRowProps>}
+ */
 const TypeRow = ({ cardType, group }) => {
   const sorted = Object.fromEntries(sortDeep(group, false, 'Alphabetical', 'Mana Value 2'));
   return (
@@ -36,22 +45,21 @@ const TypeRow = ({ cardType, group }) => {
       </Typography>
       <Box component="span">
         {cmc2Labels.map((cmc) => (
-          <AspectRatioBox key={cmc} className="col-low-padding" ratio={cmc2Labels.length}>
+          <Box key={cmc} sx={{ aspectRatio: cmc2Labels.length }}>
             <AutocardListGroup
               heading={`${cmc} (${(sorted[cmc] || []).length})`}
               cards={sorted[cmc] || []}
               sort="Unsorted"
             />
-          </AspectRatioBox>
+          </Box>
         ))}
       </Box>
     </>
   );
 };
-
 TypeRow.propTypes = {
   cardType: PropTypes.string.isRequired,
-  group: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  group: PropTypes.arrayOf(CardPropType.isRequired).isRequired,
 };
 
 const ColorCard = ({ color, group }) => (

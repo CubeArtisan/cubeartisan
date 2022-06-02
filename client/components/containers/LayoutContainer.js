@@ -6,6 +6,15 @@ import ContainerFooter from '@cubeartisan/client/components/containers/Container
 import ContainerHeader from '@cubeartisan/client/components/containers/ContainerHeader.js';
 import HeaderFooter from '@cubeartisan/client/components/containers/HeaderFooter.js';
 
+/**
+ * @typedef {import('@mui/system').SxProps} SxProps
+ * @typedef LayoutContainerProps
+ * @property {SxProps} sx
+ * @property {React.ReactNode} children
+ */
+/**
+ * @type {React.FC<LayoutContainerProps>}
+ */
 export const LayoutContainer = ({ children, sx, ...props }) => (
   <HeaderFooter component={Paper} sx={{ borderRadius: '16px', padding: 0, ...sx }} {...props}>
     {children}

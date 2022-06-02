@@ -16,10 +16,10 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import { CardBody, CardHeader, Col, Row } from 'reactstrap';
 
-import AspectRatioBox from '@cubeartisan/client/components/AspectRatioBox.js';
 import CommentsSection from '@cubeartisan/client/components/CommentsSection.js';
 import PodcastEpisodePreview from '@cubeartisan/client/components/PodcastEpisodePreview.js';
 import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType.js';
@@ -34,9 +34,9 @@ const Podcast = ({ podcast, episodes }) => (
     </CardHeader>
     <Row>
       <Col xs="12" sm="4">
-        <AspectRatioBox ratio={1} className="text-ellipsis">
+        <Box sx={{ aspectRatio: 1 }}>
           <img className="w-100" alt={podcast.title} src={podcast.image} />
-        </AspectRatioBox>
+        </Box>
       </Col>
       <Col xs="12" sm="8">
         <CardBody dangerouslySetInnerHTML={{ __html: podcast.description }} />
