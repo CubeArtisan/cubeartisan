@@ -49,7 +49,6 @@ declare function convertCard(card: any, isExtra: any): {
     popularity: any;
     cubeCount: any;
     pickCount: any;
-    embedding: any;
     digital: any;
     isToken: boolean;
     border_color: any;

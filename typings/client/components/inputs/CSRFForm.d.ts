@@ -1,20 +1,11 @@
 export default CSRFForm;
-export type ReactNode = import('react').ReactNode;
-export type ComponentType = import('react').ForwardRefExoticComponent<{
-    children: ReactNode;
-    action: string;
-    encType?: string;
-    method?: string;
-}>;
+export type CSRFFormProps = React.ForwardRefExoticComponent<import("react").ForwardRefExoticComponent<CSRFFormProps & import("react").HTMLProps<HTMLFormElement>> & React.HTMLProps<HTMLFormElement>>;
 /**
- * @typedef {import('react').ReactNode} ReactNode
- * @typedef {import('react').ForwardRefExoticComponent<{ children: ReactNode, action: string, encType?: string, method?: string }>} ComponentType
- * @type ComponentType
+ * @typedef CSRFFormProps
+ * @property {React.ReactNode} children
+
+/**
+ * @type {React.ForwardRefExoticComponent<CSRFFormProps & React.HTMLProps<HTMLFormElement>>}
  */
-declare const CSRFForm: import("react").ForwardRefExoticComponent<{
-    children: ReactNode;
-    action: string;
-    encType?: string;
-    method?: string;
-}>;
+declare const CSRFForm: import("react").ForwardRefExoticComponent<import("react").RefAttributes<any>>;
 //# sourceMappingURL=CSRFForm.d.ts.map

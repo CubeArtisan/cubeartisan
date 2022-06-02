@@ -1,17 +1,22 @@
 export default withAutocard;
+export type Card = import('@cubeartisan/client/proptypes/CardPropType.js').Card;
 export type AutocardProps = {
-    card?: import('@cubeartisan/client/proptypes/CardPropType.js').Card;
-    front?: string;
-    back?: string;
-    tags?: string[];
+    card: Card;
+    front?: string | undefined;
+    back?: string | undefined;
+    tags?: string[] | undefined;
 };
 /**
- * @typedef {{ card?: import('@cubeartisan/client/proptypes/CardPropType.js').Card, front?: string, back?: string, tags?: string[] }} AutocardProps
+ * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
+ * @typedef AutocardProps
+ * @property {Card} card
+ * @property {string} [front]
+ * @property {string} [back]
+ * @property {string[]} [tags]
  */
 /**
- * @template {object} P
- * @param {import('react').ComponentType<P>} Tag - The tag for the autocard components
- * @returns {React.ForwardRefExoticComponent<AutocardProps & P>}
+ * @param {React.ComponentType<unknown>} Tag - The tag for the autocard components
+ * @returns {React.ForwardRefExoticComponent<AutocardProps>}
  */
-declare function withAutocard<P extends unknown>(Tag: import("react").ComponentType<P>): import("react").ForwardRefExoticComponent<AutocardProps & P>;
+declare function withAutocard(Tag: React.ComponentType<unknown>): React.ForwardRefExoticComponent<AutocardProps>;
 //# sourceMappingURL=WithAutocard.d.ts.map

@@ -31,8 +31,17 @@ import {
   cardTix,
   cardType,
   COLOR_COMBINATIONS,
+  COLORS,
+  detailsToCard,
 } from '@cubeartisan/client/utils/Card.js';
 import { alphaCompare, arrayIsSubset } from '@cubeartisan/client/utils/Util.js';
+
+/**
+ * @typedef {import('@cubeartisan/client/proptypes/CardDetailsPropType.js').Color} Color
+ * @typedef {import('@cubeartisan/client/proptypes/CardDetailsPropType.js').CardDetails} CardDetails
+ * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
+ * @typedef {import('@cubeartisan/client/proptypes/CubePropType.js').Cube} Cube
+ */
 
 const COLOR_MAP = {
   W: 'White',
@@ -99,27 +108,41 @@ const FOUR_AND_FIVE_COLOR = ['Non-White', 'Non-Blue', 'Non-Black', 'Non-Red', 'N
 
 const ELO_DEFAULT = 1200;
 
+/**
+ * @param {Date?} dateString
+ */
 function ISODateToYYYYMMDD(dateString) {
   const locale = 'en-US.js';
 
-  if (dateString === undefined) {
+  if (!dateString) {
     return undefined;
   }
 
   return new Date(dateString).toLocaleDateString(locale);
 }
 
+/**
+ * @template T
+ * @param {T[]} arr
+ */
 function removeAdjacentDuplicates(arr) {
   return arr.filter((x, i) => i === 0 || x !== arr[i - 1]);
 }
 
+/**
+ * @param {number | string} x
+ * @param {number | string} y
+ */
 function defaultSort(x, y) {
-  if (!/^\d+$/.test(x) || !/^\d+$/.test(y)) {
+  if (Number.isFinite(x) && Number.isFinite(y)) {
     return x < y ? -1 : 1;
   }
-  return parseInt(x, 10) < parseInt(y, 10) ? -1 : 1;
+  return parseInt(x.toString(), 10) < parseInt(y.toString(), 10) ? -1 : 1;
 }
 
+/**
+ * @param {Color[]} colors
+ */
 export function GetColorIdentity(colors) {
   if (colors.length === 0) {
     return 'Colorless';
@@ -128,23 +151,19 @@ export function GetColorIdentity(colors) {
     if (Object.keys(COLOR_MAP).includes(colors[0])) {
       return COLOR_MAP[colors[0]];
     }
-    if (colors[0] === 'C') {
-      return 'Colorless';
-    }
     return 'None';
   }
-  if (colors.length > 1) {
-    return 'Gold';
-  }
+  return 'Gold';
 }
 
+/**
+ * @param {Color[]} colors
+ */
 export function getColorCombination(colors) {
   if (colors.length < 2) {
     return GetColorIdentity(colors);
   }
-  const ordered = Array.from('WUBRG')
-    .filter((c) => colors.includes(c))
-    .join('');
+  const ordered = COLORS.filter((c) => colors.includes(c)).join('');
   if (colors.length === 2) {
     return GUILD_MAP[ordered];
   }
@@ -157,6 +176,10 @@ export function getColorCombination(colors) {
   return 'Five Color';
 }
 
+/**
+ * @param {string} type
+ * @param {Color[]} colors
+ */
 export function GetColorCategory(type, colors) {
   if (type.toLowerCase().includes('land')) {
     return 'Lands';
@@ -213,9 +236,36 @@ export const ORDERED_SORTS = ['Alphabetical', 'Mana Value', 'Price', 'Elo', 'Rel
 
 export const SortFunctions = {
   Alphabetical: alphaCompare,
+  /**
+   * @param {Card} a
+   * @param {Card} b
+   */
   'Mana Value': (a, b) => cardCmc(a) - cardCmc(b),
-  Price: (a, b) => cardPrice(a) - cardPrice(b),
+  /**
+   * @param {Card} a
+   * @param {Card} b
+   */
+  Price: (a, b) => {
+    const priceA = cardPrice(a);
+    const priceB = cardPrice(b);
+    if (priceA === null) {
+      if (priceB === null) return 0;
+      return -1;
+    }
+    if (priceB === null) {
+      return 1;
+    }
+    return priceA - priceB;
+  },
+  /**
+   * @param {Card} a
+   * @param {Card} b
+   */
   Elo: (a, b) => cardElo(a) - cardElo(b),
+  /**
+   * @param {Card} a
+   * @param {Card} b
+   */
   'Release Date': (a, b) => {
     if (cardReleaseDate(a) > cardReleaseDate(b)) {
       return 1;
@@ -225,15 +275,31 @@ export const SortFunctions = {
     }
     return 0;
   },
+  /**
+   * @param {Card} a
+   * @param {Card} b
+   */
   'Cube Count': (a, b) => cardCubeCount(a) - cardCubeCount(b),
+  /**
+   * @param {Card} a
+   * @param {Card} b
+   */
   'Pick Count': (a, b) => cardPickCount(a) - cardPickCount(b),
 };
 
-export const SortFunctionsOnDetails = (sort) => (a, b) => SortFunctions[sort]({ details: a }, { details: b });
+/**
+ * @param {keyof SortFunctions} sort
+ * @returns {(a: CardDetails, b: CardDetails) => number}
+ */
+export const SortFunctionsOnDetails = (sort) => (a, b) => SortFunctions[sort](detailsToCard(a), detailsToCard(b));
 
-const allDevotions = (cube, color) => {
+/**
+ * @param {Card[]} cards
+ * @param {Color} color
+ */
+const allDevotions = (cards, color) => {
   const counts = new Set();
-  for (const card of cube) {
+  for (const card of cards) {
     counts.add(cardDevotion(card, color));
   }
   return Array.from(counts).sort((a, b) => a - b);
@@ -244,6 +310,10 @@ const priceBuckets = [0.25, 0.5, 1, 2, 3, 4, 5, 7, 10, 15, 20, 25, 30, 40, 50, 7
 // returns the price bucket label at the index designating the upper bound
 // at index == 0, returns < lowest
 // at index == length, returs >= highest
+/**
+ * @param {number} index
+ * @param {string} prefix
+ */
 function priceBucketLabel(index, prefix) {
   if (index === 0) {
     return `< ${prefix}${priceBuckets[0]}`;
@@ -254,6 +324,9 @@ function priceBucketLabel(index, prefix) {
   return `${prefix}${priceBuckets[index - 1]} - ${prefix}${priceBuckets[index] - 0.01}`;
 }
 
+/**
+ * @param {number} price
+ */
 function priceBucketIndex(price) {
   if (price < priceBuckets[0]) {
     return 0;
@@ -267,24 +340,28 @@ function priceBucketIndex(price) {
   return priceBuckets.length;
 }
 
+/**
+ * @param {number} price
+ * @param {string} prefix
+ */
 function getPriceBucket(price, prefix) {
   return priceBucketLabel(priceBucketIndex(price), prefix);
 }
 
+/**
+ * @param {number} elo
+ */
 function getEloBucket(elo) {
   const bucketFloor = Math.floor(elo / 50) * 50;
   return `${bucketFloor}-${bucketFloor + 49}`;
 }
 
-function cmcToNumber(card) {
-  const cmc = cardCmc(card);
-  if (typeof cmc !== 'number') {
-    return cmc.indexOf('.') > -1 ? parseFloat(cmc) : parseInt(cmc, 10);
-  }
-  return cmc;
-}
-
-function getLabelsRaw(cube, sort, showOther) {
+/**
+ * @param {Card[]} cards
+ * @param {typeof SORTS[number]} sort
+ * @param {boolean} showOther
+ */
+function getLabelsRaw(cards, sort, showOther) {
   let ret = [];
 
   /* Start of sort Options */
@@ -307,8 +384,8 @@ function getLabelsRaw(cube, sort, showOther) {
   } else if (sort === 'Mana Value 2') {
     ret = ['0-1', '2', '3', '4', '5', '6', '7+'];
   } else if (sort === 'Mana Value Full') {
-    // All unique CMCs of cards in the cube, rounded to a half-integer
-    ret = cube.map((card) => Math.round(cmcToNumber(card) * 2) / 2);
+    // All unique CMCs of cards in the cards, rounded to a half-integer
+    ret = cards.map((card) => Math.round(cardCmc(card) * 2) / 2);
     ret = Array.from(new Set(ret))
       .sort((a, b) => a - b)
       .map((n) => n.toString());
@@ -320,7 +397,7 @@ function getLabelsRaw(cube, sort, showOther) {
     ret = ['Snow', 'Legendary', 'Tribal', 'Basic', 'Elite', 'Host', 'Ongoing', 'World'];
   } else if (sort === 'Tags') {
     const tags = [];
-    for (const card of cube) {
+    for (const card of cards) {
       for (const tag of card.tags) {
         if (tag.length > 0 && !tags.includes(tag)) {
           tags.push(tag);
@@ -329,9 +406,11 @@ function getLabelsRaw(cube, sort, showOther) {
     }
     ret = tags.sort();
   } else if (sort === 'Date Added') {
-    const dates = cube.map((card) => card.addedTmsp).sort((a, b) => a - b);
-    const days = dates.map((date) => ISODateToYYYYMMDD(date));
-    ret = removeAdjacentDuplicates(days);
+    const dates = cards
+      .map((card) => card.addedTmsp)
+      .map((date) => ISODateToYYYYMMDD(date ?? ''))
+      .sort((a, b) => a - b);
+    ret = removeAdjacentDuplicates(dates);
   } else if (sort === 'Status') {
     ret = ['Not Owned', 'Ordered', 'Owned', 'Premium Owned', 'Proxied'];
   } else if (sort === 'Finish') {
@@ -344,7 +423,7 @@ function getLabelsRaw(cube, sort, showOther) {
     ret = ['0', '1', '2', '3', '4', '5'];
   } else if (sort === 'Set') {
     const sets = [];
-    for (const card of cube) {
+    for (const card of cards) {
       if (!sets.includes(card.details.set.toUpperCase())) {
         sets.push(card.details.set.toUpperCase());
       }
@@ -352,7 +431,7 @@ function getLabelsRaw(cube, sort, showOther) {
     ret = sets.sort();
   } else if (sort === 'Artist') {
     const artists = [];
-    for (const card of cube) {
+    for (const card of cards) {
       if (!artists.includes(card.details.artist)) {
         artists.push(card.details.artist);
       }
@@ -366,8 +445,8 @@ function getLabelsRaw(cube, sort, showOther) {
     ret = ['0–1%', '1–2%', '3–5%', '5–8', '8–12%', '12–20%', '20–30%', '30–50%', '50–100%'];
   } else if (sort === 'Subtype') {
     const types = new Set();
-    for (const card of cube) {
-      const split = card.type_line.split(/[-–—]/);
+    for (const card of cards) {
+      const split = cardType(card).split(/[-–—]/);
       if (split.length > 1) {
         const subtypes = split[1].trim().split(' ');
         const nonemptySubtypes = subtypes.filter((x) => x.trim());
@@ -387,7 +466,7 @@ function getLabelsRaw(cube, sort, showOther) {
     ret = ['Standard', 'Modern', 'Legacy', 'Vintage', 'Pioneer', 'Brawl', 'Historic', 'Pauper', 'Penny', 'Commander'];
   } else if (sort === 'Power') {
     const items = [];
-    for (const card of cube) {
+    for (const card of cards) {
       if (card.details.power) {
         if (!items.includes(card.details.power)) {
           items.push(card.details.power);
@@ -397,7 +476,7 @@ function getLabelsRaw(cube, sort, showOther) {
     ret = items.sort(defaultSort);
   } else if (sort === 'Toughness') {
     const items = [];
-    for (const card of cube) {
+    for (const card of cards) {
       if (card.details.toughness) {
         if (!items.includes(card.details.toughness)) {
           items.push(card.details.toughness);
@@ -407,7 +486,7 @@ function getLabelsRaw(cube, sort, showOther) {
     ret = items.sort(defaultSort);
   } else if (sort === 'Loyalty') {
     const items = [];
-    for (const card of cube) {
+    for (const card of cards) {
       if (card.details.loyalty) {
         if (!items.includes(card.details.loyalty)) {
           items.push(card.details.loyalty);
@@ -441,18 +520,18 @@ function getLabelsRaw(cube, sort, showOther) {
     labels.push('No Price Available');
     ret = labels;
   } else if (sort === 'Devotion to White') {
-    ret = allDevotions(cube, 'W');
+    ret = allDevotions(cards, 'W');
   } else if (sort === 'Devotion to Blue') {
-    ret = allDevotions(cube, 'U');
+    ret = allDevotions(cards, 'U');
   } else if (sort === 'Devotion to Black') {
-    ret = allDevotions(cube, 'B');
+    ret = allDevotions(cards, 'B');
   } else if (sort === 'Devotion to Red') {
-    ret = allDevotions(cube, 'R');
+    ret = allDevotions(cards, 'R');
   } else if (sort === 'Devotion to Green') {
-    ret = allDevotions(cube, 'G');
+    ret = allDevotions(cards, 'G');
   } else if (sort === 'Elo') {
     let elos = [];
-    for (const card of cube) {
+    for (const card of cards) {
       const elo = card.details.elo ?? ELO_DEFAULT;
       if (!elos.includes(elo)) {
         elos.push(elo);
@@ -474,7 +553,12 @@ function getLabelsRaw(cube, sort, showOther) {
   return showOther ? [...ret, ' Other '] : ret;
 }
 
-export function cardGetLabels(card, sort, showOther) {
+/**
+ * @param {Card} card
+ * @param {typeof SORTS[number]} sort
+ * @param {boolean} showOther
+ */
+export function cardGetLabels(card, sort, showOther = false) {
   let ret = [];
   /* Start of sort options */
   if (sort === 'Color Category') {
@@ -495,29 +579,28 @@ export function cardGetLabels(card, sort, showOther) {
   } else if (sort === 'Includes Color Combination') {
     ret = COLOR_COMBINATIONS.filter((comb) => arrayIsSubset(comb, cardColorIdentity(card))).map(getColorCombination);
   } else if (sort === 'Color') {
-    if (card.details.colors.length === 0) {
+    const colors = card.details.colors ?? [];
+    if (colors.length === 0) {
       ret = ['Colorless'];
     } else {
-      ret = card.details.colors.map((c) => COLOR_MAP[c]).filter((c) => c);
+      ret = colors.map((c) => COLOR_MAP[c]).filter((c) => c);
     }
   } else if (sort === '4+ Color') {
     if (cardColorIdentity(card).length === 5) {
       ret = ['Five Color'];
     } else if (cardColorIdentity(card).length === 4) {
-      ret = Array.from('WUBRG')
-        .filter((c) => !cardColorIdentity(card).includes(c))
-        .map((c) => `Non-${COLOR_MAP[c]}`);
+      ret = COLORS.filter((c) => !cardColorIdentity(card).includes(c)).map((c) => `Non-${COLOR_MAP[c]}`);
     }
   } else if (sort === 'Mana Value') {
     // Sort by CMC, but collapse all >= 8 into '8+' category.
-    const cmc = Math.round(cmcToNumber(card));
+    const cmc = Math.round(cardCmc(card));
     if (cmc >= 8) {
       ret = ['8+'];
     } else {
       ret = [cmc.toString()];
     }
   } else if (sort === 'Mana Value 2') {
-    const cmc = Math.round(cmcToNumber(card));
+    const cmc = Math.round(cardCmc(card));
     if (cmc >= 7) {
       ret = ['7+'];
     } else if (cmc <= 1) {
@@ -527,7 +610,7 @@ export function cardGetLabels(card, sort, showOther) {
     }
   } else if (sort === 'Mana Value Full') {
     // Round to half-integer.
-    ret = [(Math.round(cmcToNumber(card) * 2) / 2).toString()];
+    ret = [(Math.round(cardCmc(card) * 2) / 2).toString()];
   } else if (sort === 'Supertype' || sort === 'Type') {
     const split = cardType(card).split(/[-–—]/);
     let types;
@@ -549,7 +632,7 @@ export function cardGetLabels(card, sort, showOther) {
     } else if (types.includes('Plane')) {
       ret = ['Plane'];
     } else {
-      const labels = getLabelsRaw(null, sort, showOther);
+      const labels = getLabelsRaw([], sort, showOther);
       ret = types.filter((t) => labels.includes(t));
     }
   } else if (sort === 'Tags') {
@@ -562,16 +645,12 @@ export function cardGetLabels(card, sort, showOther) {
     ret = [ISODateToYYYYMMDD(card.addedTmsp)];
   } else if (sort === 'Guilds') {
     if (cardColorIdentity(card).length === 2) {
-      const ordered = Array.from('WUBRG')
-        .filter((c) => cardColorIdentity(card).includes(c))
-        .join('');
+      const ordered = COLORS.filter((c) => cardColorIdentity(card).includes(c)).join('');
       ret = [GUILD_MAP[ordered]];
     }
   } else if (sort === 'Shards / Wedges') {
     if (cardColorIdentity(card).length === 3) {
-      const ordered = Array.from('WUBRG')
-        .filter((c) => cardColorIdentity(card).includes(c))
-        .join('');
+      const ordered = COLORS.filter((c) => cardColorIdentity(card).includes(c)).join('');
       ret = [SHARD_AND_WEDGE_MAP[ordered]];
     }
   } else if (sort === 'Color Count') {
@@ -642,10 +721,11 @@ export function cardGetLabels(card, sort, showOther) {
       ret = [parseInt(card.details.loyalty, 10)];
     }
   } else if (sort === 'Manacost Type') {
-    if (card.details.colors.length > 1 && card.details.parsed_cost.every((symbol) => !symbol.includes('-'))) {
+    const colors = card.details.colors ?? [];
+    if (colors.length > 1 && card.details.parsed_cost.every((symbol) => !symbol.includes('-'))) {
       ret = ['Gold'];
     } else if (
-      card.details.colors.length > 1 &&
+      colors.length > 1 &&
       card.details.parsed_cost.some((symbol) => symbol.includes('-') && !symbol.includes('-p'))
     ) {
       ret = ['Hybrid'];
@@ -683,15 +763,15 @@ export function cardGetLabels(card, sort, showOther) {
       ret = ['No Price Available'];
     }
   } else if (sort === 'Devotion to White') {
-    ret = [cardDevotion(card, 'w').toString()];
+    ret = [cardDevotion(card, 'W').toString()];
   } else if (sort === 'Devotion to Blue') {
-    ret = [cardDevotion(card, 'u').toString()];
+    ret = [cardDevotion(card, 'U').toString()];
   } else if (sort === 'Devotion to Black') {
-    ret = [cardDevotion(card, 'b').toString()];
+    ret = [cardDevotion(card, 'B').toString()];
   } else if (sort === 'Devotion to Red') {
-    ret = [cardDevotion(card, 'r').toString()];
+    ret = [cardDevotion(card, 'R').toString()];
   } else if (sort === 'Devotion to Green') {
-    ret = [cardDevotion(card, 'g').toString()];
+    ret = [cardDevotion(card, 'G').toString()];
   } else if (sort === 'Unsorted') {
     ret = ['All'];
   } else if (sort === 'Popularity') {
@@ -717,17 +797,29 @@ export function cardGetLabels(card, sort, showOther) {
   return ret;
 }
 
+/**
+ * @param {Card} card
+ * @param {typeof SORTS[number]} sort
+ */
 export function cardCanBeSorted(card, sort) {
   return cardGetLabels(card, sort).length !== 0;
 }
 
+/**
+ * @param {Card} card
+ * @param {string} label
+ * @param {typeof SORTS[number]} sort
+ */
 export function cardIsLabel(card, label, sort) {
   return cardGetLabels(card, sort).includes(label);
 }
 
+/**
+ * @param {(string|Date)?} label
+ */
 export function formatLabel(label) {
-  if (label === undefined) {
-    return 'unknown';
+  if (!label) {
+    return 'Unknown';
   }
   if (label instanceof Date) {
     return ISODateToYYYYMMDD(label);
@@ -736,13 +828,27 @@ export function formatLabel(label) {
 }
 
 // Get labels in string form.
-export function getLabels(cube, sort, showOther) {
-  return getLabelsRaw(cube, sort, showOther).map(formatLabel);
+/**
+ * @param {Card[]} cards
+ * @param {typeof SORTS[number]} sort
+ * @param {boolean} showOther
+ */
+export function getLabels(cards, sort, showOther = false) {
+  return getLabelsRaw(cards, sort, showOther).map(formatLabel);
 }
 
-export function sortGroupsOrdered(cards, sort, showOther) {
+/**
+ * @param {Card[]} cards
+ * @param {typeof SORTS[number]} sort
+ * @param {boolean} showOther
+ */
+export function sortGroupsOrdered(cards, sort, showOther = false) {
   const labels = getLabelsRaw(cards, sort, showOther);
   const allCardLabels = cards.map((card) => [card, cardGetLabels(card, sort, showOther)]);
+  /**
+   * @param {typeof allCardLabels[number]} x
+   * @param {typeof allCardLabels[number]} y
+   */
   const compare = (x, y) => labels.indexOf(x) - labels.indexOf(y);
   const byLabel = {};
   for (const [card, cardLabels] of allCardLabels) {
@@ -759,10 +865,21 @@ export function sortGroupsOrdered(cards, sort, showOther) {
   return labels.filter((label) => byLabel[label]).map((label) => [formatLabel(label), byLabel[label]]);
 }
 
-export function sortIntoGroups(cards, sort, showOther) {
+/**
+ * @param {Card[]} cards
+ * @param {typeof SORTS[number]} sort
+ * @param {boolean} showOther
+ */
+export function sortIntoGroups(cards, sort, showOther = false) {
   return Object.fromEntries(sortGroupsOrdered(cards, sort, showOther));
 }
 
+/**
+ * @param {Card[]} cards
+ * @param {boolean} showOther
+ * @param {typeof SORTS[number]} last
+ * @param {(typeof SORTS[number])[]} sorts
+ */
 export function sortDeep(cards, showOther, last, ...sorts) {
   if (sorts.length === 0) {
     return Array.from(cards).sort(SortFunctions[last]);
@@ -787,6 +904,14 @@ export function countGroup(group) {
   return group.length;
 }
 
+/**
+ * @param {Card[]} cards
+ * @param {typeof SORTS[number]} primary
+ * @param {typeof SORTS[number]} secondary
+ * @param {typeof SORTS[number]} tertiary
+ * @param {typeof SORTS[number]} quaternary
+ * @param {boolean} showOther
+ */
 export function sortForDownload(
   cards,
   primary = 'Color Category',
@@ -796,8 +921,8 @@ export function sortForDownload(
   showOther = false,
 ) {
   const exportCards = [];
-  cards = sortDeep(cards, showOther, quaternary, primary, secondary, tertiary);
-  for (const firstGroup of cards) {
+  const sortedCards = sortDeep(cards, showOther, quaternary, primary, secondary, tertiary);
+  for (const firstGroup of sortedCards) {
     for (const secondGroup of firstGroup[1]) {
       for (const thirdGroup of secondGroup[1]) {
         for (const card of thirdGroup[1]) {

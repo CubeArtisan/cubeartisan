@@ -11,20 +11,22 @@ import { cardFullName, cardTags } from '@cubeartisan/client/utils/Card.js';
 const placeholderClass = () => '';
 
 /**
- * @typedef {{ card?: import('@cubeartisan/client/proptypes/CardPropType.js').Card, front?: string, back?: string, tags?: string[] }} AutocardProps
+ * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
+ * @typedef AutocardProps
+ * @property {Card} card
+ * @property {string} [front]
+ * @property {string} [back]
+ * @property {string[]} [tags]
  */
 
 /**
- * @template {object} P
- * @param {import('react').ComponentType<P>} Tag - The tag for the autocard components
- * @returns {React.ForwardRefExoticComponent<AutocardProps & P>}
+ * @param {React.ComponentType<unknown>} Tag - The tag for the autocard components
+ * @returns {React.ForwardRefExoticComponent<AutocardProps>}
  */
 const withAutocard = (Tag) => {
   /**
-   * @typedef {import('react').ForwardRefExoticComponent<AutocardProps & P>} ComponentType
-   * @type ComponentType
+   * @type {React.ForwardRefExoticComponent<AutocardProps>}
    */
-  // @ts-ignore
   const WithAutocard = forwardRef(({ card, front, back, tags, ...props }, ref) => {
     const tagContext = useContext(TagContext);
     const tagColorClass = tagContext?.tagColorClass ?? placeholderClass;
@@ -76,11 +78,13 @@ const withAutocard = (Tag) => {
           },
         }}
       >
+        {/* @ts-ignore */}
         <Tag ref={ref} card={card} {...props} />
       </Tooltip>
     );
   });
   WithAutocard.propTypes = {
+    // @ts-ignore
     card: CardPropType.isRequired,
     front: PropTypes.string,
     back: PropTypes.string,
@@ -88,10 +92,9 @@ const withAutocard = (Tag) => {
     ...Tag.propTypes,
   };
   WithAutocard.defaultProps = {
-    card: null,
-    front: null,
-    back: null,
-    tags: null,
+    front: undefined,
+    back: undefined,
+    tags: undefined,
     ...Tag.defaultProps,
   };
   if (typeof Tag === 'string') {

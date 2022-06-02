@@ -13,24 +13,33 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with CubeArtisan.  If not, see <https://www.gnu.org/licenses/>.
- *
- * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
 
 /**
- * @typedef CardPrices
- * @property {number?} usd
- * @property {number?} usd_foil
- * @property {number?} eur
- * @property {number?} tix
+ * @typedef CardLegalities
+ * @property {string} Legacy
+ * @property {string} Modern
+ * @property {string} Standard
+ * @property {string} Pauper
+ * @property {string} Pioneer
+ * @property {string} Brawl
+ * @property {string} Historic
+ * @property {string} Commander
+ * @property {string} Penny
+ * @property {string} Vintage
  */
 
-const CardPricePropType = PropTypes.shape({
-  usd: PropTypes.number,
-  usd_foil: PropTypes.number,
-  eur: PropTypes.number,
-  tix: PropTypes.number,
+const CardLegalitiesPropType = PropTypes.shape({
+  Legacy: PropTypes.string,
+  Modern: PropTypes.string,
+  Standard: PropTypes.string,
+  Pauper: PropTypes.string,
+  Pioneer: PropTypes.string,
+  Brawl: PropTypes.string,
+  Historic: PropTypes.string,
+  Commander: PropTypes.string,
+  Penny: PropTypes.string,
+  Vintage: PropTypes.string,
 });
-
-export default CardPricePropType;
+export default CardLegalitiesPropType;

@@ -16,33 +16,22 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import PropTypes from 'prop-types';
-import { forwardRef, useCallback } from 'react';
+import { forwardRef } from 'react';
 
 import { getCsrfToken } from '@cubeartisan/client/utils/CSRF.js';
 
 /**
- * @typedef {import('react').ReactNode} ReactNode
- * @typedef {import('react').ForwardRefExoticComponent<{ children: ReactNode, action: string, encType?: string, method?: string }>} ComponentType
- * @type ComponentType
+ * @typedef CSRFFormProps
+ * @property {React.ReactNode} children
+
+/**
+ * @type {React.ForwardRefExoticComponent<CSRFFormProps & React.HTMLProps<HTMLFormElement>>}
  */
-const CSRFForm = forwardRef(({ children, ...props }, ref) => {
-  /**
-   * @typedef {import('react').FC}
-   */
-  const CSRFFormInternal = useCallback(
-    () => (
-      <form ref={ref} {...props}>
-        <input type="hidden" name="_csrf" value={getCsrfToken() ?? ''} />
-        {children}
-      </form>
-    ),
-    [ref, props, children],
-  );
-  CSRFFormInternal.displayName = 'CSRFForm';
-  return <CSRFFormInternal />;
-});
-CSRFForm.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+const CSRFForm = forwardRef(({ children /* eslint-disable-line */, ...props }, ref) => (
+  <form ref={ref} {...props}>
+    <input type="hidden" name="_csrf" value={getCsrfToken() ?? ''} />
+    {children}
+  </form>
+));
+CSRFForm.displayName = 'CSRFForm';
 export default CSRFForm;

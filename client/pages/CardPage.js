@@ -46,7 +46,6 @@ import CountTableRow from '@cubeartisan/client/components/CountTableRow.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
-import ImageFallback from '@cubeartisan/client/components/ImageFallback.js';
 import ButtonLink from '@cubeartisan/client/components/inputs/ButtonLink.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
@@ -54,8 +53,9 @@ import AddToCubeModal from '@cubeartisan/client/components/modals/AddToCubeModal
 import Tab from '@cubeartisan/client/components/Tab.js';
 import TextBadge from '@cubeartisan/client/components/TextBadge.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 import CardDataPointPropType from '@cubeartisan/client/proptypes/CardDataPointPropType.js';
-import CardPricePropType from '@cubeartisan/client/proptypes/CardPricePropType.js';
+import CardDetailsPropType from '@cubeartisan/client/proptypes/CardDetailsPropType.js';
 import {
   getCardHoarderLink,
   getCardKingdomLink,
@@ -67,10 +67,12 @@ import {
   cardCubeCount,
   cardElo,
   cardFoilPrice,
+  cardName,
   cardPopularity,
   cardPrice,
   cardPriceEur,
   cardTix,
+  detailsToCard,
 } from '@cubeartisan/client/utils/Card.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
@@ -257,7 +259,7 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
   const [selectedTab, setSelectedTab] = useQueryParam('tab', '0');
   const [priceType, setPriceType] = useQueryParam('priceType', 'price');
   const [cubeType, setCubeType] = useQueryParam('cubeType', 'total');
-  const [imageUsed, setImageUsed] = useState(card.image_normal);
+  const [back, toggleBack] = useToggle(false);
 
   const sortedVersions = versions.sort((a, b) => {
     const date1 = new Date(a.released_at);
@@ -273,75 +275,65 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
   });
 
   const filteredVersions = sortedVersions.filter((version) => version._id !== card._id);
+  const fullCard = detailsToCard(card);
 
   return (
     <MainLayout loginCallback={loginCallback}>
       <DynamicFlash />
       <Card className="mt-2">
         <CardHeader>
-          <h4>{card.name}</h4>
+          <h4>{cardName(fullCard)}</h4>
           <h6>{`${card.set_name} [${card.set.toUpperCase()}-${card.collector_number}]`}</h6>
         </CardHeader>
         <Row className="mt-2" noGutters>
           <Col className="pl-2 pb-2" xs="12" sm="3">
-            <ImageFallback src={imageUsed} fallbackSrc="/content/default_card.png" alt={card.name} />
+            <CardImage card={card} back={back} />
             {card.image_flip && (
-              <Button
-                color="success"
-                variant="outlined"
-                onClick={() => {
-                  if (imageUsed === card.image_normal) {
-                    setImageUsed(card.image_flip);
-                  } else {
-                    setImageUsed(card.image_normal);
-                  }
-                }}
-                endIcon={<SwapHoriz />}
-              >
+              <Button color="success" variant="outlined" onClick={toggleBack} endIcon={<SwapHoriz />}>
                 Transform
               </Button>
             )}
             <CardBody className="breakdown p-1">
               <p>
-                Played in {cardPopularity({ details: card })}%
-                <span className="percent">{cardCubeCount({ details: card })}</span> Cubes total.
+                Played in {cardPopularity(fullCard)}%<span className="percent">{cardCubeCount(fullCard)}</span> Cubes
+                total.
               </p>
               <AddModal color="success" fullWidth variant="outlined" modalProps={{ card, hideAnalytics: true }}>
                 Add to Cube...
               </AddModal>
               <CardIdBadge id={card._id} />
-              {card.prices && Number.isFinite(cardPrice({ details: card })) && (
+              {card.prices && Number.isFinite(cardPrice(fullCard)) && (
                 <TextBadge name="Price">
                   <Tooltip title="TCGPlayer Market Price">
-                    <Typography variant="body1">${cardPrice({ details: card }).toFixed(2)}</Typography>
+                    <Typography variant="body1">${cardPrice(fullCard).toFixed(2)}</Typography>
                   </Tooltip>
                 </TextBadge>
               )}
-              {card.prices && Number.isFinite(cardFoilPrice({ details: card })) && (
+              {card.prices && Number.isFinite(cardFoilPrice(fullCard)) && (
                 <TextBadge name="Foil">
                   <Tooltip title="TCGPlayer Market Price">
-                    <Typography variant="body1">${cardFoilPrice({ details: card }).toFixed(2)}</Typography>
+                    <Typography variant="body1">${cardFoilPrice(fullCard).toFixed(2)}</Typography>
                   </Tooltip>
                 </TextBadge>
               )}
-              {card.prices && Number.isFinite(cardPriceEur({ details: card })) && (
+              {card.prices && Number.isFinite(cardPriceEur(fullCard)) && (
                 <TextBadge name="EUR">
                   <Tooltip title="Cardmarket Price">
-                    <Typography variant="body1">€{cardPriceEur({ details: card }).toFixed(2)}</Typography>
+                    <Typography variant="body1">€{cardPriceEur(fullCard).toFixed(2)}</Typography>
                   </Tooltip>
                 </TextBadge>
               )}
-              {card.prices && Number.isFinite(cardTix({ details: card })) && (
+              {card.prices && Number.isFinite(cardTix(fullCard)) && (
                 <TextBadge name="TIX">
                   <Tooltip title="MTGO TIX">
-                    <Typography variant="body1">{cardTix({ details: card }).toFixed(2)}</Typography>
+                    <Typography variant="body1">{cardTix(fullCard).toFixed(2)}</Typography>
                   </Tooltip>
                 </TextBadge>
               )}
-              {Number.isFinite(cardElo({ details: card })) && (
+              {Number.isFinite(cardElo(fullCard)) && (
                 <TextBadge name="Elo">
                   <Tooltip title="Elo">
-                    <Typography variant="body1">{cardElo({ details: card }).toFixed(0)}</Typography>
+                    <Typography variant="body1">{cardElo(fullCard).toFixed(0)}</Typography>
                   </Tooltip>
                 </TextBadge>
               )}
@@ -761,30 +753,8 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
     </MainLayout>
   );
 };
-
 CardPage.propTypes = {
-  card: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    elo: PropTypes.number.isRequired,
-    image_normal: PropTypes.string.isRequired,
-    image_flip: PropTypes.string,
-    scryfall_uri: PropTypes.string.isRequired,
-    tcgplayer_id: PropTypes.number.isRequired,
-    _id: PropTypes.string.isRequired,
-    set: PropTypes.string.isRequired,
-    set_name: PropTypes.string.isRequired,
-    collector_number: PropTypes.string.isRequired,
-    legalities: PropTypes.shape({}).isRequired,
-    parsed_cost: PropTypes.arrayOf(PropTypes.string).isRequired,
-    oracle_text: PropTypes.string.isRequired,
-    oracle_id: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    artist: PropTypes.string.isRequired,
-    loyalty: PropTypes.string.isRequired,
-    power: PropTypes.string.isRequired,
-    toughness: PropTypes.shape({}).isRequired,
-    prices: CardPricePropType.isRequired,
-  }).isRequired,
+  card: CardDetailsPropType.isRequired,
   data: PropTypes.shape({
     history: PropTypes.arrayOf(CardDataPointPropType).isRequired,
     current: CardDataPointPropType,
@@ -821,20 +791,10 @@ CardPage.propTypes = {
       }),
     ).isRequired,
   }).isRequired,
-  versions: PropTypes.arrayOf(
-    PropTypes.shape({
-      set_name: PropTypes.string.isRequired,
-      image_normal: PropTypes.string.isRequired,
-      image_flip: PropTypes.string,
-      collector_number: PropTypes.string,
-      prices: CardPricePropType.isRequired,
-    }).isRequired,
-  ).isRequired,
+  versions: PropTypes.arrayOf(CardDetailsPropType.isRequired).isRequired,
   loginCallback: PropTypes.string,
 };
-
 CardPage.defaultProps = {
   loginCallback: '/',
 };
-
 export default RenderToRoot(CardPage);

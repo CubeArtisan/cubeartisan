@@ -16,6 +16,17 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+
+/**
+ * @typedef {import('@cubeartisan/client/proptypes/CubePropType.js').Cube} Cube
+ * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
+ */
+
+/**
+ * @template T
+ * @param {T[]} a
+ * @param {T[]} b
+ */
 export const arraysEqual = (a, b) => {
   if (a === b) return true;
   if (!Array.isArray(a) || !Array.isArray(b)) return false;
@@ -27,12 +38,21 @@ export const arraysEqual = (a, b) => {
   return true;
 };
 
+/**
+ * @template T
+ * @param {T[]} arr
+ * @param {boolean} reverse
+ */
 export const arrayRotate = (arr, reverse) => {
   if (reverse) arr.unshift(arr.pop());
   else arr.push(arr.shift());
   return arr;
 };
 
+/**
+ * @template T
+ * @param {T[]} array
+ */
 export const arrayShuffle = (array) => {
   let currentIndex = array.length;
   let temporaryValue;
@@ -53,6 +73,12 @@ export const arrayShuffle = (array) => {
   return array;
 };
 
+/**
+ * @template T
+ * @param {T[]} arr
+ * @param {number} oldIndex
+ * @param {number} newIndex
+ */
 export const arrayMove = (arr, oldIndex, newIndex) => {
   const result = Array.from(arr);
   const [element] = result.splice(oldIndex, 1);
@@ -60,12 +86,23 @@ export const arrayMove = (arr, oldIndex, newIndex) => {
   return result;
 };
 
+/**
+ * @template T
+ * @param {T[]} arr
+ * @param {number} index
+ */
 export const arrayDelete = (arr, index) => {
   const result = Array.from(arr);
   result.splice(index, 1);
   return result;
 };
 
+/**
+ * @template T
+ * @param {T[]} needles
+ * @param {T[]} haystack
+ * @param {((a: T, b: T) => boolean)?} [comparison]
+ */
 export const arrayIsSubset = (needles, haystack, comparison) => {
   if (comparison) {
     return needles.every((elem) => haystack.some((elem2) => comparison(elem, elem2)));
@@ -73,6 +110,12 @@ export const arrayIsSubset = (needles, haystack, comparison) => {
   return needles.every((x) => haystack.includes(x));
 };
 
+/**
+ * @template T
+ * @param {T[]} a1
+ * @param {T[]} a2
+ * @param {((a: T, b: T) => boolean)?} [comparison]
+ */
 export const arraysAreEqualSets = (a1, a2, comparison) => {
   if (a1.length !== a2.length) {
     return false;
@@ -88,25 +131,33 @@ export const arraysAreEqualSets = (a1, a2, comparison) => {
   return a1.every((x) => set2.has(x)) && a2.every((x) => set1.has(x));
 };
 
+/**
+ * @template T
+ * @param {T[]} array
+ */
 export const randomElement = (array) => {
   const randomIndex = Math.floor(Math.random() * array.length);
   return array[randomIndex];
 };
 
+/**
+ * @param {Card} a
+ * @param {Card} b
+ */
 export const alphaCompare = (a, b) => {
   const textA = (a?.name ?? a?.details?.name)?.toUpperCase?.();
   const textB = (b?.name ?? b?.details?.name)?.toUpperCase?.();
   return textA?.localeCompare?.(textB);
 };
 
+/**
+ * @param {Card} card
+ */
 export const cmcColumn = (card) => {
-  let cmc = Object.prototype.hasOwnProperty.call(card, 'cmc') ? card.cmc : card.details.cmc;
+  let cmc = card.cmc ?? card.details.cmc;
   // double equals also handles undefined
   if (cmc == null) {
     cmc = 0;
-  }
-  if (!Number.isFinite(cmc)) {
-    cmc = cmc.indexOf('.') > -1 ? parseFloat(cmc) : parseInt(cmc, 10);
   }
   // Round to half-integer then take ceiling to support Little Girl
   const cmcDoubleInt = Math.round(cmc * 2);
@@ -120,8 +171,12 @@ export const cmcColumn = (card) => {
   return cmcInt;
 };
 
+/**
+ * @param {Card} card
+ * @param {Card[][][]} result
+ */
 function sortInto(card, result) {
-  const typeLine = (card.type_line || card.details.type).toLowerCase();
+  const typeLine = (card.type_line ?? card.details.type).toLowerCase();
   const row = typeLine.includes('creature') ? 0 : 1;
   const column = cmcColumn(card);
   if (result[row][column].length === 0) {
@@ -131,6 +186,9 @@ function sortInto(card, result) {
   }
 }
 
+/**
+ * @param {Card[]|Card[][]} deck
+ */
 export const sortDeck = (deck) => {
   const result = [new Array(8).fill([]), new Array(8).fill([])];
   for (const item of deck) {
@@ -161,6 +219,9 @@ export function isTouchDevice() {
 
   const prefixes = ' -webkit- -moz- -o- -ms- '.split(' ');
 
+  /**
+   * @param {string} query
+   */
   const mq = (query) => window?.matchMedia?.(query)?.matches;
 
   if (
@@ -177,8 +238,14 @@ export function isTouchDevice() {
   return mq(query);
 }
 
+/**
+ * @param {Cube} cube
+ */
 export const getCubeId = (cube) => cube?.shortID ?? cube?._id;
 
+/**
+ * @param {Cube} cube
+ */
 export const getCubeDescription = (cube) => {
   if (cube.overrideCategory) {
     const overridePrefixes =
@@ -189,6 +256,9 @@ export const getCubeDescription = (cube) => {
   return `${cube.card_count} Card ${cube.type} Cube`;
 };
 
+/**
+ * @param {string} to
+ */
 export const isInternalURL = (to) => {
   try {
     const url = new URL(to, window.location.origin);
@@ -198,11 +268,17 @@ export const isInternalURL = (to) => {
   }
 };
 
+/**
+ * @param {string?} str
+ */
 export const toNullableInt = (str) => {
-  const val = parseInt(str, 10);
+  const val = parseInt(str ?? '', 10);
   return Number.isInteger(val) ? val : null;
 };
 
+/**
+ * @param {string} to
+ */
 export const isSamePageURL = (to) => {
   try {
     const url = new URL(to, window.location.href);
@@ -216,8 +292,15 @@ export const isSamePageURL = (to) => {
   }
 };
 
+/**
+ * @param {any} obj
+ */
 export const isObject = (obj) => obj && typeof obj === 'object';
 
+/**
+ * @param {any} obj1
+ * @param {any} obj2
+ */
 export const areDeepEqual = (obj1, obj2) => {
   if (isObject(obj1) && isObject(obj2)) {
     const keys1 = Object.keys(obj1);

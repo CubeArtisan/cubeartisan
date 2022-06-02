@@ -1,28 +1,142 @@
-export function GetColorIdentity(colors: any): any;
-export function getColorCombination(colors: any): any;
-export function GetColorCategory(type: any, colors: any): any;
-export function cardGetLabels(card: any, sort: any, showOther: any): any;
-export function cardCanBeSorted(card: any, sort: any): boolean;
-export function cardIsLabel(card: any, label: any, sort: any): any;
-export function formatLabel(label: any): any;
-export function getLabels(cube: any, sort: any, showOther: any): any;
-export function sortGroupsOrdered(cards: any, sort: any, showOther: any): any;
-export function sortIntoGroups(cards: any, sort: any, showOther: any): {
-    [k: string]: any;
-};
-export function sortDeep(cards: any, showOther: any, last: any, ...sorts: any[]): any;
+/**
+ * @param {Color[]} colors
+ */
+export function GetColorIdentity(colors: Color[]): string;
+/**
+ * @param {Color[]} colors
+ */
+export function getColorCombination(colors: Color[]): any;
+/**
+ * @param {string} type
+ * @param {Color[]} colors
+ */
+export function GetColorCategory(type: string, colors: Color[]): string;
+/**
+ * @param {Card} card
+ * @param {typeof SORTS[number]} sort
+ * @param {boolean} showOther
+ */
+export function cardGetLabels(card: Card, sort: (typeof SORTS)[number], showOther?: boolean): any;
+/**
+ * @param {Card} card
+ * @param {typeof SORTS[number]} sort
+ */
+export function cardCanBeSorted(card: Card, sort: (typeof SORTS)[number]): boolean;
+/**
+ * @param {Card} card
+ * @param {string} label
+ * @param {typeof SORTS[number]} sort
+ */
+export function cardIsLabel(card: Card, label: string, sort: (typeof SORTS)[number]): any;
+/**
+ * @param {(string|Date)?} label
+ */
+export function formatLabel(label: (string | Date) | null): string | undefined;
+/**
+ * @param {Card[]} cards
+ * @param {typeof SORTS[number]} sort
+ * @param {boolean} showOther
+ */
+export function getLabels(cards: Card[], sort: (typeof SORTS)[number], showOther?: boolean): (string | undefined)[];
+/**
+ * @param {Card[]} cards
+ * @param {typeof SORTS[number]} sort
+ * @param {boolean} showOther
+ */
+export function sortGroupsOrdered(cards: Card[], sort: (typeof SORTS)[number], showOther?: boolean): any[][];
+/**
+ * @param {Card[]} cards
+ * @param {typeof SORTS[number]} sort
+ * @param {boolean} showOther
+ */
+export function sortIntoGroups(cards: Card[], sort: (typeof SORTS)[number], showOther?: boolean): any;
+/**
+ * @param {Card[]} cards
+ * @param {boolean} showOther
+ * @param {typeof SORTS[number]} last
+ * @param {(typeof SORTS[number])[]} sorts
+ */
+export function sortDeep(cards: Card[], showOther: boolean, last: (typeof SORTS)[number], ...sorts: ((typeof SORTS)[number])[]): any[][] | import("@cubeartisan/client/proptypes/CardPropType.js").Card[];
 export function countGroup(group: any): any;
-export function sortForDownload(cards: any, primary?: string, secondary?: string, tertiary?: string, quaternary?: string, showOther?: boolean): any[];
+/**
+ * @param {Card[]} cards
+ * @param {typeof SORTS[number]} primary
+ * @param {typeof SORTS[number]} secondary
+ * @param {typeof SORTS[number]} tertiary
+ * @param {typeof SORTS[number]} quaternary
+ * @param {boolean} showOther
+ */
+export function sortForDownload(cards: Card[], primary?: (typeof SORTS)[number], secondary?: (typeof SORTS)[number], tertiary?: (typeof SORTS)[number], quaternary?: (typeof SORTS)[number], showOther?: boolean): any[];
 export const SORTS: string[];
 export const ORDERED_SORTS: string[];
 export const SortFunctions: {
-    Alphabetical: (a: any, b: any) => any;
-    'Mana Value': (a: any, b: any) => number;
-    Price: (a: any, b: any) => number;
-    Elo: (a: any, b: any) => number;
-    'Release Date': (a: any, b: any) => 1 | -1 | 0;
-    'Cube Count': (a: any, b: any) => number;
-    'Pick Count': (a: any, b: any) => number;
+    Alphabetical: (a: import("@cubeartisan/client/proptypes/CardPropType.js").Card, b: import("@cubeartisan/client/proptypes/CardPropType.js").Card) => number;
+    /**
+     * @param {Card} a
+     * @param {Card} b
+     */
+    'Mana Value': (a: Card, b: Card) => number;
+    /**
+     * @param {Card} a
+     * @param {Card} b
+     */
+    Price: (a: Card, b: Card) => number;
+    /**
+     * @param {Card} a
+     * @param {Card} b
+     */
+    Elo: (a: Card, b: Card) => number;
+    /**
+     * @param {Card} a
+     * @param {Card} b
+     */
+    'Release Date': (a: Card, b: Card) => 1 | -1 | 0;
+    /**
+     * @param {Card} a
+     * @param {Card} b
+     */
+    'Cube Count': (a: Card, b: Card) => number;
+    /**
+     * @param {Card} a
+     * @param {Card} b
+     */
+    'Pick Count': (a: Card, b: Card) => number;
 };
-export function SortFunctionsOnDetails(sort: any): (a: any, b: any) => any;
+export function SortFunctionsOnDetails(sort: keyof {
+    Alphabetical: (a: import("@cubeartisan/client/proptypes/CardPropType.js").Card, b: import("@cubeartisan/client/proptypes/CardPropType.js").Card) => number;
+    /**
+     * @param {Card} a
+     * @param {Card} b
+     */
+    'Mana Value': (a: Card, b: Card) => number;
+    /**
+     * @param {Card} a
+     * @param {Card} b
+     */
+    Price: (a: Card, b: Card) => number;
+    /**
+     * @param {Card} a
+     * @param {Card} b
+     */
+    Elo: (a: Card, b: Card) => number;
+    /**
+     * @param {Card} a
+     * @param {Card} b
+     */
+    'Release Date': (a: Card, b: Card) => 1 | -1 | 0;
+    /**
+     * @param {Card} a
+     * @param {Card} b
+     */
+    'Cube Count': (a: Card, b: Card) => number;
+    /**
+     * @param {Card} a
+     * @param {Card} b
+     */
+    'Pick Count': (a: Card, b: Card) => number;
+}): (a: CardDetails, b: CardDetails) => number;
+export type Color = import('@cubeartisan/client/proptypes/CardDetailsPropType.js').Color;
+export type CardDetails = import('@cubeartisan/client/proptypes/CardDetailsPropType.js').CardDetails;
+export type Card = import('@cubeartisan/client/proptypes/CardPropType.js').Card;
+export type Cube = import('@cubeartisan/client/proptypes/CubePropType.js').Cube;
 //# sourceMappingURL=Sort.d.ts.map

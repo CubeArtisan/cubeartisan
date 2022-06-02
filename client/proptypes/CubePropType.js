@@ -18,22 +18,15 @@
  */
 import PropTypes from 'prop-types';
 
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+
 /**
  * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
  * @typedef Cube
- * @property {Card[]} cards
+ * @property {Card[]?} cards
  */
 
 const CubePropType = PropTypes.shape({
-  cards: PropTypes.arrayOf(
-    PropTypes.shape({
-      cardName: PropTypes.string,
-      picks: PropTypes.number,
-      passes: PropTypes.number,
-      elo: PropTypes.number,
-      mainboards: PropTypes.number,
-      sideboards: PropTypes.number,
-    }),
-  ),
+  cards: PropTypes.arrayOf(CardPropType.isRequired),
 });
 export default CubePropType;

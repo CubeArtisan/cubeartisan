@@ -1,21 +1,21 @@
 export function isTouchDevice(): boolean;
-export function arraysEqual(a: any, b: any): boolean;
-export function arrayRotate(arr: any, reverse: any): any;
-export function arrayShuffle(array: any): any;
-export function arrayMove(arr: any, oldIndex: any, newIndex: any): any[];
-export function arrayDelete(arr: any, index: any): any[];
-export function arrayIsSubset(needles: any, haystack: any, comparison: any): any;
-export function arraysAreEqualSets(a1: any, a2: any, comparison: any): any;
-export function randomElement(array: any): any;
-export function alphaCompare(a: any, b: any): any;
-export function cmcColumn(card: any): number;
-export function sortDeck(deck: any): any[][];
+export function arraysEqual<T>(a: T[], b: T[]): boolean;
+export function arrayRotate<T>(arr: T[], reverse: boolean): T[];
+export function arrayShuffle<T>(array: T[]): T[];
+export function arrayMove<T>(arr: T[], oldIndex: number, newIndex: number): T[];
+export function arrayDelete<T>(arr: T[], index: number): T[];
+export function arrayIsSubset<T>(needles: T[], haystack: T[], comparison?: ((a: T, b: T) => boolean) | null | undefined): boolean;
+export function arraysAreEqualSets<T>(a1: T[], a2: T[], comparison?: ((a: T, b: T) => boolean) | null | undefined): boolean;
+export function randomElement<T>(array: T[]): T;
+export function alphaCompare(a: Card, b: Card): number;
+export function cmcColumn(card: Card): number;
+export function sortDeck(deck: Card[] | Card[][]): any[][];
 export const COLORS: string[][];
-export function getCubeId(cube: any): any;
-export function getCubeDescription(cube: any): string;
-export function isInternalURL(to: any): boolean;
-export function toNullableInt(str: any): number | null;
-export function isSamePageURL(to: any): boolean;
+export function getCubeId(cube: Cube): any;
+export function getCubeDescription(cube: Cube): string;
+export function isInternalURL(to: string): boolean;
+export function toNullableInt(str: string | null): number | null;
+export function isSamePageURL(to: string): boolean;
 export function isObject(obj: any): any;
 export function areDeepEqual(obj1: any, obj2: any): boolean;
 declare namespace _default {
@@ -40,4 +40,6 @@ declare namespace _default {
     export { toNullableInt };
 }
 export default _default;
+export type Cube = import('@cubeartisan/client/proptypes/CubePropType.js').Cube;
+export type Card = import('@cubeartisan/client/proptypes/CardPropType.js').Card;
 //# sourceMappingURL=Util.d.ts.map

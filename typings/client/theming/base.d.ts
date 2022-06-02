@@ -36,6 +36,7 @@ declare function defaultTheme(palette: any): {
             };
         };
     };
+    spacing: number;
     shape: {
         borderRadius: number;
     };
