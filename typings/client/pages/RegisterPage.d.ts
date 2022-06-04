@@ -18,7 +18,7 @@ export namespace RegisterPage {
         export { username_1 as username };
     }
 }
-declare const _default: (providedReactProps: any) => JSX.Element;
+declare const _default: () => JSX.Element;
 export default _default;
 import PropTypes from "prop-types";
 //# sourceMappingURL=RegisterPage.d.ts.map

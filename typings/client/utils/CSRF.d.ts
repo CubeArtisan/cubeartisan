@@ -1,7 +1,7 @@
 export function getCsrfToken(): string | null;
-export function csrfFetch(resource: any, init?: {
+export function csrfFetch(resource: string, init?: {
     method: string;
 }): Promise<Response>;
-export function postJson(resource: any, body: any): Promise<Response>;
-export function putJson(resource: any, body: any): Promise<Response>;
+export function postJson<T>(resource: string, body: T): Promise<Response>;
+export function putJson<T>(resource: string, body: T): Promise<Response>;
 //# sourceMappingURL=CSRF.d.ts.map

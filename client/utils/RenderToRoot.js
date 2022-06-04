@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of CubeArtisan.
  *
  * CubeArtisan is free software: you can redistribute it and/or modify
@@ -28,17 +28,44 @@ import SiteCustomizationContext, {
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import { DEFAULT_AXIOS_OPTIONS } from '@cubeartisan/client/utils/SWRFetchers.js';
 
+/**
+ * @typedef {import('@cubeartisan/client/proptypes/UserPropType.js').User} User
+ * @typedef {import('@cubeartisan/client/components/contexts/SiteCustomizationContext.js').SiteCustomizations} SiteCustomizations
+ */
+
+/**
+ * @typedef DefaultProps
+ * @property {User?} user
+ * @property {SiteCustomizations?} siteCustomizations
+ */
+/**
+ * @template Props
+ * @typedef {Props & DefaultProps} ElementProps
+ */
+/**
+ * @template Props
+ * @param {React.ComponentType<ElementProps<Props>>} Element
+ */
 const RenderToRoot = (Element) => {
-  const defaultReactProps = typeof window !== 'undefined' ? window?.reactProps ?? {} : {};
-  const Wrapped = (providedReactProps) => {
-    const reactProps = useMemo(() => ({ ...defaultReactProps, ...providedReactProps }), [providedReactProps]);
+  const Wrapped = () => {
+    /** @type {ElementProps<Props>} */
+    // @ts-ignore
+    const reactProps = useMemo(() => (typeof window !== 'undefined' ? window?.reactProps ?? {} : {}), []);
     const defaultUserProps = useMemo(
       () =>
         reactProps?.user ?? {
           _id: null,
           username: 'Anonymous User',
+          email: null,
+          about: null,
           notifications: [],
-          theme: 'default',
+          image_name: null,
+          image: null,
+          artist: null,
+          users_following: [],
+          roles: [],
+          hide_featured: false,
+          theme: null,
         },
       [reactProps],
     );
@@ -57,14 +84,8 @@ const RenderToRoot = (Element) => {
     );
   };
   if (typeof document !== 'undefined') {
-    // const cache = createCache({ key: 'css' });
-    // import('bootstrap/dist/css/bootstrap.min.css');
     const wrapper = document.getElementById('react-root');
-    const element = (
-      // <CacheProvider value={cache}>
-      <Wrapped />
-      // </CacheProvider>
-    );
+    const element = <Wrapped />;
     if (wrapper) {
       if (wrapper.children.length === 0) {
         const root = createRoot(wrapper);
@@ -76,5 +97,4 @@ const RenderToRoot = (Element) => {
   }
   return Wrapped;
 };
-
 export default RenderToRoot;

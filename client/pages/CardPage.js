@@ -76,6 +76,7 @@ import {
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const AutocardA = withAutocard(Link);
+const AutocardImage = withAutocard(CardImage);
 const AddModal = withModal(Button, AddToCubeModal);
 
 /**
@@ -552,7 +553,7 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
                       </Button>
                     </Col>
                     <Col className="pb-2" xs="12" sm="6">
-                      <Button color="success" variant="outlined" href={getTCGLink({ details: card })} target="_blank">
+                      <Button color="success" variant="outlined" href={getTCGLink(detailsToCard(card))} target="_blank">
                         View on TCGPlayer
                       </Button>
                     </Col>
@@ -560,7 +561,7 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
                       <Button
                         variant="outlined"
                         color="success"
-                        href={getCardKingdomLink({ details: card })}
+                        href={getCardKingdomLink(detailsToCard(card))}
                         target="_blank"
                       >
                         View on Card Kingdom
@@ -611,11 +612,7 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
                 rows={filteredVersions.slice(0).map((version) => (
                   <tr key={version._id}>
                     <td>
-                      <AutocardA
-                        front={version.image_normal}
-                        back={version.image_flip || undefined}
-                        href={`/card/${version._id}`}
-                      >
+                      <AutocardA card={detailsToCard(version)} href={`/card/${version._id}`}>
                         {`${version.set_name} [${version.set.toUpperCase()}-${version.collector_number}]`}
                       </AutocardA>
                     </td>
@@ -639,7 +636,7 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
               <h4>Purchase</h4>
             </CardHeader>
             <CardBody>
-              <Button variant="outlined" color="success" href={getTCGLink({ details: card })} target="_blank">
+              <Button variant="outlined" color="success" href={getTCGLink(detailsToCard(card))} target="_blank">
                 <Row>
                   <Col xs="6">
                     <div className="text-left">
@@ -655,7 +652,7 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
                   )}
                 </Row>
               </Button>
-              <Button variant="outlined" color="success" href={getCardKingdomLink({ details: card })} target="_blank">
+              <Button variant="outlined" color="success" href={getCardKingdomLink(detailsToCard(card))} target="_blank">
                 <Row>
                   <Col xs="6">
                     <div className="text-left">
@@ -664,7 +661,7 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
                   </Col>
                 </Row>
               </Button>
-              <Button variant="outlined" color="success" href={getCardMarketLink({ details: card })} target="_blank">
+              <Button variant="outlined" color="success" href={getCardMarketLink(detailsToCard(card))} target="_blank">
                 <Row>
                   <Col xs="6">
                     <div className="text-left">
@@ -680,7 +677,7 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
                   )}
                 </Row>
               </Button>
-              <Button variant="outlined" color="success" href={getCardHoarderLink({ details: card })} target="_blank">
+              <Button variant="outlined" color="success" href={getCardHoarderLink(detailsToCard(card))} target="_blank">
                 <Row>
                   <Col xs="6">
                     <div className="text-left">
@@ -708,45 +705,40 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
           <h4>Most Synergistic Cards</h4>
           <CardGrid
             cardList={related.synergistic.map((item) => ({ details: item }))}
-            Tag={CardImage}
-            colProps={{ xs: 4, sm: 3, md: 2 }}
-            cardProps={{ autocard: true, 'data-in-modal': true, className: 'clickable' }}
+            Tag={AutocardImage}
+            cardProps={{ 'data-in-modal': true }}
             linkDetails
           />
           <hr />
           <h4>Top Cards</h4>
           <CardGrid
             cardList={related.top.map((item) => ({ details: item }))}
-            Tag={CardImage}
-            colProps={{ xs: 4, sm: 3, md: 2 }}
-            cardProps={{ autocard: true, 'data-in-modal': true, className: 'clickable' }}
+            Tag={AutocardImage}
+            cardProps={{ 'data-in-modal': true }}
             linkDetails
           />
           <hr />
           <h4>Creatures</h4>
           <CardGrid
             cardList={related.creatures.map((item) => ({ details: item }))}
-            Tag={CardImage}
-            colProps={{ xs: 4, sm: 3, md: 2 }}
-            cardProps={{ autocard: true, 'data-in-modal': true, className: 'clickable' }}
+            Tag={AutocardImage}
+            cardProps={{ 'data-in-modal': true }}
             linkDetails
           />
           <hr />
           <h4>Spells</h4>
           <CardGrid
             cardList={related.spells.map((item) => ({ details: item }))}
-            Tag={CardImage}
-            colProps={{ xs: 4, sm: 3, md: 2 }}
-            cardProps={{ autocard: true, 'data-in-modal': true, className: 'clickable' }}
+            Tag={AutocardImage}
+            cardProps={{ 'data-in-modal': true }}
             linkDetails
           />
           <hr />
           <h4>Other</h4>
           <CardGrid
             cardList={related.other.map((item) => ({ details: item }))}
-            Tag={CardImage}
-            colProps={{ xs: 4, sm: 3, md: 2 }}
-            cardProps={{ autocard: true, 'data-in-modal': true, className: 'clickable' }}
+            Tag={AutocardImage}
+            cardProps={{ 'data-in-modal': true }}
             linkDetails
           />
         </CardBody>

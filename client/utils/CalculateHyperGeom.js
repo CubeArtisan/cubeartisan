@@ -16,6 +16,11 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+
+/**
+ * @param {number} n
+ * @param {number} r
+ */
 const combination = (n, r) => {
   const topArray = [];
   const botArray = [];
@@ -47,10 +52,27 @@ const combination = (n, r) => {
   return sum;
 };
 
+/**
+ * @param {number} N
+ * @param {number} S
+ * @param {number} n
+ * @param {number} s
+ */
 const hyp = (N, S, n, s) => (combination(S, s) * combination(N - S, n - s)) / combination(N, n);
 
+/**
+ * @param {number} val
+ * @param {number} min
+ * @param {number} max
+ */
 const clamp = (val, min, max) => Math.min(Math.max(val, min), max);
 
+/**
+ * @param {string} populationSize
+ * @param {string} sampleSize
+ * @param {string} popSuccesses
+ * @param {string} sampleSuccesses
+ */
 const calculate = (populationSize, sampleSize, popSuccesses, sampleSuccesses) => {
   const keys = Array.from(Array(parseInt(sampleSuccesses, 10) + 1).keys());
   const values = keys.map((x) =>
@@ -64,5 +86,4 @@ const calculate = (populationSize, sampleSize, popSuccesses, sampleSuccesses) =>
 
   return { equalTo, lessThan, lessThanEqual, greaterThan, greaterThanEqual };
 };
-
 export default calculate;

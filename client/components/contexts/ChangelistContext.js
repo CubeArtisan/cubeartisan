@@ -23,6 +23,9 @@ import Query from '@cubeartisan/client/utils/Query.js';
 
 /**
  * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
+ */
+
+/**
  * @typedef AddChange
  * @property {number} id
  * @property {Card} add
@@ -31,21 +34,42 @@ import Query from '@cubeartisan/client/utils/Query.js';
  * @property {Card} remove
  * @typedef ReplaceChange
  * @property {number} id
- * @property {Card[2]} replace
+ * @property {[Card, Card]} replace
  * @typedef {AddChange | RemoveChange | ReplaceChange} Change
- * @typedef ChangelistContextValue
+ * @typedef ChangelistContextValues
  * @property {Change[]} changes
  * @property {(changes: Change[]) => void} setChanges
  * @property {(changes: Change[]) => void} addChanges
  * @property {(change: Change) => void} addChange
  * @property {(changeId: number) => void} removeChange
  * @property {() => void} openEditCollapse
- * @type {React.Context<ChangelistContextValue>}
  */
-const ChangelistContext = createContext({});
 
-export const ChangelistContextProvider = ({ cubeID, setOpenCollapse, initialChanges, noSave, ...props }) => {
-  const [changes, setChanges] = useState(initialChanges || []);
+/** @type {ChangelistContextValues} */
+const DEFAULT_VALUES = {
+  changes: [],
+  setChanges: () => {},
+  addChanges: () => {},
+  addChange: () => {},
+  removeChange: () => {},
+  openEditCollapse: () => {},
+};
+
+/** @type {React.Context<ChangelistContextValues>} */
+const ChangelistContext = createContext(DEFAULT_VALUES);
+
+/**
+ * @typedef ChangelistContextProviderProps
+ * @property {string?} cubeID
+ * @property {(collapse: string) => void} setOpenCollapse
+ * @property {Change[]} [initialChanges]
+ * @property {boolean} [noSave]
+ * @property {React.ReactNode} children
+ */
+
+/** @type {React.FC<ChangelistContextProviderProps>} */
+export const ChangelistContextProvider = ({ cubeID, setOpenCollapse, initialChanges, noSave, children }) => {
+  const [changes, setChanges] = useState(initialChanges ?? []);
 
   useEffect(() => {
     if (noSave || !cubeID) {
@@ -68,6 +92,10 @@ export const ChangelistContextProvider = ({ cubeID, setOpenCollapse, initialChan
     if (storedChanges.length > 0) {
       if (
         storedChanges.some(
+          /**
+           * @param {Change} update
+           * @returns {boolean} shouldReset
+           */
           (update) =>
             (update.add && !update.add.details) ||
             (update.remove && !update.remove.details) ||
@@ -91,8 +119,9 @@ export const ChangelistContextProvider = ({ cubeID, setOpenCollapse, initialChan
   }, [cubeID, noSave, changes]);
 
   const addChange = useCallback(
+    /** @param {Change} change */
     (change) => {
-      const highestId = Math.max(changes.map((changeB) => changeB.id));
+      const highestId = Math.max(...changes.map((changeB) => changeB.id));
       const newId = !Number.isNaN(highestId) ? highestId + 1 : Math.floor(Math.random() * 2 ** 20);
       setChanges([
         ...changes,
@@ -107,8 +136,9 @@ export const ChangelistContextProvider = ({ cubeID, setOpenCollapse, initialChan
   );
 
   const addChanges = useCallback(
+    /** @param {Change[]} addedChanges */
     (addedChanges) => {
-      const highestId = Math.max(changes.map((change) => change.id));
+      const highestId = Math.max(...changes.map((change) => change.id));
       let newId = !Number.isNaN(highestId) ? highestId + 1 : Math.floor(Math.random() * 2 ** 20);
       const newChanges = Array.from(changes);
       for (const change of addedChanges) {
@@ -124,9 +154,12 @@ export const ChangelistContextProvider = ({ cubeID, setOpenCollapse, initialChan
     [setOpenCollapse, changes],
   );
 
-  const removeChange = useCallback((changeId) => {
-    setChanges((changesB) => changesB.filter((change) => change.id !== changeId));
-  }, []);
+  const removeChange = useCallback(
+    /** @param {number} changeId */ (changeId) => {
+      setChanges((changesB) => changesB.filter((change) => change.id !== changeId));
+    },
+    [],
+  );
 
   const openEditCollapse = useCallback(() => setOpenCollapse('edit'), [setOpenCollapse]);
 
@@ -142,13 +175,16 @@ export const ChangelistContextProvider = ({ cubeID, setOpenCollapse, initialChan
     [changes, setChanges, addChange, addChanges, removeChange, openEditCollapse],
   );
 
-  return <ChangelistContext.Provider value={value} {...props} />;
+  return <ChangelistContext.Provider value={value}>{children}</ChangelistContext.Provider>;
 };
 ChangelistContextProvider.propTypes = {
   cubeID: PropTypes.string.isRequired,
   setOpenCollapse: PropTypes.func.isRequired,
+  // @ts-ignore
   initialChanges: PropTypes.arrayOf(PropTypes.shape({})),
   noSave: PropTypes.bool,
+  // @ts-ignore
+  children: PropTypes.node.isRequired,
 };
 ChangelistContextProvider.defaultProps = {
   initialChanges: [],

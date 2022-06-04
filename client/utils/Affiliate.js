@@ -16,6 +16,14 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+
+/**
+ * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
+ */
+
+/**
+ * @param {Card} card
+ */
 export function getTCGLink(card) {
   const { name, isToken } = card.details;
   const tcgplayerId = card.details.tcgplayer_id;
@@ -30,25 +38,35 @@ export function getTCGLink(card) {
   return tcgplayerLink;
 }
 
+/**
+ * @param {Card} card
+ */
 export const getCardMarketLink = (card) =>
   `https://www.cardmarket.com/en/Magic/Products/Singles/${card.details.set_name
     .replace(/ /g, '-')
     .replace(/[:,."']/g, '')}/${card.details.name.replace(/ /g, '-').replace(/:/g, '').replace(/\./g, '')}`;
 
+/**
+ * @param {Card} card
+ */
 export const getCardHoarderLink = (card) => `https://www.cardhoarder.com/cards?data%5Bsearch%5D=${card.details.name}`;
 
-const ck = (str) =>
+/**
+ * @param {string} str
+ */
+export const nameToDashedUrlComponent = (str) =>
   str
     .replace(' - ', '-')
     .replace(/ /g, '-')
     .replace(/[:,."']/g, '')
     .toLowerCase();
 
-export const nameToDashedUrlComponent = ck;
-
+/**
+ * @param {Card} card
+ */
 export const getCardKingdomLink = (card) =>
-  `https://www.cardkingdom.com/mtg/${ck(card.details.set_name)}/${ck(card.details.name)}`;
+  `https://www.cardkingdom.com/mtg/${nameToDashedUrlComponent(card.details.set_name)}/${nameToDashedUrlComponent(
+    card.details.name,
+  )}`;
 
 export const tcgMassEntryUrl = 'https://store.tcgplayer.com/massentry?';
-
-export default { getTCGLink, tcgMassEntryUrl };

@@ -24,6 +24,9 @@ export const getCsrfToken = () => {
   return meta ? meta.getAttribute('content') : null;
 };
 
+/**
+ * @param {string} resource
+ */
 export const csrfFetch = (resource, init = { method: 'GET' }) => {
   init.credentials = init.credentials || 'same-origin';
   init.headers = {
@@ -33,6 +36,11 @@ export const csrfFetch = (resource, init = { method: 'GET' }) => {
   return fetch(resource, init);
 };
 
+/**
+ * @template T
+ * @param {string} resource
+ * @param {T} body
+ */
 export const postJson = (resource, body) =>
   csrfFetch(resource, {
     method: 'POST',
@@ -42,6 +50,11 @@ export const postJson = (resource, body) =>
     },
   });
 
+/**
+ * @template T
+ * @param {string} resource
+ * @param {T} body
+ */
 export const putJson = (resource, body) =>
   csrfFetch(resource, {
     method: 'PUT',

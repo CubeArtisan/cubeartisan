@@ -3,7 +3,7 @@ export const getCardObj: ((_req: any, res: any, next: any) => void)[];
 export const getImageRedirectForId: ((_req: any, res: any, next: any) => void)[];
 export function getCardPageForId(req: any, res: any): Promise<any>;
 export const getAllVersionsForId: ((_req: any, res: any, next: any) => void)[];
-export const getVersionsFromIds: (import("express-validator").ValidationChain | ((req: any, res: any, next: any) => void))[];
+export const getVersionsFromIds: (((req: any, res: any, next: any) => void) | import("express-validator").ValidationChain)[];
 export const doCardSearch: ((_req: any, res: any, next: any) => void)[];
 export const viewCardSearchPage: (req: any, res: any, next: any) => Promise<any>;
 export function redirectToRandomCard(req: any, res: any): any;

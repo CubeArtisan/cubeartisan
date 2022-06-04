@@ -28,7 +28,7 @@ export namespace ArticlesPage {
         export { loginCallback_1 as loginCallback };
     }
 }
-declare const _default: (providedReactProps: any) => JSX.Element;
+declare const _default: () => JSX.Element;
 export default _default;
 import PropTypes from "prop-types";
 //# sourceMappingURL=ArticlesPage.d.ts.map

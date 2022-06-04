@@ -26,7 +26,7 @@ import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js'
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import { MaybeboardContextProvider } from '@cubeartisan/client/components/contexts/MaybeboardContext.js';
 import { SortContextProvider } from '@cubeartisan/client/components/contexts/SortContext.js';
-import { TAG_COLORS, TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext.js';
+import { TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
@@ -36,7 +36,8 @@ import CubeListNavbar from '@cubeartisan/client/components/navbars/CubeListNavba
 import ClientOnly from '@cubeartisan/client/components/utils/ClientOnly.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
-import LocalStorage from '@cubeartisan/client/utils/LocalStorage.js';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
+import { getFromLocalStorage } from '@cubeartisan/client/utils/LocalStorage.js';
 import Query from '@cubeartisan/client/utils/Query.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
@@ -46,6 +47,10 @@ const TableView = lazy(() => import('@cubeartisan/client/components/TableView.js
 const ListView = lazy(() => import('@cubeartisan/client/components/ListView.js'));
 const Maybeboard = lazy(() => import('@cubeartisan/client/components/Maybeboard.js'));
 const CurveView = lazy(() => import('@cubeartisan/client/components/CurveView.js'));
+
+/**
+ * @typedef {import('@cubeartisan/client/filtering/FilterCards.js').Filter} Filter
+ */
 
 const CubeListPageRaw = ({
   defaultFilterText,
@@ -61,13 +66,13 @@ const CubeListPageRaw = ({
   const { _id: userID } = useContext(UserContext);
 
   const [cubeView, setCubeView] = useQueryParam('view', defaultView);
-  const [openCollapse, setOpenCollapse] = useState(null);
-  const [filter, setFilter] = useState(() => () => true);
+  const [openCollapse, setOpenCollapse] = useState(/** @type {string|null} */ null);
+  const [filter, setFilter] = useState(/** @type {Filter|null} */ null);
   const [sorts, setSorts] = useState(null);
   const [alerts, setAlerts] = useState([]);
 
   useEffect(() => {
-    const savedChanges = cube._id && LocalStorage.get(`changelist-${cube._id}`);
+    const savedChanges = cube._id && getFromLocalStorage(`changelist-${cube._id}`);
     if (savedChanges && savedChanges.length > 2 && Query.get('updated', false) !== 'true') {
       setOpenCollapse('edit');
     } else if (defaultFilterText && defaultFilterText.length > 0) {
@@ -89,7 +94,7 @@ const CubeListPageRaw = ({
   const filteredCards = useMemo(() => (filter ? cube.cards.filter(filter) : cube.cards), [filter, cube]);
 
   return (
-    <SortContextProvider defaultSorts={cube.default_sorts} showOther={!!cube.default_show_unsorted}>
+    <SortContextProvider defaultSorts={cube.default_sorts} defaultShowOther={!!cube.default_show_unsorted}>
       <TagContextProvider
         cubeID={cube._id}
         defaultTagColors={cube.tag_colors}
@@ -158,7 +163,6 @@ const CubeListPageRaw = ({
     </SortContextProvider>
   );
 };
-
 CubeListPageRaw.propTypes = {
   defaultShowTagColors: PropTypes.bool.isRequired,
   defaultFilterText: PropTypes.string.isRequired,
@@ -197,21 +201,8 @@ const CubeListPage = ({
     </CubeLayout>
   </MainLayout>
 );
-
 CubeListPage.propTypes = {
-  cube: PropTypes.shape({
-    cards: PropTypes.arrayOf(PropTypes.shape({ cardID: PropTypes.string.isRequired })).isRequired,
-    tag_colors: PropTypes.arrayOf(
-      PropTypes.shape({
-        tag: PropTypes.string.isRequired,
-        color: PropTypes.oneOf(TAG_COLORS.map(([, c]) => c)),
-      }).isRequired,
-    ).isRequired,
-    default_sorts: PropTypes.arrayOf(PropTypes.string).isRequired,
-    maybe: PropTypes.arrayOf(PropTypes.shape({ cardID: PropTypes.string.isRequired })).isRequired,
-    _id: PropTypes.string.isRequired,
-    owner: PropTypes.string.isRequired,
-  }).isRequired,
+  cube: CubePropType.isRequired,
   defaultShowTagColors: PropTypes.bool.isRequired,
   defaultFilterText: PropTypes.string.isRequired,
   defaultView: PropTypes.string.isRequired,
@@ -222,9 +213,7 @@ CubeListPage.propTypes = {
   defaultShowUnsorted: PropTypes.string.isRequired,
   loginCallback: PropTypes.string,
 };
-
 CubeListPage.defaultProps = {
   loginCallback: '/',
 };
-
 export default RenderToRoot(CubeListPage);

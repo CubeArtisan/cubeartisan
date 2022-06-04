@@ -1,55 +1,36 @@
-export function getCardColorClass(card: any): any;
-export function getCardTagColorClass(tagColors: any, card: any): any;
+export function getCardColorClass(card: Card): string;
+export function getCardTagColorClass(tagColors: TagColor[], card: Card): string;
 export function getTagColorClass(tagColors: TagColor[], tag: string): string;
 export const TAG_COLORS: (string | null)[][];
-export function TagContextProvider({ children, cubeID, defaultTagColors, defaultShowTagColors, defaultTags, userID, }: {
-    children: any;
-    cubeID: any;
-    defaultTagColors: any;
-    defaultShowTagColors: any;
-    defaultTags: any;
-    userID: any;
-}): JSX.Element;
-export namespace TagContextProvider {
-    namespace propTypes {
-        const cubeID: PropTypes.Validator<string>;
-        const defaultTagColors: PropTypes.Requireable<(PropTypes.InferProps<{
-            tag: PropTypes.Requireable<string>;
-            color: PropTypes.Requireable<string>;
-        }> | null | undefined)[]>;
-        const defaultShowTagColors: PropTypes.Requireable<boolean>;
-        const defaultTags: PropTypes.Requireable<(PropTypes.InferProps<{
-            id: PropTypes.Requireable<string>;
-            text: PropTypes.Requireable<string>;
-        }> | null | undefined)[]>;
-        const children: PropTypes.Validator<string | number | boolean | {} | PropTypes.ReactElementLike | PropTypes.ReactNodeArray>;
-        const userID: PropTypes.Validator<string>;
-    }
-    namespace defaultProps {
-        const defaultTagColors_1: never[];
-        export { defaultTagColors_1 as defaultTagColors };
-        const defaultShowTagColors_1: boolean;
-        export { defaultShowTagColors_1 as defaultShowTagColors };
-        const defaultTags_1: never[];
-        export { defaultTags_1 as defaultTags };
-    }
-}
+export const TagContextProvider: React.FC<TagContextProviderProps>;
 export default TagContext;
+export type Card = import('@cubeartisan/client/proptypes/CardPropType.js').Card;
 export type TagColor = {
     tag: string;
     color: string;
 };
+export type Tag = {
+    id: number;
+    text: string;
+};
 export type TagContextValues = {
-    allSuggestions: string[];
-    addSuggestion: (tag: string) => void;
+    allSuggestions: Tag[];
+    addSuggestion: (tag: Tag) => void;
     allTags: string[];
     tagColors: TagColor[];
     setTagColors: (colors: TagColor[]) => Promise<void>;
     showTagColors: boolean;
     setShowTagColors: (showTagColors: boolean) => Promise<void>;
-    cardColorClass: (card: any) => string;
+    cardColorClass: (card: Card) => string;
     tagColorClass: (tag: string) => string;
 };
-import PropTypes from "prop-types";
-declare const TagContext: import('react').Context<TagContextValues>;
+export type TagContextProviderProps = {
+    children: React.ReactNode;
+    defaultShowTagColors?: boolean | null | undefined;
+    defaultTagColors?: TagColor[] | null | undefined;
+    defaultTags?: Tag[] | null | undefined;
+    cubeID: string | null;
+    userID: string | null;
+};
+declare const TagContext: import("react").Context<TagContextValues>;
 //# sourceMappingURL=TagContext.d.ts.map

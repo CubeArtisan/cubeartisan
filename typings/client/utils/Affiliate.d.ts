@@ -1,12 +1,8 @@
-export function getTCGLink(card: any): string;
-export function getCardMarketLink(card: any): string;
-export function getCardHoarderLink(card: any): string;
-export function nameToDashedUrlComponent(str: any): any;
-export function getCardKingdomLink(card: any): string;
+export function getTCGLink(card: Card): string;
+export function getCardMarketLink(card: Card): string;
+export function getCardHoarderLink(card: Card): string;
+export function nameToDashedUrlComponent(str: string): string;
+export function getCardKingdomLink(card: Card): string;
 export const tcgMassEntryUrl: "https://store.tcgplayer.com/massentry?";
-declare namespace _default {
-    export { getTCGLink };
-    export { tcgMassEntryUrl };
-}
-export default _default;
+export type Card = import('@cubeartisan/client/proptypes/CardPropType.js').Card;
 //# sourceMappingURL=Affiliate.d.ts.map

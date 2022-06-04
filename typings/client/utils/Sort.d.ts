@@ -8,7 +8,7 @@ export function formatLabel(label: (string | Date) | null): string | undefined;
 export function getLabels(cards: Card[], sort: BucketSort, showOther?: boolean): (string | undefined)[];
 export function sortGroupsOrdered(cards: Card[], sort: BucketSort, showOther?: boolean): any[][];
 export function sortIntoGroups(cards: Card[], sort: BucketSort, showOther?: boolean): any;
-export function sortDeep(cards: Card[], showOther: boolean, last: BucketSort, ...sorts: BucketSort[]): any[][] | import("@cubeartisan/client/proptypes/CardPropType.js").Card[];
+export function sortDeep(cards: Card[], showOther: boolean, last: BucketSort, ...sorts: BucketSort[]): import("@cubeartisan/client/proptypes/CardPropType.js").Card[] | any[][];
 export function countGroup(group: any): any;
 export function sortForDownload(cards: Card[], primary?: BucketSort, secondary?: BucketSort, tertiary?: BucketSort, quaternary?: BucketSort, showOther?: boolean | undefined): any[];
 export const SORTS: string[];

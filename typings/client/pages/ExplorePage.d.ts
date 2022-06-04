@@ -346,7 +346,7 @@ export namespace ExplorePage {
         export { loginCallback_1 as loginCallback };
     }
 }
-declare const _default: (providedReactProps: any) => JSX.Element;
+declare const _default: () => JSX.Element;
 export default _default;
 import PropTypes from "prop-types";
 //# sourceMappingURL=ExplorePage.d.ts.map

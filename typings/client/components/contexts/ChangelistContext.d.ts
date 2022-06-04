@@ -1,24 +1,4 @@
-export function ChangelistContextProvider({ cubeID, setOpenCollapse, initialChanges, noSave, ...props }: {
-    [x: string]: any;
-    cubeID: any;
-    setOpenCollapse: any;
-    initialChanges: any;
-    noSave: any;
-}): JSX.Element;
-export namespace ChangelistContextProvider {
-    namespace propTypes {
-        const cubeID: PropTypes.Validator<string>;
-        const setOpenCollapse: PropTypes.Validator<(...args: any[]) => any>;
-        const initialChanges: PropTypes.Requireable<(PropTypes.InferProps<{}> | null | undefined)[]>;
-        const noSave: PropTypes.Requireable<boolean>;
-    }
-    namespace defaultProps {
-        const initialChanges_1: never[];
-        export { initialChanges_1 as initialChanges };
-        const noSave_1: boolean;
-        export { noSave_1 as noSave };
-    }
-}
+export const ChangelistContextProvider: React.FC<ChangelistContextProviderProps>;
 export default ChangelistContext;
 export type Card = import('@cubeartisan/client/proptypes/CardPropType.js').Card;
 export type AddChange = {
@@ -31,10 +11,23 @@ export type RemoveChange = {
 };
 export type ReplaceChange = {
     id: number;
-    replace: any;
+    replace: [Card, Card];
 };
 export type Change = AddChange | RemoveChange | ReplaceChange;
-export type ChangelistContextValue = React.Context<import("react").Context<ChangelistContextValue>>;
-import PropTypes from "prop-types";
-declare const ChangelistContext: import("react").Context<{}>;
+export type ChangelistContextValues = {
+    changes: Change[];
+    setChanges: (changes: Change[]) => void;
+    addChanges: (changes: Change[]) => void;
+    addChange: (change: Change) => void;
+    removeChange: (changeId: number) => void;
+    openEditCollapse: () => void;
+};
+export type ChangelistContextProviderProps = {
+    cubeID: string | null;
+    setOpenCollapse: (collapse: string) => void;
+    initialChanges?: Change[] | undefined;
+    noSave?: boolean | undefined;
+    children: React.ReactNode;
+};
+declare const ChangelistContext: React.Context<ChangelistContextValues>;
 //# sourceMappingURL=ChangelistContext.d.ts.map

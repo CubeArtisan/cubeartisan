@@ -116,7 +116,7 @@ export namespace CubeDeckPage {
         export const draft: null;
     }
 }
-declare const _default: (providedReactProps: any) => JSX.Element;
+declare const _default: () => JSX.Element;
 export default _default;
 import PropTypes from "prop-types";
 import { DraftPropType } from "@cubeartisan/client/proptypes/DraftbotPropTypes.js";
