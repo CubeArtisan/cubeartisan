@@ -10,7 +10,7 @@ declare namespace CommentList {
             _id: PropTypes.Validator<string>;
             timePosted: PropTypes.Validator<string>;
             ownerName: PropTypes.Validator<string>;
-            owner: PropTypes.Validator<string>;
+            owner: PropTypes.Requireable<string>;
             parent: PropTypes.Validator<string>;
             parentType: PropTypes.Validator<string>;
             artist: PropTypes.Validator<string>;

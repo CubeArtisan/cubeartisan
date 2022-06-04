@@ -16,50 +16,54 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import { Button, Collapse, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { Collapse } from 'reactstrap';
 
-import LinkButton from '@cubeartisan/client/components/inputs/LinkButton.js';
+/**
+ * @typedef CommentEntryProps
+ * @property {(text: string) => void} submit
+ * @property {boolean} expanded
+ * @property {() => void} toggle
+ * @property {string?} [defaultValue]
+ */
 
+/**
+ * @type {React.FC<CommentEntryProps>}
+ */
 const CommentEntry = ({ submit, expanded, toggle, defaultValue }) => {
-  const [text, setText] = useState(defaultValue);
+  const [text, setText] = useState(defaultValue ?? '');
 
   return (
-    <Collapse isOpen={expanded}>
-      <textarea
+    <Collapse in={expanded}>
+      <TextField
         value={text}
         onChange={(event) => setText(event.target.value)}
-        className="form-control"
         id="exampleFormControlTextarea1"
-        rows="2"
-        maxLength="5000"
+        rows={2}
       />
-      <LinkButton
+      <Button
         onClick={() => {
           submit(text);
           toggle();
           setText('');
         }}
       >
-        <small>Submit</small>
-      </LinkButton>
-      <LinkButton className="ml-2" onClick={toggle}>
+        Submit
+      </Button>
+      <Button className="ml-2" onClick={toggle}>
         <small>Cancel</small>
-      </LinkButton>
+      </Button>
     </Collapse>
   );
 };
-
 CommentEntry.propTypes = {
   submit: PropTypes.func.isRequired,
   expanded: PropTypes.bool.isRequired,
   toggle: PropTypes.func.isRequired,
   defaultValue: PropTypes.string,
 };
-
 CommentEntry.defaultProps = {
   defaultValue: '',
 };
-
 export default CommentEntry;

@@ -16,6 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import PropTypes from 'prop-types';
 import { forwardRef } from 'react';
 
 import { getCsrfToken } from '@cubeartisan/client/utils/CSRF.js';
@@ -23,15 +24,22 @@ import { getCsrfToken } from '@cubeartisan/client/utils/CSRF.js';
 /**
  * @typedef CSRFFormProps
  * @property {React.ReactNode} children
+ */
 
 /**
- * @type {React.ForwardRefExoticComponent<CSRFFormProps & React.HTMLProps<HTMLFormElement>>}
+ * @type {React.ForwardRefRenderFunction<HTMLFormElement, CSRFFormProps & React.HTMLProps<HTMLFormElement>>}
  */
-const CSRFForm = forwardRef(({ children /* eslint-disable-line */, ...props }, ref) => (
+const CSRFFormComponent = ({ children, ...props }, ref) => (
   <form ref={ref} {...props}>
     <input type="hidden" name="_csrf" value={getCsrfToken() ?? ''} />
     {children}
   </form>
-));
+);
+// @ts-ignore
+CSRFFormComponent.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+const CSRFForm = forwardRef(CSRFFormComponent);
 CSRFForm.displayName = 'CSRFForm';
 export default CSRFForm;

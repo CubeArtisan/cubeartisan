@@ -36,7 +36,6 @@ import CommentContextMenu from '@cubeartisan/client/components/CommentContextMen
 import CommentEntry from '@cubeartisan/client/components/CommentEntry.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import CSRFForm from '@cubeartisan/client/components/inputs/CSRFForm.js';
-import LinkButton from '@cubeartisan/client/components/inputs/LinkButton.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import TimeAgo from '@cubeartisan/client/components/wrappers/TimeAgo.js';
 import useComments from '@cubeartisan/client/hooks/UseComments.js';
@@ -45,6 +44,22 @@ import CommentPropType from '@cubeartisan/client/proptypes/CommentPropType.js';
 
 const maxDepth = 4;
 
+/**
+ * @typedef {import('@cubeartisan/client/proptypes/CommentPropType.js').Comment} Comment
+ */
+
+/**
+ * @typedef CommentProps
+ * @property {Comment} comment
+ * @property {number} index
+ * @property {number} [depth]
+ * @property {boolean} [noReplies]
+ * @property {(comment: Comment) => void} editComment
+ */
+
+/**
+ * @type React.FC<CommentProps>
+ */
 const Comment = ({ comment, index, depth, noReplies, editComment }) => {
   const user = useContext(UserContext);
   const userid = user && user._id;
@@ -63,15 +78,18 @@ const Comment = ({ comment, index, depth, noReplies, editComment }) => {
       parent: comment.parent,
       parentType: comment.parentType,
       owner: null,
-      ownerName: null,
+      ownerName: '[deleted]',
       content: '[deleted]',
-      timePosted: new Date(),
+      timePosted: new Date().toString(),
       updated: true,
       image: 'https://img.scryfall.com/cards/art_crop/front/0/c/0c082aa8-bf7f-47f2-baf8-43ad253fd7d7.jpg?1562826021',
       artist: 'Allan Pollack',
     });
   };
 
+  /**
+   * @param {string} content
+   */
   const edit = (content) => {
     editComment({
       _id: comment._id,
@@ -80,7 +98,7 @@ const Comment = ({ comment, index, depth, noReplies, editComment }) => {
       owner: comment.owner,
       ownerName: comment.ownerName,
       content,
-      timePosted: new Date(),
+      timePosted: new Date().toString(),
       updated: true,
       image: comment.image,
       artist: comment.artist,
@@ -96,7 +114,7 @@ const Comment = ({ comment, index, depth, noReplies, editComment }) => {
         </ModalBody>
       </Modal>
       <Modal isOpen={reportModalOpen} toggle={toggleReportModal} size="lg">
-        <CSRFForm method="POST" action={`/comment/${comment._id}/report`} autoComplete="off">
+        <CSRFForm method="POST" action={`/comment/${comment._id}/report`}>
           <ModalHeader toggle={toggle}>Report this Comment</ModalHeader>
           <ModalBody>
             <InputGroup className="mb-3">
@@ -120,7 +138,7 @@ const Comment = ({ comment, index, depth, noReplies, editComment }) => {
           </ModalBody>
           <ModalFooter>
             <Button color="success">Submit Report</Button>
-            <Button color="danger" onClick={toggleReportModal}>
+            <Button color="error" onClick={toggleReportModal}>
               Cancel
             </Button>
           </ModalFooter>
@@ -158,7 +176,7 @@ const Comment = ({ comment, index, depth, noReplies, editComment }) => {
               </div>
               {comment.owner === userid && (
                 <div>
-                  <CommentContextMenu comment={comment} value="..." edit={() => setIsEdit(true)} remove={remove}>
+                  <CommentContextMenu edit={() => setIsEdit(true)} remove={remove}>
                     <small>...</small>
                   </CommentContextMenu>
                 </div>
@@ -180,32 +198,33 @@ const Comment = ({ comment, index, depth, noReplies, editComment }) => {
             />
             <div>
               {!noReplies && userid && (
-                <LinkButton onClick={toggleReply}>
-                  <small>Reply</small>
-                </LinkButton>
+                <Button onClick={toggleReply} color="primary">
+                  Reply
+                </Button>
               )}
-              {!noReplies && comments.length > 0 && depth < maxDepth && (
-                <LinkButton
-                  className="ml-2"
+              {!noReplies && comments.length > 0 && (depth ?? 0) < maxDepth && (
+                <Button
+                  color="primary"
+                  sx={{ marginLeft: 2 }}
                   onClick={() => {
                     toggle();
                     setLoaded(true);
                   }}
                 >
-                  <small>{`${expanded ? 'Hide' : 'View'} Replies (${comments.length})`}</small>
-                </LinkButton>
+                  {`${expanded ? 'Hide' : 'View'} Replies (${comments.length})`}
+                </Button>
               )}
-              {!noReplies && comments.length > 0 && depth >= maxDepth && (
+              {!noReplies && comments.length > 0 && (depth ?? 0) >= maxDepth && (
                 <a className="m-2" href={`/comment/${comment._id}`}>
                   <small>{`View ${comments.length} ${comments.length > 1 ? 'replies' : 'reply'} in new page...`}</small>
                 </a>
               )}
-              <LinkButton className="ml-2" onClick={toggleShareModal}>
-                <small>Share</small>
-              </LinkButton>
-              <LinkButton className="ml-2" onClick={toggleReportModal}>
-                <small>Report</small>
-              </LinkButton>
+              <Button color="primary" sx={{ marginLeft: 2 }} onClick={toggleShareModal}>
+                Share
+              </Button>
+              <Button color="primary" sx={{ marginLeft: 2 }} onClick={toggleReportModal}>
+                Report
+              </Button>
             </div>
             <CommentEntry
               submit={(res) => {
@@ -228,7 +247,7 @@ const Comment = ({ comment, index, depth, noReplies, editComment }) => {
                       key={`comment-${comment._id}`}
                       comment={item}
                       index={index + comments.length - pos}
-                      depth={depth + 1}
+                      depth={(depth ?? 0) + 1}
                       editComment={editChildComment}
                     />
                   ))}
@@ -245,18 +264,16 @@ const Comment = ({ comment, index, depth, noReplies, editComment }) => {
     </>
   );
 };
-
 Comment.propTypes = {
+  // @ts-ignore
   comment: CommentPropType.isRequired,
   index: PropTypes.number.isRequired,
   depth: PropTypes.number,
   noReplies: PropTypes.bool,
   editComment: PropTypes.func.isRequired,
 };
-
 Comment.defaultProps = {
   depth: 0,
   noReplies: false,
 };
-
 export default Comment;

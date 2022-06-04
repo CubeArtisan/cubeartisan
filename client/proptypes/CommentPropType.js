@@ -18,11 +18,25 @@
  */
 import PropTypes from 'prop-types';
 
+/**
+ * @typedef Comment
+ * @property {string} _id
+ * @property {string} timePosted
+ * @property {string} ownerName
+ * @property {string?} owner
+ * @property {string} parent
+ * @property {string} parentType
+ * @property {string} artist
+ * @property {string} image
+ * @property {string} content
+ * @property {boolean} updated
+ */
+
 const CommentPropType = PropTypes.shape({
   _id: PropTypes.string.isRequired,
   timePosted: PropTypes.string.isRequired,
   ownerName: PropTypes.string.isRequired,
-  owner: PropTypes.string.isRequired,
+  owner: PropTypes.string,
   parent: PropTypes.string.isRequired,
   parentType: PropTypes.string.isRequired,
   artist: PropTypes.string.isRequired,
@@ -30,5 +44,4 @@ const CommentPropType = PropTypes.shape({
   content: PropTypes.string.isRequired,
   updated: PropTypes.bool.isRequired,
 });
-
 export default CommentPropType;
