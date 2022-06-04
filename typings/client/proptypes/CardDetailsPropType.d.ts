@@ -49,59 +49,6 @@ export type CardDetails = {
     cubeCount: number;
     pickCount: number;
 };
-/**
- * @typedef {import('@cubeartisan/client/proptypes/CardPricePropType.js').CardPrices} CardPrices
- * @typedef {import('@cubeartisan/client/proptypes/CardLegalitiesPropType.js').CardLegalities} CardLegalities
- * @typedef {'W'|'U'|'B'|'R'|'G'} Color
- */
-/**
- * @typedef CardDetails
- * @property {Color[]} color_identity
- * @property {string} set
- * @property {string} set_name
- * @property {boolean} foil
- * @property {boolean} nonfoil
- * @property {string} collector_number
- * @property {string} released_at
- * @property {boolean} reprint
- * @property {boolean} promo
- * @property {CardPrices} prices
- * @property {number} elo
- * @property {boolean} digital
- * @property {boolean} isToken
- * @property {string} border_color
- * @property {string} name
- * @property {string} name_lower
- * @property {string} full_name
- * @property {string?} artist
- * @property {string} scryfall_uri
- * @property {string} rarity
- * @property {string?} oracle_text
- * @property {string} _id
- * @property {string} oracle_id
- * @property {number} cmc
- * @property {CardLegalities} legalities
- * @property {string[]} parsed_cost
- * @property {Color[]?} colors
- * @property {string} type
- * @property {boolean} full_art
- * @property {string} language
- * @property {number?} mtgo_id
- * @property {string} layout
- * @property {string?} tcgplayer_id
- * @property {string?} loyalty
- * @property {string?} power
- * @property {string?} toughness
- * @property {string?} image_small
- * @property {string?} image_normal
- * @property {string?} art_crop
- * @property {string?} image_flip
- * @property {string} color_category
- * @property {string[]?} tokens
- * @property {number} popularity
- * @property {number} cubeCount
- * @property {number} pickCount
- */
 declare const CardDetailsPropType: PropTypes.Requireable<PropTypes.InferProps<{
     color_identity: PropTypes.Validator<string>;
     set: PropTypes.Validator<string>;

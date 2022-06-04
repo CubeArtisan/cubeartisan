@@ -1,7 +1,3 @@
-/**
- * @param {string?} filterText
- * @returns {{ err: any, filter: Filter? }} filterOrErr
- */
 export function makeFilter(filterText: string | null): {
     err: any;
     filter: Filter | null;

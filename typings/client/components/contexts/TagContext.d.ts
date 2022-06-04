@@ -51,20 +51,5 @@ export type TagContextValues = {
     tagColorClass: (tag: string) => string;
 };
 import PropTypes from "prop-types";
-/**
- * @typedef TagContextValues
- * @property {string[]} allSuggestions
- * @property {(tag: string) => void} addSuggestion
- * @property {string[]} allTags
- * @property {TagColor[]} tagColors
- * @property {(colors: TagColor[]) => Promise<void>} setTagColors
- * @property {boolean} showTagColors
- * @property {(showTagColors: Boolean) => Promise<void>} setShowTagColors
- * @property {(card: any) => string} cardColorClass
- * @property {(tag: string) => string} tagColorClass
- */
-/**
- * @type {import('react').Context<TagContextValues>}
- */
 declare const TagContext: import('react').Context<TagContextValues>;
 //# sourceMappingURL=TagContext.d.ts.map

@@ -11,19 +11,6 @@ export type CardLegalities = {
     Penny: string;
     Vintage: string;
 };
-/**
- * @typedef CardLegalities
- * @property {string} Legacy
- * @property {string} Modern
- * @property {string} Standard
- * @property {string} Pauper
- * @property {string} Pioneer
- * @property {string} Brawl
- * @property {string} Historic
- * @property {string} Commander
- * @property {string} Penny
- * @property {string} Vintage
- */
 declare const CardLegalitiesPropType: PropTypes.Requireable<PropTypes.InferProps<{
     Legacy: PropTypes.Requireable<string>;
     Modern: PropTypes.Requireable<string>;

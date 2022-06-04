@@ -91,15 +91,6 @@ export default MaybeboardContext;
 export type Card = import('@cubeartisan/client/proptypes/CardPropType.js').Card;
 export type MaybeboardContextValue = React.Context<import("react").Context<MaybeboardContextValue>>;
 import PropTypes from "prop-types";
-/**
- * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
- * @typedef MaybeboardContextValue
- * @property {(card: Card) => void} addMaybeboardCard
- * @property {(cardIdx: number) => void} removeMaybeboardCard
- * @property {(card: Card) => void} updateMaybeboardCard
- * @property {Card[]} maybeboard
- * @type {React.Context<MaybeboardContextValue>}
- */
 declare const MaybeboardContext: import("react").Context<{
     maybeboard: never[];
     addMaybeboardCard: () => void;

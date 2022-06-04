@@ -3,11 +3,6 @@ export type Card = import('@cubeartisan/client/proptypes/CardPropType.js').Card;
 export type Cube = {
     cards: Card[] | null;
 };
-/**
- * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
- * @typedef Cube
- * @property {Card[]?} cards
- */
 declare const CubePropType: PropTypes.Requireable<PropTypes.InferProps<{
     cards: PropTypes.Requireable<PropTypes.InferProps<{
         addedTmsp: PropTypes.Requireable<string>;

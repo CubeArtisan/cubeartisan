@@ -121,12 +121,6 @@ export namespace AutocompleteTagField {
     export { defaultProps_2 as defaultProps };
 }
 import PropTypes from "prop-types";
-/**
- * @param {import('react').HTMLAttributes<HTMLLIElement>} props
- * @param {string} text
- * @param {import('@mui/material').AutocompleteRenderOptionState} _
- * @returns {import('react').ReactNode} option
- */
 declare function renderTextOption(props: import('react').HTMLAttributes<HTMLLIElement>, text: string, { selected }: import('@mui/material').AutocompleteRenderOptionState): import('react').ReactNode;
 export {};
 //# sourceMappingURL=AutocompleteInput.d.ts.map

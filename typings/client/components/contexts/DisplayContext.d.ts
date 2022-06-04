@@ -31,21 +31,6 @@ export type DisplayContextValue = {
     setAutoCardSize: (size: number | string) => void;
 };
 import PropTypes from "prop-types";
-/**
- * @typedef DisplayContextValue
- * @property {boolean} showCustomImages
- * @property {() => void} toggleShowCustomImages
- * @property {boolean} showMaybeboard
- * @property {() => void} toggleShowMaybeboard
- * @property {number} cardsInRow
- * @property {(cardsInRow: number) => void} setCardsInRow
- * @property {boolean} useSticky
- * @property {() => void} toggleUseSticky
- * @property {string} theme
- * @property {(theme?: string) => void} updateTheme
- * @property {number | string} autoCardSize
- * @property {(size: number | string) => void} setAutoCardSize
- */
 declare const DisplayContext: import("react").Context<{
     showCustomImages: boolean;
     toggleShowCustomImages: () => void;

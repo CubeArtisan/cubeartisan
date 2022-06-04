@@ -22,30 +22,6 @@ export type Card = {
     type_line: string | null;
     details: CardDetails;
 };
-/**
- * @typedef {import('@cubeartisan/client/proptypes/CardDetailsPropType.js').Color} Color
- * @typedef {import('@cubeartisan/client/proptypes/CardDetailsPropType.js').CardDetails} CardDetails
- * @typedef {'Foil'|'Non-foil'} CardFinish
- * @typedef {'Not Owned'|'Ordered'|'Owned'|'Premium Owned'|'Proxied'} CardStatus
- * @typedef Card
- * @property {string?} addedTmsp
- * @property {string?} cardID
- * @property {number?} cmc
- * @property {string?} colorCategory
- * @property {Color[]?} colors
- * @property {CardFinish} finish
- * @property {string?} imgBackUrl
- * @property {string?} imgUrl
- * @property {number?} [index]
- * @property {boolean} isUnlimited
- * @property {string?} name
- * @property {string?} notes
- * @property {string?} rarity
- * @property {CardStatus} status
- * @property {string[]} tags
- * @property {string?} type_line
- * @property {CardDetails} details
- */
 declare const CardPropType: PropTypes.Requireable<PropTypes.InferProps<{
     addedTmsp: PropTypes.Requireable<string>;
     cardID: PropTypes.Validator<string>;

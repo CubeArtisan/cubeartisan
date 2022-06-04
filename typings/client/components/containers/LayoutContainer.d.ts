@@ -1,12 +1,3 @@
-/**
- * @typedef {import('@mui/system').SxProps} SxProps
- * @typedef LayoutContainerProps
- * @property {SxProps} [sx]
- * @property {React.ReactNode} children
- */
-/**
- * @type {React.FC<LayoutContainerProps>}
- */
 export const LayoutContainer: React.FC<LayoutContainerProps>;
 export default LayoutContainer;
 export type SxProps = import('@mui/system').SxProps;

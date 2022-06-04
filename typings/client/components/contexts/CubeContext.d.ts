@@ -103,19 +103,6 @@ export type Cube = import('@cubeartisan/client/proptypes/CubePropType.js').Cube;
 export type Card = import('@cubeartisan/client/proptypes/CardPropType.js').Card;
 export type CubeContextValue = import('react').Context<CubeContextValue>;
 import PropTypes from "prop-types";
-/**
- @typedef {import('@cubeartisan/client/proptypes/CubePropType.js').Cube} Cube
- @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
- * @typedef CubeContextValue
- * @property {Cube?} cube
- * @property {boolean} canEdit
- * @property {string?} cubeID
- * @property {boolean} hasCustomImages
- * @property {((cube: Cube) => void) | ((replacer: (cube: Cube) => Cube) => void)}
- * @property {(index: number, card: Card) => void} updateCubeCard
- * @property {(cards: Card[]) => void} updateCubeCards
- * @type {import('react').Context<CubeContextValue>}
- */
 declare const CubeContext: import("react").Context<{
     cube: {};
     canEdit: boolean;

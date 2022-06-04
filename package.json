@@ -30,6 +30,8 @@
     "checktypes": "yarn pnpify tsc -p tsconfig.json | loose-ts-check",
     "checktypes-update": "yarn pnpify tsc -p tsconfig.json | loose-ts-check --auto-update",
     "ci": "yarn nearley; yarn updatetypes; yarn lint && yarn checktypes && yarn test-loud",
+    "list-type-defs": "cd typings && git ls-files '*.d.ts'",
+    "strip-jsdoc": "cd typings && sh -c 'for file in `yarn run --silent list-type-defs`; do fxstripjsdoc $file; done'",
     "lint": "yarn workspaces foreach -p --include '@cubeartisan/*' run g:lint",
     "lint-fix": "yarn workspaces foreach -p --include '@cubeartisan/*' run g:lint-fix",
     "lint-loud": "yarn workspaces foreach -p --include '@cubeartisan/*'run g:lint-loud",
@@ -39,7 +41,7 @@
     "start": "yarn webpack-dev-server & yarn nodemon",
     "test": "yarn workspaces foreach --include '@cubeartisan/*' run g:test",
     "test-loud": "yarn workspaces foreach --include '@cubeartisan/*' run g:test:loud",
-    "updatetypes": "rm -r typings; yarn pnpify tsc -p tsconfig.lax.json",
+    "updatetypes": "rm -r typings; yarn pnpify tsc -p tsconfig.lax.json; yarn strip-jsdoc",
     "webpack-dev-server": "yarn workspace @cubeartisan/client webpack-dev-server"
   },
   "engines": {
@@ -51,12 +53,13 @@
     "@date-io/core": "^2.14.0",
     "@mui/types": "^7.1.3",
     "@opentelemetry/api": "1.1.0",
-    "@opentelemetry/instrumentation-http": "^0.29.0",
-    "@types/node": "^17.0.38",
-    "@types/react": "^18.0.10",
+    "@opentelemetry/instrumentation-http": "^0.29.1",
+    "@types/node": "^17.0.39",
+    "@types/react": "^18.0.11",
     "@yarnpkg/pnpify": "^4.0.0-rc.6",
     "bson": "^4.6.4",
     "csstype": "3.1.0",
+    "fxstripjsdoc": "^1.1.1",
     "loose-ts-check": "^1.2.0",
     "mongodb-memory-server-core": "^8.6.0",
     "popper.js": "^1.16.1",
@@ -64,11 +67,8 @@
     "react": "^18.1.0",
     "socket.io": "^4.5.1",
     "type-fest": "^2.13.0",
-    "typescript": "^4.7.2",
+    "typescript": "^4.7.3",
     "winston": "^3.7.2",
     "winston2": "npm:winston@2.4.5"
-  },
-  "resolutions": {
-    "@types/react": "^17.0.44"
   }
 }
