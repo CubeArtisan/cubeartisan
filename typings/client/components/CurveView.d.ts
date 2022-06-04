@@ -1,4 +1,8 @@
 export default CurveView;
+export type TypeRowProps = {
+    cardType: string;
+    group: import("@mui/material/OverridableComponent.js").OverridableComponent<import("@mui/material").CardTypeMap<{}, "div">>[];
+};
 declare function CurveView({ cards, ...props }: {
     [x: string]: any;
     cards: any;

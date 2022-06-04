@@ -36,11 +36,9 @@ const CommentContextMenu = ({ edit, remove, children }) => {
     </Dropdown>
   );
 };
-
 CommentContextMenu.propTypes = {
   edit: PropTypes.func.isRequired,
   remove: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
 };
-
 export default CommentContextMenu;

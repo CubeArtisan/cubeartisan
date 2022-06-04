@@ -13,17 +13,18 @@ const ContainerHeader = ({ title, variant, sx, children }) => (
       ...sx,
     }}
   >
-    <Typography variant={variant}>{title}</Typography>
+    {title && <Typography variant={variant}>{title}</Typography>}
     {children}
   </Box>
 );
 ContainerHeader.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   variant: PropTypes.string,
   sx: PropTypes.shape({}),
   children: PropTypes.node,
 };
 ContainerHeader.defaultProps = {
+  title: null,
   variant: 'h5',
   sx: {},
   children: null,

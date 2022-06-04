@@ -49,7 +49,6 @@ const catalog = {};
  *     tix: Float?,
  *   },
  *   elo: Integer,
- *   embedding: [Float],
  *   digital: Boolean,
  *   isToken: Boolean,
  *   border_color: String,
@@ -666,6 +665,7 @@ function convertCard(card, isExtra) {
     card.promo ||
     (card.frame_effects && card.frame_effects.includes('extendedart')) ||
     (card.frame_effects && card.frame_effects.includes('showcase')) ||
+    (card.frame_effects && card.frame_effects.includes('borderless')) ||
     card.textless ||
     card.frame === 'art_series' ||
     card.set.toLowerCase() === 'mps' || // kaladesh masterpieces
@@ -692,7 +692,6 @@ function convertCard(card, isExtra) {
     newcard.pickCount = 0;
   }
 
-  newcard.embedding = catalog.embeddingdict[name] || [];
   newcard.digital = card.digital;
   newcard.isToken = card.layout === 'token';
   newcard.border_color = card.border_color;

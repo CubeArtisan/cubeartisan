@@ -21,19 +21,31 @@ import { useEffect, useState } from 'react';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
+/**
+ * @typedef {import('@cubeartisan/client/proptypes/CommentPropType.js').Comment} Comment
+ */
+
+/**
+ * @param {string} type
+ * @param {string} parent
+ * @returns {[Comment[], (content: string) => Promise<void>, boolean, (comment: Comment) => Promise<void>]} handles
+ */
 const useComment = (type, parent) => {
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState(/** @type {Comment[]} */ []);
   const [loading, setLoading] = useState(true);
 
-  const addComment = async (comment) => {
-    const mentions = findUserLinks(comment).join(';');
+  /**
+   * @param {string} content
+   */
+  const addComment = async (content) => {
+    const mentions = findUserLinks(content).join(';');
     const response = await csrfFetch(`/comment`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        comment,
+        content,
         mentions,
       }),
     });
@@ -44,6 +56,9 @@ const useComment = (type, parent) => {
     setComments(clone);
   };
 
+  /**
+   * @param {Comment} comment
+   */
   const editComment = async (comment) => {
     await csrfFetch(`/comment/${comment._id}`, {
       method: 'PUT',
@@ -84,5 +99,4 @@ const useComment = (type, parent) => {
 
   return [comments, addComment, loading, editComment];
 };
-
 export default useComment;

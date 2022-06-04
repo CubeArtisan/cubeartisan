@@ -16,17 +16,24 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import { Button, CircularProgress, Collapse } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useContext } from 'react';
-import { Collapse, Spinner } from 'reactstrap';
 
 import CommentEntry from '@cubeartisan/client/components/CommentEntry.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import LinkButton from '@cubeartisan/client/components/inputs/LinkButton.js';
 import CommentList from '@cubeartisan/client/components/PagedCommentList.js';
 import useComments from '@cubeartisan/client/hooks/UseComments.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 
+/**
+ * @typedef CommentSectionProps
+ * @property {string} parent
+ * @property {string} parentType
+ * @property {boolean} [collapse]
+ */
+
+/** @type {React.FC<CommentSectionProps>} */
 const CommentsSection = ({ parent, parentType, collapse }) => {
   const user = useContext(UserContext);
   const userid = user && user._id;
@@ -38,7 +45,7 @@ const CommentsSection = ({ parent, parentType, collapse }) => {
   if (loading) {
     return (
       <div className="centered py-3">
-        <Spinner className="position-absolute" />
+        <CircularProgress sx={{ position: 'absolute' }} />
       </div>
     );
   }
@@ -46,12 +53,10 @@ const CommentsSection = ({ parent, parentType, collapse }) => {
     <>
       {userid && (
         <div className="p-2 border-bottom">
-          <Collapse isOpen={!replyExpanded}>
-            <h6>
-              <LinkButton className="ml-1" onClick={toggleReply}>
-                Add a Comment
-              </LinkButton>
-            </h6>
+          <Collapse in={!replyExpanded}>
+            <Button color="primary" sx={{ marginLeft: 1 }} onClick={toggleReply}>
+              Add a Comment
+            </Button>
           </Collapse>
           <CommentEntry submit={addComment} expanded={replyExpanded} toggle={toggleReply} />
         </div>
@@ -60,14 +65,12 @@ const CommentsSection = ({ parent, parentType, collapse }) => {
         <>
           {collapse && (
             <div className="p-2 border-bottom">
-              <h6>
-                <LinkButton className="ml-1" onClick={toggle}>
-                  {`${expanded ? 'Hide' : 'View'} Comments (${comments.length})`}
-                </LinkButton>
-              </h6>
+              <Button color="secondary" sx={{ marginLeft: 1 }} onClick={toggle}>
+                {`${expanded ? 'Hide' : 'View'} Comments (${comments.length})`}
+              </Button>
             </div>
           )}
-          <Collapse isOpen={expanded}>
+          <Collapse in={expanded}>
             <CommentList comments={comments} editComment={editComment} />
           </Collapse>
         </>
@@ -75,15 +78,12 @@ const CommentsSection = ({ parent, parentType, collapse }) => {
     </>
   );
 };
-
 CommentsSection.propTypes = {
   parent: PropTypes.string.isRequired,
   parentType: PropTypes.string.isRequired,
   collapse: PropTypes.bool,
 };
-
 CommentsSection.defaultProps = {
   collapse: true,
 };
-
 export default CommentsSection;

@@ -11,21 +11,23 @@ import { cardFullName, cardTags } from '@cubeartisan/client/utils/Card.js';
 const placeholderClass = () => '';
 
 /**
- * @typedef {{ card?: import('@cubeartisan/client/proptypes/CardPropType.js').Card, front?: string, back?: string, tags?: string[] }} AutocardProps
+ * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
+ * @typedef AutocardProps
+ * @property {Card} card
+ * @property {string} [front]
+ * @property {string} [back]
+ * @property {string[]} [tags]
  */
 
 /**
- * @template {object} P
- * @param {import('react').ComponentType<P>} Tag - The tag for the autocard components
- * @returns {React.ForwardRefExoticComponent<AutocardProps & P>}
+ * @template P
+ * @param {React.ComponentType<P>} Tag - The tag for the autocard components
  */
 const withAutocard = (Tag) => {
   /**
-   * @typedef {import('react').ForwardRefExoticComponent<AutocardProps & P>} ComponentType
-   * @type ComponentType
+   * @type {React.ForwardRefRenderFunction<any, AutocardProps & P>}
    */
-  // @ts-ignore
-  const WithAutocard = forwardRef(({ card, front, back, tags, ...props }, ref) => {
+  const WithAutocardComponent = ({ card, front, back, tags, ...props }, ref) => {
     const tagContext = useContext(TagContext);
     const tagColorClass = tagContext?.tagColorClass ?? placeholderClass;
     const { autoCardSize } = useContext(DisplayContext);
@@ -76,24 +78,27 @@ const withAutocard = (Tag) => {
           },
         }}
       >
+        {/* @ts-ignore */}
         <Tag ref={ref} card={card} {...props} />
       </Tooltip>
     );
-  });
-  WithAutocard.propTypes = {
+  };
+  // @ts-ignore
+  WithAutocardComponent.propTypes = {
     card: CardPropType.isRequired,
     front: PropTypes.string,
     back: PropTypes.string,
     tags: PropTypes.arrayOf(PropTypes.string.isRequired),
-    ...Tag.propTypes,
+    ...(Tag.propTypes ?? {}),
   };
-  WithAutocard.defaultProps = {
-    card: null,
-    front: null,
-    back: null,
-    tags: null,
-    ...Tag.defaultProps,
+  // @ts-ignore
+  WithAutocardComponent.defaultProps = {
+    front: undefined,
+    back: undefined,
+    tags: undefined,
+    ...(Tag.defaultProps ?? {}),
   };
+  const WithAutocard = forwardRef(WithAutocardComponent);
   if (typeof Tag === 'string') {
     WithAutocard.displayName = `${Tag}WithAutocard`;
   } else if (Tag.displayName) {

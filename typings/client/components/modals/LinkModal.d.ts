@@ -1,15 +1,17 @@
 export default LinkModal;
-declare function LinkModal({ link, isOpen, toggle }: {
-    link: any;
-    isOpen: any;
-    toggle: any;
-}): JSX.Element;
-declare namespace LinkModal {
-    namespace propTypes {
-        const link: PropTypes.Validator<string>;
-        const isOpen: PropTypes.Validator<boolean>;
-        const toggle: PropTypes.Validator<(...args: any[]) => any>;
-    }
-}
-import PropTypes from "prop-types";
+export type LinkModalProps = {
+    link: string;
+    isOpen: boolean;
+    toggle: () => void;
+};
+/**
+  @typedef LinkModalProps
+  @property {string} link
+  @property {boolean} isOpen
+  @property {() => void} toggle
+*/
+/**
+ * @type {React.FC<LinkModalProps>}
+ */
+declare const LinkModal: React.FC<LinkModalProps>;
 //# sourceMappingURL=LinkModal.d.ts.map

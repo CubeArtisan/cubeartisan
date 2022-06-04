@@ -31,8 +31,9 @@ import {
   UncontrolledAlert,
 } from 'reactstrap';
 
+import CardImage from '@cubeartisan/client/components/CardImage.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
-import ImageFallback from '@cubeartisan/client/components/ImageFallback.js';
+import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
 const AddToCubeModal = ({ card, isOpen, toggle, hideAnalytics, cubeContext }) => {
@@ -99,12 +100,7 @@ const AddToCubeModal = ({ card, isOpen, toggle, hideAnalytics, cubeContext }) =>
       <Modal isOpen={isOpen} toggle={toggle} size="xs">
         <ModalHeader toggle={toggle}>{card.name}</ModalHeader>
         <ModalBody>
-          <ImageFallback
-            className="w-100 mb-3"
-            src={card.image_normal}
-            fallbackSrc="/content/default_card.png"
-            alt={card.name}
-          />
+          <CardImage card={card} sx={{ marginBottom: 3 }} />
           <p>You don't appear to have any cubes to add this card to. Are you logged in?</p>
         </ModalBody>
         <ModalFooter>
@@ -131,12 +127,7 @@ const AddToCubeModal = ({ card, isOpen, toggle, hideAnalytics, cubeContext }) =>
             {message}
           </UncontrolledAlert>
         ))}
-        <ImageFallback
-          className="w-100"
-          src={card.image_normal}
-          fallbackSrc="/content/default_card.png"
-          alt={card.name}
-        />
+        <CardImage card={card} />
         <InputGroup className="my-3">
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Cube: </InputGroupText>
@@ -167,22 +158,15 @@ const AddToCubeModal = ({ card, isOpen, toggle, hideAnalytics, cubeContext }) =>
     </Modal>
   );
 };
-
 AddToCubeModal.propTypes = {
-  card: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    image_normal: PropTypes.string.isRequired,
-    _id: PropTypes.string.isRequired,
-  }).isRequired,
+  card: CardPropType.isRequired,
   isOpen: PropTypes.bool.isRequired,
   hideAnalytics: PropTypes.bool,
   toggle: PropTypes.func.isRequired,
   cubeContext: PropTypes.string,
 };
-
 AddToCubeModal.defaultProps = {
   hideAnalytics: false,
   cubeContext: null,
 };
-
 export default AddToCubeModal;

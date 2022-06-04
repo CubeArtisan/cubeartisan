@@ -1,20 +1,19 @@
-export function LayoutContainer({ children, sx, ...props }: {
-    [x: string]: any;
-    children: any;
-    sx: any;
-}): JSX.Element;
-export namespace LayoutContainer {
-    namespace propTypes {
-        const children: PropTypes.Validator<string | number | boolean | {} | PropTypes.ReactElementLike | PropTypes.ReactNodeArray>;
-        const sx: PropTypes.Requireable<PropTypes.InferProps<{}>>;
-    }
-    namespace defaultProps {
-        const sx_1: {};
-        export { sx_1 as sx };
-    }
-}
+/**
+ * @typedef {import('@mui/system').SxProps} SxProps
+ * @typedef LayoutContainerProps
+ * @property {SxProps} [sx]
+ * @property {React.ReactNode} children
+ */
+/**
+ * @type {React.FC<LayoutContainerProps>}
+ */
+export const LayoutContainer: React.FC<LayoutContainerProps>;
 export default LayoutContainer;
-import PropTypes from "prop-types";
+export type SxProps = import('@mui/system').SxProps;
+export type LayoutContainerProps = {
+    sx?: SxProps | undefined;
+    children: React.ReactNode;
+};
 import ContainerHeader from "@cubeartisan/client/components/containers/ContainerHeader.js";
 import ContainerBody from "@cubeartisan/client/components/containers/ContainerBody.js";
 import ContainerFooter from "@cubeartisan/client/components/containers/ContainerFooter.js";

@@ -13,27 +13,33 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with CubeArtisan.  If not, see <https://www.gnu.org/licenses/>.
- *
- * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
 
-const LinkButton = ({ children, onClick, ...props }) => (
-  /* eslint-disable-next-line jsx-a11y/anchor-is-valid */
-  <a
-    href="@cubeartisan/client/components/inputs/LinkButton.js#"
-    onClick={(event) => {
-      event.preventDefault();
-      onClick();
-    }}
-    {...props}
-  >
-    {children}
-  </a>
-);
-LinkButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
-};
+/**
+ * @typedef CardLegalities
+ * @property {string} Legacy
+ * @property {string} Modern
+ * @property {string} Standard
+ * @property {string} Pauper
+ * @property {string} Pioneer
+ * @property {string} Brawl
+ * @property {string} Historic
+ * @property {string} Commander
+ * @property {string} Penny
+ * @property {string} Vintage
+ */
 
-export default LinkButton;
+const CardLegalitiesPropType = PropTypes.shape({
+  Legacy: PropTypes.string,
+  Modern: PropTypes.string,
+  Standard: PropTypes.string,
+  Pauper: PropTypes.string,
+  Pioneer: PropTypes.string,
+  Brawl: PropTypes.string,
+  Historic: PropTypes.string,
+  Commander: PropTypes.string,
+  Penny: PropTypes.string,
+  Vintage: PropTypes.string,
+});
+export default CardLegalitiesPropType;

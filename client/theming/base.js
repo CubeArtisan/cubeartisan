@@ -35,6 +35,7 @@ const defaultTheme = (palette) => ({
       },
     },
   },
+  spacing: 8,
   shape: {
     borderRadius: 10,
   },
@@ -45,7 +46,7 @@ const defaultTheme = (palette) => ({
   },
   mixins: {
     toolbar: {
-      minHeight: 48,
+      minHeight: 36,
     },
   },
   shadows: [

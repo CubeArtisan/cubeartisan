@@ -46,16 +46,15 @@ import CountTableRow from '@cubeartisan/client/components/CountTableRow.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
-import ImageFallback from '@cubeartisan/client/components/ImageFallback.js';
-import ButtonLink from '@cubeartisan/client/components/inputs/ButtonLink.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import AddToCubeModal from '@cubeartisan/client/components/modals/AddToCubeModal.js';
 import Tab from '@cubeartisan/client/components/Tab.js';
 import TextBadge from '@cubeartisan/client/components/TextBadge.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
+import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 import CardDataPointPropType from '@cubeartisan/client/proptypes/CardDataPointPropType.js';
-import CardPricePropType from '@cubeartisan/client/proptypes/CardPricePropType.js';
+import CardDetailsPropType from '@cubeartisan/client/proptypes/CardDetailsPropType.js';
 import {
   getCardHoarderLink,
   getCardKingdomLink,
@@ -67,18 +66,27 @@ import {
   cardCubeCount,
   cardElo,
   cardFoilPrice,
+  cardName,
   cardPopularity,
   cardPrice,
   cardPriceEur,
   cardTix,
+  detailsToCard,
 } from '@cubeartisan/client/utils/Card.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 const AutocardA = withAutocard(Link);
 const AddModal = withModal(Button, AddToCubeModal);
 
+/**
+ * @param {Date} date
+ */
 const formatDate = (date) => `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
 
+/**
+ * @template T
+ * @param {{ x: Date, y: T }[]} list
+ */
 const distinct = (list) => {
   const res = [];
   const dates = new Set();
@@ -171,14 +179,12 @@ const Graph = ({ data, yFunc, unit, yRange }) => {
   }
   return <p>No data to show.</p>;
 };
-
 Graph.propTypes = {
   data: PropTypes.arrayOf(CardDataPointPropType).isRequired,
   yFunc: PropTypes.func.isRequired,
   unit: PropTypes.string.isRequired,
   yRange: PropTypes.arrayOf(PropTypes.number),
 };
-
 Graph.defaultProps = {
   yRange: null,
 };
@@ -198,12 +204,14 @@ const LegalityBadge = ({ legality, status }) => (
     {legality}
   </h6>
 );
-
 LegalityBadge.propTypes = {
   legality: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
 };
 
+/**
+ * @param {React.ReactNode} element
+ */
 const elementWrapper = (element) => (
   <table className="table table-striped mb-0">
     <thead>
@@ -257,7 +265,7 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
   const [selectedTab, setSelectedTab] = useQueryParam('tab', '0');
   const [priceType, setPriceType] = useQueryParam('priceType', 'price');
   const [cubeType, setCubeType] = useQueryParam('cubeType', 'total');
-  const [imageUsed, setImageUsed] = useState(card.image_normal);
+  const [back, toggleBack] = useToggle(false);
 
   const sortedVersions = versions.sort((a, b) => {
     const date1 = new Date(a.released_at);
@@ -273,75 +281,65 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
   });
 
   const filteredVersions = sortedVersions.filter((version) => version._id !== card._id);
+  const fullCard = detailsToCard(card);
 
   return (
     <MainLayout loginCallback={loginCallback}>
       <DynamicFlash />
       <Card className="mt-2">
         <CardHeader>
-          <h4>{card.name}</h4>
+          <h4>{cardName(fullCard)}</h4>
           <h6>{`${card.set_name} [${card.set.toUpperCase()}-${card.collector_number}]`}</h6>
         </CardHeader>
         <Row className="mt-2" noGutters>
           <Col className="pl-2 pb-2" xs="12" sm="3">
-            <ImageFallback src={imageUsed} fallbackSrc="/content/default_card.png" alt={card.name} />
+            <CardImage card={card} back={back} />
             {card.image_flip && (
-              <Button
-                color="success"
-                variant="outlined"
-                onClick={() => {
-                  if (imageUsed === card.image_normal) {
-                    setImageUsed(card.image_flip);
-                  } else {
-                    setImageUsed(card.image_normal);
-                  }
-                }}
-                endIcon={<SwapHoriz />}
-              >
+              <Button color="success" variant="outlined" onClick={toggleBack} endIcon={<SwapHoriz />}>
                 Transform
               </Button>
             )}
             <CardBody className="breakdown p-1">
               <p>
-                Played in {cardPopularity({ details: card })}%
-                <span className="percent">{cardCubeCount({ details: card })}</span> Cubes total.
+                Played in {cardPopularity(fullCard)}%<span className="percent">{cardCubeCount(fullCard)}</span> Cubes
+                total.
               </p>
               <AddModal color="success" fullWidth variant="outlined" modalProps={{ card, hideAnalytics: true }}>
                 Add to Cube...
               </AddModal>
               <CardIdBadge id={card._id} />
-              {card.prices && Number.isFinite(cardPrice({ details: card })) && (
+              {card.prices && Number.isFinite(cardPrice(fullCard)) && (
                 <TextBadge name="Price">
                   <Tooltip title="TCGPlayer Market Price">
-                    <Typography variant="body1">${cardPrice({ details: card }).toFixed(2)}</Typography>
+                    <Typography variant="body1">${cardPrice(fullCard)?.toFixed?.(2) ?? 'Not Avaliable'}</Typography>
                   </Tooltip>
                 </TextBadge>
               )}
-              {card.prices && Number.isFinite(cardFoilPrice({ details: card })) && (
+              {card.prices && Number.isFinite(cardFoilPrice(fullCard)) && (
                 <TextBadge name="Foil">
                   <Tooltip title="TCGPlayer Market Price">
-                    <Typography variant="body1">${cardFoilPrice({ details: card }).toFixed(2)}</Typography>
+                    <Typography variant="body1">${cardFoilPrice(fullCard)?.toFixed?.(2) ?? 'Not Avaliable'}</Typography>
                   </Tooltip>
                 </TextBadge>
               )}
-              {card.prices && Number.isFinite(cardPriceEur({ details: card })) && (
+              {card.prices && Number.isFinite(cardPriceEur(fullCard)) && (
                 <TextBadge name="EUR">
                   <Tooltip title="Cardmarket Price">
-                    <Typography variant="body1">€{cardPriceEur({ details: card }).toFixed(2)}</Typography>
+                    <Typography variant="body1">€{cardPriceEur(fullCard)?.toFixed?.(2) ?? 'Not Available'}</Typography>
                   </Tooltip>
                 </TextBadge>
               )}
-              {card.prices && Number.isFinite(cardTix({ details: card })) && (
+              {card.prices && Number.isFinite(cardTix(fullCard)) && (
                 <TextBadge name="TIX">
                   <Tooltip title="MTGO TIX">
-                    <Typography variant="body1">{cardTix({ details: card }).toFixed(2)}</Typography>
+                    <Typography variant="body1">{cardTix(fullCard)?.toFixed?.(2) ?? 'Not Avaliable'}</Typography>
                   </Tooltip>
                 </TextBadge>
               )}
-              {Number.isFinite(cardElo({ details: card })) && (
+              {Number.isFinite(cardElo(fullCard)) && (
                 <TextBadge name="Elo">
                   <Tooltip title="Elo">
-                    <Typography variant="body1">{cardElo({ details: card }).toFixed(0)}</Typography>
+                    <Typography variant="body1">{cardElo(fullCard).toFixed(0)}</Typography>
                   </Tooltip>
                 </TextBadge>
               )}
@@ -529,69 +527,64 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
                 <CardBody>
                   <Row>
                     <Col className="pb-2" xs="12" sm="6">
-                      <ButtonLink
-                        outline
+                      <Button
+                        variant="outlined"
                         color="success"
-                        block
                         href={`/cubes/search/card:"${card.name}"/0`}
                         target="_blank"
                       >
                         {`Cubes with ${card.name}`}
-                      </ButtonLink>
+                      </Button>
                     </Col>
                     <Col className="pb-2" xs="12" sm="6">
-                      <ButtonLink
-                        outline
+                      <Button
+                        variant="outlined"
                         color="success"
-                        block
                         href={`/tool/searchcards?f=name%3A"${card.name}"&p=0&di=printings`}
                         target="_blank"
                       >
                         View all Printings
-                      </ButtonLink>
+                      </Button>
                     </Col>
                     <Col className="pb-2" xs="12" sm="6">
-                      <ButtonLink outline color="success" block href={card.scryfall_uri} target="_blank">
+                      <Button color="success" variant="outlined" href={card.scryfall_uri} target="_blank">
                         View on Scryfall
-                      </ButtonLink>
+                      </Button>
                     </Col>
                     <Col className="pb-2" xs="12" sm="6">
-                      <ButtonLink outline color="success" block href={getTCGLink({ details: card })} target="_blank">
+                      <Button color="success" variant="outlined" href={getTCGLink({ details: card })} target="_blank">
                         View on TCGPlayer
-                      </ButtonLink>
+                      </Button>
                     </Col>
                     <Col className="pb-2" xs="12" sm="6">
-                      <ButtonLink
-                        outline
+                      <Button
+                        variant="outlined"
                         color="success"
-                        block
                         href={getCardKingdomLink({ details: card })}
                         target="_blank"
                       >
                         View on Card Kingdom
-                      </ButtonLink>
+                      </Button>
                     </Col>
                     <Col className="pb-2" xs="12" sm="6">
-                      <ButtonLink
-                        outline
+                      <Button
+                        variant="outlined"
                         color="success"
-                        block
                         href={`https://edhrec.com/cards/${nameToDashedUrlComponent(card.name)}`}
                         target="_blank"
                       >
                         View on EDHRec
-                      </ButtonLink>
+                      </Button>
                     </Col>
                     <Col className="pb-2" xs="12" sm="6">
-                      <ButtonLink
-                        outline
+                      <Button
+                        variant="outlined"
                         color="success"
-                        block
                         href={`http://mtgtop8.com/search?MD_check=1&SB_check=1&cards=${card.name}`}
                         target="_blank"
                       >
                         {`MTG Top 8 Decks with ${card.name}`}
-                      </ButtonLink>
+                      </Button>
                     </Col>
                   </Row>
                 </CardBody>
@@ -646,7 +639,7 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
               <h4>Purchase</h4>
             </CardHeader>
             <CardBody>
-              <ButtonLink outline color="success" block href={getTCGLink({ details: card })} target="_blank">
+              <Button variant="outlined" color="success" href={getTCGLink({ details: card })} target="_blank">
                 <Row>
                   <Col xs="6">
                     <div className="text-left">
@@ -661,8 +654,8 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
                     </Col>
                   )}
                 </Row>
-              </ButtonLink>
-              <ButtonLink outline color="success" block href={getCardKingdomLink({ details: card })} target="_blank">
+              </Button>
+              <Button variant="outlined" color="success" href={getCardKingdomLink({ details: card })} target="_blank">
                 <Row>
                   <Col xs="6">
                     <div className="text-left">
@@ -670,8 +663,8 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
                     </div>
                   </Col>
                 </Row>
-              </ButtonLink>
-              <ButtonLink outline color="success" block href={getCardMarketLink({ details: card })} target="_blank">
+              </Button>
+              <Button variant="outlined" color="success" href={getCardMarketLink({ details: card })} target="_blank">
                 <Row>
                   <Col xs="6">
                     <div className="text-left">
@@ -686,8 +679,8 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
                     </Col>
                   )}
                 </Row>
-              </ButtonLink>
-              <ButtonLink outline color="success" block href={getCardHoarderLink({ details: card })} target="_blank">
+              </Button>
+              <Button variant="outlined" color="success" href={getCardHoarderLink({ details: card })} target="_blank">
                 <Row>
                   <Col xs="6">
                     <div className="text-left">
@@ -702,7 +695,7 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
                     </Col>
                   )}
                 </Row>
-              </ButtonLink>
+              </Button>
             </CardBody>
           </Card>
         </Col>
@@ -761,80 +754,23 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
     </MainLayout>
   );
 };
-
 CardPage.propTypes = {
-  card: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    elo: PropTypes.number.isRequired,
-    image_normal: PropTypes.string.isRequired,
-    image_flip: PropTypes.string,
-    scryfall_uri: PropTypes.string.isRequired,
-    tcgplayer_id: PropTypes.number.isRequired,
-    _id: PropTypes.string.isRequired,
-    set: PropTypes.string.isRequired,
-    set_name: PropTypes.string.isRequired,
-    collector_number: PropTypes.string.isRequired,
-    legalities: PropTypes.shape({}).isRequired,
-    parsed_cost: PropTypes.arrayOf(PropTypes.string).isRequired,
-    oracle_text: PropTypes.string.isRequired,
-    oracle_id: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    artist: PropTypes.string.isRequired,
-    loyalty: PropTypes.string.isRequired,
-    power: PropTypes.string.isRequired,
-    toughness: PropTypes.shape({}).isRequired,
-    prices: CardPricePropType.isRequired,
-  }).isRequired,
+  card: CardDetailsPropType.isRequired,
   data: PropTypes.shape({
     history: PropTypes.arrayOf(CardDataPointPropType).isRequired,
     current: CardDataPointPropType,
   }).isRequired,
   related: PropTypes.shape({
-    top: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        image_normal: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
-    synergistic: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        image_normal: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
-    creatures: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        image_normal: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
-    spells: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        image_normal: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
-    other: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        image_normal: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
+    top: PropTypes.arrayOf(CardDetailsPropType.isRequired).isRequired,
+    synergistic: PropTypes.arrayOf(CardDetailsPropType.isRequired).isRequired,
+    creatures: PropTypes.arrayOf(CardDetailsPropType.isRequired).isRequired,
+    spells: PropTypes.arrayOf(CardDetailsPropType.isRequired).isRequired,
+    other: PropTypes.arrayOf(CardDetailsPropType.isRequired).isRequired,
   }).isRequired,
-  versions: PropTypes.arrayOf(
-    PropTypes.shape({
-      set_name: PropTypes.string.isRequired,
-      image_normal: PropTypes.string.isRequired,
-      image_flip: PropTypes.string,
-      collector_number: PropTypes.string,
-      prices: CardPricePropType.isRequired,
-    }).isRequired,
-  ).isRequired,
+  versions: PropTypes.arrayOf(CardDetailsPropType.isRequired).isRequired,
   loginCallback: PropTypes.string,
 };
-
 CardPage.defaultProps = {
   loginCallback: '/',
 };
-
 export default RenderToRoot(CardPage);

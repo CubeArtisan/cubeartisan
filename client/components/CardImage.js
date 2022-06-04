@@ -23,11 +23,26 @@ import { forwardRef, useCallback, useContext } from 'react';
 import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext.js';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import SxPropType from '@cubeartisan/client/proptypes/SxPropType.js';
 import { CARD_CATEGORY_DETECTORS, cardImageBackUrl, cardImageUrl, cardName } from '@cubeartisan/client/utils/Card.js';
 
+/**
+ * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
+ * @typedef {import('@mui/system').SxProps} SxProps
+ * @typedef CardImageProps
+ * @property {Card} card
+ * @property {boolean} [back]
+ * @property {string|number} [width]
+ * @property {SxProps} [sx]
+ * @property {boolean} [cardModal]
+ */
+
+/**
+ * @type {React.ForwardRefExoticComponent<CardImageProps & React.HTMLAttributes<HTMLImageElement>>}
+ */
 const CardImage = forwardRef(({ card, width, back, sx, cardModal, ...props }, ref) => {
   const { showCustomImages } = useContext(DisplayContext);
-  const src = back ? cardImageBackUrl(card, showCustomImages) : cardImageUrl(card, showCustomImages);
+  const src = (back ? cardImageBackUrl(card, showCustomImages) : cardImageUrl(card, showCustomImages)) ?? undefined;
   const foil = CARD_CATEGORY_DETECTORS.foil(card?.details, card);
   const name = cardName(card);
   const openCardModal = useContext(CardModalContext);
@@ -43,24 +58,26 @@ const CardImage = forwardRef(({ card, width, back, sx, cardModal, ...props }, re
         />
       )}
       <Box
-        onClick={cardModal ? handleClick : null}
+        onClick={cardModal ? handleClick : undefined}
         component="img"
         key="cardImage"
         src={src}
         alt={name}
         ref={ref}
         sx={{ width }}
-        fallbackSrc="/content/default_card.png"
         {...props}
+        className=""
+        style={{}}
       />
     </Box>
   );
 });
 CardImage.propTypes = {
+  // @ts-ignore
   card: CardPropType.isRequired,
   back: PropTypes.bool,
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  sx: PropTypes.shape({}),
+  sx: SxPropType,
   cardModal: PropTypes.bool,
 };
 CardImage.defaultProps = {

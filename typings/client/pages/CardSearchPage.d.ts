@@ -12,5 +12,7 @@ export namespace CardSearchPage {
 }
 declare const _default: (providedReactProps: any) => JSX.Element;
 export default _default;
+export type Filter = import('@cubeartisan/client/filtering/FilterCards.js').Filter;
+export type CardDetails = import('@cubeartisan/client/proptypes/CardDetailsPropType.js').CardDetails;
 import PropTypes from "prop-types";
 //# sourceMappingURL=CardSearchPage.d.ts.map

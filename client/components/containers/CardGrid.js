@@ -29,6 +29,18 @@ function cardImage(Tag, card, cardProps, linkDetails) {
   return cardTag;
 }
 
+/**
+ * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
+ * @typedef CardGridProps
+ * @property {Card[]} cardList
+ * @property {any} Tag
+ * @property {any} cardProps
+ * @property {boolean?} linkDetails
+ */
+
+/**
+ * @type {React.FC<CardGridProps>}
+ */
 const CardGrid = ({ cardList, Tag, cardProps, linkDetails }) => {
   const { cardsInRow } = useContext(DisplayContext);
   return (
@@ -42,6 +54,7 @@ const CardGrid = ({ cardList, Tag, cardProps, linkDetails }) => {
   );
 };
 CardGrid.propTypes = {
+  // @ts-ignore
   cardList: PropTypes.arrayOf(CardPropType.isRequired).isRequired,
   Tag: PropTypes.elementType.isRequired,
   cardProps: PropTypes.shape({}),

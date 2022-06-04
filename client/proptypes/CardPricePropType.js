@@ -18,6 +18,14 @@
  */
 import PropTypes from 'prop-types';
 
+/**
+ * @typedef CardPrices
+ * @property {number?} usd
+ * @property {number?} usd_foil
+ * @property {number?} eur
+ * @property {number?} tix
+ */
+
 const CardPricePropType = PropTypes.shape({
   usd: PropTypes.number,
   usd_foil: PropTypes.number,

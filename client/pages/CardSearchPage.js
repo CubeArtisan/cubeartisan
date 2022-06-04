@@ -16,6 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import {
@@ -37,15 +38,23 @@ import CardGrid from '@cubeartisan/client/components/containers/CardGrid.js';
 import Paginate from '@cubeartisan/client/components/containers/Paginate.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import FilterCollapse from '@cubeartisan/client/components/FilterCollapse.js';
-import ButtonLink from '@cubeartisan/client/components/inputs/ButtonLink.js';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
+import { detailsToCard } from '@cubeartisan/client/utils/Card.js';
 import Query from '@cubeartisan/client/utils/Query.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import { ORDERED_SORTS } from '@cubeartisan/client/utils/Sort.js';
 
+const AutocardImage = withAutocard(CardImage);
+
+/**
+ * @typedef {import('@cubeartisan/client/filtering/FilterCards.js').Filter} Filter
+ * @typedef {import('@cubeartisan/client/proptypes/CardDetailsPropType.js').CardDetails} CardDetails
+ */
+
 export const CardSearchPage = ({ loginCallback }) => {
   const [page, setPage] = useState(parseInt(Query.get('p'), 10) ?? 0);
-  const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState(/** @type {CardDetails[]} */ []);
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState(Query.get('f') || '');
   const [count, setCount] = useState(Query.get('m') || '');
@@ -87,27 +96,41 @@ export const CardSearchPage = ({ loginCallback }) => {
     }
   }, [page, filter, direction, distinct, sort]);
 
+  /**
+   * @param {() => Filter} getFilterFunc
+   */
   const updateFilter = (getFilterFunc) => {
     setLoading(true);
     setPage(0);
     setCount(0);
     const filterFunc = getFilterFunc();
     setFilter(filterFunc.stringify);
-    console.log(filterFunc, filterFunc.stringify);
   };
 
+  /**
+   * @param {number} index
+   */
   const updatePage = (index) => {
     setLoading(true);
     setPage(index);
   };
+  /**
+   * @param {number} index
+   */
   const updateSort = (index) => {
     setLoading(true);
     setSort(index);
   };
+  /**
+   * @param {number} index
+   */
   const updateDirection = (index) => {
     setLoading(true);
     setDirection(index);
   };
+  /**
+   * @param {number} index
+   */
   const updateDistinct = (index) => {
     setLoading(true);
     setDistinct(index);
@@ -122,9 +145,9 @@ export const CardSearchPage = ({ loginCallback }) => {
           </Col>
           <Col xs="6">
             <div className="text-right">
-              <ButtonLink outline color="success" href="/packages">
+              <Button variant="outlined" color="success" href="/packages">
                 View Card Packages
-              </ButtonLink>
+              </Button>
             </div>
           </Col>
         </Row>
@@ -191,10 +214,9 @@ export const CardSearchPage = ({ loginCallback }) => {
           )}
           {!loading && (
             <CardGrid
-              cardList={cards.map((card) => ({ details: card }))}
-              Tag={CardImage}
-              colProps={{ xs: 4, sm: 3, md: 2 }}
-              cardProps={{ autocard: true, 'data-in-modal': true, className: 'clickable' }}
+              cardList={cards.map(detailsToCard)}
+              Tag={AutocardImage}
+              cardProps={{ 'data-in-modal': true }}
               linkDetails
             />
           )}
@@ -210,13 +232,10 @@ export const CardSearchPage = ({ loginCallback }) => {
     </MainLayout>
   );
 };
-
 CardSearchPage.propTypes = {
   loginCallback: PropTypes.string,
 };
-
 CardSearchPage.defaultProps = {
   loginCallback: '/',
 };
-
 export default RenderToRoot(CardSearchPage);

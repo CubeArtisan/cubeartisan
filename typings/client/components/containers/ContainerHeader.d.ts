@@ -7,12 +7,14 @@ declare function ContainerHeader({ title, variant, sx, children }: {
 }): JSX.Element;
 declare namespace ContainerHeader {
     namespace propTypes {
-        const title: PropTypes.Validator<string>;
+        const title: PropTypes.Requireable<string>;
         const variant: PropTypes.Requireable<string>;
         const sx: PropTypes.Requireable<PropTypes.InferProps<{}>>;
         const children: PropTypes.Requireable<PropTypes.ReactNodeLike>;
     }
     namespace defaultProps {
+        const title_1: null;
+        export { title_1 as title };
         const variant_1: string;
         export { variant_1 as variant };
         const sx_1: {};

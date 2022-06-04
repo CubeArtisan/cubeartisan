@@ -1,21 +1,19 @@
 export default CommentEntry;
-declare function CommentEntry({ submit, expanded, toggle, defaultValue }: {
-    submit: any;
-    expanded: any;
-    toggle: any;
-    defaultValue: any;
-}): JSX.Element;
-declare namespace CommentEntry {
-    namespace propTypes {
-        const submit: PropTypes.Validator<(...args: any[]) => any>;
-        const expanded: PropTypes.Validator<boolean>;
-        const toggle: PropTypes.Validator<(...args: any[]) => any>;
-        const defaultValue: PropTypes.Requireable<string>;
-    }
-    namespace defaultProps {
-        const defaultValue_1: string;
-        export { defaultValue_1 as defaultValue };
-    }
-}
-import PropTypes from "prop-types";
+export type CommentEntryProps = {
+    submit: (text: string) => void;
+    expanded: boolean;
+    toggle: () => void;
+    defaultValue?: string | null | undefined;
+};
+/**
+ * @typedef CommentEntryProps
+ * @property {(text: string) => void} submit
+ * @property {boolean} expanded
+ * @property {() => void} toggle
+ * @property {string?} [defaultValue]
+ */
+/**
+ * @type {React.FC<CommentEntryProps>}
+ */
+declare const CommentEntry: React.FC<CommentEntryProps>;
 //# sourceMappingURL=CommentEntry.d.ts.map

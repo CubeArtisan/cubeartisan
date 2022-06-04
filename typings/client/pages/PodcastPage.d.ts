@@ -20,7 +20,20 @@ export namespace PodcastPage {
             podcast: PropTypes.Validator<string>;
             podcastname: PropTypes.Validator<string>;
         }>>;
-        const episodes: PropTypes.Validator<(PropTypes.InferProps<{}> | null | undefined)[]>;
+        const episodes: PropTypes.Validator<PropTypes.InferProps<{
+            _id: PropTypes.Validator<string>;
+            title: PropTypes.Validator<string>;
+            rss: PropTypes.Validator<string>;
+            description: PropTypes.Validator<string>;
+            date: PropTypes.Validator<string>;
+            status: PropTypes.Validator<string>;
+            owner: PropTypes.Validator<string>;
+            source: PropTypes.Validator<string>;
+            username: PropTypes.Validator<string>;
+            image: PropTypes.Validator<string>;
+            podcast: PropTypes.Validator<string>;
+            podcastname: PropTypes.Validator<string>;
+        }>[]>;
     }
     namespace defaultProps {
         const loginCallback_1: string;
