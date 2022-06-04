@@ -16,17 +16,19 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
-import { useContext } from 'react';
-import { Card, CardHeader } from 'reactstrap';
+import { lazy, useContext } from 'react';
 
+import { ContainerHeader, LayoutContainer } from '@cubeartisan/client/components/containers/LayoutContainer.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import ButtonLink from '@cubeartisan/client/components/inputs/ButtonLink.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import Video from '@cubeartisan/client/components/Video.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 import VideoPropType from '@cubeartisan/client/proptypes/VideoPropType.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+
+const Video = lazy(() => import('@cubeartisan/client/components/Video.js'));
 
 export const VideoPage = ({ loginCallback, video }) => {
   const user = useContext(UserContext);
@@ -34,30 +36,26 @@ export const VideoPage = ({ loginCallback, video }) => {
   return (
     <MainLayout loginCallback={loginCallback}>
       <DynamicFlash />
-      <Card className="mb-3">
+      <LayoutContainer sx={{ marginBottom: 3 }}>
         {user && user._id === video.owner && (
-          <CardHeader>
-            <h5>
-              {video.status !== 'published' && <em className="pr-3">*Draft*</em>}
-              <ButtonLink color="success" href={`/creators/video/${video._id}/edit`}>
-                Edit
-              </ButtonLink>
-            </h5>
-          </CardHeader>
+          <ContainerHeader title={video.status !== 'published' ? '*Draft*' : null}>
+            <Button color="success" href={`/creators/video/${video._id}/edit`}>
+              Edit
+            </Button>
+          </ContainerHeader>
         )}
-        <Video video={video} />
-      </Card>
+        <Suspense>
+          <Video video={video} />
+        </Suspense>
+      </LayoutContainer>
     </MainLayout>
   );
 };
-
 VideoPage.propTypes = {
   loginCallback: PropTypes.string,
   video: VideoPropType.isRequired,
 };
-
 VideoPage.defaultProps = {
   loginCallback: '/',
 };
-
 export default RenderToRoot(VideoPage);

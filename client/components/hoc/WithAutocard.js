@@ -20,14 +20,14 @@ const placeholderClass = () => '';
  */
 
 /**
- * @param {React.ComponentType<unknown>} Tag - The tag for the autocard components
- * @returns {React.ForwardRefExoticComponent<AutocardProps>}
+ * @template P
+ * @param {React.ComponentType<P>} Tag - The tag for the autocard components
  */
 const withAutocard = (Tag) => {
   /**
-   * @type {React.ForwardRefExoticComponent<AutocardProps>}
+   * @type {React.ForwardRefRenderFunction<any, AutocardProps & P>}
    */
-  const WithAutocard = forwardRef(({ card, front, back, tags, ...props }, ref) => {
+  const WithAutocardComponent = ({ card, front, back, tags, ...props }, ref) => {
     const tagContext = useContext(TagContext);
     const tagColorClass = tagContext?.tagColorClass ?? placeholderClass;
     const { autoCardSize } = useContext(DisplayContext);
@@ -82,21 +82,23 @@ const withAutocard = (Tag) => {
         <Tag ref={ref} card={card} {...props} />
       </Tooltip>
     );
-  });
-  WithAutocard.propTypes = {
-    // @ts-ignore
+  };
+  // @ts-ignore
+  WithAutocardComponent.propTypes = {
     card: CardPropType.isRequired,
     front: PropTypes.string,
     back: PropTypes.string,
     tags: PropTypes.arrayOf(PropTypes.string.isRequired),
-    ...Tag.propTypes,
+    ...(Tag.propTypes ?? {}),
   };
-  WithAutocard.defaultProps = {
+  // @ts-ignore
+  WithAutocardComponent.defaultProps = {
     front: undefined,
     back: undefined,
     tags: undefined,
-    ...Tag.defaultProps,
+    ...(Tag.defaultProps ?? {}),
   };
+  const WithAutocard = forwardRef(WithAutocardComponent);
   if (typeof Tag === 'string') {
     WithAutocard.displayName = `${Tag}WithAutocard`;
   } else if (Tag.displayName) {

@@ -17,6 +17,8 @@ export function decodeName(name: string | null): string;
 export function cardsAreEquivalent(a: Card, b: Card): boolean;
 /**
  * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
+ * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').CardFinish} CardFinish
+ * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').CardStatus} CardStatus
  * @typedef {import('@cubeartisan/client/proptypes/CardDetailsPropType.js').CardDetails} CardDetails
  * @typedef {import('@cubeartisan/client/proptypes/CardDetailsPropType.js').Color} Color
  */
@@ -30,7 +32,7 @@ export const COLORS: Color[];
 export const COLOR_COMBINATIONS: Color[][];
 export const COLOR_INCLUSION_MAP: {
     [k: string]: {
-        [k: string]: boolean;
+        includes: string[];
     };
 };
 export function cardColorIdentity(card: Card | null): import("@cubeartisan/client/proptypes/CardDetailsPropType.js").Color[];
@@ -42,42 +44,100 @@ export function pickRate({ picks, passes }: {
     picks: any;
     passes: any;
 }): number;
-export function cardTags(card: Card | null): string[] | undefined;
-export function cardFinish(card: Card | null): "Non-foil" | "Foil" | undefined;
-export function cardStatus(card: Card | null): "Not Owned" | "Ordered" | "Owned" | "Premium Owned" | "Proxied" | undefined;
-export function cardCmc(card: Card | null): number | undefined;
-export function cardId(card: Card | null): string | undefined;
-export function cardType(card: Card | null): string;
-export function cardRarity(card: Card | null): string | undefined;
+export function cardTags(card: Card | null): string[];
+/**
+ * @template T
+ * @typedef {{
+ * (card: null|undefined): null,
+ * (card: Card): T,
+ * }} CardNullPassthrough<T>
+ */
+/**
+ *  @type {CardNullPassthrough<CardFinish>}
+ */
+export const cardFinish: CardNullPassthrough<CardFinish>;
+/**
+ * @type {CardNullPassthrough<CardStatus>}
+ */
+export const cardStatus: CardNullPassthrough<CardStatus>;
+export function cardCmc(card: Card | null): number;
+/**
+ * @type {CardNullPassthrough<string>}
+ */
+export const cardId: CardNullPassthrough<string>;
+/**
+ * @type {CardNullPassthrough<string>}
+ */
+export const cardType: CardNullPassthrough<string>;
+/**
+ * @type {CardNullPassthrough<string>}
+ */
+export const cardRarity: CardNullPassthrough<string>;
 export function cardAddedTime(card: Card | null): string | null | undefined;
 export function cardImageUrl(card: Card | null, showCustomImages?: boolean): string | null | undefined;
 export function cardImageBackUrl(card: Card | null, showCustomImages?: boolean): string | null | undefined;
 export function cardNotes(card: Card | null): string | null | undefined;
-export function cardColorCategory(card: Card | null): string | undefined;
-export function cardPrice(card: Card | null): number | null;
+/**
+ * @type {CardNullPassthrough<string>}
+ */
+export const cardColorCategory: CardNullPassthrough<string>;
+/**
+ * @type {CardNullPassthrough<number>}
+ */
+export const cardPrice: CardNullPassthrough<number>;
 export function cardNormalPrice(card: Card | null): number | null;
 export function cardFoilPrice(card: Card | null): number | null;
 export function cardPriceEur(card: Card | null): number | null;
 export function cardTix(card: Card | null): number | null;
-export function cardIsFullArt(card: Card | null): boolean | undefined;
-export function cardCost(card: Card | null): string[] | undefined;
-export function cardSet(card: Card | null): string | undefined;
-export function cardCollectorNumber(card: Card | null): string | undefined;
-export function cardPromo(card: Card | null): boolean | undefined;
-export function cardDigital(card: Card | null): boolean | undefined;
-export function cardIsToken(card: Card | null): boolean | undefined;
-export function cardBorderColor(card: Card | null): string | undefined;
-export function cardName(card: Card | null): string | undefined;
-export function cardNameLower(card: Card | null): string | undefined;
-export function cardFullName(card: Card | null): string | undefined;
+export function cardIsFullArt(card: Card | null): boolean;
+/**
+ * @type {CardNullPassthrough<string[]>}
+ */
+export const cardCost: CardNullPassthrough<string[]>;
+/**
+ * @type {CardNullPassthrough<string>}
+ */
+export const cardSet: CardNullPassthrough<string>;
+/**
+ * @type {CardNullPassthrough<string>}
+ */
+export const cardCollectorNumber: CardNullPassthrough<string>;
+export function cardPromo(card: Card | null): boolean;
+export function cardDigital(card: Card | null): boolean;
+export function cardIsToken(card: Card | null): boolean;
+/**
+ * @type {CardNullPassthrough<string>}
+ */
+export const cardBorderColor: CardNullPassthrough<string>;
+/**
+ * @type {CardNullPassthrough<string>}
+ */
+export const cardName: CardNullPassthrough<string>;
+/**
+ * @type {CardNullPassthrough<string>}
+ */
+export const cardNameLower: CardNullPassthrough<string>;
+/**
+ * @type {CardNullPassthrough<string>}
+ */
+export const cardFullName: CardNullPassthrough<string>;
 export function cardArtist(card: Card | null): string | null | undefined;
-export function cardScryfallUri(card: Card | null): string | undefined;
+/**
+ * @type {CardNullPassthrough<string>}
+ */
+export const cardScryfallUri: CardNullPassthrough<string>;
 export function cardOracleText(card: Card | null): string | null | undefined;
-export function cardOracleId(card: Card | null): string | undefined;
+/**
+ * @type {CardNullPassthrough<string>}
+ */
+export const cardOracleId: CardNullPassthrough<string>;
 export function cardLegalities(card: Card | null): {};
 export function cardLegalIn(card: Card | null): string[];
 export function cardColors(card: Card | null): import("@cubeartisan/client/proptypes/CardDetailsPropType.js").Color[] | null | undefined;
-export function cardLanguage(card: Card | null): string | undefined;
+/**
+ * @type {CardNullPassthrough<string>}
+ */
+export const cardLanguage: CardNullPassthrough<string>;
 export function cardMtgoId(card: Card | null): number | null | undefined;
 export function cardTcgplayerId(card: Card | null): string | null | undefined;
 export function cardLoyalty(card: Card | null): string | null | undefined;
@@ -87,16 +147,33 @@ export function cardImageSmall(card: Card | null): string | null | undefined;
 export function cardImageNormal(card: Card | null): string | null | undefined;
 export function cardArtCrop(card: Card | null): string | null | undefined;
 export function cardImageFlip(card: Card | null): string | null | undefined;
-export function cardTokens(card: Card | null): string[] | null | undefined;
+export function cardTokens(card: Card | null): string[];
 export function cardElo(card: Card | null): number;
-export function cardPopularity(card: Card | null): number | undefined;
-export function cardCubeCount(card: Card | null): number | undefined;
-export function cardPickCount(card: Card | null): number | undefined;
-export function cardLayout(card: Card | null): string | undefined;
-export function cardReleaseDate(card: Card | null): string | undefined;
+export function cardPopularity(card: Card | null): number;
+export function cardCubeCount(card: Card | null): number;
+export function cardPickCount(card: Card | null): number;
+/**
+ * @type {CardNullPassthrough<string>}
+ */
+export const cardLayout: CardNullPassthrough<string>;
+/**
+ * @type {CardNullPassthrough<string>}
+ */
+export const cardReleaseDate: CardNullPassthrough<string>;
 export function cardDevotion(card: Card | null, color: Color): number;
-export function cardIsSpecialZoneType(card: Card | null): boolean;
+/**
+ * @typedef {{
+ * (card: null|undefined): boolean,
+ * (card: Card): boolean,
+ * }} CardSpecialZone
+ */
+/**
+ * @type {CardSpecialZone}
+ */
+export const cardIsSpecialZoneType: CardSpecialZone;
+export function makeDefaultCardDetails(): CardDetails;
 export function detailsToCard(details: CardDetails): Card;
+export function makeDefaultCard(): Card;
 export function reasonableCard(card: CardDetails): boolean | "" | null;
 export namespace CARD_CATEGORY_DETECTORS {
     export function gold(details: import("@cubeartisan/client/proptypes/CardDetailsPropType.js").CardDetails): boolean;
@@ -213,8 +290,21 @@ declare namespace _default {
 }
 export default _default;
 export type Card = import('@cubeartisan/client/proptypes/CardPropType.js').Card;
+export type CardFinish = import('@cubeartisan/client/proptypes/CardPropType.js').CardFinish;
+export type CardStatus = import('@cubeartisan/client/proptypes/CardPropType.js').CardStatus;
 export type CardDetails = import('@cubeartisan/client/proptypes/CardDetailsPropType.js').CardDetails;
 export type Color = import('@cubeartisan/client/proptypes/CardDetailsPropType.js').Color;
+/**
+ * <T>
+ */
+export type CardNullPassthrough<T> = {
+    (card: null | undefined): null;
+    (card: Card): T;
+};
+export type CardSpecialZone = {
+    (card: null | undefined): boolean;
+    (card: Card): boolean;
+};
 /**
  * @param {CardDetails} details
  */

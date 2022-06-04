@@ -17,41 +17,52 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import { useCallback, useState } from 'react';
+import { forwardRef } from 'react';
 
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 
+/**
+ * @typedef {{ onClick: (event: any) => void }} Clickable
+ * @typedef {{ isOpen: boolean, toggle: () => void }} ModalLike
+ */
+/**
+ * @template TagProps
+ * @template  ModalProps
+ * @param {React.ComponentType<TagProps & Clickable>} Tag
+ * @param {React.ComponentType<ModalProps & ModalLike>} ModalTag
+ */
 const withModal = (Tag, ModalTag) => {
-  const WithModal = ({ children, modalProps, ...props }) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const toggle = useCallback(
-      (event) => {
-        if (event) {
-          event.preventDefault();
-        }
-        setIsOpen(!isOpen);
-      },
-      [isOpen],
-    );
+  /**
+   * @typedef {TagProps & { modalProps: ModalProps }} WithModalProps
+   */
+  /**
+   * @type {React.ForwardRefRenderFunction<any, WithModalProps>}
+   */
+  const WithModalComponent = ({ modalProps, ...props }, ref) => {
+    const [isOpen, toggleOpen] = useToggle(false);
 
     return (
       <>
-        <Tag {...props} onClick={toggle}>
-          {children}
-        </Tag>
-        <Suspense>
-          <ModalTag isOpen={isOpen} toggle={toggle} {...modalProps} />
+        {/* @ts-ignore */}
+        <Tag {...props} ref={ref} onClick={toggleOpen} />
+        <Suspense fallback={null}>
+          <ModalTag isOpen={isOpen} toggle={toggleOpen} {...modalProps} />
         </Suspense>
       </>
     );
   };
-  WithModal.propTypes = {
-    children: PropTypes.node.isRequired,
-    modalProps: PropTypes.shape({}),
+  // @ts-ignore
+  WithModalComponent.propTypes = {
+    modalProps: PropTypes.shape(ModalTag.propTypes ?? {}),
+    ...(Tag.propTypes ?? {}),
   };
-  WithModal.defaultProps = {
-    modalProps: {},
+  // @ts-ignore
+  WithModalComponent.defaultProps = {
+    modalProps: ModalTag.defaultProps ?? {},
+    ...(Tag.defaultProps ?? {}),
   };
+  const WithModal = forwardRef(WithModalComponent);
   if (typeof Tag === 'string') {
     WithModal.displayName = `${Tag}WithModal`;
   } else if (Tag.displayName) {

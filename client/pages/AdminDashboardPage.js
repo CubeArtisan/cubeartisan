@@ -16,11 +16,15 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import { Button, Stack } from '@mui/material';
 import PropTypes from 'prop-types';
-import { Card, CardBody, CardHeader } from 'reactstrap';
 
+import {
+  ContainerBody,
+  ContainerHeader,
+  LayoutContainer,
+} from '@cubeartisan/client/components/containers/LayoutContainer.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import ButtonLink from '@cubeartisan/client/components/inputs/ButtonLink.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
@@ -34,34 +38,33 @@ export const AdminDashboardPage = ({
 }) => (
   <MainLayout loginCallback={loginCallback}>
     <DynamicFlash />
-    <Card className="my-3 mx-4">
-      <CardHeader>
-        <h5>Admin Dashboard</h5>
-      </CardHeader>
-      <CardBody>
-        <ButtonLink href="/admin/commentreports" block outline color="success">
-          {`Comment Reports (${commentReportCount})`}
-        </ButtonLink>
-        <ButtonLink href="/admin/applications" block outline color="success">
-          {`Content Creator Applications (${applicationCount})`}
-        </ButtonLink>
-        <ButtonLink href="/admin/comments" block outline color="success">
-          Recent Comments
-        </ButtonLink>
-        <ButtonLink href="/admin/reviewarticles" block outline color="success">
-          {`Review Articles (${articlesInReview})`}
-        </ButtonLink>
-        <ButtonLink href="/admin/reviewvideos" block outline color="success">
-          {`Review Videos (${videosInReview})`}
-        </ButtonLink>
-        <ButtonLink href="/admin/reviewpodcasts" block outline color="success">
-          {`Review Podcasts (${podcastsInReview})`}
-        </ButtonLink>
-      </CardBody>
-    </Card>
+    <LayoutContainer sx={{ marginX: 4, marginY: 3 }}>
+      <ContainerHeader title="Admin Dashboard" />
+      <ContainerBody>
+        <Stack>
+          <Button href="/admin/commentreports" variant="outlined" color="success">
+            {`Comment Reports (${commentReportCount})`}
+          </Button>
+          <Button href="/admin/applications" variant="outlined" color="success">
+            {`Content Creator Applications (${applicationCount})`}
+          </Button>
+          <Button href="/admin/comments" variant="outlined" color="success">
+            Recent Comments
+          </Button>
+          <Button href="/admin/reviewarticles" variant="outlined" color="success">
+            {`Review Articles (${articlesInReview})`}
+          </Button>
+          <Button href="/admin/reviewvideos" variant="outlined" color="success">
+            {`Review Videos (${videosInReview})`}
+          </Button>
+          <Button href="/admin/reviewpodcasts" variant="outlined" color="success">
+            {`Review Podcasts (${podcastsInReview})`}
+          </Button>
+        </Stack>
+      </ContainerBody>
+    </LayoutContainer>
   </MainLayout>
 );
-
 AdminDashboardPage.propTypes = {
   loginCallback: PropTypes.string,
   commentReportCount: PropTypes.number.isRequired,
@@ -70,9 +73,7 @@ AdminDashboardPage.propTypes = {
   videosInReview: PropTypes.number.isRequired,
   podcastsInReview: PropTypes.number.isRequired,
 };
-
 AdminDashboardPage.defaultProps = {
   loginCallback: '/',
 };
-
 export default RenderToRoot(AdminDashboardPage);

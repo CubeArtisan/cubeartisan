@@ -16,12 +16,16 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import { Card, CardBody, CardFooter, CardHeader } from 'reactstrap';
 
+import {
+  ContainerBody,
+  ContainerFooter,
+  ContainerHeader,
+  LayoutContainer,
+} from '@cubeartisan/client/components/containers/LayoutContainer.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import ButtonLink from '@cubeartisan/client/components/inputs/ButtonLink.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
@@ -30,28 +34,25 @@ const back = () => (window.history.length > 1 ? window.history.back() : window.c
 export const LeaveWarningPage = ({ url, loginCallback, siteCustomizations: { siteName } }) => (
   <MainLayout loginCallback={loginCallback}>
     <DynamicFlash />
-    <Card className="my-3">
-      <CardHeader>
-        <h4>You are about to leave {siteName}</h4>
-      </CardHeader>
-      <CardBody>
-        <p>
+    <LayoutContainer sx={{ marginY: 3 }}>
+      <ContainerHeader title={`You are about to leave ${siteName}`} variant="h4" />
+      <ContainerBody>
+        <Typography variant="body1" component="p">
           This link leads to: <code>{url}</code>
-        </p>
-        <p>Are you sure you want to proceed?</p>
-      </CardBody>
-      <CardFooter>
-        <ButtonLink href={url} color="warning">
+        </Typography>
+        <Typography variant="body1">Are you sure you want to proceed?</Typography>
+      </ContainerBody>
+      <ContainerFooter>
+        <Button href={url} color="warning">
           Yes, continue
-        </ButtonLink>
+        </Button>
         <Button color="secondary" onClick={back}>
           Go back
         </Button>
-      </CardFooter>
-    </Card>
+      </ContainerFooter>
+    </LayoutContainer>
   </MainLayout>
 );
-
 LeaveWarningPage.propTypes = {
   url: PropTypes.string.isRequired,
   loginCallback: PropTypes.string,
@@ -59,9 +60,7 @@ LeaveWarningPage.propTypes = {
     siteName: PropTypes.string.isRequired,
   }).isRequired,
 };
-
 LeaveWarningPage.defaultProps = {
   loginCallback: '/',
 };
-
 export default RenderToRoot(LeaveWarningPage);

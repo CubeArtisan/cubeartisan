@@ -1,13 +1,15 @@
 export default CardPropType;
 export type Color = import('@cubeartisan/client/proptypes/CardDetailsPropType.js').Color;
 export type CardDetails = import('@cubeartisan/client/proptypes/CardDetailsPropType.js').CardDetails;
+export type CardFinish = 'Foil' | 'Non-foil';
+export type CardStatus = 'Not Owned' | 'Ordered' | 'Owned' | 'Premium Owned' | 'Proxied';
 export type Card = {
     addedTmsp: string | null;
     cardID: string | null;
     cmc: number | null;
     colorCategory: string | null;
     colors: Color[] | null;
-    finish: ('Foil' | 'Non-foil');
+    finish: CardFinish;
     imgBackUrl: string | null;
     imgUrl: string | null;
     index?: number | null | undefined;
@@ -15,7 +17,7 @@ export type Card = {
     name: string | null;
     notes: string | null;
     rarity: string | null;
-    status: 'Not Owned' | 'Ordered' | 'Owned' | 'Premium Owned' | 'Proxied';
+    status: CardStatus;
     tags: string[];
     type_line: string | null;
     details: CardDetails;
@@ -23,13 +25,15 @@ export type Card = {
 /**
  * @typedef {import('@cubeartisan/client/proptypes/CardDetailsPropType.js').Color} Color
  * @typedef {import('@cubeartisan/client/proptypes/CardDetailsPropType.js').CardDetails} CardDetails
+ * @typedef {'Foil'|'Non-foil'} CardFinish
+ * @typedef {'Not Owned'|'Ordered'|'Owned'|'Premium Owned'|'Proxied'} CardStatus
  * @typedef Card
  * @property {string?} addedTmsp
  * @property {string?} cardID
  * @property {number?} cmc
  * @property {string?} colorCategory
  * @property {Color[]?} colors
- * @property {('Foil'|'Non-foil')} finish
+ * @property {CardFinish} finish
  * @property {string?} imgBackUrl
  * @property {string?} imgUrl
  * @property {number?} [index]
@@ -37,7 +41,7 @@ export type Card = {
  * @property {string?} name
  * @property {string?} notes
  * @property {string?} rarity
- * @property {'Not Owned'|'Ordered'|'Owned'|'Premium Owned'|'Proxied'} status
+ * @property {CardStatus} status
  * @property {string[]} tags
  * @property {string?} type_line
  * @property {CardDetails} details

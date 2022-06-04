@@ -16,36 +16,52 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { Button } from '@mui/material';
+import { Button, Modal, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
-import ButtonLink from '@cubeartisan/client/components/inputs/ButtonLink.js';
+import {
+  ContainerBody,
+  ContainerFooter,
+  ContainerHeader,
+  LayoutContainer,
+} from '@cubeartisan/client/components/containers/LayoutContainer.js';
 
+/**
+  @typedef LinkModalProps
+  @property {string} link
+  @property {boolean} isOpen
+  @property {() => void} toggle
+*/
+
+/**
+ * @type {React.FC<LinkModalProps>}
+ */
 const LinkModal = ({ link, isOpen, toggle }) => (
-  <Modal isOpen={isOpen} toggle={toggle} size="xs">
-    <ModalHeader toggle={toggle}>This link could be dangerous</ModalHeader>
-    <ModalBody>
-      <p>
-        This link leads to: <code>{link}</code>
-      </p>
-      <p>Following unknown links can be dangerous, are you sure you wish to proceed?</p>
-      <ButtonLink href={link} block color="warning" outline target="_blank" rel="noopener noreferrer">
-        Yes, I know what I'm doing
-      </ButtonLink>
-    </ModalBody>
-    <ModalFooter>
-      <Button color="secondary" onClick={toggle}>
-        Close
-      </Button>
-    </ModalFooter>
+  <Modal open={isOpen} onClose={toggle}>
+    <LayoutContainer>
+      <ContainerHeader title="This link could be dangerous" />
+      <ContainerBody>
+        <Typography variant="subtitle1">
+          This link leads to: <code>{link}</code>
+        </Typography>
+        <Typography variant="body1">
+          Following unknown links can be dangerous, are you sure you wish to proceed?
+        </Typography>
+      </ContainerBody>
+      <ContainerFooter>
+        <Button href={link} color="warning" variant="outlined" target="_blank" rel="noopener noreferrer">
+          Yes, I know what I'm doing
+        </Button>
+        <Button color="secondary" onClick={toggle}>
+          Close
+        </Button>
+      </ContainerFooter>
+    </LayoutContainer>
   </Modal>
 );
-
 LinkModal.propTypes = {
   link: PropTypes.string.isRequired,
   isOpen: PropTypes.bool.isRequired,
   toggle: PropTypes.func.isRequired,
 };
-
 export default LinkModal;

@@ -62,11 +62,9 @@ const Podcast = ({ podcast, episodes }) => (
 );
 Podcast.propTypes = {
   podcast: PodcastPropType.isRequired,
-  episodes: PropTypes.arrayOf(PropTypes.shape({})),
+  episodes: PropTypes.arrayOf(PodcastPropType.isRequired),
 };
-
 Podcast.defaultProps = {
   episodes: [],
 };
-
 export default Podcast;

@@ -9,7 +9,7 @@ import HeaderFooter from '@cubeartisan/client/components/containers/HeaderFooter
 /**
  * @typedef {import('@mui/system').SxProps} SxProps
  * @typedef LayoutContainerProps
- * @property {SxProps} sx
+ * @property {SxProps} [sx]
  * @property {React.ReactNode} children
  */
 /**

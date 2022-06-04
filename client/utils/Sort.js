@@ -234,17 +234,17 @@ export const SORTS = [
 
 export const ORDERED_SORTS = ['Alphabetical', 'Mana Value', 'Price', 'Elo', 'Release Date', 'Cube Count', 'Pick Count'];
 
+/**
+ * @typedef {typeof SORTS[number]} BucketSort
+ * @typedef {typeof ORDERED_SORTS[number]} OrderedSort
+ */
+
+/**
+ * @type {{[s: OrderedSort]: (a: Card, b: Card) => number}}
+ */
 export const SortFunctions = {
   Alphabetical: alphaCompare,
-  /**
-   * @param {Card} a
-   * @param {Card} b
-   */
   'Mana Value': (a, b) => cardCmc(a) - cardCmc(b),
-  /**
-   * @param {Card} a
-   * @param {Card} b
-   */
   Price: (a, b) => {
     const priceA = cardPrice(a);
     const priceB = cardPrice(b);
@@ -257,15 +257,7 @@ export const SortFunctions = {
     }
     return priceA - priceB;
   },
-  /**
-   * @param {Card} a
-   * @param {Card} b
-   */
   Elo: (a, b) => cardElo(a) - cardElo(b),
-  /**
-   * @param {Card} a
-   * @param {Card} b
-   */
   'Release Date': (a, b) => {
     if (cardReleaseDate(a) > cardReleaseDate(b)) {
       return 1;
@@ -275,20 +267,12 @@ export const SortFunctions = {
     }
     return 0;
   },
-  /**
-   * @param {Card} a
-   * @param {Card} b
-   */
   'Cube Count': (a, b) => cardCubeCount(a) - cardCubeCount(b),
-  /**
-   * @param {Card} a
-   * @param {Card} b
-   */
   'Pick Count': (a, b) => cardPickCount(a) - cardPickCount(b),
 };
 
 /**
- * @param {keyof SortFunctions} sort
+ * @param {BucketSort} sort
  * @returns {(a: CardDetails, b: CardDetails) => number}
  */
 export const SortFunctionsOnDetails = (sort) => (a, b) => SortFunctions[sort](detailsToCard(a), detailsToCard(b));
@@ -358,7 +342,7 @@ function getEloBucket(elo) {
 
 /**
  * @param {Card[]} cards
- * @param {typeof SORTS[number]} sort
+ * @param {BucketSort} sort
  * @param {boolean} showOther
  */
 function getLabelsRaw(cards, sort, showOther) {
@@ -555,7 +539,7 @@ function getLabelsRaw(cards, sort, showOther) {
 
 /**
  * @param {Card} card
- * @param {typeof SORTS[number]} sort
+ * @param {BucketSort} sort
  * @param {boolean} showOther
  */
 export function cardGetLabels(card, sort, showOther = false) {
@@ -799,7 +783,7 @@ export function cardGetLabels(card, sort, showOther = false) {
 
 /**
  * @param {Card} card
- * @param {typeof SORTS[number]} sort
+ * @param {BucketSort} sort
  */
 export function cardCanBeSorted(card, sort) {
   return cardGetLabels(card, sort).length !== 0;
@@ -808,7 +792,7 @@ export function cardCanBeSorted(card, sort) {
 /**
  * @param {Card} card
  * @param {string} label
- * @param {typeof SORTS[number]} sort
+ * @param {BucketSort} sort
  */
 export function cardIsLabel(card, label, sort) {
   return cardGetLabels(card, sort).includes(label);
@@ -830,7 +814,7 @@ export function formatLabel(label) {
 // Get labels in string form.
 /**
  * @param {Card[]} cards
- * @param {typeof SORTS[number]} sort
+ * @param {BucketSort} sort
  * @param {boolean} showOther
  */
 export function getLabels(cards, sort, showOther = false) {
@@ -839,7 +823,7 @@ export function getLabels(cards, sort, showOther = false) {
 
 /**
  * @param {Card[]} cards
- * @param {typeof SORTS[number]} sort
+ * @param {BucketSort} sort
  * @param {boolean} showOther
  */
 export function sortGroupsOrdered(cards, sort, showOther = false) {
@@ -867,7 +851,7 @@ export function sortGroupsOrdered(cards, sort, showOther = false) {
 
 /**
  * @param {Card[]} cards
- * @param {typeof SORTS[number]} sort
+ * @param {BucketSort} sort
  * @param {boolean} showOther
  */
 export function sortIntoGroups(cards, sort, showOther = false) {
@@ -877,8 +861,8 @@ export function sortIntoGroups(cards, sort, showOther = false) {
 /**
  * @param {Card[]} cards
  * @param {boolean} showOther
- * @param {typeof SORTS[number]} last
- * @param {(typeof SORTS[number])[]} sorts
+ * @param {BucketSort} last
+ * @param {BucketSort[]} sorts
  */
 export function sortDeep(cards, showOther, last, ...sorts) {
   if (sorts.length === 0) {
@@ -906,11 +890,11 @@ export function countGroup(group) {
 
 /**
  * @param {Card[]} cards
- * @param {typeof SORTS[number]} primary
- * @param {typeof SORTS[number]} secondary
- * @param {typeof SORTS[number]} tertiary
- * @param {typeof SORTS[number]} quaternary
- * @param {boolean} showOther
+ * @param {BucketSort} primary
+ * @param {BucketSort} secondary
+ * @param {BucketSort} tertiary
+ * @param {BucketSort} quaternary
+ * @param {boolean} [showOther]
  */
 export function sortForDownload(
   cards,

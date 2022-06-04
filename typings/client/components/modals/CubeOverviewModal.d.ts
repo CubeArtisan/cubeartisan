@@ -13,8 +13,6 @@ declare namespace CubeOverviewModal {
         const toggle: PropTypes.Validator<(...args: any[]) => any>;
         const cube: PropTypes.Validator<PropTypes.InferProps<{
             cards: PropTypes.Requireable<PropTypes.InferProps<{
-                addedTmsp: PropTypes.Requireable<string>;
-                cardID: PropTypes.Validator<string>;
                 /** 2020-11-24 strusdell:
                  * @phulin believes that the check for the string literal 'undefined' here is
                  * deliberate. Presumably this would represent bad data, and should be ignored.
@@ -22,6 +20,8 @@ declare namespace CubeOverviewModal {
                  * NOTE: This may introduce weird behavior if the user enters 'undefined' as their
                  * description.
                  */
+                addedTmsp: PropTypes.Requireable<string>;
+                cardID: PropTypes.Validator<string>;
                 cmc: PropTypes.Requireable<number>;
                 colorCategory: PropTypes.Requireable<string>;
                 colors: PropTypes.Requireable<(string | null | undefined)[]>;

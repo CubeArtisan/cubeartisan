@@ -22,6 +22,8 @@ import { arrayIsSubset, arraysEqual } from '@cubeartisan/client/utils/Util.js';
 
 /**
  * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
+ * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').CardFinish} CardFinish
+ * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').CardStatus} CardStatus
  * @typedef {import('@cubeartisan/client/proptypes/CardDetailsPropType.js').CardDetails} CardDetails
  * @typedef {import('@cubeartisan/client/proptypes/CardDetailsPropType.js').Color} Color
  */
@@ -68,15 +70,20 @@ export const COLOR_COMBINATIONS = [
   ['W', 'U', 'B', 'R', 'G'],
 ];
 
-export const COLOR_INCLUSION_MAP = Object.fromEntries(
-  COLOR_COMBINATIONS.map((colors) => [
-    colors.join(''),
-    Object.fromEntries(COLOR_COMBINATIONS.map((comb) => [comb.join(''), arrayIsSubset(comb, colors)])),
-  ]),
-);
-for (const colorsIncluded of Object.values(COLOR_INCLUSION_MAP)) {
-  colorsIncluded.includes = Object.keys(colorsIncluded).filter((c) => colorsIncluded[c]);
-}
+export const COLOR_INCLUSION_MAP = (() => {
+  const initialMap = Object.fromEntries(
+    COLOR_COMBINATIONS.map((colors) => [
+      colors.join(''),
+      Object.fromEntries(COLOR_COMBINATIONS.map((comb) => [comb.join(''), arrayIsSubset(comb, colors)])),
+    ]),
+  );
+  return Object.fromEntries(
+    Object.entries(initialMap).map(([k, colorsIncluded]) => {
+      const includes = Object.keys(colorsIncluded).filter((c) => colorsIncluded[c]);
+      return [k, { ...colorsIncluded, includes }];
+    }),
+  );
+})();
 
 /**
  * @param {string} name
@@ -137,35 +144,43 @@ export const pickRate = ({ picks, passes }) => (picks + passes > 0 ? picks / (pi
 /**
  * @param {Card?} card
  */
-export const cardTags = (card) => card?.tags;
+export const cardTags = (card) => card?.tags ?? [];
+
+/**
+ * @template T
+ * @typedef {{
+ * (card: null|undefined): null,
+ * (card: Card): T,
+ * }} CardNullPassthrough<T>
+ */
+
+/**
+ *  @type {CardNullPassthrough<CardFinish>}
+ */
+export const cardFinish = (card) => card?.finish ?? null;
+
+/**
+ * @type {CardNullPassthrough<CardStatus>}
+ */
+export const cardStatus = (card) => card?.status ?? null;
 
 /**
  * @param {Card?} card
  */
-export const cardFinish = (card) => card?.finish;
+export const cardCmc = (card) => card?.cmc ?? card?.details?.cmc ?? 0;
 
 /**
- * @param {Card?} card
- */
-export const cardStatus = (card) => card?.status;
-
-/**
- * @param {Card?} card
- */
-export const cardCmc = (card) => card?.cmc ?? card?.details?.cmc;
-
-/**
- * @param {Card?} card
+ * @type {CardNullPassthrough<string>}
  */
 export const cardId = (card) => card?.cardID ?? card?.details?._id;
 
 /**
- * @param {Card?} card
+ * @type {CardNullPassthrough<string>}
  */
 export const cardType = (card) => card?.type_line ?? card?.details?.type ?? '';
 
 /**
- * @param {Card?} card
+ * @type {CardNullPassthrough<string>}
  */
 export const cardRarity = (card) => card?.rarity ?? card?.details?.rarity;
 
@@ -200,19 +215,19 @@ export const cardImageBackUrl = (card, showCustomImages = true) => {
 export const cardNotes = (card) => card?.notes;
 
 /**
- * @param {Card?} card
+ * @type {CardNullPassthrough<string>}
  */
 export const cardColorCategory = (card) => card?.colorCategory ?? card?.details?.color_category;
 
 // prices being null causes unwanted coercing behaviour in price filters,
 // so nullish price values are transformed to undefined instead
 /**
- * @param {Card?} card
+ * @type {CardNullPassthrough<number>}
  */
 export const cardPrice = (card) =>
   (cardFinish(card) === 'Foil'
-    ? card?.details?.prices.usd_foil ?? card?.details?.prices.usd
-    : card?.details?.prices.usd ?? card?.details?.prices.usd_foil) ?? null;
+    ? card?.details?.prices?.usd_foil ?? card?.details?.prices?.usd
+    : card?.details?.prices?.usd ?? card?.details?.prices?.usd_foil) ?? null;
 
 /**
  * @param {Card?} card
@@ -237,55 +252,55 @@ export const cardTix = (card) => card?.details?.prices.tix ?? null;
 /**
  * @param {Card?} card
  */
-export const cardIsFullArt = (card) => card?.details?.full_art;
+export const cardIsFullArt = (card) => card?.details?.full_art ?? false;
 
 /**
- * @param {Card?} card
+ * @type {CardNullPassthrough<string[]>}
  */
 export const cardCost = (card) => card?.details?.parsed_cost;
 
 /**
- * @param {Card?} card
+ * @type {CardNullPassthrough<string>}
  */
 export const cardSet = (card) => card?.details?.set;
 
 /**
- * @param {Card?} card
+ * @type {CardNullPassthrough<string>}
  */
 export const cardCollectorNumber = (card) => card?.details?.collector_number;
 
 /**
  * @param {Card?} card
  */
-export const cardPromo = (card) => card?.details?.promo;
+export const cardPromo = (card) => card?.details?.promo ?? false;
 
 /**
  * @param {Card?} card
  */
-export const cardDigital = (card) => card?.details?.digital;
+export const cardDigital = (card) => card?.details?.digital ?? false;
 
 /**
  * @param {Card?} card
  */
-export const cardIsToken = (card) => card?.details?.isToken;
+export const cardIsToken = (card) => card?.details?.isToken ?? false;
 
 /**
- * @param {Card?} card
+ * @type {CardNullPassthrough<string>}
  */
 export const cardBorderColor = (card) => card?.details?.border_color;
 
 /**
- * @param {Card?} card
+ * @type {CardNullPassthrough<string>}
  */
 export const cardName = (card) => card?.name ?? card?.details?.name;
 
 /**
- * @param {Card?} card
+ * @type {CardNullPassthrough<string>}
  */
 export const cardNameLower = (card) => card?.name?.toLowerCase?.() ?? card?.details?.name_lower;
 
 /**
- * @param {Card?} card
+ * @type {CardNullPassthrough<string>}
  */
 export const cardFullName = (card) => card?.name ?? card?.details?.full_name;
 
@@ -295,7 +310,7 @@ export const cardFullName = (card) => card?.name ?? card?.details?.full_name;
 export const cardArtist = (card) => card?.details?.artist;
 
 /**
- * @param {Card?} card
+ * @type {CardNullPassthrough<string>}
  */
 export const cardScryfallUri = (card) => card?.details?.scryfall_uri;
 
@@ -305,7 +320,7 @@ export const cardScryfallUri = (card) => card?.details?.scryfall_uri;
 export const cardOracleText = (card) => card?.details?.oracle_text;
 
 /**
- * @param {Card?} card
+ * @type {CardNullPassthrough<string>}
  */
 export const cardOracleId = (card) => card?.details?.oracle_id;
 
@@ -328,7 +343,7 @@ export const cardLegalIn = (card) => {
 export const cardColors = (card) => card?.details?.colors;
 
 /**
- * @param {Card?} card
+ * @type {CardNullPassthrough<string>}
  */
 export const cardLanguage = (card) => card?.details?.language;
 
@@ -380,7 +395,7 @@ export const cardImageFlip = (card) => card?.details?.image_flip;
 /**
  * @param {Card?} card
  */
-export const cardTokens = (card) => card?.details?.tokens;
+export const cardTokens = (card) => card?.details?.tokens ?? [];
 
 /**
  * @param {Card?} card
@@ -390,25 +405,25 @@ export const cardElo = (card) => card?.details?.elo ?? 1200;
 /**
  * @param {Card?} card
  */
-export const cardPopularity = (card) => card?.details?.popularity;
+export const cardPopularity = (card) => card?.details?.popularity ?? 0;
 
 /**
  * @param {Card?} card
  */
-export const cardCubeCount = (card) => card?.details?.cubeCount;
+export const cardCubeCount = (card) => card?.details?.cubeCount ?? 0;
 
 /**
  * @param {Card?} card
  */
-export const cardPickCount = (card) => card?.details?.pickCount;
+export const cardPickCount = (card) => card?.details?.pickCount ?? 0;
 
 /**
- * @param {Card?} card
+ * @type {CardNullPassthrough<string>}
  */
 export const cardLayout = (card) => card?.details?.layout;
 
 /**
- * @param {Card?} card
+ * @type {CardNullPassthrough<string>}
  */
 export const cardReleaseDate = (card) => card?.details?.released_at;
 
@@ -417,13 +432,20 @@ export const cardReleaseDate = (card) => card?.details?.released_at;
  * @param {Color} color
  */
 export const cardDevotion = (card, color) => {
+  if (!card) return 0;
   let cost = cardCost(card);
   if (cost && cardLayout(card) === 'adventure') cost = cost.slice(cost.findIndex((x) => x === 'split') + 1);
   return cost?.reduce((count, symbol) => count + (symbol.includes(color.toLowerCase()) ? 1 : 0), 0) ?? 0;
 };
 
 /**
- * @param {Card?} card
+ * @typedef {{
+ * (card: null|undefined): boolean,
+ * (card: Card): boolean,
+ * }} CardSpecialZone
+ */
+/**
+ * @type {CardSpecialZone}
  */
 export const cardIsSpecialZoneType = (card) =>
   /\b(plane|phenomenon|vanguard|scheme|conspiracy|contraption)\b/i.test(cardType(card) ?? '');
@@ -433,6 +455,73 @@ export const cardIsSpecialZoneType = (card) =>
  */
 const isCreatureLand = (details) =>
   details?.type.includes('Land') && details?.oracle_text?.match?.(/\bbecomes? a .*\bcreature\b/);
+
+/**
+ * @return {CardDetails} details
+ */
+export const makeDefaultCardDetails = () => ({
+  color_identity: /** @type {Color[]} */ [],
+  set: 'afr',
+  set_name: 'afr',
+  foil: false,
+  nonfoil: true,
+  collector_number: '12',
+  released_at: '2012',
+  reprint: true,
+  promo: false,
+  prices: {
+    usd: 0.05,
+    usd_foil: 0.5,
+    eur: 0.1,
+    tix: 0.2,
+  },
+  elo: 1200,
+  digital: false,
+  isToken: false,
+  border_color: 'black',
+  name: 'Default',
+  name_lower: 'default',
+  full_name: 'Default - [afr-12]',
+  artist: 'Unnamed',
+  scryfall_uri: '',
+  rarity: 'Rare',
+  oracle_text: '',
+  _id: '',
+  oracle_id: '',
+  cmc: 3,
+  legalities: {
+    Modern: 'not-legal',
+    Pauper: 'not-legal',
+    Legacy: 'not-legal',
+    Vintage: 'not-legal',
+    Pioneer: 'not-legal',
+    Penny: 'not-legal',
+    Standard: 'not-legal',
+    Brawl: 'not-legal',
+    Historic: 'not-legal',
+    Commander: 'not-legal',
+  },
+  parsed_cost: /** @type string[] */ [],
+  colors: null,
+  type: 'Creature',
+  full_art: false,
+  language: 'en',
+  mtgo_id: null,
+  layout: 'm15',
+  tcgplayer_id: null,
+  loyalty: null,
+  power: '3',
+  toughness: '5',
+  image_small: null,
+  image_normal: null,
+  art_crop: null,
+  image_flip: null,
+  color_category: 'Hybrid',
+  tokens: [],
+  popularity: 0,
+  cubeCount: 0,
+  pickCount: 0,
+});
 
 /**
  * @param {CardDetails} details
@@ -456,6 +545,11 @@ export const detailsToCard = (details) => ({
   type_line: null,
   details,
 });
+
+/**
+ * @returns {Card} card
+ */
+export const makeDefaultCard = () => detailsToCard(makeDefaultCardDetails());
 
 /**
  * @param {CardDetails} card

@@ -16,13 +16,13 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
 import { lazy, useContext } from 'react';
-import { Card, CardHeader } from 'reactstrap';
 
+import { ContainerHeader, LayoutContainer } from '@cubeartisan/client/components/containers/LayoutContainer.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import ButtonLink from '@cubeartisan/client/components/inputs/ButtonLink.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 import ArticlePropType from '@cubeartisan/client/proptypes/ArticlePropType.js';
@@ -36,32 +36,26 @@ export const ArticlePage = ({ loginCallback, article }) => {
   return (
     <MainLayout loginCallback={loginCallback}>
       <DynamicFlash />
-      <Card className="mb-3">
+      <LayoutContainer sx={{ marginBottom: 3 }}>
         {user && user._id === article.owner && (
-          <CardHeader>
-            <h5>
-              {article.status !== 'published' && <em className="pr-3">*Draft*</em>}
-              <ButtonLink color="primary" href={`/creators/article/${article._id}/edit`}>
-                Edit
-              </ButtonLink>
-            </h5>
-          </CardHeader>
+          <ContainerHeader title={article.status !== 'published' ? '*Draft*' : null}>
+            <Button color="primary" href={`/creators/article/${article._id}/edit`}>
+              Edit
+            </Button>
+          </ContainerHeader>
         )}
         <Suspense>
           <Article article={article} />
         </Suspense>
-      </Card>
+      </LayoutContainer>
     </MainLayout>
   );
 };
-
 ArticlePage.propTypes = {
   loginCallback: PropTypes.string,
   article: ArticlePropType.isRequired,
 };
-
 ArticlePage.defaultProps = {
   loginCallback: '/',
 };
-
 export default RenderToRoot(ArticlePage);

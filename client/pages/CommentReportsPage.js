@@ -16,12 +16,12 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
 import { Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
 
 import Paginate from '@cubeartisan/client/components/containers/Paginate.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import ButtonLink from '@cubeartisan/client/components/inputs/ButtonLink.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import TimeAgo from '@cubeartisan/client/components/wrappers/TimeAgo.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
@@ -69,14 +69,14 @@ export const CommentReportsPage = ({ loginCallback, reports, count, page }) => (
             </p>
             <Row>
               <Col xs="12" sm="6">
-                <ButtonLink color="success" block outline href={`/admin/ignorereport/${report._id}`}>
+                <Button color="success" variant="outlined" href={`/admin/ignorereport/${report._id}`}>
                   Ignore
-                </ButtonLink>
+                </Button>
               </Col>
               <Col xs="12" sm="6">
-                <ButtonLink color="warning" block outline href={`/admin/removecomment/${report._id}`}>
+                <Button color="warning" variant="outlined" href={`/admin/removecomment/${report._id}`}>
                   Remove Comment
-                </ButtonLink>
+                </Button>
               </Col>
             </Row>
           </CardBody>
@@ -85,16 +85,13 @@ export const CommentReportsPage = ({ loginCallback, reports, count, page }) => (
     </Card>
   </MainLayout>
 );
-
 CommentReportsPage.propTypes = {
   loginCallback: PropTypes.string,
   reports: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   count: PropTypes.number.isRequired,
   page: PropTypes.number.isRequired,
 };
-
 CommentReportsPage.defaultProps = {
   loginCallback: '/',
 };
-
 export default RenderToRoot(CommentReportsPage);

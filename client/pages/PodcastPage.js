@@ -16,17 +16,19 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
-import { useContext } from 'react';
-import { Card, CardHeader } from 'reactstrap';
+import { lazy, useContext } from 'react';
 
+import { ContainerHeader, LayoutContainer } from '@cubeartisan/client/components/containers/LayoutContainer.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import ButtonLink from '@cubeartisan/client/components/inputs/ButtonLink.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
-import Podcast from '@cubeartisan/client/components/Podcast.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 import PodcastPropType from '@cubeartisan/client/proptypes/PodcastPropType.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
+
+const Podcast = lazy(() => import('@cubeartisan/client/components/Podcast.js'));
 
 export const PodcastPage = ({ loginCallback, podcast, episodes }) => {
   const user = useContext(UserContext);
@@ -34,34 +36,30 @@ export const PodcastPage = ({ loginCallback, podcast, episodes }) => {
   return (
     <MainLayout loginCallback={loginCallback}>
       <DynamicFlash />
-      <Card className="mb-3">
+      <LayoutContainer sx={{ marginBottom: 3 }}>
         {user && user._id === podcast.owner && (
-          <CardHeader>
-            <h5>
-              {podcast.status !== 'published' && <em className="pr-3">*Draft*</em>}
-              <ButtonLink color="success" href={`/creators/podcast/${podcast._id}/edit`}>
-                Edit
-              </ButtonLink>
-              <ButtonLink color="primary" href={`/creators/podcast/${podcast._id}/fetch`}>
-                Fetch Episodes
-              </ButtonLink>
-            </h5>
-          </CardHeader>
+          <ContainerHeader title={podcast.status !== 'published' ? '*Draft*' : null}>
+            <Button color="primary" href={`/creators/article/${podcast._id}/edit`}>
+              Edit
+            </Button>
+            <Button color="primary" href={`/creators/podcast/${podcast._id}/fetch`}>
+              Fetch Episodes
+            </Button>
+          </ContainerHeader>
         )}
-        <Podcast podcast={podcast} episodes={episodes} />
-      </Card>
+        <Suspense>
+          <Podcast podcast={podcast} episodes={episodes} />
+        </Suspense>
+      </LayoutContainer>
     </MainLayout>
   );
 };
-
 PodcastPage.propTypes = {
   loginCallback: PropTypes.string,
   podcast: PodcastPropType.isRequired,
-  episodes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  episodes: PropTypes.arrayOf(PodcastPropType.isRequired).isRequired,
 };
-
 PodcastPage.defaultProps = {
   loginCallback: '/',
 };
-
 export default RenderToRoot(PodcastPage);

@@ -46,7 +46,6 @@ import CountTableRow from '@cubeartisan/client/components/CountTableRow.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
-import ButtonLink from '@cubeartisan/client/components/inputs/ButtonLink.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import AddToCubeModal from '@cubeartisan/client/components/modals/AddToCubeModal.js';
@@ -79,8 +78,15 @@ import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 const AutocardA = withAutocard(Link);
 const AddModal = withModal(Button, AddToCubeModal);
 
+/**
+ * @param {Date} date
+ */
 const formatDate = (date) => `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
 
+/**
+ * @template T
+ * @param {{ x: Date, y: T }[]} list
+ */
 const distinct = (list) => {
   const res = [];
   const dates = new Set();
@@ -173,14 +179,12 @@ const Graph = ({ data, yFunc, unit, yRange }) => {
   }
   return <p>No data to show.</p>;
 };
-
 Graph.propTypes = {
   data: PropTypes.arrayOf(CardDataPointPropType).isRequired,
   yFunc: PropTypes.func.isRequired,
   unit: PropTypes.string.isRequired,
   yRange: PropTypes.arrayOf(PropTypes.number),
 };
-
 Graph.defaultProps = {
   yRange: null,
 };
@@ -200,12 +204,14 @@ const LegalityBadge = ({ legality, status }) => (
     {legality}
   </h6>
 );
-
 LegalityBadge.propTypes = {
   legality: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
 };
 
+/**
+ * @param {React.ReactNode} element
+ */
 const elementWrapper = (element) => (
   <table className="table table-striped mb-0">
     <thead>
@@ -305,28 +311,28 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
               {card.prices && Number.isFinite(cardPrice(fullCard)) && (
                 <TextBadge name="Price">
                   <Tooltip title="TCGPlayer Market Price">
-                    <Typography variant="body1">${cardPrice(fullCard).toFixed(2)}</Typography>
+                    <Typography variant="body1">${cardPrice(fullCard)?.toFixed?.(2) ?? 'Not Avaliable'}</Typography>
                   </Tooltip>
                 </TextBadge>
               )}
               {card.prices && Number.isFinite(cardFoilPrice(fullCard)) && (
                 <TextBadge name="Foil">
                   <Tooltip title="TCGPlayer Market Price">
-                    <Typography variant="body1">${cardFoilPrice(fullCard).toFixed(2)}</Typography>
+                    <Typography variant="body1">${cardFoilPrice(fullCard)?.toFixed?.(2) ?? 'Not Avaliable'}</Typography>
                   </Tooltip>
                 </TextBadge>
               )}
               {card.prices && Number.isFinite(cardPriceEur(fullCard)) && (
                 <TextBadge name="EUR">
                   <Tooltip title="Cardmarket Price">
-                    <Typography variant="body1">€{cardPriceEur(fullCard).toFixed(2)}</Typography>
+                    <Typography variant="body1">€{cardPriceEur(fullCard)?.toFixed?.(2) ?? 'Not Available'}</Typography>
                   </Tooltip>
                 </TextBadge>
               )}
               {card.prices && Number.isFinite(cardTix(fullCard)) && (
                 <TextBadge name="TIX">
                   <Tooltip title="MTGO TIX">
-                    <Typography variant="body1">{cardTix(fullCard).toFixed(2)}</Typography>
+                    <Typography variant="body1">{cardTix(fullCard)?.toFixed?.(2) ?? 'Not Avaliable'}</Typography>
                   </Tooltip>
                 </TextBadge>
               )}
@@ -521,69 +527,64 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
                 <CardBody>
                   <Row>
                     <Col className="pb-2" xs="12" sm="6">
-                      <ButtonLink
-                        outline
+                      <Button
+                        variant="outlined"
                         color="success"
-                        block
                         href={`/cubes/search/card:"${card.name}"/0`}
                         target="_blank"
                       >
                         {`Cubes with ${card.name}`}
-                      </ButtonLink>
+                      </Button>
                     </Col>
                     <Col className="pb-2" xs="12" sm="6">
-                      <ButtonLink
-                        outline
+                      <Button
+                        variant="outlined"
                         color="success"
-                        block
                         href={`/tool/searchcards?f=name%3A"${card.name}"&p=0&di=printings`}
                         target="_blank"
                       >
                         View all Printings
-                      </ButtonLink>
+                      </Button>
                     </Col>
                     <Col className="pb-2" xs="12" sm="6">
-                      <ButtonLink outline color="success" block href={card.scryfall_uri} target="_blank">
+                      <Button color="success" variant="outlined" href={card.scryfall_uri} target="_blank">
                         View on Scryfall
-                      </ButtonLink>
+                      </Button>
                     </Col>
                     <Col className="pb-2" xs="12" sm="6">
-                      <ButtonLink outline color="success" block href={getTCGLink({ details: card })} target="_blank">
+                      <Button color="success" variant="outlined" href={getTCGLink({ details: card })} target="_blank">
                         View on TCGPlayer
-                      </ButtonLink>
+                      </Button>
                     </Col>
                     <Col className="pb-2" xs="12" sm="6">
-                      <ButtonLink
-                        outline
+                      <Button
+                        variant="outlined"
                         color="success"
-                        block
                         href={getCardKingdomLink({ details: card })}
                         target="_blank"
                       >
                         View on Card Kingdom
-                      </ButtonLink>
+                      </Button>
                     </Col>
                     <Col className="pb-2" xs="12" sm="6">
-                      <ButtonLink
-                        outline
+                      <Button
+                        variant="outlined"
                         color="success"
-                        block
                         href={`https://edhrec.com/cards/${nameToDashedUrlComponent(card.name)}`}
                         target="_blank"
                       >
                         View on EDHRec
-                      </ButtonLink>
+                      </Button>
                     </Col>
                     <Col className="pb-2" xs="12" sm="6">
-                      <ButtonLink
-                        outline
+                      <Button
+                        variant="outlined"
                         color="success"
-                        block
                         href={`http://mtgtop8.com/search?MD_check=1&SB_check=1&cards=${card.name}`}
                         target="_blank"
                       >
                         {`MTG Top 8 Decks with ${card.name}`}
-                      </ButtonLink>
+                      </Button>
                     </Col>
                   </Row>
                 </CardBody>
@@ -638,7 +639,7 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
               <h4>Purchase</h4>
             </CardHeader>
             <CardBody>
-              <ButtonLink outline color="success" block href={getTCGLink({ details: card })} target="_blank">
+              <Button variant="outlined" color="success" href={getTCGLink({ details: card })} target="_blank">
                 <Row>
                   <Col xs="6">
                     <div className="text-left">
@@ -653,8 +654,8 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
                     </Col>
                   )}
                 </Row>
-              </ButtonLink>
-              <ButtonLink outline color="success" block href={getCardKingdomLink({ details: card })} target="_blank">
+              </Button>
+              <Button variant="outlined" color="success" href={getCardKingdomLink({ details: card })} target="_blank">
                 <Row>
                   <Col xs="6">
                     <div className="text-left">
@@ -662,8 +663,8 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
                     </div>
                   </Col>
                 </Row>
-              </ButtonLink>
-              <ButtonLink outline color="success" block href={getCardMarketLink({ details: card })} target="_blank">
+              </Button>
+              <Button variant="outlined" color="success" href={getCardMarketLink({ details: card })} target="_blank">
                 <Row>
                   <Col xs="6">
                     <div className="text-left">
@@ -678,8 +679,8 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
                     </Col>
                   )}
                 </Row>
-              </ButtonLink>
-              <ButtonLink outline color="success" block href={getCardHoarderLink({ details: card })} target="_blank">
+              </Button>
+              <Button variant="outlined" color="success" href={getCardHoarderLink({ details: card })} target="_blank">
                 <Row>
                   <Col xs="6">
                     <div className="text-left">
@@ -694,7 +695,7 @@ export const CardPage = ({ card, data, versions, related, loginCallback }) => {
                     </Col>
                   )}
                 </Row>
-              </ButtonLink>
+              </Button>
             </CardBody>
           </Card>
         </Col>
@@ -760,36 +761,11 @@ CardPage.propTypes = {
     current: CardDataPointPropType,
   }).isRequired,
   related: PropTypes.shape({
-    top: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        image_normal: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
-    synergistic: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        image_normal: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
-    creatures: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        image_normal: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
-    spells: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        image_normal: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
-    other: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        image_normal: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
+    top: PropTypes.arrayOf(CardDetailsPropType.isRequired).isRequired,
+    synergistic: PropTypes.arrayOf(CardDetailsPropType.isRequired).isRequired,
+    creatures: PropTypes.arrayOf(CardDetailsPropType.isRequired).isRequired,
+    spells: PropTypes.arrayOf(CardDetailsPropType.isRequired).isRequired,
+    other: PropTypes.arrayOf(CardDetailsPropType.isRequired).isRequired,
   }).isRequired,
   versions: PropTypes.arrayOf(CardDetailsPropType.isRequired).isRequired,
   loginCallback: PropTypes.string,

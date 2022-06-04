@@ -1,18 +1,22 @@
 export default withModal;
-declare function withModal(Tag: any, ModalTag: any): {
-    ({ children, modalProps, ...props }: {
-        [x: string]: any;
-        children: any;
-        modalProps: any;
-    }): JSX.Element;
-    propTypes: {
-        children: PropTypes.Validator<string | number | boolean | {} | PropTypes.ReactElementLike | PropTypes.ReactNodeArray>;
-        modalProps: PropTypes.Requireable<PropTypes.InferProps<{}>>;
-    };
-    defaultProps: {
-        modalProps: {};
-    };
-    displayName: string;
+export type Clickable = {
+    onClick: (event: any) => void;
 };
-import PropTypes from "prop-types";
+export type ModalLike = {
+    isOpen: boolean;
+    toggle: () => void;
+};
+/**
+ * @typedef {{ onClick: (event: any) => void }} Clickable
+ * @typedef {{ isOpen: boolean, toggle: () => void }} ModalLike
+ */
+/**
+ * @template TagProps
+ * @template  ModalProps
+ * @param {React.ComponentType<TagProps & Clickable>} Tag
+ * @param {React.ComponentType<ModalProps & ModalLike>} ModalTag
+ */
+declare function withModal<TagProps, ModalProps>(Tag: import("react").ComponentType<TagProps & Clickable>, ModalTag: import("react").ComponentType<ModalProps & ModalLike>): import("react").ForwardRefExoticComponent<import("react").PropsWithoutRef<TagProps & {
+    modalProps: ModalProps;
+}> & import("react").RefAttributes<any>>;
 //# sourceMappingURL=WithModal.d.ts.map

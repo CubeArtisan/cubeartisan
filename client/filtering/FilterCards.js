@@ -19,6 +19,7 @@
 import nearley from 'nearley';
 
 import filterCardGrammar from '@cubeartisan/client/generated/filtering/cardFilters.js';
+import { detailsToCard } from '@cubeartisan/client/utils/Card.js';
 
 const { Grammar, Parser } = nearley;
 
@@ -28,12 +29,35 @@ const ALL_OPERATORS = [':', '=', '!=', '<>', '<', '<=', '>', '>='];
 
 export const operatorsRegex = new RegExp(`(?:${ALL_OPERATORS.join('|')})`);
 
+/**
+ * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
+ * @typedef {import('@cubeartisan/client/proptypes/CardDetailsPropType.js').CardDetails} CardDetails
+ */
+
+/**
+ * @typedef {{(card: Card): boolean, stringify: string, fieldsUsed: string[]}} Filter
+ */
+
+/**
+ * @param {Filter} filter
+ * @param {string} name
+ */
 export const filterUses = (filter, name) => (filter?.fieldsUsed?.indexOf?.(name) ?? -1) >= 0;
 
+/**
+ * @param {Filter} filter
+ */
 export const filterUsedFields = (filter) => filter?.fieldsUsed ?? [];
 
+/**
+ * @param {Filter} filter
+ */
 export const filterToString = (filter) => filter?.stringify ?? 'empty filter';
 
+/**
+ * @param {string?} filterText
+ * @returns {{ err: any, filter: Filter? }} filterOrErr
+ */
 export function makeFilter(filterText) {
   if (!filterText || filterText.trim() === '') {
     return {
@@ -64,7 +88,12 @@ export function makeFilter(filterText) {
   };
 }
 
-export const filterCardsDetails = (cards, filter) => (filter ? cards.filter((details) => filter({ details })) : cards);
+/**
+ * @param {CardDetails[]} cards
+ * @param {Filter?} filter
+ */
+export const filterCardsDetails = (cards, filter) =>
+  filter ? cards.filter((details) => filter(detailsToCard(details))) : cards;
 
 export default {
   operators: ALL_OPERATORS,
