@@ -31,7 +31,7 @@
     "checktypes-update": "yarn pnpify tsc -p tsconfig.json | loose-ts-check --auto-update",
     "ci": "yarn nearley; yarn updatetypes; yarn lint && yarn checktypes && yarn test-loud",
     "list-type-defs": "cd typings && git ls-files '*.d.ts'",
-    "strip-jsdoc": "cd typings && sh -c 'for file in `yarn run --silent list-type-defs`; do fxstripjsdoc $file; done'",
+    "strip-jsdoc": "cd typings && sh -c 'for file in `yarn run --silent list-type-defs`; do fxstripjsdoc $file > /dev/null; done'",
     "lint": "yarn workspaces foreach -p --include '@cubeartisan/*' run g:lint",
     "lint-fix": "yarn workspaces foreach -p --include '@cubeartisan/*' run g:lint-fix",
     "lint-loud": "yarn workspaces foreach -p --include '@cubeartisan/*'run g:lint-loud",

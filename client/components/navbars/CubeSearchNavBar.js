@@ -16,14 +16,13 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { Button } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { CardBody, Input, Modal, ModalBody, ModalFooter, ModalHeader, Navbar } from 'reactstrap';
 
 import NumericField from '@cubeartisan/client/components/inputs/NumericField.js';
 import SelectField from '@cubeartisan/client/components/inputs/SelectField.js';
-import TextField from '@cubeartisan/client/components/inputs/TextField.js';
 
 const AdvancedSearchModal = ({ isOpen, toggle }) => {
   const [keyword, setKeyword] = useState('');
@@ -138,21 +137,21 @@ const AdvancedSearchModal = ({ isOpen, toggle }) => {
         <ModalBody>
           <TextField
             name="keyword"
-            humanName="Keywords"
+            label="Keywords"
             placeholder={'Any text in the name or tags, e.g. "Innistrad"'}
             value={keyword}
             onChange={handleChange}
           />
           <TextField
             name="owner"
-            humanName="Owner Name"
+            label="Owner Name"
             placeholder={'Any text in the owner name, e.g. "TimFReilly"'}
             value={owner}
             onChange={handleChange}
           />
           <TextField
             name="tag"
-            humanName="Cube Tags"
+            label="Cube Tags"
             placeholder={'Any tag on a cube, e.g. "2 player"'}
             value={tag}
             onChange={handleChange}
@@ -183,7 +182,7 @@ const AdvancedSearchModal = ({ isOpen, toggle }) => {
           {/* TODO: use autocomplete here */}
           <TextField
             name="include"
-            humanName="Cubes that include the card:"
+            label="Cubes that include the card:"
             placeholder={'Any full card name, e.g. "Ambush Viper"'}
             value={include}
             onChange={handleChange}
@@ -201,7 +200,6 @@ const AdvancedSearchModal = ({ isOpen, toggle }) => {
     </>
   );
 };
-
 AdvancedSearchModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   toggle: PropTypes.func.isRequired,

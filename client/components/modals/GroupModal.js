@@ -402,5 +402,4 @@ GroupModal.propTypes = {
 GroupModal.defaultProps = {
   canEdit: false,
 };
-
 export default GroupModal;

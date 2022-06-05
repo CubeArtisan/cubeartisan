@@ -8,15 +8,8 @@ import { Suspense as ReactSuspense } from 'react';
  * @property {React.ReactNode} children
  */
 
-/**
- * @type {React.FC<SuspenseProps>}
- */
-const Suspense = ({ fallback, children, ...props }) => {
-  if (typeof window !== 'undefined') {
-    return <ReactSuspense fallback={fallback} {...props} />;
-  }
-  return null;
-};
+/** @type {React.FC<SuspenseProps>} */
+const Suspense = ({ fallback, children }) => <ReactSuspense fallback={fallback}>{children}</ReactSuspense>;
 Suspense.propTypes = {
   fallback: PropTypes.element,
   // @ts-ignore
