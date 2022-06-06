@@ -193,8 +193,9 @@ export const cardAddedTime = (card) => card?.addedTmsp;
  * @param {Card?} card
  */
 export const cardImageUrl = (card, showCustomImages = true) => {
+  console.log({ imgUrl: card?.imgUrl });
   if (showCustomImages) {
-    return card?.imgUrl ?? card?.details?.image_normal ?? card?.details?.image_small;
+    return (card?.imgUrl || card?.details?.image_normal) ?? card?.details?.image_small;
   }
   return card?.details?.image_normal ?? card?.details?.image_small;
 };
@@ -204,7 +205,7 @@ export const cardImageUrl = (card, showCustomImages = true) => {
  */
 export const cardImageBackUrl = (card, showCustomImages = true) => {
   if (showCustomImages) {
-    return card?.imgBackUrl ?? card?.details?.image_flip;
+    return card?.imgBackUrl || card?.details?.image_flip;
   }
   return card?.details?.image_flip;
 };
@@ -214,10 +215,23 @@ export const cardImageBackUrl = (card, showCustomImages = true) => {
  */
 export const cardNotes = (card) => card?.notes;
 
+const COLOR_CATEGORY_LOOKUP = {
+  W: 'White',
+  U: 'Blue',
+  B: 'Black',
+  R: 'Red',
+  G: 'Green',
+  M: 'Gold',
+  C: 'Colorless',
+};
+
 /**
  * @type {CardNullPassthrough<string>}
  */
-export const cardColorCategory = (card) => card?.colorCategory ?? card?.details?.color_category;
+export const cardColorCategory = (card) => {
+  const possibleAbbrev = card?.colorCategory ?? card?.details?.color_category ?? '';
+  return COLOR_CATEGORY_LOOKUP[possibleAbbrev.toUpperCase()] ?? possibleAbbrev;
+};
 
 // prices being null causes unwanted coercing behaviour in price filters,
 // so nullish price values are transformed to undefined instead

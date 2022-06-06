@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { Box, Button, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import { lazy, useContext, useEffect, useMemo, useState } from 'react';
 import { UncontrolledAlert } from 'reactstrap';
@@ -31,11 +31,11 @@ import { TagContextProvider } from '@cubeartisan/client/components/contexts/TagC
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
-import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import CardModalForm from '@cubeartisan/client/components/modals/CardModalForm.js';
 import GroupModal from '@cubeartisan/client/components/modals/GroupModal.js';
 import CubeListNavbar from '@cubeartisan/client/components/navbars/CubeListNavbar.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import { DEFAULT_FILTER } from '@cubeartisan/client/filtering/FilterCards.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { getFromLocalStorage } from '@cubeartisan/client/utils/LocalStorage.js';
@@ -47,6 +47,13 @@ const TableView = lazy(() => import('@cubeartisan/client/components/TableView.js
 const ListView = lazy(() => import('@cubeartisan/client/components/ListView.js'));
 const Maybeboard = lazy(() => import('@cubeartisan/client/components/Maybeboard.js'));
 const CurveView = lazy(() => import('@cubeartisan/client/components/CurveView.js'));
+
+const CUBE_VIEWS = {
+  table: TableView,
+  spoiler: VisualSpoiler,
+  curve: CurveView,
+  list: ListView,
+};
 
 /**
  * @typedef {import('@cubeartisan/client/filtering/FilterCards.js').Filter} Filter
@@ -64,11 +71,11 @@ const CubeListPageRaw = ({
 }) => {
   const { cube, canEdit } = useContext(CubeContext);
   const { _id: userID } = useContext(UserContext);
-  const { showMaybeboard, toggleShowMaybeboard } = useContext(DisplayContext);
+  const { showMaybeboard } = useContext(DisplayContext);
 
   const [cubeView, setCubeView] = useQueryParam('view', defaultView);
-  const [openCollapse, setOpenCollapse] = useState(/** @type {string|null} */ null);
-  const [filter, setFilter] = useState(/** @type {Filter|null} */ null);
+  const [openCollapse, setOpenCollapse] = useState('');
+  const [filter, setFilter] = useState(() => DEFAULT_FILTER);
   const [sorts, setSorts] = useState(null);
   const [alerts, setAlerts] = useState([]);
 
@@ -92,7 +99,10 @@ const CubeListPageRaw = ({
     text: tag,
   }));
 
-  const filteredCards = useMemo(() => (filter ? cube.cards.filter(filter) : cube.cards), [filter, cube]);
+  const filteredCards = useMemo(() => cube?.cards?.filter?.(filter) ?? [], [filter, cube]);
+  console.log(filter, filteredCards);
+
+  const CubeView = CUBE_VIEWS[cubeView];
 
   return (
     <SortContextProvider defaultSorts={cube.default_sorts} defaultShowOther={!!cube.default_show_unsorted}>
@@ -140,13 +150,7 @@ const CubeListPageRaw = ({
                       <Maybeboard filter={filter} />
                     </MaybeboardContextProvider>
                   </Suspense>
-                ) : (
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Button onClick={toggleShowMaybeboard} variant="outlined" color="primary" sx={{ marginX: 'auto' }}>
-                      Show Maybeboard
-                    </Button>
-                  </Box>
-                )}
+                ) : null}
               </ErrorBoundary>
               <ErrorBoundary>
                 {filteredCards.length === 0 ? (
@@ -155,14 +159,7 @@ const CubeListPageRaw = ({
                   </Typography>
                 ) : null}
                 <Suspense>
-                  {
-                    {
-                      table: <TableView cards={filteredCards} />,
-                      spoiler: <VisualSpoiler cards={filteredCards} />,
-                      curve: <CurveView cards={filteredCards} />,
-                      list: <ListView cards={filteredCards} />,
-                    }[cubeView]
-                  }
+                  <CubeView cards={filteredCards} />
                 </Suspense>
               </ErrorBoundary>
             </GroupModal>
@@ -195,20 +192,18 @@ const CubeListPage = ({
   defaultShowUnsorted,
   loginCallback,
 }) => (
-  <MainLayout loginCallback={loginCallback}>
-    <CubeLayout cube={cube} activeLink="list">
-      <CubeListPageRaw
-        defaultShowTagColors={defaultShowTagColors}
-        defaultFilterText={defaultFilterText}
-        defaultView={defaultView}
-        defaultPrimarySort={defaultPrimarySort}
-        defaultSecondarySort={defaultSecondarySort}
-        defaultTertiarySort={defaultTertiarySort}
-        defaultQuaternarySort={defaultQuaternarySort}
-        defaultShowUnsorted={defaultShowUnsorted}
-      />
-    </CubeLayout>
-  </MainLayout>
+  <CubeLayout cube={cube} activeLink="list" loginCallback={loginCallback}>
+    <CubeListPageRaw
+      defaultShowTagColors={defaultShowTagColors}
+      defaultFilterText={defaultFilterText}
+      defaultView={defaultView}
+      defaultPrimarySort={defaultPrimarySort}
+      defaultSecondarySort={defaultSecondarySort}
+      defaultTertiarySort={defaultTertiarySort}
+      defaultQuaternarySort={defaultQuaternarySort}
+      defaultShowUnsorted={defaultShowUnsorted}
+    />
+  </CubeLayout>
 );
 CubeListPage.propTypes = {
   cube: CubePropType.isRequired,

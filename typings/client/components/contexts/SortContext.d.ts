@@ -1,11 +1,11 @@
 export const SortContextProvider: React.FC<SortContextProviderProps>;
 export default SortContext;
 export type SortValues = {
-    primary?: string | undefined;
-    secondary?: string | undefined;
-    tertiary?: string | undefined;
-    quaternary?: string | undefined;
-    showOther?: boolean | undefined;
+    primary: string;
+    secondary: string;
+    tertiary: string;
+    quaternary: string;
+    showOther: boolean;
 };
 export type SortContextValues = Required<SortValues> & {
     changeSort: (newSort: SortValues) => void;

@@ -18,16 +18,21 @@
  */
 import {
   cardCmc,
+  cardColorCategory,
   cardColorIdentity,
   cardCubeCount,
   cardDevotion,
   cardElo,
+  cardFinish,
+  cardName,
   cardPickCount,
   cardPopularity,
   cardPrice,
   cardPriceEur,
   cardRarity,
   cardReleaseDate,
+  cardStatus,
+  cardTags,
   cardTix,
   cardType,
   COLOR_COMBINATIONS,
@@ -43,7 +48,7 @@ import { alphaCompare, arrayIsSubset } from '@cubeartisan/client/utils/Util.js';
  * @typedef {import('@cubeartisan/client/proptypes/CubePropType.js').Cube} Cube
  */
 
-const COLOR_MAP = {
+export const COLOR_MAP = {
   W: 'White',
   U: 'Blue',
   B: 'Black',
@@ -546,9 +551,9 @@ export function cardGetLabels(card, sort, showOther = false) {
   let ret = [];
   /* Start of sort options */
   if (sort === 'Color Category') {
-    ret = [card.colorCategory ?? GetColorCategory(cardType(card), cardColorIdentity(card))];
+    ret = [cardColorCategory(card) ?? GetColorCategory(cardType(card), cardColorIdentity(card))];
   } else if (sort === 'Color Category Full') {
-    const colorCategory = card.colorCategory ?? GetColorCategory(cardType(card), cardColorIdentity(card));
+    const colorCategory = cardColorCategory(card) ?? GetColorCategory(cardType(card), cardColorIdentity(card));
     if (colorCategory === 'Gold') {
       ret = [getColorCombination(cardColorIdentity(card))];
     } else {
@@ -620,11 +625,11 @@ export function cardGetLabels(card, sort, showOther = false) {
       ret = types.filter((t) => labels.includes(t));
     }
   } else if (sort === 'Tags') {
-    ret = card.tags;
+    ret = cardTags(card);
   } else if (sort === 'Status') {
-    ret = [card.status];
+    ret = [cardStatus(card)];
   } else if (sort === 'Finish') {
-    ret = [card.finish];
+    ret = [cardFinish(card)];
   } else if (sort === 'Date Added') {
     ret = [ISODateToYYYYMMDD(card.addedTmsp)];
   } else if (sort === 'Guilds') {
@@ -778,6 +783,7 @@ export function cardGetLabels(card, sort, showOther = false) {
     // whitespace around 'Other' to prevent collisions
     ret = [' Other '];
   }
+  console.log(cardName(card), ret);
   return ret;
 }
 
@@ -861,10 +867,11 @@ export function sortIntoGroups(cards, sort, showOther = false) {
 /**
  * @param {Card[]} cards
  * @param {boolean} showOther
- * @param {BucketSort} last
+ * @param {OrderedSort} last
  * @param {BucketSort[]} sorts
  */
 export function sortDeep(cards, showOther, last, ...sorts) {
+  console.log(cards.length, showOther, last, sorts);
   if (sorts.length === 0) {
     return Array.from(cards).sort(SortFunctions[last]);
   }

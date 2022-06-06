@@ -24,11 +24,11 @@ const DEFAULT_SORTS = ['Color Category', 'Types-Multicolor', 'Mana Value', 'Alph
 
 /**
  * @typedef SortValues
- * @property {string} [primary]
- * @property {string} [secondary]
- * @property {string} [tertiary]
- * @property {string} [quaternary]
- * @property {boolean} [showOther]
+ * @property {string} primary
+ * @property {string} secondary
+ * @property {string} tertiary
+ * @property {string} quaternary
+ * @property {boolean} showOther
  */
 
 /**
@@ -67,13 +67,13 @@ export const SortContextProvider = ({ defaultSorts, defaultShowOther, children }
     [defaultPrimary, defaultSecondary, defaultTertiary, defaultQuaternary] = defaultSorts;
   }
   defaultShowOther = defaultShowOther ?? DEFAULT_VALUES.showOther;
-  const [primary, setPrimary] = useState(defaultPrimary);
+  const [primary, setPrimary] = useState(defaultPrimary ?? DEFAULT_VALUES.primary);
   const [secondary, setSecondary] = useState(defaultSecondary);
   const [tertiary, setTertiary] = useState(defaultTertiary);
   const [quaternary, setQuaternary] = useState(defaultQuaternary);
   const [showOther, setShowOther] = useState(defaultShowOther);
   const changeSort = useCallback(
-    /** @param {SortValues} newValues */
+    /** @param {Partial<SortValues>} newValues */
     (newValues) => {
       if (newValues.primary) setPrimary(newValues.primary);
       if (newValues.secondary) setSecondary(newValues.secondary);

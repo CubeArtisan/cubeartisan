@@ -101,15 +101,15 @@ export namespace CubeContextProvider {
 export default CubeContext;
 export type Cube = import('@cubeartisan/client/proptypes/CubePropType.js').Cube;
 export type Card = import('@cubeartisan/client/proptypes/CardPropType.js').Card;
-export type CubeContextValue = import('react').Context<CubeContextValue>;
-import PropTypes from "prop-types";
-declare const CubeContext: import("react").Context<{
-    cube: {};
+export type CubeContextValue = {
+    cube: Cube | null;
     canEdit: boolean;
-    cubeID: null;
+    cubeID: string | null;
     hasCustomImages: boolean;
-    setCube: () => void;
-    updateCubeCard: () => void;
-    updateCubeCards: () => void;
-}>;
+    setCube: ((cube: Cube) => void) | ((replacer: (cube: Cube) => Cube) => void);
+    updateCubeCard: (index: number, card: Card) => void;
+    updateCubeCards: (cards: Card[]) => void;
+};
+import PropTypes from "prop-types";
+declare const CubeContext: import("react").Context<CubeContextValue>;
 //# sourceMappingURL=CubeContext.d.ts.map

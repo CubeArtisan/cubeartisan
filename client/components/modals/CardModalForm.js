@@ -51,7 +51,7 @@ const CardModalForm = ({ children, ...props }) => {
   useEffect(() => {
     const wrapper = async () => {
       if (!cube) return;
-      const allIds = [...cube.cards, ...(cube.maybe || [])].map(({ cardID }) => cardID);
+      const allIds = [...(cube.cards ?? []), ...(cube.maybe ?? [])].map(({ cardID }) => cardID);
       const response = await csrfFetch(`/cards/versions`, {
         method: 'POST',
         headers: {

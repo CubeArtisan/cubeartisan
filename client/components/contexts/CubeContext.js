@@ -30,20 +30,23 @@ import { getCubeId } from '@cubeartisan/client/utils/Util.js';
  * @property {boolean} canEdit
  * @property {string?} cubeID
  * @property {boolean} hasCustomImages
- * @property {((cube: Cube) => void) | ((replacer: (cube: Cube) => Cube) => void)}
+ * @property {((cube: Cube) => void) | ((replacer: (cube: Cube) => Cube) => void)} setCube
  * @property {(index: number, card: Card) => void} updateCubeCard
  * @property {(cards: Card[]) => void} updateCubeCards
- * @type {import('react').Context<CubeContextValue>}
- */
-const CubeContext = createContext({
-  cube: {},
+  */
+
+/** @type {CubeContextValue} */
+const DEFAULT_VALUE = {
+  cube: null,
   canEdit: false,
   cubeID: null,
   hasCustomImages: false,
   setCube: () => {},
   updateCubeCard: () => {},
   updateCubeCards: () => {},
-});
+};
+
+const CubeContext = createContext(DEFAULT_VALUE);
 
 export const CubeContextProvider = ({ initialCube, canEdit, ...props }) => {
   const [cube, setCube] = useState({

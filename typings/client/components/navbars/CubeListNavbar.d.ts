@@ -1,4 +1,8 @@
 export default CubeListNavbar;
+export type Cube = import('@cubeartisan/client/proptypes/CubePropType.js').Cube;
+export type CompareCollapseProps = {
+    open: boolean;
+};
 declare function CubeListNavbar({ cards, cubeView, setCubeView, openCollapse, setOpenCollapse, defaultPrimarySort, defaultSecondarySort, defaultTertiarySort, defaultQuaternarySort, defaultShowUnsorted, sorts, setSorts, defaultSorts, cubeDefaultShowUnsorted, defaultFilterText, filter, setFilter, alerts, setAlerts, }: {
     cards: any;
     cubeView: any;
