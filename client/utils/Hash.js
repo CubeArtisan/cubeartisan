@@ -20,6 +20,9 @@ function hash() {
   return typeof window !== 'undefined' ? window.location.hash.slice(1) : '';
 }
 
+/**
+ * @param {string?} newHash
+ */
 function changeHash(newHash) {
   if (typeof window === 'undefined') {
     return;
@@ -28,18 +31,29 @@ function changeHash(newHash) {
   window.history.replaceState({}, document.title, url);
 }
 
+/**
+ * @param {string} key
+ * @param {string} def
+ */
 function get(key, def) {
   const params = new URLSearchParams(hash());
   const result = params.get(key);
   return result === null ? def : result;
 }
 
+/**
+ * @param {string} key
+ * @param {string} value
+ */
 function set(key, value) {
   const params = new URLSearchParams(hash());
   params.set(key, value);
   changeHash(params.toString());
 }
 
+/**
+ * @param {string} key
+ */
 function del(key) {
   const params = new URLSearchParams(hash());
   params.delete(key);

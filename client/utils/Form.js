@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of CubeArtisan.
  *
  * CubeArtisan is free software: you can redistribute it and/or modify
@@ -16,11 +16,16 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-export const formDataObject = (formElement) => {
+
+/**
+ * @param {HTMLFormElement?} formElement
+ */
+const formDataObject = (formElement) => {
+  if (!formElement) return {};
+  /** @type {HTMLInputElement[]} */
   const inputs = Array.from(formElement.querySelectorAll('[name]'));
   return Object.fromEntries(
     inputs.map((input) => [input.name, input.type === 'checkbox' ? input.checked : input.value]),
   );
 };
-
-export default { formDataObject };
+export default formDataObject;

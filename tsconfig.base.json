@@ -32,11 +32,14 @@
     "resolveJsonModule": false,
     "importsNotUsedAsValues": "error",
     "newLine": "lf",
+    "esModuleInterop": true,
     "disableSizeLimit": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react-jsx",
     "moduleResolution": "nodenext",
-    "allowJs": true
+    "allowJs": true,
+    "typeRoots": ["./typings", "node_modules/@types"],
+    "skipLibCheck": true
   },
   "include": ["server/**/*", "client/**/*", "./jobs/**/*"],
   "exclude": ["**/node_modules/**/*", "**/dist/**/*", "**/coverage/**/*", "**typings/**/*"]

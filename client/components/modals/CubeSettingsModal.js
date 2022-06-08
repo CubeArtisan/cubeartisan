@@ -25,11 +25,11 @@ import { CustomInput, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, Mo
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import CSRFForm from '@cubeartisan/client/components/inputs/CSRFForm.js';
 import { putJson } from '@cubeartisan/client/utils/CSRF.js';
-import { formDataObject } from '@cubeartisan/client/utils/Form.js';
+import formDataObject from '@cubeartisan/client/utils/Form.js';
 
 const CubeSettingsModal = ({ addAlert, onCubeUpdate, isOpen, toggle }) => {
   const { cube, cubeID, setCube } = useContext(CubeContext);
-  const formRef = useRef();
+  const formRef = useRef(/** @type {HTMLFormElement|null} */ null);
 
   const handleSave = useCallback(async () => {
     const formObject = formDataObject(formRef.current);

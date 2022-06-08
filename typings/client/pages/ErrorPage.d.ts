@@ -28,7 +28,7 @@ export namespace ErrorPage {
         export { error_1 as error };
     }
 }
-declare const _default: (providedReactProps: any) => JSX.Element;
+declare const _default: () => JSX.Element;
 export default _default;
 import PropTypes from "prop-types";
 //# sourceMappingURL=ErrorPage.d.ts.map

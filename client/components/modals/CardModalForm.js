@@ -17,24 +17,32 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { lazy, useCallback, useContext, useEffect, useState } from 'react';
 
 import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext.js';
 import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import MaybeboardContext from '@cubeartisan/client/components/contexts/MaybeboardContext.js';
-import CardModal from '@cubeartisan/client/components/modals/CardModal.js';
-import { cardName, cardsAreEquivalent, normalizeName } from '@cubeartisan/client/utils/Card.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import {
+  cardName,
+  cardsAreEquivalent,
+  COLORS,
+  makeDefaultCard,
+  normalizeName,
+} from '@cubeartisan/client/utils/Card.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import { cardGetLabels } from '@cubeartisan/client/utils/Sort.js';
 
+const CardModal = lazy(() => import('@cubeartisan/client/components/modals/CardModal.js'));
+
 const CardModalForm = ({ children, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [card, setCard] = useState({ colors: [], details: { type: '' }, tags: [], type_line: '' });
+  const [card, setCard] = useState(makeDefaultCard());
   const [maybe, setMaybe] = useState(false);
   const [versionDict, setVersionDict] = useState({});
   const [versionsLoading, setVersionsLoading] = useState(true);
-  const [formValues, setFormValues] = useState({ tags: [] });
+  const [formValues, setFormValues] = useState(makeDefaultCard());
 
   const { addChange } = useContext(ChangelistContext);
   const { updateMaybeboardCard } = useContext(MaybeboardContext);
@@ -43,7 +51,7 @@ const CardModalForm = ({ children, ...props }) => {
   useEffect(() => {
     const wrapper = async () => {
       if (!cube) return;
-      const allIds = [...cube.cards, ...(cube.maybe || [])].map(({ cardID }) => cardID);
+      const allIds = [...(cube.cards ?? []), ...(cube.maybe ?? [])].map(({ cardID }) => cardID);
       const response = await csrfFetch(`/cards/versions`, {
         method: 'POST',
         headers: {
@@ -52,7 +60,7 @@ const CardModalForm = ({ children, ...props }) => {
         body: JSON.stringify(allIds),
       });
       const json = await response.json();
-      setVersionDict(json.dict || {});
+      setVersionDict(json.dict ?? {});
       setVersionsLoading(false);
     };
     wrapper();
@@ -76,7 +84,7 @@ const CardModalForm = ({ children, ...props }) => {
   const closeCardModal = useCallback(() => setIsOpen(false), []);
 
   const saveChanges = useCallback(async () => {
-    const colors = Array.from('WUBRG').filter((color) => formValues[`color${color}`]);
+    const colors = COLORS.filter((color) => formValues[`color${color}`]);
     const updated = { ...formValues, colors };
     updated.rarity = updated.rarity.toLowerCase();
     for (const color of Array.from('WUBRG')) {
@@ -214,21 +222,23 @@ const CardModalForm = ({ children, ...props }) => {
   return (
     <CardModalContext.Provider value={openCardModal}>
       {children}
-      <CardModal
-        values={formValues}
-        onChange={handleChange}
-        card={renderCard}
-        maybe={maybe}
-        versions={versions}
-        versionsLoading={versionsLoading}
-        toggle={closeCardModal}
-        isOpen={isOpen}
-        disabled={!canEdit}
-        saveChanges={saveChanges}
-        queueRemoveCard={queueRemoveCard}
-        updateTags={updateTags}
-        {...props}
-      />
+      <Suspense fallback={null}>
+        <CardModal
+          values={formValues}
+          onChange={handleChange}
+          card={renderCard}
+          maybe={maybe}
+          versions={versions}
+          versionsLoading={versionsLoading}
+          toggle={closeCardModal}
+          isOpen={isOpen}
+          disabled={!canEdit}
+          saveChanges={saveChanges}
+          queueRemoveCard={queueRemoveCard}
+          updateTags={updateTags}
+          {...props}
+        />
+      </Suspense>
     </CardModalContext.Provider>
   );
 };

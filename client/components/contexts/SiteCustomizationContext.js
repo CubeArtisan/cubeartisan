@@ -18,6 +18,17 @@
  */
 import { createContext } from 'react';
 
+/**
+ * @typedef SiteCustomizations
+ * @property {string} discordUrl
+ * @property {string} siteName
+ * @property {string} siteRoot
+ * @property {string} sourceRepo
+ * @property {string} supportEmail
+ * @property {string} mtgmlServer
+ */
+
+/** @type {SiteCustomizations} */
 export const DEFAULT_SITE_CUSTOMIZATIONS = {
   discordUrl: 'DiscordUrl',
   siteName: 'SiteName',

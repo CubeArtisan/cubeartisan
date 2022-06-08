@@ -242,24 +242,23 @@ export const CSVtoCards = (csvString, carddb) => {
     'override name': overrideName,
   } of data) {
     if (name) {
-      const upperSet = (set || '').toUpperCase();
+      const upperSet = (set ?? '').toUpperCase();
       const card = {
         name,
-        overrideName: overrideName || null,
-        cmc: cmc || null,
-        type_line: (type || null) && type.replace('-', '—'),
-        colors: (color || null) && color.split('').filter((c) => Array.from('WUBRG').includes(c)),
+        cmc: cmc ?? null,
+        type_line: type ?? null,
+        colors: color ?? null,
         addedTmsp: new Date(),
-        collector_number: collectorNumber && collectorNumber.toUpperCase(),
-        status: status || 'Not Owned',
-        finish: finish || 'Non-foil',
-        maybeboard: maybeboard || 'false',
-        imgUrl: (imageUrl || null) && imageUrl !== 'undefined' ? imageUrl : null,
-        imgBackUrl: (imageBackUrl || null) && imageBackUrl !== 'undefined' ? imageBackUrl : null,
-        tags: tags && tags.length > 0 ? tags.split(';').map((t) => t.trim()) : [],
-        notes: notes || '',
-        rarity: rarity || null,
-        colorCategory: colorCategory || null,
+        collector_number: collectorNumber?.toUpperCase?.() ?? null,
+        status: status ?? 'Not Owned',
+        finish: finish ?? 'Non-foil',
+        maybeboard: maybeboard ?? 'false',
+        imgUrl: imageUrl ?? null,
+        imgBackUrl: imageBackUrl ?? null,
+        tags: tags && tags.length > 0 ? tags.split(';').map(/** @param {string} t */ (t) => t.trim()) : [],
+        notes: notes ?? '',
+        rarity: rarity ?? null,
+        colorCategory: colorCategory ?? null,
       };
 
       const potentialIds = carddb.allVersions(card);
@@ -274,8 +273,8 @@ export const CSVtoCards = (csvString, carddb) => {
         const matchingSet = potentialIds.find((id) => carddb.cardFromId(id).set.toUpperCase() === upperSet);
         const nonPromo = potentialIds.find(carddb.reasonableId);
         const first = potentialIds[0];
-        card.cardID = matchingSetAndNumber || matchingSet || nonPromo || first;
-        card.name = card.overrideName ?? card.name;
+        card.cardID = matchingSetAndNumber ?? matchingSet ?? nonPromo ?? first;
+        card.name = overrideName ?? null;
         if (maybeboard.toLowerCase() === 'true') {
           newMaybe.push(card);
         } else {

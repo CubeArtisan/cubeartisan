@@ -19,19 +19,24 @@
 import PropTypes from 'prop-types';
 import { createContext, useCallback, useMemo, useState } from 'react';
 
+/** @type {[string, string, string, string]} */
 const DEFAULT_SORTS = ['Color Category', 'Types-Multicolor', 'Mana Value', 'Alphabetical'];
 
 /**
- * @typedef SortContextValuesNoSetter
- * @property {string} [primary]
- * @property {string} [secondary]
- * @property {string} [tertiary]
- * @property {string} [quaternary]
- * @property {boolean} [showOther]
+ * @typedef SortValues
+ * @property {string} primary
+ * @property {string} secondary
+ * @property {string} tertiary
+ * @property {string} quaternary
+ * @property {boolean} showOther
  */
 
 /**
- * @type SortContextValuesNoSetter
+ * @typedef {Required<SortValues> & {changeSort: (newSort: SortValues) => void}} SortContextValues
+ */
+
+/**
+ * @type SortContextValues
  */
 const DEFAULT_VALUES = {
   primary: 'Color Category',
@@ -39,40 +44,45 @@ const DEFAULT_VALUES = {
   tertiary: 'Mana Value',
   quaternary: 'Alphabetical',
   showOther: false,
+  changeSort: () => {},
 };
-/**
- * @param {SortContextValuesNoSetter} newValues
- * @returns void
- */
-const DEFAULT_CHANGE_SORT = (newValues) => newValues;
 
-const SortContext = createContext({
-  ...DEFAULT_VALUES,
-  changeSort: DEFAULT_CHANGE_SORT,
-});
-export const SortContextProvider = ({ defaultSorts, defaultShowOther, ...props }) => {
+const SortContext = createContext(DEFAULT_VALUES);
+/**
+ * @typedef SortContextProviderProps
+ * @property {[string, string, string, string]?} [defaultSorts]
+ * @property {boolean?} [defaultShowOther]
+ * @property {React.ReactNode} children
+ */
+
+/** @type {React.FC<SortContextProviderProps>} */
+export const SortContextProvider = ({ defaultSorts, defaultShowOther, children }) => {
   let {
     primary: defaultPrimary,
     secondary: defaultSecondary,
     tertiary: defaultTertiary,
     quaternary: defaultQuaternary,
   } = DEFAULT_VALUES;
-  if (defaultSorts.length === 4) {
+  if (defaultSorts?.length === 4) {
     [defaultPrimary, defaultSecondary, defaultTertiary, defaultQuaternary] = defaultSorts;
   }
   defaultShowOther = defaultShowOther ?? DEFAULT_VALUES.showOther;
-  const [primary, setPrimary] = useState(defaultPrimary);
+  const [primary, setPrimary] = useState(defaultPrimary ?? DEFAULT_VALUES.primary);
   const [secondary, setSecondary] = useState(defaultSecondary);
   const [tertiary, setTertiary] = useState(defaultTertiary);
   const [quaternary, setQuaternary] = useState(defaultQuaternary);
   const [showOther, setShowOther] = useState(defaultShowOther);
-  const changeSort = useCallback((newValues) => {
-    if (newValues.primary) setPrimary(newValues.primary);
-    if (newValues.secondary) setSecondary(newValues.secondary);
-    if (newValues.tertiary) setTertiary(newValues.tertiary);
-    if (newValues.quaternary) setQuaternary(newValues.quaternary);
-    if (newValues.showOther) setShowOther(newValues.showOther);
-  }, []);
+  const changeSort = useCallback(
+    /** @param {Partial<SortValues>} newValues */
+    (newValues) => {
+      if (newValues.primary) setPrimary(newValues.primary);
+      if (newValues.secondary) setSecondary(newValues.secondary);
+      if (newValues.tertiary) setTertiary(newValues.tertiary);
+      if (newValues.quaternary) setQuaternary(newValues.quaternary);
+      if (newValues.showOther) setShowOther(newValues.showOther);
+    },
+    [],
+  );
   const value = useMemo(
     () => ({
       primary,
@@ -84,11 +94,14 @@ export const SortContextProvider = ({ defaultSorts, defaultShowOther, ...props }
     }),
     [primary, secondary, tertiary, quaternary, showOther, changeSort],
   );
-  return <SortContext.Provider value={value} {...props} />;
+  return <SortContext.Provider value={value}>{children}</SortContext.Provider>;
 };
 SortContextProvider.propTypes = {
+  // @ts-ignore
   defaultSorts: PropTypes.arrayOf(PropTypes.string),
   defaultShowOther: PropTypes.bool,
+  // @ts-ignore
+  children: PropTypes.node.isRequired,
 };
 SortContextProvider.defaultProps = {
   defaultSorts: DEFAULT_SORTS,

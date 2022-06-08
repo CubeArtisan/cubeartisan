@@ -10,7 +10,7 @@ export namespace CardSearchPage {
         export { loginCallback_1 as loginCallback };
     }
 }
-declare const _default: (providedReactProps: any) => JSX.Element;
+declare const _default: () => JSX.Element;
 export default _default;
 export type Filter = import('@cubeartisan/client/filtering/FilterCards.js').Filter;
 export type CardDetails = import('@cubeartisan/client/proptypes/CardDetailsPropType.js').CardDetails;

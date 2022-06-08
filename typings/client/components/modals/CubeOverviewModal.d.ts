@@ -1,4 +1,5 @@
 export default CubeOverviewModal;
+export type Cube = import('@cubeartisan/client/proptypes/CubePropType.js').Cube;
 declare function CubeOverviewModal({ cube: savedCube, onError, onCubeUpdate, userID, isOpen, toggle }: {
     cube: any;
     onError: any;
@@ -13,13 +14,6 @@ declare namespace CubeOverviewModal {
         const toggle: PropTypes.Validator<(...args: any[]) => any>;
         const cube: PropTypes.Validator<PropTypes.InferProps<{
             cards: PropTypes.Requireable<PropTypes.InferProps<{
-                /** 2020-11-24 strusdell:
-                 * @phulin believes that the check for the string literal 'undefined' here is
-                 * deliberate. Presumably this would represent bad data, and should be ignored.
-                 *
-                 * NOTE: This may introduce weird behavior if the user enters 'undefined' as their
-                 * description.
-                 */
                 addedTmsp: PropTypes.Requireable<string>;
                 cardID: PropTypes.Validator<string>;
                 cmc: PropTypes.Requireable<number>;

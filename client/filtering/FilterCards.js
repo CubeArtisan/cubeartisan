@@ -88,6 +88,14 @@ export function makeFilter(filterText) {
   };
 }
 
+/** @type {Filter} */
+export const DEFAULT_FILTER = (() => {
+  const filter = () => true;
+  filter.fieldsUsed = /** @type {string[]} */ ([]); // eslint-disable-line prettier/prettier
+  filter.stringify = '';
+  return filter;
+})();
+
 /**
  * @param {CardDetails[]} cards
  * @param {Filter?} filter

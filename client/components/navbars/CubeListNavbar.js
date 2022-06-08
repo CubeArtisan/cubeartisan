@@ -34,7 +34,7 @@ import {
   Typography,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import { useCallback, useContext, useState } from 'react';
+import { lazy, useCallback, useContext, useState } from 'react';
 
 import CollapsingNavbar from '@cubeartisan/client/components/containers/CollapsingNavbar.js';
 import CardModalContext from '@cubeartisan/client/components/contexts/CardModalContext.js';
@@ -48,17 +48,21 @@ import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import CSRFForm from '@cubeartisan/client/components/inputs/CSRFForm.js';
 import LabeledSelect from '@cubeartisan/client/components/inputs/LabeledSelect.js';
 import StyledButtonMenu from '@cubeartisan/client/components/inputs/StyledButtonMenu.js';
-import CustomizeBasicsModal from '@cubeartisan/client/components/modals/CustomizeBasicsModal.js';
-import TagColorsModal from '@cubeartisan/client/components/modals/TagColorsModal.js';
 import SortCollapse from '@cubeartisan/client/components/SortCollapse.js';
+import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+
+const CustomizeBasicsModal = lazy(() => import('@cubeartisan/client/components/modals/CustomizeBasicsModal.js'));
+const TagColorsModal = lazy(() => import('@cubeartisan/client/components/modals/TagColorsModal.js'));
 
 const CustomizeBasicsModalLink = withModal(Button, CustomizeBasicsModal);
 
 /**
- * @param {string} cubeID
+ * @typedef {import('@cubeartisan/client/proptypes/CubePropType.js').Cube} Cube
  */
+
+/** @param {string} cubeID */
 const cloneCube = async (cubeID) => {
   const response = await csrfFetch(`/cube/${cubeID}/clone`, { method: 'POST' });
   const json = await response.json();
@@ -81,13 +85,14 @@ const PasteBulkModal = ({ isOpen, toggle }) => {
             <br />• one card name per line, or
             <br />• one card name per line prepended with #x, such as &quot;2x island&quot;
           </DialogContentText>
-          {/*
-          <TextareaAutosize
-            maxLength={20000}
+          <TextField
+            label="Card List"
             minRows="10"
+            multiline
             placeholder="Paste Cube Here (max length 20000)"
             name="body"
-          /> */}
+            sx={{ width: '100%' }}
+          />
         </DialogContent>
         <DialogActions>
           <Button color="success" type="submit" onClick={toggle}>
@@ -120,10 +125,12 @@ const UploadBulkModal = ({ isOpen, toggle }) => {
             <br />• .csv with the same format as our .csv export (columns may be omitted and re-arranged, default values
             may be used).
           </DialogContentText>
-          <Button variant="outlined" component="label">
-            Choose file
-            <input type="file" id="uploadBulkFile" name="document" />
-          </Button>
+          <input type="file" id="uploadBulkFile" name="document" style={{ display: 'none' }} />
+          <label htmlFor="uploadBulkFile">
+            <Button variant="outlined" component="span">
+              Choose file
+            </Button>
+          </label>
         </DialogContent>
         <DialogActions>
           <Button color="success" type="submit" onClick={toggle}>
@@ -154,10 +161,12 @@ const UploadBulkReplaceModal = ({ isOpen, toggle }) => {
             Replaces all cards in your cube and Maybeboard. Acceptable files are .csv files with the exact format as our
             .csv export.
           </DialogContentText>
-          <Button variant="outlined" component="label">
-            <input type="file" id="uploadReplacementFile" name="document" />
-            Choose file
-          </Button>
+          <input type="file" id="uploadReplacementFile" name="document" style={{ display: 'none' }} />
+          <label htmlFor="uploadReplacementFile">
+            <Button variant="outlined" component="span">
+              Choose file
+            </Button>
+          </label>
         </DialogContent>
         <DialogActions>
           <Button color="success" type="submit">
@@ -198,15 +207,21 @@ SelectEmptyModal.propTypes = {
   toggle: PropTypes.func.isRequired,
 };
 
-const CompareCollapse = (props) => {
+/**
+ * @typedef CompareCollapseProps
+ * @property {boolean} open
+ */
+
+/** @type {React.FC<CompareCollapseProps>} */
+const CompareCollapse = ({ open }) => {
   const { cubeID } = useContext(CubeContext);
   const [compareID, setCompareID] = useState('');
-  const handleChange = useCallback((event) => setCompareID(event.target.value), []);
+  const handleChange = useCallback(/** @param {any} event */ (event) => setCompareID(event.target.value), []);
 
   const targetUrl = `/cube/${cubeID}/compare/${compareID}`;
 
   return (
-    <Collapse {...props} sx={{ backgroundColor: 'background.paper' }}>
+    <Collapse in={open} sx={{ backgroundColor: 'background.paper' }}>
       <Box component="form" method="GET" action={targetUrl} sx={{ display: 'flex', alignItems: 'center' }}>
         <TextField placeholder="Comparison Cube ID" value={compareID} onChange={handleChange} sx={{ margin: 2 }} />
         <Button
@@ -221,6 +236,9 @@ const CompareCollapse = (props) => {
       </Box>
     </Collapse>
   );
+};
+CompareCollapse.propTypes = {
+  open: PropTypes.bool.isRequired,
 };
 
 const CubeListNavbar = ({
@@ -268,6 +286,7 @@ const CubeListNavbar = ({
   );
 
   const onCubeUpdate = useCallback(
+    /** @param {Cube} updated */
     (updated) => {
       addAlert('success', 'Update Successful');
       setCube(updated);
@@ -276,6 +295,7 @@ const CubeListNavbar = ({
   );
 
   const handleMassEdit = useCallback(
+    /** @param {any} event */
     (event) => {
       event.preventDefault();
       if (cubeView === 'list') {
@@ -294,6 +314,7 @@ const CubeListNavbar = ({
   );
 
   const handleOpenCollapse = useCallback(
+    /** @param {any} event */
     (event) => {
       event.preventDefault();
       const { currentTarget } = event;
@@ -413,27 +434,29 @@ const CubeListNavbar = ({
           ) : (
             <>
               <Button onClick={handleMassEdit}>{cubeView === 'list' ? 'Edit Selected' : 'Mass Edit'}</Button>
-              <CustomizeBasicsModalLink
-                modalProps={{
-                  cube,
-                  /**
-                   * @param {string} message
-                   */
-                  onError: (message) => {
-                    addAlert('danger', message);
-                  },
-                  /**
-                   * @param {string[]} basics
-                   */
-                  updateBasics: (basics) => {
-                    const deepClone = JSON.parse(JSON.stringify(cube));
-                    deepClone.basics = basics;
-                    onCubeUpdate(deepClone);
-                  },
-                }}
-              >
-                Customize Basics
-              </CustomizeBasicsModalLink>
+              <Suspense fallback={null}>
+                <CustomizeBasicsModalLink
+                  modalProps={{
+                    cube,
+                    /**
+                     * @param {string} message
+                     */
+                    onError: (message) => {
+                      addAlert('danger', message);
+                    },
+                    /**
+                     * @param {string[]} basics
+                     */
+                    updateBasics: (basics) => {
+                      const deepClone = JSON.parse(JSON.stringify(cube));
+                      deepClone.basics = basics;
+                      onCubeUpdate(deepClone);
+                    },
+                  }}
+                >
+                  Customize Basics
+                </CustomizeBasicsModalLink>
+              </Suspense>
             </>
           )}
           <StyledButtonMenu
@@ -470,7 +493,7 @@ const CubeListNavbar = ({
         isOpen={openCollapse === 'filter'}
         noCount={false}
       />
-      <CompareCollapse in={openCollapse === 'compare'} />
+      <CompareCollapse open={openCollapse === 'compare'} />
       <TagColorsModal canEdit={canEdit} isOpen={tagColorsModalOpen} toggle={handleToggleTagColorsModal} />
       <SelectEmptyModal isOpen={selectEmptyModalOpen} toggle={handleToggleSelectEmptyModal} />
     </>

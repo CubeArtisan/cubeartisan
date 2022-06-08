@@ -1,7 +1,3 @@
-/**
- * @param {string?} filterText
- * @returns {{ err: any, filter: Filter? }} filterOrErr
- */
 export function makeFilter(filterText: string | null): {
     err: any;
     filter: Filter | null;
@@ -10,6 +6,7 @@ export const operatorsRegex: RegExp;
 export function filterUses(filter: Filter, name: string): boolean;
 export function filterUsedFields(filter: Filter): string[];
 export function filterToString(filter: Filter): string;
+export const DEFAULT_FILTER: Filter;
 export function filterCardsDetails(cards: CardDetails[], filter: Filter | null): import("@cubeartisan/client/proptypes/CardDetailsPropType.js").CardDetails[];
 declare namespace _default {
     export { ALL_OPERATORS as operators };

@@ -30,10 +30,14 @@ import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js'
 import { AutocompleteTagField } from '@cubeartisan/client/components/inputs/AutocompleteInput.js';
 import ColorChecksControl from '@cubeartisan/client/components/inputs/ColorCheck.js';
 import LabeledSelect from '@cubeartisan/client/components/inputs/LabeledSelect.js';
-import { makeFilter } from '@cubeartisan/client/filtering/FilterCards.js';
+import { DEFAULT_FILTER, makeFilter } from '@cubeartisan/client/filtering/FilterCards.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
 import { CARD_CATEGORY_DETECTORS } from '@cubeartisan/client/utils/Card.js';
+
+/**
+ * @typedef {import('@cubeartisan/client/filtering/FilterCards.js').Filter} Filter
+ */
 
 const allFields = [
   'name',
@@ -383,6 +387,18 @@ AdvancedFilterModal.defaultProps = {
   cubeID: null,
 };
 
+/**
+ * @typedef FilterCollapseProps
+ * @property {Filter} [filter]
+ * @property {React.Dispatch<React.SetStateAction<Filter>>} setFilter
+ * @property {number?} [numCards]
+ * @property {number?} [numShown]
+ * @property {string?} [defaultFilterText]
+ * @property {boolean?} [noCount]
+ * @property {boolean} isOpen
+ */
+
+/** @type {React.FC<FilterCollapseProps>} */
 const FilterCollapse = ({ filter, setFilter, numCards, numShown, defaultFilterText, noCount, isOpen }) => {
   const [advancedOpen, toggleAdvancedOpen, , closeAdvanced] = useToggle(false);
   const [filterInput, setFilterInput] = useQueryParam('filter', defaultFilterText ?? '');
@@ -401,14 +417,15 @@ const FilterCollapse = ({ filter, setFilter, numCards, numShown, defaultFilterTe
   const cubeID = cube?.cubeID;
 
   const updateFilter = useCallback(
+    /** @param {string} filterValue */
     async (filterValue) => {
       filterValue = filterValue ?? '';
       if (filterValue !== (filter?.stringify ?? '')) {
         if (filterValue === '') {
-          setFilter(null);
+          setFilter(DEFAULT_FILTER);
         } else {
           const { filter: newFilter, err } = makeFilter(filterValue);
-          if (err) {
+          if (err || !newFilter) {
             console.error(err);
           } else {
             setFilter(() => newFilter);
@@ -515,6 +532,7 @@ const FilterCollapse = ({ filter, setFilter, numCards, numShown, defaultFilterTe
   const appliedText = `Filters applied${typeof numCards !== 'undefined' ? `: ${numCards} cards` : ''}${
     typeof numShown !== 'undefined' ? `, ${numShown} shown` : ''
   }.`;
+  /** @type {'primary'|'success'|'error'} */
   let filterInputColor = 'primary';
   if (filterInput.length > 0) {
     if (valid) filterInputColor = 'success';
@@ -617,20 +635,21 @@ const FilterCollapse = ({ filter, setFilter, numCards, numShown, defaultFilterTe
   );
 };
 FilterCollapse.propTypes = {
+  // @ts-ignore
   filter: PropTypes.func,
   setFilter: PropTypes.func.isRequired,
   numCards: PropTypes.number,
   numShown: PropTypes.number,
   defaultFilterText: PropTypes.string,
   noCount: PropTypes.bool,
-  isOpen: PropTypes.bool,
+  isOpen: PropTypes.bool.isRequired,
 };
 FilterCollapse.defaultProps = {
+  // @ts-ignore
   filter: null,
   numCards: 0,
   numShown: 0,
   defaultFilterText: null,
   noCount: false,
-  isOpen: false,
 };
 export default FilterCollapse;

@@ -1,3 +1,7 @@
+/**
+ * @param {string} word
+ * @return {number[]} table
+ */
 export const makeKMPTable = (word) => {
   const results = [];
   let pos = 2;
@@ -20,6 +24,11 @@ export const makeKMPTable = (word) => {
   return results;
 };
 
+/**
+ * @param {string} string
+ * @param {string} word
+ * @param {number[]} table
+ */
 export const KMPSearch = (string, word, table) => {
   const index = -1;
   let m = 0;

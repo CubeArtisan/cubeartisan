@@ -17,10 +17,10 @@ export const startDraft: (import("express-validator").ValidationChain | ((req: a
 export const editCube: (((req: any, res: any, next: any) => any)[] | ((req: any, res: any) => Promise<any>))[];
 export const resizeCube: (((req: any, res: any, next: any) => any)[] | ((req: any, res: any) => Promise<any>))[];
 export const deleteCube: (((req: any, res: any, next: any) => any)[] | ((req: any, res: any, next: any) => Promise<any>))[];
-export const deleteFormat: (import("express-validator").ValidationChain | ((req: any, res: any, next: any) => any)[] | ((req: any, res: any) => Promise<any>))[];
-export const setDefaultFormat: (import("express-validator").ValidationChain | ((req: any, res: any, next: any) => any)[] | ((req: any, res: any, next: any) => Promise<any>))[];
-export const editCubeOverview: (import("express-validator").ValidationChain | ((req: any, res: any, next: any) => any)[] | ((req: any, res: any, next: any) => void))[];
-export const updateCubeSettings: (import("express-validator").ValidationChain | ((req: any, res: any, next: any) => any)[] | ((req: any, res: any, next: any) => void))[];
+export const deleteFormat: (((req: any, res: any, next: any) => any)[] | import("express-validator").ValidationChain | ((req: any, res: any) => Promise<any>))[];
+export const setDefaultFormat: (((req: any, res: any, next: any) => any)[] | ((req: any, res: any, next: any) => Promise<any>) | import("express-validator").ValidationChain)[];
+export const editCubeOverview: (((req: any, res: any, next: any) => any)[] | ((req: any, res: any, next: any) => void) | import("express-validator").ValidationChain)[];
+export const updateCubeSettings: (((req: any, res: any, next: any) => any)[] | ((req: any, res: any, next: any) => void) | import("express-validator").ValidationChain)[];
 export const getCardNamesForCube: (req: any, res: any, next: any) => Promise<any>;
 export const getCardTagsForCube: (req: any, res: any, next: any) => Promise<any>;
 export const updateTagColors: (req: any, res: any, next: any) => Promise<any>;

@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of CubeArtisan.
  *
  * CubeArtisan is free software: you can redistribute it and/or modify
@@ -62,5 +62,4 @@ const generateMeta = (title, description, image, url, width, height) => [
     content: url,
   },
 ];
-
 export default generateMeta;

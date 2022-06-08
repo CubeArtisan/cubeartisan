@@ -11,19 +11,6 @@ export type Comment = {
     content: string;
     updated: boolean;
 };
-/**
- * @typedef Comment
- * @property {string} _id
- * @property {string} timePosted
- * @property {string} ownerName
- * @property {string?} owner
- * @property {string} parent
- * @property {string} parentType
- * @property {string} artist
- * @property {string} image
- * @property {string} content
- * @property {boolean} updated
- */
 declare const CommentPropType: PropTypes.Requireable<PropTypes.InferProps<{
     _id: PropTypes.Validator<string>;
     timePosted: PropTypes.Validator<string>;

@@ -16,6 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import { Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import { lazy, useContext, useEffect, useMemo, useState } from 'react';
 import { UncontrolledAlert } from 'reactstrap';
@@ -26,26 +27,37 @@ import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js'
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import { MaybeboardContextProvider } from '@cubeartisan/client/components/contexts/MaybeboardContext.js';
 import { SortContextProvider } from '@cubeartisan/client/components/contexts/SortContext.js';
-import { TAG_COLORS, TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext.js';
+import { TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
-import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
+import CardModalForm from '@cubeartisan/client/components/modals/CardModalForm.js';
 import GroupModal from '@cubeartisan/client/components/modals/GroupModal.js';
 import CubeListNavbar from '@cubeartisan/client/components/navbars/CubeListNavbar.js';
-import ClientOnly from '@cubeartisan/client/components/utils/ClientOnly.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
+import { DEFAULT_FILTER } from '@cubeartisan/client/filtering/FilterCards.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
-import LocalStorage from '@cubeartisan/client/utils/LocalStorage.js';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
+import { getFromLocalStorage } from '@cubeartisan/client/utils/LocalStorage.js';
 import Query from '@cubeartisan/client/utils/Query.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
-const CardModalForm = lazy(() => import('@cubeartisan/client/components/modals/CardModalForm.js'));
 const VisualSpoiler = lazy(() => import('@cubeartisan/client/components/VisualSpoiler.js'));
 const TableView = lazy(() => import('@cubeartisan/client/components/TableView.js'));
 const ListView = lazy(() => import('@cubeartisan/client/components/ListView.js'));
 const Maybeboard = lazy(() => import('@cubeartisan/client/components/Maybeboard.js'));
 const CurveView = lazy(() => import('@cubeartisan/client/components/CurveView.js'));
+
+const CUBE_VIEWS = {
+  table: TableView,
+  spoiler: VisualSpoiler,
+  curve: CurveView,
+  list: ListView,
+};
+
+/**
+ * @typedef {import('@cubeartisan/client/filtering/FilterCards.js').Filter} Filter
+ */
 
 const CubeListPageRaw = ({
   defaultFilterText,
@@ -59,15 +71,16 @@ const CubeListPageRaw = ({
 }) => {
   const { cube, canEdit } = useContext(CubeContext);
   const { _id: userID } = useContext(UserContext);
+  const { showMaybeboard } = useContext(DisplayContext);
 
   const [cubeView, setCubeView] = useQueryParam('view', defaultView);
-  const [openCollapse, setOpenCollapse] = useState(null);
-  const [filter, setFilter] = useState(() => () => true);
+  const [openCollapse, setOpenCollapse] = useState('');
+  const [filter, setFilter] = useState(() => DEFAULT_FILTER);
   const [sorts, setSorts] = useState(null);
   const [alerts, setAlerts] = useState([]);
 
   useEffect(() => {
-    const savedChanges = cube._id && LocalStorage.get(`changelist-${cube._id}`);
+    const savedChanges = cube._id && getFromLocalStorage(`changelist-${cube._id}`);
     if (savedChanges && savedChanges.length > 2 && Query.get('updated', false) !== 'true') {
       setOpenCollapse('edit');
     } else if (defaultFilterText && defaultFilterText.length > 0) {
@@ -86,10 +99,13 @@ const CubeListPageRaw = ({
     text: tag,
   }));
 
-  const filteredCards = useMemo(() => (filter ? cube.cards.filter(filter) : cube.cards), [filter, cube]);
+  const filteredCards = useMemo(() => cube?.cards?.filter?.(filter) ?? [], [filter, cube]);
+  console.log(filter, filteredCards);
+
+  const CubeView = CUBE_VIEWS[cubeView];
 
   return (
-    <SortContextProvider defaultSorts={cube.default_sorts} showOther={!!cube.default_show_unsorted}>
+    <SortContextProvider defaultSorts={cube.default_sorts} defaultShowOther={!!cube.default_show_unsorted}>
       <TagContextProvider
         cubeID={cube._id}
         defaultTagColors={cube.tag_colors}
@@ -98,67 +114,61 @@ const CubeListPageRaw = ({
         userID={userID}
       >
         <ChangelistContextProvider cubeID={cube._id} setOpenCollapse={setOpenCollapse}>
-          <Suspense>
-            <CardModalForm>
-              <GroupModal cubeID={cube._id} canEdit={canEdit}>
-                <CubeListNavbar
-                  cubeView={cubeView}
-                  setCubeView={setCubeView}
-                  openCollapse={openCollapse}
-                  setOpenCollapse={setOpenCollapse}
-                  defaultPrimarySort={defaultPrimarySort}
-                  defaultSecondarySort={defaultSecondarySort}
-                  defaultTertiarySort={defaultTertiarySort}
-                  defaultQuaternarySort={defaultQuaternarySort}
-                  defaultShowUnsorted={defaultShowUnsorted}
-                  sorts={sorts}
-                  setSorts={setSorts}
-                  defaultSorts={cube.default_sorts}
-                  cubeDefaultShowUnsorted={cube.default_show_unsorted}
-                  defaultFilterText={defaultFilterText}
-                  filter={filter}
-                  setFilter={setFilter}
-                  cards={filteredCards}
-                  alerts={alerts}
-                  setAlerts={setAlerts}
-                />
-                <DynamicFlash />
-                {alerts.map(({ color, message }, index) => (
-                  <UncontrolledAlert color={color} key={/* eslint-disable-line react/no-array-index-key */ index}>
-                    {message}
-                  </UncontrolledAlert>
-                ))}
-                <ErrorBoundary>
-                  <ClientOnly>
-                    <DisplayContext.Consumer>
-                      {({ showMaybeboard }) => (
-                        <MaybeboardContextProvider initialCards={cube.maybe}>
-                          {showMaybeboard && <Maybeboard filter={filter} />}
-                        </MaybeboardContextProvider>
-                      )}
-                    </DisplayContext.Consumer>
-                  </ClientOnly>
-                </ErrorBoundary>
-                <ErrorBoundary>
-                  {filteredCards.length === 0 ? <h5 className="mt-1 mb-3">No cards match filter.</h5> : ''}
-                  {
-                    {
-                      table: <TableView cards={filteredCards} />,
-                      spoiler: <VisualSpoiler cards={filteredCards} />,
-                      curve: <CurveView cards={filteredCards} />,
-                      list: <ListView cards={filteredCards} />,
-                    }[cubeView]
-                  }
-                </ErrorBoundary>
-              </GroupModal>
-            </CardModalForm>
-          </Suspense>
+          <CardModalForm>
+            <GroupModal cubeID={cube._id} canEdit={canEdit}>
+              <CubeListNavbar
+                cubeView={cubeView}
+                setCubeView={setCubeView}
+                openCollapse={openCollapse}
+                setOpenCollapse={setOpenCollapse}
+                defaultPrimarySort={defaultPrimarySort}
+                defaultSecondarySort={defaultSecondarySort}
+                defaultTertiarySort={defaultTertiarySort}
+                defaultQuaternarySort={defaultQuaternarySort}
+                defaultShowUnsorted={defaultShowUnsorted}
+                sorts={sorts}
+                setSorts={setSorts}
+                defaultSorts={cube.default_sorts}
+                cubeDefaultShowUnsorted={cube.default_show_unsorted}
+                defaultFilterText={defaultFilterText}
+                filter={filter}
+                setFilter={setFilter}
+                cards={filteredCards}
+                alerts={alerts}
+                setAlerts={setAlerts}
+              />
+              <DynamicFlash />
+              {alerts.map(({ color, message }, index) => (
+                <UncontrolledAlert color={color} key={/* eslint-disable-line react/no-array-index-key */ index}>
+                  {message}
+                </UncontrolledAlert>
+              ))}
+              <ErrorBoundary>
+                {showMaybeboard ? (
+                  <Suspense>
+                    <MaybeboardContextProvider initialCards={cube.maybe}>
+                      <Maybeboard filter={filter} />
+                    </MaybeboardContextProvider>
+                  </Suspense>
+                ) : null}
+              </ErrorBoundary>
+              <ErrorBoundary>
+                {filteredCards.length === 0 ? (
+                  <Typography variant="h5" sx={{ marginTop: 1, marginBottom: 3 }}>
+                    No cards match filter.
+                  </Typography>
+                ) : null}
+                <Suspense>
+                  <CubeView cards={filteredCards} />
+                </Suspense>
+              </ErrorBoundary>
+            </GroupModal>
+          </CardModalForm>
         </ChangelistContextProvider>
       </TagContextProvider>
     </SortContextProvider>
   );
 };
-
 CubeListPageRaw.propTypes = {
   defaultShowTagColors: PropTypes.bool.isRequired,
   defaultFilterText: PropTypes.string.isRequired,
@@ -182,36 +192,21 @@ const CubeListPage = ({
   defaultShowUnsorted,
   loginCallback,
 }) => (
-  <MainLayout loginCallback={loginCallback}>
-    <CubeLayout cube={cube} activeLink="list">
-      <CubeListPageRaw
-        defaultShowTagColors={defaultShowTagColors}
-        defaultFilterText={defaultFilterText}
-        defaultView={defaultView}
-        defaultPrimarySort={defaultPrimarySort}
-        defaultSecondarySort={defaultSecondarySort}
-        defaultTertiarySort={defaultTertiarySort}
-        defaultQuaternarySort={defaultQuaternarySort}
-        defaultShowUnsorted={defaultShowUnsorted}
-      />
-    </CubeLayout>
-  </MainLayout>
+  <CubeLayout cube={cube} activeLink="list" loginCallback={loginCallback}>
+    <CubeListPageRaw
+      defaultShowTagColors={defaultShowTagColors}
+      defaultFilterText={defaultFilterText}
+      defaultView={defaultView}
+      defaultPrimarySort={defaultPrimarySort}
+      defaultSecondarySort={defaultSecondarySort}
+      defaultTertiarySort={defaultTertiarySort}
+      defaultQuaternarySort={defaultQuaternarySort}
+      defaultShowUnsorted={defaultShowUnsorted}
+    />
+  </CubeLayout>
 );
-
 CubeListPage.propTypes = {
-  cube: PropTypes.shape({
-    cards: PropTypes.arrayOf(PropTypes.shape({ cardID: PropTypes.string.isRequired })).isRequired,
-    tag_colors: PropTypes.arrayOf(
-      PropTypes.shape({
-        tag: PropTypes.string.isRequired,
-        color: PropTypes.oneOf(TAG_COLORS.map(([, c]) => c)),
-      }).isRequired,
-    ).isRequired,
-    default_sorts: PropTypes.arrayOf(PropTypes.string).isRequired,
-    maybe: PropTypes.arrayOf(PropTypes.shape({ cardID: PropTypes.string.isRequired })).isRequired,
-    _id: PropTypes.string.isRequired,
-    owner: PropTypes.string.isRequired,
-  }).isRequired,
+  cube: CubePropType.isRequired,
   defaultShowTagColors: PropTypes.bool.isRequired,
   defaultFilterText: PropTypes.string.isRequired,
   defaultView: PropTypes.string.isRequired,
@@ -222,9 +217,7 @@ CubeListPage.propTypes = {
   defaultShowUnsorted: PropTypes.string.isRequired,
   loginCallback: PropTypes.string,
 };
-
 CubeListPage.defaultProps = {
   loginCallback: '/',
 };
-
 export default RenderToRoot(CubeListPage);

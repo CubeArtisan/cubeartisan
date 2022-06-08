@@ -3,16 +3,17 @@ import PropTypes from 'prop-types';
 import { Suspense as ReactSuspense } from 'react';
 
 /**
- * @type {React.FC<{ fallback?: React.ReactNode }>}
+ * @typedef SuspenseProps
+ * @property {React.ReactElement?} [fallback]
+ * @property {React.ReactNode} children
  */
-const Suspense = ({ fallback, ...props }) => {
-  if (typeof window !== 'undefined') {
-    return <ReactSuspense fallback={fallback} {...props} />;
-  }
-  return null;
-};
+
+/** @type {React.FC<SuspenseProps>} */
+const Suspense = ({ fallback, children }) => <ReactSuspense fallback={fallback}>{children}</ReactSuspense>;
 Suspense.propTypes = {
-  fallback: PropTypes.node,
+  fallback: PropTypes.element,
+  // @ts-ignore
+  children: PropTypes.node.isRequired,
 };
 Suspense.defaultProps = {
   fallback: <CircularProgress />,

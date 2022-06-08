@@ -19,17 +19,26 @@
 import PropTypes from 'prop-types';
 import { createContext, useCallback, useMemo, useState } from 'react';
 
+import { cardColorIdentity, cardTags, cardType, COLORS } from '@cubeartisan/client/utils/Card.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
+
+/**
+ * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
+ */
 
 /**
  * @typedef TagColor
  * @property {string} tag
  * @property {string} color
+ * @typedef Tag
+ * @property {number} id
+ * @property {string} text
  */
 
+/** @param {Card} card */
 export const getCardColorClass = (card) => {
-  const type = card.type_line ?? card.details.type;
-  const colors = card.colors ?? card.details.color_identity;
+  const type = cardType(card);
+  const colors = cardColorIdentity(card);
   if (type.toLowerCase().includes('land')) {
     return 'cards.lands';
   }
@@ -39,7 +48,7 @@ export const getCardColorClass = (card) => {
   if (colors.length > 1) {
     return 'cards.multi';
   }
-  if (colors.length === 1 && Array.from('WUBRGC').includes(colors[0])) {
+  if (colors.length === 1 && COLORS.includes(colors[0])) {
     return {
       W: 'cards.white',
       U: 'cards.blue',
@@ -52,8 +61,12 @@ export const getCardColorClass = (card) => {
   return 'cards.colorless';
 };
 
+/**
+ * @param {TagColor[]} tagColors
+ * @param {Card} card
+ */
 export const getCardTagColorClass = (tagColors, card) => {
-  const tagColor = tagColors.find(({ tag }) => (card.tags ?? []).includes(tag));
+  const tagColor = tagColors.find(({ tag }) => cardTags(card).includes(tag));
   if (tagColor && tagColor.color) {
     return `card.${tagColor.color}`;
   }
@@ -88,20 +101,19 @@ export const TAG_COLORS = [
 
 /**
  * @typedef TagContextValues
- * @property {string[]} allSuggestions
- * @property {(tag: string) => void} addSuggestion
+ * @property {Tag[]} allSuggestions
+ * @property {(tag: Tag) => void} addSuggestion
  * @property {string[]} allTags
  * @property {TagColor[]} tagColors
  * @property {(colors: TagColor[]) => Promise<void>} setTagColors
  * @property {boolean} showTagColors
  * @property {(showTagColors: Boolean) => Promise<void>} setShowTagColors
- * @property {(card: any) => string} cardColorClass
+ * @property {(card: Card) => string} cardColorClass
  * @property {(tag: string) => string} tagColorClass
  */
-/**
- * @type {import('react').Context<TagContextValues>}
- */
-const TagContext = createContext({
+
+/** @type {TagContextValues} */
+const DEFAULT_TAG_CONTEXT_VALUES = {
   allSuggestions: [],
   addSuggestion: () => {},
   allTags: [],
@@ -111,8 +123,21 @@ const TagContext = createContext({
   setShowTagColors: async () => {},
   cardColorClass: () => '',
   tagColorClass: () => '',
-});
+};
 
+const TagContext = createContext(DEFAULT_TAG_CONTEXT_VALUES);
+
+/**
+ * @typedef TagContextProviderProps
+ * @property {React.ReactNode} children
+ * @property {boolean?} [defaultShowTagColors]
+ * @property {TagColor[]?} [defaultTagColors]
+ * @property {Tag[]?} [defaultTags]
+ * @property {string?} cubeID
+ * @property {string?} userID
+ */
+
+/** @type {React.FC<TagContextProviderProps>} */
 export const TagContextProvider = ({
   children,
   cubeID,
@@ -126,7 +151,9 @@ export const TagContextProvider = ({
   const [tags, setTags] = useState(defaultTags ?? []);
 
   const saveTagColors = useCallback(
+    /** @param {TagColor[]} newTagColors */
     async (newTagColors) => {
+      if (!cubeID) return;
       const response = await csrfFetch(`/cube/${cubeID}/tags/colors`, {
         method: 'PUT',
         body: JSON.stringify(newTagColors),
@@ -144,7 +171,9 @@ export const TagContextProvider = ({
   );
 
   const saveShowTagColors = useCallback(
+    /** @param {boolean} newShowTagColors */
     async (newShowTagColors) => {
+      if (!userID) return;
       const response = await csrfFetch(`/user/${userID}/showtagcolors`, {
         method: 'PUT',
         body: JSON.stringify({
@@ -164,6 +193,7 @@ export const TagContextProvider = ({
   );
 
   const addTag = useCallback(
+    /** @param {Tag} tag */
     (tag) => {
       if (!tags.some((t) => t.id === tag.id)) {
         setTags((oldTags) => [...oldTags, tag]);
@@ -173,6 +203,7 @@ export const TagContextProvider = ({
   );
 
   const cardColorClass = useCallback(
+    /** @param {Card} card */
     (card) => {
       if (showTagColors) return getCardTagColorClass(tagColors, card);
       return getCardColorClass(card);
@@ -181,6 +212,7 @@ export const TagContextProvider = ({
   );
 
   const tagColorClass = useCallback(
+    /** @param {string} tag */
     (tag) => {
       if (showTagColors) return getTagColorClass(tagColors, tag);
       return 'tags.none';
@@ -206,9 +238,14 @@ export const TagContextProvider = ({
 };
 TagContextProvider.propTypes = {
   cubeID: PropTypes.string.isRequired,
-  defaultTagColors: PropTypes.arrayOf(PropTypes.shape({ tag: PropTypes.string, color: PropTypes.string })),
+  // @ts-ignore
+  defaultTagColors: PropTypes.arrayOf(
+    PropTypes.shape({ tag: PropTypes.string.isRequired, color: PropTypes.string.isRequired }.isRequired).isRequired,
+  ),
   defaultShowTagColors: PropTypes.bool,
+  // @ts-ignore
   defaultTags: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string, text: PropTypes.string })),
+  // @ts-ignore
   children: PropTypes.node.isRequired,
   userID: PropTypes.string.isRequired,
 };

@@ -12,6 +12,7 @@ declare class ErrorBoundary extends Component<any, any, any> {
         stack: string;
     };
     componentDidCatch(error: any, errorInfo: any): void;
+    render(): any;
 }
 declare namespace ErrorBoundary {
     namespace propTypes {

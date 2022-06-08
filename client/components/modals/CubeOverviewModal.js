@@ -46,14 +46,17 @@ import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import { getCubeDescription, getCubeId } from '@cubeartisan/client/utils/Util.js';
 
-/**
+/** @typedef {import('@cubeartisan/client/proptypes/CubePropType.js').Cube} Cube
+
+/*
  * A utility for safely picking the current working description from a Cube.
- *
+ */
+/**
  * @param { Cube } cube
  * @returns { string }
  */
 const pickDescriptionFromCube = (cube) =>
-  /** 2020-11-24 strusdell:
+  /* 2020-11-24 strusdell:
    * @phulin believes that the check for the string literal 'undefined' here is
    * deliberate. Presumably this would represent bad data, and should be ignored.
    *

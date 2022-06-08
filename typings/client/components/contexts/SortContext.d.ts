@@ -1,35 +1,19 @@
-export function SortContextProvider({ defaultSorts, defaultShowOther, ...props }: {
-    [x: string]: any;
-    defaultSorts: any;
-    defaultShowOther: any;
-}): JSX.Element;
-export namespace SortContextProvider {
-    namespace propTypes {
-        const defaultSorts: PropTypes.Requireable<(string | null | undefined)[]>;
-        const defaultShowOther: PropTypes.Requireable<boolean>;
-    }
-    namespace defaultProps {
-        export { DEFAULT_SORTS as defaultSorts };
-        const defaultShowOther_1: boolean;
-        export { defaultShowOther_1 as defaultShowOther };
-    }
-}
+export const SortContextProvider: React.FC<SortContextProviderProps>;
 export default SortContext;
-export type SortContextValuesNoSetter = {
-    primary?: string | undefined;
-    secondary?: string | undefined;
-    tertiary?: string | undefined;
-    quaternary?: string | undefined;
-    showOther?: boolean | undefined;
+export type SortValues = {
+    primary: string;
+    secondary: string;
+    tertiary: string;
+    quaternary: string;
+    showOther: boolean;
 };
-import PropTypes from "prop-types";
-declare const DEFAULT_SORTS: string[];
-declare const SortContext: import("react").Context<{
-    changeSort: (newValues: SortContextValuesNoSetter) => SortContextValuesNoSetter;
-    primary?: string | undefined;
-    secondary?: string | undefined;
-    tertiary?: string | undefined;
-    quaternary?: string | undefined;
-    showOther?: boolean | undefined;
-}>;
+export type SortContextValues = Required<SortValues> & {
+    changeSort: (newSort: SortValues) => void;
+};
+export type SortContextProviderProps = {
+    defaultSorts?: [string, string, string, string] | null | undefined;
+    defaultShowOther?: boolean | null | undefined;
+    children: React.ReactNode;
+};
+declare const SortContext: import("react").Context<SortContextValues>;
 //# sourceMappingURL=SortContext.d.ts.map

@@ -14,22 +14,6 @@ export type User = {
     hide_featured: boolean;
     theme: ('default' | 'dark') | null;
 };
-/**
- * @typedef {import('@cubeartisan/client/proptypes/NotificationPropType.js').Notification} Notification
- * @typedef User
- * @property {string?} _id
- * @property {string?} [email]
- * @property {string?} [username]
- * @property {string?} [about]
- * @property {Notification[]} notifications
- * @property {string?} [image_name]
- * @property {string?} [image]
- * @property {string?} [artist]
- * @property {string[]} users_following
- * @property {string[]} roles
- * @property {boolean} hide_featured
- * @property {('default' | 'dark')?} theme
- */
 declare const UserPropType: PropTypes.Requireable<PropTypes.InferProps<{
     _id: PropTypes.Validator<string>;
     email: PropTypes.Requireable<string>;

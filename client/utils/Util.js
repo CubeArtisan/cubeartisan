@@ -44,8 +44,9 @@ export const arraysEqual = (a, b) => {
  * @param {boolean} reverse
  */
 export const arrayRotate = (arr, reverse) => {
-  if (reverse) arr.unshift(arr.pop());
-  else arr.push(arr.shift());
+  if (arr.length === 0) return arr;
+  if (reverse) arr.unshift(/** @type {T} */ (arr.pop())); // eslint-disable-line prettier/prettier
+  else arr.push(/** @type {T} */ (arr.shift())); // eslint-disable-line prettier/prettier
   return arr;
 };
 

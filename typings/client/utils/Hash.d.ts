@@ -4,7 +4,7 @@ declare namespace _default {
     export { del };
 }
 export default _default;
-declare function get(key: any, def: any): any;
-declare function set(key: any, value: any): void;
-declare function del(key: any): void;
+declare function get(key: string, def: string): string;
+declare function set(key: string, value: string): void;
+declare function del(key: string): void;
 //# sourceMappingURL=Hash.d.ts.map

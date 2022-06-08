@@ -1,3 +1,3 @@
-export function makeKMPTable(word: any): number[];
-export function KMPSearch(string: any, word: any, table: any): number;
+export function makeKMPTable(word: string): number[];
+export function KMPSearch(string: string, word: string, table: number[]): number;
 //# sourceMappingURL=KMPSearch.d.ts.map

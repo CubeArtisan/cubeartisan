@@ -37,24 +37,22 @@ import { CARD_CATEGORY_DETECTORS, cardImageBackUrl, cardImageUrl, cardName } fro
  * @property {boolean} [cardModal]
  */
 
-/**
- * @type {React.ForwardRefExoticComponent<CardImageProps & React.HTMLAttributes<HTMLImageElement>>}
- */
+/** @type {React.ForwardRefExoticComponent<CardImageProps & React.HTMLAttributes<HTMLImageElement>>} */
 const CardImage = forwardRef(({ card, width, back, sx, cardModal, ...props }, ref) => {
   const { showCustomImages } = useContext(DisplayContext);
-  const src = (back ? cardImageBackUrl(card, showCustomImages) : cardImageUrl(card, showCustomImages)) ?? undefined;
+  const src = back ? cardImageBackUrl(card, showCustomImages) : cardImageUrl(card, showCustomImages);
   const foil = CARD_CATEGORY_DETECTORS.foil(card?.details, card);
   const name = cardName(card);
   const openCardModal = useContext(CardModalContext);
   const handleClick = useCallback(() => openCardModal(card), [openCardModal, card]);
   return (
-    <Box sx={{ ...sx, display: 'block', position: 'relative' }}>
+    <Box component="div" sx={{ ...sx }}>
       {foil && (
         <Box
           component="img"
           key="foil"
           src="/content/foilOverlay.png"
-          sx={{ width, position: 'absolute', pointerEvents: 'none', mixBlendMode: 'color-burn' }}
+          sx={{ width, position: 'relative', pointerEvents: 'none', mixBlendMode: 'color-burn' }}
         />
       )}
       <Box
@@ -66,8 +64,6 @@ const CardImage = forwardRef(({ card, width, back, sx, cardModal, ...props }, re
         ref={ref}
         sx={{ width }}
         {...props}
-        className=""
-        style={{}}
       />
     </Box>
   );

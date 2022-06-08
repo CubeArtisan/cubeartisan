@@ -1,34 +1,8 @@
-/**
- * @param {string} name
- */
 export function normalizeName(name: string): string;
-/**
- * @param {string} name
- */
 export function encodeName(name: string): string;
-/**
- * @param {string?} name
- */
 export function decodeName(name: string | null): string;
-/**
- * @param {Card} a
- * @param {Card} b
- */
 export function cardsAreEquivalent(a: Card, b: Card): boolean;
-/**
- * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
- * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').CardFinish} CardFinish
- * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').CardStatus} CardStatus
- * @typedef {import('@cubeartisan/client/proptypes/CardDetailsPropType.js').CardDetails} CardDetails
- * @typedef {import('@cubeartisan/client/proptypes/CardDetailsPropType.js').Color} Color
- */
-/**
- * @type {Color[]}
- */
 export const COLORS: Color[];
-/**
- * @type {Color[][]}
- */
 export const COLOR_COMBINATIONS: Color[][];
 export const COLOR_INCLUSION_MAP: {
     [k: string]: {
@@ -45,98 +19,40 @@ export function pickRate({ picks, passes }: {
     passes: any;
 }): number;
 export function cardTags(card: Card | null): string[];
-/**
- * @template T
- * @typedef {{
- * (card: null|undefined): null,
- * (card: Card): T,
- * }} CardNullPassthrough<T>
- */
-/**
- *  @type {CardNullPassthrough<CardFinish>}
- */
 export const cardFinish: CardNullPassthrough<CardFinish>;
-/**
- * @type {CardNullPassthrough<CardStatus>}
- */
 export const cardStatus: CardNullPassthrough<CardStatus>;
 export function cardCmc(card: Card | null): number;
-/**
- * @type {CardNullPassthrough<string>}
- */
 export const cardId: CardNullPassthrough<string>;
-/**
- * @type {CardNullPassthrough<string>}
- */
 export const cardType: CardNullPassthrough<string>;
-/**
- * @type {CardNullPassthrough<string>}
- */
 export const cardRarity: CardNullPassthrough<string>;
 export function cardAddedTime(card: Card | null): string | null | undefined;
 export function cardImageUrl(card: Card | null, showCustomImages?: boolean): string | null | undefined;
 export function cardImageBackUrl(card: Card | null, showCustomImages?: boolean): string | null | undefined;
 export function cardNotes(card: Card | null): string | null | undefined;
-/**
- * @type {CardNullPassthrough<string>}
- */
 export const cardColorCategory: CardNullPassthrough<string>;
-/**
- * @type {CardNullPassthrough<number>}
- */
 export const cardPrice: CardNullPassthrough<number>;
 export function cardNormalPrice(card: Card | null): number | null;
 export function cardFoilPrice(card: Card | null): number | null;
 export function cardPriceEur(card: Card | null): number | null;
 export function cardTix(card: Card | null): number | null;
 export function cardIsFullArt(card: Card | null): boolean;
-/**
- * @type {CardNullPassthrough<string[]>}
- */
 export const cardCost: CardNullPassthrough<string[]>;
-/**
- * @type {CardNullPassthrough<string>}
- */
 export const cardSet: CardNullPassthrough<string>;
-/**
- * @type {CardNullPassthrough<string>}
- */
 export const cardCollectorNumber: CardNullPassthrough<string>;
 export function cardPromo(card: Card | null): boolean;
 export function cardDigital(card: Card | null): boolean;
 export function cardIsToken(card: Card | null): boolean;
-/**
- * @type {CardNullPassthrough<string>}
- */
 export const cardBorderColor: CardNullPassthrough<string>;
-/**
- * @type {CardNullPassthrough<string>}
- */
 export const cardName: CardNullPassthrough<string>;
-/**
- * @type {CardNullPassthrough<string>}
- */
 export const cardNameLower: CardNullPassthrough<string>;
-/**
- * @type {CardNullPassthrough<string>}
- */
 export const cardFullName: CardNullPassthrough<string>;
 export function cardArtist(card: Card | null): string | null | undefined;
-/**
- * @type {CardNullPassthrough<string>}
- */
 export const cardScryfallUri: CardNullPassthrough<string>;
 export function cardOracleText(card: Card | null): string | null | undefined;
-/**
- * @type {CardNullPassthrough<string>}
- */
 export const cardOracleId: CardNullPassthrough<string>;
 export function cardLegalities(card: Card | null): {};
 export function cardLegalIn(card: Card | null): string[];
 export function cardColors(card: Card | null): import("@cubeartisan/client/proptypes/CardDetailsPropType.js").Color[] | null | undefined;
-/**
- * @type {CardNullPassthrough<string>}
- */
 export const cardLanguage: CardNullPassthrough<string>;
 export function cardMtgoId(card: Card | null): number | null | undefined;
 export function cardTcgplayerId(card: Card | null): string | null | undefined;
@@ -152,24 +68,9 @@ export function cardElo(card: Card | null): number;
 export function cardPopularity(card: Card | null): number;
 export function cardCubeCount(card: Card | null): number;
 export function cardPickCount(card: Card | null): number;
-/**
- * @type {CardNullPassthrough<string>}
- */
 export const cardLayout: CardNullPassthrough<string>;
-/**
- * @type {CardNullPassthrough<string>}
- */
 export const cardReleaseDate: CardNullPassthrough<string>;
 export function cardDevotion(card: Card | null, color: Color): number;
-/**
- * @typedef {{
- * (card: null|undefined): boolean,
- * (card: Card): boolean,
- * }} CardSpecialZone
- */
-/**
- * @type {CardSpecialZone}
- */
 export const cardIsSpecialZoneType: CardSpecialZone;
 export function makeDefaultCardDetails(): CardDetails;
 export function detailsToCard(details: CardDetails): Card;
@@ -294,9 +195,6 @@ export type CardFinish = import('@cubeartisan/client/proptypes/CardPropType.js')
 export type CardStatus = import('@cubeartisan/client/proptypes/CardPropType.js').CardStatus;
 export type CardDetails = import('@cubeartisan/client/proptypes/CardDetailsPropType.js').CardDetails;
 export type Color = import('@cubeartisan/client/proptypes/CardDetailsPropType.js').Color;
-/**
- * <T>
- */
 export type CardNullPassthrough<T> = {
     (card: null | undefined): null;
     (card: Card): T;
@@ -305,8 +203,5 @@ export type CardSpecialZone = {
     (card: null | undefined): boolean;
     (card: Card): boolean;
 };
-/**
- * @param {CardDetails} details
- */
 declare function isCreatureLand(details: CardDetails): false | RegExpMatchArray | null | undefined;
 //# sourceMappingURL=Card.d.ts.map

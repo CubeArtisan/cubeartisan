@@ -27,6 +27,7 @@ import fetch from 'node-fetch';
 import { exec } from 'child_process';
 
 import { normalizeName, reasonableCard } from '@cubeartisan/client/utils/Card.js';
+import { COLOR_MAP } from '@cubeartisan/client/utils/Sort.js';
 import { binaryInsert, turnToTree } from '@cubeartisan/server/serverjs/util.js';
 
 const catalog = {};
@@ -744,13 +745,13 @@ function convertCard(card, isExtra) {
     newcard.image_flip = card.card_faces[1].image_uris.normal;
   }
   if (newcard.type.toLowerCase().includes('land')) {
-    newcard.colorcategory = 'l';
+    newcard.colorcategory = 'Land';
   } else if (newcard.color_identity.length === 0) {
-    newcard.colorcategory = 'c';
+    newcard.colorcategory = 'Colorless';
   } else if (newcard.color_identity.length > 1) {
-    newcard.colorcategory = 'm';
+    newcard.colorcategory = 'Gold';
   } else if (newcard.color_identity.length === 1) {
-    newcard.colorcategory = newcard.color_identity[0].toLowerCase();
+    newcard.colorcategory = COLOR_MAP[newcard.color_identity[0].toUpperCase()];
   }
 
   const tokens = getTokens(card, newcard);
