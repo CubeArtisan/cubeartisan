@@ -58,7 +58,7 @@
     "eslint-plugin-react": "7.30.0",
     "eslint-plugin-react-hooks": "^4.5.0",
     "eslint_d": "^12.2.0",
-    "jest": "^28.1.0",
+    "jest": "^28.1.1",
     "loose-ts-check": "^1.2.0",
     "mongodb-memory-server": "^8.6.0",
     "prettier": "^2.6.2",
