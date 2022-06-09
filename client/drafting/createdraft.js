@@ -301,13 +301,11 @@ const createPacks = (draft, format, seats, nextCardFn) => {
       };
       for (let cardNum = 0; cardNum < format[packNum].slots.length; cardNum++) {
         const result = nextCardFn(format[packNum].slots[cardNum]);
-        if (result.messages && result.messages.length > 0) {
+        if (result.messages.length > 0) {
           messages = messages.concat(result.messages);
-        }
-        if (result.card) {
-          pack.cards.push(result.card);
-        } else {
           ok = false;
+        } else {
+          pack.cards.push(result.card);
         }
       }
       draft.initial_state[seat].push(pack);
@@ -375,6 +373,7 @@ export const createDraft = (format, cubeCards, seats, userid, botsOnly = false, 
       ...pack,
       cards: cards.map(({ details: _, ...card }) => {
         card.index = draft.cards.length;
+        console.log(card.index, { colors: card.colors });
         draft.cards.push(card);
         return card.index;
       }),

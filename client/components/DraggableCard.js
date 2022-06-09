@@ -27,11 +27,27 @@ import { cardType } from '@cubeartisan/client/utils/Card.js';
 
 const AutocardImage = withAutocard(CardImage);
 
-const DraggableCard = ({ card, location, canDrop, onMoveCard, className, onClick, ...props }) => {
-  // eslint-disable-next-line react/prop-types
-  delete props.width;
-  // eslint-disable-next-line react/prop-types
-  delete props.height;
+/**
+ * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
+ */
+
+/**
+ * @typedef Location
+ * @property {string} type
+ * @property {number[]} data
+ */
+
+/**
+ * @typedef DraggableCardProps
+ * @property {Card} card
+ * @property {Location} location
+ * @property {(l1: Location, l2: Location) => boolean} canDrop
+ * @property {Function} onMoveCard
+ * @property {React.MouseEventHandler<HTMLImageElement>?} [onClick]
+ */
+
+/** @type {React.FC<DraggableCardProps>} */
+const DraggableCard = ({ card, location, canDrop, onMoveCard, onClick, ...props }) => {
   const [, drag, preview] = useDrag({
     type: 'card',
     item: { location },
@@ -51,7 +67,9 @@ const DraggableCard = ({ card, location, canDrop, onMoveCard, className, onClick
   const [, drop] = useDrop({
     accept: 'card',
     drop: () => location,
-    canDrop: (item) => canDrop(item.location, location),
+    canDrop:
+      /** @param {{ location: Location }} item */
+      (item) => canDrop(item.location, location),
     collect: (monitor) => ({
       isAcceptable: !!monitor.isOver() && !!monitor.canDrop(),
     }),
@@ -61,25 +79,23 @@ const DraggableCard = ({ card, location, canDrop, onMoveCard, className, onClick
   const cmc = typeLine.includes('creature');
 
   return (
-    <>
-      <CardImage card={card} ref={imageRef} />
-      <div ref={drag}>
-        <div ref={drop}>
-          <AutocardImage
-            card={card}
-            tags={[]}
-            data-location-type={location.type}
-            data-location-data={JSON.stringify(location.data)}
-            data-cmc={cmc.toString()}
-            onClick={onClick}
-            {...props}
-          />
-        </div>
+    <div ref={drag}>
+      <div ref={drop}>
+        <AutocardImage
+          card={card}
+          tags={[]}
+          data-location-type={location.type}
+          data-location-data={JSON.stringify(location.data)}
+          data-cmc={cmc.toString()}
+          onClick={onClick ?? undefined}
+          {...props}
+        />
       </div>
-    </>
+    </div>
   );
 };
 DraggableCard.propTypes = {
+  // @ts-ignore
   card: CardPropType.isRequired,
   location: PropTypes.shape({
     type: PropTypes.string.isRequired,
@@ -87,11 +103,10 @@ DraggableCard.propTypes = {
   }).isRequired,
   canDrop: PropTypes.func.isRequired,
   onMoveCard: PropTypes.func.isRequired,
-  className: PropTypes.string,
+  // @ts-ignore
   onClick: PropTypes.func,
 };
 DraggableCard.defaultProps = {
-  className: null,
   onClick: null,
 };
 export default DraggableCard;

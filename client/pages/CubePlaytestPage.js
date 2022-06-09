@@ -62,6 +62,10 @@ const DeckPreview = lazy(() => import('@cubeartisan/client/components/DeckPrevie
 const CustomDraftFormatModal = lazy(() => import('@cubeartisan/client/components/modals/CustomDraftFormatModal.js'));
 
 /**
+ * @typedef {import('@cubeartisan/client/proptypes/DeckPropType.js').Deck} Deck
+ */
+
+/**
  * @param {number} lo
  * @param {number} hi
  */
@@ -385,6 +389,7 @@ const GridCard = () => {
   );
 };
 
+/** @type {React.FC<{ decks: Deck[] }>} */
 const DecksCard = ({ decks }) => {
   const { cubeID } = useContext(CubeContext);
   return (
@@ -404,6 +409,7 @@ const DecksCard = ({ decks }) => {
   );
 };
 DecksCard.propTypes = {
+  // @ts-ignore
   decks: PropTypes.arrayOf(DeckPropType).isRequired,
 };
 
@@ -528,52 +534,50 @@ export const CubePlaytestPage = ({ cube, decks, loginCallback }) => {
   );
 
   return (
-    <MainLayout loginCallback={loginCallback}>
-      <CubeLayout cube={cube} activeLink="playtest">
-        {user && cube.owner === user._id && (
-          <Toolbar sx={{ backgroundColor: 'background.paper', marginBottom: 1, borderRadius: '0 0 2rem 2rem' }}>
-            <Button onClick={handleCreateFormat}>Create Custom Draft</Button>
-            <UploadDecklistModalLink modalProps={{}}>Upload Decklist</UploadDecklistModalLink>
-          </Toolbar>
-        )}
-        <DynamicFlash />
-        <Alerts alerts={alerts} />
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
-            {defaultDraftFormat === -1 && (
-              <StandardDraftCard onSetDefaultFormat={handleSetDefaultFormat} defaultDraftFormat={defaultDraftFormat} />
-            )}
-            {formatsSorted.map((format) => (
-              <CustomDraftCard
-                key={format._id}
-                format={format}
-                onDeleteFormat={handleDeleteFormat}
-                onSetDefaultFormat={handleSetDefaultFormat}
-                onEditFormat={handleEditFormat}
-                defaultDraftFormat={defaultDraftFormat}
-              />
-            ))}
-            {defaultDraftFormat !== -1 && (
-              <StandardDraftCard onSetDefaultFormat={handleSetDefaultFormat} defaultDraftFormat={defaultDraftFormat} />
-            )}
-            <GridCard />
-          </Grid>
-          <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
-            {decks.length !== 0 && <DecksCard decks={decks} />}
-            <SamplePackCard />
-          </Grid>
+    <CubeLayout loginCallback={loginCallback} cube={cube} activeLink="playtest">
+      {user && cube.owner === user._id && (
+        <Toolbar sx={{ backgroundColor: 'background.paper', marginBottom: 1, borderRadius: '0 0 2rem 2rem' }}>
+          <Button onClick={handleCreateFormat}>Create Custom Draft</Button>
+          <UploadDecklistModalLink modalProps={{}}>Upload Decklist</UploadDecklistModalLink>
+        </Toolbar>
+      )}
+      <DynamicFlash />
+      <Alerts alerts={alerts} />
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
+          {defaultDraftFormat === -1 && (
+            <StandardDraftCard onSetDefaultFormat={handleSetDefaultFormat} defaultDraftFormat={defaultDraftFormat} />
+          )}
+          {formatsSorted.map((format) => (
+            <CustomDraftCard
+              key={format._id}
+              format={format}
+              onDeleteFormat={handleDeleteFormat}
+              onSetDefaultFormat={handleSetDefaultFormat}
+              onEditFormat={handleEditFormat}
+              defaultDraftFormat={defaultDraftFormat}
+            />
+          ))}
+          {defaultDraftFormat !== -1 && (
+            <StandardDraftCard onSetDefaultFormat={handleSetDefaultFormat} defaultDraftFormat={defaultDraftFormat} />
+          )}
+          <GridCard />
         </Grid>
-        <Suspense>
-          <CustomDraftFormatModal
-            isOpen={editModalOpen}
-            toggle={toggleEditModal}
-            formatIndex={editFormatIndex}
-            format={editFormat}
-            setFormat={setEditFormat}
-          />
-        </Suspense>
-      </CubeLayout>
-    </MainLayout>
+        <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
+          {decks.length !== 0 && <DecksCard decks={decks} />}
+          <SamplePackCard />
+        </Grid>
+      </Grid>
+      <Suspense>
+        <CustomDraftFormatModal
+          isOpen={editModalOpen}
+          toggle={toggleEditModal}
+          formatIndex={editFormatIndex}
+          format={editFormat}
+          setFormat={setEditFormat}
+        />
+      </Suspense>
+    </CubeLayout>
   );
 };
 CubePlaytestPage.propTypes = {

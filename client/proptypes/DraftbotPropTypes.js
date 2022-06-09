@@ -27,11 +27,19 @@ export const StepPropType = PropTypes.shape({
   amount: PropTypes.number,
 });
 
+export const SeenPropType = PropTypes.shape({
+  pack: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+  pickNum: PropTypes.number.isRequired,
+  packNum: PropTypes.number.isRequired,
+  numPicks: PropTypes.number.isRequired,
+  numPacks: PropTypes.number.isRequired,
+});
+
 const drafterStateSchema = {
   cards: PropTypes.arrayOf(CardPropType).isRequired,
   picked: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
   trashed: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
-  seen: PropTypes.arrayOf(PropTypes.number.isRequired),
+  seen: PropTypes.arrayOf(SeenPropType.isRequired).isRequired,
   cardsInPack: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
   packNum: PropTypes.number.isRequired,
   pickNum: PropTypes.number.isRequired,

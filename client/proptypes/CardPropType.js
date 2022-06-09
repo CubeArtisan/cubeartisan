@@ -32,7 +32,7 @@ import CardDetailsPropType from '@cubeartisan/client/proptypes/CardDetailsPropTy
 
 /**
  * @typedef Card
- * @property {string?} addedTmsp
+ * @property {Date?} addedTmsp
  * @property {string?} cardID
  * @property {number?} cmc
  * @property {string?} colorCategory
@@ -52,7 +52,7 @@ import CardDetailsPropType from '@cubeartisan/client/proptypes/CardDetailsPropTy
  */
 
 const CardPropType = PropTypes.shape({
-  addedTmsp: PropTypes.string,
+  addedTmsp: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
   cardID: PropTypes.string.isRequired,
   cmc: PropTypes.number,
   colorCategory: PropTypes.string,

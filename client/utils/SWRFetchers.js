@@ -14,7 +14,7 @@ export const axiosFetcher = async (url) => {
   return res.data;
 };
 
-export const DEFAULT_AXIOS_OPTIONS = Object.freeze({
+export const DEFAULT_AXIOS_OPTIONS = {
   fetcher: axiosFetcher,
-});
+};
 export default axiosFetcher;
