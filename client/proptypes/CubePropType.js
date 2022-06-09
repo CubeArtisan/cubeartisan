@@ -22,11 +22,107 @@ import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
 /**
  * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
+ * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').CardStatus} CardStatus
+ * @typedef {import('@cubeartisan/client/components/contexts/TagContext.js').Tag} Tag
+ */
+
+/**
+ * @typedef Step
+ * @property {'pass'|'pick'|'trash'|'pickrandom'|'trashrandom'} action
+ * @property {number?} amount
+ */
+
+/**
+ * @typedef PackSpec
+ * @property {string[]} slots
+ * @property {Step[]?} steps
+ */
+
+/**
+ * @typedef DraftFormat
+ * @property {string} title
+ * @property {string} markdown
+ * @property {PackSpec[]} packs
+ * @property {number} defaultSeats
+ * @property {boolean} multiples
+ */
+
+/**
  * @typedef Cube
- * @property {Card[]?} cards
+ * @property {string} _id
+ * @property {string} name
+ * @property {string} shortID
+ * @property {string} owner
+ * @property {boolean} isListed
+ * @property {boolean} privatePrices
+ * @property {boolean} isFeatured
+ * @property {boolean} overrideCategory
+ * @property {string} categoryOverride
+ * @property {string[]} categoryPrefixes
+ * @property {Card[]} cards
+ * @property {Card[]} maybe
+ * @property {Tag[]} tag_colors
+ * @property {number} defaultDraftFormat
+ * @property {number} numDecks
+ * @property {string?} description
+ * @property {string?} image_uri
+ * @property {string?} image_artist
+ * @property {string?} image_name
+ * @property {string?} owner_name
+ * @property {string?} date_updated
+ * @property {string?} updated_string
+ * @property {string[]?} default_sorts
+ * @property {boolean?} default_show_unsorted
+ * @property {number} card_count
+ * @property {DraftFormat[]} draft_formats
+ * @property {string[]} users_following
+ * @property {CardStatus} defaultStatus
+ * @property {'first'|'recent'} defaultPrinting
+ * @property {boolean} disableNotifications
+ * @property {number} schemaVersion
+ * @property {string[]} basics
+ * @property {string[]} tags
+ * @property {string[]} cardOracles
+ * @property {string[]} keywords
+ * @property {string[]} categories
  */
 
 const CubePropType = PropTypes.shape({
-  cards: PropTypes.arrayOf(CardPropType.isRequired),
+  _id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  shortID: PropTypes.string.isRequired,
+  owner: PropTypes.string.isRequired,
+  isListed: PropTypes.bool.isRequired,
+  privatePrices: PropTypes.bool.isRequired,
+  isFeatured: PropTypes.bool.isRequired,
+  overrideCategory: PropTypes.bool.isRequired,
+  categoryOverride: PropTypes.string.isRequired,
+  categoryPrefixes: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  cards: PropTypes.arrayOf(CardPropType.isRequired).isRequired,
+  maybe: PropTypes.arrayOf(CardPropType.isRequired).isRequired,
+  // tag_colors
+  defaultDraftFormat: PropTypes.number.isRequired,
+  numDecks: PropTypes.number.isRequired,
+  description: PropTypes.string,
+  image_uri: PropTypes.string,
+  image_artist: PropTypes.string,
+  image_name: PropTypes.string,
+  owner_name: PropTypes.string,
+  date_updated: PropTypes.string,
+  updated_string: PropTypes.string,
+  defaultSorts: PropTypes.arrayOf(PropTypes.string.isRequired),
+  default_show_unsorted: PropTypes.bool.isRequired,
+  card_count: PropTypes.number.isRequired,
+  // draft_formats
+  users_following: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  // defaultStatus
+  defaultPrinting: PropTypes.oneOf(['first', 'recent']),
+  disableNotifications: PropTypes.bool.isRequired,
+  schemaVersion: PropTypes.number.isRequired,
+  basics: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  tags: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  cardOracles: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  keywords: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  categories: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 });
 export default CubePropType;

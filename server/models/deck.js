@@ -37,7 +37,7 @@ const SeatDeck = {
   pickorder: [Number],
 };
 
-const deckSchema = mongoose.Schema(
+const deckSchema = new mongoose.Schema(
   {
     cube: mongoose.Schema.Types.ObjectId,
     cubeOwner: mongoose.Schema.Types.ObjectId,

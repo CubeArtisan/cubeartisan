@@ -61,7 +61,7 @@ const Seat = {
   trashorder: [Number], // cards this player trashed in order of when they were trashed
 };
 
-const draftSchema = mongoose.Schema(
+const draftSchema = new mongoose.Schema(
   {
     basics: {
       default: [],

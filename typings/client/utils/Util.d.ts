@@ -11,7 +11,7 @@ export function alphaCompare(a: Card, b: Card): number;
 export function cmcColumn(card: Card): number;
 export function sortDeck(deck: Card[] | Card[][]): any[][];
 export const COLORS: string[][];
-export function getCubeId(cube: Cube): any;
+export function getCubeId(cube: Cube): string;
 export function getCubeDescription(cube: Cube): string;
 export function isInternalURL(to: string): boolean;
 export function toNullableInt(str: string | null): number | null;

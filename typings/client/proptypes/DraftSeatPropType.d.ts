@@ -1,12 +1,15 @@
 export default DraftSeatPropType;
+export type DraftSeat = {
+    bot: boolean;
+    name: string;
+    userid: string | null;
+    drafted: number[][][];
+    sideboard: number[][][];
+    pickorder: number[];
+    trashorder: number[];
+};
 declare const DraftSeatPropType: PropTypes.Requireable<PropTypes.InferProps<{
-    description: PropTypes.Validator<string>;
-    deck: PropTypes.Validator<(number | null | undefined)[][][]>;
-    sideboard: PropTypes.Validator<(number | null | undefined)[][][]>;
-    username: PropTypes.Validator<string>;
-    userid: PropTypes.Requireable<string>;
-    bot: PropTypes.Requireable<(string | null | undefined)[]>;
-    name: PropTypes.Validator<string>;
+    bot: PropTypes.Validator<boolean>;
 }>>;
 import PropTypes from "prop-types";
 //# sourceMappingURL=DraftSeatPropType.d.ts.map

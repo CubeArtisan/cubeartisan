@@ -12,7 +12,7 @@ export type Card = {
     finish: CardFinish;
     imgBackUrl: string | null;
     imgUrl: string | null;
-    index?: number | null | undefined;
+    index?: number | undefined;
     isUnlimited: boolean;
     name: string | null;
     notes: string | null;

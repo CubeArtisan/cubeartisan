@@ -23,8 +23,14 @@ import CardDetailsPropType from '@cubeartisan/client/proptypes/CardDetailsPropTy
 /**
  * @typedef {import('@cubeartisan/client/proptypes/CardDetailsPropType.js').Color} Color
  * @typedef {import('@cubeartisan/client/proptypes/CardDetailsPropType.js').CardDetails} CardDetails
+ */
+
+/**
  * @typedef {'Foil'|'Non-foil'} CardFinish
  * @typedef {'Not Owned'|'Ordered'|'Owned'|'Premium Owned'|'Proxied'} CardStatus
+ */
+
+/**
  * @typedef Card
  * @property {string?} addedTmsp
  * @property {string?} cardID
@@ -34,7 +40,7 @@ import CardDetailsPropType from '@cubeartisan/client/proptypes/CardDetailsPropTy
  * @property {CardFinish} finish
  * @property {string?} imgBackUrl
  * @property {string?} imgUrl
- * @property {number?} [index]
+ * @property {number} [index]
  * @property {boolean} isUnlimited
  * @property {string?} name
  * @property {string?} notes
