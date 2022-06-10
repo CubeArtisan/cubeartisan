@@ -291,7 +291,7 @@ function getLabelsRaw(cube, sort, showOther) {
   if (sort === 'Color Category') {
     ret = ['White', 'Blue', 'Black', 'Red', 'Green', 'Hybrid', 'Gold', 'Colorless', 'Lands'];
   } else if (sort === 'Color Category Full') {
-    ret = SINGLE_COLOR.concat(['Colorless'])
+    ret = SINGLE_COLOR.concat(['Colorless', 'Hybrid'])
       .concat(GUILDS)
       .concat(SHARDS_AND_WEDGES)
       .concat(FOUR_AND_FIVE_COLOR)
