@@ -16,30 +16,39 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react';
-import PropTypes from 'prop-types';
 import { Badge, Button } from '@mui/material';
-import { Card, CardBody, CardHeader, CardTitle, Collapse, Nav, Navbar, Col, Row, Input } from 'reactstrap';
+import PropTypes from 'prop-types';
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { Card, CardBody, CardHeader, CardTitle, Col, Collapse, Input, Nav, Navbar, Row } from 'reactstrap';
 
+import CardImage from '@cubeartisan/client/components/CardImage.js';
+import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
+import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
+import DeckStacks from '@cubeartisan/client/components/DeckStacks.js';
+import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
+import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import CSRFForm from '@cubeartisan/client/components/CSRFForm.js';
 import CustomImageToggler from '@cubeartisan/client/components/CustomImageToggler.js';
-import DeckStacks from '@cubeartisan/client/components/DeckStacks.js';
-import DndProvider from '@cubeartisan/client/components/DndProvider.js';
-import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
-import ErrorBoundary from '@cubeartisan/client/components/ErrorBoundary.js';
-import FoilCardImage from '@cubeartisan/client/components/FoilCardImage.js';
-import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
 import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
+import DndProvider from '@cubeartisan/client/components/DndProvider.js';
+import Location, { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation.js';
+import {
+  convertDrafterState,
+  getBestOption,
+  getDefaultPosition,
+  getDraftbotScores,
+} from '@cubeartisan/client/drafting/draftutil.js';
+import { getGridDrafterState } from '@cubeartisan/client/drafting/griddraftutils.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import { makeSubtitle } from '@cubeartisan/client/utils/Card.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
-import Location, { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation.js';
-import { convertDrafterState, getDefaultPosition } from '@cubeartisan/client/drafting/draftutil.js';
-import { getGridDrafterState } from '@cubeartisan/client/drafting/griddraftutils.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 import { toNullableInt } from '@cubeartisan/client/utils/Util.js';
+
+const AutocardImage = withAutocard(CardImage);
 
 const GRID_DRAFT_OPTIONS = [0, 1, 2].flatMap((ind) => [
   [0, 1, 2].map((offset) => 3 * ind + offset),
@@ -105,7 +114,7 @@ const Pack = ({ pack, packNumber, pickNumber, makePick, seatIndex, turn }) => (
           {[0, 1, 2].map((col) => (
             <Col key={`cell-${col}-${row}`} className="px-0" xs="3" md="2">
               {pack[row * 3 + col] ? (
-                <FoilCardImage card={pack[row * 3 + col]} tags={[]} autocard />
+                <AutocardImage card={pack[row * 3 + col]} tags={[]} />
               ) : (
                 <img
                   src="/content/default_card.png"
@@ -176,9 +185,10 @@ export const GridDraftPage = ({ cube, initialDraft, seatNumber, loginCallback })
   const seatNum = toNullableInt(seatNumber) ?? 0;
   const { gridDraft, mutations } = useMutatableGridDraft(initialDraft);
   const submitDeckForm = useRef();
-  const drafterStates = useMemo(() => {
-    return [0, 1].map((idx) => getGridDrafterState({ gridDraft, seatNumber: idx }));
-  }, [gridDraft]);
+  const drafterStates = useMemo(
+    () => [0, 1].map((idx) => getGridDrafterState({ gridDraft, seatNumber: idx })),
+    [gridDraft],
+  );
   const { turn, numPacks, packNum, pickNum } = drafterStates[seatNum];
   const { cardsInPack } = drafterStates[turn ? 0 : 1];
   const doneDrafting = packNum >= numPacks;
@@ -209,15 +219,16 @@ export const GridDraftPage = ({ cube, initialDraft, seatNumber, loginCallback })
           headers: { 'Content-Type': 'application/json' },
         });
         // eslint-disable-next-line
-        submitDeckForm.current?.submit?.();
+        submitDeckForm?.current?.submit?.();
       }
     })();
   }, [doneDrafting, gridDraft]);
 
+  const { mtgmlServer } = useContext(SiteCustomizationContext);
+
   useEffect(() => {
     (async () => {
       if (botDrafterState.turn && draftType === 'bot') {
-        const { calculateBotPickFromOptions } = await import('mtgdraftbots');
         const iCardsInPack = [];
         const mapped = [];
         for (const idx of botDrafterState.cardsInPack) {
@@ -229,23 +240,24 @@ export const GridDraftPage = ({ cube, initialDraft, seatNumber, loginCallback })
           }
         }
         const unmapped = Object.fromEntries(mapped.map((x, idx) => [x, idx]).filter(([x]) => x !== null));
-        const options = GRID_DRAFT_OPTIONS.map((option) =>
-          option.map((x) => mapped[x]).filter((x) => x !== null),
-        ).filter((option) => option.length > 0);
-        const result = await calculateBotPickFromOptions(
+        const result = await getDraftbotScores(
           {
             ...convertDrafterState(botDrafterState),
             cardsInPack: iCardsInPack,
           },
-          options,
+          mtgmlServer,
         );
+        const options = GRID_DRAFT_OPTIONS.map((option, idx) => [option.filter((x) => mapped[x] !== null), idx])
+          .filter(([option]) => option.length > 0)
+          .map(([option, idx]) => [option.reduce((acc, x) => acc + result[x], 0), idx]);
+        const chosenOption = getBestOption(options.map(([x]) => x));
         mutations.makePick({
-          cardIndices: options[result.chosenOption].map((x) => [iCardsInPack[x], unmapped[x]]),
+          cardIndices: options[chosenOption].map((x) => [iCardsInPack[x], unmapped[x]]),
           seatIndex: botIndex,
         });
       }
     })();
-  }, [draftType, botDrafterState, mutations, botIndex]);
+  }, [draftType, botDrafterState, mutations, botIndex, mtgmlServer]);
 
   return (
     <MainLayout loginCallback={loginCallback}>
