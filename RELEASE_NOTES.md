@@ -296,3 +296,9 @@ This release is composed of porting over bug fixes for bugs we carried over from
 ##### Bug Fixes
 
 - Resize cube functionality now respects the given filter.
+
+#### v1.4.4.9
+
+##### Bug Fixes
+
+- Fix cockatrice export for card names with special characters.

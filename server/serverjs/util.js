@@ -31,15 +31,13 @@ export const hasProfanity = (text) => {
   return filter.isProfane(text.toLowerCase());
 };
 
-export const generateEditToken = () => {
+export const generateEditToken = () =>
   // Not sure if this function is actually used anywhere.
-  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-};
+  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
-export const toBase36 = (num) => {
+export const toBase36 = (num) =>
   // noinspection JSCheckFunctionSignatures
-  return num.toString(36);
-};
+  num.toString(36);
 
 export const fromBase36 = (str) => {
   if (!str) return 0;
@@ -105,18 +103,16 @@ export const binaryInsert = (value, array, startVal, endVal) => {
   }
 };
 
-export const newCard = (cardDetails, tags, defaultStatus = 'Owned') => {
-  return {
-    tags: Array.isArray(tags) ? tags : [],
-    status: defaultStatus,
-    colors: cardDetails.color_identity,
-    cmc: cardDetails.cmc,
-    cardID: cardDetails._id,
-    type_line: cardDetails.type,
-    addedTmsp: new Date(),
-    finish: 'Non-foil',
-  };
-};
+export const newCard = (cardDetails, tags, defaultStatus = 'Owned') => ({
+  tags: Array.isArray(tags) ? tags : [],
+  status: defaultStatus,
+  colors: cardDetails.color_identity,
+  cmc: cardDetails.cmc,
+  cardID: cardDetails._id,
+  type_line: cardDetails.type,
+  addedTmsp: new Date(),
+  finish: 'Non-foil',
+});
 
 export const addCardToCube = (cube, cardDetails, tags) => {
   if (cardDetails.error) {
@@ -198,9 +194,7 @@ export const toNonNullArray = (arr) => {
   return arr;
 };
 
-export const mapNonNull = (arr, f) => {
-  return toNonNullArray(arr).map(f);
-};
+export const mapNonNull = (arr, f) => toNonNullArray(arr).map(f);
 
 export const flatten = (arr, n) => {
   if (n <= 1) return toNonNullArray(arr);
@@ -222,6 +216,13 @@ export const turnToTree = (arr) => {
   return res;
 };
 
-export const isAdmin = (user) => {
-  return user && user.roles.includes('Admin');
-};
+/** @param {string} str */
+export const escapeXML = (str) =>
+  str
+    .replaceAll('&', '&amp')
+    .replaceAll('"', '&quot')
+    .replaceAll("'", '&apos')
+    .replaceAll('<', '&lt')
+    .replaceAll('>', '&gt');
+
+export const isAdmin = (user) => user && user.roles.includes('Admin');
