@@ -27,4 +27,5 @@ export function flatten(arr: any, n: any): any[];
 export function shuffle(array: any, seed: any): any;
 export function turnToTree(arr: any): {};
 export function isAdmin(user: any): any;
+export function escapeXML(str: string): string;
 //# sourceMappingURL=util.d.ts.map

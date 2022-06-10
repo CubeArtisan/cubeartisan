@@ -216,4 +216,13 @@ export const turnToTree = (arr) => {
   return res;
 };
 
-export const isAdmin = (user) => user && user.roles.includes('Admin');
+export const isAdmin = (user) => user?.roles?.includes?.('Admin');
+
+/** @param {string} str */
+export const escapeXML = (str) =>
+  str
+    .replaceAll('&', '&amp')
+    .replaceAll('"', '&quot')
+    .replaceAll("'", '&apos')
+    .replaceAll('<', '&lt')
+    .replaceAll('>', '&gt');

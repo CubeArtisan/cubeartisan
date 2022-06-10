@@ -297,6 +297,13 @@ This release is composed of porting over bug fixes for bugs we carried over from
 
 - Resize cube functionality now respects the given filter.
 
+#### v1.4.4.9
+
+##### Bug Fixes
+
+- Fix cockatrice export for card names with special characters.
+- Show hybrid color category cards when sort is Color Category Full.
+
 ## v2.0.0
 
 This release is largely about quality of life improvements and migrating to the new design library.
