@@ -95,7 +95,7 @@ const PasteBulkModal = ({ isOpen, toggle }) => {
           />
         </DialogContent>
         <DialogActions>
-          <Button color="success" type="submit" onClick={toggle}>
+          <Button color="success" type="submit">
             Upload
           </Button>
           <Button color="secondary" onClick={toggle}>
@@ -133,7 +133,7 @@ const UploadBulkModal = ({ isOpen, toggle }) => {
           </label>
         </DialogContent>
         <DialogActions>
-          <Button color="success" type="submit" onClick={toggle}>
+          <Button color="success" type="submit">
             Upload
           </Button>
           <Button color="secondary" onClick={toggle}>

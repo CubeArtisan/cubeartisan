@@ -80,8 +80,8 @@ export function generatePack(cubeId: any, carddb: any, seed: any): Promise<{
     seed: any;
     pack: {
         details: any;
-        addedTmsp: Date | null;
-        cardID: string | null;
+        addedTmsp: Date;
+        cardID: string;
         cmc: number | null;
         colorCategory: string | null;
         colors: import("../../client/proptypes/CardDetailsPropType.js").Color[] | null;
@@ -89,9 +89,9 @@ export function generatePack(cubeId: any, carddb: any, seed: any): Promise<{
         imgBackUrl: string | null;
         imgUrl: string | null;
         index?: number | undefined;
-        isUnlimited: boolean;
+        isUnlimited?: boolean | undefined;
         name: string | null;
-        notes: string | null;
+        notes: string;
         rarity: string | null;
         status: import("../../client/proptypes/CardPropType.js").CardStatus;
         tags: string[];

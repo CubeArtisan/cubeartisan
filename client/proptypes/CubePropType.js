@@ -71,7 +71,7 @@ import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
  * @property {string?} owner_name
  * @property {string?} date_updated
  * @property {string?} updated_string
- * @property {string[]?} default_sorts
+ * @property {[string, string, string, string]?} default_sorts
  * @property {boolean?} default_show_unsorted
  * @property {number} card_count
  * @property {DraftFormat[]} draft_formats

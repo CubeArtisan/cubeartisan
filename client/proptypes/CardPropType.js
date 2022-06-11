@@ -32,8 +32,8 @@ import CardDetailsPropType from '@cubeartisan/client/proptypes/CardDetailsPropTy
 
 /**
  * @typedef Card
- * @property {Date?} addedTmsp
- * @property {string?} cardID
+ * @property {Date} addedTmsp
+ * @property {string} cardID
  * @property {number?} cmc
  * @property {string?} colorCategory
  * @property {Color[]?} colors
@@ -41,9 +41,9 @@ import CardDetailsPropType from '@cubeartisan/client/proptypes/CardDetailsPropTy
  * @property {string?} imgBackUrl
  * @property {string?} imgUrl
  * @property {number} [index]
- * @property {boolean} isUnlimited
+ * @property {boolean} [isUnlimited]
  * @property {string?} name
- * @property {string?} notes
+ * @property {string} notes
  * @property {string?} rarity
  * @property {CardStatus} status
  * @property {string[]} tags

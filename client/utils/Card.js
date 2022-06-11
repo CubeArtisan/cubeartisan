@@ -222,13 +222,14 @@ const COLOR_CATEGORY_LOOKUP = {
   G: 'Green',
   M: 'Gold',
   C: 'Colorless',
+  L: 'Lands',
 };
 
 /**
  * @type {CardNullPassthrough<string>}
  */
 export const cardColorCategory = (card) => {
-  const possibleAbbrev = card?.colorCategory ?? card?.details?.color_category ?? '';
+  const possibleAbbrev = card?.colorCategory ?? card?.details?.colorcategory ?? '';
   return COLOR_CATEGORY_LOOKUP[possibleAbbrev.toUpperCase()] ?? possibleAbbrev;
 };
 
@@ -541,8 +542,8 @@ export const makeDefaultCardDetails = () => ({
  * @returns {Card} card
  */
 export const detailsToCard = (details) => ({
-  addedTmsp: null,
-  cardID: null,
+  addedTmsp: new Date(),
+  cardID: '',
   cmc: null,
   colorCategory: null,
   colors: null,
@@ -551,7 +552,7 @@ export const detailsToCard = (details) => ({
   imgUrl: null,
   isUnlimited: false,
   name: null,
-  notes: null,
+  notes: '',
   rarity: null,
   status: 'Not Owned',
   tags: [],

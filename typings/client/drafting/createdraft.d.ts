@@ -10,7 +10,9 @@ export function weightedAverage(arr: [number, number][]): number;
 export function weightedMedian(arr: [number, number][]): number;
 export function weightedPercentiles(arr: [number, number][], num: number): number[];
 export function weightedStdDev(arr: [number, number][], avg?: number | null | undefined): number;
-export function calculateAsfans(cube: Cube, draftFormat: number): any;
+export function calculateAsfans(cube: Cube, draftFormat: number): {
+    [k: string]: number;
+};
 export type Filter = import('@cubeartisan/client/filtering/FilterCards.js').Filter;
 export type Card = import('@cubeartisan/client/proptypes/CardPropType.js').Card;
 export type DraftFormat = import('@cubeartisan/client/proptypes/CubePropType.js').DraftFormat;

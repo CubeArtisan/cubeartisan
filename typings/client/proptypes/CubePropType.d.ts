@@ -40,7 +40,7 @@ export type Cube = {
     owner_name: string | null;
     date_updated: string | null;
     updated_string: string | null;
-    default_sorts: string[] | null;
+    default_sorts: [string, string, string, string] | null;
     default_show_unsorted: boolean | null;
     card_count: number;
     draft_formats: DraftFormat[];

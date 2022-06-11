@@ -4,8 +4,8 @@ export type CardDetails = import('@cubeartisan/client/proptypes/CardDetailsPropT
 export type CardFinish = 'Foil' | 'Non-foil';
 export type CardStatus = 'Not Owned' | 'Ordered' | 'Owned' | 'Premium Owned' | 'Proxied';
 export type Card = {
-    addedTmsp: Date | null;
-    cardID: string | null;
+    addedTmsp: Date;
+    cardID: string;
     cmc: number | null;
     colorCategory: string | null;
     colors: Color[] | null;
@@ -13,9 +13,9 @@ export type Card = {
     imgBackUrl: string | null;
     imgUrl: string | null;
     index?: number | undefined;
-    isUnlimited: boolean;
+    isUnlimited?: boolean | undefined;
     name: string | null;
-    notes: string | null;
+    notes: string;
     rarity: string | null;
     status: CardStatus;
     tags: string[];

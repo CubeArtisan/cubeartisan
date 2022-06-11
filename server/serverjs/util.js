@@ -104,14 +104,19 @@ export const binaryInsert = (value, array, startVal, endVal) => {
 };
 
 export const newCard = (cardDetails, tags, defaultStatus = 'Owned') => ({
-  tags: Array.isArray(tags) ? tags : [],
-  status: defaultStatus,
-  colors: cardDetails.color_identity,
-  cmc: cardDetails.cmc,
-  cardID: cardDetails._id,
-  type_line: cardDetails.type,
   addedTmsp: new Date(),
+  cardID: cardDetails._id,
+  cmc: null,
+  colorCategory: null,
+  colors: null,
   finish: 'Non-foil',
+  imgBackUrl: null,
+  imgUrl: null,
+  name: null,
+  notes: '',
+  status: defaultStatus,
+  tags: Array.isArray(tags) ? tags : [],
+  type_line: null,
 });
 
 export const addCardToCube = (cube, cardDetails, tags) => {
