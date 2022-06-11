@@ -12,7 +12,7 @@ const useTimer = (onTimeout, initialSeconds) => {
       setIsActive(false);
       onTimeout();
     }
-    return null;
+    return () => {};
   }, [seconds, isActive, onTimeout]);
   const externalSetSeconds = useCallback((newSeconds) => {
     setSeconds(newSeconds);

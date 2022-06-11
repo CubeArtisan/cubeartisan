@@ -807,10 +807,7 @@ export const startGridDraft = [
 
 const startDraftHandler = async (req, res) => {
   try {
-    const cube = await Cube.findOne(
-      buildIdQuery(req.params.id),
-      '_id name draft_formats cards basics useCubeElo',
-    ).lean();
+    const cube = await Cube.findOne(buildIdQuery(req.params.id), '_id name draft_formats cards basics').lean();
     if (!cube) {
       req.flash('danger', 'Cube not found');
       return res.redirect('/404');
@@ -826,20 +823,9 @@ const startDraftHandler = async (req, res) => {
       return res.redirect(`/cube/${encodeURIComponent(req.params.id)}/playtest`);
     }
 
-    let eloOverrideDict = {};
-    if (cube.useCubeElo) {
-      const analytic = await CubeAnalytic.findOne({ cube: cube._id });
-      if (analytic) {
-        eloOverrideDict = Object.fromEntries(analytic.cards.map((c) => [c.cardName, c.elo]));
-      }
-    }
-
     // insert card details everywhere that needs them
     for (const card of cube.cards) {
       card.details = carddb.cardFromId(card.cardID);
-      if (eloOverrideDict[card.details.name_lower]) {
-        card.details.elo = eloOverrideDict[card.details.name_lower];
-      }
     }
     // setup draft
     const format = getDraftFormat(params, cube);
@@ -847,17 +833,7 @@ const startDraftHandler = async (req, res) => {
     let draft = new Draft();
     let populated = {};
     try {
-      populated = createDraft(
-        format,
-        cube.cards,
-        params.seats,
-        req.user
-          ? req.user
-          : {
-              username: 'Anonymous',
-            },
-        req.body.botsOnly,
-      );
+      populated = createDraft(format, cube.cards, params.seats, req?.user?._id ?? null, req.body.botsOnly);
     } catch (err) {
       // This is a 4XX error, not a 5XX error
       req.flash('danger', err.message);

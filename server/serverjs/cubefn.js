@@ -247,7 +247,7 @@ export const CSVtoCards = (csvString, carddb) => {
         name,
         cmc: cmc ?? null,
         type_line: type ?? null,
-        colors: color ?? null,
+        colors: color?.split?.('') ?? null,
         addedTmsp: new Date(),
         collector_number: collectorNumber?.toUpperCase?.() ?? null,
         status: status ?? 'Not Owned',

@@ -21,6 +21,20 @@ import PropTypes from 'prop-types';
 import ConfirmDeleteModal from '@cubeartisan/client/components/modals/ConfirmDeleteModal.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 
+/**
+ * @typedef {import('@cubeartisan/client/proptypes/DeckPropType.js').Deck} Deck
+ */
+
+/**
+ * @typedef DeckDeleteModalProps
+ * @property {string} deckID
+ * @property {string?} [cubeID]
+ * @property {string?} [nextURL]
+ * @property {boolean} isOpen
+ * @property {() => void} toggle
+ */
+
+/** @type {React.FC<DeckDeleteModalProps>} */
 const DeckDeleteModal = ({ deckID, cubeID, nextURL, isOpen, toggle }) => {
   const confirm = async () => {
     const response = await csrfFetch(`/deck/${deckID}`, {
@@ -32,8 +46,10 @@ const DeckDeleteModal = ({ deckID, cubeID, nextURL, isOpen, toggle }) => {
       console.error(response);
     } else if (nextURL) {
       window.location.href = nextURL;
-    } else {
+    } else if (cubeID) {
       window.location.href = `/cube/${cubeID}/playtest`;
+    } else {
+      window.location.href = '/';
     }
   };
 
@@ -49,11 +65,12 @@ const DeckDeleteModal = ({ deckID, cubeID, nextURL, isOpen, toggle }) => {
 DeckDeleteModal.propTypes = {
   toggle: PropTypes.func.isRequired,
   deckID: PropTypes.string.isRequired,
-  cubeID: PropTypes.string.isRequired,
+  cubeID: PropTypes.string,
   isOpen: PropTypes.bool.isRequired,
   nextURL: PropTypes.string,
 };
 DeckDeleteModal.defaultProps = {
   nextURL: null,
+  cubeID: null,
 };
 export default DeckDeleteModal;

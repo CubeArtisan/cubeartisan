@@ -21,12 +21,10 @@ import { useCallback, useState } from 'react';
 import { Card, CardBody, CardHeader, CardTitle, Col, Row } from 'reactstrap';
 
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
-import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import DeckStacks from '@cubeartisan/client/components/DeckStacks.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import TextEntry from '@cubeartisan/client/components/inputs/TextEntry.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
-import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import DeckbuilderNavbar from '@cubeartisan/client/components/navbars/DeckbuilderNavbar.js';
 import DndProvider from '@cubeartisan/client/components/utils/DndProvider.js';
 import DraftLocation, { moveOrAddCard, removeCard } from '@cubeartisan/client/drafting/DraftLocation.js';
@@ -116,69 +114,65 @@ export const CubeDeckbuilderPage = ({ cube, initialDeck, loginCallback }) => {
   const [description, setDescription] = useState(initialDeck.seats[0].description);
 
   return (
-    <MainLayout loginCallback={loginCallback}>
-      <CubeLayout cube={cube} activeLink="playtest">
-        <DisplayContextProvider cubeID={cube._id}>
-          <DeckbuilderNavbar
-            deck={currentDeck}
-            addBasics={addBasics}
-            name={name}
-            description={description}
-            className="mb-3"
-            setDeck={setDeck}
-            setSideboard={setSideboard}
-            cards={initialDeck.cards}
-          />
-          <DynamicFlash />
-          <Row className="mb-3">
-            <Col>
-              <Card>
-                <ErrorBoundary>
-                  <DndProvider>
-                    <DeckStacks
-                      cards={deck}
-                      title="Deck"
-                      subtitle={makeSubtitle(deck.flat().flat())}
-                      locationType={DraftLocation.DECK}
-                      canDrop={canDrop}
-                      onMoveCard={handleMoveCard}
-                      onClickCard={handleClickCard}
-                    />
-                    <DeckStacks
-                      className="border-top"
-                      cards={sideboard}
-                      title="Sideboard"
-                      locationType={DraftLocation.SIDEBOARD}
-                      canDrop={canDrop}
-                      onMoveCard={handleMoveCard}
-                      onClickCard={handleClickCard}
-                    />
-                  </DndProvider>
-                </ErrorBoundary>
-                <CardHeader className="border-top">
-                  <CardTitle className="mb-0 d-flex flex-row align-items-end">
-                    <h4 className="mb-0 mr-auto">About</h4>
-                  </CardTitle>
-                </CardHeader>
-                <CardBody>
-                  <h6>Deck Name</h6>
-                  <input
-                    className="form-control"
-                    name="name"
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                  <br />
-                  <h6>Description</h6>
-                  <TextEntry value={description} onChange={(e) => setDescription(e.target.value)} />
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
-        </DisplayContextProvider>
-      </CubeLayout>
-    </MainLayout>
+    <CubeLayout loginCallback={loginCallback} cube={cube} activeLink="playtest">
+      <DeckbuilderNavbar
+        deck={currentDeck}
+        addBasics={addBasics}
+        name={name}
+        description={description}
+        className="mb-3"
+        setDeck={setDeck}
+        setSideboard={setSideboard}
+        cards={initialDeck.cards}
+      />
+      <DynamicFlash />
+      <Row className="mb-3">
+        <Col>
+          <Card>
+            <ErrorBoundary>
+              <DndProvider>
+                <DeckStacks
+                  cards={deck}
+                  title="Deck"
+                  subtitle={makeSubtitle(deck.flat().flat())}
+                  locationType={DraftLocation.DECK}
+                  canDrop={canDrop}
+                  onMoveCard={handleMoveCard}
+                  onClickCard={handleClickCard}
+                />
+                <DeckStacks
+                  className="border-top"
+                  cards={sideboard}
+                  title="Sideboard"
+                  locationType={DraftLocation.SIDEBOARD}
+                  canDrop={canDrop}
+                  onMoveCard={handleMoveCard}
+                  onClickCard={handleClickCard}
+                />
+              </DndProvider>
+            </ErrorBoundary>
+            <CardHeader className="border-top">
+              <CardTitle className="mb-0 d-flex flex-row align-items-end">
+                <h4 className="mb-0 mr-auto">About</h4>
+              </CardTitle>
+            </CardHeader>
+            <CardBody>
+              <h6>Deck Name</h6>
+              <input
+                className="form-control"
+                name="name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <br />
+              <h6>Description</h6>
+              <TextEntry value={description} onChange={(e) => setDescription(e.target.value)} />
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+    </CubeLayout>
   );
 };
 CubeDeckbuilderPage.propTypes = {

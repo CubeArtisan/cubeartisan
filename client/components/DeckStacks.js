@@ -35,7 +35,7 @@ const DeckStacks = ({
   cardsInRow,
   ...props
 }) => (
-  <Box sx={{ height: '100%' }} {...props}>
+  <Box sx={{ height: '100%', minHeight: 320 }} {...props}>
     <Stack direction="row" sx={{ backgroundColor: 'background.darker' }} justifyContent="center" width="100%">
       <Typography variant="h4">{title}</Typography>
       <Typography variant="subtitle1" marginLeft="auto">

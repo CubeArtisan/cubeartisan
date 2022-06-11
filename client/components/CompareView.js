@@ -217,5 +217,4 @@ CompareView.propTypes = {
   onlyB: PropTypes.arrayOf(CardPropType.isRequired).isRequired,
   cards: PropTypes.arrayOf(CardPropType.isRequired).isRequired,
 };
-
 export default CompareView;

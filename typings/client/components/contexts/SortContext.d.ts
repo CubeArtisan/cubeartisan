@@ -8,7 +8,7 @@ export type SortValues = {
     showOther: boolean;
 };
 export type SortContextValues = Required<SortValues> & {
-    changeSort: (newSort: SortValues) => void;
+    changeSort: (newSort: Partial<SortValues>) => void;
 };
 export type SortContextProviderProps = {
     defaultSorts?: [string, string, string, string] | null | undefined;

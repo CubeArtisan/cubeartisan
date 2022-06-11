@@ -61,7 +61,7 @@ import CardPricesPropType from '@cubeartisan/client/proptypes/CardPricePropType.
  * @property {string} language
  * @property {number?} mtgo_id
  * @property {string} layout
- * @property {string?} tcgplayer_id
+ * @property {number?} tcgplayer_id
  * @property {string?} loyalty
  * @property {string?} power
  * @property {string?} toughness
@@ -77,7 +77,7 @@ import CardPricesPropType from '@cubeartisan/client/proptypes/CardPricePropType.
  */
 
 const CardDetailsPropType = PropTypes.shape({
-  color_identity: PropTypes.string.isRequired,
+  color_identity: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   set: PropTypes.string.isRequired,
   set_name: PropTypes.string.isRequired,
   foil: PropTypes.bool.isRequired,
@@ -102,14 +102,14 @@ const CardDetailsPropType = PropTypes.shape({
   oracle_id: PropTypes.string.isRequired,
   cmc: PropTypes.number.isRequired,
   legalities: CardLegalitiesPropType.isRequired,
-  parsed_cast: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  parsed_cost: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   colors: PropTypes.arrayOf(PropTypes.oneOf(Array.from('WUBRG')).isRequired),
   type: PropTypes.string,
   full_art: PropTypes.bool.isRequired,
   language: PropTypes.string.isRequired,
   mtgo_id: PropTypes.number,
   layout: PropTypes.string.isRequired,
-  tcgplayer_id: PropTypes.string,
+  tcgplayer_id: PropTypes.number,
   loyalty: PropTypes.string,
   power: PropTypes.string,
   toughness: PropTypes.string,
@@ -117,7 +117,7 @@ const CardDetailsPropType = PropTypes.shape({
   image_normal: PropTypes.string,
   art_crop: PropTypes.string,
   image_flip: PropTypes.string,
-  color_category: PropTypes.string.isRequired,
+  colorcategory: PropTypes.string.isRequired,
   tokens: PropTypes.arrayOf(PropTypes.string.isRequired),
   popularity: PropTypes.number.isRequired,
   cubeCount: PropTypes.number.isRequired,

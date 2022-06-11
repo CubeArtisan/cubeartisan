@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of CubeArtisan.
  *
  * CubeArtisan is free software: you can redistribute it and/or modify
@@ -26,7 +26,6 @@ import UserContext from '@cubeartisan/client/components/contexts/UserContext.js'
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import FilterCollapse from '@cubeartisan/client/components/FilterCollapse.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
-import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 import useQueryParam from '@cubeartisan/client/hooks/useQueryParam.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
@@ -295,82 +294,80 @@ export const CubeAnalyticsPage = ({
   }));
 
   return (
-    <MainLayout loginCallback={loginCallback}>
-      <CubeLayout cube={cube} activeLink="analysis">
-        <TagContextProvider
-          cubeID={cube._id}
-          defaultTagColors={cube.tag_colors}
-          defaultShowTagColors={defaultShowTagColors}
-          defaultTags={defaultTags}
-          userID={userID}
-        >
-          <DynamicFlash />
-          {cube.cards.length === 0 ? (
-            <Typography variant="h5">This cube doesn't have any cards. Add cards to see analytics.</Typography>
-          ) : (
-            <Grid container sx={{ paddingY: 1 }}>
-              <Grid item xs={12} lg={2} sx={{ paddingRight: 2, paddingTop: 0 }}>
-                <Box
-                  sx={{
-                    backgroundColor: 'background.hover',
-                    flexDirection: 'column',
-                    display: 'flex',
-                    height: '100%',
-                  }}
-                >
-                  {analytics.map((analytic, index) => (
-                    <Button
-                      key={analytic.name}
-                      variant={activeTab === index ? 'outlined' : 'text'}
-                      onClick={() => setActiveTab(index)}
-                      sx={{ marginY: 1 }}
-                    >
-                      {analytic.name}
-                    </Button>
-                  ))}
-                </Box>
-              </Grid>
-              <Grid xs={12} lg={10}>
-                <Card>
-                  <CardContent>
-                    <Button onClick={toggleFilterCollapse}>
-                      <Typography variant="h5">{filterCollapseOpen ? 'Hide Filter' : 'Show Filter'}</Typography>
-                    </Button>
-                    <FilterCollapse
-                      numShown={cards.length}
-                      numCards={cube.cards.length}
-                      noCount={false}
-                      defaultFilterText={defaultFilterText}
-                      filter={filter}
-                      setFilter={setFilter}
-                      isOpen={filterCollapseOpen}
-                    />
-                  </CardContent>
-                </Card>
-                <Card sx={{ marginTop: 2 }}>
-                  <CardContent>
-                    <ErrorBoundary>
-                      <Suspense>
-                        {analytics[activeTab].component({
-                          collection: cards,
-                          cube,
-                          toAdd: adds,
-                          toCut: cuts,
-                          loading,
-                          characteristics,
-                          defaultFormatId,
-                          setAsfans,
-                        })}
-                      </Suspense>
-                    </ErrorBoundary>
-                  </CardContent>
-                </Card>
-              </Grid>
+    <CubeLayout cube={cube} activeLink="analysis" loginCallback={loginCallback}>
+      <TagContextProvider
+        cubeID={cube._id}
+        defaultTagColors={cube.tag_colors}
+        defaultShowTagColors={defaultShowTagColors}
+        defaultTags={defaultTags}
+        userID={userID}
+      >
+        <DynamicFlash />
+        {cube.cards.length === 0 ? (
+          <Typography variant="h5">This cube doesn't have any cards. Add cards to see analytics.</Typography>
+        ) : (
+          <Grid container sx={{ paddingY: 1 }}>
+            <Grid item xs={12} lg={2} sx={{ paddingRight: 2, paddingTop: 0 }}>
+              <Box
+                sx={{
+                  backgroundColor: 'background.hover',
+                  flexDirection: 'column',
+                  display: 'flex',
+                  height: '100%',
+                }}
+              >
+                {analytics.map((analytic, index) => (
+                  <Button
+                    key={analytic.name}
+                    variant={activeTab === index ? 'outlined' : 'text'}
+                    onClick={() => setActiveTab(index)}
+                    sx={{ marginY: 1 }}
+                  >
+                    {analytic.name}
+                  </Button>
+                ))}
+              </Box>
             </Grid>
-          )}
-        </TagContextProvider>
-      </CubeLayout>
-    </MainLayout>
+            <Grid xs={12} lg={10}>
+              <Card>
+                <CardContent>
+                  <Button onClick={toggleFilterCollapse}>
+                    <Typography variant="h5">{filterCollapseOpen ? 'Hide Filter' : 'Show Filter'}</Typography>
+                  </Button>
+                  <FilterCollapse
+                    numShown={cards.length}
+                    numCards={cube.cards.length}
+                    noCount={false}
+                    defaultFilterText={defaultFilterText}
+                    filter={filter}
+                    setFilter={setFilter}
+                    isOpen={filterCollapseOpen}
+                  />
+                </CardContent>
+              </Card>
+              <Card sx={{ marginTop: 2 }}>
+                <CardContent>
+                  <ErrorBoundary>
+                    <Suspense>
+                      {analytics[activeTab].component({
+                        collection: cards,
+                        cube,
+                        toAdd: adds,
+                        toCut: cuts,
+                        loading,
+                        characteristics,
+                        defaultFormatId,
+                        setAsfans,
+                      })}
+                    </Suspense>
+                  </ErrorBoundary>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+        )}
+      </TagContextProvider>
+    </CubeLayout>
   );
 };
 CubeAnalyticsPage.propTypes = {

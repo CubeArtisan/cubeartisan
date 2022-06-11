@@ -34,7 +34,7 @@ import { io } from 'socket.io-client';
 
 import CardHeader from '@cubeartisan/client/components/CardHeader.js';
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
-import DisplayContext, { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
+import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
 import DeckStacks from '@cubeartisan/client/components/DeckStacks.js';
 import { DraftbotBreakdownTable } from '@cubeartisan/client/components/DraftbotBreakdown.js';
@@ -42,7 +42,6 @@ import DraggableCard from '@cubeartisan/client/components/DraggableCard.js';
 import CustomImageToggler from '@cubeartisan/client/components/inputs/CustomImageToggler.js';
 import SetCardsInRow from '@cubeartisan/client/components/inputs/SetCardsInRow.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
-import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import TextBadge from '@cubeartisan/client/components/TextBadge.js';
 import DndProvider from '@cubeartisan/client/components/utils/DndProvider.js';
 import DraftLocation from '@cubeartisan/client/drafting/DraftLocation.js';
@@ -136,7 +135,6 @@ const Pack = ({
                 canDrop={canDrop}
                 onMoveCard={picking === null ? onMoveCard : undefined}
                 onClick={picking === null ? onClickCard : undefined}
-                className={picking === index ? 'transparent' : undefined}
               />
             </Grid>
           ))}
@@ -228,7 +226,6 @@ const CubeDraftPlayerUI = ({
 
   const handleMoveCard = useCallback(
     async (source, target) => {
-      console.log(source.type, target.type);
       if (source.equals(target)) return;
       if (source.type === DraftLocation.PACK) {
         if (target.type === DraftLocation.PICKS) {
@@ -438,15 +435,16 @@ export const CubeDraftPage = ({ cube, draftid, loginCallback }) => {
     socket.current.on('emptySeats', (newEmptySeats) => {
       setEmptySeats(newEmptySeats);
     });
-    return () => socket?.current?.disconnect?.();
+    return () => {
+      socket?.current?.disconnect?.();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const { action, drafted, sideboard, seatNum, doneDrafting, cardsInPack } = useMemo(
+  const { action, drafted, seatNum, doneDrafting, cardsInPack } = useMemo(
     () => ({
       action: drafterState.step.action,
       drafted: drafterState.drafted,
-      sideboard: drafterState.sideboard,
       seatNum: drafterState.seatNum,
       cardsInPack: drafterState.cardsInPack,
       doneDrafting: drafterState.packNum >= drafterState.numPacks || drafterState.step.action === 'done',
@@ -507,25 +505,20 @@ export const CubeDraftPage = ({ cube, draftid, loginCallback }) => {
   }, []);
 
   return (
-    <MainLayout loginCallback={loginCallback}>
-      <CubeLayout cube={cube} activeLink="playtest">
-        <DisplayContextProvider cubeID={cube._id}>
-          <CubeDraftPlayerUI
-            emptySeats={emptySeats}
-            picking={picking}
-            drafterState={drafterState}
-            sideboard={sideboard}
-            drafted={drafted}
-            takeCard={takeCard}
-            moveMainboardCard={moveMainboardCard}
-            moveSideboardCard={moveSideboardCard}
-            sideboardCard={sideboardCard}
-            mainboardCard={mainboardCard}
-            seconds={seconds}
-          />
-        </DisplayContextProvider>
-      </CubeLayout>
-    </MainLayout>
+    <CubeLayout loginCallback={loginCallback} cube={cube} activeLink="playtest">
+      <CubeDraftPlayerUI
+        emptySeats={emptySeats}
+        picking={picking}
+        drafterState={drafterState}
+        drafted={drafted}
+        takeCard={takeCard}
+        moveMainboardCard={moveMainboardCard}
+        moveSideboardCard={moveSideboardCard}
+        sideboardCard={sideboardCard}
+        mainboardCard={mainboardCard}
+        seconds={seconds}
+      />
+    </CubeLayout>
   );
 };
 CubeDraftPage.propTypes = {
@@ -536,5 +529,4 @@ CubeDraftPage.propTypes = {
 CubeDraftPage.defaultProps = {
   loginCallback: '/',
 };
-
 export default RenderToRoot(CubeDraftPage);

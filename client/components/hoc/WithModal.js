@@ -26,16 +26,18 @@ import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
  * @typedef {{ onClick: (event: any) => void }} Clickable
  * @typedef {{ isOpen: boolean, toggle: () => void }} ModalLike
  */
+
 /**
  * @template TagProps
- * @template  ModalProps
+ * @template {ModalLike}  ModalProps
  * @param {React.ComponentType<TagProps & Clickable>} Tag
  * @param {React.ComponentType<ModalProps & ModalLike>} ModalTag
  */
 const withModal = (Tag, ModalTag) => {
   /**
-   * @typedef {TagProps & { modalProps: ModalProps }} WithModalProps
+   * @typedef {TagProps & { modalProps: Omit<ModalProps, 'isOpen'|'toggle'> }} WithModalProps
    */
+
   /**
    * @type {React.ForwardRefRenderFunction<any, WithModalProps>}
    */
@@ -47,6 +49,7 @@ const withModal = (Tag, ModalTag) => {
         {/* @ts-ignore */}
         <Tag {...props} ref={ref} onClick={toggleOpen} />
         <Suspense fallback={null}>
+          {/* @ts-ignore */}
           <ModalTag isOpen={isOpen} toggle={toggleOpen} {...modalProps} />
         </Suspense>
       </>

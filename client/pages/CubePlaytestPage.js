@@ -47,13 +47,12 @@ import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import CSRFForm from '@cubeartisan/client/components/inputs/CSRFForm.js';
 import LabeledSelect from '@cubeartisan/client/components/inputs/LabeledSelect.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
-import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 import { allBotsDraft } from '@cubeartisan/client/drafting/draftutil.js';
 import useAlerts, { Alerts } from '@cubeartisan/client/hooks/UseAlerts.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
@@ -61,6 +60,14 @@ import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 const DeckPreview = lazy(() => import('@cubeartisan/client/components/DeckPreview.js'));
 const CustomDraftFormatModal = lazy(() => import('@cubeartisan/client/components/modals/CustomDraftFormatModal.js'));
 
+/**
+ * @typedef {import('@cubeartisan/client/proptypes/DeckPropType.js').Deck} Deck
+ */
+
+/**
+ * @param {number} lo
+ * @param {number} hi
+ */
 const range = (lo, hi) => Array.from(Array(hi - lo).keys(), (n) => n + lo);
 
 const UploadDecklistModal = ({ isOpen, toggle }) => {
@@ -101,14 +108,20 @@ UploadDecklistModal.propTypes = {
 };
 const UploadDecklistModalLink = withModal(Button, UploadDecklistModal);
 
+/**
+ * @param {boolean} botsOnly
+ * @param {string} cubeID
+ * @returns {[React.FormEventHandler<HTMLFormElement>, React.MutableRefObject<HTMLFormElement|null>, boolean]}
+ */
 const useBotsOnlyCallback = (botsOnly, cubeID) => {
-  const formRef = useRef();
+  const formRef = useRef(/** @type {HTMLFormElement|null} */ (null)); // eslint-disable-line prettier/prettier
   const [loading, setLoading] = useState(false);
   const { mtgmlServer } = useContext(SiteCustomizationContext);
+  /** @type {React.FormEventHandler<HTMLFormElement>} */
   const submitForm = useCallback(
-    async (e) => {
+    (async (e) => { // eslint-disable-line prettier/prettier
       setLoading(true);
-      if (botsOnly) {
+      if (botsOnly && formRef.current) {
         e.preventDefault();
         const body = new FormData(formRef.current);
         const response = await csrfFetch(`/cube/${cubeID}/playtest/draft`, {
@@ -134,7 +147,7 @@ const useBotsOnlyCallback = (botsOnly, cubeID) => {
         console.debug(json2.url);
         window.location.href = json2.url;
       }
-    },
+    }), // eslint-disable-line prettier/prettier
     [botsOnly, cubeID, formRef, mtgmlServer],
   );
 
@@ -169,7 +182,7 @@ const CustomDraftCard = ({ format, onEditFormat, onDeleteFormat, onSetDefaultFor
             baseId={`seats-${index}`}
             value={seats}
             setValue={setSeats}
-            values={range(2, 17)}
+            values={range(2, 17).map((x) => x.toString())}
             label="Total Seats:"
             name="seats"
           />
@@ -177,7 +190,7 @@ const CustomDraftCard = ({ format, onEditFormat, onDeleteFormat, onSetDefaultFor
             baseId={`human-seats-${index}`}
             value={humanSeats}
             setValue={setHumanSeats}
-            values={range(1, seats)}
+            values={range(1, parseInt(seats, 10)).map((x) => x.toString())}
             label=" Seats:"
             name="humanSeats"
           />
@@ -185,7 +198,7 @@ const CustomDraftCard = ({ format, onEditFormat, onDeleteFormat, onSetDefaultFor
             baseId={`timeout-${index}`}
             value={timeout}
             setValue={setTimeout}
-            values={range(0, 31)}
+            values={range(0, 31).map((x) => x.toString())}
             label="Timer: Seconds Per Card In Pack (Use 0 to disable timer)."
             name="timeout"
           />
@@ -266,7 +279,7 @@ const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
             baseId="packs-standard"
             value={packs}
             setValue={setPacks}
-            values={range(1, 16)}
+            values={range(1, 16).map((x) => x.toString())}
             label="Number of Packs:"
             name="packs"
           />
@@ -274,7 +287,7 @@ const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
             baseId="cards-standard"
             value={cards}
             setValue={setCards}
-            values={range(1, 25)}
+            values={range(1, 25).map((x) => x.toString())}
             label="Cards per Pack:"
             name="cards"
           />
@@ -282,7 +295,7 @@ const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
             baseId="seats-standard"
             value={seats}
             setValue={setSeats}
-            values={range(2, 17)}
+            values={range(2, 17).map((x) => x.toString())}
             label="Total Seats:"
             name="seats"
           />
@@ -290,7 +303,7 @@ const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
             baseId="human-seats-standard"
             value={humanSeats}
             setValue={setHumanSeats}
-            values={range(1, seats)}
+            values={range(1, parseInt(seats, 10)).map((x) => x.toString())}
             label=" Seats:"
             name="humanSeats"
           />
@@ -298,7 +311,7 @@ const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
             baseId="timeout-standard"
             value={timeout}
             setValue={setTimeout}
-            values={range(0, 31)}
+            values={range(0, 31).map((x) => x.toString())}
             label="Timer: Seconds Per Card In Pack (Use 0 to disable timer)."
             name="timeout"
           />
@@ -351,7 +364,7 @@ const GridCard = () => {
             baseId="packs-grid"
             value={packs}
             setValue={setPacks}
-            values={range(1, 30)}
+            values={range(1, 30).map((x) => x.toString())}
             label="Number of Packs:"
             name="packs"
           />
@@ -375,6 +388,7 @@ const GridCard = () => {
   );
 };
 
+/** @type {React.FC<{ decks: Deck[] }>} */
 const DecksCard = ({ decks }) => {
   const { cubeID } = useContext(CubeContext);
   return (
@@ -394,6 +408,7 @@ const DecksCard = ({ decks }) => {
   );
 };
 DecksCard.propTypes = {
+  // @ts-ignore
   decks: PropTypes.arrayOf(DeckPropType).isRequired,
 };
 
@@ -518,81 +533,54 @@ export const CubePlaytestPage = ({ cube, decks, loginCallback }) => {
   );
 
   return (
-    <MainLayout loginCallback={loginCallback}>
-      <CubeLayout cube={cube} activeLink="playtest">
-        {user && cube.owner === user._id && (
-          <Toolbar sx={{ backgroundColor: 'background.paper', marginBottom: 1, borderRadius: '0 0 2rem 2rem' }}>
-            <Button onClick={handleCreateFormat}>Create Custom Draft</Button>
-            <UploadDecklistModalLink modalProps={{}}>Upload Decklist</UploadDecklistModalLink>
-          </Toolbar>
-        )}
-        <DynamicFlash />
-        <Alerts alerts={alerts} />
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
-            {defaultDraftFormat === -1 && (
-              <StandardDraftCard onSetDefaultFormat={handleSetDefaultFormat} defaultDraftFormat={defaultDraftFormat} />
-            )}
-            {formatsSorted.map((format) => (
-              <CustomDraftCard
-                key={format._id}
-                format={format}
-                onDeleteFormat={handleDeleteFormat}
-                onSetDefaultFormat={handleSetDefaultFormat}
-                onEditFormat={handleEditFormat}
-                defaultDraftFormat={defaultDraftFormat}
-              />
-            ))}
-            {defaultDraftFormat !== -1 && (
-              <StandardDraftCard onSetDefaultFormat={handleSetDefaultFormat} defaultDraftFormat={defaultDraftFormat} />
-            )}
-            <GridCard />
-          </Grid>
-          <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
-            {decks.length !== 0 && <DecksCard decks={decks} />}
-            <SamplePackCard />
-          </Grid>
+    <CubeLayout loginCallback={loginCallback} cube={cube} activeLink="playtest">
+      {user && cube.owner === user._id && (
+        <Toolbar sx={{ backgroundColor: 'background.paper', marginBottom: 1, borderRadius: '0 0 2rem 2rem' }}>
+          <Button onClick={handleCreateFormat}>Create Custom Draft</Button>
+          <UploadDecklistModalLink modalProps={{}}>Upload Decklist</UploadDecklistModalLink>
+        </Toolbar>
+      )}
+      <DynamicFlash />
+      <Alerts alerts={alerts} />
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
+          {defaultDraftFormat === -1 && (
+            <StandardDraftCard onSetDefaultFormat={handleSetDefaultFormat} defaultDraftFormat={defaultDraftFormat} />
+          )}
+          {formatsSorted.map((format) => (
+            <CustomDraftCard
+              key={format._id}
+              format={format}
+              onDeleteFormat={handleDeleteFormat}
+              onSetDefaultFormat={handleSetDefaultFormat}
+              onEditFormat={handleEditFormat}
+              defaultDraftFormat={defaultDraftFormat}
+            />
+          ))}
+          {defaultDraftFormat !== -1 && (
+            <StandardDraftCard onSetDefaultFormat={handleSetDefaultFormat} defaultDraftFormat={defaultDraftFormat} />
+          )}
+          <GridCard />
         </Grid>
-        <Suspense>
-          <CustomDraftFormatModal
-            isOpen={editModalOpen}
-            toggle={toggleEditModal}
-            formatIndex={editFormatIndex}
-            format={editFormat}
-            setFormat={setEditFormat}
-          />
-        </Suspense>
-      </CubeLayout>
-    </MainLayout>
+        <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
+          {decks.length !== 0 && <DecksCard decks={decks} />}
+          <SamplePackCard />
+        </Grid>
+      </Grid>
+      <Suspense>
+        <CustomDraftFormatModal
+          isOpen={editModalOpen}
+          toggle={toggleEditModal}
+          formatIndex={editFormatIndex}
+          format={editFormat}
+          setFormat={setEditFormat}
+        />
+      </Suspense>
+    </CubeLayout>
   );
 };
 CubePlaytestPage.propTypes = {
-  cube: PropTypes.shape({
-    cards: PropTypes.arrayOf(CardPropType),
-    defaultDraftFormat: PropTypes.number,
-    _id: PropTypes.string.isRequired,
-    shortID: PropTypes.string.isRequired,
-    owner: PropTypes.string.isRequired,
-    draft_formats: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string,
-        multiples: PropTypes.bool,
-        markdown: PropTypes.string.isRequired,
-        defaultSeats: PropTypes.number,
-        packs: PropTypes.arrayOf(
-          PropTypes.shape({
-            slots: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-            steps: PropTypes.arrayOf(
-              PropTypes.shape({
-                action: PropTypes.oneOf(['pass', 'pick', 'trash', 'pickrandom', 'trashrandom']),
-                amount: PropTypes.number,
-              }),
-            ),
-          }).isRequired,
-        ).isRequired,
-      }).isRequired,
-    ),
-  }).isRequired,
+  cube: CubePropType.isRequired,
   decks: PropTypes.arrayOf(DeckPropType).isRequired,
   loginCallback: PropTypes.string,
 };
