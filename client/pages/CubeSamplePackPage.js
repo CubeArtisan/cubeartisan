@@ -24,7 +24,6 @@ import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import SetCardsInRow from '@cubeartisan/client/components/inputs/SetCardsInRow.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
-import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
@@ -37,50 +36,47 @@ export const SamplePackPage = ({ seed, pack, cube, loginCallback }) => {
   const defaultNumCols = Math.ceil(pack.length / Math.floor(Math.sqrt(pack.length)));
   return (
     <DisplayContextProvider cubeID={cube._id} defaultNumCols={defaultNumCols}>
-      <MainLayout loginCallback={loginCallback}>
-        <CubeLayout cube={cube} activeLink="playtest">
-          <DynamicFlash />
-          <div className="container" />
-          <br />
-          <div className="card">
-            <div className="card-header">
-              <Row>
-                <Col md={6}>
-                  <h5 className="card-title">Sample Pack</h5>
-                </Col>
-                <Col md={6} className="text-right">
-                  <a className="btn btn-success mr-2" href={`/cube/${cube._id}/playtest/sample`}>
-                    New Pack
-                  </a>
-                  <a className="btn btn-success" href={`/cube/${cube._id}/playtest/sample/${seed}/image`}>
-                    Get Image
-                  </a>
-                </Col>
-              </Row>
-            </div>
-            <div className="card-body">
-              <SetCardsInRow />
-              <Row noGutters className="justify-content-center">
-                <Col sx={{ maxWidth: 800 }}>
-                  <Suspense>
-                    <CardGrid
-                      cardList={pack}
-                      Tag={CardImage}
-                      colProps={{}}
-                      cardProps={{ autocard: true }}
-                      className="sample"
-                    />
-                  </Suspense>
-                </Col>
-              </Row>
-            </div>
+      <CubeLayout loginCallback={loginCallback} cube={cube} activeLink="playtest">
+        <DynamicFlash />
+        <div className="container" />
+        <br />
+        <div className="card">
+          <div className="card-header">
+            <Row>
+              <Col md={6}>
+                <h5 className="card-title">Sample Pack</h5>
+              </Col>
+              <Col md={6} className="text-right">
+                <a className="btn btn-success mr-2" href={`/cube/${cube._id}/playtest/sample`}>
+                  New Pack
+                </a>
+                <a className="btn btn-success" href={`/cube/${cube._id}/playtest/sample/${seed}/image`}>
+                  Get Image
+                </a>
+              </Col>
+            </Row>
           </div>
-        </CubeLayout>
-      </MainLayout>
+          <div className="card-body">
+            <SetCardsInRow />
+            <Row noGutters className="justify-content-center">
+              <Col sx={{ maxWidth: 800 }}>
+                <Suspense>
+                  <CardGrid
+                    cardList={pack}
+                    Tag={CardImage}
+                    colProps={{}}
+                    cardProps={{ autocard: true }}
+                    className="sample"
+                  />
+                </Suspense>
+              </Col>
+            </Row>
+          </div>
+        </div>
+      </CubeLayout>
     </DisplayContextProvider>
   );
 };
-
 SamplePackPage.propTypes = {
   seed: PropTypes.string.isRequired,
   pack: PropTypes.arrayOf(CardPropType).isRequired,
@@ -90,5 +86,4 @@ SamplePackPage.propTypes = {
 SamplePackPage.defaultProps = {
   loginCallback: '/',
 };
-
 export default RenderToRoot(SamplePackPage);

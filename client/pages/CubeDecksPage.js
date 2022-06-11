@@ -23,33 +23,29 @@ import Paginate from '@cubeartisan/client/components/containers/Paginate.js';
 import DeckPreview from '@cubeartisan/client/components/DeckPreview.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
-import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
 export const CubeDecksPage = ({ cube, decks, pages, activePage, loginCallback }) => (
-  <MainLayout loginCallback={loginCallback}>
+  <CubeLayout loginCallback={loginCallback} cube={cube} activeLink="playtest">
     <DynamicFlash />
-    <CubeLayout cube={cube} activeLink="playtest">
-      <div className="my-3">
-        {pages > 1 && <Paginate count={pages} active={activePage} urlF={(i) => `/cube/${cube._id}/decks/${i}`} />}
-        <Card>
-          <CardHeader>
-            <h5 className="mb-0">All Decks</h5>
-          </CardHeader>
-          <CardBody className="p-0">
-            {decks.map((deck) => (
-              <DeckPreview key={deck._id} deck={deck} nextURL={`/cube/${cube._id}/decks/${activePage}`} />
-            ))}
-          </CardBody>
-        </Card>
-        {pages > 1 && <Paginate count={pages} active={activePage} urlF={(i) => `/cube/${cube._id}/decks/${i}`} />}
-      </div>
-    </CubeLayout>
-  </MainLayout>
+    <div className="my-3">
+      {pages > 1 && <Paginate count={pages} active={activePage} urlF={(i) => `/cube/${cube._id}/decks/${i}`} />}
+      <Card>
+        <CardHeader>
+          <h5 className="mb-0">All Decks</h5>
+        </CardHeader>
+        <CardBody className="p-0">
+          {decks.map((deck) => (
+            <DeckPreview key={deck._id} deck={deck} nextURL={`/cube/${cube._id}/decks/${activePage}`} />
+          ))}
+        </CardBody>
+      </Card>
+      {pages > 1 && <Paginate count={pages} active={activePage} urlF={(i) => `/cube/${cube._id}/decks/${i}`} />}
+    </div>
+  </CubeLayout>
 );
-
 CubeDecksPage.propTypes = {
   cube: CubePropType.isRequired,
   decks: PropTypes.arrayOf(DeckPropType).isRequired,
@@ -57,9 +53,7 @@ CubeDecksPage.propTypes = {
   activePage: PropTypes.number.isRequired,
   loginCallback: PropTypes.string,
 };
-
 CubeDecksPage.defaultProps = {
   loginCallback: '/',
 };
-
 export default RenderToRoot(CubeDecksPage);

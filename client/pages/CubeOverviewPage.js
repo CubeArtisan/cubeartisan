@@ -31,7 +31,6 @@ import UserContext from '@cubeartisan/client/components/contexts/UserContext.js'
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
-import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import TextBadge from '@cubeartisan/client/components/TextBadge.js';
 import Alert from '@cubeartisan/client/components/wrappers/Alert.js';
@@ -95,193 +94,191 @@ const CubeOverview = ({ post, priceOwned, pricePurchase, cube, followed, followe
   };
 
   return (
-    <MainLayout loginCallback={loginCallback}>
-      <CubeLayout cube={cubeState} activeLink="overview">
-        {user && cubeState.owner === user._id ? (
-          <Toolbar sx={{ backgroundColor: 'background.paper', marginBotton: 1, borderRadius: '0 0 2rem 2rem' }}>
-            <Suspense>
-              <CubeOverviewModalLink
-                modalProps={{
-                  cube: cubeState,
-                  cubeID: cubeState._id,
-                  onError: (message) => addAlert('danger', message),
-                  onCubeUpdate,
-                }}
-              >
-                Edit Overview
-              </CubeOverviewModalLink>
-            </Suspense>
-            <Suspense>
-              <CubeSettingsModalLink cube={cubeState} modalProps={{ addAlert, onCubeUpdate }}>
-                Edit Settings
-              </CubeSettingsModalLink>
-            </Suspense>
-            <Suspense>
-              <CustomizeBasicsModalLink
-                modalProps={{
-                  cube: cubeState,
-                  onError: (message) => {
-                    addAlert('danger', message);
-                  },
-                  updateBasics: (basics) => {
-                    const deepClone = JSON.parse(JSON.stringify(cubeState));
-                    deepClone.basics = basics;
-                    onCubeUpdate(deepClone);
-                  },
-                }}
-              >
-                Customize Basics
-              </CustomizeBasicsModalLink>
-            </Suspense>
-            <Suspense>
-              <DeleteCubeModalLink modalProps={{ cubeid: cubeState._id }}>Delete Cube</DeleteCubeModalLink>
-            </Suspense>
-          </Toolbar>
-        ) : (
-          <Box sx={{ marginBotton: 1 }} />
-        )}
-        <DynamicFlash />
-        {alerts.map(({ color, message }, index) => (
-          <Alert
-            color={color}
-            key={/* eslint-disable-line react/no-array-index-key */ index}
-            onClose={() => setAlerts((old) => old.filter((_, idx) => idx !== index))}
-          >
-            {message}
-          </Alert>
-        ))}
-        <Grid container sx={{ marginY: 2 }}>
-          <Grid item xs={12} md={4} sx={{ paddingX: 1 }}>
-            <LayoutContainer sx={{}}>
-              <ContainerHeader title={cubeState.name} variant="h3" />
-              <ContainerBody>
-                <Box display="flex">
-                  <Typography variant="h6" sx={{ marginBottom: 0, width: 'fit-content' }}>
-                    <Suspense>
-                      <FollowersModalLink modalProps={{ followers }}>
-                        {cubeState.users_following.length}{' '}
-                        {cubeState.users_following.length === 1 ? 'follower' : 'followers'}
-                      </FollowersModalLink>
-                    </Suspense>
-                  </Typography>
-                  <Box sx={{ marginLeft: 'auto', border: '1px solid', lineHeight: 1, display: 'flex' }}>
-                    <TextBadge name="Cube ID">
-                      <Tooltip title="Click to copy to clipboard">
-                        <Button
-                          onClick={(e) => {
-                            navigator.clipboard.writeText(getCubeId(cubeState));
-                            e.target.blur();
-                            addAlert('success', 'Cube ID copied to clipboard.');
-                          }}
-                          sx={{ borderLeft: '1px solid', borderRadius: 0, width: 'min-content', padding: 1 }}
-                        >
-                          {getCubeId(cubeState)}
+    <CubeLayout loginCallback={loginCallback} cube={cubeState} activeLink="overview">
+      {user && cubeState.owner === user._id ? (
+        <Toolbar sx={{ backgroundColor: 'background.paper', marginBotton: 1, borderRadius: '0 0 2rem 2rem' }}>
+          <Suspense>
+            <CubeOverviewModalLink
+              modalProps={{
+                cube: cubeState,
+                cubeID: cubeState._id,
+                onError: (message) => addAlert('danger', message),
+                onCubeUpdate,
+              }}
+            >
+              Edit Overview
+            </CubeOverviewModalLink>
+          </Suspense>
+          <Suspense>
+            <CubeSettingsModalLink cube={cubeState} modalProps={{ addAlert, onCubeUpdate }}>
+              Edit Settings
+            </CubeSettingsModalLink>
+          </Suspense>
+          <Suspense>
+            <CustomizeBasicsModalLink
+              modalProps={{
+                cube: cubeState,
+                onError: (message) => {
+                  addAlert('danger', message);
+                },
+                updateBasics: (basics) => {
+                  const deepClone = JSON.parse(JSON.stringify(cubeState));
+                  deepClone.basics = basics;
+                  onCubeUpdate(deepClone);
+                },
+              }}
+            >
+              Customize Basics
+            </CustomizeBasicsModalLink>
+          </Suspense>
+          <Suspense>
+            <DeleteCubeModalLink modalProps={{ cubeid: cubeState._id }}>Delete Cube</DeleteCubeModalLink>
+          </Suspense>
+        </Toolbar>
+      ) : (
+        <Box sx={{ marginBotton: 1 }} />
+      )}
+      <DynamicFlash />
+      {alerts.map(({ color, message }, index) => (
+        <Alert
+          color={color}
+          key={/* eslint-disable-line react/no-array-index-key */ index}
+          onClose={() => setAlerts((old) => old.filter((_, idx) => idx !== index))}
+        >
+          {message}
+        </Alert>
+      ))}
+      <Grid container sx={{ marginY: 2 }}>
+        <Grid item xs={12} md={4} sx={{ paddingX: 1 }}>
+          <LayoutContainer sx={{}}>
+            <ContainerHeader title={cubeState.name} variant="h3" />
+            <ContainerBody>
+              <Box display="flex">
+                <Typography variant="h6" sx={{ marginBottom: 0, width: 'fit-content' }}>
+                  <Suspense>
+                    <FollowersModalLink modalProps={{ followers }}>
+                      {cubeState.users_following.length}{' '}
+                      {cubeState.users_following.length === 1 ? 'follower' : 'followers'}
+                    </FollowersModalLink>
+                  </Suspense>
+                </Typography>
+                <Box sx={{ marginLeft: 'auto', border: '1px solid', lineHeight: 1, display: 'flex' }}>
+                  <TextBadge name="Cube ID">
+                    <Tooltip title="Click to copy to clipboard">
+                      <Button
+                        onClick={(e) => {
+                          navigator.clipboard.writeText(getCubeId(cubeState));
+                          e.target.blur();
+                          addAlert('success', 'Cube ID copied to clipboard.');
+                        }}
+                        sx={{ borderLeft: '1px solid', borderRadius: 0, width: 'min-content', padding: 1 }}
+                      >
+                        {getCubeId(cubeState)}
+                      </Button>
+                    </Tooltip>
+                  </TextBadge>
+                </Box>
+                <Suspense>
+                  <CubeIdModalLink
+                    modalProps={{ fullID: cube._id, shortID: getCubeId(cubeState), alert: addAlert }}
+                    aria-label="Show Cube IDs"
+                    className="mr-2"
+                  >
+                    <IconButton>
+                      <HelpOutline />
+                    </IconButton>
+                  </CubeIdModalLink>
+                </Suspense>
+              </Box>
+              <Box
+                alt={cubeState.image_name}
+                src={cubeState.image_uri}
+                component="img"
+                sx={{ marginX: '-16px', width: 'calc(100% + 32px)', marginTop: 0.5 }}
+              />
+              <Typography component="em" variant="caption" sx={{ marginLeft: 1 }}>
+                Art by {cubeState.image_artist}
+              </Typography>
+              {cube.type && (
+                <Typography variant="body1" sx={{ marginLeft: 1 }}>
+                  {getCubeDescription(cubeState)}
+                </Typography>
+              )}
+              <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
+                <Typography variant="subtitle2">
+                  Designed by
+                  <Link href={`/user/${cubeState.owner}`}> {cubeState.owner_name}</Link>
+                </Typography>{' '}
+                • <Link href={`/cube/${cubeState._id}/rss`}>RSS</Link>
+              </Typography>
+              {!cubeState.privatePrices && (
+                <Box sx={{ marginBottom: 1, marginX: 2, display: 'flex' }}>
+                  {Number.isFinite(priceOwned) && (
+                    <TextBadge name="Owned" sx={{ border: '1px solid', marginRight: 1 }}>
+                      <Tooltip title="TCGPlayer Market Price as owned (excluding cards marked Not Owned)">
+                        <Button disabled sx={{ borderLeft: '1px solid', borderRadius: 0 }}>
+                          ${Math.round(priceOwned).toLocaleString()}
                         </Button>
                       </Tooltip>
                     </TextBadge>
-                  </Box>
-                  <Suspense>
-                    <CubeIdModalLink
-                      modalProps={{ fullID: cube._id, shortID: getCubeId(cubeState), alert: addAlert }}
-                      aria-label="Show Cube IDs"
-                      className="mr-2"
-                    >
-                      <IconButton>
-                        <HelpOutline />
-                      </IconButton>
-                    </CubeIdModalLink>
-                  </Suspense>
+                  )}
+                  {Number.isFinite(pricePurchase) && (
+                    <TextBadge name="Buy" sx={{ border: '1px solid' }}>
+                      <Tooltip title="TCGPlayer Market Price for cheapest version of each card">
+                        <Button disabled sx={{ borderLeft: '1px solid', borderRadius: 0 }}>
+                          ${Math.round(pricePurchase).toLocaleString()}
+                        </Button>
+                      </Tooltip>
+                    </TextBadge>
+                  )}
                 </Box>
-                <Box
-                  alt={cubeState.image_name}
-                  src={cubeState.image_uri}
-                  component="img"
-                  sx={{ marginX: '-16px', width: 'calc(100% + 32px)', marginTop: 0.5 }}
-                />
-                <Typography component="em" variant="caption" sx={{ marginLeft: 1 }}>
-                  Art by {cubeState.image_artist}
-                </Typography>
-                {cube.type && (
-                  <Typography variant="body1" sx={{ marginLeft: 1 }}>
-                    {getCubeDescription(cubeState)}
-                  </Typography>
-                )}
-                <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
-                  <Typography variant="subtitle2">
-                    Designed by
-                    <Link href={`/user/${cubeState.owner}`}> {cubeState.owner_name}</Link>
-                  </Typography>{' '}
-                  • <Link href={`/cube/${cubeState._id}/rss`}>RSS</Link>
-                </Typography>
-                {!cubeState.privatePrices && (
-                  <Box sx={{ marginBottom: 1, marginX: 2, display: 'flex' }}>
-                    {Number.isFinite(priceOwned) && (
-                      <TextBadge name="Owned" sx={{ border: '1px solid', marginRight: 1 }}>
-                        <Tooltip title="TCGPlayer Market Price as owned (excluding cards marked Not Owned)">
-                          <Button disabled sx={{ borderLeft: '1px solid', borderRadius: 0 }}>
-                            ${Math.round(priceOwned).toLocaleString()}
-                          </Button>
-                        </Tooltip>
-                      </TextBadge>
-                    )}
-                    {Number.isFinite(pricePurchase) && (
-                      <TextBadge name="Buy" sx={{ border: '1px solid' }}>
-                        <Tooltip title="TCGPlayer Market Price for cheapest version of each card">
-                          <Button disabled sx={{ borderLeft: '1px solid', borderRadius: 0 }}>
-                            ${Math.round(pricePurchase).toLocaleString()}
-                          </Button>
-                        </Tooltip>
-                      </TextBadge>
-                    )}
-                  </Box>
-                )}
-                {user &&
-                  cubeState.owner !== user._id &&
-                  (followedState ? (
-                    <Button variant="contained" disabled color="warning" onClick={unfollow}>
-                      Unfollow
-                    </Button>
-                  ) : (
-                    <Button color="success" disabled variant="contained" onClick={follow}>
-                      Follow
-                    </Button>
-                  ))}
-              </ContainerBody>
-            </LayoutContainer>
-          </Grid>
-          <Grid item xs={12} md={8} sx={{ paddingX: 1 }}>
-            <LayoutContainer sx={{ height: '100%' }}>
-              <ContainerHeader title="Description" variant="h3" />
-              <ContainerBody>
-                <Markdown markdown={cubeState.description ?? ''} />
-              </ContainerBody>
-              <ContainerFooter sx={{ display: 'flex' }}>
-                {cubeState.tags.map((tag) => (
-                  <Link
-                    href={`/cubes/search/tag:"${tag}"/0`}
-                    key={tag}
-                    sx={{
-                      backgroundColor: 'background.darker',
-                      margin: 0.5,
-                      paddingX: 1,
-                      paddingY: 0.5,
-                      borderRadius: 1,
-                    }}
-                  >
-                    {tag}
-                  </Link>
+              )}
+              {user &&
+                cubeState.owner !== user._id &&
+                (followedState ? (
+                  <Button variant="contained" disabled color="warning" onClick={unfollow}>
+                    Unfollow
+                  </Button>
+                ) : (
+                  <Button color="success" disabled variant="contained" onClick={follow}>
+                    Follow
+                  </Button>
                 ))}
-              </ContainerFooter>
-            </LayoutContainer>
-          </Grid>
+            </ContainerBody>
+          </LayoutContainer>
         </Grid>
-        {post && (
-          <Suspense>
-            <BlogPost key={post._id} post={post} loggedIn={user !== null} />
-          </Suspense>
-        )}
-      </CubeLayout>
-    </MainLayout>
+        <Grid item xs={12} md={8} sx={{ paddingX: 1 }}>
+          <LayoutContainer sx={{ height: '100%' }}>
+            <ContainerHeader title="Description" variant="h3" />
+            <ContainerBody>
+              <Markdown markdown={cubeState.description ?? ''} />
+            </ContainerBody>
+            <ContainerFooter sx={{ display: 'flex' }}>
+              {cubeState.tags.map((tag) => (
+                <Link
+                  href={`/cubes/search/tag:"${tag}"/0`}
+                  key={tag}
+                  sx={{
+                    backgroundColor: 'background.darker',
+                    margin: 0.5,
+                    paddingX: 1,
+                    paddingY: 0.5,
+                    borderRadius: 1,
+                  }}
+                >
+                  {tag}
+                </Link>
+              ))}
+            </ContainerFooter>
+          </LayoutContainer>
+        </Grid>
+      </Grid>
+      {post && (
+        <Suspense>
+          <BlogPost key={post._id} post={post} loggedIn={user !== null} />
+        </Suspense>
+      )}
+    </CubeLayout>
   );
 };
 CubeOverview.propTypes = {

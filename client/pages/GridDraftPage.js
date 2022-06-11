@@ -31,7 +31,6 @@ import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import CSRFForm from '@cubeartisan/client/components/inputs/CSRFForm.js';
 import CustomImageToggler from '@cubeartisan/client/components/inputs/CustomImageToggler.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
-import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import DndProvider from '@cubeartisan/client/components/utils/DndProvider.js';
 import Location, { moveOrAddCard } from '@cubeartisan/client/drafting/DraftLocation.js';
 import {
@@ -260,71 +259,60 @@ export const GridDraftPage = ({ cube, initialDraft, seatNumber, loginCallback })
   }, [draftType, botDrafterState, mutations, botIndex, mtgmlServer]);
 
   return (
-    <MainLayout loginCallback={loginCallback}>
-      <CubeLayout cube={cube} activeLink="playtest">
-        <DisplayContextProvider cubeID={cube._id}>
-          <Navbar expand="xs" light className="usercontrols">
-            <Collapse navbar>
-              <Nav navbar>
-                <CustomImageToggler />
-              </Nav>
-            </Collapse>
-          </Navbar>
-          <DynamicFlash />
-          <CSRFForm
-            className="d-none"
-            ref={submitDeckForm}
-            method="POST"
-            action={`/griddraft/${initialDraft._id}/submit`}
-          >
-            <Input type="hidden" name="body" value={initialDraft._id} />
-          </CSRFForm>
-          <DndProvider>
-            <ErrorBoundary>
-              <Pack
-                pack={pack}
-                packNumber={packNum}
-                pickNumber={pickNum}
-                seatIndex={turn ? 0 : 1}
-                makePick={mutations.makePick}
-                turn={turn ? 1 : 2}
-              />
-            </ErrorBoundary>
-            <ErrorBoundary className="mt-3">
-              <Card className="mt-3">
-                <DeckStacks
-                  cards={picked[0]}
-                  title={draftType === 'bot' ? 'Picks' : "Player One's Picks"}
-                  subtitle={makeSubtitle(picked[0].flat(3))}
-                  locationType={Location.PICKS}
-                  canDrop={() => false}
-                  onMoveCard={() => {}}
-                />
-              </Card>
-              <Card className="my-3">
-                <DeckStacks
-                  cards={picked[1]}
-                  title={draftType === 'bot' ? 'Bot Picks' : "Player Two's Picks"}
-                  subtitle={makeSubtitle(picked[1].flat(3))}
-                  locationType={Location.PICKS}
-                  canDrop={() => false}
-                  onMoveCard={() => {}}
-                />
-              </Card>
-            </ErrorBoundary>
-          </DndProvider>
-        </DisplayContextProvider>
-      </CubeLayout>
-    </MainLayout>
+    <CubeLayout loginCallback={loginCallback} cube={cube} activeLink="playtest">
+      <Navbar expand="xs" light className="usercontrols">
+        <Collapse navbar>
+          <Nav navbar>
+            <CustomImageToggler />
+          </Nav>
+        </Collapse>
+      </Navbar>
+      <DynamicFlash />
+      <CSRFForm className="d-none" ref={submitDeckForm} method="POST" action={`/griddraft/${initialDraft._id}/submit`}>
+        <Input type="hidden" name="body" value={initialDraft._id} />
+      </CSRFForm>
+      <DndProvider>
+        <ErrorBoundary>
+          <Pack
+            pack={pack}
+            packNumber={packNum}
+            pickNumber={pickNum}
+            seatIndex={turn ? 0 : 1}
+            makePick={mutations.makePick}
+            turn={turn ? 1 : 2}
+          />
+        </ErrorBoundary>
+        <ErrorBoundary className="mt-3">
+          <Card className="mt-3">
+            <DeckStacks
+              cards={picked[0]}
+              title={draftType === 'bot' ? 'Picks' : "Player One's Picks"}
+              subtitle={makeSubtitle(picked[0].flat(3))}
+              locationType={Location.PICKS}
+              canDrop={() => false}
+              onMoveCard={() => {}}
+            />
+          </Card>
+          <Card className="my-3">
+            <DeckStacks
+              cards={picked[1]}
+              title={draftType === 'bot' ? 'Bot Picks' : "Player Two's Picks"}
+              subtitle={makeSubtitle(picked[1].flat(3))}
+              locationType={Location.PICKS}
+              canDrop={() => false}
+              onMoveCard={() => {}}
+            />
+          </Card>
+        </ErrorBoundary>
+      </DndProvider>
+    </CubeLayout>
   );
 };
-
 GridDraftPage.propTypes = {
   cube: CubePropType.isRequired,
   initialDraft: PropTypes.shape({
     cards: PropTypes.arrayOf(PropTypes.shape({ cardID: PropTypes.string })).isRequired,
     _id: PropTypes.string,
-    ratings: PropTypes.objectOf(PropTypes.number),
     initial_state: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number.isRequired)).isRequired,
     basics: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
     cube: PropTypes.string.isRequired,
@@ -333,10 +321,8 @@ GridDraftPage.propTypes = {
   seatNumber: PropTypes.number,
   loginCallback: PropTypes.string,
 };
-
 GridDraftPage.defaultProps = {
   seatNumber: 0,
   loginCallback: '/',
 };
-
 export default RenderToRoot(GridDraftPage);

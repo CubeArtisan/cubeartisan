@@ -80,7 +80,6 @@ const EditBlogModal = ({ isOpen, toggle, markdown, setMarkdown, post }) => {
     </Modal>
   );
 };
-
 EditBlogModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   toggle: PropTypes.func.isRequired,
@@ -116,39 +115,36 @@ export const CubeBlogPage = ({ cube, pages, activePage, posts, loginCallback }) 
   const handleNew = useCallback(() => handleEdit(-1), [handleEdit]);
 
   return (
-    <MainLayout loginCallback={loginCallback}>
-      <CubeLayout cube={cube} activeLink="blog">
-        <Navbar expand light className="usercontrols mb-3">
-          <Collapse navbar>
-            <Nav navbar>
-              <NavItem>
-                <NavLink href="#" onClick={handleNew}>
-                  Create new blog post
-                </NavLink>
-              </NavItem>
-            </Nav>
-          </Collapse>
-        </Navbar>
-        <DynamicFlash />
-        {pages > 1 && <Paginate count={pages} active={activePage} urlF={(i) => `/cube/${cube._id}/blog/page/${i}`} />}
-        {posts.length > 0 ? (
-          posts.map((post) => <BlogPost key={post._id} post={post} onEdit={handleEdit} />)
-        ) : (
-          <h5>No blog posts for this cube.</h5>
-        )}
-        {pages > 1 && <Paginate count={pages} active={activePage} urlF={(i) => `/cube/${cube._id}/blog/page/${i}`} />}
-        <EditBlogModal
-          isOpen={editOpen}
-          toggle={toggleEdit}
-          post={posts[editPostIndex]}
-          markdown={editMarkdown}
-          setMarkdown={setEditMarkdown}
-        />
-      </CubeLayout>
-    </MainLayout>
+    <CubeLayout loginCallback={loginCallback} cube={cube} activeLink="blog">
+      <Navbar expand light className="usercontrols mb-3">
+        <Collapse navbar>
+          <Nav navbar>
+            <NavItem>
+              <NavLink href="#" onClick={handleNew}>
+                Create new blog post
+              </NavLink>
+            </NavItem>
+          </Nav>
+        </Collapse>
+      </Navbar>
+      <DynamicFlash />
+      {pages > 1 && <Paginate count={pages} active={activePage} urlF={(i) => `/cube/${cube._id}/blog/page/${i}`} />}
+      {posts.length > 0 ? (
+        posts.map((post) => <BlogPost key={post._id} post={post} onEdit={handleEdit} />)
+      ) : (
+        <h5>No blog posts for this cube.</h5>
+      )}
+      {pages > 1 && <Paginate count={pages} active={activePage} urlF={(i) => `/cube/${cube._id}/blog/page/${i}`} />}
+      <EditBlogModal
+        isOpen={editOpen}
+        toggle={toggleEdit}
+        post={posts[editPostIndex]}
+        markdown={editMarkdown}
+        setMarkdown={setEditMarkdown}
+      />
+    </CubeLayout>
   );
 };
-
 CubeBlogPage.propTypes = {
   cube: CubePropType.isRequired,
   pages: PropTypes.number.isRequired,
@@ -160,9 +156,7 @@ CubeBlogPage.propTypes = {
   ).isRequired,
   loginCallback: PropTypes.string,
 };
-
 CubeBlogPage.defaultProps = {
   loginCallback: '/',
 };
-
 export default RenderToRoot(CubeBlogPage);

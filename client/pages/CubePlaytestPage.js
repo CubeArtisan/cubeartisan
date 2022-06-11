@@ -47,13 +47,12 @@ import withModal from '@cubeartisan/client/components/hoc/WithModal.js';
 import CSRFForm from '@cubeartisan/client/components/inputs/CSRFForm.js';
 import LabeledSelect from '@cubeartisan/client/components/inputs/LabeledSelect.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
-import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 import { allBotsDraft } from '@cubeartisan/client/drafting/draftutil.js';
 import useAlerts, { Alerts } from '@cubeartisan/client/hooks/UseAlerts.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
-import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
+import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
@@ -61,6 +60,10 @@ import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 const DeckPreview = lazy(() => import('@cubeartisan/client/components/DeckPreview.js'));
 const CustomDraftFormatModal = lazy(() => import('@cubeartisan/client/components/modals/CustomDraftFormatModal.js'));
 
+/**
+ * @param {number} lo
+ * @param {number} hi
+ */
 const range = (lo, hi) => Array.from(Array(hi - lo).keys(), (n) => n + lo);
 
 const UploadDecklistModal = ({ isOpen, toggle }) => {
@@ -518,81 +521,54 @@ export const CubePlaytestPage = ({ cube, decks, loginCallback }) => {
   );
 
   return (
-    <MainLayout loginCallback={loginCallback}>
-      <CubeLayout cube={cube} activeLink="playtest">
-        {user && cube.owner === user._id && (
-          <Toolbar sx={{ backgroundColor: 'background.paper', marginBottom: 1, borderRadius: '0 0 2rem 2rem' }}>
-            <Button onClick={handleCreateFormat}>Create Custom Draft</Button>
-            <UploadDecklistModalLink modalProps={{}}>Upload Decklist</UploadDecklistModalLink>
-          </Toolbar>
-        )}
-        <DynamicFlash />
-        <Alerts alerts={alerts} />
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
-            {defaultDraftFormat === -1 && (
-              <StandardDraftCard onSetDefaultFormat={handleSetDefaultFormat} defaultDraftFormat={defaultDraftFormat} />
-            )}
-            {formatsSorted.map((format) => (
-              <CustomDraftCard
-                key={format._id}
-                format={format}
-                onDeleteFormat={handleDeleteFormat}
-                onSetDefaultFormat={handleSetDefaultFormat}
-                onEditFormat={handleEditFormat}
-                defaultDraftFormat={defaultDraftFormat}
-              />
-            ))}
-            {defaultDraftFormat !== -1 && (
-              <StandardDraftCard onSetDefaultFormat={handleSetDefaultFormat} defaultDraftFormat={defaultDraftFormat} />
-            )}
-            <GridCard />
-          </Grid>
-          <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
-            {decks.length !== 0 && <DecksCard decks={decks} />}
-            <SamplePackCard />
-          </Grid>
+    <CubeLayout loginCallback={loginCallback} cube={cube} activeLink="playtest">
+      {user && cube.owner === user._id && (
+        <Toolbar sx={{ backgroundColor: 'background.paper', marginBottom: 1, borderRadius: '0 0 2rem 2rem' }}>
+          <Button onClick={handleCreateFormat}>Create Custom Draft</Button>
+          <UploadDecklistModalLink modalProps={{}}>Upload Decklist</UploadDecklistModalLink>
+        </Toolbar>
+      )}
+      <DynamicFlash />
+      <Alerts alerts={alerts} />
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
+          {defaultDraftFormat === -1 && (
+            <StandardDraftCard onSetDefaultFormat={handleSetDefaultFormat} defaultDraftFormat={defaultDraftFormat} />
+          )}
+          {formatsSorted.map((format) => (
+            <CustomDraftCard
+              key={format._id}
+              format={format}
+              onDeleteFormat={handleDeleteFormat}
+              onSetDefaultFormat={handleSetDefaultFormat}
+              onEditFormat={handleEditFormat}
+              defaultDraftFormat={defaultDraftFormat}
+            />
+          ))}
+          {defaultDraftFormat !== -1 && (
+            <StandardDraftCard onSetDefaultFormat={handleSetDefaultFormat} defaultDraftFormat={defaultDraftFormat} />
+          )}
+          <GridCard />
         </Grid>
-        <Suspense>
-          <CustomDraftFormatModal
-            isOpen={editModalOpen}
-            toggle={toggleEditModal}
-            formatIndex={editFormatIndex}
-            format={editFormat}
-            setFormat={setEditFormat}
-          />
-        </Suspense>
-      </CubeLayout>
-    </MainLayout>
+        <Grid item xs={12} md={6} sx={{ paddingX: 1 }}>
+          {decks.length !== 0 && <DecksCard decks={decks} />}
+          <SamplePackCard />
+        </Grid>
+      </Grid>
+      <Suspense>
+        <CustomDraftFormatModal
+          isOpen={editModalOpen}
+          toggle={toggleEditModal}
+          formatIndex={editFormatIndex}
+          format={editFormat}
+          setFormat={setEditFormat}
+        />
+      </Suspense>
+    </CubeLayout>
   );
 };
 CubePlaytestPage.propTypes = {
-  cube: PropTypes.shape({
-    cards: PropTypes.arrayOf(CardPropType),
-    defaultDraftFormat: PropTypes.number,
-    _id: PropTypes.string.isRequired,
-    shortID: PropTypes.string.isRequired,
-    owner: PropTypes.string.isRequired,
-    draft_formats: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string,
-        multiples: PropTypes.bool,
-        markdown: PropTypes.string.isRequired,
-        defaultSeats: PropTypes.number,
-        packs: PropTypes.arrayOf(
-          PropTypes.shape({
-            slots: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-            steps: PropTypes.arrayOf(
-              PropTypes.shape({
-                action: PropTypes.oneOf(['pass', 'pick', 'trash', 'pickrandom', 'trashrandom']),
-                amount: PropTypes.number,
-              }),
-            ),
-          }).isRequired,
-        ).isRequired,
-      }).isRequired,
-    ),
-  }).isRequired,
+  cube: CubePropType.isRequired,
   decks: PropTypes.arrayOf(DeckPropType).isRequired,
   loginCallback: PropTypes.string,
 };
