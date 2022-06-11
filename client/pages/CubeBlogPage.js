@@ -41,7 +41,6 @@ import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';
 import CSRFForm from '@cubeartisan/client/components/inputs/CSRFForm.js';
 import TextEntry from '@cubeartisan/client/components/inputs/TextEntry.js';
 import CubeLayout from '@cubeartisan/client/components/layouts/CubeLayout.js';
-import MainLayout from '@cubeartisan/client/components/layouts/MainLayout.js';
 import CubePropType from '@cubeartisan/client/proptypes/CubePropType.js';
 import RenderToRoot from '@cubeartisan/client/utils/RenderToRoot.js';
 
@@ -80,6 +79,7 @@ const EditBlogModal = ({ isOpen, toggle, markdown, setMarkdown, post }) => {
     </Modal>
   );
 };
+
 EditBlogModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   toggle: PropTypes.func.isRequired,

@@ -23,7 +23,7 @@ import migrations from '@cubeartisan/server/models/migrations/cubeMigrations.js'
 
 const CURRENT_SCHEMA_VERSION = migrations.slice(-1)[0].version;
 
-const cubeSchema = mongoose.Schema({
+const cubeSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -99,7 +99,6 @@ const cubeSchema = mongoose.Schema({
       {
         title: String,
         multiples: Boolean,
-        html: String,
         markdown: String,
         packs: {
           type: [{ slots: [String], steps: stepsSchema }],
@@ -134,10 +133,6 @@ const cubeSchema = mongoose.Schema({
       }
       return void 0; // eslint-disable-line
     },
-  },
-  useCubeElo: {
-    type: Boolean,
-    default: false,
   },
   basics: {
     type: [String],
@@ -209,7 +204,6 @@ cubeSchema.index({
 });
 
 // these indexes are for searching
-
 cubeSchema.index({
   isListed: 1,
   tags: 1,
@@ -256,9 +250,9 @@ cubeSchema.pre('save', function saveCubeHook(next) {
 
 const Cube = mongoose.model('Cube', cubeSchema);
 Cube.CURRENT_SCHEMA_VERSION = CURRENT_SCHEMA_VERSION;
+// TODO: Make these separately exported constants
 Cube.LAYOUT_FIELDS =
   '_id owner name type card_count overrideCategory categoryOverride categoryPrefixes image_uri shortID';
 Cube.PREVIEW_FIELDS =
   '_id shortID name card_count type overrideCategory categoryOverride categoryPrefixes image_name image_artist image_uri owner owner_name image_uri';
-
 export default Cube;

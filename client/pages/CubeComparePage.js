@@ -21,7 +21,6 @@ import { useContext, useState } from 'react';
 
 import CompareView from '@cubeartisan/client/components/CompareView.js';
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
-import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import { SortContextProvider } from '@cubeartisan/client/components/contexts/SortContext.js';
 import { TAG_COLORS, TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext.js';
 import UserContext from '@cubeartisan/client/components/contexts/UserContext.js';
@@ -79,9 +78,7 @@ export const CubeComparePage = ({
         >
           <CubeCompareNavbar
             cubeA={cube}
-            cubeAID={cube._id}
             cubeB={cubeB}
-            cubeBID={cubeB._id}
             cards={filteredCards}
             openCollapse={openCollapse}
             setOpenCollapse={setOpenCollapse}

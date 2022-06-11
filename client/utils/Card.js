@@ -193,7 +193,6 @@ export const cardAddedTime = (card) => card?.addedTmsp;
  * @param {Card?} card
  */
 export const cardImageUrl = (card, showCustomImages = true) => {
-  console.log({ imgUrl: card?.imgUrl });
   if (showCustomImages) {
     return (card?.imgUrl || card?.details?.image_normal) ?? card?.details?.image_small;
   }

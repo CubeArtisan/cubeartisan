@@ -46,13 +46,13 @@ const CardImage = forwardRef(({ card, width, back, sx, cardModal, ...props }, re
   const openCardModal = useContext(CardModalContext);
   const handleClick = useCallback(() => openCardModal(card), [openCardModal, card]);
   return (
-    <Box component="div" sx={{ ...sx }}>
+    <Box sx={{ ...sx, position: 'relative' }}>
       {foil && (
         <Box
           component="img"
           key="foil"
           src="/content/foilOverlay.png"
-          sx={{ width, position: 'relative', pointerEvents: 'none', mixBlendMode: 'color-burn' }}
+          sx={{ width, position: 'absolute', pointerEvents: 'none', mixBlendMode: 'color-burn' }}
         />
       )}
       <Box

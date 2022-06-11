@@ -44,7 +44,7 @@ const CubeLayout = ({ cube, activeLink, children, loginCallback }) => {
   const user = useContext(UserContext);
   return (
     <MainLayout loginCallback={loginCallback}>
-      <CubeContextProvider cubeID={cube._id} initialCube={cube} canEdit={user && cube.owner === user._id}>
+      <CubeContextProvider initialCube={cube} canEdit={user && cube.owner === user._id}>
         <CubeNavbar activeLink={activeLink} />
         <ErrorBoundary>{children}</ErrorBoundary>
       </CubeContextProvider>

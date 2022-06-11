@@ -24,9 +24,7 @@ import Footer from '@cubeartisan/client/components/layouts/Footer.js';
 import SiteAppBar from '@cubeartisan/client/components/navbars/SiteAppBar.js';
 
 /**
- * @typedef { import("react").ReactNode } ReactNode
- * @typedef { import("react").FunctionComponent<{ children: ReactNode, loginCallback?: string }> } ComponentType
- * @type ComponentType
+ * @type {React.FC<{ children: React.ReactNode, loginCallback?: string }>}
  */
 const MainLayout = ({ children, loginCallback }) => (
   <Grid
@@ -46,6 +44,7 @@ const MainLayout = ({ children, loginCallback }) => (
   </Grid>
 );
 MainLayout.propTypes = {
+  // @ts-ignore
   children: PropTypes.node.isRequired,
   loginCallback: PropTypes.string,
 };

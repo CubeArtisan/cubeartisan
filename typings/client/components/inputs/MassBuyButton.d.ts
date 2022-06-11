@@ -6,7 +6,7 @@ declare function MassBuyButton({ cards, ...props }: {
 declare namespace MassBuyButton {
     namespace propTypes {
         const cards: PropTypes.Validator<(PropTypes.InferProps<{
-            addedTmsp: PropTypes.Requireable<string>;
+            addedTmsp: PropTypes.Requireable<string | Date>;
             cardID: PropTypes.Validator<string>;
             cmc: PropTypes.Requireable<number>;
             colorCategory: PropTypes.Requireable<string>;
@@ -22,7 +22,7 @@ declare namespace MassBuyButton {
             tags: PropTypes.Validator<(string | null | undefined)[]>;
             type_line: PropTypes.Requireable<string>;
             details: PropTypes.Validator<PropTypes.InferProps<{
-                color_identity: PropTypes.Validator<string>;
+                color_identity: PropTypes.Validator<string[]>;
                 set: PropTypes.Validator<string>;
                 set_name: PropTypes.Validator<string>;
                 foil: PropTypes.Validator<boolean>;
@@ -63,14 +63,14 @@ declare namespace MassBuyButton {
                     Penny: PropTypes.Requireable<string>;
                     Vintage: PropTypes.Requireable<string>;
                 }>>;
-                parsed_cast: PropTypes.Validator<string[]>;
+                parsed_cost: PropTypes.Validator<string[]>;
                 colors: PropTypes.Requireable<string[]>;
                 type: PropTypes.Requireable<string>;
                 full_art: PropTypes.Validator<boolean>;
                 language: PropTypes.Validator<string>;
                 mtgo_id: PropTypes.Requireable<number>;
                 layout: PropTypes.Validator<string>;
-                tcgplayer_id: PropTypes.Requireable<string>;
+                tcgplayer_id: PropTypes.Requireable<number>;
                 loyalty: PropTypes.Requireable<string>;
                 power: PropTypes.Requireable<string>;
                 toughness: PropTypes.Requireable<string>;
@@ -78,7 +78,7 @@ declare namespace MassBuyButton {
                 image_normal: PropTypes.Requireable<string>;
                 art_crop: PropTypes.Requireable<string>;
                 image_flip: PropTypes.Requireable<string>;
-                color_category: PropTypes.Validator<string>;
+                colorcategory: PropTypes.Validator<string>;
                 tokens: PropTypes.Requireable<string[]>;
                 popularity: PropTypes.Validator<number>;
                 cubeCount: PropTypes.Validator<number>;

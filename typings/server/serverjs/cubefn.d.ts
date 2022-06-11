@@ -78,6 +78,24 @@ export function generateSamplepackImageSharp(sources?: any[], options?: {}): Pro
 export function cachePromise(key: any, callback: any): any;
 export function generatePack(cubeId: any, carddb: any, seed: any): Promise<{
     seed: any;
-    pack: any;
+    pack: {
+        details: any;
+        addedTmsp: Date | null;
+        cardID: string | null;
+        cmc: number | null;
+        colorCategory: string | null;
+        colors: import("../../client/proptypes/CardDetailsPropType.js").Color[] | null;
+        finish: import("../../client/proptypes/CardPropType.js").CardFinish;
+        imgBackUrl: string | null;
+        imgUrl: string | null;
+        index?: number | undefined;
+        isUnlimited: boolean;
+        name: string | null;
+        notes: string | null;
+        rarity: string | null;
+        status: import("../../client/proptypes/CardPropType.js").CardStatus;
+        tags: string[];
+        type_line: string | null;
+    }[];
 }>;
 //# sourceMappingURL=cubefn.d.ts.map

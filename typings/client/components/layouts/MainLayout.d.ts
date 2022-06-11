@@ -1,8 +1,6 @@
 export default MainLayout;
-export type ReactNode = import("react").ReactNode;
-export type ComponentType = import("react").FunctionComponent<{
-    children: ReactNode;
+declare const MainLayout: React.FC<{
+    children: React.ReactNode;
     loginCallback?: string;
 }>;
-declare const MainLayout: ComponentType;
 //# sourceMappingURL=MainLayout.d.ts.map

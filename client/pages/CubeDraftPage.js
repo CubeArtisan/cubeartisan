@@ -135,7 +135,6 @@ const Pack = ({
                 canDrop={canDrop}
                 onMoveCard={picking === null ? onMoveCard : undefined}
                 onClick={picking === null ? onClickCard : undefined}
-                className={picking === index ? 'transparent' : undefined}
               />
             </Grid>
           ))}
@@ -227,7 +226,6 @@ const CubeDraftPlayerUI = ({
 
   const handleMoveCard = useCallback(
     async (source, target) => {
-      console.log(source.type, target.type);
       if (source.equals(target)) return;
       if (source.type === DraftLocation.PACK) {
         if (target.type === DraftLocation.PICKS) {
@@ -437,15 +435,16 @@ export const CubeDraftPage = ({ cube, draftid, loginCallback }) => {
     socket.current.on('emptySeats', (newEmptySeats) => {
       setEmptySeats(newEmptySeats);
     });
-    return () => socket?.current?.disconnect?.();
+    return () => {
+      socket?.current?.disconnect?.();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const { action, drafted, sideboard, seatNum, doneDrafting, cardsInPack } = useMemo(
+  const { action, drafted, seatNum, doneDrafting, cardsInPack } = useMemo(
     () => ({
       action: drafterState.step.action,
       drafted: drafterState.drafted,
-      sideboard: drafterState.sideboard,
       seatNum: drafterState.seatNum,
       cardsInPack: drafterState.cardsInPack,
       doneDrafting: drafterState.packNum >= drafterState.numPacks || drafterState.step.action === 'done',

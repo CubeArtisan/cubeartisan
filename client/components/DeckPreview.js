@@ -25,15 +25,23 @@ import DeckDeleteModal from '@cubeartisan/client/components/modals/DeckDeleteMod
 import TimeAgo from '@cubeartisan/client/components/wrappers/TimeAgo.js';
 import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 
-/** 2020-11-17 struesdell:
+/**
+ * @typedef {import('@cubeartisan/client/proptypes/DeckPropType.js').Deck} Deck
+ */
+
+/* 2020-11-17 struesdell:
  *  Pulled constants out of component render so that they are defined only once
  */
 const MAX_LENGTH = 35;
 const DEFAULT_DECK_NAME = 'Untitled Deck.js';
 
-/** 2020-11-17 struesdell:
+/* 2020-11-17 struesdell:
  *  Pulled string truncation logic out of component render and made it more
  *  abstract and reusable. Consider refactoring into shared utilities.
+ */
+/**
+ * @param {number} len
+ * @param {string?} s
  */
 const truncateToLength = (len, s) => {
   if (!s) {
@@ -42,6 +50,13 @@ const truncateToLength = (len, s) => {
   return s.length > len ? `${s.slice(0, len - 3)}...` : s;
 };
 
+/**
+ * @typedef DeckPreviewProps
+ * @property {Deck} deck
+ * @property {string?} [nextURL]
+ */
+
+/** @type {React.FC<DeckPreviewProps>} */
 const DeckPreview = ({ deck, nextURL }) => {
   const user = useContext(UserContext);
   const canEdit = user && (user._id === deck.owner || user._id === deck.cubeOwner);
@@ -60,6 +75,7 @@ const DeckPreview = ({ deck, nextURL }) => {
     [deck],
   );
 
+  /** @param {any} event */
   const openDeleteModal = (event) => {
     event.stopPropagation();
     setDeleteModalOpen(true);
@@ -114,6 +130,7 @@ const DeckPreview = ({ deck, nextURL }) => {
   );
 };
 DeckPreview.propTypes = {
+  // @ts-ignore
   deck: DeckPropType.isRequired,
   nextURL: PropTypes.string,
 };

@@ -23,7 +23,6 @@ import { Card, CardBody, CardHeader, CardTitle, Col, Collapse, Input, Nav, Navba
 
 import CardImage from '@cubeartisan/client/components/CardImage.js';
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
-import { DisplayContextProvider } from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import DeckStacks from '@cubeartisan/client/components/DeckStacks.js';
 import DynamicFlash from '@cubeartisan/client/components/DynamicFlash.js';

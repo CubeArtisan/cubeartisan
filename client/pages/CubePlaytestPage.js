@@ -61,6 +61,10 @@ const DeckPreview = lazy(() => import('@cubeartisan/client/components/DeckPrevie
 const CustomDraftFormatModal = lazy(() => import('@cubeartisan/client/components/modals/CustomDraftFormatModal.js'));
 
 /**
+ * @typedef {import('@cubeartisan/client/proptypes/DeckPropType.js').Deck} Deck
+ */
+
+/**
  * @param {number} lo
  * @param {number} hi
  */
@@ -104,14 +108,20 @@ UploadDecklistModal.propTypes = {
 };
 const UploadDecklistModalLink = withModal(Button, UploadDecklistModal);
 
+/**
+ * @param {boolean} botsOnly
+ * @param {string} cubeID
+ * @returns {[React.FormEventHandler<HTMLFormElement>, React.MutableRefObject<HTMLFormElement|null>, boolean]}
+ */
 const useBotsOnlyCallback = (botsOnly, cubeID) => {
-  const formRef = useRef();
+  const formRef = useRef(/** @type {HTMLFormElement|null} */ (null)); // eslint-disable-line prettier/prettier
   const [loading, setLoading] = useState(false);
   const { mtgmlServer } = useContext(SiteCustomizationContext);
+  /** @type {React.FormEventHandler<HTMLFormElement>} */
   const submitForm = useCallback(
-    async (e) => {
+    (async (e) => { // eslint-disable-line prettier/prettier
       setLoading(true);
-      if (botsOnly) {
+      if (botsOnly && formRef.current) {
         e.preventDefault();
         const body = new FormData(formRef.current);
         const response = await csrfFetch(`/cube/${cubeID}/playtest/draft`, {
@@ -137,7 +147,7 @@ const useBotsOnlyCallback = (botsOnly, cubeID) => {
         console.debug(json2.url);
         window.location.href = json2.url;
       }
-    },
+    }), // eslint-disable-line prettier/prettier
     [botsOnly, cubeID, formRef, mtgmlServer],
   );
 
@@ -172,7 +182,7 @@ const CustomDraftCard = ({ format, onEditFormat, onDeleteFormat, onSetDefaultFor
             baseId={`seats-${index}`}
             value={seats}
             setValue={setSeats}
-            values={range(2, 17)}
+            values={range(2, 17).map((x) => x.toString())}
             label="Total Seats:"
             name="seats"
           />
@@ -180,7 +190,7 @@ const CustomDraftCard = ({ format, onEditFormat, onDeleteFormat, onSetDefaultFor
             baseId={`human-seats-${index}`}
             value={humanSeats}
             setValue={setHumanSeats}
-            values={range(1, seats)}
+            values={range(1, parseInt(seats, 10)).map((x) => x.toString())}
             label=" Seats:"
             name="humanSeats"
           />
@@ -188,7 +198,7 @@ const CustomDraftCard = ({ format, onEditFormat, onDeleteFormat, onSetDefaultFor
             baseId={`timeout-${index}`}
             value={timeout}
             setValue={setTimeout}
-            values={range(0, 31)}
+            values={range(0, 31).map((x) => x.toString())}
             label="Timer: Seconds Per Card In Pack (Use 0 to disable timer)."
             name="timeout"
           />
@@ -269,7 +279,7 @@ const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
             baseId="packs-standard"
             value={packs}
             setValue={setPacks}
-            values={range(1, 16)}
+            values={range(1, 16).map((x) => x.toString())}
             label="Number of Packs:"
             name="packs"
           />
@@ -277,7 +287,7 @@ const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
             baseId="cards-standard"
             value={cards}
             setValue={setCards}
-            values={range(1, 25)}
+            values={range(1, 25).map((x) => x.toString())}
             label="Cards per Pack:"
             name="cards"
           />
@@ -285,7 +295,7 @@ const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
             baseId="seats-standard"
             value={seats}
             setValue={setSeats}
-            values={range(2, 17)}
+            values={range(2, 17).map((x) => x.toString())}
             label="Total Seats:"
             name="seats"
           />
@@ -293,7 +303,7 @@ const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
             baseId="human-seats-standard"
             value={humanSeats}
             setValue={setHumanSeats}
-            values={range(1, seats)}
+            values={range(1, parseInt(seats, 10)).map((x) => x.toString())}
             label=" Seats:"
             name="humanSeats"
           />
@@ -301,7 +311,7 @@ const StandardDraftCard = ({ onSetDefaultFormat, defaultDraftFormat }) => {
             baseId="timeout-standard"
             value={timeout}
             setValue={setTimeout}
-            values={range(0, 31)}
+            values={range(0, 31).map((x) => x.toString())}
             label="Timer: Seconds Per Card In Pack (Use 0 to disable timer)."
             name="timeout"
           />
@@ -354,7 +364,7 @@ const GridCard = () => {
             baseId="packs-grid"
             value={packs}
             setValue={setPacks}
-            values={range(1, 30)}
+            values={range(1, 30).map((x) => x.toString())}
             label="Number of Packs:"
             name="packs"
           />
@@ -378,6 +388,7 @@ const GridCard = () => {
   );
 };
 
+/** @type {React.FC<{ decks: Deck[] }>} */
 const DecksCard = ({ decks }) => {
   const { cubeID } = useContext(CubeContext);
   return (
@@ -397,6 +408,7 @@ const DecksCard = ({ decks }) => {
   );
 };
 DecksCard.propTypes = {
+  // @ts-ignore
   decks: PropTypes.arrayOf(DeckPropType).isRequired,
 };
 

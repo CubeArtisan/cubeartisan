@@ -1,4 +1,4 @@
-/*
+/**
  * This file is part of CubeArtisan.
  *
  * CubeArtisan is free software: you can redistribute it and/or modify
@@ -13,21 +13,29 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with CubeArtisan.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
 
 /**
- * @typedef DraftSeat
+ * @typedef DeckSeat
+ * @property {string} description
+ * @property {number[][][]} deck
+ * @property {number[][][]} sideboard
+ * @property {string} username
+ * @property {string?} userid
  * @property {boolean} bot
  * @property {string} name
- * @property {string?} userid
- * @property {number[][][]} drafted
- * @property {number[][][]} sideboard
- * @property {number[]} pickorder
- * @property {number[]} trashorder
  */
 
-const DraftSeatPropType = PropTypes.shape({
+const DeckSeatPropType = PropTypes.shape({
+  description: PropTypes.string.isRequired,
+  deck: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number).isRequired).isRequired).isRequired,
+  sideboard: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number).isRequired).isRequired).isRequired,
+  username: PropTypes.string.isRequired,
+  userid: PropTypes.string,
   bot: PropTypes.bool.isRequired,
+  name: PropTypes.string.isRequired,
 });
-export default DraftSeatPropType;
+export default DeckSeatPropType;

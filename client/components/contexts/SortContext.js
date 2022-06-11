@@ -32,7 +32,7 @@ const DEFAULT_SORTS = ['Color Category', 'Types-Multicolor', 'Mana Value', 'Alph
  */
 
 /**
- * @typedef {Required<SortValues> & {changeSort: (newSort: SortValues) => void}} SortContextValues
+ * @typedef {Required<SortValues> & {changeSort: (newSort: Partial<SortValues>) => void}} SortContextValues
  */
 
 /**
