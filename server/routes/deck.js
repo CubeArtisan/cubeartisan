@@ -20,7 +20,7 @@ import { arraysAreEqualSets, getCubeDescription } from '@cubeartisan/client/util
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 import { buildDeck } from '@cubeartisan/client/drafting/deckutil.js';
 import { render } from '@cubeartisan/server/serverjs/render.js';
-import { addNotification } from '@cubeartisan/server/serverjs/util.js';
+import { addNotification, escapeXML } from '@cubeartisan/server/serverjs/util.js';
 import generateMeta from '@cubeartisan/server/serverjs/meta.js';
 import { ensureAuth, handleRouteError } from '@cubeartisan/server/routes/middleware.js';
 import { abbreviate, addDeckCardAnalytics, removeDeckCardAnalytics } from '@cubeartisan/server/serverjs/cubefn.js';
@@ -285,7 +285,7 @@ export const exportDeckToCockatrice = async (req, res) => {
       }
     }
     for (const [key, value] of Object.entries(main)) {
-      res.write(`    <card number="${value}" name="${key}"/>\n`);
+      res.write(`    <card number="${value}" name="${escapeXML(key)}"/>\n`);
     }
     res.write('  </zone>\n');
     res.write('  <zone name="side">\n');
