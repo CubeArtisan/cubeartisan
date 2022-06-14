@@ -28,7 +28,7 @@
     "@cubeartisan/server": "^0.1.0",
     "@node-loader/babel": "^2.0.1",
     "JSONStream": "^1.3.5",
-    "core-js": "^3.22.8",
+    "core-js": "^3.23.1",
     "core-js-pure": "^3.22.8",
     "dotenv": "^16.0.1",
     "glob": "^8.0.3",
