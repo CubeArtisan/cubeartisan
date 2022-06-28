@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.18.2",
-    "@babel/node": "^7.17.10",
+    "@babel/node": "^7.18.6",
     "@babel/plugin-syntax-top-level-await": "^7.14.5",
     "@cubeartisan/client": "^0.1.0",
     "@cubeartisan/server": "^0.1.0",
