@@ -373,7 +373,6 @@ export const createDraft = (format, cubeCards, seats, userid, botsOnly = false, 
       ...pack,
       cards: cards.map(({ details: _, ...card }) => {
         card.index = draft.cards.length;
-        console.log(card.index, { colors: card.colors });
         draft.cards.push(card);
         return card.index;
       }),

@@ -42,5 +42,17 @@ export namespace SortableTable {
     }
 }
 export default SortableTable;
+export type ColumnProps = {
+    title: string;
+    key: string;
+    sortable?: boolean | undefined;
+    heading?: boolean | undefined;
+    tooltip?: string | null | undefined;
+    renderFn?: ((value: any, row?: object, key?: string) => React.ReactNode) | undefined;
+};
+export type SortableTableProps<Data> = {
+    data: Data[];
+    defaultSortConfig: { [k in keyof Data]: "ascending" | "descending"; };
+};
 import PropTypes from "prop-types";
 //# sourceMappingURL=SortableTable.d.ts.map

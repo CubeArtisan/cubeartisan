@@ -40,6 +40,7 @@ export type Cube = {
     owner_name: string | null;
     date_updated: string | null;
     updated_string: string | null;
+    type: string | null;
     default_sorts: [string, string, string, string] | null;
     default_show_unsorted: boolean | null;
     card_count: number;
@@ -240,6 +241,7 @@ declare const CubePropType: PropTypes.Requireable<PropTypes.InferProps<{
     defaultSorts: PropTypes.Requireable<string[]>;
     default_show_unsorted: PropTypes.Validator<boolean>;
     card_count: PropTypes.Validator<number>;
+    type: PropTypes.Requireable<string>;
     users_following: PropTypes.Validator<string[]>;
     defaultPrinting: PropTypes.Requireable<string>;
     disableNotifications: PropTypes.Validator<boolean>;

@@ -71,6 +71,7 @@ import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
  * @property {string?} owner_name
  * @property {string?} date_updated
  * @property {string?} updated_string
+ * @property {string?} type
  * @property {[string, string, string, string]?} default_sorts
  * @property {boolean?} default_show_unsorted
  * @property {number} card_count
@@ -113,6 +114,7 @@ const CubePropType = PropTypes.shape({
   defaultSorts: PropTypes.arrayOf(PropTypes.string.isRequired),
   default_show_unsorted: PropTypes.bool.isRequired,
   card_count: PropTypes.number.isRequired,
+  type: PropTypes.string,
   // draft_formats
   users_following: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   // defaultStatus

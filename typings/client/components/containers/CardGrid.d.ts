@@ -1,10 +1,12 @@
 export default CardGrid;
 export type Card = import('@cubeartisan/client/proptypes/CardPropType.js').Card;
-export type CardGridProps = {
-    cardList: Card[];
-    Tag: any;
-    cardProps: any;
-    linkDetails: boolean | null;
+export type TagWithProps<TagProps> = {
+    Tag: React.ComponentType<TagProps>;
+    tagProps: Omit<TagProps, 'card'>;
 };
-declare const CardGrid: React.FC<CardGridProps>;
+export type CardGridPropsNoTag = {
+    cardList: Card[];
+    linkDetails?: boolean | undefined;
+};
+declare const CardGrid: import("react").FC<CardGridPropsNoTag & TagWithProps<TagProps>>;
 //# sourceMappingURL=CardGrid.d.ts.map

@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of CubeArtisan.
  *
  * CubeArtisan is free software: you can redistribute it and/or modify
@@ -142,16 +142,6 @@ export const randomElement = (array) => {
 };
 
 /**
- * @param {Card} a
- * @param {Card} b
- */
-export const alphaCompare = (a, b) => {
-  const textA = (a?.name ?? a?.details?.name)?.toUpperCase?.();
-  const textB = (b?.name ?? b?.details?.name)?.toUpperCase?.();
-  return textA?.localeCompare?.(textB);
-};
-
-/**
  * @param {Card} card
  */
 export const cmcColumn = (card) => {
@@ -227,6 +217,7 @@ export function isTouchDevice() {
 
   if (
     Object.prototype.hasOwnProperty.call(window, 'ontouchstart') ||
+    // @ts-ignore
     // eslint-disable-next-line no-undef
     (window.DocumentTouch && document instanceof DocumentTouch)
   ) {
@@ -317,7 +308,6 @@ export const areDeepEqual = (obj1, obj2) => {
 
 export default {
   COLORS,
-  alphaCompare,
   areDeepEqual,
   arrayDelete,
   arrayIsSubset,

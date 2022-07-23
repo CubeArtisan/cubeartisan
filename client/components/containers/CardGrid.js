@@ -23,31 +23,48 @@ import { useContext } from 'react';
 import DisplayContext from '@cubeartisan/client/components/contexts/DisplayContext.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 
-function cardImage(Tag, card, cardProps, linkDetails) {
-  const cardTag = <Tag card={card} {...cardProps} />;
+/**
+ * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
+ */
+
+/**
+ * @template TagProps
+ * @typedef TagWithProps
+ * @property {React.ComponentType<TagProps>} Tag
+ * @property {Omit<TagProps, 'card'>} tagProps
+ */
+
+/**
+ * @template TagProps
+ * @param {Card} card
+ * @param {TagWithProps<TagProps>} tagWithProps
+ * @param {boolean} [linkDetails]
+ */
+function cardImage(card, tagWithProps, linkDetails = false) {
+  const { Tag, tagProps } = tagWithProps;
+  // @ts-ignore
+  const cardTag = <Tag card={card} {...tagProps} />;
   if (linkDetails) return <a href={`/card/${card.details._id}`}>{cardTag}</a>;
   return cardTag;
 }
 
 /**
- * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
- * @typedef CardGridProps
+ * @typedef CardGridPropsNoTag
  * @property {Card[]} cardList
- * @property {any} Tag
- * @property {any} cardProps
- * @property {boolean?} linkDetails
+ * @property {boolean} [linkDetails]
  */
 
 /**
- * @type {React.FC<CardGridProps>}
+ * @template TagProps
+ * @type {React.FC<CardGridPropsNoTag & TagWithProps<TagProps>>}
  */
-const CardGrid = ({ cardList, Tag, cardProps, linkDetails }) => {
+const CardGrid = ({ cardList, Tag, tagProps, linkDetails }) => {
   const { cardsInRow } = useContext(DisplayContext);
   return (
     <Grid container spacing={0} columns={cardsInRow}>
       {cardList.map((card, cardIndex) => (
         <Grid item xs={1} key={/* eslint-disable-line react/no-array-index-key */ cardIndex}>
-          {cardImage(Tag, card, cardProps, linkDetails)}
+          {cardImage(card, { Tag, tagProps }, linkDetails)}
         </Grid>
       ))}
     </Grid>
@@ -56,12 +73,15 @@ const CardGrid = ({ cardList, Tag, cardProps, linkDetails }) => {
 CardGrid.propTypes = {
   // @ts-ignore
   cardList: PropTypes.arrayOf(CardPropType.isRequired).isRequired,
+  // @ts-ignore
   Tag: PropTypes.elementType.isRequired,
-  cardProps: PropTypes.shape({}),
+  // @ts-ignore
+  tagProps: PropTypes.shape({}),
   linkDetails: PropTypes.bool,
 };
 CardGrid.defaultProps = {
-  cardProps: {},
+  // @ts-ignore
+  tagProps: {},
   linkDetails: false,
 };
 export default CardGrid;

@@ -193,6 +193,7 @@ declare namespace Cloud {
             defaultSorts: PropTypes.Requireable<string[]>;
             default_show_unsorted: PropTypes.Validator<boolean>;
             card_count: PropTypes.Validator<number>;
+            type: PropTypes.Requireable<string>;
             users_following: PropTypes.Validator<string[]>;
             defaultPrinting: PropTypes.Requireable<string>;
             disableNotifications: PropTypes.Validator<boolean>;

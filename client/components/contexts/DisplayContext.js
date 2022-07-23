@@ -95,7 +95,6 @@ export const DisplayContextProvider = ({ cubeID, defaultNumCols, ...props }) => 
       return true;
     });
   }, []);
-  // console.log(useMediaQuery);
   const prefersDarkMode = false; // useMediaQuery('(prefers-color-scheme: dark)');
   const [theme, setTheme] = useState(
     () =>

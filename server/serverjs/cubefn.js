@@ -40,6 +40,7 @@ export const getCubeId = (cube) => {
   return cube._id;
 };
 
+/** @param {string} id */
 export const buildIdQuery = (id) => {
   if (!id || id.match(/^[0-9a-fA-F]{24}$/)) {
     return { _id: id };

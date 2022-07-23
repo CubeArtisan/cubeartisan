@@ -29,11 +29,15 @@ import { cardName, encodeName, mainboardRate, pickRate } from '@cubeartisan/clie
 
 const AutocardLink = withAutocard(Link);
 
+/**
+ * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
+ */
+
+/** @param {Card} card */
 const renderCardLink = (card) => (
   <AutocardLink
     key={card.index}
     card={card}
-    index={card.index}
     href={`/card/${encodeName(card.cardID)}`}
     target="_blank"
     rel="noopener noreferrer"
@@ -44,6 +48,13 @@ const renderCardLink = (card) => (
 
 const renderPercent = (val) => <>{(val * 100).toFixed(2)}%</>;
 
+/**
+ * @typedef PlaytestDataProps
+ * @property {Card[]} cards
+ * @property {any} cubeAnalytics
+ */
+
+/** @type {React.FC<PlaytestDataProps>} */
 const PlaytestData = ({ cards: allCards, cubeAnalytics }) => {
   const cardDict = useMemo(
     () => Object.fromEntries(allCards.map((card) => [cardName(card).toLowerCase(), card])),
@@ -67,7 +78,6 @@ const PlaytestData = ({ cards: allCards, cubeAnalytics }) => {
         })),
     [cubeAnalytics, cardDict],
   );
-  console.log(data);
 
   return (
     <ErrorBoundary>
@@ -93,6 +103,7 @@ const PlaytestData = ({ cards: allCards, cubeAnalytics }) => {
   );
 };
 PlaytestData.propTypes = {
+  // @ts-ignore
   cards: PropTypes.arrayOf(CardPropType.isRequired).isRequired,
   cubeAnalytics: CubeAnalyticPropType.isRequired,
 };

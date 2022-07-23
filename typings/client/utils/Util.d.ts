@@ -7,7 +7,6 @@ export function arrayDelete<T>(arr: T[], index: number): T[];
 export function arrayIsSubset<T>(needles: T[], haystack: T[], comparison?: ((a: T, b: T) => boolean) | null | undefined): boolean;
 export function arraysAreEqualSets<T>(a1: T[], a2: T[], comparison?: ((a: T, b: T) => boolean) | null | undefined): boolean;
 export function randomElement<T>(array: T[]): T;
-export function alphaCompare(a: Card, b: Card): number;
 export function cmcColumn(card: Card): number;
 export function sortDeck(deck: Card[] | Card[][]): any[][];
 export const COLORS: string[][];
@@ -20,7 +19,6 @@ export function isObject(obj: any): any;
 export function areDeepEqual(obj1: any, obj2: any): boolean;
 declare namespace _default {
     export { COLORS };
-    export { alphaCompare };
     export { areDeepEqual };
     export { arrayDelete };
     export { arrayIsSubset };

@@ -14,8 +14,7 @@ const placeholderClass = () => '';
  * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
  * @typedef AutocardProps
  * @property {Card} card
- * @property {string} [front]
- * @property {string} [back]
+ * @property {boolean} [back]
  * @property {string[]} [tags]
  */
 
@@ -25,9 +24,9 @@ const placeholderClass = () => '';
  */
 const withAutocard = (Tag) => {
   /**
-   * @type {React.ForwardRefRenderFunction<any, AutocardProps & P>}
+   * @type {React.ForwardRefRenderFunction<any, AutocardProps & Omit<P, 'card'|'back'>>}
    */
-  const WithAutocardComponent = ({ card, front, back, tags, ...props }, ref) => {
+  const WithAutocardComponent = ({ card, back, tags, ...props }, ref) => {
     const tagContext = useContext(TagContext);
     const tagColorClass = tagContext?.tagColorClass ?? placeholderClass;
     const { autoCardSize } = useContext(DisplayContext);
@@ -79,22 +78,20 @@ const withAutocard = (Tag) => {
         }}
       >
         {/* @ts-ignore */}
-        <Tag ref={ref} card={card} {...props} />
+        <Tag ref={ref} card={card} back={back} {...props} />
       </Tooltip>
     );
   };
   // @ts-ignore
   WithAutocardComponent.propTypes = {
     card: CardPropType.isRequired,
-    front: PropTypes.string,
-    back: PropTypes.string,
+    back: PropTypes.bool,
     tags: PropTypes.arrayOf(PropTypes.string.isRequired),
     ...(Tag.propTypes ?? {}),
   };
   // @ts-ignore
   WithAutocardComponent.defaultProps = {
-    front: undefined,
-    back: undefined,
+    back: false,
     tags: undefined,
     ...(Tag.defaultProps ?? {}),
   };
@@ -108,6 +105,21 @@ const withAutocard = (Tag) => {
   } else {
     WithAutocard.displayName = 'WithAutocard';
   }
+  // @ts-ignore
+  WithAutocard.propTypes = {
+    // @ts-ignore
+    card: CardPropType.isRequired,
+    back: PropTypes.bool,
+    tags: PropTypes.arrayOf(PropTypes.string.isRequired),
+    ...(Tag.propTypes ?? {}),
+  };
+  // @ts-ignore
+  WithAutocard.defaultProps = {
+    // @ts-ignore
+    back: false,
+    tags: undefined,
+    ...(Tag.defaultProps ?? {}),
+  };
   return WithAutocard;
 };
 export default withAutocard;
