@@ -7,7 +7,7 @@ export default TagContext;
 export type Card = import('@cubeartisan/client/proptypes/CardPropType.js').Card;
 export type TagColor = {
     tag: string;
-    color: string;
+    color: string | null;
 };
 export type Tag = {
     id: number;

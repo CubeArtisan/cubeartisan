@@ -1,4 +1,5 @@
 export default TagColorsModal;
+export type TagColor = import('@cubeartisan/client/components/contexts/TagContext.js').TagColor;
 declare function TagColorsModal({ canEdit, isOpen, toggle }: {
     canEdit: any;
     isOpen: any;
