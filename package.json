@@ -75,6 +75,6 @@
     "winston2": "npm:winston@2.4.5"
   },
   "dependencies": {
-    "eslint": "^8.21.0"
+    "eslint": "^8.22.0"
   }
 }
