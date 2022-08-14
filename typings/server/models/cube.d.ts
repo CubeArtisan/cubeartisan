@@ -343,7 +343,7 @@ declare const Cube: mongoose.Model<{
     disableNotifications?: unknown;
     schemaVersion?: unknown;
     defaultStatus?: unknown;
-}, {}, {}, {}, mongoose.Schema<any, mongoose.Model<any, any, any, any, any>, {}, {}, any, {}, "type", {
+}, {}, {}, {}, mongoose.Schema<any, mongoose.Model<any, any, any, any, any>, {}, {}, {}, {}, "type", {
     name: string;
     tags: string[];
     shortID: string;

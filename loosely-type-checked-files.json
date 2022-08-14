@@ -135,7 +135,6 @@
   "server/__tests__/serverjs/updatecards.test.js",
   "server/__tests__/serverjs/util.test.js",
   "server/jobs/update_podcasts.js",
-  "server/models/application.js",
   "server/models/article.js",
   "server/models/blog.js",
   "server/models/cardHistory.js",

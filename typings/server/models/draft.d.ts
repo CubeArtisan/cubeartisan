@@ -49,7 +49,7 @@ declare const Draft: mongoose.Model<{
     timeout?: number;
     seed?: string;
     cube?: mongoose.Types.ObjectId;
-}, {}, {}, {}, mongoose.Schema<any, mongoose.Model<any, any, any, any, any>, {}, {}, any, {}, "type", {
+}, {}, {}, {}, mongoose.Schema<any, mongoose.Model<any, any, any, any, any>, {}, {}, {}, {}, "type", {
     cards: {
         index: number;
         name: string;

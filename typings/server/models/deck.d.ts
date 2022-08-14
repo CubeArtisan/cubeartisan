@@ -165,7 +165,7 @@ declare const Deck: mongoose.Model<{
     cube?: unknown;
     cubename?: unknown;
     cubeOwner?: unknown;
-}, {}, {}, {}, mongoose.Schema<any, mongoose.Model<any, any, any, any, any>, {}, {}, any, {}, "type", {
+}, {}, {}, {}, mongoose.Schema<any, mongoose.Model<any, any, any, any, any>, {}, {}, {}, {}, "type", {
     cards: {
         index: number;
         name: string;
