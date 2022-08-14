@@ -16,63 +16,50 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import { Tab, Tabs, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { Card, CardBody, CardHeader, Input, Nav, TabContent, TabPane } from 'reactstrap';
 
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
+import {
+  ContainerBody,
+  ContainerHeader,
+  LayoutContainer,
+} from '@cubeartisan/client/components/containers/LayoutContainer.js';
 import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
-import Tab from '@cubeartisan/client/components/Tab.js';
+
+/** @param {string} name */
+const a11yProps = (name) => ({ id: `tab-${name}`, 'aria-controls': `tabpanel-${name}`, label: name });
 
 const TextEntry = ({ name, value, onChange, maxLength }) => {
-  const [tab, setTab] = useState('0');
+  const [tab, setTab] = useState(0);
 
   return (
-    <Card>
-      <ErrorBoundary>
-        <CardHeader className="p-0">
-          <Nav className="mt-2" tabs justified>
-            <Tab tab={tab} setTab={setTab} index="0">
-              Source
-            </Tab>
-            <Tab tab={tab} setTab={setTab} index="1">
-              Preview
-            </Tab>
-          </Nav>
-        </CardHeader>
-        <TabContent activeTab={tab}>
-          <TabPane tabId="0">
-            <Input
-              type="textarea"
-              name="textarea"
-              maxLength={maxLength}
-              className="w-100 markdown-input"
-              value={value}
-              onChange={onChange}
-            />
-          </TabPane>
-          <TabPane tabId="1">
-            <CardBody>
-              <Markdown markdown={value} />
-            </CardBody>
-          </TabPane>
-        </TabContent>
-      </ErrorBoundary>
-      <Input type="hidden" name={name} maxLength={maxLength} value={value} />
-    </Card>
+    <ErrorBoundary>
+      <LayoutContainer>
+        <ContainerHeader>
+          <Tabs value={tab} onChange={(_, newValue) => setTab(newValue)} aria-label="markdownentry-tabs">
+            <Tab {...a11yProps('Source')} />
+            <Tab {...a11yProps('Preview')} />
+          </Tabs>
+        </ContainerHeader>
+        <ContainerBody>
+          {tab === 0 && <TextField name="textarea" value={value} onChange={onChange} />}
+          {tab === 1 && <Markdown markdown={value} />}
+          <input type="hidden" name={name} maxLength={maxLength} value={value} />
+        </ContainerBody>
+      </LayoutContainer>
+    </ErrorBoundary>
   );
 };
-
 TextEntry.propTypes = {
   name: PropTypes.string,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   maxLength: PropTypes.number,
 };
-
 TextEntry.defaultProps = {
   name: 'hiddentextarea',
   maxLength: 1000,
 };
-
 export default TextEntry;

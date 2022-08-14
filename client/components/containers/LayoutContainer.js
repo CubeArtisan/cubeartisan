@@ -21,6 +21,7 @@ export const LayoutContainer = ({ children, sx, ...props }) => (
   </HeaderFooter>
 );
 LayoutContainer.propTypes = {
+  // @ts-ignore
   children: PropTypes.node.isRequired,
   sx: PropTypes.shape({}),
 };
