@@ -16,20 +16,18 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
-import { NavItem, NavLink } from 'reactstrap';
 
 const Tab = ({ tab, setTab, index, children }) => (
-  <NavItem className="ml-2 clickable">
-    <NavLink
-      active={tab === index}
-      onClick={() => {
-        setTab(index);
-      }}
-    >
-      {children}
-    </NavLink>
-  </NavItem>
+  <Button
+    variant={tab === index ? 'outlined' : 'text'}
+    onClick={() => {
+      setTab(index);
+    }}
+  >
+    {children}
+  </Button>
 );
 Tab.propTypes = {
   tab: PropTypes.string.isRequired,

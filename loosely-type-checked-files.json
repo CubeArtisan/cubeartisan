@@ -36,7 +36,6 @@
   "client/components/analytics/Suggestions.js",
   "client/components/analytics/Tokens.js",
   "client/components/containers/CollapsingNavbar.js",
-  "client/components/containers/LayoutContainer.js",
   "client/components/containers/Paginate.js",
   "client/components/contexts/CardModalContext.js",
   "client/components/contexts/ChangelistContext.js",
