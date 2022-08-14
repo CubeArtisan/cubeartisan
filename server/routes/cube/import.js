@@ -1,88 +1,9 @@
-import { body } from 'express-validator';
-import fetch from 'node-fetch';
-import cheerio from 'cheerio';
-
 import carddb from '@cubeartisan/server/serverjs/cards.js';
-import { addCardToCube } from '@cubeartisan/server/serverjs/util.js';
 import { bulkUpload, updateCubeAndBlog } from '@cubeartisan/server/routes/cube/helper.js';
 import Cube from '@cubeartisan/server/models/cube.js';
 import { buildIdQuery, compareCubes, CSVtoCards } from '@cubeartisan/server/serverjs/cubefn.js';
 import { addCardMarkdown, removeCardMarkdown } from '@cubeartisan/markdown';
-import { ensureAuth, flashValidationErrors, handleRouteError } from '@cubeartisan/server/routes/middleware.js';
-
-export const importFromCubeTutorHandler = async (req, res) => {
-  try {
-    const cube = await Cube.findOne(buildIdQuery(req.params.id));
-    if (!req.user._id.equals(cube.owner)) {
-      req.flash('danger', 'Not Authorized');
-      return res.redirect(`/cube/${encodeURIComponent(req.params.id)}/list`);
-    }
-
-    const response = await fetch(`https://www.cubetutor.com/viewcube/${req.body.cubeid}`, {
-      headers: {
-        // This tricks cubetutor into not redirecting us to the unsupported browser page.
-        'User-Agent': 'Mozilla/5.0',
-      },
-    });
-    if (!response.ok) {
-      req.flash('danger', 'Error accessing CubeTutor.');
-      return res.redirect(`/cube/${encodeURIComponent(req.params.id)}/list`);
-    }
-    const text = await response.text();
-    const data = cheerio.load(text);
-
-    const tagColors = new Map();
-    data('.keyColour').each((_, elem) => {
-      const nodeText = elem.firstChild.nodeValue.trim();
-      tagColors.set(elem.attribs.class.split(' ')[1], nodeText);
-    });
-
-    const cards = [];
-    data('.cardPreview').each((_, elem) => {
-      const str = elem.attribs['data-image'].substring(37, elem.attribs['data-image'].length - 4);
-      const name = decodeURIComponent(elem.children[0].data).replace('_flip', '');
-      const tagColorClasses = elem.attribs.class.split(' ').filter((c) => tagColors.has(c));
-      const tags = tagColorClasses.map((c) => tagColors.get(c));
-      cards.push({
-        set: str.includes('/') ? str.split('/')[0] : 'unknown',
-        name,
-        tags,
-      });
-    });
-
-    const added = [];
-    const missing = [];
-    const changelog = [];
-    for (const card of cards) {
-      const potentialIds = carddb.allVersions(card);
-      if (potentialIds && potentialIds.length > 0) {
-        const matchingSet = potentialIds.find((id) => carddb.cardFromId(id).set.toUpperCase() === card.set);
-        const nonPromo = carddb.getMostReasonable(card.name, cube.defaultPrinting)._id;
-        const selected = matchingSet || nonPromo || potentialIds[0];
-        const details = carddb.cardFromId(selected);
-        if (!details.error) {
-          added.push(details);
-          addCardToCube(cube, details, card.tags);
-          changelog.push(addCardMarkdown({ cardID: selected, name: details.name }));
-        } else {
-          missing.push(card.name);
-        }
-      } else {
-        missing.push(card.name);
-      }
-    }
-
-    return await updateCubeAndBlog(req, res, cube, changelog, added, missing);
-  } catch (err) {
-    return handleRouteError(req, res, err, `/cube/${encodeURIComponent(req.params.id)}/list`);
-  }
-};
-export const importFromCubeTutor = [
-  ensureAuth,
-  body('cubeid').toInt(),
-  flashValidationErrors,
-  importFromCubeTutorHandler,
-];
+import { ensureAuth, handleRouteError } from '@cubeartisan/server/routes/middleware.js';
 
 const importFromPasteHandler = async (req, res) => {
   try {

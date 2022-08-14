@@ -151,12 +151,7 @@ import {
   postToBlog,
   updateBlogPost,
 } from '@cubeartisan/server/routes/cube/blog.js';
-import {
-  importFromCubeTutor,
-  importFromFile,
-  importFromPaste,
-  replaceFromFile,
-} from '@cubeartisan/server/routes/cube/import.js';
+import { importFromFile, importFromPaste, replaceFromFile } from '@cubeartisan/server/routes/cube/import.js';
 import {
   createCube,
   deleteCube,
@@ -305,7 +300,6 @@ router.delete('/cube/:id/follow', unfollowCube);
 router.post('/cube/:id/follow', followCube);
 router.post('/cube/:id/format', addFormat);
 router.delete('/cube/:id/format/:index', deleteFormat);
-router.post('/cube/:id/import/cubetutor', importFromCubeTutor);
 router.post('/cube/:id/import/file', importFromFile);
 router.post('/cube/:id/import/file/replace', replaceFromFile);
 router.post('/cube/:id/import/paste', importFromPaste);

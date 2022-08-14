@@ -807,7 +807,8 @@ export const startGridDraft = [
 
 const startDraftHandler = async (req, res) => {
   try {
-    const cube = await Cube.findOne(buildIdQuery(req.params.id), '_id name draft_formats cards basics').lean();
+    const idQuery = buildIdQuery(req.params.id);
+    const cube = await Cube.findOne(idQuery, '_id name draft_formats cards basics shortID').lean();
     if (!cube) {
       req.flash('danger', 'Cube not found');
       return res.redirect('/404');

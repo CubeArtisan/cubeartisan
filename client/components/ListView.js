@@ -154,7 +154,6 @@ const ListViewRow = ({ card, versions, versionsLoading, checked, onCheck, addAle
 
   const updateTags = useCallback(
     async (newTags) => {
-      console.log(newTags);
       setTags(newTags);
       try {
         await syncCard({ tags: newTags.map((newTag) => newTag.text) });

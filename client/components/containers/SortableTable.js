@@ -117,6 +117,23 @@ export const SortableTable = ({ data, defaultSortConfig, sortFns, columnProps, t
   );
 };
 
+/**
+ * @typedef ColumnProps
+ * @property {string} title
+ * @property {string} key
+ * @property {boolean} [sortable]
+ * @property {boolean} [heading]
+ * @property {string?} [tooltip]
+ * @property {(value: any, row?: object, key?: string) => React.ReactNode} [renderFn]
+ */
+
+/**
+ * @template Data
+ * @typedef SortableTableProps
+ * @property {Data[]} data
+ * @property {{[k in keyof Data]: 'ascending'|'descending'}} defaultSortConfig
+ */
+
 SortableTable.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
   defaultSortConfig: PropTypes.shape({
@@ -143,5 +160,4 @@ SortableTable.defaultProps = {
   totalRow: false,
   totalCol: false,
 };
-
 export default SortableTable;

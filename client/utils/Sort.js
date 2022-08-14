@@ -39,7 +39,7 @@ import {
   COLORS,
   detailsToCard,
 } from '@cubeartisan/client/utils/Card.js';
-import { alphaCompare, arrayIsSubset } from '@cubeartisan/client/utils/Util.js';
+import { arrayIsSubset } from '@cubeartisan/client/utils/Util.js';
 
 /**
  * @typedef {import('@cubeartisan/client/proptypes/CardDetailsPropType.js').Color} Color
@@ -248,7 +248,15 @@ export const ORDERED_SORTS = ['Alphabetical', 'Mana Value', 'Price', 'Elo', 'Rel
  * @type {{[s: OrderedSort]: (a: Card, b: Card) => number}}
  */
 export const SortFunctions = {
-  Alphabetical: alphaCompare,
+  /**
+   * @param {Card} a
+   * @param {Card} b
+   */
+  Alphabetical: (a, b) => {
+    const textA = cardName(a)?.toUpperCase?.();
+    const textB = cardName(b)?.toUpperCase?.();
+    return textA?.localeCompare?.(textB);
+  },
   'Mana Value': (a, b) => cardCmc(a) - cardCmc(b),
   Price: (a, b) => {
     const priceA = cardPrice(a);
@@ -783,7 +791,6 @@ export function cardGetLabels(card, sort, showOther = false) {
     // whitespace around 'Other' to prevent collisions
     ret = [' Other '];
   }
-  console.log(cardName(card), ret);
   return ret;
 }
 
@@ -871,7 +878,6 @@ export function sortIntoGroups(cards, sort, showOther = false) {
  * @param {BucketSort[]} sorts
  */
 export function sortDeep(cards, showOther, last, ...sorts) {
-  console.log(cards.length, showOther, last, sorts);
   if (sorts.length === 0) {
     return Array.from(cards).sort(SortFunctions[last]);
   }

@@ -31,18 +31,15 @@ const AutocardImage = withAutocard(CardImage);
 
 const VisualSpoiler = ({ cards }) => {
   const { primary, secondary, tertiary, quaternary, showOther } = useContext(SortContext);
-  console.log(useContext(SortContext));
   const sorted = sortDeep(cards, showOther, quaternary, primary, secondary, tertiary);
   const cardList = sorted
     .map((tuple1) => tuple1[1].map((tuple2) => tuple2[1].map((tuple3) => tuple3[1].map((card) => card))))
     .flat(4);
 
-  console.log(cardList);
-
   return (
     <>
       <SetCardsInRow />
-      <CardGrid cardList={cardList} Tag={AutocardImage} cardProps={{ cardModal: true }} />
+      <CardGrid cardList={cardList} Tag={AutocardImage} tagProps={{}} />
     </>
   );
 };

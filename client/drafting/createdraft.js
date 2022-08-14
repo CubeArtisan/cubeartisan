@@ -373,7 +373,6 @@ export const createDraft = (format, cubeCards, seats, userid, botsOnly = false, 
       ...pack,
       cards: cards.map(({ details: _, ...card }) => {
         card.index = draft.cards.length;
-        console.log(card.index, { colors: card.colors });
         draft.cards.push(card);
         return card.index;
       }),
@@ -400,14 +399,13 @@ export const createDraft = (format, cubeCards, seats, userid, botsOnly = false, 
   seatIndices = shuffleSeed.shuffle(seatIndices, rng());
   const humanIndices = seatIndices.slice(0, format.humanSeats);
   let botIndex = 0;
-  // Need a better way to assign this for when there's more than one player, or the player isn't index 0
   draft.seats = draft.initial_state.map((_, seatIndex) => {
     const bot = !humanIndices.includes(seatIndex);
     if (bot) botIndex += 1;
     return {
       bot,
       name: bot ? `Bot ${botIndex}` : 'Waiting for Player',
-      userid,
+      userid: null,
       drafted: [new Array(8).fill([]), new Array(8).fill([])], // organized draft picks
       sideboard: [new Array(8).fill([])],
       pickorder: [],

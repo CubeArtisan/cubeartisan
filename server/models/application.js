@@ -18,7 +18,7 @@
  */
 import mongoose from 'mongoose';
 
-const applicationSchema = mongoose.Schema({
+const applicationSchema = new mongoose.Schema({
   userid: mongoose.Schema.Types.ObjectId,
   info: String,
   timePosted: Date,

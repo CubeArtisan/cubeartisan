@@ -189,6 +189,7 @@ declare namespace CubePreview {
             defaultSorts: import("prop-types").Requireable<string[]>;
             default_show_unsorted: import("prop-types").Validator<boolean>;
             card_count: import("prop-types").Validator<number>;
+            type: import("prop-types").Requireable<string>;
             users_following: import("prop-types").Validator<string[]>;
             defaultPrinting: import("prop-types").Requireable<string>;
             disableNotifications: import("prop-types").Validator<boolean>;

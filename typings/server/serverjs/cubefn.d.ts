@@ -1,6 +1,6 @@
 export function getCubeId(cube: any): any;
-export function buildIdQuery(id: any): {
-    _id: any;
+export function buildIdQuery(id: string): {
+    _id: string;
     shortID?: never;
 } | {
     shortID: string;
