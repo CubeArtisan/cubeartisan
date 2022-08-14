@@ -27,113 +27,149 @@ import {
   InputLabel,
   List,
   ListItem,
+  ListItemIcon,
+  ListItemText,
   MenuItem,
   Select,
   Typography,
 } from '@mui/material';
+import { Box } from '@mui/system';
 import PropTypes from 'prop-types';
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
+import { useDrag, useDrop } from 'react-dnd';
 
 import TagContext, { TAG_COLORS } from '@cubeartisan/client/components/contexts/TagContext.js';
+import DndProvider from '@cubeartisan/client/components/utils/DndProvider.js';
 import { arrayMove } from '@cubeartisan/client/utils/Util.js';
 
-const SortableDragHandle = SortableHandle(() => <DragHandle />);
+/**
+ * @typedef {import('@cubeartisan/client/components/contexts/TagContext.js').TagColor} TagColor
+ */
 
-const SortableItem = SortableElement(({ value }) => value);
-
-const SortableList = SortableContainer(({ items }) => (
-  <List>
-    {items.map(({ element, key }, index) => (
-      <SortableItem key={key} index={index} value={element} />
-    ))}
-  </List>
-));
-
-const TagColorRow = ({ tag, value, onChange, dragging }) => {
+const TagColorRow = ({ tag, value, onChange, idx, onSort, accept, sx }) => {
   const [open, setOpen] = useState(false);
+  const [{ isDragging }, dragRef, dragPreviewRef] = useDrag(() => ({
+    type: accept,
+    item: { tag, value, idx },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  }));
+  const [{ isOver }, dropRef] = useDrop(() => ({
+    accept,
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+    }),
+    // @ts-ignore
+    drop: (item) => onSort(item?.idx, idx - 1),
+  }));
   useEffect(() => {
-    if (dragging) setOpen(false);
-  }, [dragging]);
-  const handleOpen = useCallback(() => setOpen(!dragging), [dragging]);
+    if (isDragging) setOpen(false);
+  }, [isDragging]);
+  const handleOpen = useCallback(() => setOpen(!isDragging), [isDragging]);
   const handleClose = useCallback(() => setOpen(false), []);
+
   return (
-    <ListItem disableGutters>
-      <SortableDragHandle />
-      <FormControl fullWidth>
-        <InputLabel id={`${tag}-color-select-id`}>{tag}</InputLabel>
-        <Select
-          open={open}
-          labelId={`${tag}-color-select-id`}
-          id={`${tag}-color-select`}
-          label={`${tag} Color`}
-          name={`tagcolor-${tag}`}
-          value={value ?? 'none'}
-          onChange={onChange}
-          onOpen={handleOpen}
-          onClose={handleClose}
-          sx={{ backgroundColor: `tags.${value}` }}
-        >
-          {TAG_COLORS.map(([name, ivalue]) => (
-            <MenuItem key={ivalue ?? 'none'} value={ivalue ?? 'none'} sx={{ backgroundColor: `tags.${ivalue}` }}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </ListItem>
+    <Box ref={dropRef} sx={{ ...sx, display: isDragging ? 'none' : 'block' }}>
+      {isOver && (
+        <TagColorRow
+          tag=""
+          value=""
+          onChange={() => {}}
+          idx={-1}
+          onSort={() => {}}
+          accept=""
+          sx={{ visibility: 'hidden' }}
+        />
+      )}
+      <ListItem disableGutters ref={dragPreviewRef}>
+        <ListItemIcon ref={dragRef}>
+          <DragHandle />
+        </ListItemIcon>
+        <ListItemText>
+          <FormControl fullWidth>
+            <InputLabel id={`${tag}-color-select-id`}>{tag}</InputLabel>
+            <Select
+              open={open}
+              labelId={`${tag}-color-select-id`}
+              id={`${tag}-color-select`}
+              label={`${tag} Color`}
+              name={`tagcolor-${tag}`}
+              value={value ?? 'none'}
+              onChange={onChange}
+              onOpen={handleOpen}
+              onClose={handleClose}
+              sx={{ backgroundColor: `tags.${value}` }}
+            >
+              {TAG_COLORS.map(([name, ivalue]) => (
+                <MenuItem key={ivalue ?? 'none'} value={ivalue ?? 'none'} sx={{ backgroundColor: `tags.${ivalue}` }}>
+                  {name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </ListItemText>
+      </ListItem>
+    </Box>
   );
 };
 TagColorRow.propTypes = {
   tag: PropTypes.string.isRequired,
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
-  dragging: PropTypes.bool,
+  idx: PropTypes.number.isRequired,
+  onSort: PropTypes.func.isRequired,
+  accept: PropTypes.oneOf(['', 'tag']),
+  sx: PropTypes.shape({}),
 };
 TagColorRow.defaultProps = {
   value: null,
-  dragging: false,
+  accept: 'tag',
+  sx: null,
 };
 
 const TagColorsModal = ({ canEdit, isOpen, toggle }) => {
   const { tagColors: savedTagColors, setTagColors: saveTagColors, allTags } = useContext(TagContext);
 
-  const [dragging, setDragging] = useState(false);
-  const [tagColors, setTagColors] = useState(savedTagColors);
+  const [tagColors, setTagColors] = useState(/** @type {TagColor[]} */ savedTagColors);
 
   const submit = useCallback(
+    /** @param {any} event */
     async (event) => {
       event.preventDefault();
       if (canEdit) {
         await saveTagColors(tagColors);
       }
-      setDragging(true);
       return toggle();
     },
     [tagColors, saveTagColors, canEdit, toggle],
   );
 
-  const changeColor = useCallback((event) => {
-    const {
-      target: { name, value },
-    } = event;
-    if (!name.startsWith('tagcolor-')) {
-      return;
-    }
-    const tag = name.slice('tagcolor-'.length);
-    const newColor = value === 'none' ? null : value;
-
-    setTagColors((oldTagColors) => {
-      const result = Array.from(oldTagColors);
-      const index = oldTagColors.findIndex((tagColor) => tag === tagColor.tag);
-      if (index > -1) {
-        result[index] = { tag, color: newColor };
-      } else {
-        result.push({ tag, color: newColor });
+  const changeColor = useCallback(
+    /** @param {any} event */
+    (event) => {
+      const {
+        target: { name, value },
+      } = event;
+      if (!name.startsWith('tagcolor-')) {
+        return;
       }
-      return result;
-    });
-  }, []);
+      const tag = name.slice('tagcolor-'.length);
+      const newColor = value === 'none' ? null : value;
+
+      setTagColors((oldTagColors) => {
+        const result = Array.from(oldTagColors);
+        const index = oldTagColors.findIndex((tagColor) => tag === tagColor.tag);
+        if (index > -1) {
+          result[index] = { tag, color: newColor };
+        } else {
+          result.push({ tag, color: newColor });
+        }
+        return result;
+      });
+    },
+    [],
+  );
 
   const layoutTagColors = useCallback(() => {
     const knownTags = tagColors.map(({ tag }) => tag);
@@ -144,25 +180,18 @@ const TagColorsModal = ({ canEdit, isOpen, toggle }) => {
     return [...knownTagColors, ...unknownTagColors];
   }, [allTags, tagColors]);
 
-  const handleSortEnd = useCallback(
-    ({ oldIndex, newIndex }) => {
-      setDragging(false);
+  const orderedTags = useMemo(layoutTagColors, [layoutTagColors]);
+
+  const onSort = useCallback(
+    /**
+     * @param {number} oldIndex
+     * @param {number} newIndex
+     */
+    (oldIndex, newIndex) => {
       const allTagColors = layoutTagColors();
       setTagColors(arrayMove(allTagColors, oldIndex, newIndex));
     },
     [layoutTagColors],
-  );
-  const handleSortStart = useCallback(() => setDragging(true), []);
-
-  const orderedTags = useMemo(layoutTagColors, [layoutTagColors]);
-
-  const editableRows = useMemo(
-    () =>
-      orderedTags.map(({ tag, color }) => ({
-        element: <TagColorRow tag={tag} value={color} key={tag} onChange={changeColor} dragging={dragging} />,
-        key: tag,
-      })),
-    [orderedTags, changeColor, dragging],
   );
 
   const staticRows = useMemo(
@@ -189,7 +218,13 @@ const TagColorsModal = ({ canEdit, isOpen, toggle }) => {
         {!canEdit ? (
           staticRows
         ) : (
-          <SortableList onSortStart={handleSortStart} onSortEnd={handleSortEnd} items={editableRows} useDragHandle />
+          <DndProvider>
+            <List>
+              {orderedTags.map(({ tag, color }, idx) => (
+                <TagColorRow tag={tag} value={color} key={tag} idx={idx} onChange={changeColor} onSort={onSort} />
+              ))}
+            </List>
+          </DndProvider>
         )}
       </DialogContent>
       <DialogActions>

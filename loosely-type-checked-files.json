@@ -64,7 +64,6 @@
   "client/components/modals/GroupModal.js",
   "client/components/modals/LoginModal.js",
   "client/components/modals/SampleHandModal.js",
-  "client/components/modals/TagColorsModal.js",
   "client/components/navbars/CubeCompareNavbar.js",
   "client/components/navbars/CubeListNavbar.js",
   "client/components/navbars/CubeSearchNavBar.js",

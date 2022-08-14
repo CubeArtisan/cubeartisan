@@ -29,7 +29,7 @@ import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 /**
  * @typedef TagColor
  * @property {string} tag
- * @property {string} color
+ * @property {string | null} color
  * @typedef Tag
  * @property {number} id
  * @property {string} text
