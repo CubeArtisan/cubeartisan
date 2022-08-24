@@ -28,7 +28,8 @@ const ColorIcon = ({ short, checked, color }) => (
     alt={color}
     title={color}
     sx={{
-      backgroundColor: checked ? 'background.darker' : 'background.paper',
+      backgroundColor: checked ? 'background.darker' : undefined,
+      opacity: checked ? 1.0 : 0.8,
       width: '2.5rem',
     }}
   />
@@ -49,7 +50,7 @@ const ColorChecks = ({ prefix, values, onChange, colors }) => (
         checkedIcon={<ColorIcon short={short} color={color} checked />}
         checked={values[`${prefix || 'color'}${short}`]}
         onChange={onChange}
-        inputProps={{ 'aria-label': 'controlled' }}
+        inputProps={{ 'aria-label': 'controlled', name: `${prefix || 'color'}${short}` }}
       />
     ))}
   </Box>
