@@ -65,38 +65,39 @@ connector ->
   | "or"i __           {% () => (clause1, clause2) => (card) => clause1(card) || clause2(card) %}
 
 condition -> (
-    cmcCondition
+    artistCondition
+  | castableCostCondition
+  | cmcCondition
+  | collectorNumberCondition
   | colorCondition
   | colorIdentityCondition
-  | typeCondition
-  | oracleCondition
-  | setCondition
-  | powerCondition
-  | toughnessCondition
-  | tagCondition
-  | finishCondition
-  | priceCondition
-  | normalPriceCondition
-  | foilPriceCondition
-  | eurPriceCondition
-  | tixPriceCondition
-  | statusCondition
-  | rarityCondition
-  | loyaltyCondition
-  | artistCondition
-  | isCondition
-  | notCondition
-  | eloCondition
-  | popularityCondition
   | cubeCountCondition
-  | pickCountCondition
-  | nameCondition
-  | manaCostCondition
-  | castableCostCondition
   | devotionCondition
-  | legalityCondition
+  | eloCondition
+  | eurPriceCondition
+  | finishCondition
+  | foilPriceCondition
+  | isCondition
   | layoutCondition
-  | collectorNumberCondition
+  | legalityCondition
+  | loyaltyCondition
+  | manaCostCondition
+  | nameCondition
+  | normalPriceCondition
+  | notCondition
+  | oracleCondition
+  | pickCountCondition
+  | popularityCondition
+  | powerCondition
+  | priceCondition
+  | rarityCondition
+  | setCondition
+  | statusCondition
+  | tagCondition
+  | tixPriceCondition
+  | totalptCondition
+  | toughnessCondition
+  | typeCondition
 ) {% ([[condition]]) => condition %}
 
 @{%
@@ -123,6 +124,8 @@ setCondition -> ("s"i | "set"i | "e"i | "edition"i) alphaNumericOpValue {% ([, v
 powerCondition -> ("pow"i | "power"i) halfIntOpValue {% ([, valuePred]) => genericCondition('power', (c) => parseFloat(cardPower(c), 10), valuePred) %}
 
 toughnessCondition -> ("tou"i | "tough"i | "toughness"i) halfIntOpValue {% ([, valuePred]) => genericCondition('toughness', (c) => parseFloat(cardToughness(c), 10), valuePred) %}
+
+totalptCondition -> ("totalpt"i | "p+t"i | "pt"i) halfIntOpValue {% ([, valuePred]) => genericCondition('toughness', (c) => (parseFloat(cardToughness(c), 10) + parseFloat(cardPower(c), 10)), valuePred) %}
 
 tagCondition -> ("tag"i | "tags"i) stringSetElementOpValue {% ([, valuePred]) => genericCondition('tags', cardTags, valuePred) %}
 
