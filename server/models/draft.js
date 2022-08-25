@@ -68,7 +68,10 @@ const draftSchema = new mongoose.Schema(
       type: [Number],
     },
     cards: [cardSchema],
-    cube: mongoose.Schema.Types.ObjectId,
+    cube: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Cube',
+    },
     initial_state: [[Pack]],
     schemaVersion: {
       type: Number,

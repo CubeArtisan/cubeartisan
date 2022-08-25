@@ -34,13 +34,13 @@ import { handleRouteError } from '@cubeartisan/server/routes/middleware.js';
 
 export const getDraftPage = async (req, res) => {
   try {
-    const draft = await Draft.findById(req.params.id).lean();
+    const draft = await Draft.findById(req.params.id).populate('cube').lean();
     if (!draft) {
       req.flash('danger', 'Draft not found');
       return res.redirect('/404');
     }
 
-    const cube = await Cube.findOne(draft.cube).lean();
+    const { cube } = draft;
 
     if (!cube) {
       req.flash('danger', 'Cube not found');
