@@ -45,7 +45,7 @@ const getSeat = async (draftid, user) => {
         $set: { [`seats.${seatNumber}.name`]: user.username, [`seats.${seatNumber}.userid`]: user._id },
       },
     );
-    if (result.nModified > 0) {
+    if (result.modifiedCount > 0) {
       draft.seats[seatNumber].name = user.username;
       draft.seats[seatNumber].userid = user._id;
       return [seatNumber, draft];
