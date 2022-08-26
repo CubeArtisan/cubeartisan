@@ -324,6 +324,7 @@ functionality of the site is easier to discover.
   - Cube Overview Page
 - Allow controlling dark mode without refreshing.
 - Redesigns of both light and dark mode color schemes.
+- Put the draftbot analysis on the pick by pick breakdown screen when viewing past drafts.
 
 ### Infrastructure
 
