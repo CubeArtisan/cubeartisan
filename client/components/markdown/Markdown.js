@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import GenericMarkdown from '@cubeartisan/markdown';
 
 import ErrorBoundary from '@cubeartisan/client/components/containers/ErrorBoundary.js';
 import ExternalLink from '@cubeartisan/client/components/markdown/ExternalLink.js';
@@ -6,16 +6,14 @@ import MarkdownCardImage from '@cubeartisan/client/components/markdown/MarkdownC
 import MarkdownCardLink from '@cubeartisan/client/components/markdown/MarkdownCardLink.js';
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 
-const GenericMarkdown = lazy(() => import('@cubeartisan/markdown'));
-
 const Markdown = (props) => (
   <ErrorBoundary>
     <Suspense>
       <GenericMarkdown
         {...props}
-        ExternalLink={ExternalLink}
-        CardImage={MarkdownCardImage}
-        CardLink={MarkdownCardLink}
+        renderExternalLink={ExternalLink}
+        renderCardImage={MarkdownCardImage}
+        renderCardLink={MarkdownCardLink}
       />
     </Suspense>
   </ErrorBoundary>

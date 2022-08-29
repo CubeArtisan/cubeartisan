@@ -16,19 +16,21 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { Badge, Button } from '@mui/material';
+import { addCardMarkdown, removeCardMarkdown, replaceCardMarkdown } from '@cubeartisan/markdown';
+import { Box, Button, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useCallback, useContext } from 'react';
 
 import ChangelistContext from '@cubeartisan/client/components/contexts/ChangelistContext.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
+import Markdown from '@cubeartisan/client/components/markdown/Markdown.js';
 import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
 import { cardName } from '@cubeartisan/client/utils/Card.js';
 
-const TextAutocard = withAutocard('span');
+const TextAutocard = withAutocard(Typography);
 
 const CloseButton = ({ changeId, close }) => (
-  <Button className="clickx" variant="contained" data-change-id={changeId} onClick={close}>
+  <Button variant="contained" data-change-id={changeId} onClick={close} sx={{ marginRight: 1 }}>
     ×
   </Button>
 );
@@ -38,10 +40,10 @@ CloseButton.propTypes = {
 };
 
 const Add = ({ card, changeId, close }) => (
-  <li>
-    <CloseButton changeId={changeId} close={close} /> <Badge color="success">+</Badge>{' '}
-    <TextAutocard card={card}>{cardName(card)}</TextAutocard>
-  </li>
+  <Box component="li" sx={{ display: 'flex' }}>
+    <CloseButton changeId={changeId} close={close} />
+    <Markdown markdown={addCardMarkdown({ name: cardName(card) ?? '', cardID: card.cardID })} />
+  </Box>
 );
 Add.propTypes = {
   changeId: PropTypes.string.isRequired,
@@ -51,7 +53,8 @@ Add.propTypes = {
 
 const Remove = ({ card, changeId, close }) => (
   <li>
-    <CloseButton changeId={changeId} close={close} /> <Badge color="warning">-</Badge>{' '}
+    <CloseButton changeId={changeId} close={close} />
+    <Markdown markdown={removeCardMarkdown({ name: cardName(card) ?? '', cardID: card.cardID })} />
     <TextAutocard card={card}>{cardName(card)}</TextAutocard>
   </li>
 );
@@ -63,10 +66,13 @@ Remove.propTypes = {
 
 const Replace = ({ cards, changeId, close }) => (
   <li>
-    <CloseButton changeId={changeId} close={close} /> <Badge color="primary">→</Badge>{' '}
-    <TextAutocard card={cards[0]}>{cardName(cards[0])}</TextAutocard>
-    {' > '}
-    <TextAutocard card={cards[1]}>{cardName(cards[1])}</TextAutocard>
+    <CloseButton changeId={changeId} close={close} />
+    <Markdown
+      markdown={replaceCardMarkdown(
+        { name: cardName(cards[0]) ?? '', cardID: cards[0].cardID },
+        { name: cardName(cards[1]) ?? '', cardID: cards[1].cardID },
+      )}
+    />
   </li>
 );
 Replace.propTypes = {

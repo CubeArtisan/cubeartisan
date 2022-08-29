@@ -5,8 +5,12 @@ import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 
 const AutocardLink = withAutocard(Link);
 
-const MarkdownCardLink = ({ name, cardID, dfc }) => {
-  const idURL = encodeURIComponent(cardID ?? name);
+const MarkdownCardLink = (props) => {
+  console.log('CARDLINK', props);
+  const { name, cardID, dfc } = props;
+  console.log(name, cardID);
+  const idURL = encodeURIComponent(cardID ?? name ?? 'test');
+
   const details = { image_normal: `/card/${idURL}/image/redirect` };
   if (dfc) details.image_flip = `/card/${idURL}/image/flip`;
 

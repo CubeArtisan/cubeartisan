@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { findUserLinks } from '@cubeartisan/markdown';
+import { plugins } from '@cubeartisan/markdown';
 import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useCallback, useContext, useState } from 'react';
@@ -49,7 +49,7 @@ const EditBlogModal = ({ isOpen, toggle, markdown, setMarkdown, post }) => {
   const [mentions, setMentions] = useState('');
   const handleChangeMarkdown = useCallback((event) => setMarkdown(event.target.value), [setMarkdown]);
   const handleMentions = useCallback(() => {
-    setMentions(findUserLinks(markdown).join(';'));
+    setMentions(plugins.findUserLinks(markdown).join(';'));
   }, [markdown]);
 
   console.debug(post);

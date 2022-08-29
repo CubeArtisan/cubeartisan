@@ -16,16 +16,14 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { Grid, Link, Tooltip, Typography } from '@mui/material';
-import PropTypes from 'prop-types';
+import { Link, Tooltip, Typography } from '@mui/material';
 import { useContext, useEffect, useMemo, useState } from 'react';
 
 import { compareStrings, SortableTable } from '@cubeartisan/client/components/containers/SortableTable.js';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
-import PickSelector from '@cubeartisan/client/components/inputs/PickSelector.js';
 import { convertDrafterState, getDraftbotScores } from '@cubeartisan/client/drafting/draftutil.js';
-import { DrafterStatePropType, DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
+import { DrafterStatePropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
 import { cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
 
 const AutocardLink = withAutocard(Link);

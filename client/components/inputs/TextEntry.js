@@ -36,7 +36,7 @@ const TextEntry = ({ name, value, onChange, maxLength }) => {
 
   return (
     <ErrorBoundary>
-      <LayoutContainer>
+      <LayoutContainer sx={{ minHeight: 600 }}>
         <ContainerHeader>
           <Tabs value={tab} onChange={(_, newValue) => setTab(newValue)} aria-label="markdownentry-tabs">
             <Tab {...a11yProps('Source')} />
@@ -44,7 +44,17 @@ const TextEntry = ({ name, value, onChange, maxLength }) => {
           </Tabs>
         </ContainerHeader>
         <ContainerBody>
-          {tab === 0 && <TextField name="textarea" value={value} onChange={onChange} />}
+          {tab === 0 && (
+            <TextField
+              sx={{ width: '100%', height: '100%' }}
+              multiline
+              minRows={20}
+              name="textarea"
+              aria-label="description"
+              value={value}
+              onChange={onChange}
+            />
+          )}
           {tab === 1 && <Markdown markdown={value} />}
           <input type="hidden" name={name} maxLength={maxLength} value={value} />
         </ContainerBody>

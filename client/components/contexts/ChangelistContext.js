@@ -156,7 +156,7 @@ export const ChangelistContextProvider = ({ cubeID, setOpenCollapse, initialChan
 
   const removeChange = useCallback(
     /** @param {number} changeId */ (changeId) => {
-      setChanges((changesB) => changesB.filter((change) => change.id !== changeId));
+      setChanges((changesB) => changesB.filter((change) => (change.id ?? 0) !== (changeId ?? 0)));
     },
     [],
   );

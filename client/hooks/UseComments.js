@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { findUserLinks } from '@cubeartisan/markdown';
+import { plugins } from '@cubeartisan/markdown';
 import { useEffect, useState } from 'react';
 
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
@@ -38,7 +38,7 @@ const useComment = (type, parent) => {
    * @param {string} content
    */
   const addComment = async (content) => {
-    const mentions = findUserLinks(content).join(';');
+    const mentions = plugins.findUserLinks(content).join(';');
     const response = await csrfFetch(`/comment`, {
       method: 'POST',
       headers: {

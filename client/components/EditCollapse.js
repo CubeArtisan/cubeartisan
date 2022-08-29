@@ -76,6 +76,8 @@ const EditCollapse = ({ isOpen }) => {
   const [specifyEdition, toggleSpecifyEdition] = useToggle(false);
 
   const { changes, addChange, setChanges } = useContext(ChangelistContext);
+  console.log(changes);
+
   const { cube, cubeID } = useContext(CubeContext);
   const { toggleShowMaybeboard } = useContext(DisplayContext);
 
@@ -85,15 +87,36 @@ const EditCollapse = ({ isOpen }) => {
 
   const handleAdd = useCallback(
     async (addValue) => {
+      console.log(addValue);
       try {
-        const card = await getCard(cubeID, addValue, setAlerts);
+        const card = await getCard(cubeID, addValue?.name, setAlerts);
+        console.log(card);
         if (!card) return;
-        addChange({ add: { details: card } });
+        addChange({
+          add: {
+            cardID: card._id,
+            addedTmsp: new Date(),
+            cmc: null,
+            colorCategory: null,
+            details: card,
+            colors: null,
+            finish: 'Non-foil',
+            imgUrl: null,
+            imgBackUrl: null,
+            name: null,
+            notes: '',
+            rarity: null,
+            status: 'Not Owned',
+            tags: [],
+            type_line: null,
+          },
+          id: changes.length,
+        });
       } catch (e) {
         console.error(e);
       }
     },
-    [addChange, cubeID],
+    [addChange, cubeID, changes],
   );
 
   // TODO: Handle Replace
