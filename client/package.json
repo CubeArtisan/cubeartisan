@@ -24,7 +24,7 @@
     "@babel/preset-env": "^7.18.10",
     "@babel/preset-react": "^7.18.6",
     "@cubeartisan/client": "^0.1.0",
-    "@cubeartisan/markdown": "1.3.5",
+    "@cubeartisan/markdown": "1.3.6",
     "@cubeartisan/server": "^0.1.0",
     "@emotion/cache": "^11.10.3",
     "@emotion/memoize": "^0.8.0",
