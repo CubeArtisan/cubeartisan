@@ -92,7 +92,6 @@ export const CubeDeckPage = ({ cube, deck, draft, loginCallback }) => {
           <Input type="select" id="viewSelect" value={view} onChange={handleChangeView}>
             <option value="deck">Deck View</option>
             <option value="picks">Pick by Pick Breakdown</option>
-            <option value="draftbot">Draftbot Analysis</option>
           </Input>
         </div>
         <NavbarToggler onClick={toggleNavbar} className="ml-auto" />

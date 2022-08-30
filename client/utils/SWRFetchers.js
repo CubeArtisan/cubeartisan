@@ -1,6 +1,4 @@
-import Axios from 'axios';
-
-const axios = new Axios.Axios();
+import axios from 'axios';
 
 /**
  * @template T

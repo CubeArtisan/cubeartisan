@@ -1,9 +1,5 @@
 export default MarkdownCardLink;
-declare function MarkdownCardLink({ name, cardID, dfc }: {
-    name: any;
-    cardID: any;
-    dfc: any;
-}): JSX.Element;
+declare function MarkdownCardLink(props: any): JSX.Element;
 declare namespace MarkdownCardLink {
     namespace propTypes {
         const name: PropTypes.Validator<string>;

@@ -16,17 +16,14 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { Grid, Link, Tooltip, Typography } from '@mui/material';
-import PropTypes from 'prop-types';
+import { Link, Tooltip, Typography } from '@mui/material';
 import { useContext, useEffect, useMemo, useState } from 'react';
 
 import { compareStrings, SortableTable } from '@cubeartisan/client/components/containers/SortableTable.js';
 import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
-import { usePickListAndDrafterState } from '@cubeartisan/client/components/DecksPickBreakdown.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
-import PickSelector from '@cubeartisan/client/components/inputs/PickSelector.js';
 import { convertDrafterState, getDraftbotScores } from '@cubeartisan/client/drafting/draftutil.js';
-import { DrafterStatePropType, DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
+import { DrafterStatePropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
 import { cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
 
 const AutocardLink = withAutocard(Link);
@@ -125,34 +122,4 @@ export const DraftbotBreakdownTable = ({ drafterState }) => {
 DraftbotBreakdownTable.propTypes = {
   drafterState: DrafterStatePropType.isRequired,
 };
-
-const DraftbotBreakdown = (props) => {
-  const { picksList, drafterState, setPickNumberFromEvent } = usePickListAndDrafterState(props);
-  return (
-    <Grid container>
-      <Grid item xs={12} sm={3}>
-        <PickSelector
-          picksList={picksList}
-          curPickNumber={drafterState.pickNumber}
-          setPickNumberFromEvent={setPickNumberFromEvent}
-        />
-      </Grid>
-      <Grid item xs={12} sm={9}>
-        <h4 className="mt-5 mb-2">{`Pack ${drafterState.packNum + 1}: Pick ${drafterState.pickNum + 1} Cards`}</h4>
-        <DraftbotBreakdownTable drafterState={drafterState} />
-      </Grid>
-    </Grid>
-  );
-};
-DraftbotBreakdown.propTypes = {
-  // eslint-disable-next-line
-  draft: DraftPropType.isRequired,
-  // eslint-disable-next-line
-  seatIndex: PropTypes.oneOfType([PropTypes.number.isRequired, PropTypes.string.isRequired]).isRequired,
-  // eslint-disable-next-line
-  defaultIndex: PropTypes.number,
-};
-DraftbotBreakdown.defaultProps = {
-  defaultIndex: 0,
-};
-export default DraftbotBreakdown;
+export default DraftbotBreakdownTable;

@@ -32,7 +32,6 @@ import DeckPropType from '@cubeartisan/client/proptypes/DeckPropType.js';
 import DraftSeatPropType from '@cubeartisan/client/proptypes/DraftSeatPropType.js';
 
 const DecksPickBreakdown = lazy(async () => import('@cubeartisan/client/components/DecksPickBreakdown.js'));
-const DraftbotBreakdown = lazy(async () => import('@cubeartisan/client/components/DraftbotBreakdown.js'));
 
 const AutocardImage = withAutocard(CardImage);
 
@@ -123,12 +122,13 @@ const DeckCard = ({ seat, deck, seatIndex, draft, view }) => {
         </Stack>
       </CardHeader>
       <Suspense fallback={<CircularProgress />}>
-        {view === 'picks' &&
-          (draft ? (
-            <DecksPickBreakdown deck={deck} seatIndex={draftSeatIndex} draft={draft} />
-          ) : (
-            <h4>This deck does not have a related draft log.</h4>
-          ))}
+        {view === 'picks' ||
+          (view === 'draftbots' &&
+            (draft ? (
+              <DecksPickBreakdown deck={deck} seatIndex={draftSeatIndex} draft={draft} />
+            ) : (
+              <h4>This deck does not have a related draft log.</h4>
+            )))}
         {view === 'deck' && (
           <>
             <DeckStacksStatic piles={stackedDeck} cards={deck.cards} cardsInRow={cardsInRow} />
@@ -142,12 +142,6 @@ const DeckCard = ({ seat, deck, seatIndex, draft, view }) => {
             )}
           </>
         )}
-        {view === 'draftbot' &&
-          (draft ? (
-            <DraftbotBreakdown seatIndex={draftSeatIndex} draft={draft} />
-          ) : (
-            <h4>This deck does not have a related draft log.</h4>
-          ))}
       </Suspense>
       <Markdown markdown={seat.description} />
       <div className="border-top">

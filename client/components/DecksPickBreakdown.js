@@ -21,6 +21,7 @@ import { useCallback, useMemo } from 'react';
 import { Col, Row } from 'reactstrap';
 
 import CardImage from '@cubeartisan/client/components/CardImage.js';
+import { DraftbotBreakdownTable } from '@cubeartisan/client/components/DraftbotBreakdown.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import PickSelector from '@cubeartisan/client/components/inputs/PickSelector.js';
 import { getDrafterState } from '@cubeartisan/client/drafting/draftutil.js';
@@ -102,15 +103,14 @@ const DecksPickBreakdownInternal = ({ draft, seatIndex, defaultIndex }) => {
       </Col>
       <Col xs={12} sm={9}>
         <h4>{`Pack ${packNum + 1}: Pick ${pickNum + 1}`}</h4>
-        <Row noGutters>
-          {cardsInPack.map((cardIndex) => (
-            <Col key={/* eslint-disable-line react/no-array-index-key */ cardIndex} xs={4} sm={2}>
-              <a href={`/card/${encodeName(cardName(cards[cardIndex]))}`}>
-                <AutocardImage data-in-modal card={cards[cardIndex]} />
-              </a>
-            </Col>
-          ))}
-        </Row>
+        {cardsInPack.map((cardIndex) => (
+          <Col key={/* eslint-disable-line react/no-array-index-key */ cardIndex} xs={4} sm={2}>
+            <a href={`/card/${encodeName(cardName(cards[cardIndex]))}`}>
+              <AutocardImage data-in-modal card={cards[cardIndex]} />
+            </a>
+          </Col>
+        ))}
+        <DraftbotBreakdownTable drafterState={drafterState} />
       </Col>
     </Row>
   );
