@@ -17,24 +17,10 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import { LoadingButton } from '@mui/lab';
-import { Button } from '@mui/material';
+import { Button, Checkbox, FormControlLabel, FormGroup, Radio, RadioGroup } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useCallback, useEffect, useState } from 'react';
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  Col,
-  FormGroup,
-  FormText,
-  Input,
-  Label,
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  Row,
-} from 'reactstrap';
+import { Card, CardBody, CardHeader, Col, FormText, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
 
 import { TagContextProvider } from '@cubeartisan/client/components/contexts/TagContext.js';
 import {
@@ -52,20 +38,11 @@ import { getCubeDescription, getCubeId } from '@cubeartisan/client/utils/Util.js
  * A utility for safely picking the current working description from a Cube.
  */
 /**
- * @param { Cube } cube
- * @returns { string }
+ * @param {Cube} cube
+ * @returns {string}
  */
-const pickDescriptionFromCube = (cube) =>
-  /* 2020-11-24 strusdell:
-   * @phulin believes that the check for the string literal 'undefined' here is
-   * deliberate. Presumably this would represent bad data, and should be ignored.
-   *
-   * NOTE: This may introduce weird behavior if the user enters 'undefined' as their
-   * description.
-   */
-  Object.prototype.hasOwnProperty.call(cube, 'raw_desc') && cube.raw_desc !== 'undefined'
-    ? cube.raw_desc
-    : cube.description;
+const pickDescriptionFromCube = (cube) => cube.raw_desc ?? cube.description;
+
 const CubeOverviewModal = ({ cube: savedCube, onError, onCubeUpdate, userID, isOpen, toggle }) => {
   const [tags, setTags] = useState((savedCube.tags ?? []).map((tag) => ({ id: tag, text: tag })));
   const [cube, setCube] = useState(JSON.parse(JSON.stringify(savedCube)));
@@ -177,18 +154,18 @@ const CubeOverviewModal = ({ cube: savedCube, onError, onCubeUpdate, userID, isO
             <br />
 
             <h6>Options</h6>
-            <div className="form-check">
-              <Label className="form-check-label">
-                <input
-                  className="form-check-input"
-                  name="overrideCategory"
-                  type="checkbox"
-                  checked={cube.overrideCategory}
-                  onChange={handleChange}
-                />
-                Override Cube Category
-              </Label>
-            </div>
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={cube.overrideCategory}
+                    onChange={handleChange}
+                    inputProps={{ 'aria-label': 'controlled', name: 'overrideCategory' }}
+                  />
+                }
+                label="Override Cube Category"
+              />
+            </FormGroup>
             <br />
 
             <h6>Category</h6>
@@ -197,22 +174,20 @@ const CubeOverviewModal = ({ cube: savedCube, onError, onCubeUpdate, userID, isO
 
             <Row>
               <Col>
-                <FormGroup tag="fieldset">
-                  {['Vintage', 'Legacy+', 'Legacy', 'Modern', 'Pioneer', 'Historic', 'Standard', 'Set'].map((label) => (
-                    <FormGroup check key={label}>
-                      <Label check>
-                        <Input
-                          type="radio"
-                          name="categoryOverride"
+                <FormGroup>
+                  <RadioGroup value={cube.categoryOverride}>
+                    {['Vintage', 'Legacy+', 'Legacy', 'Modern', 'Pioneer', 'Historic', 'Standard', 'Set'].map(
+                      (label) => (
+                        <FormControlLabel
+                          label={label}
                           value={label}
-                          disabled={!cube.overrideCategory}
-                          checked={cube.categoryOverride === label}
+                          control={<Radio />}
+                          key={label}
                           onChange={handleChange}
-                        />{' '}
-                        {label}
-                      </Label>
-                    </FormGroup>
-                  ))}
+                        />
+                      ),
+                    )}
+                  </RadioGroup>
                 </FormGroup>
               </Col>
               <Col>
@@ -228,21 +203,21 @@ const CubeOverviewModal = ({ cube: savedCube, onError, onCubeUpdate, userID, isO
                   'Multiplayer',
                   'Judge Tower',
                 ].map((label) => (
-                  <div className="form-check" key={label}>
-                    <input
-                      className="form-check-input"
-                      name="category_prefix"
-                      id={`categoryPrefix${label}`}
-                      value={label}
-                      type="checkbox"
-                      checked={(cube.categoryPrefixes ? cube.categoryPrefixes : []).includes(label)}
-                      onChange={handleChange}
-                      disabled={!cube.overrideCategory}
-                    />
-                    <label className="form-check-label" htmlFor={`categoryPrefix${label}`}>
-                      {label}
-                    </label>
-                  </div>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={(cube.categoryPrefixes ?? []).includes(label)}
+                        onChange={handleChange}
+                        disabled={!cube.overrideCategory}
+                        inputProps={{
+                          'aria-label': 'controlled',
+                          name: 'category_prefix',
+                          id: `categoryPrefix${label}`,
+                        }}
+                      />
+                    }
+                    label={label}
+                  />
                 ))}
               </Col>
             </Row>

@@ -6,7 +6,7 @@ export function EditArticlePage({ loginCallback, article, siteCustomizations }: 
 export namespace EditArticlePage {
     namespace propTypes {
         const loginCallback: PropTypes.Requireable<string>;
-        const article: PropTypes.Validator<PropTypes.InferProps<{
+        const article: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
             title: PropTypes.Validator<string>;
             body: PropTypes.Validator<string>;
@@ -18,13 +18,13 @@ export namespace EditArticlePage {
             artist: PropTypes.Validator<string>;
             image: PropTypes.Validator<string>;
             imagename: PropTypes.Validator<string>;
-        }>>;
-        const siteCustomizations: PropTypes.Validator<PropTypes.InferProps<{
+        }>>>;
+        const siteCustomizations: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             discordUrl: PropTypes.Validator<string>;
             siteName: PropTypes.Validator<string>;
             sourceRepo: PropTypes.Validator<string>;
             supportEmail: PropTypes.Validator<string>;
-        }>>;
+        }>>>;
     }
     namespace defaultProps {
         const loginCallback_1: string;

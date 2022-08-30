@@ -19,6 +19,7 @@
 import { DragHandle } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import {
+  Box,
   Dialog,
   DialogActions,
   DialogContent,
@@ -33,7 +34,6 @@ import {
   Select,
   Typography,
 } from '@mui/material';
-import { Box } from '@mui/system';
 import PropTypes from 'prop-types';
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';

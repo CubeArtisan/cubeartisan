@@ -1,5 +1,5 @@
 export default HeaderFooter;
-declare function HeaderFooter({ children, component: Component, sx, ...props }: {
+declare function HeaderFooter({ children, component, sx, ...props }: {
     [x: string]: any;
     children: any;
     component: any;
@@ -7,7 +7,7 @@ declare function HeaderFooter({ children, component: Component, sx, ...props }: 
 }): JSX.Element;
 declare namespace HeaderFooter {
     namespace propTypes {
-        const children: PropTypes.Validator<string | number | boolean | {} | PropTypes.ReactElementLike | PropTypes.ReactNodeArray>;
+        const children: PropTypes.Validator<NonNullable<PropTypes.ReactNodeLike>>;
         const component: PropTypes.Requireable<PropTypes.ReactComponentLike>;
         const sx: PropTypes.Requireable<PropTypes.InferProps<{}>>;
     }

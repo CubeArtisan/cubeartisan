@@ -38,7 +38,6 @@
     "jsx": "react-jsx",
     "moduleResolution": "nodenext",
     "allowJs": true,
-    "typeRoots": ["./typings", "node_modules/@types"],
     "skipLibCheck": true
   },
   "include": ["server/**/*", "client/**/*", "./jobs/**/*"],

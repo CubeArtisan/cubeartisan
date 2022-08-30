@@ -61,7 +61,6 @@ declare const Deck: mongoose.Model<{
             sort?: {};
             fill?: {};
             copyWithin?: {};
-            toLocaleString: {};
             buffer?: {
                 [Symbol.toStringTag]?: unknown;
                 slice?: {};
@@ -72,6 +71,7 @@ declare const Deck: mongoose.Model<{
                 slice?: {};
                 byteLength?: unknown;
             };
+            toLocaleString: {};
             write?: {};
             copy?: {};
             subarray?: {};
@@ -156,9 +156,9 @@ declare const Deck: mongoose.Model<{
         toString: {};
         equals?: {};
         toJSON?: {};
-        toHexString?: {};
         _bsontype?: mongoose.Types.ObjectId;
         generationTime?: unknown;
+        toHexString?: {};
         getTimestamp?: {};
         inspect?: {};
     };

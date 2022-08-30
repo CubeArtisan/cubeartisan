@@ -72,6 +72,7 @@ import CardPropType from '@cubeartisan/client/proptypes/CardPropType.js';
  * @property {string?} date_updated
  * @property {string?} updated_string
  * @property {string?} type
+ * @property {string} raw_desc
  * @property {[string, string, string, string]?} default_sorts
  * @property {boolean?} default_show_unsorted
  * @property {number} card_count
@@ -126,5 +127,6 @@ const CubePropType = PropTypes.shape({
   cardOracles: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   keywords: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   categories: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  raw_desc: PropTypes.string.isRequired,
 });
 export default CubePropType;

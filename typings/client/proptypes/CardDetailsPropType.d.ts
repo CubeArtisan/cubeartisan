@@ -59,12 +59,12 @@ declare const CardDetailsPropType: PropTypes.Requireable<PropTypes.InferProps<{
     released_at: PropTypes.Validator<string>;
     reprint: PropTypes.Validator<boolean>;
     promo: PropTypes.Validator<boolean>;
-    prices: PropTypes.Validator<PropTypes.InferProps<{
+    prices: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
         usd: PropTypes.Requireable<number>;
         usd_foil: PropTypes.Requireable<number>;
         eur: PropTypes.Requireable<number>;
         tix: PropTypes.Requireable<number>;
-    }>>;
+    }>>>;
     elo: PropTypes.Validator<number>;
     digital: PropTypes.Validator<boolean>;
     isToken: PropTypes.Validator<boolean>;
@@ -79,7 +79,7 @@ declare const CardDetailsPropType: PropTypes.Requireable<PropTypes.InferProps<{
     _id: PropTypes.Validator<string>;
     oracle_id: PropTypes.Validator<string>;
     cmc: PropTypes.Validator<number>;
-    legalities: PropTypes.Validator<PropTypes.InferProps<{
+    legalities: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
         Legacy: PropTypes.Requireable<string>;
         Modern: PropTypes.Requireable<string>;
         Standard: PropTypes.Requireable<string>;
@@ -90,7 +90,7 @@ declare const CardDetailsPropType: PropTypes.Requireable<PropTypes.InferProps<{
         Commander: PropTypes.Requireable<string>;
         Penny: PropTypes.Requireable<string>;
         Vintage: PropTypes.Requireable<string>;
-    }>>;
+    }>>>;
     parsed_cost: PropTypes.Validator<string[]>;
     colors: PropTypes.Requireable<string[]>;
     type: PropTypes.Requireable<string>;

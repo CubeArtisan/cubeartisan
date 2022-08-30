@@ -11,7 +11,7 @@ declare function DeckbuilderNavbar({ deck, addBasics, name, description, classNa
 }): JSX.Element;
 declare namespace DeckbuilderNavbar {
     namespace propTypes {
-        const deck: PropTypes.Validator<PropTypes.InferProps<{
+        const deck: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
             cube: PropTypes.Requireable<string>;
             owner: PropTypes.Requireable<string>;
@@ -19,8 +19,8 @@ declare namespace DeckbuilderNavbar {
             seats: PropTypes.Validator<(PropTypes.InferProps<{
                 bot: PropTypes.Validator<boolean>;
             }> | null | undefined)[]>;
-            date: PropTypes.Validator<string | Date>;
-            comments: PropTypes.Validator<PropTypes.InferProps<{
+            date: PropTypes.Validator<NonNullable<NonNullable<string | Date | null | undefined>>>;
+            comments: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                 _id: PropTypes.Validator<string>;
                 timePosted: PropTypes.Validator<string>;
                 ownerName: PropTypes.Validator<string>;
@@ -31,10 +31,10 @@ declare namespace DeckbuilderNavbar {
                 image: PropTypes.Validator<string>;
                 content: PropTypes.Validator<string>;
                 updated: PropTypes.Validator<boolean>;
-            }>[]>;
+            }>>[]>;
             basics: PropTypes.Validator<number[]>;
             cards: PropTypes.Validator<(PropTypes.InferProps<{
-                addedTmsp: PropTypes.Requireable<string | Date>;
+                addedTmsp: PropTypes.Requireable<NonNullable<string | Date | null | undefined>>;
                 cardID: PropTypes.Validator<string>;
                 cmc: PropTypes.Requireable<number>;
                 colorCategory: PropTypes.Requireable<string>;
@@ -49,7 +49,7 @@ declare namespace DeckbuilderNavbar {
                 status: PropTypes.Validator<string>;
                 tags: PropTypes.Validator<(string | null | undefined)[]>;
                 type_line: PropTypes.Requireable<string>;
-                details: PropTypes.Validator<PropTypes.InferProps<{
+                details: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                     color_identity: PropTypes.Validator<string[]>;
                     set: PropTypes.Validator<string>;
                     set_name: PropTypes.Validator<string>;
@@ -59,12 +59,12 @@ declare namespace DeckbuilderNavbar {
                     released_at: PropTypes.Validator<string>;
                     reprint: PropTypes.Validator<boolean>;
                     promo: PropTypes.Validator<boolean>;
-                    prices: PropTypes.Validator<PropTypes.InferProps<{
+                    prices: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                         usd: PropTypes.Requireable<number>;
                         usd_foil: PropTypes.Requireable<number>;
                         eur: PropTypes.Requireable<number>;
                         tix: PropTypes.Requireable<number>;
-                    }>>;
+                    }>>>;
                     elo: PropTypes.Validator<number>;
                     digital: PropTypes.Validator<boolean>;
                     isToken: PropTypes.Validator<boolean>;
@@ -79,7 +79,7 @@ declare namespace DeckbuilderNavbar {
                     _id: PropTypes.Validator<string>;
                     oracle_id: PropTypes.Validator<string>;
                     cmc: PropTypes.Validator<number>;
-                    legalities: PropTypes.Validator<PropTypes.InferProps<{
+                    legalities: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                         Legacy: PropTypes.Requireable<string>;
                         Modern: PropTypes.Requireable<string>;
                         Standard: PropTypes.Requireable<string>;
@@ -90,7 +90,7 @@ declare namespace DeckbuilderNavbar {
                         Commander: PropTypes.Requireable<string>;
                         Penny: PropTypes.Requireable<string>;
                         Vintage: PropTypes.Requireable<string>;
-                    }>>;
+                    }>>>;
                     parsed_cost: PropTypes.Validator<string[]>;
                     colors: PropTypes.Requireable<string[]>;
                     type: PropTypes.Requireable<string>;
@@ -111,10 +111,10 @@ declare namespace DeckbuilderNavbar {
                     popularity: PropTypes.Validator<number>;
                     cubeCount: PropTypes.Validator<number>;
                     pickCount: PropTypes.Validator<number>;
-                }>>;
+                }>>>;
                 isUnlimited: PropTypes.Validator<boolean>;
             }> | null | undefined)[]>;
-        }>>;
+        }>>>;
         const addBasics: PropTypes.Validator<(...args: any[]) => any>;
         const name: PropTypes.Validator<string>;
         const description: PropTypes.Validator<string>;

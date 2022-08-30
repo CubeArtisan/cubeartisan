@@ -4,7 +4,7 @@ declare function ArticlePreview({ article }: {
 }): JSX.Element;
 declare namespace ArticlePreview {
     namespace propTypes {
-        const article: import("prop-types").Validator<import("prop-types").InferProps<{
+        const article: import("prop-types").Validator<NonNullable<import("prop-types").InferProps<{
             _id: import("prop-types").Validator<string>;
             title: import("prop-types").Validator<string>;
             body: import("prop-types").Validator<string>;
@@ -16,7 +16,7 @@ declare namespace ArticlePreview {
             artist: import("prop-types").Validator<string>;
             image: import("prop-types").Validator<string>;
             imagename: import("prop-types").Validator<string>;
-        }>>;
+        }>>>;
     }
 }
 //# sourceMappingURL=ArticlePreview.d.ts.map

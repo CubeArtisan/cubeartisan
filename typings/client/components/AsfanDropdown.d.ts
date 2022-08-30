@@ -6,7 +6,7 @@ declare function AsfanDropdown({ cube, defaultFormatId, setAsfans }: {
 }): JSX.Element;
 declare namespace AsfanDropdown {
     namespace propTypes {
-        const cube: PropTypes.Validator<PropTypes.InferProps<{
+        const cube: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             cards: PropTypes.Validator<(PropTypes.InferProps<{
                 cardID: PropTypes.Validator<string>;
             }> | null | undefined)[]>;
@@ -15,7 +15,7 @@ declare namespace AsfanDropdown {
                 _id: PropTypes.Validator<string>;
             }> | null | undefined)[]>;
             defaultDraftFormat: PropTypes.Requireable<number>;
-        }>>;
+        }>>>;
         const defaultFormatId: PropTypes.Requireable<number>;
         const setAsfans: PropTypes.Validator<(...args: any[]) => any>;
     }

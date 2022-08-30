@@ -9,8 +9,8 @@ declare function Averages({ cards, characteristics, defaultFormatId, cube, setAs
 declare namespace Averages {
     namespace propTypes {
         const cards: PropTypes.Validator<(PropTypes.InferProps<{}> | null | undefined)[]>;
-        const characteristics: PropTypes.Validator<PropTypes.InferProps<{}>>;
-        const cube: PropTypes.Validator<PropTypes.InferProps<{
+        const characteristics: PropTypes.Validator<NonNullable<PropTypes.InferProps<{}>>>;
+        const cube: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             cards: PropTypes.Validator<(PropTypes.InferProps<{
                 cardID: PropTypes.Validator<string>;
             }> | null | undefined)[]>;
@@ -19,7 +19,7 @@ declare namespace Averages {
                 _id: PropTypes.Validator<string>;
             }> | null | undefined)[]>;
             defaultDraftFormat: PropTypes.Requireable<number>;
-        }>>;
+        }>>>;
         const defaultFormatId: PropTypes.Requireable<number>;
         const setAsfans: PropTypes.Validator<(...args: any[]) => any>;
     }

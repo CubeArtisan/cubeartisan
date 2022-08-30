@@ -1,5 +1,5 @@
 export default StyledButtonMenu;
-declare function StyledButtonMenu({ component: Component, tooltip, menuItems, color, arrow, children }: {
+declare function StyledButtonMenu({ component, tooltip, menuItems, color, arrow, children }: {
     component: any;
     tooltip: any;
     menuItems: any;

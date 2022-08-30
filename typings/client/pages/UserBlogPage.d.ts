@@ -9,10 +9,10 @@ export function UserBlogPage({ followers, following, posts, owner, loginCallback
 }): JSX.Element;
 export namespace UserBlogPage {
     namespace propTypes {
-        const owner: PropTypes.Validator<PropTypes.InferProps<{
+        const owner: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
             username: PropTypes.Validator<string>;
-        }>>;
+        }>>>;
         const followers: PropTypes.Validator<(PropTypes.InferProps<{}> | null | undefined)[]>;
         const following: PropTypes.Validator<boolean>;
         const posts: PropTypes.Validator<(PropTypes.InferProps<{}> | null | undefined)[]>;

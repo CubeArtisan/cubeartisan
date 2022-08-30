@@ -7,10 +7,10 @@ declare function UserLayout({ user, followers, activeLink, children }: {
 }): JSX.Element;
 declare namespace UserLayout {
     namespace propTypes {
-        const user: PropTypes.Validator<PropTypes.InferProps<{
+        const user: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
             username: PropTypes.Validator<string>;
-        }>>;
+        }>>>;
         const followers: PropTypes.Validator<(PropTypes.InferProps<{}> | null | undefined)[]>;
         const activeLink: PropTypes.Validator<string>;
         const children: PropTypes.Requireable<PropTypes.ReactNodeLike>;

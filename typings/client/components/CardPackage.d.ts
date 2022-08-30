@@ -5,7 +5,7 @@ declare function CardPackage({ cardPackage, refresh }: {
 }): JSX.Element;
 declare namespace CardPackage {
     namespace propTypes {
-        const cardPackage: PropTypes.Validator<PropTypes.InferProps<{
+        const cardPackage: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
             title: PropTypes.Validator<string>;
             date: PropTypes.Validator<string>;
@@ -15,7 +15,7 @@ declare namespace CardPackage {
             cards: PropTypes.Validator<(string | null | undefined)[]>;
             votes: PropTypes.Validator<number>;
             voters: PropTypes.Validator<(string | null | undefined)[]>;
-        }>>;
+        }>>>;
         const refresh: PropTypes.Requireable<(...args: any[]) => any>;
     }
     namespace defaultProps {

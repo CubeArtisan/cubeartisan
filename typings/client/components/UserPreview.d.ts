@@ -4,7 +4,7 @@ declare function UserPreview({ user }: {
 }): JSX.Element;
 declare namespace UserPreview {
     namespace propTypes {
-        const user: import("prop-types").Validator<import("prop-types").InferProps<{
+        const user: import("prop-types").Validator<NonNullable<import("prop-types").InferProps<{
             _id: import("prop-types").Validator<string>;
             email: import("prop-types").Requireable<string>;
             username: import("prop-types").Requireable<string>;
@@ -17,7 +17,7 @@ declare namespace UserPreview {
             users_following: import("prop-types").Requireable<string[]>;
             roles: import("prop-types").Validator<(string | null | undefined)[]>;
             hide_featured: import("prop-types").Requireable<boolean>;
-        }>>;
+        }>>>;
     }
 }
 //# sourceMappingURL=UserPreview.d.ts.map

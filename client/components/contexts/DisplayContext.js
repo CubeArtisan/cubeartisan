@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { responsiveFontSizes, ThemeProvider } from '@mui/material/node/styles/index.js';
+import { responsiveFontSizes, ThemeProvider } from '@mui/material/styles/index.js';
 import PropTypes from 'prop-types';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 // import useMediaQuery from '@mui/material/useMediaQuery/index.js';

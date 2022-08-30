@@ -5,7 +5,7 @@ declare function BlogPost({ post, onEdit }: {
 }): JSX.Element;
 declare namespace BlogPost {
     namespace propTypes {
-        const post: PropTypes.Validator<PropTypes.InferProps<{
+        const post: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
             title: PropTypes.Validator<string>;
             owner: PropTypes.Validator<string>;
@@ -16,7 +16,7 @@ declare namespace BlogPost {
             date_formatted: PropTypes.Validator<string>;
             username: PropTypes.Validator<string>;
             cubename: PropTypes.Validator<string>;
-        }>>;
+        }>>>;
         const onEdit: PropTypes.Validator<(...args: any[]) => any>;
     }
 }

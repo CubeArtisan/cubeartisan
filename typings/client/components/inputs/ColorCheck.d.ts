@@ -9,7 +9,7 @@ declare namespace ColorChecksControl {
     namespace propTypes {
         const colorless: PropTypes.Requireable<boolean>;
         const prefix: PropTypes.Requireable<string>;
-        const values: PropTypes.Validator<PropTypes.InferProps<{}>>;
+        const values: PropTypes.Validator<NonNullable<PropTypes.InferProps<{}>>>;
         const onChange: PropTypes.Validator<(...args: any[]) => any>;
     }
     namespace defaultProps {

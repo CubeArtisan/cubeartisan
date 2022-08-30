@@ -5,7 +5,7 @@ declare function CardModalForm({ children, ...props }: {
 }): JSX.Element;
 declare namespace CardModalForm {
     namespace propTypes {
-        const children: PropTypes.Validator<string | number | boolean | {} | PropTypes.ReactElementLike | PropTypes.ReactNodeArray>;
+        const children: PropTypes.Validator<NonNullable<PropTypes.ReactNodeLike>>;
     }
 }
 import PropTypes from "prop-types";

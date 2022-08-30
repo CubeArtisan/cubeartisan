@@ -5,7 +5,7 @@ declare function Podcast({ podcast, episodes }: {
 }): JSX.Element;
 declare namespace Podcast {
     namespace propTypes {
-        const podcast: PropTypes.Validator<PropTypes.InferProps<{
+        const podcast: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
             title: PropTypes.Validator<string>;
             rss: PropTypes.Validator<string>;
@@ -18,8 +18,8 @@ declare namespace Podcast {
             image: PropTypes.Validator<string>;
             podcast: PropTypes.Validator<string>;
             podcastname: PropTypes.Validator<string>;
-        }>>;
-        const episodes: PropTypes.Requireable<PropTypes.InferProps<{
+        }>>>;
+        const episodes: PropTypes.Requireable<NonNullable<PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
             title: PropTypes.Validator<string>;
             rss: PropTypes.Validator<string>;
@@ -32,7 +32,7 @@ declare namespace Podcast {
             image: PropTypes.Validator<string>;
             podcast: PropTypes.Validator<string>;
             podcastname: PropTypes.Validator<string>;
-        }>[]>;
+        }>>[]>;
     }
     namespace defaultProps {
         const episodes_1: never[];

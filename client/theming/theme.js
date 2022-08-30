@@ -1,4 +1,4 @@
-import createTheme from '@mui/material/node/styles/createTheme.js';
+import createTheme from '@mui/material/styles/createTheme.js';
 
 import getBase from '@cubeartisan/client/theming/base.js';
 import darkPalette from '@cubeartisan/client/theming/palettes/dark.js';

@@ -5,7 +5,7 @@ export function VideoPage({ loginCallback, video }: {
 export namespace VideoPage {
     namespace propTypes {
         const loginCallback: PropTypes.Requireable<string>;
-        const video: PropTypes.Validator<PropTypes.InferProps<{
+        const video: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
             title: PropTypes.Validator<string>;
             body: PropTypes.Validator<string>;
@@ -18,7 +18,7 @@ export namespace VideoPage {
             short: PropTypes.Validator<string>;
             image: PropTypes.Validator<string>;
             imagename: PropTypes.Validator<string>;
-        }>>;
+        }>>>;
     }
     namespace defaultProps {
         const loginCallback_1: string;

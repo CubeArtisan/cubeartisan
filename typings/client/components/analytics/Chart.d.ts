@@ -9,7 +9,7 @@ declare function Chart({ cards, characteristics, setAsfans, cube, defaultFormatI
 declare namespace Chart {
     namespace propTypes {
         const cards: PropTypes.Validator<(PropTypes.InferProps<{
-            addedTmsp: PropTypes.Requireable<string | Date>;
+            addedTmsp: PropTypes.Requireable<NonNullable<string | Date | null | undefined>>;
             cardID: PropTypes.Validator<string>;
             cmc: PropTypes.Requireable<number>;
             colorCategory: PropTypes.Requireable<string>;
@@ -24,7 +24,7 @@ declare namespace Chart {
             status: PropTypes.Validator<string>;
             tags: PropTypes.Validator<(string | null | undefined)[]>;
             type_line: PropTypes.Requireable<string>;
-            details: PropTypes.Validator<PropTypes.InferProps<{
+            details: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                 color_identity: PropTypes.Validator<string[]>;
                 set: PropTypes.Validator<string>;
                 set_name: PropTypes.Validator<string>;
@@ -34,12 +34,12 @@ declare namespace Chart {
                 released_at: PropTypes.Validator<string>;
                 reprint: PropTypes.Validator<boolean>;
                 promo: PropTypes.Validator<boolean>;
-                prices: PropTypes.Validator<PropTypes.InferProps<{
+                prices: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                     usd: PropTypes.Requireable<number>;
                     usd_foil: PropTypes.Requireable<number>;
                     eur: PropTypes.Requireable<number>;
                     tix: PropTypes.Requireable<number>;
-                }>>;
+                }>>>;
                 elo: PropTypes.Validator<number>;
                 digital: PropTypes.Validator<boolean>;
                 isToken: PropTypes.Validator<boolean>;
@@ -54,7 +54,7 @@ declare namespace Chart {
                 _id: PropTypes.Validator<string>;
                 oracle_id: PropTypes.Validator<string>;
                 cmc: PropTypes.Validator<number>;
-                legalities: PropTypes.Validator<PropTypes.InferProps<{
+                legalities: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                     Legacy: PropTypes.Requireable<string>;
                     Modern: PropTypes.Requireable<string>;
                     Standard: PropTypes.Requireable<string>;
@@ -65,7 +65,7 @@ declare namespace Chart {
                     Commander: PropTypes.Requireable<string>;
                     Penny: PropTypes.Requireable<string>;
                     Vintage: PropTypes.Requireable<string>;
-                }>>;
+                }>>>;
                 parsed_cost: PropTypes.Validator<string[]>;
                 colors: PropTypes.Requireable<string[]>;
                 type: PropTypes.Requireable<string>;
@@ -86,11 +86,11 @@ declare namespace Chart {
                 popularity: PropTypes.Validator<number>;
                 cubeCount: PropTypes.Validator<number>;
                 pickCount: PropTypes.Validator<number>;
-            }>>;
+            }>>>;
             isUnlimited: PropTypes.Validator<boolean>;
         }> | null | undefined)[]>;
-        const characteristics: PropTypes.Validator<PropTypes.InferProps<{}>>;
-        const cube: PropTypes.Validator<PropTypes.InferProps<{
+        const characteristics: PropTypes.Validator<NonNullable<PropTypes.InferProps<{}>>>;
+        const cube: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
             name: PropTypes.Validator<string>;
             shortID: PropTypes.Validator<string>;
@@ -101,8 +101,8 @@ declare namespace Chart {
             overrideCategory: PropTypes.Validator<boolean>;
             categoryOverride: PropTypes.Validator<string>;
             categoryPrefixes: PropTypes.Validator<string[]>;
-            cards: PropTypes.Validator<PropTypes.InferProps<{
-                addedTmsp: PropTypes.Requireable<string | Date>;
+            cards: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
+                addedTmsp: PropTypes.Requireable<NonNullable<string | Date | null | undefined>>;
                 cardID: PropTypes.Validator<string>;
                 cmc: PropTypes.Requireable<number>;
                 colorCategory: PropTypes.Requireable<string>;
@@ -117,7 +117,7 @@ declare namespace Chart {
                 status: PropTypes.Validator<string>;
                 tags: PropTypes.Validator<(string | null | undefined)[]>;
                 type_line: PropTypes.Requireable<string>;
-                details: PropTypes.Validator<PropTypes.InferProps<{
+                details: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                     color_identity: PropTypes.Validator<string[]>;
                     set: PropTypes.Validator<string>;
                     set_name: PropTypes.Validator<string>;
@@ -127,12 +127,12 @@ declare namespace Chart {
                     released_at: PropTypes.Validator<string>;
                     reprint: PropTypes.Validator<boolean>;
                     promo: PropTypes.Validator<boolean>;
-                    prices: PropTypes.Validator<PropTypes.InferProps<{
+                    prices: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                         usd: PropTypes.Requireable<number>;
                         usd_foil: PropTypes.Requireable<number>;
                         eur: PropTypes.Requireable<number>;
                         tix: PropTypes.Requireable<number>;
-                    }>>;
+                    }>>>;
                     elo: PropTypes.Validator<number>;
                     digital: PropTypes.Validator<boolean>;
                     isToken: PropTypes.Validator<boolean>;
@@ -147,7 +147,7 @@ declare namespace Chart {
                     _id: PropTypes.Validator<string>;
                     oracle_id: PropTypes.Validator<string>;
                     cmc: PropTypes.Validator<number>;
-                    legalities: PropTypes.Validator<PropTypes.InferProps<{
+                    legalities: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                         Legacy: PropTypes.Requireable<string>;
                         Modern: PropTypes.Requireable<string>;
                         Standard: PropTypes.Requireable<string>;
@@ -158,7 +158,7 @@ declare namespace Chart {
                         Commander: PropTypes.Requireable<string>;
                         Penny: PropTypes.Requireable<string>;
                         Vintage: PropTypes.Requireable<string>;
-                    }>>;
+                    }>>>;
                     parsed_cost: PropTypes.Validator<string[]>;
                     colors: PropTypes.Requireable<string[]>;
                     type: PropTypes.Requireable<string>;
@@ -179,11 +179,11 @@ declare namespace Chart {
                     popularity: PropTypes.Validator<number>;
                     cubeCount: PropTypes.Validator<number>;
                     pickCount: PropTypes.Validator<number>;
-                }>>;
+                }>>>;
                 isUnlimited: PropTypes.Validator<boolean>;
-            }>[]>;
-            maybe: PropTypes.Validator<PropTypes.InferProps<{
-                addedTmsp: PropTypes.Requireable<string | Date>;
+            }>>[]>;
+            maybe: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
+                addedTmsp: PropTypes.Requireable<NonNullable<string | Date | null | undefined>>;
                 cardID: PropTypes.Validator<string>;
                 cmc: PropTypes.Requireable<number>;
                 colorCategory: PropTypes.Requireable<string>;
@@ -198,7 +198,7 @@ declare namespace Chart {
                 status: PropTypes.Validator<string>;
                 tags: PropTypes.Validator<(string | null | undefined)[]>;
                 type_line: PropTypes.Requireable<string>;
-                details: PropTypes.Validator<PropTypes.InferProps<{
+                details: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                     color_identity: PropTypes.Validator<string[]>;
                     set: PropTypes.Validator<string>;
                     set_name: PropTypes.Validator<string>;
@@ -208,12 +208,12 @@ declare namespace Chart {
                     released_at: PropTypes.Validator<string>;
                     reprint: PropTypes.Validator<boolean>;
                     promo: PropTypes.Validator<boolean>;
-                    prices: PropTypes.Validator<PropTypes.InferProps<{
+                    prices: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                         usd: PropTypes.Requireable<number>;
                         usd_foil: PropTypes.Requireable<number>;
                         eur: PropTypes.Requireable<number>;
                         tix: PropTypes.Requireable<number>;
-                    }>>;
+                    }>>>;
                     elo: PropTypes.Validator<number>;
                     digital: PropTypes.Validator<boolean>;
                     isToken: PropTypes.Validator<boolean>;
@@ -228,7 +228,7 @@ declare namespace Chart {
                     _id: PropTypes.Validator<string>;
                     oracle_id: PropTypes.Validator<string>;
                     cmc: PropTypes.Validator<number>;
-                    legalities: PropTypes.Validator<PropTypes.InferProps<{
+                    legalities: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                         Legacy: PropTypes.Requireable<string>;
                         Modern: PropTypes.Requireable<string>;
                         Standard: PropTypes.Requireable<string>;
@@ -239,7 +239,7 @@ declare namespace Chart {
                         Commander: PropTypes.Requireable<string>;
                         Penny: PropTypes.Requireable<string>;
                         Vintage: PropTypes.Requireable<string>;
-                    }>>;
+                    }>>>;
                     parsed_cost: PropTypes.Validator<string[]>;
                     colors: PropTypes.Requireable<string[]>;
                     type: PropTypes.Requireable<string>;
@@ -260,9 +260,9 @@ declare namespace Chart {
                     popularity: PropTypes.Validator<number>;
                     cubeCount: PropTypes.Validator<number>;
                     pickCount: PropTypes.Validator<number>;
-                }>>;
+                }>>>;
                 isUnlimited: PropTypes.Validator<boolean>;
-            }>[]>;
+            }>>[]>;
             defaultDraftFormat: PropTypes.Validator<number>;
             numDecks: PropTypes.Validator<number>;
             description: PropTypes.Requireable<string>;
@@ -285,7 +285,8 @@ declare namespace Chart {
             cardOracles: PropTypes.Validator<string[]>;
             keywords: PropTypes.Validator<string[]>;
             categories: PropTypes.Validator<string[]>;
-        }>>;
+            raw_desc: PropTypes.Validator<string>;
+        }>>>;
         const defaultFormatId: PropTypes.Requireable<number>;
         const setAsfans: PropTypes.Validator<(...args: any[]) => any>;
     }

@@ -6,11 +6,11 @@ declare function CardStack({ location, children, ...props }: {
 }): JSX.Element;
 declare namespace CardStack {
     namespace propTypes {
-        const location: PropTypes.Validator<PropTypes.InferProps<{
+        const location: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             type: PropTypes.Validator<string>;
             data: PropTypes.Requireable<(number | null | undefined)[]>;
-        }>>;
-        const children: PropTypes.Validator<string | number | boolean | {} | PropTypes.ReactElementLike | PropTypes.ReactNodeArray>;
+        }>>>;
+        const children: PropTypes.Validator<NonNullable<PropTypes.ReactNodeLike>>;
     }
 }
 import PropTypes from "prop-types";

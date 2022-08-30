@@ -9,10 +9,10 @@ export namespace BulkUploadPage {
         const loginCallback: PropTypes.Requireable<string>;
         const cubeID: PropTypes.Validator<string>;
         const missing: PropTypes.Validator<string[]>;
-        const blogpost: PropTypes.Validator<PropTypes.InferProps<{
+        const blogpost: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             title: PropTypes.Validator<string>;
             html: PropTypes.Validator<string>;
-        }>>;
+        }>>>;
         const added: PropTypes.Validator<(PropTypes.InferProps<{
             name: PropTypes.Validator<string>;
             image_normal: PropTypes.Validator<string>;

@@ -20,8 +20,8 @@ export namespace SearchPage {
             overrideCategory: PropTypes.Validator<boolean>;
             categoryOverride: PropTypes.Validator<string>;
             categoryPrefixes: PropTypes.Validator<string[]>;
-            cards: PropTypes.Validator<PropTypes.InferProps<{
-                addedTmsp: PropTypes.Requireable<string | Date>;
+            cards: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
+                addedTmsp: PropTypes.Requireable<NonNullable<string | Date | null | undefined>>;
                 cardID: PropTypes.Validator<string>;
                 cmc: PropTypes.Requireable<number>;
                 colorCategory: PropTypes.Requireable<string>;
@@ -36,7 +36,7 @@ export namespace SearchPage {
                 status: PropTypes.Validator<string>;
                 tags: PropTypes.Validator<(string | null | undefined)[]>;
                 type_line: PropTypes.Requireable<string>;
-                details: PropTypes.Validator<PropTypes.InferProps<{
+                details: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                     color_identity: PropTypes.Validator<string[]>;
                     set: PropTypes.Validator<string>;
                     set_name: PropTypes.Validator<string>;
@@ -46,12 +46,12 @@ export namespace SearchPage {
                     released_at: PropTypes.Validator<string>;
                     reprint: PropTypes.Validator<boolean>;
                     promo: PropTypes.Validator<boolean>;
-                    prices: PropTypes.Validator<PropTypes.InferProps<{
+                    prices: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                         usd: PropTypes.Requireable<number>;
                         usd_foil: PropTypes.Requireable<number>;
                         eur: PropTypes.Requireable<number>;
                         tix: PropTypes.Requireable<number>;
-                    }>>;
+                    }>>>;
                     elo: PropTypes.Validator<number>;
                     digital: PropTypes.Validator<boolean>;
                     isToken: PropTypes.Validator<boolean>;
@@ -66,7 +66,7 @@ export namespace SearchPage {
                     _id: PropTypes.Validator<string>;
                     oracle_id: PropTypes.Validator<string>;
                     cmc: PropTypes.Validator<number>;
-                    legalities: PropTypes.Validator<PropTypes.InferProps<{
+                    legalities: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                         Legacy: PropTypes.Requireable<string>;
                         Modern: PropTypes.Requireable<string>;
                         Standard: PropTypes.Requireable<string>;
@@ -77,7 +77,7 @@ export namespace SearchPage {
                         Commander: PropTypes.Requireable<string>;
                         Penny: PropTypes.Requireable<string>;
                         Vintage: PropTypes.Requireable<string>;
-                    }>>;
+                    }>>>;
                     parsed_cost: PropTypes.Validator<string[]>;
                     colors: PropTypes.Requireable<string[]>;
                     type: PropTypes.Requireable<string>;
@@ -98,11 +98,11 @@ export namespace SearchPage {
                     popularity: PropTypes.Validator<number>;
                     cubeCount: PropTypes.Validator<number>;
                     pickCount: PropTypes.Validator<number>;
-                }>>;
+                }>>>;
                 isUnlimited: PropTypes.Validator<boolean>;
-            }>[]>;
-            maybe: PropTypes.Validator<PropTypes.InferProps<{
-                addedTmsp: PropTypes.Requireable<string | Date>;
+            }>>[]>;
+            maybe: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
+                addedTmsp: PropTypes.Requireable<NonNullable<string | Date | null | undefined>>;
                 cardID: PropTypes.Validator<string>;
                 cmc: PropTypes.Requireable<number>;
                 colorCategory: PropTypes.Requireable<string>;
@@ -117,7 +117,7 @@ export namespace SearchPage {
                 status: PropTypes.Validator<string>;
                 tags: PropTypes.Validator<(string | null | undefined)[]>;
                 type_line: PropTypes.Requireable<string>;
-                details: PropTypes.Validator<PropTypes.InferProps<{
+                details: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                     color_identity: PropTypes.Validator<string[]>;
                     set: PropTypes.Validator<string>;
                     set_name: PropTypes.Validator<string>;
@@ -127,12 +127,12 @@ export namespace SearchPage {
                     released_at: PropTypes.Validator<string>;
                     reprint: PropTypes.Validator<boolean>;
                     promo: PropTypes.Validator<boolean>;
-                    prices: PropTypes.Validator<PropTypes.InferProps<{
+                    prices: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                         usd: PropTypes.Requireable<number>;
                         usd_foil: PropTypes.Requireable<number>;
                         eur: PropTypes.Requireable<number>;
                         tix: PropTypes.Requireable<number>;
-                    }>>;
+                    }>>>;
                     elo: PropTypes.Validator<number>;
                     digital: PropTypes.Validator<boolean>;
                     isToken: PropTypes.Validator<boolean>;
@@ -147,7 +147,7 @@ export namespace SearchPage {
                     _id: PropTypes.Validator<string>;
                     oracle_id: PropTypes.Validator<string>;
                     cmc: PropTypes.Validator<number>;
-                    legalities: PropTypes.Validator<PropTypes.InferProps<{
+                    legalities: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                         Legacy: PropTypes.Requireable<string>;
                         Modern: PropTypes.Requireable<string>;
                         Standard: PropTypes.Requireable<string>;
@@ -158,7 +158,7 @@ export namespace SearchPage {
                         Commander: PropTypes.Requireable<string>;
                         Penny: PropTypes.Requireable<string>;
                         Vintage: PropTypes.Requireable<string>;
-                    }>>;
+                    }>>>;
                     parsed_cost: PropTypes.Validator<string[]>;
                     colors: PropTypes.Requireable<string[]>;
                     type: PropTypes.Requireable<string>;
@@ -179,9 +179,9 @@ export namespace SearchPage {
                     popularity: PropTypes.Validator<number>;
                     cubeCount: PropTypes.Validator<number>;
                     pickCount: PropTypes.Validator<number>;
-                }>>;
+                }>>>;
                 isUnlimited: PropTypes.Validator<boolean>;
-            }>[]>;
+            }>>[]>;
             defaultDraftFormat: PropTypes.Validator<number>;
             numDecks: PropTypes.Validator<number>;
             description: PropTypes.Requireable<string>;
@@ -204,6 +204,7 @@ export namespace SearchPage {
             cardOracles: PropTypes.Validator<string[]>;
             keywords: PropTypes.Validator<string[]>;
             categories: PropTypes.Validator<string[]>;
+            raw_desc: PropTypes.Validator<string>;
         }> | null | undefined)[]>;
         const query: PropTypes.Requireable<string>;
         const count: PropTypes.Requireable<number>;

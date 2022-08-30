@@ -13,20 +13,20 @@ export function SortableTable({ data, defaultSortConfig, sortFns, columnProps, t
 }): JSX.Element;
 export namespace SortableTable {
     namespace propTypes {
-        const data: PropTypes.Validator<PropTypes.InferProps<{}>[]>;
+        const data: PropTypes.Validator<NonNullable<PropTypes.InferProps<{}>>[]>;
         const defaultSortConfig: PropTypes.Requireable<PropTypes.InferProps<{
             key: PropTypes.Validator<string>;
             direction: PropTypes.Validator<string>;
         }>>;
         const sortFns: PropTypes.Requireable<PropTypes.InferProps<{}>>;
-        const columnProps: PropTypes.Validator<PropTypes.InferProps<{
+        const columnProps: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             title: PropTypes.Validator<string>;
             key: PropTypes.Validator<string>;
             sortable: PropTypes.Requireable<boolean>;
             heading: PropTypes.Requireable<boolean>;
             tooltip: PropTypes.Requireable<string>;
             renderFunc: PropTypes.Requireable<(...args: any[]) => any>;
-        }>[]>;
+        }>>[]>;
         const totalRow: PropTypes.Requireable<boolean>;
         const totalCol: PropTypes.Requireable<boolean>;
     }

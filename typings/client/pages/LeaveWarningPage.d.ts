@@ -9,9 +9,9 @@ export namespace LeaveWarningPage {
     namespace propTypes {
         const url: PropTypes.Validator<string>;
         const loginCallback: PropTypes.Requireable<string>;
-        const siteCustomizations: PropTypes.Validator<PropTypes.InferProps<{
+        const siteCustomizations: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             siteName: PropTypes.Validator<string>;
-        }>>;
+        }>>>;
     }
     namespace defaultProps {
         const loginCallback_1: string;

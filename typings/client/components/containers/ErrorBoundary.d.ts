@@ -16,7 +16,7 @@ declare class ErrorBoundary extends Component<any, any, any> {
 }
 declare namespace ErrorBoundary {
     namespace propTypes {
-        const children: PropTypes.Validator<string | number | boolean | {} | PropTypes.ReactElementLike | PropTypes.ReactNodeArray>;
+        const children: PropTypes.Validator<NonNullable<PropTypes.ReactNodeLike>>;
         const className: PropTypes.Requireable<string>;
     }
     namespace defaultProps {

@@ -4,7 +4,7 @@ declare function Feed({ items }: {
 }): JSX.Element;
 declare namespace Feed {
     namespace propTypes {
-        const items: PropTypes.Validator<PropTypes.InferProps<{
+        const items: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
             title: PropTypes.Validator<string>;
             owner: PropTypes.Validator<string>;
@@ -15,7 +15,7 @@ declare namespace Feed {
             date_formatted: PropTypes.Validator<string>;
             username: PropTypes.Validator<string>;
             cubename: PropTypes.Validator<string>;
-        }>[]>;
+        }>>[]>;
     }
 }
 import PropTypes from "prop-types";
