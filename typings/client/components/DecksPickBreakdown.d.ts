@@ -3,7 +3,11 @@ export function usePickListAndDrafterState({ draft, seatIndex, defaultIndex }: {
     seatIndex: any;
     defaultIndex: any;
 }): {
-    picksList: never[][];
+    picksList: {
+        action: string;
+        card: Card;
+        pickNumber: number;
+    }[][];
     drafterState: {
         step: {
             action: any;
@@ -32,6 +36,7 @@ export function usePickListAndDrafterState({ draft, seatIndex, defaultIndex }: {
     setPickNumberFromEvent: (event: any) => void;
 };
 export default DecksPickBreakdown;
+export type Card = import('@cubeartisan/client/proptypes/CardPropType.js').Card;
 declare function DecksPickBreakdown({ draft, ...props }: {
     [x: string]: any;
     draft: any;
@@ -51,8 +56,7 @@ declare namespace DecksPickBreakdown {
                 imgBackUrl: PropTypes.Requireable<string>;
                 imgUrl: PropTypes.Requireable<string>;
                 index: PropTypes.Requireable<number>;
-                name: PropTypes.Requireable<string>;
-                notes: PropTypes.Requireable<string>;
+                name: PropTypes.Requireable<string>;                 notes: PropTypes.Requireable<string>;
                 rarity: PropTypes.Requireable<string>;
                 status: PropTypes.Validator<string>;
                 tags: PropTypes.Validator<(string | null | undefined)[]>;

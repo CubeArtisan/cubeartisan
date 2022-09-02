@@ -838,6 +838,7 @@ export function getLabels(cards, sort, showOther = false) {
  * @param {Card[]} cards
  * @param {BucketSort} sort
  * @param {boolean} showOther
+ * @returns {[string, Card[]][]}
  */
 export function sortGroupsOrdered(cards, sort, showOther = false) {
   const labels = getLabelsRaw(cards, sort, showOther);

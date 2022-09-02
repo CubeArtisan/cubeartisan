@@ -79,7 +79,7 @@ export const SortContextProvider = ({ defaultSorts, defaultShowOther, children }
       if (newValues.secondary) setSecondary(newValues.secondary);
       if (newValues.tertiary) setTertiary(newValues.tertiary);
       if (newValues.quaternary) setQuaternary(newValues.quaternary);
-      if (newValues.showOther) setShowOther(newValues.showOther);
+      if ((newValues.showOther ?? null) !== null) setShowOther(!!newValues.showOther);
     },
     [],
   );

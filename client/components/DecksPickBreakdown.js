@@ -16,9 +16,9 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import { Grid, Link, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useCallback, useMemo } from 'react';
-import { Col, Row } from 'reactstrap';
 
 import CardImage from '@cubeartisan/client/components/CardImage.js';
 import { DraftbotBreakdownTable } from '@cubeartisan/client/components/DraftbotBreakdown.js';
@@ -30,6 +30,10 @@ import { DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.j
 import { cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
 import { toNullableInt } from '@cubeartisan/client/utils/Util.js';
 
+/**
+ * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
+ */
+
 const AutocardImage = withAutocard(CardImage);
 
 export const usePickListAndDrafterState = ({ draft, seatIndex, defaultIndex }) => {
@@ -40,6 +44,7 @@ export const usePickListAndDrafterState = ({ draft, seatIndex, defaultIndex }) =
     const { cards } = draft;
     const { pickorder, trashorder } = draft.seats[seatIndex];
     const numToTake = pickorder.length + trashorder.length;
+    /** @type {{action: string, card: Card, pickNumber: number}[][]} */
     const takenCards = [];
     const drafterStates = [];
     let prevTrashedNum = 0;
@@ -93,26 +98,26 @@ const DecksPickBreakdownInternal = ({ draft, seatIndex, defaultIndex }) => {
   });
   const { cards, cardsInPack, pickNum, packNum } = drafterState;
   return (
-    <Row>
-      <Col xs={12} sm={3}>
+    <Grid container>
+      <Grid key="selector" item xs={12} sm={3}>
         <PickSelector
           picksList={picksList}
           curPickNumber={drafterState.pickNumber}
           setPickNumberFromEvent={setPickNumberFromEvent}
         />
-      </Col>
-      <Col xs={12} sm={9}>
-        <h4>{`Pack ${packNum + 1}: Pick ${pickNum + 1}`}</h4>
+      </Grid>
+      <Grid key="display" item container xs={12} sm={9}>
+        <Typography variant="h4">{`Pack ${packNum + 1}: Pick ${pickNum + 1}`}</Typography>
         {cardsInPack.map((cardIndex) => (
-          <Col key={/* eslint-disable-line react/no-array-index-key */ cardIndex} xs={4} sm={2}>
-            <a href={`/card/${encodeName(cardName(cards[cardIndex]))}`}>
+          <Grid item key={cardIndex} xs={4} sm={2}>
+            <Link href={`/card/${encodeName(cardName(cards[cardIndex]) ?? 'unknown')}`}>
               <AutocardImage data-in-modal card={cards[cardIndex]} />
-            </a>
-          </Col>
+            </Link>
+          </Grid>
         ))}
         <DraftbotBreakdownTable drafterState={drafterState} />
-      </Col>
-    </Row>
+      </Grid>
+    </Grid>
   );
 };
 DecksPickBreakdownInternal.propTypes = {

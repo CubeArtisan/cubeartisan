@@ -28,13 +28,17 @@ import { getLabels, sortDeep } from '@cubeartisan/client/utils/Sort.js';
 const cmc2Labels = getLabels([], 'Mana Value 2');
 
 /**
+ * @typedef {import('@cubeartisan/client/proptypes/CardPropType.js').Card} Card
+ */
+
+/**
  * @typedef TypeRowProps
  * @property {string} cardType
  * @property {Card[]} group
  */
 
 /**
- * @type {React.FC<TypeRowProps>}
+ * @param {TypeRowProps} props
  */
 const TypeRow = ({ cardType, group }) => {
   const sorted = Object.fromEntries(sortDeep(group, false, 'Alphabetical', 'Mana Value 2'));
