@@ -128,7 +128,7 @@ const EditCollapse = ({ isOpen }) => {
             cardName(card).toLowerCase() === removeValue.toLowerCase() &&
             !changes.some(
               (change) =>
-                (change.remove && change.remove.index === card.index) ||
+                change.remove.index === card.index ||
                 (Array.isArray(change.replace) && change.replace[0].index === card.index),
             ),
         );

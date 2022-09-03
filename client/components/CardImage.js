@@ -56,10 +56,10 @@ const CardImage = forwardRef(({ card, width, back, sx, cardModal, ...props }, re
         />
       )}
       <Box
-        onClick={cardModal ? handleClick : undefined}
+        onClick={cardModal ? handleClick : undefined /* @ts-ignore-line */}
+        src={src}
         component="img"
         key="cardImage"
-        src={src}
         alt={name}
         ref={ref}
         sx={{ width }}

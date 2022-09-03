@@ -79,7 +79,7 @@ declare namespace TableView {
                 image_normal: PropTypes.Requireable<string>;
                 art_crop: PropTypes.Requireable<string>;
                 image_flip: PropTypes.Requireable<string>;
-                colorcategory: PropTypes.Validator<string>;
+                color_category: PropTypes.Validator<string>;
                 tokens: PropTypes.Requireable<string[]>;
                 popularity: PropTypes.Validator<number>;
                 cubeCount: PropTypes.Validator<number>;

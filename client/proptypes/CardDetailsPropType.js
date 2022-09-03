@@ -117,7 +117,7 @@ const CardDetailsPropType = PropTypes.shape({
   image_normal: PropTypes.string,
   art_crop: PropTypes.string,
   image_flip: PropTypes.string,
-  colorcategory: PropTypes.string.isRequired,
+  color_category: PropTypes.string.isRequired,
   tokens: PropTypes.arrayOf(PropTypes.string.isRequired),
   popularity: PropTypes.number.isRequired,
   cubeCount: PropTypes.number.isRequired,
