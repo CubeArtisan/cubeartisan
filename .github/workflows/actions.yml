@@ -1,5 +1,5 @@
 name: Continuous Integration Checks
-on: [pull_request]
+on: [push, pull_request]
 jobs:
   "Continuous_Integration_Checks":
     runs-on: ubuntu-latest
