@@ -8,14 +8,14 @@ export function NotificationsPage({ notifications, loginCallback, siteCustomizat
 }): JSX.Element;
 export namespace NotificationsPage {
     namespace propTypes {
-        const notifications: PropTypes.Validator<PropTypes.InferProps<{
+        const notifications: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
-        }>[]>;
+        }>>[]>;
         const loginCallback: PropTypes.Requireable<string>;
-        const siteCustomizations: PropTypes.Validator<PropTypes.InferProps<{
+        const siteCustomizations: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             discordUrl: PropTypes.Validator<string>;
             siteName: PropTypes.Validator<string>;
-        }>>;
+        }>>>;
     }
     namespace defaultProps {
         const loginCallback_1: string;

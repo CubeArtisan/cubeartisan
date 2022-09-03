@@ -4,7 +4,7 @@ export function PackagePage({ pack, loginCallback }: {
 }): JSX.Element;
 export namespace PackagePage {
     namespace propTypes {
-        const pack: PropTypes.Validator<PropTypes.InferProps<{
+        const pack: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
             title: PropTypes.Validator<string>;
             date: PropTypes.Validator<string>;
@@ -14,7 +14,7 @@ export namespace PackagePage {
             cards: PropTypes.Validator<(string | null | undefined)[]>;
             votes: PropTypes.Validator<number>;
             voters: PropTypes.Validator<(string | null | undefined)[]>;
-        }>>;
+        }>>>;
         const loginCallback: PropTypes.Requireable<string>;
     }
     namespace defaultProps {

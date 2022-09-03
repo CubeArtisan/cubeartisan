@@ -14,10 +14,10 @@ export namespace ErrorPage {
         const requestId: PropTypes.Requireable<string>;
         const error: PropTypes.Requireable<string>;
         const loginCallback: PropTypes.Requireable<string>;
-        const siteCustomizations: PropTypes.Validator<PropTypes.InferProps<{
+        const siteCustomizations: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             discordUrl: PropTypes.Validator<string>;
             siteName: PropTypes.Validator<string>;
-        }>>;
+        }>>>;
     }
     namespace defaultProps {
         const loginCallback_1: string;

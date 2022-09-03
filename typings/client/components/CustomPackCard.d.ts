@@ -8,15 +8,15 @@ declare function CustomPackCard({ packIndex, pack, canRemove, mutations }: {
 declare namespace CustomPackCard {
     namespace propTypes {
         const packIndex: PropTypes.Validator<number>;
-        const pack: PropTypes.Validator<PropTypes.InferProps<{
+        const pack: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             slots: PropTypes.Validator<string[]>;
-            steps: PropTypes.Requireable<PropTypes.InferProps<{
+            steps: PropTypes.Requireable<NonNullable<PropTypes.InferProps<{
                 action: PropTypes.Validator<string>;
                 amount: PropTypes.Requireable<number>;
-            }>[]>;
-        }>>;
+            }>>[]>;
+        }>>>;
         const canRemove: PropTypes.Requireable<boolean>;
-        const mutations: PropTypes.Validator<PropTypes.InferProps<{
+        const mutations: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             removePack: PropTypes.Validator<(...args: any[]) => any>;
             changeSlot: PropTypes.Validator<(...args: any[]) => any>;
             removeSlot: PropTypes.Validator<(...args: any[]) => any>;
@@ -26,7 +26,7 @@ declare namespace CustomPackCard {
             changeStepAction: PropTypes.Validator<(...args: any[]) => any>;
             changeStepAmount: PropTypes.Validator<(...args: any[]) => any>;
             removeStep: PropTypes.Validator<(...args: any[]) => any>;
-        }>>;
+        }>>>;
     }
     namespace defaultProps {
         const canRemove_1: boolean;

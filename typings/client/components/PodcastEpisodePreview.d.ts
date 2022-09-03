@@ -4,7 +4,7 @@ declare function PodcastEpisodePreview({ episode }: {
 }): JSX.Element;
 declare namespace PodcastEpisodePreview {
     namespace propTypes {
-        const episode: import("prop-types").Validator<import("prop-types").InferProps<{
+        const episode: import("prop-types").Validator<NonNullable<import("prop-types").InferProps<{
             _id: import("prop-types").Validator<string>;
             title: import("prop-types").Validator<string>;
             rss: import("prop-types").Validator<string>;
@@ -17,7 +17,7 @@ declare namespace PodcastEpisodePreview {
             image: import("prop-types").Validator<string>;
             podcast: import("prop-types").Validator<string>;
             podcastname: import("prop-types").Validator<string>;
-        }>>;
+        }>>>;
     }
 }
 //# sourceMappingURL=PodcastEpisodePreview.d.ts.map

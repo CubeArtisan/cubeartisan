@@ -10,7 +10,7 @@ declare namespace Tab {
         const tab: PropTypes.Validator<string>;
         const setTab: PropTypes.Validator<(...args: any[]) => any>;
         const index: PropTypes.Validator<string>;
-        const children: PropTypes.Validator<string | number | boolean | {} | PropTypes.ReactElementLike | PropTypes.ReactNodeArray>;
+        const children: PropTypes.Validator<NonNullable<PropTypes.ReactNodeLike>>;
     }
 }
 import PropTypes from "prop-types";

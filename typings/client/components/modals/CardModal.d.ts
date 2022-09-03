@@ -15,8 +15,8 @@ declare function CardModal({ card, maybe, versions, versionsLoading, toggle, dis
 }): JSX.Element;
 declare namespace CardModal {
     namespace propTypes {
-        const card: PropTypes.Validator<PropTypes.InferProps<{
-            addedTmsp: PropTypes.Requireable<string | Date>;
+        const card: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
+            addedTmsp: PropTypes.Requireable<NonNullable<string | Date | null | undefined>>;
             cardID: PropTypes.Validator<string>;
             cmc: PropTypes.Requireable<number>;
             colorCategory: PropTypes.Requireable<string>;
@@ -31,7 +31,7 @@ declare namespace CardModal {
             status: PropTypes.Validator<string>;
             tags: PropTypes.Validator<(string | null | undefined)[]>;
             type_line: PropTypes.Requireable<string>;
-            details: PropTypes.Validator<PropTypes.InferProps<{
+            details: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                 color_identity: PropTypes.Validator<string[]>;
                 set: PropTypes.Validator<string>;
                 set_name: PropTypes.Validator<string>;
@@ -41,12 +41,12 @@ declare namespace CardModal {
                 released_at: PropTypes.Validator<string>;
                 reprint: PropTypes.Validator<boolean>;
                 promo: PropTypes.Validator<boolean>;
-                prices: PropTypes.Validator<PropTypes.InferProps<{
+                prices: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                     usd: PropTypes.Requireable<number>;
                     usd_foil: PropTypes.Requireable<number>;
                     eur: PropTypes.Requireable<number>;
                     tix: PropTypes.Requireable<number>;
-                }>>;
+                }>>>;
                 elo: PropTypes.Validator<number>;
                 digital: PropTypes.Validator<boolean>;
                 isToken: PropTypes.Validator<boolean>;
@@ -61,7 +61,7 @@ declare namespace CardModal {
                 _id: PropTypes.Validator<string>;
                 oracle_id: PropTypes.Validator<string>;
                 cmc: PropTypes.Validator<number>;
-                legalities: PropTypes.Validator<PropTypes.InferProps<{
+                legalities: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                     Legacy: PropTypes.Requireable<string>;
                     Modern: PropTypes.Requireable<string>;
                     Standard: PropTypes.Requireable<string>;
@@ -72,7 +72,7 @@ declare namespace CardModal {
                     Commander: PropTypes.Requireable<string>;
                     Penny: PropTypes.Requireable<string>;
                     Vintage: PropTypes.Requireable<string>;
-                }>>;
+                }>>>;
                 parsed_cost: PropTypes.Validator<string[]>;
                 colors: PropTypes.Requireable<string[]>;
                 type: PropTypes.Requireable<string>;
@@ -93,12 +93,12 @@ declare namespace CardModal {
                 popularity: PropTypes.Validator<number>;
                 cubeCount: PropTypes.Validator<number>;
                 pickCount: PropTypes.Validator<number>;
-            }>>;
+            }>>>;
             isUnlimited: PropTypes.Validator<boolean>;
-        }>>;
+        }>>>;
         const maybe: PropTypes.Requireable<boolean>;
-        const versions: PropTypes.Validator<PropTypes.InferProps<{
-            addedTmsp: PropTypes.Requireable<string | Date>;
+        const versions: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
+            addedTmsp: PropTypes.Requireable<NonNullable<string | Date | null | undefined>>;
             cardID: PropTypes.Validator<string>;
             cmc: PropTypes.Requireable<number>;
             colorCategory: PropTypes.Requireable<string>;
@@ -113,7 +113,7 @@ declare namespace CardModal {
             status: PropTypes.Validator<string>;
             tags: PropTypes.Validator<(string | null | undefined)[]>;
             type_line: PropTypes.Requireable<string>;
-            details: PropTypes.Validator<PropTypes.InferProps<{
+            details: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                 color_identity: PropTypes.Validator<string[]>;
                 set: PropTypes.Validator<string>;
                 set_name: PropTypes.Validator<string>;
@@ -123,12 +123,12 @@ declare namespace CardModal {
                 released_at: PropTypes.Validator<string>;
                 reprint: PropTypes.Validator<boolean>;
                 promo: PropTypes.Validator<boolean>;
-                prices: PropTypes.Validator<PropTypes.InferProps<{
+                prices: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                     usd: PropTypes.Requireable<number>;
                     usd_foil: PropTypes.Requireable<number>;
                     eur: PropTypes.Requireable<number>;
                     tix: PropTypes.Requireable<number>;
-                }>>;
+                }>>>;
                 elo: PropTypes.Validator<number>;
                 digital: PropTypes.Validator<boolean>;
                 isToken: PropTypes.Validator<boolean>;
@@ -143,7 +143,7 @@ declare namespace CardModal {
                 _id: PropTypes.Validator<string>;
                 oracle_id: PropTypes.Validator<string>;
                 cmc: PropTypes.Validator<number>;
-                legalities: PropTypes.Validator<PropTypes.InferProps<{
+                legalities: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                     Legacy: PropTypes.Requireable<string>;
                     Modern: PropTypes.Requireable<string>;
                     Standard: PropTypes.Requireable<string>;
@@ -154,7 +154,7 @@ declare namespace CardModal {
                     Commander: PropTypes.Requireable<string>;
                     Penny: PropTypes.Requireable<string>;
                     Vintage: PropTypes.Requireable<string>;
-                }>>;
+                }>>>;
                 parsed_cost: PropTypes.Validator<string[]>;
                 colors: PropTypes.Requireable<string[]>;
                 type: PropTypes.Requireable<string>;
@@ -175,14 +175,14 @@ declare namespace CardModal {
                 popularity: PropTypes.Validator<number>;
                 cubeCount: PropTypes.Validator<number>;
                 pickCount: PropTypes.Validator<number>;
-            }>>;
+            }>>>;
             isUnlimited: PropTypes.Validator<boolean>;
-        }>[]>;
+        }>>[]>;
         const versionsLoading: PropTypes.Requireable<boolean>;
         const toggle: PropTypes.Validator<(...args: any[]) => any>;
         const disabled: PropTypes.Requireable<boolean>;
-        const values: PropTypes.Validator<PropTypes.InferProps<{
-            addedTmsp: PropTypes.Requireable<string | Date>;
+        const values: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
+            addedTmsp: PropTypes.Requireable<NonNullable<string | Date | null | undefined>>;
             cardID: PropTypes.Validator<string>;
             cmc: PropTypes.Requireable<number>;
             colorCategory: PropTypes.Requireable<string>;
@@ -197,7 +197,7 @@ declare namespace CardModal {
             status: PropTypes.Validator<string>;
             tags: PropTypes.Validator<(string | null | undefined)[]>;
             type_line: PropTypes.Requireable<string>;
-            details: PropTypes.Validator<PropTypes.InferProps<{
+            details: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                 color_identity: PropTypes.Validator<string[]>;
                 set: PropTypes.Validator<string>;
                 set_name: PropTypes.Validator<string>;
@@ -207,12 +207,12 @@ declare namespace CardModal {
                 released_at: PropTypes.Validator<string>;
                 reprint: PropTypes.Validator<boolean>;
                 promo: PropTypes.Validator<boolean>;
-                prices: PropTypes.Validator<PropTypes.InferProps<{
+                prices: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                     usd: PropTypes.Requireable<number>;
                     usd_foil: PropTypes.Requireable<number>;
                     eur: PropTypes.Requireable<number>;
                     tix: PropTypes.Requireable<number>;
-                }>>;
+                }>>>;
                 elo: PropTypes.Validator<number>;
                 digital: PropTypes.Validator<boolean>;
                 isToken: PropTypes.Validator<boolean>;
@@ -227,7 +227,7 @@ declare namespace CardModal {
                 _id: PropTypes.Validator<string>;
                 oracle_id: PropTypes.Validator<string>;
                 cmc: PropTypes.Validator<number>;
-                legalities: PropTypes.Validator<PropTypes.InferProps<{
+                legalities: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                     Legacy: PropTypes.Requireable<string>;
                     Modern: PropTypes.Requireable<string>;
                     Standard: PropTypes.Requireable<string>;
@@ -238,7 +238,7 @@ declare namespace CardModal {
                     Commander: PropTypes.Requireable<string>;
                     Penny: PropTypes.Requireable<string>;
                     Vintage: PropTypes.Requireable<string>;
-                }>>;
+                }>>>;
                 parsed_cost: PropTypes.Validator<string[]>;
                 colors: PropTypes.Requireable<string[]>;
                 type: PropTypes.Requireable<string>;
@@ -259,9 +259,9 @@ declare namespace CardModal {
                 popularity: PropTypes.Validator<number>;
                 cubeCount: PropTypes.Validator<number>;
                 pickCount: PropTypes.Validator<number>;
-            }>>;
+            }>>>;
             isUnlimited: PropTypes.Validator<boolean>;
-        }>>;
+        }>>>;
         const onChange: PropTypes.Validator<(...args: any[]) => any>;
         const saveChanges: PropTypes.Validator<(...args: any[]) => any>;
         const queueRemoveCard: PropTypes.Validator<(...args: any[]) => any>;

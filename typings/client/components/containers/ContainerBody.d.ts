@@ -5,7 +5,7 @@ declare function ContainerBody({ children, sx }: {
 }): JSX.Element;
 declare namespace ContainerBody {
     namespace propTypes {
-        const children: PropTypes.Validator<string | number | boolean | {} | PropTypes.ReactElementLike | PropTypes.ReactNodeArray>;
+        const children: PropTypes.Validator<NonNullable<PropTypes.ReactNodeLike>>;
         const sx: PropTypes.Requireable<PropTypes.InferProps<{}>>;
     }
     namespace defaultProps {

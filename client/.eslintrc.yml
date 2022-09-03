@@ -43,7 +43,7 @@ rules:
       alphabetize:
         order: 'asc'
         caseInsensitive: true
-  sort-imports: 
+  sort-imports:
     - error
     - ignoreCase: true
       ignoreDeclarationSort: true
@@ -105,6 +105,10 @@ rules:
   promise/valid-params: error
   promise/prefer-await-to-then: error
   promise/prefer-await-to-callbacks: error
+  react/no-unknown-property:
+    - error
+    - ignore:
+      - key
 overrides:
   - files: ['**/*.cjs']
     rules:
@@ -113,7 +117,7 @@ overrides:
     rules:
       no-console: error
   - files: ['client/markdown/**/micromark-*']
-    rules: 
+    rules:
       no-use-before-define: ['error', 'nofunc']
   - files: ['server/models/**']
     rules:

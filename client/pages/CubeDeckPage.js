@@ -53,16 +53,19 @@ export const CubeDeckPage = ({ cube, deck, draft, loginCallback }) => {
   const [seatIndex, setSeatIndex] = useQueryParam('seat', 0);
   const [view, setView] = useQueryParam('view', 'deck');
 
+  /** @param {any} event */
   const handleChangeSeat = (event) => {
     setSeatIndex(event.target.value);
   };
 
+  /** @param {any} event */
   const handleChangeView = (event) => {
     setView(event.target.value);
   };
 
   const [isOpen, setIsOpen] = useState(false);
   const toggleNavbar = useCallback(
+    /** @param {any} event */
     (event) => {
       event.preventDefault();
       setIsOpen(!isOpen);

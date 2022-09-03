@@ -7,7 +7,7 @@ declare function Accordion({ defaultExpand, children, title }: {
 declare namespace Accordion {
     namespace propTypes {
         const defaultExpand: PropTypes.Requireable<boolean>;
-        const children: PropTypes.Validator<string | number | boolean | {} | PropTypes.ReactElementLike | PropTypes.ReactNodeArray>;
+        const children: PropTypes.Validator<NonNullable<PropTypes.ReactNodeLike>>;
         const title: PropTypes.Validator<string>;
     }
     namespace defaultProps {

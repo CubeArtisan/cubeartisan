@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import { Divider, List, ListSubheader, Typography } from '@mui/material';
-import { useTheme } from '@mui/material/node/styles/index.js';
+import { useTheme } from '@mui/material/styles/index.js';
 import PropTypes from 'prop-types';
 import { Fragment, useCallback, useContext } from 'react';
 

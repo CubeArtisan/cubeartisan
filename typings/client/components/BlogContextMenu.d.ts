@@ -12,10 +12,10 @@ declare class BlogContextMenu extends Component<any, any, any> {
 }
 declare namespace BlogContextMenu {
     namespace propTypes {
-        const post: PropTypes.Validator<PropTypes.InferProps<{
+        const post: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
             cube: PropTypes.Validator<string>;
-        }>>;
+        }>>>;
         const value: PropTypes.Validator<string>;
         const onEdit: PropTypes.Validator<(...args: any[]) => any>;
     }

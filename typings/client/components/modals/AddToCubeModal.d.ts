@@ -8,8 +8,8 @@ declare function AddToCubeModal({ card, isOpen, toggle, hideAnalytics, cubeConte
 }): JSX.Element;
 declare namespace AddToCubeModal {
     namespace propTypes {
-        const card: PropTypes.Validator<PropTypes.InferProps<{
-            addedTmsp: PropTypes.Requireable<string | Date>;
+        const card: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
+            addedTmsp: PropTypes.Requireable<NonNullable<string | Date | null | undefined>>;
             cardID: PropTypes.Validator<string>;
             cmc: PropTypes.Requireable<number>;
             colorCategory: PropTypes.Requireable<string>;
@@ -24,7 +24,7 @@ declare namespace AddToCubeModal {
             status: PropTypes.Validator<string>;
             tags: PropTypes.Validator<(string | null | undefined)[]>;
             type_line: PropTypes.Requireable<string>;
-            details: PropTypes.Validator<PropTypes.InferProps<{
+            details: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                 color_identity: PropTypes.Validator<string[]>;
                 set: PropTypes.Validator<string>;
                 set_name: PropTypes.Validator<string>;
@@ -34,12 +34,12 @@ declare namespace AddToCubeModal {
                 released_at: PropTypes.Validator<string>;
                 reprint: PropTypes.Validator<boolean>;
                 promo: PropTypes.Validator<boolean>;
-                prices: PropTypes.Validator<PropTypes.InferProps<{
+                prices: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                     usd: PropTypes.Requireable<number>;
                     usd_foil: PropTypes.Requireable<number>;
                     eur: PropTypes.Requireable<number>;
                     tix: PropTypes.Requireable<number>;
-                }>>;
+                }>>>;
                 elo: PropTypes.Validator<number>;
                 digital: PropTypes.Validator<boolean>;
                 isToken: PropTypes.Validator<boolean>;
@@ -54,7 +54,7 @@ declare namespace AddToCubeModal {
                 _id: PropTypes.Validator<string>;
                 oracle_id: PropTypes.Validator<string>;
                 cmc: PropTypes.Validator<number>;
-                legalities: PropTypes.Validator<PropTypes.InferProps<{
+                legalities: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                     Legacy: PropTypes.Requireable<string>;
                     Modern: PropTypes.Requireable<string>;
                     Standard: PropTypes.Requireable<string>;
@@ -65,7 +65,7 @@ declare namespace AddToCubeModal {
                     Commander: PropTypes.Requireable<string>;
                     Penny: PropTypes.Requireable<string>;
                     Vintage: PropTypes.Requireable<string>;
-                }>>;
+                }>>>;
                 parsed_cost: PropTypes.Validator<string[]>;
                 colors: PropTypes.Requireable<string[]>;
                 type: PropTypes.Requireable<string>;
@@ -86,9 +86,9 @@ declare namespace AddToCubeModal {
                 popularity: PropTypes.Validator<number>;
                 cubeCount: PropTypes.Validator<number>;
                 pickCount: PropTypes.Validator<number>;
-            }>>;
+            }>>>;
             isUnlimited: PropTypes.Validator<boolean>;
-        }>>;
+        }>>>;
         const isOpen: PropTypes.Validator<boolean>;
         const hideAnalytics: PropTypes.Requireable<boolean>;
         const toggle: PropTypes.Validator<(...args: any[]) => any>;

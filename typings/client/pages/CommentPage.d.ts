@@ -4,7 +4,7 @@ export function CommentPage({ comment, loginCallback }: {
 }): JSX.Element;
 export namespace CommentPage {
     namespace propTypes {
-        const comment: PropTypes.Validator<PropTypes.InferProps<{
+        const comment: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
             timePosted: PropTypes.Validator<string>;
             ownerName: PropTypes.Validator<string>;
@@ -15,7 +15,7 @@ export namespace CommentPage {
             image: PropTypes.Validator<string>;
             content: PropTypes.Validator<string>;
             updated: PropTypes.Validator<boolean>;
-        }>>;
+        }>>>;
         const loginCallback: PropTypes.Requireable<string>;
     }
     namespace defaultProps {

@@ -112,6 +112,7 @@
   "client/pages/UserCubePage.js",
   "client/pages/UserDecksPage.js",
   "client/proptypes/DeckPropType.js",
+  "client/theming/theme.js",
   "client/utils/SWRFetchers.js",
   "client/utils/Sort.js",
   "client/webpack.common.cjs",

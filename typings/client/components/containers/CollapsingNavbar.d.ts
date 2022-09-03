@@ -7,7 +7,7 @@ declare function CollapsingNavbar({ children, sx, breakpoint, component }: {
 }): JSX.Element;
 declare namespace CollapsingNavbar {
     namespace propTypes {
-        const children: PropTypes.Validator<string | number | boolean | {} | PropTypes.ReactElementLike | PropTypes.ReactNodeArray>;
+        const children: PropTypes.Validator<NonNullable<PropTypes.ReactNodeLike>>;
         const sx: PropTypes.Requireable<PropTypes.InferProps<{}>>;
         const breakpoint: PropTypes.Requireable<number>;
         const component: PropTypes.Requireable<PropTypes.ReactComponentLike>;

@@ -3,9 +3,9 @@ export function DraftbotBreakdownTable({ drafterState }: {
 }): JSX.Element;
 export namespace DraftbotBreakdownTable {
     namespace propTypes {
-        const drafterState: import("prop-types").Validator<import("prop-types").InferProps<{
+        const drafterState: import("prop-types").Validator<NonNullable<import("prop-types").InferProps<{
             cards: import("prop-types").Validator<(import("prop-types").InferProps<{
-                addedTmsp: import("prop-types").Requireable<string | Date>;
+                addedTmsp: import("prop-types").Requireable<NonNullable<string | Date | null | undefined>>;
                 cardID: import("prop-types").Validator<string>;
                 cmc: import("prop-types").Requireable<number>;
                 colorCategory: import("prop-types").Requireable<string>;
@@ -20,7 +20,7 @@ export namespace DraftbotBreakdownTable {
                 status: import("prop-types").Validator<string>;
                 tags: import("prop-types").Validator<(string | null | undefined)[]>;
                 type_line: import("prop-types").Requireable<string>;
-                details: import("prop-types").Validator<import("prop-types").InferProps<{
+                details: import("prop-types").Validator<NonNullable<import("prop-types").InferProps<{
                     color_identity: import("prop-types").Validator<string[]>;
                     set: import("prop-types").Validator<string>;
                     set_name: import("prop-types").Validator<string>;
@@ -30,12 +30,12 @@ export namespace DraftbotBreakdownTable {
                     released_at: import("prop-types").Validator<string>;
                     reprint: import("prop-types").Validator<boolean>;
                     promo: import("prop-types").Validator<boolean>;
-                    prices: import("prop-types").Validator<import("prop-types").InferProps<{
+                    prices: import("prop-types").Validator<NonNullable<import("prop-types").InferProps<{
                         usd: import("prop-types").Requireable<number>;
                         usd_foil: import("prop-types").Requireable<number>;
                         eur: import("prop-types").Requireable<number>;
                         tix: import("prop-types").Requireable<number>;
-                    }>>;
+                    }>>>;
                     elo: import("prop-types").Validator<number>;
                     digital: import("prop-types").Validator<boolean>;
                     isToken: import("prop-types").Validator<boolean>;
@@ -50,7 +50,7 @@ export namespace DraftbotBreakdownTable {
                     _id: import("prop-types").Validator<string>;
                     oracle_id: import("prop-types").Validator<string>;
                     cmc: import("prop-types").Validator<number>;
-                    legalities: import("prop-types").Validator<import("prop-types").InferProps<{
+                    legalities: import("prop-types").Validator<NonNullable<import("prop-types").InferProps<{
                         Legacy: import("prop-types").Requireable<string>;
                         Modern: import("prop-types").Requireable<string>;
                         Standard: import("prop-types").Requireable<string>;
@@ -61,7 +61,7 @@ export namespace DraftbotBreakdownTable {
                         Commander: import("prop-types").Requireable<string>;
                         Penny: import("prop-types").Requireable<string>;
                         Vintage: import("prop-types").Requireable<string>;
-                    }>>;
+                    }>>>;
                     parsed_cost: import("prop-types").Validator<string[]>;
                     colors: import("prop-types").Requireable<string[]>;
                     type: import("prop-types").Requireable<string>;
@@ -82,18 +82,18 @@ export namespace DraftbotBreakdownTable {
                     popularity: import("prop-types").Validator<number>;
                     cubeCount: import("prop-types").Validator<number>;
                     pickCount: import("prop-types").Validator<number>;
-                }>>;
+                }>>>;
                 isUnlimited: import("prop-types").Validator<boolean>;
             }> | null | undefined)[]>;
             picked: import("prop-types").Validator<number[]>;
             trashed: import("prop-types").Validator<number[]>;
-            seen: import("prop-types").Validator<import("prop-types").InferProps<{
+            seen: import("prop-types").Validator<NonNullable<import("prop-types").InferProps<{
                 pack: import("prop-types").Validator<number[]>;
                 pickNum: import("prop-types").Validator<number>;
                 packNum: import("prop-types").Validator<number>;
                 numPicks: import("prop-types").Validator<number>;
                 numPacks: import("prop-types").Validator<number>;
-            }>[]>;
+            }>>[]>;
             cardsInPack: import("prop-types").Validator<number[]>;
             packNum: import("prop-types").Validator<number>;
             pickNum: import("prop-types").Validator<number>;
@@ -107,7 +107,7 @@ export namespace DraftbotBreakdownTable {
                 action: import("prop-types").Validator<string>;
                 amount: import("prop-types").Requireable<number>;
             }>>;
-        }>>;
+        }>>>;
     }
 }
 export default DraftbotBreakdownTable;

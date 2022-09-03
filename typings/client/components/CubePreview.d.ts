@@ -4,7 +4,7 @@ declare function CubePreview({ cube }: {
 }): JSX.Element;
 declare namespace CubePreview {
     namespace propTypes {
-        const cube: import("prop-types").Validator<import("prop-types").InferProps<{
+        const cube: import("prop-types").Validator<NonNullable<import("prop-types").InferProps<{
             _id: import("prop-types").Validator<string>;
             name: import("prop-types").Validator<string>;
             shortID: import("prop-types").Validator<string>;
@@ -15,8 +15,8 @@ declare namespace CubePreview {
             overrideCategory: import("prop-types").Validator<boolean>;
             categoryOverride: import("prop-types").Validator<string>;
             categoryPrefixes: import("prop-types").Validator<string[]>;
-            cards: import("prop-types").Validator<import("prop-types").InferProps<{
-                addedTmsp: import("prop-types").Requireable<string | Date>;
+            cards: import("prop-types").Validator<NonNullable<import("prop-types").InferProps<{
+                addedTmsp: import("prop-types").Requireable<NonNullable<string | Date | null | undefined>>;
                 cardID: import("prop-types").Validator<string>;
                 cmc: import("prop-types").Requireable<number>;
                 colorCategory: import("prop-types").Requireable<string>;
@@ -31,7 +31,7 @@ declare namespace CubePreview {
                 status: import("prop-types").Validator<string>;
                 tags: import("prop-types").Validator<(string | null | undefined)[]>;
                 type_line: import("prop-types").Requireable<string>;
-                details: import("prop-types").Validator<import("prop-types").InferProps<{
+                details: import("prop-types").Validator<NonNullable<import("prop-types").InferProps<{
                     color_identity: import("prop-types").Validator<string[]>;
                     set: import("prop-types").Validator<string>;
                     set_name: import("prop-types").Validator<string>;
@@ -41,12 +41,12 @@ declare namespace CubePreview {
                     released_at: import("prop-types").Validator<string>;
                     reprint: import("prop-types").Validator<boolean>;
                     promo: import("prop-types").Validator<boolean>;
-                    prices: import("prop-types").Validator<import("prop-types").InferProps<{
+                    prices: import("prop-types").Validator<NonNullable<import("prop-types").InferProps<{
                         usd: import("prop-types").Requireable<number>;
                         usd_foil: import("prop-types").Requireable<number>;
                         eur: import("prop-types").Requireable<number>;
                         tix: import("prop-types").Requireable<number>;
-                    }>>;
+                    }>>>;
                     elo: import("prop-types").Validator<number>;
                     digital: import("prop-types").Validator<boolean>;
                     isToken: import("prop-types").Validator<boolean>;
@@ -61,7 +61,7 @@ declare namespace CubePreview {
                     _id: import("prop-types").Validator<string>;
                     oracle_id: import("prop-types").Validator<string>;
                     cmc: import("prop-types").Validator<number>;
-                    legalities: import("prop-types").Validator<import("prop-types").InferProps<{
+                    legalities: import("prop-types").Validator<NonNullable<import("prop-types").InferProps<{
                         Legacy: import("prop-types").Requireable<string>;
                         Modern: import("prop-types").Requireable<string>;
                         Standard: import("prop-types").Requireable<string>;
@@ -72,7 +72,7 @@ declare namespace CubePreview {
                         Commander: import("prop-types").Requireable<string>;
                         Penny: import("prop-types").Requireable<string>;
                         Vintage: import("prop-types").Requireable<string>;
-                    }>>;
+                    }>>>;
                     parsed_cost: import("prop-types").Validator<string[]>;
                     colors: import("prop-types").Requireable<string[]>;
                     type: import("prop-types").Requireable<string>;
@@ -93,11 +93,11 @@ declare namespace CubePreview {
                     popularity: import("prop-types").Validator<number>;
                     cubeCount: import("prop-types").Validator<number>;
                     pickCount: import("prop-types").Validator<number>;
-                }>>;
+                }>>>;
                 isUnlimited: import("prop-types").Validator<boolean>;
-            }>[]>;
-            maybe: import("prop-types").Validator<import("prop-types").InferProps<{
-                addedTmsp: import("prop-types").Requireable<string | Date>;
+            }>>[]>;
+            maybe: import("prop-types").Validator<NonNullable<import("prop-types").InferProps<{
+                addedTmsp: import("prop-types").Requireable<NonNullable<string | Date | null | undefined>>;
                 cardID: import("prop-types").Validator<string>;
                 cmc: import("prop-types").Requireable<number>;
                 colorCategory: import("prop-types").Requireable<string>;
@@ -112,7 +112,7 @@ declare namespace CubePreview {
                 status: import("prop-types").Validator<string>;
                 tags: import("prop-types").Validator<(string | null | undefined)[]>;
                 type_line: import("prop-types").Requireable<string>;
-                details: import("prop-types").Validator<import("prop-types").InferProps<{
+                details: import("prop-types").Validator<NonNullable<import("prop-types").InferProps<{
                     color_identity: import("prop-types").Validator<string[]>;
                     set: import("prop-types").Validator<string>;
                     set_name: import("prop-types").Validator<string>;
@@ -122,12 +122,12 @@ declare namespace CubePreview {
                     released_at: import("prop-types").Validator<string>;
                     reprint: import("prop-types").Validator<boolean>;
                     promo: import("prop-types").Validator<boolean>;
-                    prices: import("prop-types").Validator<import("prop-types").InferProps<{
+                    prices: import("prop-types").Validator<NonNullable<import("prop-types").InferProps<{
                         usd: import("prop-types").Requireable<number>;
                         usd_foil: import("prop-types").Requireable<number>;
                         eur: import("prop-types").Requireable<number>;
                         tix: import("prop-types").Requireable<number>;
-                    }>>;
+                    }>>>;
                     elo: import("prop-types").Validator<number>;
                     digital: import("prop-types").Validator<boolean>;
                     isToken: import("prop-types").Validator<boolean>;
@@ -142,7 +142,7 @@ declare namespace CubePreview {
                     _id: import("prop-types").Validator<string>;
                     oracle_id: import("prop-types").Validator<string>;
                     cmc: import("prop-types").Validator<number>;
-                    legalities: import("prop-types").Validator<import("prop-types").InferProps<{
+                    legalities: import("prop-types").Validator<NonNullable<import("prop-types").InferProps<{
                         Legacy: import("prop-types").Requireable<string>;
                         Modern: import("prop-types").Requireable<string>;
                         Standard: import("prop-types").Requireable<string>;
@@ -153,7 +153,7 @@ declare namespace CubePreview {
                         Commander: import("prop-types").Requireable<string>;
                         Penny: import("prop-types").Requireable<string>;
                         Vintage: import("prop-types").Requireable<string>;
-                    }>>;
+                    }>>>;
                     parsed_cost: import("prop-types").Validator<string[]>;
                     colors: import("prop-types").Requireable<string[]>;
                     type: import("prop-types").Requireable<string>;
@@ -174,9 +174,9 @@ declare namespace CubePreview {
                     popularity: import("prop-types").Validator<number>;
                     cubeCount: import("prop-types").Validator<number>;
                     pickCount: import("prop-types").Validator<number>;
-                }>>;
+                }>>>;
                 isUnlimited: import("prop-types").Validator<boolean>;
-            }>[]>;
+            }>>[]>;
             defaultDraftFormat: import("prop-types").Validator<number>;
             numDecks: import("prop-types").Validator<number>;
             description: import("prop-types").Requireable<string>;
@@ -199,7 +199,8 @@ declare namespace CubePreview {
             cardOracles: import("prop-types").Validator<string[]>;
             keywords: import("prop-types").Validator<string[]>;
             categories: import("prop-types").Validator<string[]>;
-        }>>;
+            raw_desc: import("prop-types").Validator<string>;
+        }>>>;
     }
 }
 //# sourceMappingURL=CubePreview.d.ts.map

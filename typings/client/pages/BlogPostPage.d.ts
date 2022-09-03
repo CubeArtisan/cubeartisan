@@ -4,7 +4,7 @@ export function BlogPostPage({ post, loginCallback }: {
 }): JSX.Element;
 export namespace BlogPostPage {
     namespace propTypes {
-        const post: PropTypes.Validator<PropTypes.InferProps<{
+        const post: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
             title: PropTypes.Validator<string>;
             owner: PropTypes.Validator<string>;
@@ -15,7 +15,7 @@ export namespace BlogPostPage {
             date_formatted: PropTypes.Validator<string>;
             username: PropTypes.Validator<string>;
             cubename: PropTypes.Validator<string>;
-        }>>;
+        }>>>;
         const loginCallback: PropTypes.Requireable<string>;
     }
     namespace defaultProps {

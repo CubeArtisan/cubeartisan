@@ -5,7 +5,7 @@ export function ArticlePage({ loginCallback, article }: {
 export namespace ArticlePage {
     namespace propTypes {
         const loginCallback: PropTypes.Requireable<string>;
-        const article: PropTypes.Validator<PropTypes.InferProps<{
+        const article: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
             title: PropTypes.Validator<string>;
             body: PropTypes.Validator<string>;
@@ -17,7 +17,7 @@ export namespace ArticlePage {
             artist: PropTypes.Validator<string>;
             image: PropTypes.Validator<string>;
             imagename: PropTypes.Validator<string>;
-        }>>;
+        }>>>;
     }
     namespace defaultProps {
         const loginCallback_1: string;

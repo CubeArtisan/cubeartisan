@@ -9,7 +9,7 @@ declare namespace GroupModal {
     namespace propTypes {
         const cubeID: PropTypes.Validator<string>;
         const canEdit: PropTypes.Requireable<boolean>;
-        const children: PropTypes.Validator<string | number | boolean | {} | PropTypes.ReactElementLike | PropTypes.ReactNodeArray>;
+        const children: PropTypes.Validator<NonNullable<PropTypes.ReactNodeLike>>;
     }
     namespace defaultProps {
         const canEdit_1: boolean;

@@ -70,7 +70,6 @@ declare const Cube: mongoose.Model<{
             sort?: {};
             fill?: {};
             copyWithin?: {};
-            toLocaleString: {};
             buffer?: {
                 [Symbol.toStringTag]?: unknown;
                 slice?: {};
@@ -81,6 +80,7 @@ declare const Cube: mongoose.Model<{
                 slice?: {};
                 byteLength?: unknown;
             };
+            toLocaleString: {};
             write?: {};
             copy?: {};
             subarray?: {};
@@ -165,9 +165,9 @@ declare const Cube: mongoose.Model<{
         toString: {};
         equals?: {};
         toJSON?: {};
-        toHexString?: {};
         _bsontype?: mongoose.Types.ObjectId;
         generationTime?: unknown;
+        toHexString?: {};
         getTimestamp?: {};
         inspect?: {};
     }[];
@@ -222,7 +222,6 @@ declare const Cube: mongoose.Model<{
             sort?: {};
             fill?: {};
             copyWithin?: {};
-            toLocaleString: {};
             buffer?: {
                 [Symbol.toStringTag]?: unknown;
                 slice?: {};
@@ -233,6 +232,7 @@ declare const Cube: mongoose.Model<{
                 slice?: {};
                 byteLength?: unknown;
             };
+            toLocaleString: {};
             write?: {};
             copy?: {};
             subarray?: {};
@@ -317,9 +317,9 @@ declare const Cube: mongoose.Model<{
         toString: {};
         equals?: {};
         toJSON?: {};
-        toHexString?: {};
         _bsontype?: mongoose.Types.ObjectId;
         generationTime?: unknown;
+        toHexString?: {};
         getTimestamp?: {};
         inspect?: {};
     };

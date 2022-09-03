@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import carddb from '@cubeartisan/server/serverjs/cards.js';
 
 import cubefixture from '@cubeartisan/client/__tests__/fixtures/examplecube.js';

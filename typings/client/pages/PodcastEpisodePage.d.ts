@@ -5,7 +5,7 @@ export function PodcastEpisodePage({ loginCallback, episode }: {
 export namespace PodcastEpisodePage {
     namespace propTypes {
         const loginCallback: PropTypes.Requireable<string>;
-        const episode: PropTypes.Validator<PropTypes.InferProps<{
+        const episode: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
             _id: PropTypes.Validator<string>;
             title: PropTypes.Validator<string>;
             rss: PropTypes.Validator<string>;
@@ -18,7 +18,7 @@ export namespace PodcastEpisodePage {
             image: PropTypes.Validator<string>;
             podcast: PropTypes.Validator<string>;
             podcastname: PropTypes.Validator<string>;
-        }>>;
+        }>>>;
     }
     namespace defaultProps {
         const loginCallback_1: string;

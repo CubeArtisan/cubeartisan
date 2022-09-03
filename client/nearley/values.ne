@@ -26,7 +26,7 @@ halfIntValue ->
 integerOpValue -> anyOperator integerValue {% ([op, value]) => defaultOperation(op, value) %}
 
 # used for fields that are fetched from the database
-fetchedIntegerOpValue -> anyOperator integerValue {% ([op, value]) => fetchedOperation(op, value) %}
+# fetchedIntegerOpValue -> anyOperator integerValue {% ([op, value]) => fetchedOperation(op, value) %}
 
 integerValue -> [0-9]:+ {% ([digits]) => parseInt(digits.join(''), 10) %}
 
@@ -50,7 +50,7 @@ legalityValue -> ("Standard"i | "Pioneer"i | "Modern"i | "Legacy"i | "Vintage"i 
 
 statusOpValue -> equalityOperator statusValue {% ([op, value]) => stringOperation(op.toString() === ':' ? '=' : op, value) %}
 
-statusValue -> ("owned"i | "proxied"i | "ordered"i) {% ([[status]]) => status.toLowerCase() %} 
+statusValue -> ("owned"i | "proxied"i | "ordered"i) {% ([[status]]) => status.toLowerCase() %}
   | "'" ("owned"i | "proxied"i | "ordered"i | "not owned"i | "premium owned"i) "'" {% ([, [status]]) => status.toLowerCase() %}
   | "\"" ("owned"i | "proxied"i | "ordered"i | "not owned"i | "premium owned"i) "\"" {% ([, [status]]) => status.toLowerCase() %}
 
@@ -159,12 +159,12 @@ nameStringOpValue -> equalityOperator stringValue {% ([op, value]) => nameString
 stringValue -> (noQuoteStringValue | dqstring | sqstring) {% ([[value]]) => value.toLowerCase() %}
 
 # anything that isn't a special character and isn't "and" or "or"
-noQuoteStringValue -> 
+noQuoteStringValue ->
   ("a"i | "an"i | "o"i) {% ([[value]]) => value.toLowerCase() %}
-  | ([^aAoO\- \t\n"'\\=<>:] 
-    | "a"i [^nN \t\n"'\\=<>:] 
-    | "an"i [^dD \t\n"'\\=<>:] 
-    | "and"i [^ \t\n"'\\=<>:] 
+  | ([^aAoO\- \t\n"'\\=<>:]
+    | "a"i [^nN \t\n"'\\=<>:]
+    | "an"i [^dD \t\n"'\\=<>:]
+    | "and"i [^ \t\n"'\\=<>:]
     | "o"i [^rR \t\n"'\\=<>:]
     | "or"i [^ \t\n"'\\=<>:]
     ) [^ \t\n"'\\=<>:]:* {% ([startChars, chars]) => startChars.concat(chars).join('').toLowerCase() %}
@@ -207,4 +207,3 @@ devotionValue -> ("w"i:+ | "u"i:+ |"b"i:+ | "r"i:+ | "g"i:+) {% ([[sequence]]) =
 anyOperator -> ":" | "=" | "!=" | "<>" | "<" | "<=" | ">" | ">="  {% id %}
 
 equalityOperator -> ":" | "=" | "!=" | "<>" {% id %}
-
