@@ -71,6 +71,7 @@ html(lang='en')
 
   body
     != messages('dynamic_message', locals)
+    input(type="hidden", id="global-notice" value=notice)
     #react-root !{reactHTML}
 
     script(type='text/javascript').

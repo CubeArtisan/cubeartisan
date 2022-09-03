@@ -32,7 +32,7 @@ module.exports = (api) => {
       !isTest && [
         'babel-plugin-direct-import',
         {
-          modules: ['@mui/lab', '@mui/material', '@mui/styles', '@mui/icons-material'],
+          modules: ['@mui/lab', '@mui/material', '@mui/icons-material'],
         },
       ],
       isDevelopment && require.resolve('react-refresh/babel'),

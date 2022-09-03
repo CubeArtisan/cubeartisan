@@ -15,7 +15,6 @@
   "client/components/DeckCard.js",
   "client/components/DecksPickBreakdown.js",
   "client/components/DraftbotBreakdown.js",
-  "client/components/DynamicFlash.js",
   "client/components/EditCollapse.js",
   "client/components/Feed.js",
   "client/components/FilterCollapse.js",
