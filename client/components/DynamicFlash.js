@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { Box } from '@mui/material';
+import { Stack } from '@mui/material';
 import { useState } from 'react';
 
 import Alert from '@cubeartisan/client/components/wrappers/Alert.js';
@@ -24,29 +24,33 @@ import Alert from '@cubeartisan/client/components/wrappers/Alert.js';
 const DynamicFlash = (props) => {
   const [messages, setMessages] = useState(() => {
     if (typeof document !== 'undefined') {
-      const flashInput = document.getElementById('flash');
-      const flashValue = flashInput ? flashInput.value : '[]';
+      const flashInput = /** @type {HTMLInputElement | null} */ (document.getElementById('flash')); // eslint-disable-line prettier/prettier
+      if (!flashInput) {
+        return [];
+      }
+      const flashValue = flashInput?.value ?? '[]';
+      console.log('FLASH VALUE', flashValue);
       return JSON.parse(flashValue);
     }
     return [];
   });
 
-  if (messages.length > 0) {
+  if (Object.values(messages).some((inner) => inner.length > 0)) {
     return (
-      <Box marginY={1}>
+      <Stack spacing={1} sx={{ marginTop: 1 }}>
         {Object.entries(messages).map(([type, inner]) =>
           inner.map((message, index) => (
             <Alert
               key={type + index /* eslint-disable-line react/no-array-index-key */}
               color={type}
-              onClose={() => setMessages((old) => old.filter((_, idx) => idx !== index))}
+              onClose={() => setMessages((old) => ({ ...old, [type]: old[type].filter((_, idx) => idx !== index) }))}
               {...props}
             >
               {message}
             </Alert>
           )),
         )}
-      </Box>
+      </Stack>
     );
   }
   return null;
