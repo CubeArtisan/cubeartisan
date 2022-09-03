@@ -88,7 +88,7 @@ declare namespace CubePreview {
                     image_normal: import("prop-types").Requireable<string>;
                     art_crop: import("prop-types").Requireable<string>;
                     image_flip: import("prop-types").Requireable<string>;
-                    colorcategory: import("prop-types").Validator<string>;
+                    color_category: import("prop-types").Validator<string>;
                     tokens: import("prop-types").Requireable<string[]>;
                     popularity: import("prop-types").Validator<number>;
                     cubeCount: import("prop-types").Validator<number>;
@@ -169,7 +169,7 @@ declare namespace CubePreview {
                     image_normal: import("prop-types").Requireable<string>;
                     art_crop: import("prop-types").Requireable<string>;
                     image_flip: import("prop-types").Requireable<string>;
-                    colorcategory: import("prop-types").Validator<string>;
+                    color_category: import("prop-types").Validator<string>;
                     tokens: import("prop-types").Requireable<string[]>;
                     popularity: import("prop-types").Validator<number>;
                     cubeCount: import("prop-types").Validator<number>;

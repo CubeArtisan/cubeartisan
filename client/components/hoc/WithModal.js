@@ -41,6 +41,7 @@ const withModal = (Tag, ModalTag) => {
   /**
    * @type {React.ForwardRefRenderFunction<any, WithModalProps>}
    */
+  // eslint-disable-next-line react/prop-types
   const WithModalComponent = ({ modalProps, ...props }, ref) => {
     const [isOpen, toggleOpen] = useToggle(false);
 
@@ -55,16 +56,6 @@ const withModal = (Tag, ModalTag) => {
       </>
     );
   };
-  // @ts-ignore
-  WithModalComponent.propTypes = {
-    modalProps: PropTypes.shape(ModalTag.propTypes ?? {}),
-    ...(Tag.propTypes ?? {}),
-  };
-  // @ts-ignore
-  WithModalComponent.defaultProps = {
-    modalProps: ModalTag.defaultProps ?? {},
-    ...(Tag.defaultProps ?? {}),
-  };
   const WithModal = forwardRef(WithModalComponent);
   if (typeof Tag === 'string') {
     WithModal.displayName = `${Tag}WithModal`;
@@ -75,6 +66,16 @@ const withModal = (Tag, ModalTag) => {
   } else {
     WithModal.displayName = 'WithModal';
   }
+  // @ts-ignore
+  WithModal.propTypes = {
+    modalProps: PropTypes.shape(ModalTag.propTypes ?? {}),
+    ...(Tag.propTypes ?? {}),
+  };
+  // @ts-ignore
+  WithModal.defaultProps = {
+    modalProps: ModalTag.defaultProps ?? {},
+    ...(Tag.defaultProps ?? {}),
+  };
   return WithModal;
 };
 export default withModal;

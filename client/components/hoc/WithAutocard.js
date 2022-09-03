@@ -26,6 +26,7 @@ const withAutocard = (Tag) => {
   /**
    * @type {React.ForwardRefRenderFunction<any, AutocardProps & Omit<P, 'card'|'back'>>}
    */
+  // eslint-disable-next-line react/prop-types
   const WithAutocardComponent = ({ card, back, tags, ...props }, ref) => {
     const tagContext = useContext(TagContext);
     const tagColorClass = tagContext?.tagColorClass ?? placeholderClass;
@@ -42,26 +43,30 @@ const withAutocard = (Tag) => {
           <CardImage key="front" card={card} width={autoCardSize} />
           {back && <CardImage key="back" card={card} width={autoCardSize} back />}
         </Stack>
-        {tags && tags.length > 0 && (
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'row', width: '100%', padding: 1 }}>
-            {tags.map((tag, idx) => (
-              <Typography
-                sx={{
-                  width: 'fit-content',
-                  backgroundColor: tagColorClass(tag.trim()),
-                  padding: 0.5,
-                  margin: 0.5,
-                  border: '1px solid',
-                  borderRadius: '0.5rem',
-                }}
-                variant="body2"
+        {
+          /* eslint-disable-line react/prop-types */ tags && tags.length > 0 && (
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'row', width: '100%', padding: 1 }}>
+              {
+                /* eslint-disable-line react/prop-types */ tags.map((tag, idx) => (
+                  <Typography
+                    sx={{
+                      width: 'fit-content',
+                      backgroundColor: tagColorClass(tag.trim()),
+                      padding: 0.5,
+                      margin: 0.5,
+                      border: '1px solid',
+                      borderRadius: '0.5rem',
+                    }}
+                    variant="body2"
                 key={`${tag}-${idx}` /* eslint-disable-line */}
-              >
-                {tag.trim()}
-              </Typography>
-            ))}
-          </Box>
-        )}
+                  >
+                    {tag.trim()}
+                  </Typography>
+                ))
+              }
+            </Box>
+          )
+        }
       </Box>
     );
     return (
@@ -78,22 +83,9 @@ const withAutocard = (Tag) => {
         }}
       >
         {/* @ts-ignore */}
-        <Tag ref={ref} card={card} back={back} {...props} />
+        {Tag === CardImage ? <Tag ref={ref} card={card} back={back} {...props} /> : <Tag ref={ref} {...props} />}
       </Tooltip>
     );
-  };
-  // @ts-ignore
-  WithAutocardComponent.propTypes = {
-    card: CardPropType.isRequired,
-    back: PropTypes.bool,
-    tags: PropTypes.arrayOf(PropTypes.string.isRequired),
-    ...(Tag.propTypes ?? {}),
-  };
-  // @ts-ignore
-  WithAutocardComponent.defaultProps = {
-    back: false,
-    tags: undefined,
-    ...(Tag.defaultProps ?? {}),
   };
   const WithAutocard = forwardRef(WithAutocardComponent);
   if (typeof Tag === 'string') {
