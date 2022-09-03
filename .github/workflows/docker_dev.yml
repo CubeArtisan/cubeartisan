@@ -1,13 +1,8 @@
 name: Build Docker Image
 on:
-  workflow_run:
-    workflows:
-      - Continuous Integration Checks
+  push:
     branches:
-      - prod
       - dev
-    types:
-      - completed
 jobs:
   build:
     runs-on: ubuntu-latest
