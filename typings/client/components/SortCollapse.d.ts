@@ -1,5 +1,5 @@
 export default SortCollapse;
-declare function SortCollapse({ defaultPrimarySort, defaultSecondarySort, defaultTertiarySort, defaultQuaternarySort, defaultShowUnsorted, defaultSorts, cubeDefaultShowUnsorted, setSorts, ...props }: {
+declare function SortCollapse({ defaultPrimarySort, defaultSecondarySort, defaultTertiarySort, defaultQuaternarySort, defaultShowUnsorted, defaultSorts, cubeDefaultShowUnsorted, setSorts, isOpen, ...props }: {
     [x: string]: any;
     defaultPrimarySort: any;
     defaultSecondarySort: any;
@@ -9,6 +9,7 @@ declare function SortCollapse({ defaultPrimarySort, defaultSecondarySort, defaul
     defaultSorts: any;
     cubeDefaultShowUnsorted: any;
     setSorts: any;
+    isOpen: any;
 }): JSX.Element;
 declare namespace SortCollapse {
     namespace propTypes {
@@ -20,6 +21,7 @@ declare namespace SortCollapse {
         const defaultSorts: PropTypes.Requireable<string[]>;
         const cubeDefaultShowUnsorted: PropTypes.Requireable<boolean>;
         const setSorts: PropTypes.Validator<(...args: any[]) => any>;
+        const isOpen: PropTypes.Requireable<boolean>;
     }
     namespace defaultProps {
         const defaultPrimarySort_1: string;
@@ -36,6 +38,8 @@ declare namespace SortCollapse {
         export { defaultSorts_1 as defaultSorts };
         const cubeDefaultShowUnsorted_1: boolean;
         export { cubeDefaultShowUnsorted_1 as cubeDefaultShowUnsorted };
+        const isOpen_1: boolean;
+        export { isOpen_1 as isOpen };
     }
 }
 import PropTypes from "prop-types";

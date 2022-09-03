@@ -16,13 +16,13 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { Button, Tooltip, Typography } from '@mui/material';
+import { Alert, Button, Collapse, Grid, Stack, Tooltip, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { Col, Collapse, Container, Input, Row, UncontrolledAlert } from 'reactstrap';
 
 import CubeContext from '@cubeartisan/client/components/contexts/CubeContext.js';
 import SortContext from '@cubeartisan/client/components/contexts/SortContext.js';
+import LabeledSelect from '@cubeartisan/client/components/inputs/LabeledSelect.js';
 import { csrfFetch } from '@cubeartisan/client/utils/CSRF.js';
 import Query from '@cubeartisan/client/utils/Query.js';
 import { ORDERED_SORTS, SORTS } from '@cubeartisan/client/utils/Sort.js';
@@ -36,6 +36,7 @@ const SortCollapse = ({
   defaultSorts,
   cubeDefaultShowUnsorted,
   setSorts,
+  isOpen,
   ...props
 }) => {
   const [alerts, setAlerts] = useState([]);
@@ -164,148 +165,117 @@ const SortCollapse = ({
   }, [addAlert, cubeID, primary, secondary, tertiary, quaternary, showOther]);
 
   return (
-    <Collapse {...props}>
-      <Container>
-        <Row>
-          <Col>
-            {alerts.map(({ color, message }, index) => (
-              <UncontrolledAlert
-                key={index /* eslint-disable-line react/no-array-index-key */}
-                className="w-100 mb-1"
-                color={color}
-              >
-                {message}
-              </UncontrolledAlert>
-            ))}
-          </Col>
-        </Row>
-        <Row>
-          <Col xs="12" sm="6" className="mt-2">
-            <h6>Primary Sort</h6>
-            <Input
-              type="select"
-              value={primary}
-              onChange={(e) => {
-                const newPrimary = e.target.value;
-                if (!newPrimary || newPrimary === defSorts[0]) {
-                  Query.del('s1');
-                } else {
-                  Query.set('s1', newPrimary);
-                }
-                changeSort({ primary: newPrimary });
-              }}
-            >
-              {SORTS.map((sort) => (
-                <option key={sort}>{sort}</option>
-              ))}
-            </Input>
-          </Col>
-          <Col xs="12" sm="6" className="mt-2">
-            <h6>Secondary Sort</h6>
-            <Input
-              type="select"
-              value={secondary}
-              onChange={(e) => {
-                const newSecondary = e.target.value;
-                if (!newSecondary || newSecondary === defSorts[1]) {
-                  Query.del('s2');
-                } else {
-                  Query.set('s2', newSecondary);
-                }
-                changeSort({ secondary: newSecondary });
-              }}
-            >
-              {SORTS.map((sort) => (
-                <option key={sort}>{sort}</option>
-              ))}
-            </Input>
-          </Col>
-          <Col xs="12" sm="6" className="mt-2">
-            <h6>Tertiary Sort</h6>
-            <Input
-              type="select"
-              value={tertiary}
-              onChange={(e) => {
-                const newTertiary = e.target.value;
-                if (!newTertiary || newTertiary === defSorts[2]) {
-                  Query.del('s3');
-                } else {
-                  Query.set('s3', newTertiary);
-                }
-                changeSort({ tertiary: newTertiary });
-              }}
-            >
-              {SORTS.map((sort) => (
-                <option key={sort}>{sort}</option>
-              ))}
-            </Input>
-          </Col>
-          <Col xs="12" sm="6" className="mt-2">
-            <h6>Ordered Sort</h6>
-            <Input
-              type="select"
-              value={quaternary}
-              onChange={(e) => {
-                const newQuaternary = e.target.value;
-                if (!newQuaternary || newQuaternary === defSorts[3]) {
-                  Query.del('s4');
-                } else {
-                  Query.set('s4', newQuaternary);
-                }
-                changeSort({ quaternary: newQuaternary });
-              }}
-            >
-              {ORDERED_SORTS.map((sort) => (
-                <option key={sort}>{sort}</option>
-              ))}
-            </Input>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <p className="my-2">
-              <em>
-                Cards will be appear as duplicates if they fit in multiple categories. The counts will still only count
-                each item once.
-              </em>
-            </p>
-          </Col>
-        </Row>
-        <Row className="mb-3">
-          <Col>
-            <Button color="success" onClick={handleReset}>
-              Reset Sort
-            </Button>
-            {!canEdit ? (
-              false
-            ) : (
-              <Button color="success" onClick={handleSave}>
-                Save as Default Sort
-              </Button>
-            )}
-            <Button
-              color={showOther ? 'warning' : 'primary'}
-              onClick={() => {
-                const newShowOther = !showOther;
-                if (newShowOther.toString() === defShow) {
-                  Query.del('so');
-                } else {
-                  Query.set('so', newShowOther);
-                }
-                changeSort({ showOther: newShowOther });
-              }}
-            >
-              <Tooltip title="Creates a separate column for cards that would be hidden otherwise.">
-                <Typography variant="body1">{showOther ? 'Hide' : 'Show'} Unsorted Cards</Typography>
-              </Tooltip>
-            </Button>
-          </Col>
-        </Row>
-      </Container>
+    <Collapse in={isOpen} {...props}>
+      {alerts.map(({ color, message }, index) => (
+        <Alert key={index /* eslint-disable-line react/no-array-index-key */} sx={{ marginBottom: 1 }} severity={color}>
+          {message}
+        </Alert>
+      ))}
+      <Grid container>
+        <Grid item xs={12} sm={6} lg={3} sx={{ marginTop: 2 }} key="primary">
+          <LabeledSelect
+            label="Primary Sort"
+            baseId="primary-sort"
+            value={primary}
+            values={SORTS}
+            setValue={(newPrimary) => {
+              if (!newPrimary || newPrimary === defSorts[0]) {
+                Query.del('s1');
+              } else {
+                Query.set('s1', newPrimary);
+              }
+              changeSort({ primary: newPrimary });
+            }}
+          />
+        </Grid>
+        <Grid xs={12} sm={6} lg={3} sx={{ marginTop: 2 }} key="secondary">
+          <LabeledSelect
+            label="Secondary Sort"
+            baseId="secondary-sort"
+            value={secondary}
+            values={SORTS}
+            setValue={(newSecondary) => {
+              if (!newSecondary || newSecondary === defSorts[1]) {
+                Query.del('s2');
+              } else {
+                Query.set('s2', newSecondary);
+              }
+              changeSort({ secondary: newSecondary });
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} lg={3} sx={{ marginTop: 2 }} key="tertiary">
+          <LabeledSelect
+            label="Tertiary Sort"
+            baseId="tertiary-sort"
+            value={tertiary}
+            values={SORTS}
+            setValue={(newTertiary) => {
+              if (!newTertiary || newTertiary === defSorts[2]) {
+                Query.del('s3');
+              } else {
+                Query.set('s3', newTertiary);
+              }
+              changeSort({ tertiary: newTertiary });
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} lg={3} sx={{ marginTop: 2 }} key="quaternary">
+          <LabeledSelect
+            label="Ordered Sort"
+            baseId="ordered-sort"
+            value={quaternary}
+            values={ORDERED_SORTS}
+            setValue={(newQuaternary) => {
+              if (!newQuaternary || newQuaternary === defSorts[3]) {
+                Query.del('s4');
+              } else {
+                Query.set('s4', newQuaternary);
+              }
+              changeSort({ quaternary: newQuaternary });
+            }}
+          />
+        </Grid>
+      </Grid>
+      <Typography component="p" variant="body1" sx={{ marginY: 2 }}>
+        <em>
+          Cards will be appear as duplicates if they fit in multiple categories. The counts will still only count each
+          item once.
+        </em>
+      </Typography>
+      <Stack direction="row" spacing={1}>
+        <Button variant="outlined" color="success" onClick={handleReset}>
+          Reset Sort
+        </Button>
+        {!canEdit ? (
+          false
+        ) : (
+          <Button variant="outlined" color="success" onClick={handleSave}>
+            Save as Default Sort
+          </Button>
+        )}
+        <Tooltip title="Creates a separate column for cards that would be hidden otherwise.">
+          <Button
+            variant="outlined"
+            color={showOther ? 'warning' : 'primary'}
+            onClick={() => {
+              const newShowOther = !showOther;
+              if (newShowOther.toString() === defShow) {
+                Query.del('so');
+              } else {
+                Query.set('so', newShowOther);
+              }
+              console.info(newShowOther);
+              changeSort({ showOther: newShowOther });
+            }}
+          >
+            {showOther ? 'Hide' : 'Show'} Unsorted Cards
+          </Button>
+        </Tooltip>
+      </Stack>
     </Collapse>
   );
 };
-
 SortCollapse.propTypes = {
   defaultPrimarySort: PropTypes.string,
   defaultSecondarySort: PropTypes.string,
@@ -315,6 +285,7 @@ SortCollapse.propTypes = {
   defaultSorts: PropTypes.arrayOf(PropTypes.string.isRequired),
   cubeDefaultShowUnsorted: PropTypes.bool,
   setSorts: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool,
 };
 SortCollapse.defaultProps = {
   defaultPrimarySort: '',
@@ -324,6 +295,6 @@ SortCollapse.defaultProps = {
   defaultShowUnsorted: '',
   defaultSorts: ['Color Category', 'Types-Multicolor', 'Mana Value', 'Alphabetical'],
   cubeDefaultShowUnsorted: false,
+  isOpen: false,
 };
-
 export default SortCollapse;
