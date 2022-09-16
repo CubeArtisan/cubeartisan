@@ -219,10 +219,10 @@ export const turnToTree = (arr) => {
 /** @param {string} str */
 export const escapeXML = (str) =>
   str
-    .replaceAll('&', '&amp')
-    .replaceAll('"', '&quot')
-    .replaceAll("'", '&apos')
-    .replaceAll('<', '&lt')
-    .replaceAll('>', '&gt');
+    .replaceAll('&', '&amp;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&apos;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;');
 
 export const isAdmin = (user) => user && user.roles.includes('Admin');
