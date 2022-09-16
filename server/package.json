@@ -41,7 +41,7 @@
     "@opentelemetry/instrumentation-winston": "^0.30.0",
     "@opentelemetry/resources": "^1.6.0",
     "@opentelemetry/sdk-metrics-base": "^0.27.0",
-    "@opentelemetry/sdk-node": "^0.32.0",
+    "@opentelemetry/sdk-node": "^0.33.0",
     "@opentelemetry/sdk-trace-base": "^1.6.0",
     "@opentelemetry/semantic-conventions": "^1.6.0",
     "@yarnpkg/pnpify": "^4.0.0-rc.15",
