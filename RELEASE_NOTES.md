@@ -304,8 +304,14 @@ This release is composed of porting over bug fixes for bugs we carried over from
 - Fix cockatrice export for card names with special characters.
 - Show hybrid color category cards when sort is Color Category Full.
 
-#### v1.4.5
+### v1.4.5
 
-##### Features
+#### Features
 
 - You can now filter on combined power and toughness as `totalpt`, `pt`, or `p+t`.
+
+#### v1.4.5.1
+
+##### Bug Fixes
+
+- Fix error when visiting cube overview page if you followed the cube.
