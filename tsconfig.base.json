@@ -34,7 +34,7 @@
     "newLine": "lf",
     "esModuleInterop": true,
     "disableSizeLimit": true,
-    "forceConsistentCasingInFileNames": true,
+    "forceConsistentCasingInFileNames": false,
     "jsx": "react-jsx",
     "moduleResolution": "nodenext",
     "allowJs": true,
