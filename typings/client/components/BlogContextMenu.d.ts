@@ -1,11 +1,9 @@
 export default BlogContextMenu;
 declare class BlogContextMenu extends Component<any, any, any> {
     constructor(props: any);
-    toggle(): void;
     toggleDeleteModal(): void;
     openDeleteModal(): void;
     state: {
-        dropdownOpen: boolean;
         deleteModalOpen: boolean;
     };
     render(): JSX.Element;
