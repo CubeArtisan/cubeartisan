@@ -18,26 +18,18 @@
  */
 import PropTypes from 'prop-types';
 import { Component } from 'react';
-import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 
+import StyledButtonMenu from '@cubeartisan/client/components/inputs/StyledButtonMenu.js';
 import BlogDeleteModal from '@cubeartisan/client/components/modals/BlogDeleteModal.js';
 
 class BlogContextMenu extends Component {
   constructor(props) {
     super(props);
-    this.toggle = this.toggle.bind(this);
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
     this.openDeleteModal = this.openDeleteModal.bind(this);
     this.state = {
-      dropdownOpen: false,
       deleteModalOpen: false,
     };
-  }
-
-  toggle() {
-    this.setState((prevState) => ({
-      dropdownOpen: !prevState.dropdownOpen,
-    }));
   }
 
   toggleDeleteModal() {
@@ -53,19 +45,17 @@ class BlogContextMenu extends Component {
   }
 
   render() {
-    const { dropdownOpen, deleteModalOpen } = this.state;
+    const { deleteModalOpen } = this.state;
     const { post, value, onEdit } = this.props;
+    const MENU = [
+      { onClick: () => onEdit(post._id), text: 'Edit' },
+      { onClick: this.openDeleteModal, text: 'Delete' },
+    ];
     return (
       <>
-        <Dropdown isOpen={dropdownOpen} toggle={this.toggle}>
-          <DropdownToggle tag="a" className="nav-link clickable">
-            {value}
-          </DropdownToggle>
-          <DropdownMenu right>
-            <DropdownItem onClick={() => onEdit(post._id)}>Edit</DropdownItem>
-            <DropdownItem onClick={this.openDeleteModal}>Delete</DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
+        <StyledButtonMenu menuItems={MENU} color="primary">
+          {value}
+        </StyledButtonMenu>
         <BlogDeleteModal
           toggle={this.toggleDeleteModal}
           isOpen={deleteModalOpen}
