@@ -16,9 +16,11 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
+import { Box, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import { Component, Fragment } from 'react';
-import { Card, Container } from 'reactstrap';
+
+import { LayoutContainer } from '@cubeartisan/client/components/containers/LayoutContainer.js';
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -38,32 +40,34 @@ class ErrorBoundary extends Component {
 
   render() {
     const { error, stack, hasError } = this.state;
-    const { children, className } = this.props;
+    const { children, sx } = this.props;
     if (hasError) {
       return (
-        <div className={className ?? 'mt-3'}>
-          <h1 className="text-center">Something went wrong.</h1>
-          <p className="text-center">You may want to try reloading the page.</p>
+        <Box sx={sx ?? { marginTop: 3 }}>
+          <Typography variant="h1" align="center">
+            Something went wrong.
+          </Typography>
+          <Typography component="p" variant="subtitle1" align="center">
+            You may want to try reloading the page.
+          </Typography>
           <br />
-          <Container>
-            <Card>
-              <p>
-                <code>{error}</code>
-              </p>
-              <p>
-                <code>
-                  {stack.split('\n').map((text, i) => (
-                    // eslint-disable-next-line react/no-array-index-key
-                    <Fragment key={i}>
-                      {text}
-                      <br />
-                    </Fragment>
-                  ))}
-                </code>
-              </p>
-            </Card>
-          </Container>
-        </div>
+          <LayoutContainer>
+            <Typography component="p" variant="body1">
+              <code>{error}</code>
+            </Typography>
+            <Typography component="p" variant="body1">
+              <code>
+                {stack.split('\n').map((text, i) => (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <Fragment key={i}>
+                    {text}
+                    <br />
+                  </Fragment>
+                ))}
+              </code>
+            </Typography>
+          </LayoutContainer>
+        </Box>
       );
     }
     return children;
@@ -71,9 +75,9 @@ class ErrorBoundary extends Component {
 }
 ErrorBoundary.propTypes = {
   children: PropTypes.node.isRequired,
-  className: PropTypes.string,
+  sx: PropTypes.shape({}),
 };
 ErrorBoundary.defaultProps = {
-  className: null,
+  sx: null,
 };
 export default ErrorBoundary;
