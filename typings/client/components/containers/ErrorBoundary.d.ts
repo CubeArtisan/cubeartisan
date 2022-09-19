@@ -17,11 +17,11 @@ declare class ErrorBoundary extends Component<any, any, any> {
 declare namespace ErrorBoundary {
     namespace propTypes {
         const children: PropTypes.Validator<string | number | boolean | {} | PropTypes.ReactElementLike | PropTypes.ReactNodeArray>;
-        const className: PropTypes.Requireable<string>;
+        const sx: PropTypes.Requireable<PropTypes.InferProps<{}>>;
     }
     namespace defaultProps {
-        const className_1: null;
-        export { className_1 as className };
+        const sx_1: null;
+        export { sx_1 as sx };
     }
 }
 import { Component } from "react";
