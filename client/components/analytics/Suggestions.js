@@ -87,7 +87,7 @@ const Suggestions = ({ adds, cuts, loadState, cube, filter }) => {
         cube.maybe.some((maybe) => cardNameLower(maybe) === cardNameLower(card)),
       );
     }
-    return filter ? withIndex.filter(([card]) => filter(card)) : withIndex;
+    return filter ? withIndex.filter(([{ card }]) => filter(card)) : withIndex;
   }, [adds, maybeOnly, filter, cube.maybe]);
 
   return (
