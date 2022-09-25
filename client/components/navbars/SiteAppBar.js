@@ -99,7 +99,7 @@ const SiteAppBar = ({ loginCallback }) => {
               />
             </Link>
             <IconButton onClick={toggleTheme} color="info">
-              {theme === 'dark' ? <Brightness7 /> : <Brightness4 />}
+              {theme === 'dark' ? <Brightness4 /> : <Brightness7 />}
             </IconButton>
           </Box>
           <CollapsingNavbar sx={{ marginLeft: 'auto' }} breakpoint={1000}>

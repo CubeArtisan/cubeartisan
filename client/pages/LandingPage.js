@@ -65,7 +65,13 @@ export const LandingPage = ({ numusers, numcubes, numdrafts }) => {
           <Button href="/user" color="primary" variant="contained" sx={BUTTON_SX}>
             Sign Up
           </Button>
-          <LoginModalButton modalProps={{ loginCallback: '/' }} color="primary" variant="contained" sx={BUTTON_SX}>
+          <LoginModalButton
+            href="/login"
+            modalProps={{ loginCallback: '/' }}
+            color="primary"
+            variant="contained"
+            sx={BUTTON_SX}
+          >
             Login
           </LoginModalButton>
         </Stack>

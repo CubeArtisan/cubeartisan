@@ -16,21 +16,16 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { Button } from '@mui/material';
-import { Input, InputGroup, InputGroupAddon } from 'reactstrap';
+import { Button, Stack, TextField } from '@mui/material';
 
 const CardSearchBar = () => (
-  <form method="GET" action="/cards/search" autoComplete="off" className="w-100">
-    <div className="search-bar flex-container flex-align-stretch flex-grow">
-      <InputGroup>
-        <Input name="f" placeholder="Search Cards..." />
-        <InputGroupAddon addonType="append">
-          <Button className="search-button" type="submit" color="success">
-            Go
-          </Button>
-        </InputGroupAddon>
-      </InputGroup>
-    </div>
+  <form method="GET" action="/cards/search" autoComplete="off">
+    <Stack direction="row" spacing={1}>
+      <TextField id="card-search" inputProps={{ name: 'f' }} label="Search Cards..." variant="outlined" fullWidth />
+      <Button type="submit" color="success" variant="outlined">
+        Go
+      </Button>
+    </Stack>
   </form>
 );
 

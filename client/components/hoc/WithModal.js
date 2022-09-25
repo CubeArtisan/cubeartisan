@@ -17,7 +17,7 @@
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
 import PropTypes from 'prop-types';
-import { forwardRef } from 'react';
+import { forwardRef, useCallback } from 'react';
 
 import Suspense from '@cubeartisan/client/components/wrappers/Suspense.js';
 import useToggle from '@cubeartisan/client/hooks/UseToggle.js';
@@ -44,11 +44,17 @@ const withModal = (Tag, ModalTag) => {
   // eslint-disable-next-line react/prop-types
   const WithModalComponent = ({ modalProps, ...props }, ref) => {
     const [isOpen, toggleOpen] = useToggle(false);
-
+    const toggleModal = useCallback(
+      (e) => {
+        e.preventDefault();
+        toggleOpen();
+      },
+      [toggleOpen],
+    );
     return (
       <>
         {/* @ts-ignore */}
-        <Tag {...props} ref={ref} onClick={toggleOpen} />
+        <Tag {...props} ref={ref} onClick={toggleModal} />
         <Suspense fallback={null}>
           {/* @ts-ignore */}
           <ModalTag isOpen={isOpen} toggle={toggleOpen} {...modalProps} />

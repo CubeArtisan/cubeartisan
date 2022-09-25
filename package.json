@@ -38,7 +38,7 @@
     "nearley": "yarn workspace @cubeartisan/client nearley",
     "nodemon": "yarn workspace @cubeartisan/server nodemon",
     "server": "yarn workspace @cubeartisan/server server",
-    "start": "yarn webpack-dev-server & yarn nodemon",
+    "start": "yarn webpack-dev-server & yarn workspace @cubeartisan/server start",
     "test": "yarn workspaces foreach --include '@cubeartisan/*' run g:test",
     "test-loud": "yarn workspaces foreach --include '@cubeartisan/*' run g:test:loud",
     "updatetypes": "rm -r typings; yarn pnpify tsc -p tsconfig.lax.json; yarn strip-jsdoc",
