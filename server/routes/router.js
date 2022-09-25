@@ -75,7 +75,13 @@ import {
   viewStoryPage,
   viewFaq,
 } from '@cubeartisan/server/routes/info.js';
-import { getDraftPage, redraftDraft, saveDraft, submitDraft } from '@cubeartisan/server/routes/draft.js';
+import {
+  getDraftPage,
+  getDraftbotResponse,
+  redraftDraft,
+  saveDraft,
+  submitDraft,
+} from '@cubeartisan/server/routes/draft.js';
 import { getGridDraftPage, saveGridDraft, submitGridDraft } from '@cubeartisan/server/routes/griddraft.js';
 import {
   getCardPageForId,
@@ -358,7 +364,8 @@ router.get('/dev/blog/:id', browseDevBlog);
 router.get('/draft/:id', getDraftPage);
 router.put('/draft/:id', saveDraft);
 router.post('/draft/:id/:seat/redraft', redraftDraft);
-router.post('/draft/:id/submit/:seat', submitDraft);
+router.post('/draft/:id/:seat/submit', submitDraft);
+router.get('/draft/:id/:seat/draftbots', getDraftbotResponse);
 router.get('/griddraft/:id', getGridDraftPage);
 router.put('/griddraft/:id', saveGridDraft);
 router.post('/griddraft/:id/submit', submitGridDraft);

@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Col, Row } from 'reactstrap';
 
@@ -26,9 +26,7 @@ import Tooltip from '@cubeartisan/client/components/Tooltip.js';
 import withAutocard from '@cubeartisan/client/components/hoc/WithAutocard.js';
 import { DrafterStatePropType, DraftPropType } from '@cubeartisan/client/proptypes/DraftbotPropTypes.js';
 import { cardName, encodeName } from '@cubeartisan/client/utils/Card.js';
-import { convertDrafterState, getDraftbotScores } from '@cubeartisan/client/drafting/draftutil.js';
 import PickSelector from '@cubeartisan/client/components/PickSelector.js';
-import SiteCustomizationContext from '@cubeartisan/client/components/contexts/SiteCustomizationContext.js';
 
 const AutocardLink = withAutocard('a');
 
@@ -57,16 +55,15 @@ const SCORE_TRAIT = Object.freeze({
   tooltip: 'The score that combines all the oracles together.',
 });
 
-export const DraftbotBreakdownTable = ({ drafterState }) => {
+export const DraftbotBreakdownTable = ({ draftId, drafterState, seatNum }) => {
   const [botResult, setBotResult] = useState(null);
-  const { mtgmlServer } = useContext(SiteCustomizationContext);
   useEffect(() => {
     (async () => {
-      const result = await getDraftbotScores(convertDrafterState(drafterState), mtgmlServer, true);
-      console.log(result);
-      setBotResult(result);
+      const result = await fetch(`/draft/${draftId}/${seatNum}/draftbots?pickNumber=${drafterState.pickNum}`);
+      const oracles = await result.json();
+      setBotResult(oracles);
     })();
-  }, [drafterState, mtgmlServer]);
+  }, [drafterState, draftId, seatNum]);
   const [oracles, weights] = useMemo(() => {
     if ((botResult?.oracles?.length ?? 0) === 0) return [[], []];
     const iOracles = botResult.oracles[0].map(({ title, tooltip }) => ({
@@ -123,10 +120,16 @@ export const DraftbotBreakdownTable = ({ drafterState }) => {
 
 DraftbotBreakdownTable.propTypes = {
   drafterState: DrafterStatePropType.isRequired,
+  seatNum: PropTypes.number,
+  draftId: PropTypes.string.isRequired,
+};
+DraftbotBreakdownTable.defaultProps = {
+  seatNum: 0,
 };
 
 const DraftbotBreakdown = (props) => {
   const { picksList, drafterState, setPickNumberFromEvent } = usePickListAndDrafterState(props);
+  const { draft, seatIndex } = props;
 
   return (
     <Row>
@@ -139,7 +142,7 @@ const DraftbotBreakdown = (props) => {
       </Col>
       <Col xs={12} sm={9}>
         <h4 className="mt-5 mb-2">{`Pack ${drafterState.packNum + 1}: Pick ${drafterState.pickNum + 1} Cards`}</h4>
-        <DraftbotBreakdownTable drafterState={drafterState} />
+        <DraftbotBreakdownTable drafterState={drafterState} draftId={draft._id} seatNum={seatIndex} />
       </Col>
     </Row>
   );

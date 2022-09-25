@@ -186,6 +186,8 @@ const CubeDraftPlayerUI = ({
   picking,
   emptySeats,
   seconds,
+  seatNum,
+  draftId,
 }) => {
   const { cardsInRow } = useContext(DisplayContext);
   const user = useContext(UserContext);
@@ -336,7 +338,7 @@ const CubeDraftPlayerUI = ({
                   <Box sx={{ backgroundColor: 'var(--bg-darker)' }}>
                     <Typography variant="h4">Draftbot Breakdown</Typography>
                   </Box>
-                  <DraftbotBreakdownTable drafterState={drafterState} />
+                  <DraftbotBreakdownTable drafterState={drafterState} seatNum={seatNum} draftId={draftId} />
                 </ErrorBoundary>
               </Paper>
             )}
@@ -386,6 +388,8 @@ CubeDraftPlayerUI.propTypes = {
   picking: PropTypes.number,
   emptySeats: PropTypes.number.isRequired,
   seconds: PropTypes.number,
+  seatNum: PropTypes.number.isRequired,
+  draftId: PropTypes.string.isRequired,
 };
 CubeDraftPlayerUI.defaultProps = {
   picking: null,
@@ -468,7 +472,7 @@ export const CubeDraftPage = ({ cube, draftid, loginCallback }) => {
       setSubmitted(true);
       socket.current.disconnect();
       (async () => {
-        const response = await csrfFetch(`/draft/${draftid}/submit/${seatNum}`, { method: 'POST' });
+        const response = await csrfFetch(`/draft/${draftid}/${seatNum}/submit`, { method: 'POST' });
         const json = await response.json();
         window.location.replace(json.url);
       })();
@@ -530,6 +534,8 @@ export const CubeDraftPage = ({ cube, draftid, loginCallback }) => {
             sideboardCard={sideboardCard}
             mainboardCard={mainboardCard}
             seconds={seconds}
+            seatNum={seatNum}
+            draftId={draftid}
           />
         </DisplayContextProvider>
       </CubeLayout>
