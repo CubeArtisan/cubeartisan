@@ -316,3 +316,9 @@ This release is composed of porting over bug fixes for bugs we carried over from
 
 - Fix error when visiting cube overview page if you followed the cube.
 - Fix cockatrice export to correctly escape values in the XML.
+
+### v1.4.6
+
+#### Features
+
+- Have type sorts separate out Equipment, Auras, and Attractions.
