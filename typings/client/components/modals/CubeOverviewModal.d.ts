@@ -1,6 +1,6 @@
 export default CubeOverviewModal;
 export type Cube = import('@cubeartisan/client/proptypes/CubePropType.js').Cube;
-declare function CubeOverviewModal({ cube, onError, onCubeUpdate, userID, isOpen, toggle }: {
+declare function CubeOverviewModal({ cube: savedCube, onError, onCubeUpdate, userID, isOpen, toggle }: {
     cube: any;
     onError: any;
     onCubeUpdate: any;

@@ -1,5 +1,5 @@
 export default Asfans;
-declare function Asfans({ cards, cube, defaultFormatId }: {
+declare function Asfans({ cards: cardsNoAsfan, cube, defaultFormatId }: {
     cards: any;
     cube: any;
     defaultFormatId: any;
