@@ -11,9 +11,6 @@
     "server": "sh -c 'node `yarn run --silent node-options` routes/index.js'",
     "nodemon": "sh -c \"nodemon -x 'node' --ignore public --ignore private --ignore __tests__ --ignore __mocks__ --ignore ../client/__tests__ --ignore '*.json' -w ../client/generated -w '../client/dist/**/*.pug' $(printf ' -w %s' $(yarn run --silent g:list-all-files)) -- `yarn run --silent node-options` routes/index.js\"",
     "start": "sh -c \"nodemon -x 'node' --delay 5 --ignore public --ignore private --ignore __tests__ --ignore __mocks__ --ignore ../client/__tests__ --ignore '*.json' -w ../client/generated -w '../client' -w '.' -- `yarn run --silent node-options` routes/index.js\""
-
-    
-
   },
   "dependencies": {
     "@babel/core": "^7.19.1",
