@@ -1046,11 +1046,14 @@ const resizeCubeHandler = async (req, res) => {
       });
     }
 
-    const response = await fetch(`${process.env.MTGML_SERVER}/cube?num_recs=${1000}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ cube: cube.cards.map(({ cardID }) => carddb.cardFromId(cardID).oracle_id) }),
-    });
+    const response = await fetch(
+      `${process.env.MTGML_SERVER}/cube?num_recs=${1000}&auth_token=${process.env.MTGML_AUTH_TOKEN}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cube: cube.cards.map(({ cardID }) => carddb.cardFromId(cardID).oracle_id) }),
+      },
+    );
     if (!response.ok) {
       return handleRouteError(
         req,
@@ -1869,11 +1872,14 @@ export const getDateCubeUpdated = wrapAsyncApi(getDateCubeUpdatedHandler);
 const getRecommendationsHandler = async (req, res) => {
   const { id } = req.params;
   const cube = await Cube.findOne(buildIdQuery(id)).lean();
-  const response = await fetch(`${process.env.MTGML_SERVER}/cube?num_recs=${1000}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ cube: cube.cards.map(({ cardID }) => carddb.cardFromId(cardID).oracle_id) }),
-  });
+  const response = await fetch(
+    `${process.env.MTGML_SERVER}/cube?num_recs=${1000}&auth_token=${process.env.MTGML_AUTH_TOKEN}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cube: cube.cards.map(({ cardID }) => carddb.cardFromId(cardID).oracle_id) }),
+    },
+  );
   if (!response.ok) {
     winston.error('Flask server response not OK.', { response, text: await response.text() });
     return res.status(500).send({

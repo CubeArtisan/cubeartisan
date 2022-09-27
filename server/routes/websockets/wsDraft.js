@@ -166,7 +166,11 @@ const manageWebsocketDraft = async (socket) => {
             if (drafterState.step.action.match(/pick/)) {
               const maxIndex = getBestOption(
                 // eslint-disable-next-line no-await-in-loop
-                await getDraftbotScores(convertDrafterState(drafterState), process.env.MTGML_SERVER),
+                await getDraftbotScores(
+                  convertDrafterState(drafterState),
+                  process.env.MTGML_SERVER,
+                  process.env.MTGML_AUTH_TOKEN,
+                ),
               );
               // eslint-disable-next-line no-await-in-loop
               [changes, draft] = await pickCard(
@@ -181,7 +185,11 @@ const manageWebsocketDraft = async (socket) => {
             if (drafterState.step.action.match(/trash/)) {
               const worstIndex = getWorstOption(
                 // eslint-disable-next-line no-await-in-loop
-                await getDraftbotScores(convertDrafterState(drafterState), process.env.MTGML_SERVER),
+                await getDraftbotScores(
+                  convertDrafterState(drafterState),
+                  process.env.MTGML_SERVER,
+                  process.env.MTGML_AUTH_TOKEN,
+                ),
               );
               // eslint-disable-next-line no-await-in-loop
               [changes, draft] = await trashCard(
@@ -216,6 +224,7 @@ const manageWebsocketDraft = async (socket) => {
     });
   };
 
+  let prevState = null;
   socket.on('pick card', async (...args) => pickCard(await getDraft(), ...args));
   socket.on('trash card', async (...args) => trashCard(await getDraft(), ...args));
   socket.on('move mainboard card', async (...args) => moveCardInZone(await getDraft(), 'drafted', ...args));
@@ -223,7 +232,6 @@ const manageWebsocketDraft = async (socket) => {
   socket.on('move to sideboard', async (...args) => moveCardToZone(await getDraft(), 'drafted', 'sideboard', ...args));
   socket.on('move to mainboard', async (...args) => moveCardToZone(await getDraft(), 'sideboard', 'drafted', ...args));
   let stepNumber = -1;
-  let prevState = null;
   const updateState = async (draft) => {
     let drafterState;
     try {
@@ -249,8 +257,10 @@ const manageWebsocketDraft = async (socket) => {
           return;
         }
       }
-      prevState = drafterState;
-      socket.emit('drafterState', drafterState);
+      if (!areDeepEqual(prevState, drafterState)) {
+        prevState = drafterState;
+        socket.emit('drafterState', drafterState);
+      }
       if (drafterState.packNum >= drafterState.numPacks || drafterState.step.action === 'done') {
         socket.disconnect(true);
       }

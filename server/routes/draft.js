@@ -31,6 +31,7 @@ import Deck from '@cubeartisan/server/models/deck.js';
 import { buildDeck } from '@cubeartisan/client/drafting/deckutil.js';
 import { COLOR_COMBINATIONS } from '@cubeartisan/client/utils/Card.js';
 import { handleRouteError } from '@cubeartisan/server/routes/middleware.js';
+import { convertDrafterState, getDrafterState, getDraftbotScores } from '@cubeartisan/client/drafting/draftutil.js';
 
 export const getDraftPage = async (req, res) => {
   try {
@@ -186,16 +187,8 @@ export const submitDraft = async (req, res) => {
     deck.cards = draft.cards;
     deck.basics = draft.basics;
 
-    let eloOverrideDict = {};
-    if (cube.useCubeElo) {
-      const analytic = await CubeAnalytic.findOne({ cube: cube._id });
-      eloOverrideDict = Object.fromEntries(analytic.cards.map((c) => [c.cardName, c.elo]));
-    }
     for (const card of draft.cards) {
       card.details = carddb.cardFromId(card.cardID);
-      if (eloOverrideDict[card.details.name_lower]) {
-        card.details.elo = eloOverrideDict[card.details.name_lower];
-      }
     }
     let botNumber = 1;
     for (const seat of draft.seats) {
@@ -249,6 +242,31 @@ export const submitDraft = async (req, res) => {
     });
   } catch (err) {
     req.logger.error(err);
+    return res.status(500).send({
+      success: 'false',
+    });
+  }
+};
+
+export const getDraftbotResponse = async (req, res) => {
+  try {
+    const draftid = req.params.id;
+    const seatNumber = toNullableInt(req.params.seat) ?? 0;
+    const pickNumber = toNullableInt(req.query.pickNumber) ?? -1;
+    const draft = await Draft.findById(draftid).lean();
+    for (const card of draft.cards) {
+      card.details = carddb.cardFromId(card.cardID);
+    }
+    const drafterState = getDrafterState({ draft, seatNumber, pickNumber });
+    const scores = await getDraftbotScores(
+      convertDrafterState(drafterState),
+      process.env.MTGML_SERVER,
+      process.env.MTGML_AUTH_TOKEN,
+      true,
+    );
+    return res.status(200).send(scores);
+  } catch (err) {
+    req.logger.warning(err);
     return res.status(500).send({
       success: 'false',
     });

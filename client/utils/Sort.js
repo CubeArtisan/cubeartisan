@@ -82,9 +82,12 @@ const CARD_TYPES = [
   'Instant',
   'Sorcery',
   'Artifact',
+  'Equipment',
   'Enchantment',
+  'Aura',
   'Conspiracy',
   'Contraption',
+  'Attraction',
   'Phenomenon',
   'Plane',
   'Scheme',
@@ -476,6 +479,26 @@ function getLabelsRaw(cube, sort, showOther) {
   return showOther ? [...ret, ' Other '] : ret;
 }
 
+const getCardTypeLabel = (card, showOther, sort) => {
+  const types = cardType(card)
+    .replace(/ [-–—] /, ' ')
+    .split(' ');
+  const labels = getLabelsRaw(null, sort, showOther);
+  let ret = types
+    .map((t) => labels.indexOf(t))
+    .filter((i) => i >= 0)
+    .sort((a, b) => a - b);
+  const other = showOther ? ['Other'] : [];
+  ret = ret.length > 0 ? [labels[ret[0]]] : other;
+  for (const type of ['Contraption', 'Equipment', 'Aura', 'Plane']) {
+    if (types.includes(type)) {
+      ret = [type];
+      break;
+    }
+  }
+  return ret;
+};
+
 export function cardGetLabels(card, sort, showOther) {
   let ret = [];
   /* Start of sort options */
@@ -531,29 +554,7 @@ export function cardGetLabels(card, sort, showOther) {
     // Round to half-integer.
     ret = [(Math.round(cmcToNumber(card) * 2) / 2).toString()];
   } else if (sort === 'Supertype' || sort === 'Type') {
-    const split = cardType(card).split(/[-–—]/);
-    let types;
-    if (split.length > 1) {
-      types = split[0]
-        .trim()
-        .split(' ')
-        .map((x) => x.trim())
-        .filter((x) => x);
-    } else {
-      types = cardType(card)
-        .trim()
-        .split(' ')
-        .map((x) => x.trim())
-        .filter((x) => x);
-    }
-    if (types.includes('Contraption')) {
-      ret = ['Contraption'];
-    } else if (types.includes('Plane')) {
-      ret = ['Plane'];
-    } else {
-      const labels = getLabelsRaw(null, sort, showOther);
-      ret = types.filter((t) => labels.includes(t));
-    }
+    ret = getCardTypeLabel(card, showOther, sort);
   } else if (sort === 'Tags') {
     ret = card.tags;
   } else if (sort === 'Status') {
@@ -591,31 +592,7 @@ export function cardGetLabels(card, sort, showOther) {
     }
   } else if (sort === 'Types-Multicolor') {
     if (cardColorIdentity(card).length <= 1) {
-      const split = cardType(card).split('—');
-      const types = split[0].trim().split(' ');
-      const type = types[types.length - 1];
-      // check last type
-      if (
-        ![
-          'Creature',
-          'Planeswalker',
-          'Instant',
-          'Sorcery',
-          'Artifact',
-          'Enchantment',
-          'Conspiracy',
-          'Contraption',
-          'Phenomenon',
-          'Plane',
-          'Scheme',
-          'Vanguard',
-          'Land',
-        ].includes(type)
-      ) {
-        ret = ['Other'];
-      } else {
-        ret = [type];
-      }
+      ret = getCardTypeLabel(card, showOther, 'Type');
     } else if (cardColorIdentity(card).length === 5) {
       ret = ['Five Color'];
     } else {

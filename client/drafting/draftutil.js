@@ -293,9 +293,9 @@ export const convertDrafterState = (drafterState) => {
   return newState;
 };
 
-export const getDraftbotScores = async (convertedDrafterState, mtgmlServer, includeOracles = false) => {
+export const getDraftbotScores = async (convertedDrafterState, mtgmlServer, mtgmlAuthToken, includeOracles = false) => {
   try {
-  const response = await axios.post(`${mtgmlServer}/draft`, { drafterState: convertedDrafterState });
+  const response = await axios.post(`${mtgmlServer}/draft?auth_token=${mtgmlAuthToken}`, { drafterState: convertedDrafterState });
   const responseJson = response.data;
   if (!responseJson.success) console.error(responseJson.error);
   if (includeOracles) return responseJson;
