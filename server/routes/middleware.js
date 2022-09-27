@@ -20,7 +20,7 @@ import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
 // import csurf from 'csurf';
 import { validationResult } from 'express-validator';
 import onFinished from 'on-finished';
-import { v4 as uuid } from 'uuid';
+import uuid from 'uuid';
 
 import User from '@cubeartisan/server/models/user.js';
 

@@ -38,7 +38,7 @@
     "nearley": "yarn workspace @cubeartisan/client nearley",
     "nodemon": "yarn workspace @cubeartisan/server nodemon",
     "server": "yarn workspace @cubeartisan/server server",
-    "start": "yarn webpack-dev-server & yarn nodemon",
+    "start": "yarn webpack-dev-server & yarn workspace @cubeartisan/server start",
     "test": "yarn workspaces foreach --include '@cubeartisan/*' run g:test",
     "test-loud": "yarn workspaces foreach --include '@cubeartisan/*' run g:test:loud",
     "updatetypes": "rm -r typings; yarn pnpify tsc -p tsconfig.lax.json; yarn strip-jsdoc",
@@ -55,13 +55,13 @@
     "@types/axios": "^0.14.0",
     "@types/eslint": "^8.4.6",
     "@types/jest": "^29.0.3",
-    "@types/node": "^18.7.18",
-    "@types/react": "^18.0.20",
-    "@yarnpkg/pnpify": "^4.0.0-rc.18",
+    "@types/node": "^18.7.23",
+    "@types/react": "^18.0.21",
+    "@yarnpkg/pnpify": "^4.0.0-rc.21",
     "csstype": "3.1.1",
     "fxstripjsdoc": "^1.1.1",
     "loose-ts-check": "^1.2.0",
-    "type-fest": "^2.19.0",
-    "typescript": "^4.8.3"
+    "type-fest": "^3.0.0",
+    "typescript": "^4.8.4"
   }
 }

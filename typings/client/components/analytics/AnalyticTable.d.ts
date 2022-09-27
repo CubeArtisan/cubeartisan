@@ -1,5 +1,5 @@
 export default AnalyticTable;
-declare function AnalyticTable({ cards, cube, defaultFormatId, setAsfans }: {
+declare function AnalyticTable({ cards: allCards, cube, defaultFormatId, setAsfans }: {
     cards: any;
     cube: any;
     defaultFormatId: any;

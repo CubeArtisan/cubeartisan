@@ -1,5 +1,5 @@
 export default HeaderFooter;
-declare function HeaderFooter({ children, component, sx, ...props }: {
+declare function HeaderFooter({ children, component: Component, sx, ...props }: {
     [x: string]: any;
     children: any;
     component: any;
