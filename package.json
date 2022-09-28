@@ -50,7 +50,7 @@
   "packageManager": "yarn@3.2.1",
   "devDependencies": {
     "@cubeartisan/server": "^0.1.0",
-    "@date-io/core": "^2.15.0",
+    "@date-io/core": "^2.16.0",
     "@mui/types": "^7.2.0",
     "@types/axios": "^0.14.0",
     "@types/eslint": "^8.4.6",
