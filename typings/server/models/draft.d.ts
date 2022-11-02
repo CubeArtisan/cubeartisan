@@ -8,16 +8,10 @@ declare const Draft: mongoose.Model<{
         colorCategory: string;
         finish: string;
         status: string;
-        tags: {
-            type?: string;
-            minlength?: unknown;
-        }[];
+        tags: string[];
         type_line: string;
         isUnlimited: boolean;
-        colors?: {
-            enum: unknown[];
-            type?: string;
-        }[];
+        colors?: string[];
         addedTmsp?: Date;
         cardID?: string;
         imgBackUrl?: string;
@@ -36,10 +30,7 @@ declare const Draft: mongoose.Model<{
         userid?: mongoose.Types.ObjectId;
     }[];
     initial_state: {
-        cards: {
-            type?: number;
-            min?: unknown;
-        }[];
+        cards: number[];
         steps: {
             amount: number;
             action?: string;
@@ -58,16 +49,10 @@ declare const Draft: mongoose.Model<{
         colorCategory: string;
         finish: string;
         status: string;
-        tags: {
-            type?: string;
-            minlength?: unknown;
-        }[];
+        tags: string[];
         type_line: string;
         isUnlimited: boolean;
-        colors?: {
-            enum: unknown[];
-            type?: string;
-        }[];
+        colors?: string[];
         addedTmsp?: Date;
         cardID?: string;
         imgBackUrl?: string;
@@ -86,10 +71,7 @@ declare const Draft: mongoose.Model<{
         userid?: mongoose.Types.ObjectId;
     }[];
     initial_state: {
-        cards: {
-            type?: number;
-            min?: unknown;
-        }[];
+        cards: number[];
         steps: {
             amount: number;
             action?: string;

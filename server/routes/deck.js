@@ -434,6 +434,7 @@ export const rebuildDeckHandler = async (req, res) => {
     deck.basics = base.basics;
 
     deck.seats.push({
+      bot: null,
       userid: req.user._id,
       username: base.seats[index].username,
       name: `${req.user.username}'s rebuild from ${cube.name} on ${deck.date.toLocaleString('en-US')}`,
