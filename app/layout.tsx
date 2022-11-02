@@ -1,5 +1,5 @@
 import "./globals.css";
-import Link from "next/link";
+import Navbar from "./Navbar";
 
 export default function RootLayout({
   children,
@@ -17,20 +17,8 @@ export default function RootLayout({
         />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body>
-        <nav>
-          <ul className="display.flex">
-            <li>
-              <Link href="/">Home</Link>
-            </li>
-            <li>
-              <Link href="/social">Social</Link>
-            </li>
-            <li>
-              <Link href="/user/jesseb34r/cubes">Your Cubes</Link>
-            </li>
-          </ul>
-        </nav>
+      <body className="[width: clamp(100px, 80%, 60ch)]">
+        <Navbar />
         {children}
       </body>
     </html>
