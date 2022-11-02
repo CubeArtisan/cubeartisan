@@ -1,20 +1,5 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Link from "next/link";
 
 export default function Home() {
-  return (
-    <nav>
-      <ul>
-        <li>
-          <a href="/">Home</a>
-        </li>
-        <li>
-          <a href="/">Social</a>
-        </li>
-        <li>
-          <a href="/">Your Cubes</a>
-        </li>
-      </ul>
-    </nav>
-  );
+  return <h1>Home</h1>;
 }
