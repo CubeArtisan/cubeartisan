@@ -1,5 +1,4 @@
 import "./globals.css";
-import "modern-normalize/modern-normalize.css";
 import Link from "next/link";
 
 export default function RootLayout({
