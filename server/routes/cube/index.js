@@ -909,17 +909,22 @@ const editCubeHandler = async (req, res) => {
       } else if (edit.charAt(0) === '-') {
         // remove id
         const [indexOutStr, outID] = edit.substring(1).split('$');
-        const indexOut = parseInt(indexOutStr, 10);
+        if (outID) {
+          const indexOut = parseInt(indexOutStr, 10);
 
-        if (!Number.isInteger(indexOut) || indexOut < 0 || indexOut >= cube.cards.length) {
-          req.flash('danger', `Unable to remove card due to invalid index: ${carddb.cardFromId(outID).name}`);
-        } else {
-          const card = cube.cards[indexOut];
-          if (card.cardID === outID) {
-            removes.add(indexOut);
-            changelog.push(removeCardMarkdown({ cardID: card.cardID, name: carddb.cardFromId(card.cardID).name }));
+          if (!Number.isInteger(indexOut) || indexOut < 0 || indexOut >= cube.cards.length) {
+            req.flash('danger', `Unable to remove card due to invalid index: ${carddb.cardFromId(outID).name}`);
           } else {
-            req.flash('danger', `Unable to remove card due outdated index: ${carddb.cardFromId(outID).name}`);
+            const card = cube.cards[indexOut];
+            if (card.cardID && card.cardID === outID) {
+              removes.add(indexOut);
+              const fetchedCard = carddb.cardFromId(card.cardID);
+              if (fetchedCard) {
+                changelog.push(removeCardMarkdown({ cardID: card.cardID, name: fetchedCard.name }));
+              }
+            } else {
+              req.flash('danger', `Unable to remove card due outdated index: ${carddb.cardFromId(outID).name}`);
+            }
           }
         }
       } else if (edit.charAt(0) === '/') {
@@ -940,7 +945,7 @@ const editCubeHandler = async (req, res) => {
           changelog.push(addCardMarkdown({ name: detailsIn.name, cardID: detailsIn._id }));
         } else {
           const cardOut = cube.cards[indexOut];
-          if (cardOut.cardID === outID) {
+          if (cardOut.cardID === outID && cardOut.cardID) {
             removes.add(indexOut);
             changelog.push(
               replaceCardMarkdown(

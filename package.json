@@ -50,18 +50,18 @@
   "packageManager": "yarn@3.2.1",
   "devDependencies": {
     "@cubeartisan/server": "^0.1.0",
-    "@date-io/core": "^2.15.0",
+    "@date-io/core": "^2.16.0",
     "@mui/types": "^7.2.0",
     "@types/axios": "^0.14.0",
-    "@types/eslint": "^8.4.6",
-    "@types/jest": "^29.0.3",
-    "@types/node": "^18.7.23",
-    "@types/react": "^18.0.21",
-    "@yarnpkg/pnpify": "^4.0.0-rc.21",
+    "@types/eslint": "^8.4.9",
+    "@types/jest": "^29.2.1",
+    "@types/node": "^18.11.9",
+    "@types/react": "^18.0.24",
+    "@yarnpkg/pnpify": "^4.0.0-rc.27",
     "csstype": "3.1.1",
     "fxstripjsdoc": "^1.1.1",
     "loose-ts-check": "^1.2.0",
-    "type-fest": "^3.0.0",
+    "type-fest": "^3.1.0",
     "typescript": "^4.8.4"
   }
 }
