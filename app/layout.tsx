@@ -19,7 +19,7 @@ export default function RootLayout({
       </head>
       <body>
         <nav>
-          <ul>
+          <ul className="display.flex">
             <li>
               <Link href="/">Home</Link>
             </li>

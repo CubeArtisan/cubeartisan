@@ -1,6 +1,5 @@
 {
   "typescript.tsdk": "./node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "npm.packageManager": "yarn",
-  "css.lint.unknownAtRules": "ignore"
+  "npm.packageManager": "yarn"
 }
