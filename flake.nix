@@ -10,13 +10,6 @@
       buildNodeJs = "${nixpkgs}/pkgs/development/web/nodejs/nodejs.nix";
       pkgs = import nixpkgs {
         inherit system;
-        overlays = [(final: prev: {
-          nodejs = (prev.callPackage buildNodeJs { python = pkgs.python310; }) {
-            enableNpm = true;
-            version = "16.11.1";
-            sha256 = "0y32mdv8zs35la2bny8d9rxjvj1vr8z079ji1g6ajc2yw96pyn37";
-          };
-        })];
       };
       drv = pkgs.mkShell {
         name = "cubeartisan";
@@ -24,11 +17,11 @@
           pkgs.cairo
           pkgs.crc32c
           pkgs.docker-compose
-          pkgs.gcc 
-          pkgs.giflib 
-          pkgs.libjpeg 
-          pkgs.libpng 
-          pkgs.libuuid.out 
+          pkgs.gcc
+          pkgs.giflib
+          pkgs.libjpeg
+          pkgs.libpng
+          pkgs.libuuid.out
           pkgs.nodejs
           pkgs.pango
           pkgs.pkg-config
@@ -41,15 +34,15 @@
       image-drv = pkgs.mkShell {
         name = "cubeartisan";
         buildInputs = [
-          pkgs.nodejs
+          pkgs.nodejs-18_x
           pkgs.pkg-config
           pkgs.cairo
           pkgs.pango
-          pkgs.libpng 
-          pkgs.libjpeg 
-          pkgs.giflib 
-          pkgs.gcc 
-          pkgs.libuuid.out 
+          pkgs.libpng
+          pkgs.libjpeg
+          pkgs.giflib
+          pkgs.gcc
+          pkgs.libuuid.out
           pkgs.yarn
         ];
         shellHook = ''

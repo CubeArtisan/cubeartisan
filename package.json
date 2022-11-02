@@ -6,7 +6,8 @@
   "workspaces": [
     "client",
     "jobs",
-    "server"
+    "server",
+    "next"
   ],
   "sideEffects": [
     "**/RenderToRoot.js",
@@ -45,9 +46,9 @@
     "webpack-dev-server": "yarn workspace @cubeartisan/client webpack-dev-server"
   },
   "engines": {
-    "node": "16.11.1"
+    "node": "18"
   },
-  "packageManager": "yarn@3.2.1",
+  "packageManager": "yarn@3.2.4",
   "devDependencies": {
     "@cubeartisan/server": "^0.1.0",
     "@date-io/core": "^2.16.0",
