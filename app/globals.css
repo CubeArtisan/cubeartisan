@@ -21,6 +21,6 @@
 
   .clamp-app {
     width: clamp(100px, 80%, 90%);
-    margin: 0 auto;
+    margin-inline: auto;
   }
 }

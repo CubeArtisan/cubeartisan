@@ -5,7 +5,7 @@ import BellIcon from "@heroicons/react/24/solid/BellIcon";
 
 export default function Navbar() {
   return (
-    <header className="clamp-app mt-6 flex px-2 pt-3 leading-7">
+    <header className="clamp-app mt-4 mb-8 flex px-2 pt-3 leading-7">
       <Link className="mr-8 text-xl font-semibold" href="/">
         CubeArtisan
       </Link>
