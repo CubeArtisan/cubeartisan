@@ -258,6 +258,7 @@ export const getDraftbotResponse = async (req, res) => {
       card.details = carddb.cardFromId(card.cardID);
     }
     const drafterState = getDrafterState({ draft, seatNumber, pickNumber });
+
     const scores = await getDraftbotScores(
       convertDrafterState(drafterState),
       process.env.MTGML_SERVER,

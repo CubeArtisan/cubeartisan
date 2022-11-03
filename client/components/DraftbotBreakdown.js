@@ -59,7 +59,7 @@ export const DraftbotBreakdownTable = ({ draftId, drafterState, seatNum }) => {
   const [botResult, setBotResult] = useState(null);
   useEffect(() => {
     (async () => {
-      const result = await fetch(`/draft/${draftId}/${seatNum}/draftbots?pickNumber=${drafterState.pickNum}`);
+      const result = await fetch(`/draft/${draftId}/${seatNum}/draftbots?pickNumber=${drafterState.pickNumber}`);
       const oracles = await result.json();
       setBotResult(oracles);
     })();
