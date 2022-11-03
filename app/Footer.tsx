@@ -37,15 +37,17 @@ export default function Footer() {
       <hr className="mx-auto mb-4 h-1 w-[80%] rounded border-0 bg-gray-700 " />
       <nav className="flex justify-around text-center">
         {directory.map((directoryItem: DirectoryItem) => (
-          <div className="">
+          <div key={directoryItem.heading}>
             <h2 className="mb-1 font-semibold">{directoryItem.heading}</h2>
-            <ul>
+            <ul className="flex flex-col">
               {directoryItem.listItems.map((listItem) => (
-                <li>
-                  <Link className="hover:underline" href={listItem.link}>
-                    {listItem.label}
-                  </Link>
-                </li>
+                <Link
+                  key={listItem.label}
+                  className="hover:underline"
+                  href={listItem.link}
+                >
+                  {listItem.label}
+                </Link>
               ))}
             </ul>
           </div>

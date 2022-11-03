@@ -11,33 +11,27 @@ export default function Navbar() {
       </Link>
       <nav className="flex w-full justify-between ">
         <ul className="flex justify-around">
-          <li className="mx-2">
-            <Link className="hover:underline" href="/">
-              Home
-            </Link>
+          <Link key="Home" className="mx-2 hover:underline" href="/">
+            Home
+          </Link>
+          <Link key="Social" className="mx-2 hover:underline" href="/social">
+            Social
+          </Link>
+          <li key="|" className="mx-2">
+            |
           </li>
-          <li className="mx-2">
-            <Link className="hover:underline" href="/social">
-              Social
-            </Link>
-          </li>
-          <li className="mx-2">|</li>
-          <li className="mx-2">
-            <Link className="hover:underline" href="/user/jesseb34r/cubes">
-              Your Cubes
-            </Link>
-          </li>
+          <Link
+            key="Your Cubes"
+            className="mx-2 hover:underline"
+            href="/user/jesseb34r/cubes"
+          >
+            Your Cubes
+          </Link>
         </ul>
         <ul className="flex">
-          <li className="mx-2">
-            <SearchIcon className="h-6 w-6" />
-          </li>
-          <li className="mx-2">
-            <PlusIcon className="h-6 w-6" />
-          </li>
-          <li className="mx-2">
-            <BellIcon className="h-6 w-6" />
-          </li>
+          <SearchIcon key="Search" className="mx-2 h-6 w-6" />
+          <PlusIcon key="Plus" className="mx-2 h-6 w-6" />
+          <BellIcon key="Bell" className="mx-2 h-6 w-6" />
         </ul>
       </nav>
     </header>

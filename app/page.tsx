@@ -24,7 +24,7 @@ export default function Home() {
           <ThumbnailCard {...testThumbnailCard} />
           <ThumbnailCard {...testThumbnailCard} />
         </div>
-        <h1 className="mt-8">Cubes from people you follow</h1>
+        <h1 className="mt-8">Latest from people you follow</h1>
         <div className="mt-5 flex w-full flex-wrap justify-around">
           <ThumbnailCard {...testThumbnailCard} />
           <ThumbnailCard {...testThumbnailCard} />
