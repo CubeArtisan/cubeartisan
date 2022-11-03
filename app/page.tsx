@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <>
       <Hero {...heroText} />
-      <div className="clamp-body">
+      <div className="clamp">
         <h1 className="mt-8">Pick up where you left off</h1>
         <div className="mt-5 flex w-full flex-wrap justify-around">
           <ThumbnailCard {...testThumbnailCard} />

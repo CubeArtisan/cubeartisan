@@ -17,7 +17,7 @@ export default function RootLayout({
         />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body>
+      <body className="mx-auto [width:clamp(100px,_80%,_1024px)]">
         <Navbar />
         <main>{children}</main>
       </body>
