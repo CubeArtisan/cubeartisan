@@ -39,7 +39,7 @@
     "target": "es5",
     "useUnknownInCatchVariables": true,
     "paths": {
-      "@cubeartisan/next/*": ["./*"]
+      "@cubeartisan/*": ["./*"]
     },
     "plugins": [
       {
