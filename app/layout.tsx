@@ -1,3 +1,4 @@
+import Footer from "./Footer";
 import "./globals.css";
 import Navbar from "./Navbar";
 
@@ -20,6 +21,7 @@ export default function RootLayout({
       <body className="mx-auto [width:clamp(100px,_80%,_1024px)]">
         <Navbar />
         <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );

@@ -3,11 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
-
   h1 {
     @apply text-2xl;
     @apply font-semibold;
