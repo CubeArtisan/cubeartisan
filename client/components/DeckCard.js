@@ -122,13 +122,12 @@ const DeckCard = ({ seat, deck, seatIndex, draft, view }) => {
         </Stack>
       </CardHeader>
       <Suspense fallback={<CircularProgress />}>
-        {view === 'picks' ||
-          (view === 'draftbots' &&
-            (draft ? (
-              <DecksPickBreakdown deck={deck} seatIndex={draftSeatIndex} draft={draft} />
-            ) : (
-              <h4>This deck does not have a related draft log.</h4>
-            )))}
+        {(view === 'picks' || view === 'draftbots') &&
+          (draft ? (
+            <DecksPickBreakdown deck={deck} seatIndex={draftSeatIndex} draft={draft} />
+          ) : (
+            <h4>This deck does not have a related draft log.</h4>
+          ))}
         {view === 'deck' && (
           <>
             <DeckStacksStatic piles={stackedDeck} cards={deck.cards} cardsInRow={cardsInRow} />

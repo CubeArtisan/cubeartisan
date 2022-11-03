@@ -52,6 +52,7 @@ export const CubeDeckPage = ({ cube, deck, draft, loginCallback }) => {
 
   const [seatIndex, setSeatIndex] = useQueryParam('seat', 0);
   const [view, setView] = useQueryParam('view', 'deck');
+  console.log(view);
 
   /** @param {any} event */
   const handleChangeSeat = (event) => {

@@ -97,6 +97,7 @@ const DecksPickBreakdownInternal = ({ draft, seatIndex, defaultIndex }) => {
     defaultIndex,
   });
   const { cards, cardsInPack, pickNum, packNum } = drafterState;
+  console.log(pickNum);
   return (
     <Grid container>
       <Grid key="selector" item xs={12} sm={3}>
