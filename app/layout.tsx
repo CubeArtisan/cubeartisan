@@ -19,7 +19,7 @@ export default function RootLayout({
       </head>
       <body className="[width: clamp(100px, 80%, 60ch)]">
         <Navbar />
-        {children}
+        <main>{children}</main>
       </body>
     </html>
   );
