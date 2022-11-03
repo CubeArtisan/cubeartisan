@@ -1,4 +1,7 @@
-export default {
+import type { CardFinish, CardStatus, CardWithoutDetails, Color } from '@cubeartisan/next/types/card';
+import type { SchemaDefinition } from 'mongoose';
+
+const cardSchema: SchemaDefinition<CardWithoutDetails> = {
   addedTmsp: Date,
   cardID: String,
   cmc: {
@@ -11,13 +14,13 @@ export default {
     default: null,
   },
   colors: {
-    type: [{ type: String, enum: ['W', 'U', 'B', 'R', 'G', 'C'] }],
-    default: void 0, // eslint-disable-line
+    type: [{ type: String, enum: ['W', 'U', 'B', 'R', 'G'] as Color[] }],
+    default: null,
   },
   finish: {
     type: String,
     default: 'Non-foil',
-    enum: ['Foil', 'Non-foil'],
+    enum: ['Foil', 'Non-foil'] as CardFinish[],
   },
   imgBackUrl: String,
   imgUrl: String,
@@ -44,7 +47,7 @@ export default {
   status: {
     type: String,
     default: 'Not Owned',
-    enum: ['Not Owned', 'Ordered', 'Owned', 'Premium Owned', 'Proxied'],
+    enum: ['Not Owned', 'Ordered', 'Owned', 'Premium Owned', 'Proxied'] as CardStatus[],
   },
   tags: [
     {
@@ -57,3 +60,5 @@ export default {
     default: null,
   },
 };
+
+export default cardSchema;
