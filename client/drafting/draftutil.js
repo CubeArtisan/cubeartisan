@@ -150,7 +150,7 @@ const newpack = ([oldDrafterState, internalState]) => {
   drafterState.seen = [
     ...drafterState.seen,
     {
-      pack: internalState.packsWithCards[seatNum],
+      pack: internalState.packsWithCards[seatNum].slice(),
       pickNum: drafterState.pickNum,
       packNum: drafterState.packNum,
       numPicks: drafterState.packSize,
@@ -175,7 +175,7 @@ const pass = ([oldDrafterState, internalState]) => {
   drafterState.seen = [
     ...drafterState.seen,
     {
-      pack: packsWithCards[(seatNum + internalState.offset) % numSeats],
+      pack: packsWithCards[(seatNum + internalState.offset) % numSeats].slice(),
       pickNum: drafterState.pickNum,
       packNum: drafterState.packNum,
       numPicks: drafterState.packSize,
@@ -299,7 +299,6 @@ export const getDraftbotScores = async (convertedDrafterState, mtgmlServer, mtgm
   const responseJson = response.data;
   if (!responseJson.success) console.error(responseJson.error);
   if (includeOracles) return responseJson;
-  console.log(responseJson);
   return responseJson.scores;
   } catch (err) {
     console.error(err);

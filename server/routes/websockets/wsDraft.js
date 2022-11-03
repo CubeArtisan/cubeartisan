@@ -164,14 +164,14 @@ const manageWebsocketDraft = async (socket) => {
             }
           } else if (draft.seats[drafterState.seatNum].bot) {
             if (drafterState.step.action.match(/pick/)) {
-              const maxIndex = getBestOption(
+              const scores =
                 // eslint-disable-next-line no-await-in-loop
                 await getDraftbotScores(
                   convertDrafterState(drafterState),
                   process.env.MTGML_SERVER,
                   process.env.MTGML_AUTH_TOKEN,
-                ),
-              );
+                );
+              const maxIndex = getBestOption(scores);
               // eslint-disable-next-line no-await-in-loop
               [changes, draft] = await pickCard(
                 draft,
