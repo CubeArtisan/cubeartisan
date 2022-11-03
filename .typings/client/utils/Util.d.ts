@@ -1,0 +1,43 @@
+export function isTouchDevice(): boolean;
+export function arraysEqual<T>(a: T[], b: T[]): boolean;
+export function arrayRotate<T>(arr: T[], reverse: boolean): T[];
+export function arrayShuffle<T>(array: T[]): T[];
+export function arrayMove<T>(arr: T[], oldIndex: number, newIndex: number): T[];
+export function arrayDelete<T>(arr: T[], index: number): T[];
+export function arrayIsSubset<T>(needles: T[], haystack: T[], comparison?: ((a: T, b: T) => boolean) | null | undefined): boolean;
+export function arraysAreEqualSets<T>(a1: T[], a2: T[], comparison?: ((a: T, b: T) => boolean) | null | undefined): boolean;
+export function randomElement<T>(array: T[]): T;
+export function cmcColumn(card: Card): number;
+export function sortDeck(deck: Card[] | Card[][]): any[][];
+export const COLORS: string[][];
+export function getCubeId(cube: Cube): string;
+export function getCubeDescription(cube: Cube): string;
+export function isInternalURL(to: string): boolean;
+export function toNullableInt(str: string | null): number | null;
+export function isSamePageURL(to: string): boolean;
+export function isObject(obj: any): any;
+export function areDeepEqual(obj1: any, obj2: any): boolean;
+declare namespace _default {
+    export { COLORS };
+    export { areDeepEqual };
+    export { arrayDelete };
+    export { arrayIsSubset };
+    export { arrayMove };
+    export { arrayRotate };
+    export { arrayShuffle };
+    export { arraysAreEqualSets };
+    export { arraysEqual };
+    export { cmcColumn };
+    export { getCubeDescription };
+    export { getCubeId };
+    export { isInternalURL };
+    export { isObject };
+    export { isSamePageURL };
+    export { randomElement };
+    export { sortDeck };
+    export { toNullableInt };
+}
+export default _default;
+export type Cube = import('@cubeartisan/client/proptypes/CubePropType.js').Cube;
+export type Card = import('@cubeartisan/client/proptypes/CardPropType.js').Card;
+//# sourceMappingURL=Util.d.ts.map

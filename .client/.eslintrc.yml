@@ -1,0 +1,129 @@
+env:
+  browser: true
+  jest/globals: true
+  node: true
+extends:
+  - airbnb
+  - prettier
+  - plugin:array-func/all
+parser: '@babel/eslint-parser'
+parserOptions:
+  ecmaVersion: 2021
+  sourceType: module
+  babelOptions:
+    configFile: '@cubeartisan/client/babel.config.cjs'
+plugins:
+  - jest
+  - prettier
+  - react-hooks
+  - babel
+  - promise
+settings:
+  import/resolver:
+    webpack:
+      config: 'webpack.dev.cjs'
+rules:
+  import/extensions:
+    - error
+    - always
+  import/no-extraneous-dependencies:
+    - error
+    - devDependencies: true
+  import/order:
+    - error
+    - groups:
+        - builtin
+        - external
+        - parent
+      pathGroups:
+        - pattern: "@cubeartisan/client/**"
+          group: parent
+          position: after
+      newlines-between: always
+      alphabetize:
+        order: 'asc'
+        caseInsensitive: true
+  sort-imports:
+    - error
+    - ignoreCase: true
+      ignoreDeclarationSort: true
+  prettier/prettier:
+    - error
+    - endOfLine: lf
+  no-console: 0
+  global-require: 0
+  no-param-reassign: 0
+  no-underscore-dangle:
+    - error
+    - allow: ['_id', '_carddict']
+  camelcase:
+    - error
+    - properties: never
+      ignoreDestructuring: true
+      ignoreImports: true
+      allow: ['tcgplayer_id']
+  no-plusplus:
+    - error
+    - allowForLoopAfterthoughts: true
+  no-restricted-syntax:
+    - error
+    - WithStatement
+    - LabeledStatement
+    - BinaryExpression[operator='in']
+  jsx-a11y/label-has-associated-control:
+    - error
+    - required:
+        some:
+          - nesting
+          - id
+  jsx-a11y/label-has-for:
+    - error
+    - required:
+        some:
+          - nesting
+          - id
+  react/function-component-definition:
+    - error
+    - namedComponents: arrow-function
+      unnamedComponents: arrow-function
+  react/jsx-filename-extension: off
+  react/jsx-one-expression-per-line: off
+  react/jsx-props-no-spreading: off
+  react/jsx-uses-react: off
+  react/no-unescaped-entities:
+    - error
+    - forbid: ['>', '"', '}']
+  react-hooks/rules-of-hooks: error
+  react-hooks/exhaustive-deps: error
+  react/react-in-jsx-scope: off
+  import/no-commonjs: error
+  no-restricted-imports:
+    - error
+    - patterns: ['./*', '../*']
+  promise/param-names: error
+  promise/no-new-statics: error
+  promise/valid-params: error
+  promise/prefer-await-to-then: error
+  promise/prefer-await-to-callbacks: error
+  react/no-unknown-property:
+    - error
+    - ignore:
+      - key
+overrides:
+  - files: ['**/*.cjs']
+    rules:
+      import/no-commonjs: off
+  - files: ['server/**']
+    rules:
+      no-console: error
+  - files: ['client/markdown/**/micromark-*']
+    rules:
+      no-use-before-define: ['error', 'nofunc']
+  - files: ['server/models/**']
+    rules:
+      no-underscore-dangle:
+        - error
+        - allowAfterThis: true
+  - files: ['server/one_shot_scripts/**', 'server/jobs/**']
+    rules:
+      no-await-in-loop: 0
