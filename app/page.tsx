@@ -10,6 +10,7 @@ const testThumbnailCard = {
   thumbnail:
     "https://cards.scryfall.io/art_crop/front/6/e/6e70332c-de0b-45ce-bbd1-5de4314c08db.jpg?1623594026",
   caption: "Time Warp",
+  link: "/",
 };
 
 export default function Home() {
