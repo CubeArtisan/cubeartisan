@@ -9,7 +9,7 @@ export default function Navbar() {
       <Link className="mr-8 text-xl font-semibold" href="/">
         CubeArtisan
       </Link>
-      <nav className="flex w-full justify-between ">
+      <nav className="flex w-full justify-between">
         <ul className="flex justify-around">
           <Link key="Home" className="mx-2 hover:underline" href="/">
             Home
