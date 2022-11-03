@@ -10,5 +10,13 @@
 
   h1 {
     @apply text-2xl;
+    @apply font-semibold;
+  }
+}
+
+@layer utilities {
+  .clamp-body {
+    width: clamp(100px, 80%, 1044ch);
+    margin-inline: auto;
   }
 }

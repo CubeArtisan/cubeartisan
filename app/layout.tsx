@@ -17,7 +17,7 @@ export default function RootLayout({
         />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className="[width: clamp(100px, 80%, 60ch)]">
+      <body>
         <Navbar />
         <main>{children}</main>
       </body>
