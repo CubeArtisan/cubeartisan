@@ -18,7 +18,9 @@
  */
 import mongoose from 'mongoose';
 
-const UserSchema = new mongoose.Schema({
+import type { MongoUser } from '@cubeartisan/next/types/user';
+
+const UserSchema = new mongoose.Schema<MongoUser>({
   username: {
     type: String,
     required: true,
@@ -141,4 +143,6 @@ UserSchema.index({
   email: 1,
 });
 
-export default mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
+
+export default User ;
