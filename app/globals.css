@@ -12,15 +12,3 @@
     @apply text-2xl;
   }
 }
-
-@layer utilities {
-  .clamp-text {
-    width: clamp(100px, 80%, 60ch);
-    margin: 0 auto;
-  }
-
-  .clamp-app {
-    width: clamp(100px, 80%, 90%);
-    margin-inline: auto;
-  }
-}
