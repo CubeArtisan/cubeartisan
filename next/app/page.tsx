@@ -16,7 +16,7 @@ const Home = () => (
           <h2 className="mb-5 mt-10 text-xl font-semibold">{cardList.blurb}</h2>
           <div className="flex justify-around ">
             {cardList.section.map((card) => (
-              <ThumbnailCard {...card} />
+              <ThumbnailCard key={card.caption} {...card} />
             ))}
           </div>
         </div>
