@@ -1,12 +1,12 @@
 import Link from 'next/link';
 
-export type ThumbnailCardType = {
+export type ThumbnailCardProps = {
   thumbnail: string,
   caption?: string,
   link?: string,
 };
 
-const ThumbnailCard = ({ thumbnail, caption = '', link = '' }: ThumbnailCardType) => (
+const ThumbnailCard = ({ thumbnail, caption = '', link = '' }: ThumbnailCardProps) => (
   <div className="relative h-56 w-56 overflow-clip rounded-md transition hover:scale-[1.02] hover:drop-shadow-3xl">
     <div
       className="absolute h-full w-full bg-cover bg-center shadow-[inset_0_-6rem_5rem_-5rem_black]"

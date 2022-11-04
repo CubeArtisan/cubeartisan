@@ -16,11 +16,22 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import mongoose from 'mongoose';
+import { model, Schema } from 'mongoose';
 
-import type { MongoUser } from '../types/user';
+import type { MongoUser } from '@cubeartisan/next/types/user';
 
-const UserSchema = new mongoose.Schema<MongoUser>({
+const notificationSchema = {
+  user_from: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  user_from_name: String,
+  url: String,
+  date: Date,
+  text: String,
+};
+
+const UserSchema = new Schema<MongoUser>({
   username: {
     type: String,
     required: true,
@@ -38,7 +49,7 @@ const UserSchema = new mongoose.Schema<MongoUser>({
     required: true,
   },
   confirmed: {
-    type: String,
+    type: Boolean,
     required: true,
     default: false,
   },
@@ -51,58 +62,26 @@ const UserSchema = new mongoose.Schema<MongoUser>({
     default: false,
   },
   edit_token: String,
-  followed_cubes: {
-    type: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Cube',
-      },
-    ],
-    default: [],
-  },
-  followed_users: {
-    type: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-      },
-    ],
-    default: [],
-  },
-  users_following: {
-    type: [mongoose.Schema.Types.ObjectId],
-    default: [],
-  },
-  notifications: {
-    type: [
-      {
-        user_from: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'User',
-        },
-        user_from_name: String,
-        url: String,
-        date: Date,
-        text: String,
-      },
-    ],
-    default: [],
-  },
-  old_notifications: {
-    type: [
-      {
-        user_from: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'User',
-        },
-        user_from_name: String,
-        url: String,
-        date: Date,
-        text: String,
-      },
-    ],
-    default: [],
-  },
+  followed_cubes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Cube',
+    },
+  ],
+  followed_users: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  ],
+  users_following: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  ],
+  notifications: [notificationSchema],
+  old_notifications: [notificationSchema],
   image_name: {
     type: String,
     default: 'Ambush Viper',
@@ -115,23 +94,16 @@ const UserSchema = new mongoose.Schema<MongoUser>({
     type: String,
     default: 'Allan Pollack',
   },
-  roles: {
-    type: [
-      {
-        type: String,
-        enum: ['Admin', 'ContentCreator', 'Patron'],
-      },
-    ],
-    default: [],
-  },
+  roles: [
+    {
+      type: String,
+      enum: ['Admin', 'ContentCreator', 'Patron'],
+    },
+  ],
   theme: {
     type: String,
     enum: ['default', 'dark', 'light'],
     default: 'default',
-  },
-  hide_featured: {
-    type: Boolean,
-    default: false,
   },
 });
 
@@ -143,6 +115,6 @@ UserSchema.index({
   email: 1,
 });
 
-const User = mongoose.model('User', UserSchema);
+const User = model('User', UserSchema);
 
-export default User ;
+export default User;

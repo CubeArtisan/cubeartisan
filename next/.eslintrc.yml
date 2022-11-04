@@ -3,6 +3,8 @@ env:
   node: true
 extends:
   - next
+  - next/core-web-vitals
+  - prettier
   - airbnb
   - eslint-config-prettier
   - 'plugin:array-func/all'
@@ -12,13 +14,14 @@ extends:
   - 'eslint:recommended'
 parser: '@typescript-eslint/parser'
 plugins:
-  - eslint-plugin-prettier
+  - prettier
   - react-hooks
   - promise
   - '@typescript-eslint'
 rules:
   import/extensions:
     - error
+    - never
   import/no-extraneous-dependencies:
     - error
     - devDependencies: true
@@ -29,7 +32,7 @@ rules:
         - external
         - parent
       pathGroups:
-        - pattern: '@cubeartisan/client/**'
+        - pattern: '@cubeartisan/next/**'
           group: parent
           position: after
       newlines-between: always
@@ -43,6 +46,8 @@ rules:
   prettier/prettier:
     - error
     - endOfLine: lf
+  object-curly-newline: 0
+  max-len: 0
   no-console: 0
   global-require: 0
   no-param-reassign: 0
@@ -117,24 +122,3 @@ overrides:
       - '**/*.cjs'
     rules:
       import/no-commonjs: 'off'
-  - files:
-      - server/**
-    rules:
-      no-console: error
-  - files:
-      - client/markdown/**/micromark-*
-    rules:
-      no-use-before-define:
-        - error
-        - nofunc
-  - files:
-      - server/models/**
-    rules:
-      no-underscore-dangle:
-        - error
-        - allowAfterThis: true
-  - files:
-      - server/one_shot_scripts/**
-      - server/jobs/**
-    rules:
-      no-await-in-loop: 0

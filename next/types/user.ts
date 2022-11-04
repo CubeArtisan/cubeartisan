@@ -1,6 +1,6 @@
-import type { Schema } from 'mongoose';
+import type { Types } from 'mongoose';
 
-export type Role = 'Admin';
+export type Role = 'Admin' | 'ContentCreator' | 'Patron';
 
 export type Theme = 'dark' | 'light' | 'default';
 
@@ -17,7 +17,9 @@ export type PublicUser = {
   username_lower: string,
   about: string,
   image: string,
+  image_name: string,
   artist: string,
+  theme: Theme,
 };
 
 export type GenericProtectedUser<ID> = {
@@ -25,6 +27,7 @@ export type GenericProtectedUser<ID> = {
   confirmed: boolean,
   hide_tag_colors: boolean,
   followed_cubes: ID[],
+  users_following: ID[],
   notifications: GenericNotification<ID>[],
   roles: Role[],
 };
@@ -36,6 +39,6 @@ export type PrivateUser<ID> = {
   old_notifications: GenericNotification<ID>[],
 };
 
-export type MongoUser = PublicUser & GenericProtectedUser<Schema.Types.ObjectId> & PrivateUser<Schema.Types.ObjectId>;
+export type MongoUser = PublicUser & GenericProtectedUser<Types.ObjectId> & PrivateUser<Types.ObjectId>;
 
 export type User = GenericProtectedUser<string>;

@@ -16,13 +16,13 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import mongoose from 'mongoose';
+import { model, Schema } from 'mongoose';
 
-import type { MongoCube } from '../types/cube';
-import cardSchema from './shared/card';
-import stepsSchema from './shared/step';
+import cardSchema from '@cubeartisan/next/models/shared/card';
+import stepsSchema from '@cubeartisan/next/models/shared/step';
+import type { MongoCube } from '@cubeartisan/next/types/cube';
 
-const cubeSchema = new mongoose.Schema<MongoCube>({
+const cubeSchema = new Schema<MongoCube>({
   name: {
     type: String,
     required: true,
@@ -33,7 +33,8 @@ const cubeSchema = new mongoose.Schema<MongoCube>({
     unique: true,
   },
   owner: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
+    ref: 'User',
     required: true,
   },
   isListed: {
@@ -56,18 +57,9 @@ const cubeSchema = new mongoose.Schema<MongoCube>({
     type: String,
     default: 'Vintage',
   },
-  categoryPrefixes: {
-    type: [String],
-    default: [],
-  },
-  cards: {
-    type: [cardSchema],
-    default: [],
-  },
-  maybe: {
-    type: [cardSchema],
-    default: [],
-  },
+  categoryPrefixes: [String],
+  cards: [cardSchema],
+  maybe: [cardSchema],
   tag_colors: [
     {
       tag: String,
@@ -93,24 +85,18 @@ const cubeSchema = new mongoose.Schema<MongoCube>({
   default_show_unsorted: Boolean,
   card_count: Number,
   type: String,
-  draft_formats: {
-    type: [
-      {
-        title: String,
-        multiples: Boolean,
-        markdown: String,
-        packs: {
-          type: [{ slots: [String], steps: stepsSchema }],
-        },
-        defaultSeats: Number,
+  draft_formats: [
+    {
+      title: String,
+      multiples: Boolean,
+      markdown: String,
+      packs: {
+        type: [{ slots: [String], steps: stepsSchema }],
       },
-    ],
-    default: [],
-  },
-  users_following: {
-    type: [mongoose.Schema.Types.ObjectId],
-    default: [],
-  },
+      defaultSeats: Number,
+    },
+  ],
+  users_following: [Schema.Types.ObjectId],
   defaultStatus: {
     type: String,
     default: 'Owned',
@@ -124,33 +110,12 @@ const cubeSchema = new mongoose.Schema<MongoCube>({
     type: Boolean,
     default: false,
   },
-  basics: {
-    type: [String],
-    default: [
-      '1d7dba1c-a702-43c0-8fca-e47bbad4a00f',
-      '42232ea6-e31d-46a6-9f94-b2ad2416d79b',
-      '19e71532-3f79-4fec-974f-b0e85c7fe701',
-      '8365ab45-6d78-47ad-a6ed-282069b0fabc',
-      '0c4eaecf-dd4c-45ab-9b50-2abe987d35d4',
-    ],
-  },
-  // These fields are just for indexing
-  tags: {
-    type: [String],
-    default: [],
-  },
-  cardOracles: {
-    type: [String],
-    default: [],
-  },
-  keywords: {
-    type: [String],
-    default: [],
-  },
-  categories: {
-    type: [String],
-    default: [],
-  },
+  // This can't have a correct value of default so we'll have to rely on the code setting it correctly.
+  basics: [String],
+  tags: [String],
+  cardOracles: [String],
+  keywords: [String],
+  categories: [String],
 });
 
 cubeSchema.index({
@@ -230,5 +195,5 @@ cubeSchema.index({
   card_count: -1,
 });
 
-const Cube = mongoose.model('Cube', cubeSchema);
+const Cube = model('Cube', cubeSchema);
 export default Cube;

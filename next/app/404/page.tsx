@@ -1,1 +1,3 @@
-export default NotFoundPage = ({}) => <h1>Lorem Ipsum</h1>
+const NotFoundPage = () => <h1>Lorem Ipsum</h1>;
+
+export default NotFoundPage;

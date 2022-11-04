@@ -34,7 +34,7 @@
     "node": "18"
   },
   "packageManager": "yarn@3.2.4",
-  "dependencies": {
+  "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
     "@yarnpkg/pnpify": "^4.0.0-rc.27",
@@ -54,8 +54,5 @@
     "postcss": "^8.4.18",
     "prettier": "^2.7.1",
     "typescript": "^4.8.4"
-  },
-  "devDependencies": {
-    "@types/prettier": "^2"
   }
 }
