@@ -31,24 +31,24 @@ const directory: DirectoryItem[] = [
   },
 ];
 
-export default function Footer() {
-  return (
-    <footer className="mt-20 mb-14 w-full">
-      <hr className="mx-auto mb-4 h-1 w-[80%] rounded border-0 bg-gray-700 " />
-      <nav className="flex justify-around text-center">
-        {directory.map((directoryItem: DirectoryItem) => (
-          <div key={directoryItem.heading}>
-            <h2 className="mb-1 font-semibold">{directoryItem.heading}</h2>
-            <ul className="flex flex-col">
-              {directoryItem.listItems.map((listItem) => (
-                <Link key={listItem.label} className="hover:underline" href={listItem.link}>
-                  {listItem.label}
-                </Link>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </nav>
-    </footer>
-  );
-}
+const Footer = () => (
+  <footer className="mt-20 mb-14 w-full">
+    <hr className="mx-auto mb-4 h-1 w-[80%] rounded border-0 bg-gray-700 " />
+    <nav className="flex justify-around text-center">
+      {directory.map((directoryItem: DirectoryItem) => (
+        <div key={directoryItem.heading}>
+          <h2 className="mb-1 font-semibold">{directoryItem.heading}</h2>
+          <ul className="flex flex-col">
+            {directoryItem.listItems.map((listItem) => (
+              <Link key={listItem.label} className="hover:underline" href={listItem.link}>
+                {listItem.label}
+              </Link>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </nav>
+  </footer>
+);
+
+export default Footer;

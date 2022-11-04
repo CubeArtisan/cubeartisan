@@ -8,15 +8,3 @@
     @apply font-semibold;
   }
 }
-
-/* @layer utilities {
-  .clamp-body {
-    width: clamp(100px, 80%, 768px);
-    margin-inline: auto;
-  }
-
-  .clamp-nav {
-    width: clamp(100px, 80%, 1024px);
-    margin-inline: auto;
-  }
-} */

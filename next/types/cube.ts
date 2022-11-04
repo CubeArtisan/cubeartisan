@@ -1,5 +1,6 @@
-import type { Card, CardWithoutDetails, CardStatus } from './card';
 import type { Schema } from 'mongoose';
+
+import type { Card, CardStatus, CardWithoutDetails } from '@cubeartisan/next/types/card';
 
 export type Step = {
     action: 'pass' | 'pick' | 'trash' | 'pickrandom' | 'trashrandom';
@@ -29,6 +30,7 @@ export type Tag = {
     text: string;
 };
 
+// eslint-disable-next-line prettier/prettier
 export type GenericCube<C extends CardWithoutDetails, ID> = {
     name: string;
     shortID: string;

@@ -1,8 +1,8 @@
-import type { Schema } from "mongoose";
+import type { Schema } from 'mongoose';
 
-export type Role = 'Admin'
+export type Role = 'Admin';
 
-export type Theme = 'dark' | 'light' | 'default'
+export type Theme = 'dark' | 'light' | 'default';
 
 export type GenericNotification<ID> = {
   user_from: ID,
@@ -38,4 +38,4 @@ export type PrivateUser<ID> = {
 
 export type MongoUser = PublicUser & GenericProtectedUser<Schema.Types.ObjectId> & PrivateUser<Schema.Types.ObjectId>;
 
-export type User = GenericProtectedUser<string>
+export type User = GenericProtectedUser<string>;
