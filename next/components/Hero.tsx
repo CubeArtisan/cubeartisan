@@ -1,6 +1,6 @@
 const heroText = {
-  mainText: "CubeArtisan",
-  subText: "build, analyze, and share cubes",
+  mainText: 'CubeArtisan',
+  subText: 'build, analyze, and share cubes',
 };
 
 export default function Hero({
@@ -8,9 +8,9 @@ export default function Hero({
   subText,
   children,
 }: {
-  mainText: string;
-  subText: string;
-  children?: React.ReactNode;
+  mainText: string,
+  subText: string,
+  children?: React.ReactNode,
 }) {
   return (
     <section className="flex min-h-[15rem] w-full flex-col items-center justify-center bg-gradient-to-r from-transparent via-blue-300 to-transparent">

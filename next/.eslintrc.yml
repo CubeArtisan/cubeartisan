@@ -1,20 +1,24 @@
 env:
   browser: true
-  jest/globals: true
   node: true
 extends:
+  - next
   - airbnb
-  - plugin:array-func/all
+  - eslint-config-prettier
+  - 'plugin:array-func/all'
   - 'plugin:@typescript-eslint/recommended'
+  - 'plugin:import/typescript'
+  - 'plugin:import/recommended'
+  - 'eslint:recommended'
 parser: '@typescript-eslint/parser'
 plugins:
+  - eslint-plugin-prettier
   - react-hooks
   - promise
   - '@typescript-eslint'
 rules:
   import/extensions:
     - error
-    - always
   import/no-extraneous-dependencies:
     - error
     - devDependencies: true
@@ -25,12 +29,12 @@ rules:
         - external
         - parent
       pathGroups:
-        - pattern: "@cubeartisan/client/**"
+        - pattern: '@cubeartisan/client/**'
           group: parent
           position: after
       newlines-between: always
       alphabetize:
-        order: 'asc'
+        order: asc
         caseInsensitive: true
   sort-imports:
     - error
@@ -44,13 +48,16 @@ rules:
   no-param-reassign: 0
   no-underscore-dangle:
     - error
-    - allow: ['_id', '_carddict']
+    - allow:
+        - _id
+        - _carddict
   camelcase:
     - error
     - properties: never
       ignoreDestructuring: true
       ignoreImports: true
-      allow: ['tcgplayer_id']
+      allow:
+        - tcgplayer_id
   no-plusplus:
     - error
     - allowForLoopAfterthoughts: true
@@ -58,7 +65,7 @@ rules:
     - error
     - WithStatement
     - LabeledStatement
-    - BinaryExpression[operator='in']
+    - 'BinaryExpression[operator=''in'']'
   jsx-a11y/label-has-associated-control:
     - error
     - required:
@@ -75,20 +82,24 @@ rules:
     - error
     - namedComponents: arrow-function
       unnamedComponents: arrow-function
-  react/jsx-filename-extension: off
-  react/jsx-one-expression-per-line: off
-  react/jsx-props-no-spreading: off
-  react/jsx-uses-react: off
+  react/jsx-filename-extension: 'off'
+  react/jsx-one-expression-per-line: 'off'
+  react/jsx-props-no-spreading: 'off'
+  react/jsx-uses-react: 'off'
   react/no-unescaped-entities:
     - error
-    - forbid: ['>', '"', '}']
+    - forbid:
+        - '>'
+        - '"'
+        - '}'
   react-hooks/rules-of-hooks: error
   react-hooks/exhaustive-deps: error
-  react/react-in-jsx-scope: off
-  import/no-commonjs: error
+  react/react-in-jsx-scope: 'off'
   no-restricted-imports:
     - error
-    - patterns: ['./*', '../*']
+    - patterns:
+        - ./*
+        - ../*
   promise/param-names: error
   promise/no-new-statics: error
   promise/valid-params: error
@@ -97,22 +108,30 @@ rules:
   react/no-unknown-property:
     - error
     - ignore:
-      - key
+        - key
 overrides:
-  - files: ['**/*.cjs']
+  - files:
+      - '**/*.cjs'
     rules:
-      import/no-commonjs: off
-  - files: ['server/**']
+      import/no-commonjs: 'off'
+  - files:
+      - server/**
     rules:
       no-console: error
-  - files: ['client/markdown/**/micromark-*']
+  - files:
+      - client/markdown/**/micromark-*
     rules:
-      no-use-before-define: ['error', 'nofunc']
-  - files: ['server/models/**']
+      no-use-before-define:
+        - error
+        - nofunc
+  - files:
+      - server/models/**
     rules:
       no-underscore-dangle:
         - error
         - allowAfterThis: true
-  - files: ['server/one_shot_scripts/**', 'server/jobs/**']
+  - files:
+      - server/one_shot_scripts/**
+      - server/jobs/**
     rules:
       no-await-in-loop: 0

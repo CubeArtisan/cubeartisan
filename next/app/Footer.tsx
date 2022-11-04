@@ -1,32 +1,32 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 interface DirectoryItem {
   heading: string;
-  listItems: Array<{ label: string; link: string }>;
+  listItems: Array<{ label: string, link: string }>;
 }
 
 const directory: DirectoryItem[] = [
   {
-    heading: "Directory",
+    heading: 'Directory',
     listItems: [
-      { label: "Home", link: "/" },
-      { label: "Social", link: "/social" },
-      { label: "Profile", link: "/user/jesseb34r" },
+      { label: 'Home', link: '/' },
+      { label: 'Social', link: '/social' },
+      { label: 'Profile', link: '/user/jesseb34r' },
     ],
   },
   {
-    heading: "Contact",
+    heading: 'Contact',
     listItems: [
-      { label: "Discord", link: "/" },
-      { label: "GitHub", link: "/" },
-      { label: "Twitter", link: "/" },
+      { label: 'Discord', link: '/' },
+      { label: 'GitHub', link: '/' },
+      { label: 'Twitter', link: '/' },
     ],
   },
   {
-    heading: "Help",
+    heading: 'Help',
     listItems: [
-      { label: "Docs", link: "/" },
-      { label: "Dev Blog", link: "/" },
+      { label: 'Docs', link: '/' },
+      { label: 'Dev Blog', link: '/' },
     ],
   },
 ];
@@ -41,11 +41,7 @@ export default function Footer() {
             <h2 className="mb-1 font-semibold">{directoryItem.heading}</h2>
             <ul className="flex flex-col">
               {directoryItem.listItems.map((listItem) => (
-                <Link
-                  key={listItem.label}
-                  className="hover:underline"
-                  href={listItem.link}
-                >
+                <Link key={listItem.label} className="hover:underline" href={listItem.link}>
                   {listItem.label}
                 </Link>
               ))}
