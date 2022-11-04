@@ -4847,6 +4847,7 @@ __metadata:
     eslint-plugin-react-hooks: ^4.6.0
     eslint_d: ^12.2.1
     mongoose: ^6.7.1
+    postcss: ^8.4.18
     prettier: ^2.7.1
     typescript: ^4.8.4
   languageName: unknown

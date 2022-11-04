@@ -2,6 +2,11 @@
   "name": "@cubeartisan/next",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
   "dependencies": {
     "@mui/icons-material": "^5.10.6",
     "@mui/lab": "^5.0.0-alpha.106",
