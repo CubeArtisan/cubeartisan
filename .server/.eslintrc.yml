@@ -1,0 +1,76 @@
+env:
+  browser: true
+  jest/globals: true
+  node: true
+extends:
+  - airbnb
+  - prettier
+  - plugin:array-func/all
+parser: '@babel/eslint-parser'
+parserOptions:
+  ecmaVersion: 2021
+  sourceType: module
+  babelOptions:
+    configFile: '@cubeartisan/server/babel.config.cjs'
+plugins:
+  - jest
+  - prettier
+  - babel
+  - promise
+settings:
+  import/resolver:
+    node: {}
+    webpack:
+      config: ./webpack.dev.cjs
+rules:
+  import/extensions:
+    - error
+    - always
+  import/no-extraneous-dependencies: ["error", {"devDependencies": true}]
+  prettier/prettier:
+    - error
+    - endOfLine: lf
+  global-require: 0
+  no-param-reassign: 0
+  no-underscore-dangle:
+    - error
+    - allow: ['_id', '_carddict']
+  camelcase:
+    - error
+    - properties: never
+      ignoreDestructuring: true
+      ignoreImports: true
+      allow: ['tcgplayer_id']
+  no-plusplus:
+    - error
+    - allowForLoopAfterthoughts: true
+  no-restricted-syntax:
+    - error
+    - WithStatement
+    - LabeledStatement
+    - BinaryExpression[operator='in']
+  import/no-commonjs: error
+  no-restricted-imports:
+    - error
+    - patterns: ['./*', '../*']
+  promise/param-names: error
+  promise/no-new-statics: error
+  promise/valid-params: error
+  promise/prefer-await-to-then: warn
+  promise/prefer-await-to-callbacks: warn
+  no-console: error
+  react/jsx-uses-react: off
+  react/react-in-jsx-scope: off
+overrides:
+  - files: ['**/*.cjs']
+    rules:
+      import/no-commonjs: off
+  - files: ['models/**']
+    rules:
+      no-underscore-dangle:
+        - error
+        - allowAfterThis: true
+  - files: ['one_shot_scripts/**', 'jobs/**', 'scripts/**']
+    rules:
+      no-await-in-loop: 0
+      no-console: 0

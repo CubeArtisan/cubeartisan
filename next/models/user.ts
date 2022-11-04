@@ -18,7 +18,7 @@
  */
 import mongoose from 'mongoose';
 
-import type { MongoUser } from '@cubeartisan/next/types/user';
+import type { MongoUser } from '../types/user';
 
 const UserSchema = new mongoose.Schema<MongoUser>({
   username: {

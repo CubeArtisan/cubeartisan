@@ -18,9 +18,9 @@
  */
 import mongoose from 'mongoose';
 
-import type { MongoCube } from '@cubeartisan/next/types/cube';
-import cardSchema from '@cubeartisan/next/models/shared/card';
-import stepsSchema from '@cubeartisan/next/models/shared/step';
+import type { MongoCube } from '../types/cube';
+import cardSchema from './shared/card';
+import stepsSchema from './shared/step';
 
 const cubeSchema = new mongoose.Schema<MongoCube>({
   name: {

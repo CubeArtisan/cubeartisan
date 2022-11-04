@@ -1,4 +1,4 @@
-import type { Card, CardWithoutDetails, CardStatus } from '@cubeartisan/next/types/card';
+import type { Card, CardWithoutDetails, CardStatus } from './card';
 import type { Schema } from 'mongoose';
 
 export type Step = {

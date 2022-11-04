@@ -1,5 +1,5 @@
 {
-  "name": "next",
+  "name": "@cubeartisan/next",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -14,6 +14,18 @@
     "@mui/material": "^5.10.12",
     "@mui/system": "^5.10.12",
     "@yarnpkg/pnpify": "^4.0.0-rc.27",
+    "eslint": "^8.26.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-next": "13.0.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-array-func": "^3.1.7",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "7.31.10",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint_d": "^12.2.1",
     "mongoose": "^6.7.1",
     "next": "13.0.1",
     "next-transpile-modules": "^10.0.0",
@@ -23,12 +35,17 @@
     "typescript": "^4.8.4"
   },
   "devDependencies": {
+    "@heroicons/react": "^2.0.12",
     "@types/eslint": "^8",
     "@types/node": "^18.11.9",
+    "@types/prettier": "^2",
     "@types/react": "^18.0.24",
     "@types/react-dom": "18.0.8",
     "@types/styled-components": "^5",
-    "eslint": "^8.26.0",
-    "eslint-config-next": "13.0.1"
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.18",
+    "prettier": "^2.7.1",
+    "prettier-plugin-tailwindcss": "^0.1.13",
+    "tailwindcss": "^3.2.1"
   }
 }

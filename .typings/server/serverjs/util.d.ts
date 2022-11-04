@@ -1,0 +1,36 @@
+export function hasProfanity(text: any): any;
+export function generateEditToken(): string;
+export function toBase36(num: any): any;
+export function fromBase36(str: any): number;
+export function addWordToTree(obj: any, word: any): void;
+export function redirect(dest: any): (_req: any, res: any) => any;
+export function binaryInsert(value: any, array: any, startVal: any, endVal: any): void;
+export function newCard(cardDetails: any, tags: any, defaultStatus?: string): {
+    addedTmsp: Date;
+    cardID: any;
+    cmc: null;
+    colorCategory: null;
+    colors: null;
+    finish: string;
+    imgBackUrl: null;
+    imgUrl: null;
+    name: null;
+    notes: string;
+    status: string;
+    tags: any[];
+    type_line: null;
+};
+export function addCardToCube(cube: any, cardDetails: any, tags: any): void;
+export function fromEntries(entries: any): {};
+export function addNotification(user: any, from: any, url: any, text: any): Promise<void>;
+export function addMultipleNotifications(users: any, from: any, url: any, text: any): Promise<void>;
+export function wrapAsyncApi(route: any): (req: any, res: any, next: any) => Promise<any>;
+export function handleRouteError(req: any, res: any, err: any, reroute: any): void;
+export function toNonNullArray(arr: any): any[];
+export function mapNonNull(arr: any, f: any): any[];
+export function flatten(arr: any, n: any): any[];
+export function shuffle(array: any, seed: any): any;
+export function turnToTree(arr: any): {};
+export function isAdmin(user: any): any;
+export function escapeXML(str: string): string;
+//# sourceMappingURL=util.d.ts.map

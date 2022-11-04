@@ -24,8 +24,6 @@
     "@babel/core": "^7.19.6",
     "@babel/node": "^7.20.0",
     "@babel/plugin-syntax-top-level-await": "^7.14.5",
-    "@cubeartisan/client": "^0.1.0",
-    "@cubeartisan/server": "^0.1.0",
     "@node-loader/babel": "^2.0.1",
     "JSONStream": "^1.3.5",
     "core-js": "^3.26.0",
