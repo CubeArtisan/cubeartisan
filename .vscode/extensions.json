@@ -4,6 +4,7 @@
     "gamunu.vscode-yarn",
     "naumovs.color-highlight",
     "dbaeumer.vscode-eslint",
-    "arcanis.vscode-zipfs"
+    "arcanis.vscode-zipfs",
+    "esbenp.prettier-vscode"
   ]
 }
