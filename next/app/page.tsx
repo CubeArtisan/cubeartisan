@@ -10,7 +10,7 @@ const heroText = {
 const Home = () => (
   <>
     <Hero {...heroText} />
-    <div className="clamp">
+    <div>
       {homePageCards.map((cardList) => (
         <div key={cardList.name}>
           <h2 className="mb-5 mt-10 text-xl font-semibold">{cardList.blurb}</h2>
