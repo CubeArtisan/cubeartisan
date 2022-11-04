@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 interface DirectoryItem {
   heading: string;
-  listItems: Array<{ label: string, link: string }>;
+  listItems: Array<{ label: string; link: string }>;
 }
 
 const directory: DirectoryItem[] = [

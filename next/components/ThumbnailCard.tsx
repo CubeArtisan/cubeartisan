@@ -1,9 +1,9 @@
 import Link from 'next/link';
 
 export type ThumbnailCardProps = {
-  thumbnail: string,
-  caption?: string,
-  link?: string,
+  thumbnail: string;
+  caption?: string;
+  link?: string;
 };
 
 const ThumbnailCard = ({ thumbnail, caption = '', link = '' }: ThumbnailCardProps) => (

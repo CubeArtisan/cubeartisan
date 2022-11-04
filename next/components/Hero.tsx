@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react';
 
 export type HeroProps = {
-  mainText: string,
-  subText: string,
-  children?: ReactNode,
+  mainText: string;
+  subText: string;
+  children?: ReactNode;
 };
 
 const Hero = ({ mainText, subText, children = null }: HeroProps) => (
