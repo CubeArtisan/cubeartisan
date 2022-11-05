@@ -55,5 +55,10 @@
     "prettier": "^2.7.1",
     "sass": "^1.56.0",
     "typescript": "^4.8.4"
+  },
+  "dependenciesMeta": {
+    "next@13.0.1": {
+      "unplugged": true
+    }
   }
 }

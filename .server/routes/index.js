@@ -120,7 +120,7 @@ const sessionConfig = session({
       resave: true,
       saveUninitialized: true,
       cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 7 * 52, // 1 year
+        maxAge: 1000 * 60 * 60 * 24 * 90, // 90 days
       },
     });
 app.use(sessionConfig);
