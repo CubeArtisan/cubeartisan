@@ -34,7 +34,7 @@ const directory: DirectoryItem[] = [
 const Footer = () => (
   <footer className="mt-20 mb-14 w-full">
     <hr className="mx-auto mb-4 h-1 nav-clamp rounded border-0 bg-gray-700 " />
-    <nav className="flex justify-around text-center">
+    <nav className="flex justify-around text-center px-[10%]">
       {directory.map((directoryItem: DirectoryItem) => (
         <div key={directoryItem.heading}>
           <h2 className="mb-1 font-semibold">{directoryItem.heading}</h2>

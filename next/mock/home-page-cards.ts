@@ -1,7 +1,7 @@
 interface HomePageCardsType {
   name: string;
   blurb: string;
-  section: Array<{ thumbnail: string, caption: string, link: string }>;
+  section: Array<{ thumbnail: string; caption: string; link: string }>;
 }
 
 const homePageCards: HomePageCardsType[] = [
@@ -40,6 +40,12 @@ const homePageCards: HomePageCardsType[] = [
           'https://c1.scryfall.com/file/scryfall-cards/art_crop/front/b/0/b0e90b22-6f43-4e9a-a236-f33191768813.jpg?1562932337',
         caption: 'Unpowered Fair Stuff',
         link: '/cube/unpowered_fair_stuff',
+      },
+      {
+        thumbnail:
+          'https://c1.scryfall.com/file/scryfall-cards/art_crop/front/7/2/726ce95b-bc4d-4c34-a8e1-b4c6c28accc9.jpg?1562778128',
+        caption: 'Degenerate Micro Cube',
+        link: '/cube/degenerate-micro-cube',
       },
     ],
   },

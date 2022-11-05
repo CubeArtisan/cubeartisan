@@ -19,4 +19,13 @@
     width: clamp(100px, 80%, 1024px);
     margin-inline: auto;
   }
+
+  .overlap-content {
+    display: grid;
+    grid-template-areas: 'a';
+  }
+
+  .overlap-content > * {
+    grid-area: a;
+  }
 }

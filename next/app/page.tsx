@@ -10,11 +10,11 @@ const heroText = {
 const Home = () => (
   <>
     <Hero {...heroText} />
-    <div>
+    <div className="body-clamp">
       {homePageCards.map((cardList) => (
         <div key={cardList.name}>
-          <h2 className="mb-5 mt-10 text-xl font-semibold">{cardList.blurb}</h2>
-          <div className="flex justify-around ">
+          <h2 className="mb-5 mt-10 text-xl font-semibold w-max">{cardList.blurb}</h2>
+          <div className="grid grid-cols-auto-3 gap-4">
             {cardList.section.map((card) => (
               <ThumbnailCard key={card.caption} {...card} />
             ))}
