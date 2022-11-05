@@ -4,7 +4,7 @@ import PlusIcon from '@heroicons/react/24/solid/PlusIcon';
 import Link from 'next/link';
 
 const Navbar = () => (
-  <header className="clamp mt-4 mb-8 flex px-2 pt-3 leading-7 mx-auto [width:clamp(100px,_80%,_1024px)]">
+  <header className=" mt-4 mb-8 flex px-2 pt-3 leading-7 mx-auto w-[clamp(100px,80%,theme(screens.xl))]">
     <Link className="mr-8 text-xl font-semibold" href="/">
       CubeArtisan
     </Link>

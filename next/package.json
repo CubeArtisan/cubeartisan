@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "@heroicons/react": "^2.0.12",
+    "@mertasan/tailwindcss-variables": "^2.5.1",
     "@types/bcryptjs": "^2",
     "@types/email-templates": "^10",
     "@types/eslint": "^8",

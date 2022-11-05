@@ -1847,6 +1847,7 @@ __metadata:
   resolution: "@cubeartisan/next@workspace:next"
   dependencies:
     "@heroicons/react": ^2.0.12
+    "@mertasan/tailwindcss-variables": ^2.5.1
     "@types/bcryptjs": ^2
     "@types/email-templates": ^10
     "@types/eslint": ^8
@@ -2415,6 +2416,18 @@ __metadata:
     titleize: 2
     tlds: ^1.231.0
   checksum: 27e12c4abff3fdad6ef7ff049a83cca58433797868732fdd70f554cec7c413e85ff6ddd68603cd216360d850e8221a534f611bd395e05ff44585655c99ea8285
+  languageName: node
+  linkType: hard
+
+"@mertasan/tailwindcss-variables@npm:^2.5.1":
+  version: 2.5.1
+  resolution: "@mertasan/tailwindcss-variables@npm:2.5.1"
+  dependencies:
+    lodash: ^4.17.21
+  peerDependencies:
+    autoprefixer: ^10.0.2
+    postcss: ^8.0.9
+  checksum: c52123f4872a3963cbc4e9db40145f7399290909a77b9bf20319a7e29382638643766bb74eb4145d48f0d03a94f1d0f6c0ad75a45a89fe97d744558d6d014312
   languageName: node
   linkType: hard
 

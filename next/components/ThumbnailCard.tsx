@@ -13,7 +13,7 @@ const ThumbnailCard = ({ thumbnail, caption = '', link = '' }: ThumbnailCardProp
       style={{ backgroundImage: `url(${thumbnail})` }}
     />
     <Link href={link} className=" h-full w-full" />
-    <h2 className="self-end pb-3 px-3 text-xl font-semibold text-gray-100">{caption}</h2>
+    <h2 className="self-end pb-3 px-3 text-md font-semibold text-gray-100">{caption}</h2>
   </div>
 );
 
