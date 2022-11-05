@@ -3,10 +3,8 @@ env:
   node: true
 extends:
   - next
-  - next/core-web-vitals
-  - prettier
   - airbnb
-  - eslint-config-prettier
+  - prettier
   - 'plugin:array-func/all'
   - 'plugin:@typescript-eslint/recommended'
   - 'plugin:import/typescript'
@@ -14,11 +12,12 @@ extends:
   - 'eslint:recommended'
 parser: '@typescript-eslint/parser'
 plugins:
-  - prettier
+  - eslint-plugin-prettier
   - react-hooks
   - promise
   - '@typescript-eslint'
 rules:
+  semi: off
   import/extensions:
     - error
     - never

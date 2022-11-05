@@ -8,3 +8,17 @@
     @apply font-semibold;
   }
 }
+
+@layer utilities {
+  .overlap-content {
+    display: grid;
+    grid-template-areas: 'a';
+  }
+
+  .overlap-content > * {
+    grid-area: a;
+  }
+
+  .text-2xl {
+  }
+}

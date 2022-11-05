@@ -12,7 +12,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => (
       <meta name="description" content="A mockup of CubeArtisan built with Next 13 and TailwindCSS" />
       <link rel="icon" href="/favicon.ico" />
     </head>
-    <body className="mx-auto [width:clamp(100px,_80%,_1024px)]">
+    <body>
       <Navbar />
       <main>{children}</main>
       <Footer />

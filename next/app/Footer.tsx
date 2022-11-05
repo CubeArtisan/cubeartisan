@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 interface DirectoryItem {
   heading: string;
-  listItems: Array<{ label: string, link: string }>;
+  listItems: Array<{ label: string; link: string }>;
 }
 
 const directory: DirectoryItem[] = [
@@ -33,8 +33,8 @@ const directory: DirectoryItem[] = [
 
 const Footer = () => (
   <footer className="mt-20 mb-14 w-full">
-    <hr className="mx-auto mb-4 h-1 w-[80%] rounded border-0 bg-gray-700 " />
-    <nav className="flex justify-around text-center">
+    <hr className="mx-auto mb-4 h-1 width-[clamp(100px,_70%,theme(screens.lg))] rounded border-0 bg-gray-700 " />
+    <nav className="flex justify-around text-center px-[10%]">
       {directory.map((directoryItem: DirectoryItem) => (
         <div key={directoryItem.heading}>
           <h2 className="mb-1 font-semibold">{directoryItem.heading}</h2>

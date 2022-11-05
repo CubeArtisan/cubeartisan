@@ -10,13 +10,13 @@ const heroText = {
 const Home = () => (
   <>
     <Hero {...heroText} />
-    <div className="clamp">
+    <div className="w-[min(80%,theme(screens.md))] mx-auto">
       {homePageCards.map((cardList) => (
         <div key={cardList.name}>
-          <h2 className="mb-5 mt-10 text-xl font-semibold">{cardList.blurb}</h2>
-          <div className="flex justify-around ">
+          <h2 className="mb-5 mt-10 text-lg font-semibold w-max">{cardList.blurb}</h2>
+          <div className="grid grid-cols-auto-3 gap-4">
             {cardList.section.map((card) => (
-              <ThumbnailCard {...card} />
+              <ThumbnailCard key={card.caption} {...card} />
             ))}
           </div>
         </div>
