@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { model, models, Schema } from 'mongoose';
+import { Model, model, models, Schema } from 'mongoose';
 
 import cardSchema from '@cubeartisan/next/models/shared/card';
 import stepsSchema from '@cubeartisan/next/models/shared/step';
@@ -195,5 +195,5 @@ cubeSchema.index({
   card_count: -1,
 });
 
-const Cube = models.Cube ?? model('Cube', cubeSchema);
+const Cube: Model<MongoCube> = models.Cube ?? model('Cube', cubeSchema);
 export default Cube;

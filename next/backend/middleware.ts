@@ -1,48 +1,14 @@
-import MongoStore from 'connect-mongo';
+import { withIronSessionApiRoute } from 'iron-session/next';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { createRouter, expressWrapper } from 'next-connect';
-import nextSession from 'next-session';
-import { promisifyStore } from 'next-session/lib/compat';
+import { createRouter } from 'next-connect';
 import type { NextApiRequest, NextApiResponse } from 'next/types';
 import onFinished from 'on-finished';
-import passport from 'passport';
 import { v4 as uuid } from 'uuid';
 
 import logger from '@cubeartisan/next/backend/logger';
 import getMongoConnection from '@cubeartisan/next/backend/mongoConnection';
-import passportConfig from '@cubeartisan/next/backend/passportConfig';
-
-const doSetup = () => {
-  if (!global.setup) {
-    const store = promisifyStore(
-      MongoStore.create({
-        clientPromise: (async () => {
-          const mongoose = await getMongoConnection();
-          const client = mongoose.connection.getClient();
-          return client;
-        })(),
-        stringify: false,
-      }),
-    );
-    const sessionConfig = nextSession({
-      store,
-      touchAfter: 60 * 60 * 24 * 7, // 1 week
-      cookie: {
-        httpOnly: true,
-        secure: true,
-        path: '/',
-        sameSite: 'strict',
-        maxAge: 60 * 60 * 24 * 30, // 30 days
-      },
-    });
-    passportConfig(passport);
-    const passportInitialized = passport.initialize();
-    const passportSession = passport.session();
-    global.setup = { sessionConfig, passportInitialized, passportSession };
-  }
-  return global.setup;
-};
+import User from '@cubeartisan/next/models/user';
 
 // eslint-disable-next-line no-unused-vars
 export type FunctionLike = (...args: any[]) => unknown;
@@ -150,13 +116,26 @@ export const requireDb = async (_req: NextApiRequest, _res: NextApiResponse, nex
   next();
 };
 
-export const setupMiddleware = ({ extraMiddleware = [] }: MiddlewareSettings = {}) => {
-  const { sessionConfig, passportInitialized, passportSession } = doSetup();
+export const addSession = (req: NextApiRequest, res: NextApiResponse, next: NextHandler) =>
+  withIronSessionApiRoute(
+    async () => {
+      if (req.session.id) {
+        req.user = await User.findById(req.session.id);
+      } else {
+        req.user = null;
+      }
+      return next();
+    },
+    {
+      password: process.env.SESSION_SECRET ?? '',
+      cookieName: process.env.SESSION ?? '',
+      cookieOptions: {
+        secure: process.env.NODE_ENV === 'production',
+      },
+    },
+  )(req, res);
 
-  const addSession = async (req: NextApiRequest, res: NextApiResponse, next: NextHandler) => {
-    await sessionConfig(req, res);
-    next();
-  };
+export const setupMiddleware = ({ extraMiddleware = [] }: MiddlewareSettings = {}) => {
   let router = createRouter<NextApiRequest, NextApiResponse>();
   router = router.use(async (_req: NextApiRequest, res: NextApiResponse, next: NextHandler) => {
     try {
@@ -172,8 +151,6 @@ export const setupMiddleware = ({ extraMiddleware = [] }: MiddlewareSettings = {
   router = router.use(addLogger);
   router.use(requireDb);
   router.use(addSession);
-  router.use(expressWrapper(passportInitialized) as unknown as ApiHandler);
-  router.use(expressWrapper(passportSession));
   for (const middleware of extraMiddleware) {
     router = router.use(middleware);
   }

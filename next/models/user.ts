@@ -16,7 +16,7 @@
  *
  * Modified from the original version in CubeCobra. See LICENSE.CubeCobra for more information.
  */
-import { model, models, Schema } from 'mongoose';
+import { Model, model, models, Schema } from 'mongoose';
 
 import type { MongoUser } from '@cubeartisan/next/types/user';
 
@@ -115,6 +115,6 @@ UserSchema.index({
   email: 1,
 });
 
-const User = models.User ?? model('User', UserSchema);
+const User: Model<MongoUser> = models.User ?? model('User', UserSchema);
 
 export default User;
