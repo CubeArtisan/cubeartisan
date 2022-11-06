@@ -89,6 +89,8 @@ const CARD_TYPES = [
   'Contraption',
   'Attraction',
   'Phenomenon',
+  'Hero',
+  'Vehicle',
   'Plane',
   'Scheme',
   'Vanguard',

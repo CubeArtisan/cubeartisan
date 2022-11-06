@@ -331,6 +331,10 @@ This release is composed of porting over bug fixes for bugs we carried over from
 
 ### v1.4.6.2
 
+#### Features
+
+- Add Hero as a card type.
+
 #### Bug Fixes
 
 - Prevent error on toggling hide unsorted cards.
