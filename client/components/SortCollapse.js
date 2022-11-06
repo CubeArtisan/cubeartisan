@@ -286,7 +286,7 @@ const SortCollapse = ({
               </Button>
             )}
             <Button
-              color={showOther ? 'danger' : 'primary'}
+              color={showOther ? 'warning' : 'primary'}
               onClick={() => {
                 const newShowOther = !showOther;
                 if (newShowOther.toString() === defShow) {
