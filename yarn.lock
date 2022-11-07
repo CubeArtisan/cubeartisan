@@ -1880,6 +1880,7 @@ __metadata:
     "@typescript-eslint/parser": ^5.42.0
     "@yarnpkg/pnpify": ^4.0.0-rc.27
     autoprefixer: ^10.4.13
+    bad-words: ^3.0.4
     bcryptjs: ^2.4.3
     css-loader: ^6.7.1
     email-templates: ^10.0.1
@@ -4910,6 +4911,22 @@ __metadata:
   dependencies:
     "@babel/types": ^7.9.6
   checksum: 6fe7ee3889343a6602f665c28ea135956a0767d7f7ca5fc1d72c5243e2f6e9d8a64f51254bf2fd0cce47b79fceeccf7a357f37cfa755a509dfb930a21151837c
+  languageName: node
+  linkType: hard
+
+"bad-words@npm:^3.0.4":
+  version: 3.0.4
+  resolution: "bad-words@npm:3.0.4"
+  dependencies:
+    badwords-list: ^1.0.0
+  checksum: 49595ab6ce5012b2dd5c4237839e450e4bbd349fccc7c66f11f06a1ab91cddfaa65e9855b63536297be6e0a22e3868b26b6012659a2cea0968f3caebf026bc9d
+  languageName: node
+  linkType: hard
+
+"badwords-list@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "badwords-list@npm:1.0.0"
+  checksum: fa7a4fbf3428aa15a86c303e0dd794cb9acda521e28c9eb83875f000b63f7940127c9d26368defe550a261ea546d5e8baeba2eaf5eebaf14f3c0774f69738ac8
   languageName: node
   linkType: hard
 

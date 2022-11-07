@@ -23,6 +23,7 @@
     "@opentelemetry/sdk-node": "^0.33.0",
     "@opentelemetry/sdk-trace-base": "^1.7.0",
     "@opentelemetry/semantic-conventions": "^1.7.0",
+    "bad-words": "^3.0.4",
     "bcryptjs": "^2.4.3",
     "email-templates": "^10.0.1",
     "iron-session": "^6.3.1",

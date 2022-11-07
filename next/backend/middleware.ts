@@ -37,12 +37,10 @@ export const cacheImmutableResponse = (_req: NextApiRequest, res: NextApiRespons
 };
 
 export const ensureAuth = (req: NextApiRequest, res: NextApiResponse, next: NextHandler) => {
-  if (req.isAuthenticated()) {
+  if (req.user) {
     return next();
   }
-  res.status(401);
-  res.send({ success: false, message: 'Not Authenticated' });
-  return null;
+  return res.status(401).end({ success: false, message: 'Not Authenticated' });
 };
 
 export type MiddlewareSettings = {

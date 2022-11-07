@@ -45,10 +45,6 @@ const cubeSchema = new Schema<MongoCube>({
     type: Boolean,
     default: false,
   },
-  isFeatured: {
-    type: Boolean,
-    default: false,
-  },
   overrideCategory: {
     type: Boolean,
     default: false,
@@ -80,9 +76,11 @@ const cubeSchema = new Schema<MongoCube>({
   image_name: String,
   owner_name: String,
   date_updated: Date,
-  updated_string: String,
   default_sorts: [String],
-  default_show_unsorted: Boolean,
+  default_show_unsorted: {
+    type: Boolean,
+    default: true,
+  },
   card_count: Number,
   type: String,
   draft_formats: [
@@ -135,11 +133,6 @@ cubeSchema.index({
 cubeSchema.index({
   name: 1,
   date_updated: -1,
-});
-
-// these indexes are for explore queries
-cubeSchema.index({
-  isFeatured: 1,
 });
 
 cubeSchema.index({

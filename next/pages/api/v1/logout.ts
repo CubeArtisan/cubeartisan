@@ -4,7 +4,7 @@ import { handler, setupMiddleware } from '@cubeartisan/next/backend/middleware';
 
 const logout = (req: NextApiRequest, res: NextApiResponse) => {
   req.session.destroy();
-  res.status(204).end();
+  res.redirect('/login');
 };
 
 const router = setupMiddleware().post(logout);
