@@ -24,15 +24,15 @@ export namespace CubeDeckPage {
                 colorCategory: PropTypes.Requireable<string>;
                 colors: PropTypes.Requireable<(string | null | undefined)[]>;
                 finish: PropTypes.Validator<string>;
-                imgBackUrl: PropTypes.Requireable<string>;                 imgUrl: PropTypes.Requireable<string>;
+                imgBackUrl: PropTypes.Requireable<string>;
+                imgUrl: PropTypes.Requireable<string>;
                 index: PropTypes.Requireable<number>;
                 name: PropTypes.Requireable<string>;
                 notes: PropTypes.Requireable<string>;
-                                rarity: PropTypes.Requireable<string>;
+                rarity: PropTypes.Requireable<string>;
                 status: PropTypes.Validator<string>;
                 tags: PropTypes.Validator<(string | null | undefined)[]>;
-                type_line: PropTypes.Requireable<string>;
-                details: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
+                type_line: PropTypes.Requireable<string>;                 details: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                     color_identity: PropTypes.Validator<string[]>;
                     set: PropTypes.Validator<string>;
                     set_name: PropTypes.Validator<string>;
@@ -104,15 +104,15 @@ export namespace CubeDeckPage {
                 colorCategory: PropTypes.Requireable<string>;
                 colors: PropTypes.Requireable<(string | null | undefined)[]>;
                 finish: PropTypes.Validator<string>;
-                imgBackUrl: PropTypes.Requireable<string>;                 imgUrl: PropTypes.Requireable<string>;
+                imgBackUrl: PropTypes.Requireable<string>;
+                imgUrl: PropTypes.Requireable<string>;
                 index: PropTypes.Requireable<number>;
                 name: PropTypes.Requireable<string>;
                 notes: PropTypes.Requireable<string>;
-                                rarity: PropTypes.Requireable<string>;
+                rarity: PropTypes.Requireable<string>;
                 status: PropTypes.Validator<string>;
                 tags: PropTypes.Validator<(string | null | undefined)[]>;
-                type_line: PropTypes.Requireable<string>;
-                details: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
+                type_line: PropTypes.Requireable<string>;                 details: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                     color_identity: PropTypes.Validator<string[]>;
                     set: PropTypes.Validator<string>;
                     set_name: PropTypes.Validator<string>;
@@ -230,15 +230,15 @@ export namespace CubeDeckPage {
                 colorCategory: PropTypes.Requireable<string>;
                 colors: PropTypes.Requireable<(string | null | undefined)[]>;
                 finish: PropTypes.Validator<string>;
-                imgBackUrl: PropTypes.Requireable<string>;                 imgUrl: PropTypes.Requireable<string>;
+                imgBackUrl: PropTypes.Requireable<string>;
+                imgUrl: PropTypes.Requireable<string>;
                 index: PropTypes.Requireable<number>;
                 name: PropTypes.Requireable<string>;
                 notes: PropTypes.Requireable<string>;
-                                rarity: PropTypes.Requireable<string>;
+                rarity: PropTypes.Requireable<string>;
                 status: PropTypes.Validator<string>;
                 tags: PropTypes.Validator<(string | null | undefined)[]>;
-                type_line: PropTypes.Requireable<string>;
-                details: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
+                type_line: PropTypes.Requireable<string>;                 details: PropTypes.Validator<NonNullable<PropTypes.InferProps<{
                     color_identity: PropTypes.Validator<string[]>;
                     set: PropTypes.Validator<string>;
                     set_name: PropTypes.Validator<string>;
