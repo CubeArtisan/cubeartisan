@@ -5,7 +5,7 @@ import { getDefaultBaseCubeWithCards } from '@cubeartisan/next/shared/cubeUtils'
 import { hasProfanity, toBase36 } from '@cubeartisan/next/shared/utils';
 import type { CardWithoutDetails } from '@cubeartisan/next/types/card';
 import type { MongoCube } from '@cubeartisan/next/types/cube';
-import type { MongoUser } from '@cubeartisan/next/types/user';
+import type { MongoUser, ProtectedUser } from '@cubeartisan/next/types/user';
 
 export const generateShortId = async (): Promise<string> => {
   const cubeCount = await Cube.estimatedDocumentCount().exec();
@@ -47,7 +47,7 @@ export const createCube = async (
 
 export const findCube = async (
   idOrShortId: string | Types.ObjectId,
-  user: HydratedDocument<MongoUser> | null,
+  user: ProtectedUser | HydratedDocument<MongoUser> | null,
 ): Promise<HydratedDocument<MongoCube> | null> => {
   const idOrShortIdStr: string = idOrShortId.toString();
   let query: { shortID: string } | { _id: string } = { shortID: idOrShortIdStr };
