@@ -21,7 +21,7 @@
     "maintenance": "yarn clean-cubes && yarn cards && yarn analytics"
   },
   "dependencies": {
-    "@babel/core": "^7.19.6",
+    "@babel/core": "^7.20.2",
     "@babel/node": "^7.20.0",
     "@babel/plugin-syntax-top-level-await": "^7.14.5",
     "@cubeartisan/client": "^0.1.0",
