@@ -32,7 +32,7 @@ export type Tag = {
 
 export type Board<C> = {
   name: string;
-  shortID: string;
+  id: string;
   cards: C[];
 };
 
@@ -72,6 +72,7 @@ export type CubeCards<C> = {
   cards: C[];
   maybe: C[];
   boards: Board<C>[];
+  unlimitedCards: C[];
 };
 
 export type CubeIds<ID> = {
@@ -84,3 +85,44 @@ export type GenericCube<C, ID> = BaseCube & CubeCards<C> & CubeIds<ID>;
 export type MongoCube = GenericCube<CardWithoutDetails, Types.ObjectId>;
 
 export type Cube = GenericCube<Card, string> & { _id: string };
+
+export type GenericRemoval = {
+  action: 'remove';
+  id: string;
+  index: number;
+};
+
+export type GenericAddition<T> = {
+  action: 'add';
+  item: T;
+};
+
+export type GenericChange<T> = GenericRemoval | GenericAddition<T>;
+
+export type CardRemoval = GenericRemoval;
+
+export type CardAddition = GenericAddition<CardWithoutDetails>;
+
+export type CardChange = GenericChange<CardWithoutDetails>;
+
+export type BoardUpdate = {
+  name?: string;
+  id: string;
+  updates: CardChange[];
+};
+
+export type FormatRemoval = GenericRemoval;
+
+export type FormatAddition = GenericAddition<DraftFormat>;
+
+export type FormatChange = GenericChange<DraftFormat>;
+
+export type CubeChange = Partial<
+  Omit<BaseCube, 'draft_formats' | 'basics'> & {
+    draft_formats: FormatChange[];
+    cards: CardChange[];
+    boards: BoardUpdate[];
+    unlimitedCards: CardChange[];
+    users_following: GenericChange<string>;
+  }
+>;
