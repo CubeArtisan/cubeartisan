@@ -14,6 +14,7 @@ export type PackSpec = {
 
 export type DraftFormat = {
   title: string;
+  id: string;
   markdown: string;
   packs: PackSpec[];
   defaultSeats: number;
@@ -32,7 +33,7 @@ export type Tag = {
 
 export type Board<C> = {
   name: string;
-  shortID: string;
+  id: string;
   cards: C[];
 };
 
@@ -72,6 +73,7 @@ export type CubeCards<C> = {
   cards: C[];
   maybe: C[];
   boards: Board<C>[];
+  unlimitedCards: C[];
 };
 
 export type CubeIds<ID> = {
@@ -84,3 +86,52 @@ export type GenericCube<C, ID> = BaseCube & CubeCards<C> & CubeIds<ID>;
 export type MongoCube = GenericCube<CardWithoutDetails, Types.ObjectId>;
 
 export type Cube = GenericCube<Card, string> & { _id: string };
+
+export type GenericRemoval = {
+  action: 'remove';
+  id: string;
+  index: number;
+};
+
+export type GenericUpdate<T> = {
+  action: 'update';
+  index: number;
+  item: T;
+};
+
+export type GenericAddition<T> = {
+  action: 'add';
+  item: T;
+};
+
+export type GenericChange<T> = GenericRemoval | GenericAddition<T> | GenericUpdate<T>;
+
+export type CardChange = GenericChange<CardWithoutDetails>;
+
+export type BoardRemoval = GenericRemoval;
+
+export type BoardUpdate = {
+  action: 'update';
+  name?: string;
+  id: string;
+  index: number;
+  updates: CardChange[];
+};
+
+export type BoardAddition = GenericAddition<Board<CardWithoutDetails>>;
+
+export type BoardChange = BoardAddition | BoardUpdate | BoardRemoval;
+
+export type FormatChange = GenericChange<DraftFormat>;
+
+export type StringChange = GenericRemoval | GenericAddition<string>;
+
+export type CubeArrayChanges = {
+  draft_formats: FormatChange[];
+  cards: CardChange[];
+  boards: BoardUpdate[];
+  unlimitedCards: CardChange[];
+  users_following: StringChange[];
+};
+
+export type CubeChange = Partial<Omit<BaseCube, 'draft_formats' | 'basics'> & CubeArrayChanges>;

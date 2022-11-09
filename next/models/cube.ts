@@ -55,7 +55,15 @@ const cubeSchema = new Schema<MongoCube>({
   },
   categoryPrefixes: [String],
   cards: [cardSchema],
+  unlimitedCards: [cardSchema],
   maybe: [cardSchema],
+  boards: [
+    {
+      name: String,
+      id: String,
+      cards: [cardSchema],
+    },
+  ],
   tag_colors: [
     {
       tag: String,
