@@ -47,8 +47,9 @@ export const getDefaultBaseCubeWithCards = <C>(): BaseCube & CubeCards<C> => ({
   boards: [
     {
       name: 'maybe',
-      shortID: '0',
+      id: uuid(),
       cards: [],
     },
   ],
+  unlimitedCards: [],
 });
