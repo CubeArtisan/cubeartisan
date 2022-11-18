@@ -32,7 +32,7 @@
     "@node-loader/babel": "^1.1.0",
     "@node-loader/core": "^1.0.5",
     "@opentelemetry/api": "1.0.4",
-    "@opentelemetry/core": "^1.7.0",
+    "@opentelemetry/core": "^1.8.0",
     "@opentelemetry/instrumentation": "^0.33.0",
     "@opentelemetry/instrumentation-dns": "^0.30.0",
     "@opentelemetry/instrumentation-express": "^0.31.2",
