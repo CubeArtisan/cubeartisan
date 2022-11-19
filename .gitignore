@@ -6,6 +6,8 @@ coverage/
 tmp/
 .webpack_cache/
 *.old
+.DS_Store
+.solid/
 
 .python-version
 
