@@ -89,3 +89,7 @@ overrides:
       - '**/*.cjs'
     rules:
       import/no-commonjs: 'off'
+  - files:
+      - 'src/routes/**/*.ts'
+    rules:
+      import/prefer-default-export: off

@@ -1,13 +1,34 @@
 import path from 'path';
 
-import { genSalt, hash } from 'bcryptjs';
+import { compare, genSalt, hash } from 'bcryptjs';
 import Email from 'email-templates';
 import type { HydratedDocument } from 'mongoose';
 import mailer from 'nodemailer';
+import { createCookieSessionStorage } from 'solid-start';
 
 import User from '@cubeartisan/next/models/user';
 import { getDefaultProtectedUser } from '@cubeartisan/next/shared/userUtils';
 import type { MongoUser } from '@cubeartisan/next/types/user';
+
+export const storage = createCookieSessionStorage({
+  cookie: {
+    name: process.env.SESSION ?? 'session',
+    secrets: [process.env.SESSION_SECRET ?? ''],
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    path: '/',
+    maxAge: 60 * 60 * 24 * 7 * 4, // 4 weeks.
+    httpOnly: true,
+  },
+});
+
+export const getUserFromRequest = async (request: Request): Promise<HydratedDocument<MongoUser> | null> => {
+  const cookie = request.headers.get('Cookie') ?? '';
+  const session = await storage.getSession(cookie);
+  const userId = session.get('userId');
+  if (!userId) return null;
+  return User.findById(userId);
+};
 
 export const sendConfirmationEmail = async (user: HydratedDocument<MongoUser>): Promise<void> => {
   const smtpTransport = mailer.createTransport({
@@ -84,4 +105,18 @@ export const findUser = async (usernameOrEmail: string): Promise<HydratedDocumen
     throw new Error(`User ${usernameOrEmail} not found.`);
   }
   return user;
+};
+
+export const verifyUser = async (
+  usernameOrEmail: string,
+  password: string,
+): Promise<HydratedDocument<MongoUser> | null> => {
+  const user = await findUser(usernameOrEmail);
+  if (user) {
+    const isMatch = await compare(password, user.password);
+    if (isMatch) {
+      return user;
+    }
+  }
+  return null;
 };
