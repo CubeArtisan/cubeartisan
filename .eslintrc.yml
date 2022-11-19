@@ -1,0 +1,91 @@
+env:
+  browser: true
+  node: true
+extends:
+  - airbnb/base
+  - prettier
+  - 'plugin:array-func/all'
+  - 'plugin:@typescript-eslint/recommended'
+  - 'plugin:import/typescript'
+  - 'plugin:import/recommended'
+  - 'eslint:recommended'
+parser: '@typescript-eslint/parser'
+plugins:
+  - eslint-plugin-prettier
+  - promise
+  - '@typescript-eslint'
+settings:
+  import/parsers:
+    '@typescript-eslint/parser': ['.ts', '.tsx']
+  import/resolver:
+    typescript:
+      alwaysTryTypes: true
+rules:
+  semi: off
+  import/extensions:
+    - error
+    - never
+  import/no-extraneous-dependencies:
+    - error
+    - devDependencies: true
+  import/order:
+    - error
+    - groups:
+        - builtin
+        - external
+        - parent
+      pathGroups:
+        - pattern: '@cubeartisan/next/**'
+          group: parent
+          position: after
+      newlines-between: always
+      alphabetize:
+        order: asc
+        caseInsensitive: true
+  sort-imports:
+    - error
+    - ignoreCase: true
+      ignoreDeclarationSort: true
+  prettier/prettier:
+    - error
+    - endOfLine: lf
+  object-curly-newline: 0
+  max-len: 0
+  no-console: 0
+  global-require: 0
+  no-param-reassign: 0
+  no-underscore-dangle:
+    - error
+    - allow:
+        - _id
+        - _carddict
+  camelcase:
+    - error
+    - properties: never
+      ignoreDestructuring: true
+      ignoreImports: true
+      allow:
+        - tcgplayer_id
+  no-plusplus:
+    - error
+    - allowForLoopAfterthoughts: true
+  no-restricted-syntax:
+    - error
+    - WithStatement
+    - LabeledStatement
+    - 'BinaryExpression[operator=''in'']'
+  no-restricted-imports:
+    - error
+    - patterns:
+        - ./*
+        - ../*
+  promise/param-names: error
+  promise/no-new-statics: error
+  promise/valid-params: error
+  promise/prefer-await-to-then: error
+  promise/prefer-await-to-callbacks: error
+overrides:
+  - files:
+      - '**/*.cjs'
+    rules:
+      import/no-commonjs: 'off'

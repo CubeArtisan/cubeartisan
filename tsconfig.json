@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "jsxImportSource": "solid-js",
+    "jsx": "preserve",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "allowUmdGlobalAccess": false,
@@ -13,14 +18,11 @@
     "importsNotUsedAsValues": "error",
     "incremental": true,
     "isolatedModules": true,
-    "jsx": "preserve",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "module": "esnext",
-    "moduleResolution": "nodenext",
     "newLine": "lf",
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "noImplicitOverride": false,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -36,17 +38,11 @@
     "strictFunctionTypes": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": false,
-    "target": "es5",
     "useUnknownInCatchVariables": true,
+    "types": ["vite/client", "@testing-library/jest-dom"],
+    "baseUrl": "./",
     "paths": {
-      "@cubeartisan/*": ["./*"]
-    },
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
-  },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.mts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+      "@cubeartisan/next/*": ["./src/*"]
+    }
+  }
 }

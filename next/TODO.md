@@ -1,5 +1,0 @@
-- [ ] /comment/*
-- [ ] /creators/*
-- [ ] /dev/*
-- [ ] /package/*
-- [ ] /packages/*
