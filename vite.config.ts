@@ -1,7 +1,7 @@
 import path from 'path';
 
 import solid from 'solid-start/vite';
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   plugins: [solid()],
@@ -11,15 +11,12 @@ export default defineConfig({
     },
   },
   test: {
-    css: {
-      include: /.+/,
-    },
     deps: {
-      inline: [/solid-testing-library/],
       registerNodeLoader: true,
     },
     globals: true,
     isolate: true,
-    root: '.',
+    setupFiles: ['node_modules/@testing-library/jest-dom/extend-expect'],
+    transformMode: { web: [/\.[jt]sx$/] },
   },
 });

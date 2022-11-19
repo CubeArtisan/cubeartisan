@@ -4,7 +4,7 @@ import '@cubeartisan/next/components/Counter.module.css';
 const Counter = () => {
   const [count, setCount] = createSignal(0);
   return (
-    <button class="increment" onClick={() => setCount(count() + 1)} role="button">
+    <button class="increment" onClick={() => setCount(count() + 1)}>
       Clicks: {count()}
     </button>
   );

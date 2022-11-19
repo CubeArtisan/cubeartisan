@@ -9,6 +9,7 @@ extends:
   - 'plugin:import/typescript'
   - 'plugin:import/recommended'
   - 'eslint:recommended'
+  - 'plugin:vitest-globals/recommended'
 parser: '@typescript-eslint/parser'
 plugins:
   - eslint-plugin-prettier
@@ -84,6 +85,7 @@ rules:
   promise/valid-params: error
   promise/prefer-await-to-then: error
   promise/prefer-await-to-callbacks: error
+  '@typescript-eslint/no-non-null-assertion': off
 overrides:
   - files:
       - '**/*.cjs'
@@ -93,3 +95,8 @@ overrides:
       - 'src/routes/**/*.ts'
     rules:
       import/prefer-default-export: off
+  - files:
+      - '**/*.test.ts'
+      - '**/*.test.tsx'
+    env:
+      vitest-globals/env: true

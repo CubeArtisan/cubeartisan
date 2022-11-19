@@ -13,7 +13,6 @@
     "alwaysStrict": true,
     "disableSizeLimit": true,
     "esModuleInterop": true,
-    "exactOptionalPropertyTypes": true,
     "forceConsistentCasingInFileNames": true,
     "importsNotUsedAsValues": "error",
     "incremental": true,
@@ -44,5 +43,6 @@
     "paths": {
       "@cubeartisan/next/*": ["./src/*"]
     }
-  }
+  },
+  "types": ["vitest"]
 }
