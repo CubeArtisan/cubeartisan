@@ -1,5 +1,6 @@
 {
   "name": "@cubeartisan/solid",
+  "packageManager": "pnpm@7.16.1",
   "scripts": {
     "dev": "solid-start dev",
     "build": "solid-start build",

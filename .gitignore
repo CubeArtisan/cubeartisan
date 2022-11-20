@@ -548,16 +548,5 @@ MigrationBackup/
 push-docker.ps1
 .direnv/
 
-# Yarn 3 ignores
-.pnp.*
-yarn-project.nix
-.yarn/*
-!.yarn/cache
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
-
 # Ignore typescript source map files
 *.d.ts.map
