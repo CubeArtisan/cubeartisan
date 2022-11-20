@@ -10,11 +10,13 @@ extends:
   - 'plugin:import/recommended'
   - 'eslint:recommended'
   - 'plugin:vitest-globals/recommended'
+  - 'plugin:solid/typescript'
 parser: '@typescript-eslint/parser'
 plugins:
   - eslint-plugin-prettier
   - promise
   - '@typescript-eslint'
+  - solid
 settings:
   import/parsers:
     '@typescript-eslint/parser': ['.ts', '.tsx']
