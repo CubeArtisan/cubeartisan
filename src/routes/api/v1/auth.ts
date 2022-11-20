@@ -1,7 +1,7 @@
 import { APIEvent, redirect } from 'solid-start';
 
-import { storage, verifyUser } from '@cubeartisan/next/backend/user';
-import { getQueryParams } from '@cubeartisan/next/backend/utils';
+import { storage, verifyUser } from '@cubeartisan/cubeartisan/backend/user';
+import { getQueryParams } from '@cubeartisan/cubeartisan/backend/utils';
 
 export const DELETE = async ({ request }: APIEvent) => {
   const session = await storage.getSession(request.headers.get('Cookie'));

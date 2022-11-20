@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 
-import type { BaseCube, CubeCards } from '@cubeartisan/next/types/cube';
+import type { BaseCube, CubeCards } from '@cubeartisan/cubeartisan/types/cube';
 
 export const getDefaultBaseCube = (): BaseCube => ({
   name: 'New Cube',

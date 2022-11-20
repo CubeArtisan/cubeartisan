@@ -1,6 +1,6 @@
 import type { Types } from 'mongoose';
 
-import type { Card, CardStatus, CardWithoutDetails } from '@cubeartisan/next/types/card';
+import type { Card, CardStatus, CardWithoutDetails } from '@cubeartisan/cubeartisan/types/card';
 
 export type Step = {
   action: 'pass' | 'pick' | 'trash' | 'pickrandom' | 'trashrandom';

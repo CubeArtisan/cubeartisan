@@ -6,7 +6,7 @@ import { fireEvent, render } from 'solid-testing-library';
 import { describe, it } from 'vitest';
 import '@testing-library/jest-dom';
 
-import Counter from '@cubeartisan/next/components/Counter';
+import Counter from '@cubeartisan/cubeartisan/components/Counter';
 
 describe('<Counter />', () => {
   it('increments value', async () => {

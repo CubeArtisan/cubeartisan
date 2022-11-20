@@ -1,5 +1,5 @@
 {
-  "name": "@cubeartisan/solid",
+  "name": "@cubeartisan/cubeartisan",
   "packageManager": "pnpm@7.16.1",
   "scripts": {
     "dev": "solid-start dev",
@@ -7,18 +7,17 @@
     "start": "solid-start start",
     "test": "vitest run",
     "list-files": "git ls-files 'src/*.js' 'src/*.cjs' 'src/*.mjs' 'src/*.jsx' 'src/*.ts' 'src/*.tsx'",
-    "lint": "sh -c 'yarn run -B eslint_d --quiet `yarn run --silent list-files`'",
-    "lint-fix": "sh -c 'yarn run -B eslint_d --fix `yarn run --silent list-files`'",
-    "lint-loud": "sh -c 'yarn run -B eslint_d `yarn run --silent list-files`'",
+    "lint": "sh -c 'eslint_d `pnpm run --silent list-files`'",
+    "lint-fix": "sh -c 'eslint_d --fix `pnpm run --silent list-files`'",
+    "lint-loud": "sh -c 'eslint_d `pnpm run --silent list-files`'",
     "cards": "echo 'No card database setup yet.",
-    "checktypes": "yarn pnpify tsc",
-    "ci": "yarn lint && yarn checktypes"
+    "checktypes": "tsc",
+    "ci": "pnpm lint && pnpm checktypes"
   },
   "type": "module",
   "dependencies": {
     "bad-words": "^3.0.4",
     "bcryptjs": "^2.4.3",
-    "email-templates": "^10.0.1",
     "mongoose": "^6.7.2",
     "nodemailer": "^6.8.0",
     "uuid": "^9.0.0",
@@ -42,7 +41,6 @@
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.43.0",
-    "@yarnpkg/pnpify": "^4.0.0-rc.30",
     "eslint": "^8.28.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.5.0",
@@ -65,10 +63,5 @@
     "undici": "^5.12.0",
     "vite": "^3.2.4",
     "vitest": "^0.25.2"
-  },
-  "peerDependencies": {
-    "eslint-plugin-jsx-a11y": "^6.5.1",
-    "eslint-plugin-react": "^7.28.0",
-    "eslint-plugin-react-hooks": "^4.3.0"
   }
 }

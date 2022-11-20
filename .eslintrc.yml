@@ -2,7 +2,7 @@ env:
   browser: true
   node: true
 extends:
-  - airbnb/base
+  - airbnb-base
   - prettier
   - 'plugin:array-func/all'
   - 'plugin:@typescript-eslint/recommended'
@@ -36,7 +36,7 @@ rules:
         - external
         - parent
       pathGroups:
-        - pattern: '@cubeartisan/next/**'
+        - pattern: '@cubeartisan/cubeartisan/**'
           group: parent
           position: after
       newlines-between: always

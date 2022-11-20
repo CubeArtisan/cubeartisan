@@ -41,7 +41,7 @@
     "types": ["vite/client", "@testing-library/jest-dom"],
     "baseUrl": "./",
     "paths": {
-      "@cubeartisan/next/*": ["./src/*"]
+      "@cubeartisan/cubeartisan/*": ["./src/*"]
     }
   },
   "types": ["vitest"]

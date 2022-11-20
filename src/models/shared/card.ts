@@ -1,6 +1,6 @@
 import type { SchemaDefinition } from 'mongoose';
 
-import type { CardFinish, CardStatus, CardWithoutDetails, Color } from '@cubeartisan/next/types/card';
+import type { CardFinish, CardStatus, CardWithoutDetails, Color } from '@cubeartisan/cubeartisan/types/card';
 
 const cardSchema: SchemaDefinition<CardWithoutDetails> = {
   addedTmsp: Date,

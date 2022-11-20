@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import logger from '@cubeartisan/next/backend/logger';
+import logger from '@cubeartisan/cubeartisan/backend/logger';
 
 export const getMongoDbConnectionString = () => {
   const credentials = process.env.MONGODB_USER ? `${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@` : '';

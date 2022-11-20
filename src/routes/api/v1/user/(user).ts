@@ -1,6 +1,6 @@
 import { APIEvent, json } from 'solid-start';
 
-import { getUserFromRequest } from '@cubeartisan/next/backend/user';
+import { getUserFromRequest } from '@cubeartisan/cubeartisan/backend/user';
 
 export const GET = async ({ request }: APIEvent) => {
   const user = await getUserFromRequest(request);

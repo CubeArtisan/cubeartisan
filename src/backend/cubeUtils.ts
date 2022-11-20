@@ -1,11 +1,11 @@
 import type { HydratedDocument, Types } from 'mongoose';
 
-import Cube from '@cubeartisan/next/models/cube';
-import { getDefaultBaseCubeWithCards } from '@cubeartisan/next/shared/cubeUtils';
-import { hasProfanity, toBase36 } from '@cubeartisan/next/shared/utils';
-import type { CardWithoutDetails } from '@cubeartisan/next/types/card';
-import type { MongoCube } from '@cubeartisan/next/types/cube';
-import type { MongoUser } from '@cubeartisan/next/types/user';
+import Cube from '@cubeartisan/cubeartisan/models/cube';
+import { getDefaultBaseCubeWithCards } from '@cubeartisan/cubeartisan/shared/cubeUtils';
+import { hasProfanity, toBase36 } from '@cubeartisan/cubeartisan/shared/utils';
+import type { CardWithoutDetails } from '@cubeartisan/cubeartisan/types/card';
+import type { MongoCube } from '@cubeartisan/cubeartisan/types/cube';
+import type { MongoUser } from '@cubeartisan/cubeartisan/types/user';
 
 export const generateShortId = async (): Promise<string> => {
   const cubeCount = await Cube.estimatedDocumentCount().exec();

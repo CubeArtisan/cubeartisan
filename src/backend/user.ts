@@ -1,14 +1,10 @@
-import path from 'path';
-
 import { compare, genSalt, hash } from 'bcryptjs';
-import Email from 'email-templates';
 import type { HydratedDocument } from 'mongoose';
-import mailer from 'nodemailer';
 import { createCookieSessionStorage } from 'solid-start';
 
-import User from '@cubeartisan/next/models/user';
-import { getDefaultProtectedUser } from '@cubeartisan/next/shared/userUtils';
-import type { MongoUser } from '@cubeartisan/next/types/user';
+import User from '@cubeartisan/cubeartisan/models/user';
+import { getDefaultProtectedUser } from '@cubeartisan/cubeartisan/shared/userUtils';
+import type { MongoUser } from '@cubeartisan/cubeartisan/types/user';
 
 export const storage = createCookieSessionStorage({
   cookie: {
@@ -28,40 +24,6 @@ export const getUserFromRequest = async (request: Request): Promise<HydratedDocu
   const userId = session.get('userId');
   if (!userId) return null;
   return User.findById(userId);
-};
-
-export const sendConfirmationEmail = async (user: HydratedDocument<MongoUser>): Promise<void> => {
-  const smtpTransport = mailer.createTransport({
-    name: process.env.SITE_HOSTNAME,
-    secure: true,
-    service: 'Gmail',
-    auth: {
-      user: process.env.EMAIL_CONFIG_USERNAME,
-      pass: process.env.EMAIL_CONFIG_PASSWORD,
-    },
-  });
-  const confirmEmail = new Email({
-    message: {
-      from: process.env.SUPPORT_EMAIL_FROM,
-      to: user.email,
-      subject: 'Confirm Account',
-    },
-    send: true,
-    juiceResources: {
-      webResources: {
-        relativeTo: path.join(__dirname, '..', 'public'),
-        images: true,
-      },
-    },
-    transport: smtpTransport,
-  });
-
-  return confirmEmail.send({
-    template: 'confirm_email',
-    locals: {
-      id: user._id,
-    },
-  });
 };
 
 export const createUser = async (
@@ -92,7 +54,6 @@ export const createUser = async (
     edit_token: '',
   });
   await user.save();
-  await sendConfirmationEmail(user);
   return user;
 };
 

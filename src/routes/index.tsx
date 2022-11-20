@@ -1,5 +1,5 @@
-import Counter from '@cubeartisan/next/components/Counter';
-import '@cubeartisan/next/routes/index.css';
+import Counter from '@cubeartisan/cubeartisan/components/Counter';
+import '@cubeartisan/cubeartisan/routes/index.css';
 
 export default function Home() {
   return (
