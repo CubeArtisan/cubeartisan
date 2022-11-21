@@ -1,11 +1,11 @@
 {
   "recommendations": [
-    "antfu.vite",
-    "antfu.browse-lite",
+    "antfu.unocss",
+    "bbenoist.Nix",
+    "christian-kohler.npm-intellisense",
+    "chrmarti.regex",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "formulahendry.auto-rename-tag",
-    "chrmarti.regex",
-    "christian-kohler.npm-intellisense"
+    "formulahendry.auto-rename-tag"
   ]
 }
