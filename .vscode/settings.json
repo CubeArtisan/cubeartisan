@@ -2,18 +2,12 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "eslint.validate": [
-    "javascript",
-    "typescript"
-  ],
-  "search.exclude": {
-    "**/.yarn": true,
-    "**/.pnp.*": true
-  },
-  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "eslint.validate": ["javascript", "typescript"],
+  "typescript.tsdk": "./node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "eslint.nodePath": ".yarn/sdks",
-  "eslint.packageManager": "yarn",
-  "npm.packageManager": "yarn",
-  "prettier.prettierPath": ".yarn/sdks/prettier/index.js"
+  "eslint.packageManager": "pnpm",
+  "npm.packageManager": "pnpm",
+  "prettier.prettierPath": "./node_modules/prettier/node_modules/.bin/prettier",
+  "prettier.useEditorConfig": false,
+  "github.gitProtocol": "ssh"
 }

@@ -1,10 +1,11 @@
 {
   "recommendations": [
-    "carlosjs23.vscode-yarn-script",
-    "gamunu.vscode-yarn",
-    "naumovs.color-highlight",
+    "antfu.vite",
+    "antfu.browse-lite",
     "dbaeumer.vscode-eslint",
-    "arcanis.vscode-zipfs",
-    "esbenp.prettier-vscode"
+    "esbenp.prettier-vscode",
+    "formulahendry.auto-rename-tag",
+    "chrmarti.regex",
+    "christian-kohler.npm-intellisense"
   ]
 }
