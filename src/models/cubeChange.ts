@@ -92,20 +92,9 @@ const cubeChangeSchema = new Schema<MongoCubeChange>({
       item: draftFormatSchema,
     },
   ],
-  defaultStatus: {
-    type: String,
-    default: 'Owned',
-  },
-  defaultPrinting: {
-    type: String,
-    // Values: first, recent
-    default: 'recent',
-  },
-  disableNotifications: {
-    type: Boolean,
-    default: false,
-  },
-  // This can't have a correct value of default so we'll have to rely on the code setting it correctly.
+  defaultStatus: String,
+  defaultPrinting: String,
+  disableNotifications: Boolean,
   keywords: [String],
   categories: [String],
 });
