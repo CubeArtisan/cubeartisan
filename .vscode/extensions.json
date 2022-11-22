@@ -5,7 +5,6 @@
     "christian-kohler.npm-intellisense",
     "chrmarti.regex",
     "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
-    "formulahendry.auto-rename-tag"
+    "esbenp.prettier-vscode"
   ]
 }

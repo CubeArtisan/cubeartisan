@@ -12,7 +12,17 @@ export default function Root() {
         <Meta charset="utf-8" />
         <Meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta name="description" content="CubeArtisan beta" />
+        <Meta name="apple-mobile-web-app-title" content="CubeArtisan" />
+        <Meta name="application-name" content="CubeArtisan" />
+        <Meta name="msapplication-TileColor" content="#666666" />
+        <Meta name="msapplication-config" content="public/images/icons/browserconfig.xml" />
+        <Meta name="theme-color" content="#666666" />
         <Link rel="manifest" href="/manifest.webmanifest" />
+        <Link rel="apple-touch-icon" sizes="180x180" href="public/images/icons/apple-touch-icon.png" />
+        <Link rel="icon" type="image/png" sizes="32x32" href="public/images/icons/favicon-32x32.png" />
+        <Link rel="icon" type="image/png" sizes="16x16" href="public/images/icons/favicon-16x16.png" />
+        <Link rel="mask-icon" href="public/images/icons/safari-pinned-tab.svg" color="#7155a3" />
+        <Link rel="shortcut icon" href="public/images/icons/favicon.ico" />
       </Head>
       <Body>
         <Nav />
