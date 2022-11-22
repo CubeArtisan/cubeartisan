@@ -10,7 +10,7 @@ export const GET = async ({ request, params }: APIEvent) => {
   if (cube) {
     return json({
       success: true,
-      cube: cube.toObject(),
+      data: cube.toObject(),
     });
   }
   return json(
@@ -31,7 +31,7 @@ export const PUT = async ({ request, params }: APIEvent) => {
     await updateCube(cube, changes);
     return json({
       success: true,
-      cube: cube.toObject(),
+      data: cube.toObject(),
     });
   }
   return json(

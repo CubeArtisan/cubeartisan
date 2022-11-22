@@ -25,14 +25,6 @@ const cardSchema: SchemaDefinition<CardWithoutDetails> = {
   },
   imgBackUrl: String,
   imgUrl: String,
-  index: {
-    type: Number,
-    default: null,
-  },
-  isUnlimited: {
-    type: Boolean,
-    default: false,
-  },
   name: {
     type: String,
     default: null,

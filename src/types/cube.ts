@@ -26,11 +26,6 @@ export type TagColor = {
   color: string;
 };
 
-export type Tag = {
-  id: number;
-  text: string;
-};
-
 export type Board<C> = {
   name: string;
   id: string;
@@ -45,7 +40,7 @@ export type BaseCube = {
   overrideCategory: boolean;
   categoryOverride: string;
   categoryPrefixes: string[];
-  tag_colors: Tag[];
+  tag_colors: TagColor[];
   defaultDraftFormat: number;
   numDecks: number;
   description: string | null;
@@ -53,18 +48,16 @@ export type BaseCube = {
   image_artist: string | null;
   image_name: string | null;
   owner_name: string | null;
-  date_updated: string | null;
+  date_created: string;
+  date_updated: string;
   type: string | null;
-  default_sorts: [string, string, string, string] | null;
+  default_sorts: string[];
   default_show_unsorted: boolean;
-  card_count: number;
   draft_formats: DraftFormat[];
   defaultStatus: CardStatus;
   defaultPrinting: 'first' | 'recent';
   disableNotifications: boolean;
   basics: string[];
-  tags: string[];
-  cardOracles: string[];
   keywords: string[];
   categories: string[];
 };
@@ -124,16 +117,36 @@ export type BoardChange = BoardAddition | BoardUpdate | BoardRemoval;
 
 export type FormatChange = GenericChange<DraftFormat>;
 
-export type StringChange = GenericRemoval | GenericAddition<string>;
+export type TagRemoval = {
+  action: 'remove';
+  tag: string;
+  index: number;
+};
+
+export type TagUpdate = {
+  action: 'update';
+  tag: string;
+  index: number;
+  color: string;
+};
+
+export type TagAddition = GenericAddition<TagColor>;
+
+export type TagChange = TagRemoval | TagUpdate | TagAddition;
 
 export type CubeArrayChanges = {
   draft_formats: FormatChange[];
   cards: CardChange[];
   boards: BoardUpdate[];
   unlimitedCards: CardChange[];
-  users_following: StringChange[];
+  tag_colors: TagChange[];
 };
 
-export type CubeNonArrayChanges = Omit<BaseCube, keyof CubeArrayChanges>;
+export type CubeNonArrayChanges = Omit<
+  BaseCube,
+  keyof CubeArrayChanges | 'basics' | 'maybe' | 'numDecks' | 'users_following' | 'owner_name' | 'date_updated'
+>;
 
 export type CubeChange = Partial<CubeNonArrayChanges & CubeArrayChanges>;
+
+export type MongoCubeChange = { version: number; cubeId: Types.ObjectId; date_updated: string } & CubeChange;

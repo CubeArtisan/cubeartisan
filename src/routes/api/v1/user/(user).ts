@@ -8,12 +8,16 @@ export const GET = async ({ request }: APIEvent) => {
   if (user) {
     return json({
       success: true,
-      user: mongoUserToProtected(user),
+      data: mongoUserToProtected(user),
     });
   }
-  return json({
-    success: false,
-  });
+  return json(
+    {
+      success: false,
+      message: 'User is not logged in.',
+    },
+    { status: 401 },
+  );
 };
 
 export const POST = async ({ request }: APIEvent) => {
