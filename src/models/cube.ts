@@ -19,9 +19,25 @@
 
 import { Model, model, models, Schema } from 'mongoose';
 
-import cardSchema from '@cubeartisan/next/models/shared/card';
-import stepsSchema from '@cubeartisan/next/models/shared/step';
-import type { MongoCube } from '@cubeartisan/next/types/cube';
+import cardSchema from '@cubeartisan/cubeartisan/models/shared/card';
+import stepsSchema from '@cubeartisan/cubeartisan/models/shared/step';
+import type { MongoCube } from '@cubeartisan/cubeartisan/types/cube';
+
+export const draftFormatSchema = {
+  title: String,
+  multiples: Boolean,
+  markdown: String,
+  packs: {
+    type: [{ slots: [String], steps: stepsSchema }],
+  },
+  defaultSeats: Number,
+};
+
+export const boardSchema = {
+  name: String,
+  id: String,
+  cards: [cardSchema],
+};
 
 const cubeSchema = new Schema<MongoCube>({
   name: {
@@ -54,8 +70,10 @@ const cubeSchema = new Schema<MongoCube>({
     type: String,
     default: 'Vintage',
   },
+  boards: [boardSchema],
   categoryPrefixes: [String],
   cards: [cardSchema],
+  unlimitedCards: [cardSchema],
   maybe: [cardSchema],
   tag_colors: [
     {
@@ -76,25 +94,13 @@ const cubeSchema = new Schema<MongoCube>({
   image_artist: String,
   image_name: String,
   owner_name: String,
-  date_updated: Date,
   default_sorts: [String],
   default_show_unsorted: {
     type: Boolean,
     default: true,
   },
-  card_count: Number,
   type: String,
-  draft_formats: [
-    {
-      title: String,
-      multiples: Boolean,
-      markdown: String,
-      packs: {
-        type: [{ slots: [String], steps: stepsSchema }],
-      },
-      defaultSeats: Number,
-    },
-  ],
+  draft_formats: [draftFormatSchema],
   users_following: [Schema.Types.ObjectId],
   defaultStatus: {
     type: String,
@@ -111,10 +117,16 @@ const cubeSchema = new Schema<MongoCube>({
   },
   // This can't have a correct value of default so we'll have to rely on the code setting it correctly.
   basics: [String],
-  tags: [String],
-  cardOracles: [String],
   keywords: [String],
   categories: [String],
+  date_updated: {
+    type: String,
+    required: true,
+  },
+  date_created: {
+    type: String,
+    required: true,
+  },
 });
 
 cubeSchema.index({
@@ -127,6 +139,11 @@ cubeSchema.index({
 });
 
 cubeSchema.index({
+  isListed: 1,
+  date_created: -1,
+});
+
+cubeSchema.index({
   owner: 1,
   date_updated: -1,
 });
@@ -134,59 +151,6 @@ cubeSchema.index({
 cubeSchema.index({
   name: 1,
   date_updated: -1,
-});
-
-cubeSchema.index({
-  isListed: 1,
-  card_count: 1,
-  date_updated: -1,
-});
-
-cubeSchema.index({
-  isListed: 1,
-  owner: 1,
-  numDecks: -1,
-});
-
-cubeSchema.index({
-  schemaVersion: 1,
-});
-
-// these indexes are for searching
-cubeSchema.index({
-  isListed: 1,
-  tags: 1,
-  numDecks: -1,
-  name: 1,
-  date_updated: -1,
-  card_count: -1,
-});
-
-cubeSchema.index({
-  isListed: 1,
-  cardOracles: 1,
-  numDecks: -1,
-  name: 1,
-  date_updated: -1,
-  card_count: -1,
-});
-
-cubeSchema.index({
-  isListed: 1,
-  keywords: 1,
-  numDecks: -1,
-  name: 1,
-  date_updated: -1,
-  card_count: -1,
-});
-
-cubeSchema.index({
-  isListed: 1,
-  categories: 1,
-  numDecks: -1,
-  name: 1,
-  date_updated: -1,
-  card_count: -1,
 });
 
 const Cube: Model<MongoCube> = models.Cube ?? model('Cube', cubeSchema);

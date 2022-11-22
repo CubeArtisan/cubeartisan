@@ -71,7 +71,7 @@ export type CardDetails = {
 };
 
 export type CardWithoutDetails = {
-  addedTmsp: Date;
+  addedTmsp: string;
   cardID: string;
   cmc: number | null;
   colorCategory: string | null;
@@ -79,8 +79,6 @@ export type CardWithoutDetails = {
   finish: CardFinish;
   imgBackUrl: string | null;
   imgUrl: string | null;
-  index: number | undefined;
-  isUnlimited: boolean | undefined;
   name: string | null;
   notes: string;
   rarity: string | null;
@@ -90,3 +88,5 @@ export type CardWithoutDetails = {
 };
 
 export type Card = CardWithoutDetails & { details: CardDetails };
+
+export type IndexedCard = Card & { index: number };

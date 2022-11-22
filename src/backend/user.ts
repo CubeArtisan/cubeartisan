@@ -1,47 +1,56 @@
-import path from 'path';
-
-import { genSalt, hash } from 'bcryptjs';
-import Email from 'email-templates';
+import { compare, genSalt, hash } from 'bcryptjs';
 import type { HydratedDocument } from 'mongoose';
-import mailer from 'nodemailer';
+import { createCookieSessionStorage, redirect } from 'solid-start';
 
-import User from '@cubeartisan/next/models/user';
-import { getDefaultProtectedUser } from '@cubeartisan/next/shared/userUtils';
-import type { MongoUser } from '@cubeartisan/next/types/user';
+import User from '@cubeartisan/cubeartisan/models/user';
+import { getDefaultProtectedUser } from '@cubeartisan/cubeartisan/shared/userUtils';
+import type { MongoUser, ProtectedUser } from '@cubeartisan/cubeartisan/types/user';
 
-export const sendConfirmationEmail = async (user: HydratedDocument<MongoUser>): Promise<void> => {
-  const smtpTransport = mailer.createTransport({
-    name: process.env.SITE_HOSTNAME,
-    secure: true,
-    service: 'Gmail',
-    auth: {
-      user: process.env.EMAIL_CONFIG_USERNAME,
-      pass: process.env.EMAIL_CONFIG_PASSWORD,
-    },
-  });
-  const confirmEmail = new Email({
-    message: {
-      from: process.env.SUPPORT_EMAIL_FROM,
-      to: user.email,
-      subject: 'Confirm Account',
-    },
-    send: true,
-    juiceResources: {
-      webResources: {
-        relativeTo: path.join(__dirname, '..', 'public'),
-        images: true,
-      },
-    },
-    transport: smtpTransport,
-  });
+export const storage = createCookieSessionStorage({
+  cookie: {
+    name: process.env.SESSION ?? 'session',
+    secrets: [process.env.SESSION_SECRET ?? ''],
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    path: '/',
+    maxAge: 60 * 60 * 24 * 7 * 4, // 4 weeks.
+    httpOnly: true,
+  },
+});
 
-  return confirmEmail.send({
-    template: 'confirm_email',
-    locals: {
-      id: user._id,
-    },
-  });
+export const getUserFromRequest = async (request: Request): Promise<HydratedDocument<MongoUser> | null> => {
+  const cookie = request.headers.get('Cookie') ?? '';
+  const session = await storage.getSession(cookie);
+  const userId = session.get('userId');
+  if (!userId) return null;
+  return User.findById(userId);
 };
+
+export const ensureAuth = async (request: Request, redirectTo = '/'): Promise<HydratedDocument<MongoUser>> => {
+  const user = await getUserFromRequest(request);
+  if (!user) throw redirect(redirectTo);
+  return user;
+};
+
+export const mongoUserToProtected = (user: HydratedDocument<MongoUser>): ProtectedUser => ({
+  _id: user._id.toString(),
+  username: user.username,
+  about: user.about,
+  image: user.image,
+  image_name: user.image_name,
+  artist: user.artist,
+  theme: user.theme,
+  email: user.email,
+  confirmed: user.confirmed,
+  hide_tag_colors: user.hide_tag_colors,
+  followed_cubes: user.followed_cubes.map((id) => id.toString()),
+  users_following: user.users_following.map((id) => id.toString()),
+  notifications: user.notifications.map((notification) => ({
+    ...notification,
+    user_from: notification.user_from.toString(),
+  })),
+  roles: user.roles,
+});
 
 export const createUser = async (
   username: string,
@@ -71,7 +80,6 @@ export const createUser = async (
     edit_token: '',
   });
   await user.save();
-  await sendConfirmationEmail(user);
   return user;
 };
 
@@ -84,4 +92,18 @@ export const findUser = async (usernameOrEmail: string): Promise<HydratedDocumen
     throw new Error(`User ${usernameOrEmail} not found.`);
   }
   return user;
+};
+
+export const verifyUser = async (
+  usernameOrEmail: string,
+  password: string,
+): Promise<HydratedDocument<MongoUser> | null> => {
+  const user = await findUser(usernameOrEmail);
+  if (user) {
+    const isMatch = await compare(password, user.password);
+    if (isMatch) {
+      return user;
+    }
+  }
+  return null;
 };

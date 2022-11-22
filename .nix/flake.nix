@@ -7,49 +7,35 @@
   outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
     let
-      buildNodeJs = "${nixpkgs}/pkgs/development/web/nodejs/nodejs.nix";
       pkgs = import nixpkgs {
         inherit system;
+        };
+      nodejs = pkgs.stdenv.mkDerivation {
+        name = "corepack-shims";
+        buildInputs = [ pkgs.nodejs-18_x ];
+        phases = [ "installPhase" ];
+        installPhase = ''
+          mkdir -p $out/bin
+          corepack enable --install-directory=$out/bin
+        '';
       };
       drv = pkgs.mkShell {
         name = "cubeartisan";
         buildInputs = [
-          pkgs.cairo
-          pkgs.crc32c
           pkgs.docker-compose
-          pkgs.gcc
-          pkgs.giflib
-          pkgs.libjpeg
-          pkgs.libpng
-          pkgs.libuuid.out
-          pkgs.nodejs
-          pkgs.pango
-          pkgs.pkg-config
-          pkgs.yarn
+          pkgs.crc32c
+          nodejs
+          pkgs.nodejs-18_x
+          pkgs.google-cloud-sdk
         ];
-        shellHook = ''
-          export LD_LIBRARY_PATH=${pkgs.libuuid.out}/lib:$LD_LIBRARY_PATH
-        '';
       };
       image-drv = pkgs.mkShell {
         name = "cubeartisan";
         buildInputs = [
-          pkgs.nodejs-18_x
-          pkgs.pkg-config
-          pkgs.cairo
-          pkgs.pango
-          pkgs.libpng
-          pkgs.libjpeg
-          pkgs.giflib
-          pkgs.gcc
-          pkgs.libuuid.out
-          pkgs.yarn
+          pkgs.crc32c
+          nodejs
+          pkgs.google-cloud-sdk
         ];
-        shellHook = ''
-          export LD_LIBRARY_PATH=${pkgs.libuuid.out}/lib:$LD_LIBRARY_PATH
-          yarn install
-          yarn build
-        '';
       };
     in
     {
@@ -61,7 +47,7 @@
           contents = [image-drv];
           config = {
             Cmd = [
-              "yarn server"
+              "pnpm start"
             ];
             ExposedPorts = {
               "5000/tcp" = { };

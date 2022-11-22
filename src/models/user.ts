@@ -18,7 +18,7 @@
  */
 import { Model, model, models, Schema } from 'mongoose';
 
-import type { MongoUser } from '@cubeartisan/next/types/user';
+import type { MongoUser } from '@cubeartisan/cubeartisan/types/user';
 
 const notificationSchema = {
   user_from: {

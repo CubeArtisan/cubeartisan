@@ -7,19 +7,16 @@ export default defineConfig({
   plugins: [solid()],
   resolve: {
     alias: {
-      '@cubeartisan/next': path.resolve(__dirname, './src/'),
+      '@cubeartisan/cubeartisan': path.resolve(__dirname, './src/'),
     },
   },
   test: {
-    css: {
-      include: /.+/,
-    },
     deps: {
-      inline: [/solid-testing-library/],
       registerNodeLoader: true,
     },
     globals: true,
     isolate: true,
-    root: '.',
+    setupFiles: ['node_modules/@testing-library/jest-dom/extend-expect'],
+    transformMode: { web: [/\.[jt]sx$/] },
   },
 });

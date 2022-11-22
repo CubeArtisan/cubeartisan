@@ -2,18 +2,21 @@ env:
   browser: true
   node: true
 extends:
-  - airbnb/base
+  - airbnb-base
   - prettier
   - 'plugin:array-func/all'
   - 'plugin:@typescript-eslint/recommended'
   - 'plugin:import/typescript'
   - 'plugin:import/recommended'
   - 'eslint:recommended'
+  - 'plugin:vitest-globals/recommended'
+  - 'plugin:solid/typescript'
 parser: '@typescript-eslint/parser'
 plugins:
   - eslint-plugin-prettier
   - promise
   - '@typescript-eslint'
+  - solid
 settings:
   import/parsers:
     '@typescript-eslint/parser': ['.ts', '.tsx']
@@ -35,7 +38,7 @@ rules:
         - external
         - parent
       pathGroups:
-        - pattern: '@cubeartisan/next/**'
+        - pattern: '@cubeartisan/cubeartisan/**'
           group: parent
           position: after
       newlines-between: always
@@ -84,8 +87,18 @@ rules:
   promise/valid-params: error
   promise/prefer-await-to-then: error
   promise/prefer-await-to-callbacks: error
+  '@typescript-eslint/no-non-null-assertion': off
 overrides:
   - files:
       - '**/*.cjs'
     rules:
       import/no-commonjs: 'off'
+  - files:
+      - 'src/routes/**/*.ts'
+    rules:
+      import/prefer-default-export: off
+  - files:
+      - '**/*.test.ts'
+      - '**/*.test.tsx'
+    env:
+      vitest-globals/env: true

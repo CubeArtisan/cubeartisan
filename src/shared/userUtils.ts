@@ -1,4 +1,4 @@
-import type { ProtectedUser, PublicUser } from '@cubeartisan/next/types/user';
+import type { ProtectedUser, PublicUser } from '@cubeartisan/cubeartisan/types/user';
 
 export const getDefaultPublicUser = (): PublicUser => ({
   username: '',

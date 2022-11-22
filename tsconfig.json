@@ -13,7 +13,6 @@
     "alwaysStrict": true,
     "disableSizeLimit": true,
     "esModuleInterop": true,
-    "exactOptionalPropertyTypes": true,
     "forceConsistentCasingInFileNames": true,
     "importsNotUsedAsValues": "error",
     "incremental": true,
@@ -42,7 +41,8 @@
     "types": ["vite/client", "@testing-library/jest-dom"],
     "baseUrl": "./",
     "paths": {
-      "@cubeartisan/next/*": ["./src/*"]
+      "@cubeartisan/cubeartisan/*": ["./src/*"]
     }
-  }
+  },
+  "types": ["vitest"]
 }

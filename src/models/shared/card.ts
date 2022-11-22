@@ -1,6 +1,6 @@
 import type { SchemaDefinition } from 'mongoose';
 
-import type { CardFinish, CardStatus, CardWithoutDetails, Color } from '@cubeartisan/next/types/card';
+import type { CardFinish, CardStatus, CardWithoutDetails, Color } from '@cubeartisan/cubeartisan/types/card';
 
 const cardSchema: SchemaDefinition<CardWithoutDetails> = {
   addedTmsp: Date,
@@ -25,14 +25,6 @@ const cardSchema: SchemaDefinition<CardWithoutDetails> = {
   },
   imgBackUrl: String,
   imgUrl: String,
-  index: {
-    type: Number,
-    default: null,
-  },
-  isUnlimited: {
-    type: Boolean,
-    default: false,
-  },
   name: {
     type: String,
     default: null,
