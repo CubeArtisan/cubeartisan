@@ -1,18 +1,21 @@
 // @refresh reload
-import { Routes } from '@solidjs/router';
 import { Suspense } from 'solid-js';
-import { FileRoutes, Head, Meta, Scripts, Title } from 'solid-start';
-import { ErrorBoundary } from 'solid-start/error-boundary';
+import { Body, ErrorBoundary, FileRoutes, Head, Html, Link, Meta, Routes, Scripts, Title } from 'solid-start';
+
+import Nav from '@cubeartisan/cubeartisan/components/Nav';
 
 export default function Root() {
   return (
-    <html lang="en">
+    <Html lang="en">
       <Head>
         <Title>CubeArtisan</Title>
         <Meta charset="utf-8" />
         <Meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Meta name="description" content="CubeArtisan beta" />
+        <Link rel="manifest" href="/manifest.webmanifest" />
       </Head>
-      <body>
+      <Body>
+        <Nav />
         <ErrorBoundary>
           <Suspense>
             <Routes>
@@ -21,7 +24,7 @@ export default function Root() {
           </Suspense>
         </ErrorBoundary>
         <Scripts />
-      </body>
-    </html>
+      </Body>
+    </Html>
   );
 }
