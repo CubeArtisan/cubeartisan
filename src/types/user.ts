@@ -41,4 +41,4 @@ export type PrivateUser<ID> = {
 
 export type MongoUser = PublicUser & GenericProtectedUser<Types.ObjectId> & PrivateUser<Types.ObjectId>;
 
-export type ProtectedUser = GenericProtectedUser<string> & { _id: string };
+export type ProtectedUser = PublicUser & GenericProtectedUser<string> & { _id: string };

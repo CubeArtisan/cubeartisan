@@ -4,7 +4,7 @@ import { createCookieSessionStorage } from 'solid-start';
 
 import User from '@cubeartisan/cubeartisan/models/user';
 import { getDefaultProtectedUser } from '@cubeartisan/cubeartisan/shared/userUtils';
-import type { MongoUser } from '@cubeartisan/cubeartisan/types/user';
+import type { MongoUser, ProtectedUser } from '@cubeartisan/cubeartisan/types/user';
 
 export const storage = createCookieSessionStorage({
   cookie: {
@@ -25,6 +25,26 @@ export const getUserFromRequest = async (request: Request): Promise<HydratedDocu
   if (!userId) return null;
   return User.findById(userId);
 };
+
+export const mongoUserToProtected = (user: HydratedDocument<MongoUser>): ProtectedUser => ({
+  _id: user._id.toString(),
+  username: user.username,
+  about: user.about,
+  image: user.image,
+  image_name: user.image_name,
+  artist: user.artist,
+  theme: user.theme,
+  email: user.email,
+  confirmed: user.confirmed,
+  hide_tag_colors: user.hide_tag_colors,
+  followed_cubes: user.followed_cubes.map((id) => id.toString()),
+  users_following: user.users_following.map((id) => id.toString()),
+  notifications: user.notifications.map((notification) => ({
+    ...notification,
+    user_from: notification.user_from.toString(),
+  })),
+  roles: user.roles,
+});
 
 export const createUser = async (
   username: string,
