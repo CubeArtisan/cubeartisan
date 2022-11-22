@@ -1,6 +1,6 @@
 import { compare, genSalt, hash } from 'bcryptjs';
 import type { HydratedDocument } from 'mongoose';
-import { createCookieSessionStorage } from 'solid-start';
+import { createCookieSessionStorage, redirect } from 'solid-start';
 
 import User from '@cubeartisan/cubeartisan/models/user';
 import { getDefaultProtectedUser } from '@cubeartisan/cubeartisan/shared/userUtils';
@@ -24,6 +24,12 @@ export const getUserFromRequest = async (request: Request): Promise<HydratedDocu
   const userId = session.get('userId');
   if (!userId) return null;
   return User.findById(userId);
+};
+
+export const ensureAuth = async (request: Request, redirectTo = '/'): Promise<HydratedDocument<MongoUser>> => {
+  const user = await getUserFromRequest(request);
+  if (!user) throw redirect(redirectTo);
+  return user;
 };
 
 export const mongoUserToProtected = (user: HydratedDocument<MongoUser>): ProtectedUser => ({

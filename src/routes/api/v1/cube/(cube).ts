@@ -1,11 +1,10 @@
 import { APIEvent, redirect } from 'solid-start';
 
 import { createCube } from '@cubeartisan/cubeartisan/backend/cubeUtils';
-import { getUserFromRequest } from '@cubeartisan/cubeartisan/backend/user';
+import { ensureAuth } from '@cubeartisan/cubeartisan/backend/user';
 
 export const POST = async ({ request }: APIEvent) => {
-  const user = await getUserFromRequest(request);
-  if (!user) return redirect('/');
+  const user = await ensureAuth(request);
   const formData = await request.formData();
   const name = formData.get('name');
   if (typeof name !== 'string') return redirect('/');
