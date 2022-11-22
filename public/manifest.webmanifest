@@ -1,0 +1,6 @@
+{
+  "name": "CubeArtisan Beta",
+  "short_name": "CubeArtisan",
+  "start_url": "/",
+  "display": "standalone"
+}
