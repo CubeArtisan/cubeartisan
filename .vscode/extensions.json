@@ -1,6 +1,5 @@
 {
   "recommendations": [
-    "antfu.unocss",
     "bbenoist.Nix",
     "christian-kohler.npm-intellisense",
     "chrmarti.regex",
