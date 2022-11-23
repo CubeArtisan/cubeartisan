@@ -16,6 +16,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@radix-ui/colors": "github:radix-ui/colors",
     "@vanilla-extract/css": "^1.9.2",
     "bad-words": "^3.0.4",
     "bcryptjs": "^2.4.3",
