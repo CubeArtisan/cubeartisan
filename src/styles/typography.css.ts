@@ -1,4 +1,4 @@
-import screens from '@cubeartisan/cubeartisan/theme/screens.css';
+import screens from '@cubeartisan/cubeartisan/styles/screens.css';
 
 // font size settings in rem
 const typographyConfig = {
