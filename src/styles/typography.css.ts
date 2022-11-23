@@ -1,4 +1,4 @@
-import screens from '@cubeartisan/cubeartisan/styles/screens.css';
+import { screensRem } from '@cubeartisan/cubeartisan/styles/screens.css';
 
 // font size settings in rem
 const typographyConfig = {
@@ -29,8 +29,8 @@ const fontSizeScale = (multi: number) => {
    */
   const minFont = typographyConfig.baseMin * typographyConfig.minMultiScale ** multi;
   const maxFont = typographyConfig.baseMax * typographyConfig.maxMultiScale ** multi;
-  const minScreen = screens.min;
-  const maxScreen = screens['2xl'];
+  const minScreen = screensRem.min;
+  const maxScreen = screensRem['2xl'];
 
   const v = (100 * (maxFont - minFont)) / (maxScreen - minScreen);
   const r = (maxScreen * minFont - minScreen * maxFont) / (maxScreen - minScreen);

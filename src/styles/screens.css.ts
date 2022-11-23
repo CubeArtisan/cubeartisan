@@ -6,7 +6,7 @@
  * xl: desktop
  * 2xl: ultrawide
  */
-const breakpointsRem = {
+export const screensRem = {
   min: 20,
   sm: 36,
   md: 48,
@@ -15,4 +15,15 @@ const breakpointsRem = {
   '2xl': 96,
 };
 
-export default breakpointsRem;
+const remToPx = (rem: number) => `${rem * 16}px`;
+
+const screens = {
+  min: remToPx(screensRem.min),
+  sm: remToPx(screensRem.sm),
+  md: remToPx(screensRem.md),
+  lg: remToPx(screensRem.lg),
+  xl: remToPx(screensRem.xl),
+  '2xl': remToPx(screensRem['2xl']),
+};
+
+export default screens;
