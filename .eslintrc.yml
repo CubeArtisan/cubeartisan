@@ -50,7 +50,7 @@ rules:
     - ignoreCase: true
       ignoreDeclarationSort: true
   prettier/prettier:
-    - error
+    - warn
     - endOfLine: lf
   object-curly-newline: 0
   max-len: 0
