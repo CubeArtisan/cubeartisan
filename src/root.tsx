@@ -3,6 +3,8 @@ import { Suspense } from 'solid-js';
 import { Body, ErrorBoundary, FileRoutes, Head, Html, Link, Meta, Routes, Scripts, Title } from 'solid-start';
 
 import Nav from '@cubeartisan/cubeartisan/components/Nav';
+import '@cubeartisan/cubeartisan/theme/preflight.css'; // css reset from tailwind
+import '@cubeartisan/cubeartisan/theme/globals.css';
 
 export default function Root() {
   return (
