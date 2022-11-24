@@ -147,7 +147,6 @@ const vars = createGlobalTheme(':root', {
   space,
   sizes,
   radii,
-
   shadow,
 });
 
