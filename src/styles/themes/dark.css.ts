@@ -3,7 +3,7 @@ import { createTheme } from '@vanilla-extract/css';
 
 import baseThemeContract from '@cubeartisan/cubeartisan/styles/themes/base.css';
 
-const darkTheme = createTheme(baseThemeContract, {
+export const darkTheme = createTheme(baseThemeContract, {
   color: {
     primary: {
       1: purpleDark.purple1,
@@ -105,5 +105,3 @@ const darkTheme = createTheme(baseThemeContract, {
     },
   },
 });
-
-export default darkTheme;

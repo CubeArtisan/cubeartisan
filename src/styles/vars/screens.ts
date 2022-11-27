@@ -17,7 +17,7 @@ export const screensRem = {
 
 const remToPx = (rem: number) => `${rem * 16}px`;
 
-const screens = {
+export const screens = {
   min: remToPx(screensRem.min),
   sm: remToPx(screensRem.sm),
   md: remToPx(screensRem.md),

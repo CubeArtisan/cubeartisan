@@ -1,7 +1,7 @@
-import { screensRem } from '@cubeartisan/cubeartisan/styles/screens.css';
+import { screensRem } from '@cubeartisan/cubeartisan/styles/vars/screens';
 
 // font size settings in rem
-const typographyConfig = {
+const fontVars = {
   baseMin: 1.125,
   baseMax: 1.25,
   minMultiScale: 1.125,
@@ -22,13 +22,13 @@ const typographyConfig = {
  *
  * source: https://www.smashingmagazine.com/2022/01/modern-fluid-typography-css-clamp/
  */
-const fontSizeScale = (multi: number) => {
+export const fluidFontScale = (multi: number) => {
   /**
    * note that with this implementation, negative multipliers result in static clamp values
    * as min will be larger than max. This is intended and ok
    */
-  const minFont = typographyConfig.baseMin * typographyConfig.minMultiScale ** multi;
-  const maxFont = typographyConfig.baseMax * typographyConfig.maxMultiScale ** multi;
+  const minFont = fontVars.baseMin * fontVars.minMultiScale ** multi;
+  const maxFont = fontVars.baseMax * fontVars.maxMultiScale ** multi;
   const minScreen = screensRem.min;
   const maxScreen = screensRem['2xl'];
 
@@ -37,5 +37,3 @@ const fontSizeScale = (multi: number) => {
 
   return `clamp(${minFont}rem, ${v}vw + ${r}rem , ${maxFont}rem)`;
 };
-
-export default fontSizeScale;
