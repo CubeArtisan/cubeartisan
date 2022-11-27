@@ -100,7 +100,8 @@ overrides:
   - files:
     - 'src/styles/**/*.ts'
     rules:
-      import/prefer-default-export: off    
+      import/prefer-default-export: off 
+      no-restricted-imports: off
   - files:
       - '**/*.test.ts'
       - '**/*.test.tsx'
