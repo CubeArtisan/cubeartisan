@@ -1,9 +1,8 @@
 import { amberDark, blueDark, cyanDark, greenDark, mauveDark, purpleDark, tomatoDark } from '@radix-ui/colors/src';
-import { createTheme } from '@vanilla-extract/css';
 
-import baseThemeContract from '@cubeartisan/cubeartisan/styles/themes/base.css';
+import { createGlobalCubeArtisanTheme } from '@cubeartisan/cubeartisan/styles/utils';
 
-export const darkTheme = createTheme(baseThemeContract, {
+export const darkTheme = createGlobalCubeArtisanTheme('dark', {
   color: {
     primary: {
       1: purpleDark.purple1,

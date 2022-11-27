@@ -101,6 +101,6 @@ const baseThemeContract = createThemeContract({
       12: null,
     },
   },
-});
+} as const);
 
 export default baseThemeContract;

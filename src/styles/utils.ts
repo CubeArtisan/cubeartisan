@@ -1,7 +1,9 @@
-import { asArray, Many } from '@solid-primitives/utils';
-import type { StyleRule } from '@vanilla-extract/css';
+import { createGlobalTheme, createTheme } from '@vanilla-extract/css';
+import type { MapLeafNodes } from '@vanilla-extract/private';
 
 import { screensRem } from '@cubeartisan/cubeartisan/styles/vars/screens';
+
+import baseTheme from './themes/base.css';
 
 // font size settings in rem
 const fontVars = {
@@ -42,29 +44,12 @@ export const fluidFontScale = (multi: number) => {
 };
 
 /**
- * light and dark media queries
- * copied from https://github.com/thetarnav/solid-devtools/blob/main/packages/frontend/src/ui/theme/utils.ts
+ * adapted from https://github.com/riccardoperra/codeimage/blob/main/packages/ui/src/lib/tokens/createCodeImageTheme.ts
  */
-export const media = (
-  rules: Many<({ rule: Many<string> } & StyleRule) | Record<string, StyleRule>>,
-): {
-  '@media': Record<string, StyleRule>;
-} => {
-  // eslint-disable-next-line no-shadow
-  const media: Record<string, StyleRule> = {};
-  for (const obj of asArray(rules)) {
-    // eslint-disable-next-line no-restricted-syntax
-    if ('rule' in obj) {
-      const { rule, ...styles } = obj;
-      const calcRule = ['screen', ...asArray(rule)].join(' and ');
-      media[calcRule] = styles;
-    } else {
-      for (const [rule, styles] of Object.entries(obj)) {
-        media[`screen and ${rule}`] = styles;
-      }
-    }
-  }
-  return { '@media': media };
-};
-export const dark = '(prefers-color-scheme: dark)';
-export const light = '(prefers-color-scheme: light)';
+export function createGlobalCubeArtisanTheme(theme: string, tokens: MapLeafNodes<typeof baseTheme, string>) {
+  createGlobalTheme(`[data-cubeartisan-theme=${theme}]`, baseTheme, tokens);
+}
+
+export function createCubeArtisanTheme(_theme: string, tokens: MapLeafNodes<typeof baseTheme, string>): string {
+  return createTheme(baseTheme, tokens);
+}
