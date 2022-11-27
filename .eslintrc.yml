@@ -98,6 +98,10 @@ overrides:
     rules:
       import/prefer-default-export: off
   - files:
+    - 'src/styles/**/*.ts'
+    rules:
+      import/prefer-default-export: off    
+  - files:
       - '**/*.test.ts'
       - '**/*.test.tsx'
     env:
