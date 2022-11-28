@@ -1,6 +1,6 @@
 import { createThemeContract } from '@vanilla-extract/css';
 
-const baseThemeContract = createThemeContract({
+const theme = createThemeContract({
   color: {
     primary: {
       1: null,
@@ -103,4 +103,4 @@ const baseThemeContract = createThemeContract({
   },
 } as const);
 
-export default baseThemeContract;
+export default theme;

@@ -1,8 +1,9 @@
 import { amber, blue, cyan, green, mauve, purple, tomato } from '@radix-ui/colors/src';
+import { createTheme } from '@vanilla-extract/css';
 
-import { createGlobalCubeArtisanTheme } from '@cubeartisan/cubeartisan/styles/utils';
+import theme from './base.css';
 
-export const lightTheme = createGlobalCubeArtisanTheme('light', {
+export const lightTheme = createTheme(theme, {
   color: {
     primary: {
       1: purple.purple1,
@@ -103,4 +104,4 @@ export const lightTheme = createGlobalCubeArtisanTheme('light', {
       12: tomato.tomato12,
     },
   },
-});
+} as const);
