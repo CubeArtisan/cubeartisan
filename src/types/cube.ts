@@ -1,6 +1,7 @@
 import type { Types } from 'mongoose';
 
 import type { Card, CardStatus, CardWithoutDetails } from '@cubeartisan/cubeartisan/types/card';
+import type { Patch } from '@cubeartisan/cubeartisan/types/patch';
 
 export type Step = {
   action: 'pass' | 'pick' | 'trash' | 'pickrandom' | 'trashrandom';
@@ -62,91 +63,35 @@ export type BaseCube = {
   categories: string[];
 };
 
-export type CubeCards<C> = {
+type CardTypes = Card | CardWithoutDetails | Patch<Card>;
+
+export type CubeCards<C extends CardTypes> = {
   cards: C[];
   maybe: C[];
   boards: Board<C>[];
   unlimitedCards: C[];
 };
 
-export type CubeIds<ID> = {
+type IdTypes = Types.ObjectId | string;
+
+export type CubeIds<ID extends IdTypes> = {
   owner: ID;
   users_following: ID[];
 };
 
-export type GenericCube<C, ID> = BaseCube & CubeCards<C> & CubeIds<ID>;
+export type GenericCube<C extends CardTypes, ID extends IdTypes> = BaseCube & CubeCards<C> & CubeIds<ID>;
 
 export type MongoCube = GenericCube<CardWithoutDetails, Types.ObjectId>;
 
 export type Cube = GenericCube<Card, string> & { _id: string };
 
-export type GenericRemoval = {
-  action: 'remove';
-  id: string;
-  index: number;
-};
+type UnpatchableCubeProperties = 'basics' | 'maybe' | 'numDecks' | 'users_following' | 'owner_name' | 'date_updated';
 
-export type GenericUpdate<T> = {
-  action: 'update';
-  index: number;
-  item: T;
-};
+export type CubePatch = Patch<Omit<GenericCube<CardWithoutDetails, string>, UnpatchableCubeProperties>>;
 
-export type GenericAddition<T> = {
-  action: 'add';
-  item: T;
-};
-
-export type GenericChange<T> = GenericRemoval | GenericAddition<T> | GenericUpdate<T>;
-
-export type CardChange = GenericChange<CardWithoutDetails>;
-
-export type BoardRemoval = GenericRemoval;
-
-export type BoardUpdate = {
-  action: 'update';
-  name?: string;
-  id: string;
-  index: number;
-  updates: CardChange[];
-};
-
-export type BoardAddition = GenericAddition<Board<CardWithoutDetails>>;
-
-export type BoardChange = BoardAddition | BoardUpdate | BoardRemoval;
-
-export type FormatChange = GenericChange<DraftFormat>;
-
-export type TagRemoval = {
-  action: 'remove';
-  tag: string;
-  index: number;
-};
-
-export type TagUpdate = {
-  action: 'update';
-  tag: string;
-  index: number;
-  color: string;
-};
-
-export type TagAddition = GenericAddition<TagColor>;
-
-export type TagChange = TagRemoval | TagUpdate | TagAddition;
-
-export type CubeArrayChanges = {
-  draft_formats: FormatChange[];
-  cards: CardChange[];
-  boards: BoardUpdate[];
-  unlimitedCards: CardChange[];
-  tag_colors: TagChange[];
-};
-
-export type CubeNonArrayChanges = Omit<
-  BaseCube,
-  keyof CubeArrayChanges | 'basics' | 'maybe' | 'numDecks' | 'users_following' | 'owner_name' | 'date_updated'
->;
-
-export type CubeChange = Partial<CubeNonArrayChanges & CubeArrayChanges>;
-
-export type MongoCubeChange = { version: number; cubeId: Types.ObjectId; date_updated: string } & CubeChange;
+export type MongoCubeChange = {
+  version: number;
+  cubeId: Types.ObjectId;
+  date_updated: string;
+  parent: Types.ObjectId;
+} & CubePatch;
