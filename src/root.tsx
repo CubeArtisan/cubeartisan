@@ -4,7 +4,8 @@ import { Body, ErrorBoundary, FileRoutes, Head, Html, Link, Meta, Routes, Script
 
 import Nav from '@cubeartisan/cubeartisan/components/Nav';
 import '@cubeartisan/cubeartisan/styles/preflight.css'; // css reset from tailwind
-import '@cubeartisan/cubeartisan/styles/globals.css';
+import '@cubeartisan/cubeartisan/styles/globalStyles.css';
+import { baseTheme } from '@cubeartisan/cubeartisan/styles';
 
 export default function Root() {
   return (
@@ -26,7 +27,7 @@ export default function Root() {
         <Link rel="mask-icon" href="/images/icons/safari-pinned-tab.svg" color="#7155a3" />
         <Link rel="shortcut icon" href="/images/icons/favicon.ico" />
       </Head>
-      <Body>
+      <Body class={baseTheme}>
         <Nav />
         <ErrorBoundary>
           <Suspense>

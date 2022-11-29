@@ -22,7 +22,7 @@ const fontVars = {
  *
  * source: https://www.smashingmagazine.com/2022/01/modern-fluid-typography-css-clamp/
  */
-export const fluidFontScale = (multi: number) => {
+const fluidFontScale = (multi: number) => {
   /**
    * note that with this implementation, negative multipliers result in static clamp values
    * as min will be larger than max. This is intended and ok

@@ -1,11 +1,13 @@
 import { A } from 'solid-start';
 
+import * as styles from '@cubeartisan/cubeartisan/components/Nav.css';
+
 const SiteNavbar = () => {
   const userid = '';
 
   return (
     <nav>
-      <ul>
+      <ul class={styles.nav}>
         <li>
           <A href="/">Home</A>
         </li>

@@ -1,23 +1,23 @@
 import { amber, blue, cyan, green, mauve, purple, tomato } from '@radix-ui/colors/src';
 import { createTheme } from '@vanilla-extract/css';
 
-import theme from './base.css';
+import { colors } from './base.css';
 
-export const lightTheme = createTheme(theme, {
+export const lightTheme = {
   color: {
     primary: {
-      1: purple.purple1,
-      2: purple.purple2,
-      3: purple.purple3,
-      4: purple.purple4,
-      5: purple.purple5,
-      6: purple.purple6,
-      7: purple.purple7,
-      8: purple.purple8,
-      9: purple.purple9,
-      10: purple.purple10,
-      11: purple.purple11,
-      12: purple.purple12,
+      [colors.primary[1]]: purple.purple1,
+      [colors.primary[2]]: purple.purple2,
+      [colors.primary[3]]: purple.purple3,
+      [colors.primary[4]]: purple.purple4,
+      [colors.primary[5]]: purple.purple5,
+      [colors.primary[6]]: purple.purple6,
+      [colors.primary[7]]: purple.purple7,
+      [colors.primary[8]]: purple.purple8,
+      [colors.primary[9]]: purple.purple9,
+      [colors.primary[10]]: purple.purple10,
+      [colors.primary[11]]: purple.purple11,
+      [colors.primary[12]]: purple.purple12,
     },
     secondary: {
       1: cyan.cyan1,
@@ -104,4 +104,4 @@ export const lightTheme = createTheme(theme, {
       12: tomato.tomato12,
     },
   },
-} as const);
+};
