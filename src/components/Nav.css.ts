@@ -4,7 +4,7 @@ import { colors, vars } from '@cubeartisan/cubeartisan/styles';
 
 export const nav = style({
   height: vars.space[12],
-  background: colors.neutral[1],
+  background: colors.secondary[6],
   color: colors.neutral[12],
   width: '100%',
 });
