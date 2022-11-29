@@ -2,9 +2,9 @@
 import { Suspense } from 'solid-js';
 import { Body, ErrorBoundary, FileRoutes, Head, Html, Link, Meta, Routes, Scripts, Title } from 'solid-start';
 
-import Nav from '@cubeartisan/cubeartisan/components/Nav';
-import '@cubeartisan/cubeartisan/styles/preflight.css'; // css reset from tailwind
+import '@cubeartisan/cubeartisan/styles/globalReset.css';
 import '@cubeartisan/cubeartisan/styles/globalStyles.css';
+import Nav from '@cubeartisan/cubeartisan/components/Nav';
 import { baseTheme } from '@cubeartisan/cubeartisan/styles';
 
 export default function Root() {
