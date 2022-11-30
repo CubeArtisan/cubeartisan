@@ -50,7 +50,7 @@ export const cubeCardContainer = style({
   transitionDuration: '150ms',
   ':hover': {
     scale: 1.02,
-    filter: `drop-shadow(0 ${vars.space[2]} ${vars.space[3]} ${colors.overlayDynamic[8]})`,
+    filter: `drop-shadow(0 ${vars.space[2]} ${vars.space[3]} ${colors.shadow[8]})`,
   },
 });
 

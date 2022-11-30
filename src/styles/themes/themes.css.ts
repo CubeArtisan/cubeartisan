@@ -1,41 +1,41 @@
-import { ColorPalette, createColorArray, createTheme } from '@cubeartisan/cubeartisan/styles/utils';
+import { ColorPalette, createTheme, radixToColorObject } from '@cubeartisan/cubeartisan/styles/utils';
 
 const darkThemePalette: ColorPalette = {
-  primary: createColorArray('purpleDark'),
-  primaryA: createColorArray('purpleDarkA'),
-  secondary: createColorArray('cyanDark'),
-  secondaryA: createColorArray('cyanDarkA'),
-  neutral: createColorArray('mauveDark'),
-  neutralA: createColorArray('mauveDarkA'),
-  success: createColorArray('greenDark'),
-  successA: createColorArray('greenDarkA'),
-  info: createColorArray('blueDark'),
-  infoA: createColorArray('blueDarkA'),
-  warning: createColorArray('amberDark'),
-  warningA: createColorArray('amberDarkA'),
-  danger: createColorArray('tomatoDark'),
-  dangerA: createColorArray('tomatoDarkA'),
-  shadow: createColorArray('whiteA'),
-};
+  primary: radixToColorObject('purpleDark'),
+  primaryA: radixToColorObject('purpleDarkA'),
+  secondary: radixToColorObject('cyanDark'),
+  secondaryA: radixToColorObject('cyanDarkA'),
+  neutral: radixToColorObject('mauveDark'),
+  neutralA: radixToColorObject('mauveDarkA'),
+  success: radixToColorObject('greenDark'),
+  successA: radixToColorObject('greenDarkA'),
+  info: radixToColorObject('blueDark'),
+  infoA: radixToColorObject('blueDarkA'),
+  warning: radixToColorObject('amberDark'),
+  warningA: radixToColorObject('amberDarkA'),
+  danger: radixToColorObject('tomatoDark'),
+  dangerA: radixToColorObject('tomatoDarkA'),
+  shadow: radixToColorObject('whiteA'),
+} as const;
 
 export const darkTheme = createTheme(darkThemePalette);
 
 const lightThemePalette: ColorPalette = {
-  primary: createColorArray('purple'),
-  primaryA: createColorArray('purpleA'),
-  secondary: createColorArray('cyan'),
-  secondaryA: createColorArray('cyanA'),
-  neutral: createColorArray('mauve'),
-  neutralA: createColorArray('mauveA'),
-  success: createColorArray('green'),
-  successA: createColorArray('greenA'),
-  info: createColorArray('blue'),
-  infoA: createColorArray('blueA'),
-  warning: createColorArray('amber'),
-  warningA: createColorArray('amberA'),
-  danger: createColorArray('tomato'),
-  dangerA: createColorArray('tomatoA'),
-  shadow: createColorArray('whiteA'),
-};
+  primary: radixToColorObject('purple'),
+  primaryA: radixToColorObject('purpleA'),
+  secondary: radixToColorObject('cyan'),
+  secondaryA: radixToColorObject('cyanA'),
+  neutral: radixToColorObject('mauve'),
+  neutralA: radixToColorObject('mauveA'),
+  success: radixToColorObject('green'),
+  successA: radixToColorObject('greenA'),
+  info: radixToColorObject('blue'),
+  infoA: radixToColorObject('blueA'),
+  warning: radixToColorObject('amber'),
+  warningA: radixToColorObject('amberA'),
+  danger: radixToColorObject('tomato'),
+  dangerA: radixToColorObject('tomatoA'),
+  shadow: radixToColorObject('whiteA'),
+} as const;
 
 export const lightTheme = createTheme(lightThemePalette);
