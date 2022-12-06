@@ -1,6 +1,6 @@
-import { ColorPalette, createTheme, radixToColorObject } from '@cubeartisan/cubeartisan/styles/utils';
+import { ColorPalette, radixToColorObject } from '@cubeartisan/cubeartisan/styles/utils';
 
-const darkThemePalette: ColorPalette = {
+export const darkTheme: ColorPalette = {
   primary: radixToColorObject('purpleDark'),
   primaryA: radixToColorObject('purpleDarkA'),
   secondary: radixToColorObject('cyanDark'),
@@ -18,9 +18,7 @@ const darkThemePalette: ColorPalette = {
   shadow: radixToColorObject('whiteA'),
 } as const;
 
-export const darkTheme = createTheme(darkThemePalette);
-
-const lightThemePalette: ColorPalette = {
+export const lightTheme: ColorPalette = {
   primary: radixToColorObject('purple'),
   primaryA: radixToColorObject('purpleA'),
   secondary: radixToColorObject('cyan'),
@@ -37,5 +35,3 @@ const lightThemePalette: ColorPalette = {
   dangerA: radixToColorObject('tomatoA'),
   shadow: radixToColorObject('whiteA'),
 } as const;
-
-export const lightTheme = createTheme(lightThemePalette);

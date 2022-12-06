@@ -26,7 +26,6 @@ export const heroSub = style({
   fontSize: vars.fontSize.lg,
   fontWeight: vars.fontWeight.light,
   color: colors.neutral[11],
-  lineHeight: vars.lineHeights.tall,
 });
 
 export const pageContent = style({
@@ -46,7 +45,6 @@ export const cubeCardContainer = style({
   aspectRatio: '4/3',
   overflow: 'clip',
   borderRadius: vars.radii.sm,
-  transitionTimingFunction: vars.easing['in-out'],
   transitionDuration: '150ms',
   ':hover': {
     scale: 1.02,

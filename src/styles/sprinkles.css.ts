@@ -157,9 +157,5 @@ const responsiveProperties = defineProperties({
 
 export const sprinkles = createSprinkles(responsiveProperties);
 
-sprinkles({
-  borderRadius: 'sm',
-  boxShadow: 'none',
-});
 // It's a good idea to export the Sprinkles type too
 export type Sprinkles = Parameters<typeof sprinkles>[0];

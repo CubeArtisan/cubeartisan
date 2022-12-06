@@ -50,22 +50,3 @@ export type ColorPalette = {
   dangerA: ColorObject;
   shadow: ColorObject;
 };
-
-export const createTheme = (colorPalette: ColorPalette) =>
-  ({
-    primary: colorPalette.primary,
-    primaryA: colorPalette.primaryA,
-    secondary: colorPalette.secondary,
-    secondaryA: colorPalette.secondaryA,
-    neutral: colorPalette.neutral,
-    neutralA: colorPalette.neutralA,
-    success: colorPalette.success,
-    successA: colorPalette.successA,
-    info: colorPalette.info,
-    infoA: colorPalette.infoA,
-    warning: colorPalette.warning,
-    warningA: colorPalette.warningA,
-    danger: colorPalette.danger,
-    dangerA: colorPalette.dangerA,
-    shadow: colorPalette.shadow,
-  } as const);
