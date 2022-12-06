@@ -1,4 +1,4 @@
-import { screensRem } from './screens';
+import { screensRem } from './screens.css';
 
 // font size settings in rem
 const fontVars = {
@@ -38,26 +38,59 @@ const fluidFontScale = (multi: number) => {
   return `clamp(${minFont}rem, ${v}vw + ${r}rem , ${maxFont}rem)`;
 };
 
-export const font = {
+export const fontFamily = {
   sans: "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",
   serif: "ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif",
   mono: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
 } as const;
 
+const fluidFontSize = {
+  'fluid-xs': fluidFontScale(-2),
+  'fluid-sm': fluidFontScale(-1),
+  'fluid-base': fluidFontScale(0),
+  'fluid-lg': fluidFontScale(1),
+  'fluid-xl': fluidFontScale(2),
+  'fluid-2xl': fluidFontScale(3),
+  'fluid-3xl': fluidFontScale(4),
+  'fluid-4xl': fluidFontScale(5),
+  'fluid-5xl': fluidFontScale(6),
+  'fluid-6xl': fluidFontScale(7),
+  'fluid-7xl': fluidFontScale(8),
+  'fluid-8xl': fluidFontScale(9),
+  'fluid-9xl': fluidFontScale(10),
+} as const;
+
 export const fontSize = {
-  xs: fluidFontScale(-2),
-  sm: fluidFontScale(-1),
-  base: fluidFontScale(0),
-  lg: fluidFontScale(1),
-  xl: fluidFontScale(2),
-  '2xl': fluidFontScale(3),
-  '3xl': fluidFontScale(4),
-  '4xl': fluidFontScale(5),
-  '5xl': fluidFontScale(6),
-  '6xl': fluidFontScale(7),
-  '7xl': fluidFontScale(8),
-  '8xl': fluidFontScale(9),
-  '9xl': fluidFontScale(10),
+  ...fluidFontSize,
+  xs: '0.75rem',
+  sm: '0.875rem',
+  base: '1rem',
+  lg: '1.125rem',
+  xl: '1.25rem',
+  '2xl': '1.5rem',
+  '3xl': '1.875rem',
+  '4xl': '2.25rem',
+  '5xl': '3rem',
+  '6xl': '3.75rem',
+  '7xl': '4.5rem',
+  '8xl': '6rem',
+  '9xl': '8rem',
+} as const;
+
+export const lineHeights = {
+  xs: '1rem',
+  sm: '1.25rem',
+  base: '1.5rem',
+  lg: '1.75rem',
+  xl: '1.75rem',
+  '2xl': '2rem',
+  '3xl': '2.25rem',
+  '4xl': '2.5rem',
+  '5xl': '1',
+  '6xl': '1',
+  '7xl': '1',
+  '8xl': '1',
+  '9xl': '1',
 } as const;
 
 export const fontWeight = {
@@ -72,24 +105,7 @@ export const fontWeight = {
   black: '900',
 } as const;
 
-export const lineHeights = {
-  none: '1',
-  shorter: '1.25',
-  short: '1.375',
-  base: '1.5',
-  tall: '1.625',
-  taller: '2',
-  '3': '0.75rem',
-  '4': '1rem',
-  '5': '1.25rem',
-  '6': '1.5rem',
-  '7': '1.75rem',
-  '8': '2rem',
-  '9': '2.25rem',
-  '10': '2.5rem',
-} as const;
-
-export const letterSpacings = {
+export const letterSpacing = {
   tighter: '-0.05em',
   tight: '-0.025em',
   normal: '0',

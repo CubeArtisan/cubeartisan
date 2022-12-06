@@ -17,6 +17,14 @@ export const screensRem = {
 
 const remToPx = (rem: number) => `${rem * 16}px`;
 
+/**
+ * min: portrait phone
+ * sm: landscape phone
+ * md: tablet
+ * lg: laptop
+ * xl: desktop
+ * 2xl: ultrawide
+ */
 export const screens = {
   min: remToPx(screensRem.min),
   sm: remToPx(screensRem.sm),
