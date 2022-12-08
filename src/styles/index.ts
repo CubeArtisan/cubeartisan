@@ -1,3 +1,3 @@
 export { themeColors as colors } from '@cubeartisan/cubeartisan/styles/themes/themeVars.css';
-export { baseTheme } from '@cubeartisan/cubeartisan/styles/themes/baseTheme.css';
+export { theme } from '@cubeartisan/cubeartisan/styles/themes';
 export * as vars from '@cubeartisan/cubeartisan/styles/tokens';

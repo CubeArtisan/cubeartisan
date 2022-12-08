@@ -1,5 +1,3 @@
-import { radixToColorObject } from '@cubeartisan/cubeartisan/styles/utils';
-
 export const colors = {
   white: '#fff',
   black: '#121212',
@@ -15,6 +13,4 @@ export const colors = {
     800: '#1f2937',
     900: '#111827',
   },
-  darkShadow: { ...radixToColorObject('blackA') },
-  lightShadow: { ...radixToColorObject('whiteA') },
 } as const;
