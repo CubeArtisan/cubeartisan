@@ -1,32 +1,38 @@
 import { style } from '@vanilla-extract/css';
 
-import { colors, vars } from '@cubeartisan/cubeartisan/styles';
+import { colors, sprinkles, vars } from '@cubeartisan/cubeartisan/styles';
 
-export const app = style({
-  height: '100%',
-  background: colors.neutral[1],
-  color: colors.neutral[12],
+export const app = sprinkles({
+  height: 'full',
 });
 
-export const hero = style({
-  height: vars.space[40],
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  backgroundImage: `linear-gradient(to right, transparent, ${colors.primary[6]}, transparent)`,
+export const hero = style([
+  sprinkles({
+    height: 40,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }),
+  {
+    backgroundImage: `linear-gradient(to right, transparent, ${colors.primary[6]}, transparent)`,
+  },
+]);
+
+export const heroTitle = sprinkles({
+  fontSize: '2xl',
+  fontWeight: 'bold',
 });
 
-export const heroTitle = style({
-  fontSize: vars.fontSize['2xl'],
-  fontWeight: vars.fontWeight.bold,
-});
-
-export const heroSub = style({
-  fontSize: vars.fontSize.lg,
-  fontWeight: vars.fontWeight.light,
-  color: colors.neutral[11],
-});
+export const heroSub = style([
+  sprinkles({
+    fontSize: 'lg',
+    fontWeight: 'light',
+  }),
+  {
+    color: colors.neutral[11],
+  },
+]);
 
 export const pageContent = style({
   marginInline: 'auto',
@@ -39,50 +45,73 @@ export const cubeCardList = style({
   gap: vars.space[4],
 });
 
-export const cubeCardContainer = style({
-  display: 'grid',
-  gridTemplateAreas: '"a"',
-  aspectRatio: '4/3',
-  overflow: 'clip',
-  borderRadius: vars.radii.sm,
-  transitionDuration: '150ms',
-  ':hover': {
-    scale: 1.02,
-    filter: `drop-shadow(0 ${vars.space[2]} ${vars.space[3]} ${colors.shadow[8]})`,
+export const cubeCardContainer = style([
+  sprinkles({
+    overflow: 'clip',
+    borderRadius: 'sm',
+  }),
+  {
+    display: 'grid',
+    gridTemplateAreas: '"a"',
+    aspectRatio: '4/3',
+    transitionDuration: '150ms',
+    ':hover': {
+      scale: 1.02,
+      filter: `drop-shadow(0 ${vars.space[2]} ${vars.space[3]} ${colors.shadow[8]})`,
+    },
   },
-});
+]);
 
-export const cubeCardImage = style({
-  gridArea: 'a',
-  height: '100%',
-  width: '100%',
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-  boxShadow: `inset 0 -6rem 5rem -5rem black`,
-});
+export const cubeCardImage = style([
+  sprinkles({
+    height: 'full',
+    width: 'full',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  }),
+  {
+    gridArea: 'a',
+    height: '100%',
+    width: '100%',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    boxShadow: `inset 0 -6rem 5rem -5rem ${vars.colors.black}`,
+  },
+]);
 
-export const cubeCardListBlurb = style({
-  gridArea: 'a',
-  marginBottom: vars.space[5],
-  marginTop: vars.space[10],
-  width: 'max-content',
-  fontSize: vars.fontSize.lg,
-  fontWeight: vars.fontWeight.semibold,
-});
+export const cubeCardListBlurb = style([
+  sprinkles({
+    marginBottom: 5,
+    marginTop: 10,
+    width: 'max',
+    fontSize: 'lg',
+    fontWeight: 'semibold',
+  }),
+  {
+    gridArea: 'a',
+  },
+]);
 
-export const cubeCardLink = style({
-  gridArea: 'a',
-  height: '100%',
-  width: '100%',
-});
+export const cubeCardLink = style([
+  sprinkles({
+    height: 'full',
+    width: 'full',
+  }),
+  {
+    gridArea: 'a',
+  },
+]);
 
-export const cubeCardCaption = style({
-  gridArea: 'a',
-  justifySelf: 'flex-start',
-  alignSelf: 'flex-end',
-  paddingBottom: vars.space[3],
-  paddingInline: vars.space[3],
-  fontSize: vars.fontSize.base,
-  fontWeight: vars.fontWeight.semibold,
-  color: colors.neutral[12],
-});
+export const cubeCardCaption = style([
+  sprinkles({
+    paddingBottom: 3,
+    paddingX: 3,
+    fontWeight: 'semibold',
+  }),
+  {
+    gridArea: 'a',
+    justifySelf: 'flex-start',
+    alignSelf: 'flex-end',
+    color: vars.colors.grayDark[12],
+  },
+]);

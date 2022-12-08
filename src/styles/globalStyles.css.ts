@@ -1,9 +1,9 @@
 import { globalStyle } from '@vanilla-extract/css';
 
-globalStyle('html, body', {
-  lineHeight: 'calc(2px + 2ex + 2px)',
-});
+import { colors } from '@cubeartisan/cubeartisan/styles';
 
 globalStyle('body', {
   height: '100vh',
+  backgroundColor: colors.neutral[1],
+  color: colors.neutral[12],
 });
