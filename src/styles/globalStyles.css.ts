@@ -1,9 +1,9 @@
 import { globalStyle } from '@vanilla-extract/css';
 
-import { colors } from '@cubeartisan/cubeartisan/styles';
+import { vars } from '@cubeartisan/cubeartisan/styles';
 
 globalStyle('body', {
   height: '100vh',
-  backgroundColor: colors.neutral[1],
-  color: colors.neutral[12],
+  backgroundColor: vars.color.neutral[1],
+  color: vars.color.neutral[12],
 });
