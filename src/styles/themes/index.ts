@@ -1,2 +1,2 @@
-export * from '@cubeartisan/cubeartisan/styles/themes/themeVars.css';
-export * from '@cubeartisan/cubeartisan/styles/themes/themeClasses.css';
+export { vars } from '@cubeartisan/cubeartisan/styles/themes/vars.css';
+export { theme } from '@cubeartisan/cubeartisan/styles/themes/themeClass.css';

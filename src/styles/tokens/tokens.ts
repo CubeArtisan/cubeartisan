@@ -145,7 +145,6 @@ export const tokens = {
       large: '2px',
     },
   },
-  focusRingSize: '3px',
   color: {
     white: '#fff',
     black: '#121212',
@@ -275,3 +274,5 @@ export const tokens = {
     inner: 'inset 0 2px 4px 0 rgb(0 0 0 / 0.06)',
   },
 };
+
+export type TokenType = typeof tokens;

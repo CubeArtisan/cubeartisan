@@ -1,24 +1,22 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-unused-vars */
 import {
-  tomatoDark as danger,
-  tomatoDarkA as dangerA,
-  blueDark as info,
-  blueDarkA as infoA,
-  mauveDark as neutral,
-  mauveDarkA as neutralA,
-  purpleDark as primary,
-  purpleDarkA as primaryA,
-  whiteA as shadow,
-  greenDark as success,
-  greenDarkA as successA,
-  amberDark as warning,
-  amberDarkA as warningA,
+  tomato as danger,
+  tomatoA as dangerA,
+  blue as info,
+  blueA as infoA,
+  mauve as neutral,
+  mauveA as neutralA,
+  purple as primary,
+  purpleA as primaryA,
+  blackA as shadow,
+  green as success,
+  greenA as successA,
+  amber as warning,
+  amberA as warningA,
 } from '@radix-ui/colors/src';
 
-import type { ThemeColors } from '@cubeartisan/cubeartisan/styles/themes/themeVars.css';
+import type { ColorPaletteType } from './colorPaletteType';
 
-export const darkTheme: ThemeColors = {
+export const lightPalette: ColorPaletteType = {
   neutral: {
     1: neutral.mauve1,
     2: neutral.mauve2,
@@ -188,46 +186,17 @@ export const darkTheme: ThemeColors = {
     12: dangerA.tomatoA12,
   },
   shadow: {
-    1: shadow.whiteA1,
-    2: shadow.whiteA2,
-    3: shadow.whiteA3,
-    4: shadow.whiteA4,
-    5: shadow.whiteA5,
-    6: shadow.whiteA6,
-    7: shadow.whiteA7,
-    8: shadow.whiteA8,
-    9: shadow.whiteA9,
-    10: shadow.whiteA10,
-    11: shadow.whiteA11,
-    12: shadow.whiteA12,
+    1: shadow.blackA1,
+    2: shadow.blackA2,
+    3: shadow.blackA3,
+    4: shadow.blackA4,
+    5: shadow.blackA5,
+    6: shadow.blackA6,
+    7: shadow.blackA7,
+    8: shadow.blackA8,
+    9: shadow.blackA9,
+    10: shadow.blackA10,
+    11: shadow.blackA11,
+    12: shadow.blackA12,
   },
 } as const;
-
-// export const darkTheme = {
-//   neutral: {
-//     text: neutral.mauve1,
-//   },
-//   app: {
-//     bg: neutral.mauve4,
-//     text: primary.purple12,
-//   },
-//   nav: {
-//     bg: secondary.cyan6,
-//     text: secondary.cyan12,
-//     navButton: {
-//       bg: '',
-//       bgHover: '',
-//       bgActive: '',
-//       text: '',
-//     },
-//   },
-//   hero: {
-//     bg: primary.purple6,
-//     text: primary.purple11,
-//     subtext: primary.purple11,
-//   },
-//   thumbnail: {
-//     insetShadow: shadow.whiteA8,
-//     text: neutral.mauve11,
-//   },
-// };
