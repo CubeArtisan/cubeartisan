@@ -1,6 +1,6 @@
 import { blackA, mauve, mauveDark, whiteA } from '@radix-ui/colors/src';
 
-import { fluidFontScale } from './utils';
+import { fluidFontScale, makeScreenPx } from '@cubeartisan/cubeartisan/styles/tokens/utils';
 
 export const tokens = {
   typography: {
@@ -128,6 +128,15 @@ export const tokens = {
     '7xl': '80rem',
     '8xl': '90rem',
   },
+  screens: {
+    min: makeScreenPx('min'),
+    sm: makeScreenPx('sm'),
+    md: makeScreenPx('md'),
+    lg: makeScreenPx('lg'),
+    xl: makeScreenPx('xl'),
+    '2xl': makeScreenPx('2xl'),
+  },
+  focusRingSize: '3px',
   border: {
     radius: {
       none: '0',

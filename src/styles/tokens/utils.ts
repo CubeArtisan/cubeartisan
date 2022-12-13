@@ -17,7 +17,7 @@ const screensRem = {
 
 const remToPx = (rem: number) => `${rem * 16}px`;
 
-export const makeSceenPx = (size: keyof typeof screensRem) => remToPx(screensRem[size]);
+export const makeScreenPx = (size: keyof typeof screensRem) => remToPx(screensRem[size]);
 
 // font size settings in rem
 const fontVars = {

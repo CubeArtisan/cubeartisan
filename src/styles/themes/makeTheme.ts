@@ -11,6 +11,7 @@ export default (tokens: TokenType, colorPalette: ColorPaletteType) =>
 
     space: tokens.space,
     size: tokens.size,
+    screens: tokens.screens,
 
     borderRadius: tokens.border.radius,
     borderWidth: tokens.border.width,
@@ -19,4 +20,7 @@ export default (tokens: TokenType, colorPalette: ColorPaletteType) =>
       ...tokens.color,
       ...colorPalette,
     },
+
+    boxShadow: tokens.shadow,
+    focusRingSize: tokens.focusRingSize,
   } as const);
