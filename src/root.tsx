@@ -3,6 +3,7 @@ import { Suspense } from 'solid-js';
 import { Body, ErrorBoundary, FileRoutes, Head, Html, Link, Meta, Routes, Scripts, Title } from 'solid-start';
 
 import '@cubeartisan/cubeartisan/styles/globalReset.css';
+import Footer from '@cubeartisan/cubeartisan/components/Footer';
 import Nav from '@cubeartisan/cubeartisan/components/Nav';
 import { root } from '@cubeartisan/cubeartisan/root.css';
 import { theme } from '@cubeartisan/cubeartisan/styles';
@@ -37,6 +38,7 @@ export default function Root() {
           </Suspense>
         </ErrorBoundary>
         <Scripts />
+        <Footer />
       </Body>
     </Html>
   );
