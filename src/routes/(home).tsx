@@ -2,7 +2,7 @@ import { For } from 'solid-js';
 import { A } from 'solid-start';
 
 import homePageCards from '@cubeartisan/cubeartisan/mock/home-page-cards';
-import * as styles from '@cubeartisan/cubeartisan/routes/(home).css';
+import * as styles from '@cubeartisan/cubeartisan/routes/home.css';
 
 type CubeCardProps = {
   thumbnail: string;
