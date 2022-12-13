@@ -1,9 +1,49 @@
 import { vars } from '@cubeartisan/cubeartisan/styles/themes';
 
 export const colorProperties = {
-  backgroundColor: vars.backgroundColor,
-  boxShadow: vars.boxShadow,
-  textColor: vars.textColor,
+  backgroundColor: {
+    ...vars.backgroundColor.neutral,
+    ...vars.backgroundColor.neutralA,
+    ...vars.backgroundColor.primary,
+    ...vars.backgroundColor.primaryA,
+    ...vars.backgroundColor.success,
+    ...vars.backgroundColor.successA,
+    ...vars.backgroundColor.info,
+    ...vars.backgroundColor.infoA,
+    ...vars.backgroundColor.warning,
+    ...vars.backgroundColor.warningA,
+    ...vars.backgroundColor.danger,
+    ...vars.backgroundColor.dangerA,
+  },
+  boxShadow: {
+    ...vars.boxShadow,
+    ...vars.boxShadowBorder.neutral,
+    ...vars.boxShadowBorder.neutralA,
+    ...vars.boxShadowBorder.primary,
+    ...vars.boxShadowBorder.primaryA,
+    ...vars.boxShadowBorder.success,
+    ...vars.boxShadowBorder.successA,
+    ...vars.boxShadowBorder.info,
+    ...vars.boxShadowBorder.infoA,
+    ...vars.boxShadowBorder.warning,
+    ...vars.boxShadowBorder.warningA,
+    ...vars.boxShadowBorder.danger,
+    ...vars.boxShadowBorder.dangerA,
+  },
+  textColor: {
+    ...vars.textColor.neutral,
+    ...vars.textColor.neutralA,
+    ...vars.textColor.primary,
+    ...vars.textColor.primaryA,
+    ...vars.textColor.success,
+    ...vars.textColor.successA,
+    ...vars.textColor.info,
+    ...vars.textColor.infoA,
+    ...vars.textColor.warning,
+    ...vars.textColor.warningA,
+    ...vars.textColor.danger,
+    ...vars.textColor.dangerA,
+  },
 } as const;
 
 // TODO if needed add z index properties here
@@ -131,7 +171,6 @@ export const responsiveProperties = {
   position: ['relative', 'absolute', 'fixed'],
 
   borderRadius: vars.borderRadius,
-  boxShadow: vars.boxShadow,
 
   paddingTop: vars.space,
   paddingBottom: vars.space,

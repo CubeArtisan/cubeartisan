@@ -1,2 +1,2 @@
 export { atoms } from '@cubeartisan/cubeartisan/styles/atoms';
-export { theme } from '@cubeartisan/cubeartisan/styles/themes';
+export { theme, vars } from '@cubeartisan/cubeartisan/styles/themes';

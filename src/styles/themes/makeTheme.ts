@@ -32,6 +32,7 @@ export const makeTheme = ({ tokens, colorPalette, semanticColorOverrides }: Make
     backgroundColor,
     textColor,
 
-    boxShadow: { ...tokens.shadow, ...boxShadow },
+    boxShadow: tokens.shadow,
+    boxShadowBorder: boxShadow,
   } as const;
 };
