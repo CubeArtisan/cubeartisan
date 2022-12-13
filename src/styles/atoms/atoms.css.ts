@@ -5,7 +5,7 @@ import {
   responsiveProperties,
   unresponsiveProperties,
 } from '@cubeartisan/cubeartisan/styles/atoms/atomicProperties';
-import { vars } from '@cubeartisan/cubeartisan/styles/themes';
+import { tokens } from '@cubeartisan/cubeartisan/styles/tokens';
 
 const unresponsiveAtomicProperties = defineProperties({
   properties: unresponsiveProperties,
@@ -19,11 +19,11 @@ const unresponsiveAtomicProperties = defineProperties({
 const responsiveAtomicProperties = defineProperties({
   conditions: {
     mobile: {},
-    landscapeMobile: { '@media': `screen and (min-width: ${vars.screens.sm})` },
-    tablet: { '@media': `screen and (min-width: ${vars.screens.md})` },
-    laptop: { '@media': `screen and (min-width: ${vars.screens.lg})` },
-    desktop: { '@media': `screen and (min-width: ${vars.screens.xl})` },
-    ultrawide: { '@media': `screen and (min-width: ${vars.screens['2xl']})` },
+    landscapeMobile: { '@media': `screen and (min-width: ${tokens.screens.sm})` },
+    tablet: { '@media': `screen and (min-width: ${tokens.screens.md})` },
+    laptop: { '@media': `screen and (min-width: ${tokens.screens.lg})` },
+    desktop: { '@media': `screen and (min-width: ${tokens.screens.xl})` },
+    ultrawide: { '@media': `screen and (min-width: ${tokens.screens['2xl']})` },
   },
   defaultCondition: 'mobile',
   properties: responsiveProperties,
