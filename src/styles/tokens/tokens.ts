@@ -172,6 +172,7 @@ export const tokens = {
     max: 'max-content',
     min: 'min-content',
     full: '100%',
+    auto: 'auto',
     'content-60': `clamp(${screens.sm}, 60%, ${screens.lg})`,
     'content-70': `clamp(${screens.sm}, 70%, ${screens.lg})`,
     'content-80': `clamp(${screens.sm}, 80%, ${screens.lg})`,
