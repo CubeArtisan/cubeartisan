@@ -29,8 +29,12 @@ export const makeTheme = ({ tokens, colorPalette, semanticColorOverrides }: Make
 
     borderRadius: tokens.border.radius,
 
-    backgroundColor,
+    backgroundColor: {
+      ...backgroundColor,
+      shadow: colorPalette.shadow,
+    },
     textColor,
+    staticColor: tokens.color,
 
     boxShadow: tokens.shadow,
     boxShadowBorder: boxShadow,
