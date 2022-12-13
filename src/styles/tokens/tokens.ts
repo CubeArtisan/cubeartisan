@@ -1,6 +1,42 @@
 import { blackA, mauve, mauveDark, whiteA } from '@radix-ui/colors/src';
 
-import { fluidFontScale, makeScreenPx } from '@cubeartisan/cubeartisan/styles/tokens/utils';
+import { makeFluidFonts, remToPx } from '@cubeartisan/cubeartisan/styles/tokens/utils';
+
+// maybe a better way to do this than exporting screens to utils
+// done like this to get things working
+// ideally for a more complete design system breakpoints would be customizeable
+// probably unnecessary for the scope of this project
+// maybe all settings are set separate from tokens def?
+
+/**
+ * converted to px for use in breakpoints
+ * needed in rem for fluidFontScale and possible future settings
+ *
+ * min: portrait phone
+ * sm: landscape phone
+ * md: tablet
+ * lg: laptop
+ * xl: desktop
+ * 2xl: ultrawide
+ */
+export const screensRem = {
+  min: 20,
+  sm: 36,
+  md: 48,
+  lg: 64,
+  xl: 80,
+  '2xl': 96,
+};
+
+const screens = {
+  min: remToPx(screensRem.min),
+  sm: remToPx(screensRem.sm),
+  md: remToPx(screensRem.md),
+  lg: remToPx(screensRem.lg),
+  '2xl': remToPx(screensRem['2xl']),
+};
+
+const fluidFonts = makeFluidFonts(screensRem);
 
 export const tokens = {
   typography: {
@@ -34,19 +70,7 @@ export const tokens = {
       '7xl': '4.5rem',
       '8xl': '6rem',
       '9xl': '8rem',
-      'fluid-xs': fluidFontScale(-2),
-      'fluid-sm': fluidFontScale(-1),
-      'fluid-base': fluidFontScale(0),
-      'fluid-lg': fluidFontScale(1),
-      'fluid-xl': fluidFontScale(2),
-      'fluid-2xl': fluidFontScale(3),
-      'fluid-3xl': fluidFontScale(4),
-      'fluid-4xl': fluidFontScale(5),
-      'fluid-5xl': fluidFontScale(6),
-      'fluid-6xl': fluidFontScale(7),
-      'fluid-7xl': fluidFontScale(8),
-      'fluid-8xl': fluidFontScale(9),
-      'fluid-9xl': fluidFontScale(10),
+      ...fluidFonts,
     },
     lineHeight: {
       xs: '1rem',
@@ -148,6 +172,7 @@ export const tokens = {
     max: 'max-content',
     min: 'min-content',
     full: '100%',
+    '80%': `clamp(${screens.sm}, 80%, ${screens.lg})`,
     screenW: '100vw',
     screenH: '100vh',
     xs: '20rem',
@@ -163,14 +188,7 @@ export const tokens = {
     '7xl': '80rem',
     '8xl': '90rem',
   },
-  screens: {
-    min: makeScreenPx('min'),
-    sm: makeScreenPx('sm'),
-    md: makeScreenPx('md'),
-    lg: makeScreenPx('lg'),
-    xl: makeScreenPx('xl'),
-    '2xl': makeScreenPx('2xl'),
-  },
+  screens,
   focusRingSize: '3px',
   border: {
     radius: {
