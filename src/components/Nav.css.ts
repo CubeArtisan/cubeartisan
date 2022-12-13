@@ -1,36 +1,36 @@
 import { style } from '@vanilla-extract/css';
 
-import { colors, sprinkles, vars } from '@cubeartisan/cubeartisan/styles';
+import { atoms, vars } from '@cubeartisan/cubeartisan/styles';
 
 export const nav = style([
-  sprinkles({
+  atoms({
     height: 12,
     width: 'full',
   }),
   {
-    background: colors.neutral[2],
-    color: colors.neutral[12],
+    background: vars.backgroundColor.neutral.neutralSubtleSecondary,
+    color: vars.textColor.neutral.neutralContrast,
   },
 ]);
 
 export const navContainer = style([
-  sprinkles({
+  atoms({
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'spaceBetween',
     height: 'full',
     fontSize: 'base',
   }),
   {
-    width: `clamp(${vars.sizes.sm}, 80%, ${vars.sizes['5xl']})`,
+    width: `clamp(${vars.size.sm}, 80%, ${vars.size['5xl']})`,
     marginInline: 'auto',
   },
 ]);
 
 export const navList = style([
-  sprinkles({
+  atoms({
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'spaceBetween',
   }),
   {
     gap: vars.space[3],

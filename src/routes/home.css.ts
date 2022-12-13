@@ -1,13 +1,13 @@
 import { style } from '@vanilla-extract/css';
 
-import { colors, sprinkles, vars } from '@cubeartisan/cubeartisan/styles';
+import { atoms, vars } from '@cubeartisan/cubeartisan/styles';
 
-export const app = sprinkles({
+export const app = atoms({
   height: 'full',
 });
 
 export const hero = style([
-  sprinkles({
+  atoms({
     height: 40,
     display: 'flex',
     flexDirection: 'column',
@@ -15,24 +15,20 @@ export const hero = style([
     alignItems: 'center',
   }),
   {
-    backgroundImage: `linear-gradient(to right, transparent, ${colors.primary[6]}, transparent)`,
+    backgroundImage: `linear-gradient(to right, transparent, ${vars.backgroundColor.primary.primarySolid}, transparent)`,
   },
 ]);
 
-export const heroTitle = sprinkles({
+export const heroTitle = atoms({
   fontSize: '2xl',
   fontWeight: 'bold',
 });
 
-export const heroSub = style([
-  sprinkles({
-    fontSize: 'lg',
-    fontWeight: 'light',
-  }),
-  {
-    color: colors.neutral[11],
-  },
-]);
+export const heroSub = atoms({
+  fontSize: 'lg',
+  fontWeight: 'light',
+  color: 'neutralLowContrast',
+});
 
 export const pageContent = style({
   marginInline: 'auto',
@@ -46,8 +42,8 @@ export const cubeCardList = style({
 });
 
 export const cubeCardContainer = style([
-  sprinkles({
-    overflow: 'clip',
+  atoms({
+    overflow: 'hidden',
     borderRadius: 'sm',
   }),
   {
@@ -57,13 +53,13 @@ export const cubeCardContainer = style([
     transitionDuration: '150ms',
     ':hover': {
       scale: 1.02,
-      filter: `drop-shadow(0 ${vars.space[2]} ${vars.space[3]} ${colors.shadow[8]})`,
+      filter: `drop-shadow(0 ${vars.space[2]} ${vars.space[3]} ${vars.backgroundColor.shadow[8]})`,
     },
   },
 ]);
 
 export const cubeCardImage = style([
-  sprinkles({
+  atoms({
     height: 'full',
     width: 'full',
     backgroundSize: 'cover',
@@ -75,12 +71,12 @@ export const cubeCardImage = style([
     width: '100%',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    boxShadow: `inset 0 -6rem 5rem -5rem ${vars.colors.black}`,
+    boxShadow: `inset 0 -6rem 5rem -5rem ${vars.staticColor.black}`,
   },
 ]);
 
 export const cubeCardListBlurb = style([
-  sprinkles({
+  atoms({
     marginBottom: 5,
     marginTop: 10,
     width: 'max',
@@ -93,7 +89,7 @@ export const cubeCardListBlurb = style([
 ]);
 
 export const cubeCardLink = style([
-  sprinkles({
+  atoms({
     height: 'full',
     width: 'full',
   }),
@@ -103,15 +99,15 @@ export const cubeCardLink = style([
 ]);
 
 export const cubeCardCaption = style([
-  sprinkles({
+  atoms({
     paddingBottom: 3,
-    paddingX: 3,
+    paddingInline: 3,
     fontWeight: 'semibold',
   }),
   {
     gridArea: 'a',
     justifySelf: 'flex-start',
     alignSelf: 'flex-end',
-    color: vars.colors.grayDark[12],
+    color: vars.staticColor.grayDark[12],
   },
 ]);

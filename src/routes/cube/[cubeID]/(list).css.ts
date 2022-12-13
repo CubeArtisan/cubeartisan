@@ -1,12 +1,12 @@
 import { style } from '@vanilla-extract/css';
 
-import { colors, sprinkles } from '@cubeartisan/cubeartisan/styles';
+import { atoms, vars } from '@cubeartisan/cubeartisan/styles';
 
 export const hero = style([
-  sprinkles({
+  atoms({
     height: 40,
   }),
   {
-    backgroundImage: `linear-gradient(to right, ${colors.primary[6]}, transparent)`,
+    backgroundImage: `linear-gradient(to right, ${vars.backgroundColor.primary.primarySolid}, transparent)`,
   },
 ]);
