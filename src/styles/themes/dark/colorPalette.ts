@@ -16,7 +16,7 @@ import {
 
 import type { ColorPaletteType } from '@cubeartisan/cubeartisan/styles/themes/colorPaletteType';
 
-export const darkPalette: ColorPaletteType = {
+export const colorPalette: ColorPaletteType = {
   neutral: {
     1: neutral.mauve1,
     2: neutral.mauve2,

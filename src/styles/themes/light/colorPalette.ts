@@ -14,9 +14,9 @@ import {
   amberA as warningA,
 } from '@radix-ui/colors/src';
 
-import type { ColorPaletteType } from './colorPaletteType';
+import type { ColorPaletteType } from '@cubeartisan/cubeartisan/styles/themes/colorPaletteType';
 
-export const lightPalette: ColorPaletteType = {
+export const colorPalette: ColorPaletteType = {
   neutral: {
     1: neutral.mauve1,
     2: neutral.mauve2,

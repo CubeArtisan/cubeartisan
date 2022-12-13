@@ -1,7 +1,5 @@
 import { createThemeContract } from '@vanilla-extract/css';
 
-import { lightPalette } from '@cubeartisan/cubeartisan/styles/themes/lightTheme';
-import makeTheme from '@cubeartisan/cubeartisan/styles/themes/makeTheme';
-import { tokens } from '@cubeartisan/cubeartisan/styles/tokens';
+import { lightTheme } from '@cubeartisan/cubeartisan/styles/themes/light';
 
-export const vars = createThemeContract(makeTheme(tokens, lightPalette));
+export const vars = createThemeContract(lightTheme);

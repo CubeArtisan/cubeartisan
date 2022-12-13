@@ -1,8 +1,22 @@
-import type { ColorPaletteType } from '@cubeartisan/cubeartisan/styles/themes/colorPaletteType';
+import type { DeepPartial } from 'utility-types';
+
 import type { TokenType } from '@cubeartisan/cubeartisan/styles/tokens';
 
-export default (tokens: TokenType, colorPalette: ColorPaletteType) =>
-  ({
+import type { ColorPaletteType } from './colorPaletteType';
+import { makeSemanticColors, SemanticColors } from './semanticColors';
+
+export type MakeThemeProps = {
+  tokens: TokenType;
+  colorPalette: ColorPaletteType;
+  semanticColorOverrides?: DeepPartial<SemanticColors>;
+};
+
+export const makeTheme = ({ tokens, colorPalette, semanticColorOverrides }: MakeThemeProps) => {
+  const { backgroundColor, boxShadow, textColor } = makeSemanticColors({
+    colorPalette,
+    overrides: semanticColorOverrides,
+  });
+  return {
     fontFamily: tokens.typography.fontFamily,
     fontWeight: tokens.typography.fontWeight,
     fontSize: tokens.typography.fontSize,
@@ -14,13 +28,10 @@ export default (tokens: TokenType, colorPalette: ColorPaletteType) =>
     screens: tokens.screens,
 
     borderRadius: tokens.border.radius,
-    borderWidth: tokens.border.width,
 
-    color: {
-      ...tokens.color,
-      ...colorPalette,
-    },
+    backgroundColor,
+    textColor,
 
-    boxShadow: tokens.shadow,
-    focusRingSize: tokens.focusRingSize,
-  } as const);
+    boxShadow: { ...tokens.shadow, ...boxShadow },
+  } as const;
+};

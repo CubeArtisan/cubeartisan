@@ -1,19 +1,9 @@
-import {
-  backgroundColor,
-  boxShadow,
-  textColor,
-  textDecoration,
-} from '@cubeartisan/cubeartisan/styles/atoms/semanticColors';
 import { vars } from '@cubeartisan/cubeartisan/styles/themes';
 
 export const colorProperties = {
-  backgroundColor,
-  boxShadow: {
-    ...vars.boxShadow,
-    ...boxShadow,
-  },
-  textColor,
-  textDecoration,
+  backgroundColor: vars.backgroundColor,
+  boxShadow: vars.boxShadow,
+  textColor: vars.textColor,
 } as const;
 
 // TODO if needed add z index properties here
