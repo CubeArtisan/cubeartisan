@@ -30,7 +30,7 @@ export const colorProperties = {
     ...vars.boxShadowBorder.danger,
     ...vars.boxShadowBorder.dangerA,
   },
-  textColor: {
+  color: {
     ...vars.textColor.neutral,
     ...vars.textColor.neutralA,
     ...vars.textColor.primary,
@@ -176,10 +176,14 @@ export const responsiveProperties = {
   paddingBottom: vars.space,
   paddingRight: vars.space,
   paddingLeft: vars.space,
+  paddingInline: vars.space,
+  paddingBlock: vars.space,
   marginTop: vars.space,
   marginBottom: vars.space,
   marginRight: vars.space,
   marginLeft: vars.space,
+  marginInline: vars.space,
+  marginBlock: vars.space,
 
   alignItems: {
     flexStart: 'flex-start',
