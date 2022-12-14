@@ -1,14 +1,37 @@
 import { A } from 'solid-start';
 
-import * as styles from '@cubeartisan/cubeartisan/components/Nav.css';
+import { atoms } from '@cubeartisan/cubeartisan/styles';
 
 const SiteNavbar = () => {
   const userid = '';
 
   return (
-    <nav class={styles.nav}>
-      <div class={styles.navContainer}>
-        <ul class={styles.navList}>
+    <nav
+      class={atoms({
+        height: 12,
+        width: 'full',
+        backgroundColor: 'neutralSubtleSecondary',
+        color: 'neutralContrast',
+      })}
+    >
+      <div
+        class={atoms({
+          display: 'flex',
+          justifyContent: 'spaceBetween',
+          height: 'full',
+          fontSize: 'base',
+          marginInline: 'auto',
+          width: 'content-80',
+        })}
+      >
+        <ul
+          class={atoms({
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'spaceBetween',
+            gap: 3,
+          })}
+        >
           <li>
             <A href="/">Home</A>
           </li>
@@ -19,7 +42,14 @@ const SiteNavbar = () => {
             <A href={`/${userid}/cubes`}>Your Cubes</A>
           </li>
         </ul>
-        <ul class={styles.navList}>
+        <ul
+          class={atoms({
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'spaceBetween',
+            gap: 3,
+          })}
+        >
           <li>
             <button>Search</button>
           </li>
