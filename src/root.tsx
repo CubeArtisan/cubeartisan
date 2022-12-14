@@ -5,8 +5,7 @@ import { Body, ErrorBoundary, FileRoutes, Head, Html, Link, Meta, Routes, Script
 import '@cubeartisan/cubeartisan/styles/globalReset.css';
 import Footer from '@cubeartisan/cubeartisan/components/Footer';
 import Nav from '@cubeartisan/cubeartisan/components/Nav';
-import { root } from '@cubeartisan/cubeartisan/root.css';
-import { theme } from '@cubeartisan/cubeartisan/styles';
+import { atoms, theme } from '@cubeartisan/cubeartisan/styles';
 
 export default function Root() {
   return (
@@ -28,17 +27,29 @@ export default function Root() {
         <Link rel="mask-icon" href="/images/icons/safari-pinned-tab.svg" color="#7155a3" />
         <Link rel="shortcut icon" href="/images/icons/favicon.ico" />
       </Head>
-      <Body class={`${root} ${theme}`}>
-        <Nav />
-        <ErrorBoundary>
-          <Suspense>
-            <Routes>
-              <FileRoutes />
-            </Routes>
-          </Suspense>
-        </ErrorBoundary>
-        <Scripts />
+      <Body
+        class={`${atoms({
+          height: 'full',
+          backgroundColor: 'neutralSubtle',
+          color: 'neutralContrast',
+        })} ${theme}`}
+      >
+        <div
+          class={atoms({
+            height: 'screenH',
+          })}
+        >
+          <Nav />
+          <ErrorBoundary>
+            <Suspense>
+              <Routes>
+                <FileRoutes />
+              </Routes>
+            </Suspense>
+          </ErrorBoundary>
+        </div>
         <Footer />
+        <Scripts />
       </Body>
     </Html>
   );
