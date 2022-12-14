@@ -3,8 +3,8 @@ import { Suspense } from 'solid-js';
 import { Body, ErrorBoundary, FileRoutes, Head, Html, Link, Meta, Routes, Scripts, Title } from 'solid-start';
 
 import '@cubeartisan/cubeartisan/styles/globalReset.css';
-import Footer from '@cubeartisan/cubeartisan/components/Footer';
-import Nav from '@cubeartisan/cubeartisan/components/Nav';
+import Footer from '@cubeartisan/cubeartisan/components/specialized/Footer';
+import Nav from '@cubeartisan/cubeartisan/components/specialized/Nav';
 import { atoms, theme } from '@cubeartisan/cubeartisan/styles';
 
 export default function Root() {
