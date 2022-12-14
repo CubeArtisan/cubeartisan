@@ -2,6 +2,7 @@ import { createSprinkles, defineProperties } from '@vanilla-extract/sprinkles';
 
 import {
   colorProperties,
+  interactiveProperties,
   responsiveProperties,
   unresponsiveProperties,
 } from '@cubeartisan/cubeartisan/styles/atoms/atomicProperties';
@@ -43,7 +44,7 @@ const colorAtomicProperties = defineProperties({
     focus: { selector: '&:focus' },
   },
   defaultCondition: 'default',
-  properties: colorProperties,
+  properties: { ...colorProperties, ...interactiveProperties },
 });
 
 export const atoms = createSprinkles(unresponsiveAtomicProperties, responsiveAtomicProperties, colorAtomicProperties);

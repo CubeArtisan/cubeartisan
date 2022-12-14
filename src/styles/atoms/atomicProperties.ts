@@ -67,42 +67,6 @@ export const unresponsiveProperties = {
 
   opacity: [0],
 
-  /**
-   * [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/CSS/cursor)
-   */
-  cursor: [
-    'default',
-    'pointer',
-    'none',
-    'help',
-    'context-menu',
-    'progress',
-    'wait',
-    'crosshair',
-    'copy',
-    'move',
-    'no-drop',
-    'not-allowed',
-    'grab',
-    'grabbing',
-    'col-resize',
-    'row-resize',
-    'n-resize',
-    'e-resize',
-    's-resize',
-    'w-resize',
-    'ne-resize',
-    'nw-resize',
-    'se-resize',
-    'sw-resize',
-    'ew-resize',
-    'ns-resize',
-    'nesw-resize',
-    'nwse-resize',
-    'zoom-in',
-    'zoom-out',
-  ],
-
   pointerEvents: ['none'],
 
   top: vars.space,
@@ -214,11 +178,50 @@ export const responsiveProperties = {
 
   textAlign: ['left', 'center', 'right', 'justify', 'start', 'end'],
   verticalAlign: ['baseline', 'top', 'middle', 'bottom', 'text-top', 'text-bottom', 'sub', 'super'],
-  textDecoration: ['underline solid', 'underline dotted'],
+
   textIndent: vars.space,
   fontFamily: vars.fontFamily,
   fontSize: vars.fontSize,
   lineHeight: vars.lineHeight,
   fontWeight: vars.fontWeight,
   letterSpacing: vars.letterSpacing,
+} as const;
+
+export const interactiveProperties = {
+  textDecoration: ['underline solid', 'underline dotted'],
+  /**
+   * [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/CSS/cursor)
+   */
+  cursor: [
+    'default',
+    'pointer',
+    'none',
+    'help',
+    'context-menu',
+    'progress',
+    'wait',
+    'crosshair',
+    'copy',
+    'move',
+    'no-drop',
+    'not-allowed',
+    'grab',
+    'grabbing',
+    'col-resize',
+    'row-resize',
+    'n-resize',
+    'e-resize',
+    's-resize',
+    'w-resize',
+    'ne-resize',
+    'nw-resize',
+    'se-resize',
+    'sw-resize',
+    'ew-resize',
+    'ns-resize',
+    'nesw-resize',
+    'nwse-resize',
+    'zoom-in',
+    'zoom-out',
+  ],
 } as const;
