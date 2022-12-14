@@ -79,7 +79,7 @@ const SiteFooter: Component = () => (
                     class={atoms({
                       text: 'base',
                       textAlign: 'center',
-                      color: 'neutralLowContrast',
+                      color: { default: 'neutralLowContrast', hover: 'neutralContrast' },
                     })}
                   >
                     <A href={item.url}>{item.linkName}</A>
