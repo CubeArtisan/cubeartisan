@@ -1,12 +1,14 @@
-import { For } from 'solid-js';
+import { Component, For } from 'solid-js';
 import { A } from 'solid-start';
 
-type FooterSection = {
+import { atoms } from '@cubeartisan/cubeartisan/styles';
+
+type FooterSectionContent = {
   name: string;
   items: { linkName: string; url: string }[];
 };
 
-const socialsSection: FooterSection = {
+const socialsSection: FooterSectionContent = {
   name: 'Social Media',
   items: [
     { linkName: 'Discord', url: 'https://discord.gg/xjepapKecw' },
@@ -16,7 +18,7 @@ const socialsSection: FooterSection = {
   ],
 };
 
-const navSection: FooterSection = {
+const navSection: FooterSectionContent = {
   name: 'Navigation',
   items: [
     { linkName: 'Home', url: '/' },
@@ -26,7 +28,7 @@ const navSection: FooterSection = {
   ],
 };
 
-const helpSection: FooterSection = {
+const helpSection: FooterSectionContent = {
   name: 'Help',
   items: [
     { linkName: 'Help Docs', url: '' },
@@ -35,26 +37,60 @@ const helpSection: FooterSection = {
   ],
 };
 
-const footerSections: FooterSection[] = [socialsSection, navSection, helpSection];
+const footerSections: FooterSectionContent[] = [socialsSection, navSection, helpSection];
 
-const SiteFooter = () => (
-  <footer>
-    <For each={footerSections}>
-      {(section) => (
-        <section>
-          <h2>{section.name}</h2>
-          <ul>
-            <For each={section.items}>
-              {(item) => (
-                <li>
-                  <A href={item.url}>{item.linkName}</A>
-                </li>
-              )}
-            </For>
-          </ul>
-        </section>
-      )}
-    </For>
+const SiteFooter: Component = () => (
+  <footer
+    class={atoms({
+      width: 'full',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'column',
+      backgroundColor: 'neutralSubtleSecondary',
+    })}
+  >
+    <div
+      class={atoms({
+        display: 'flex',
+        alignItems: 'flexStart',
+        justifyContent: 'spaceBetween',
+        width: 'content-80',
+        paddingBlock: 8,
+      })}
+    >
+      <For each={footerSections}>
+        {(section) => (
+          <section>
+            <h2
+              class={atoms({
+                text: 'base',
+                textAlign: 'center',
+                marginBottom: 1,
+                cursor: 'default',
+              })}
+            >
+              {section.name}
+            </h2>
+            <ul>
+              <For each={section.items}>
+                {(item) => (
+                  <li
+                    class={atoms({
+                      text: 'base',
+                      textAlign: 'center',
+                      color: 'neutralLowContrast',
+                    })}
+                  >
+                    <A href={item.url}>{item.linkName}</A>
+                  </li>
+                )}
+              </For>
+            </ul>
+          </section>
+        )}
+      </For>
+    </div>
   </footer>
 );
 
