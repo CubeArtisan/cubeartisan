@@ -214,6 +214,7 @@ export const responsiveProperties = {
 
   textAlign: ['left', 'center', 'right', 'justify', 'start', 'end'],
   verticalAlign: ['baseline', 'top', 'middle', 'bottom', 'text-top', 'text-bottom', 'sub', 'super'],
+  textDecoration: ['underline solid', 'underline dotted'],
   textIndent: vars.space,
   fontFamily: vars.fontFamily,
   fontSize: vars.fontSize,

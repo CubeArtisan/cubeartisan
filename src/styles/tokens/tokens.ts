@@ -33,6 +33,7 @@ const screens = {
   sm: remToPx(screensRem.sm),
   md: remToPx(screensRem.md),
   lg: remToPx(screensRem.lg),
+  xl: remToPx(screensRem.xl),
   '2xl': remToPx(screensRem['2xl']),
 };
 
