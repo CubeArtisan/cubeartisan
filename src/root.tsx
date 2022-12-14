@@ -36,7 +36,7 @@ export default function Root() {
       >
         <div
           class={atoms({
-            height: 'screenH',
+            minHeight: 'screenH',
           })}
         >
           <Nav />
