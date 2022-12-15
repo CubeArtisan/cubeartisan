@@ -101,7 +101,6 @@ overrides:
     - 'src/styles/**/*.ts'
     rules:
       import/prefer-default-export: off 
-      no-restricted-imports: off
   - files:
     - 'src/**/*.css.ts'
     rules:

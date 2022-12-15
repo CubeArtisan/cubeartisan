@@ -1,9 +1,8 @@
 import type { DeepPartial } from 'utility-types';
 
+import type { ColorPaletteType } from '@cubeartisan/cubeartisan/styles/themes/colorPaletteType';
+import { makeSemanticColors, type SemanticColors } from '@cubeartisan/cubeartisan/styles/themes/semanticColors';
 import type { TokenType } from '@cubeartisan/cubeartisan/styles/tokens';
-
-import type { ColorPaletteType } from './colorPaletteType';
-import { makeSemanticColors, SemanticColors } from './semanticColors';
 
 export type MakeThemeProps = {
   tokens: TokenType;
