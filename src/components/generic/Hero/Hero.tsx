@@ -1,25 +1,44 @@
-import type { Component, ParentComponent } from 'solid-js';
+import type { ParentComponent } from 'solid-js';
 
-export type HeroHeaderProps = {
-  title: string;
-  subtitle: string;
-};
-
-export const Header: ParentComponent<HeroHeaderProps> = (props) => (
-  <header>
-    <h1>{props.title}</h1>
-    <p>{props.subtitle}</p>
-  </header>
-);
-
-/**
- * wraps text in a <p> tag with appropriate styling for the hero
- */
-export const Content: ParentComponent = (props) => <p>{props.children}</p>;
+import { atoms, vars } from '@cubeartisan/cubeartisan/styles';
+import type { Atoms } from '@cubeartisan/cubeartisan/styles/atoms/atoms.css';
 
 export type HeroProps = {
-  layout: 'center' | 'left' | 'right' | 'split';
-  background: 'gradient' | 'solid';
+  justify: 'center' | 'left' | 'right' | 'split';
+  background: 'gradientLeft' | 'gradientRight' | 'gradientCenter' | 'solid';
+  // maybe add a prop to choose background color
 };
 
-export const Hero: ParentComponent<HeroProps> = (props) => <div class= >{props.children}</div>;
+const Hero: ParentComponent<HeroProps> = (props) => {
+  const justifyVariants: Record<HeroProps['justify'], Atoms['justifyContent']> = {
+    center: 'center',
+    left: 'flexStart',
+    right: 'flexEnd',
+    split: 'spaceBetween',
+  };
+
+  const backgroundVariants: Record<HeroProps['background'], string> = {
+    gradientLeft: `linear-gradient(to right, transparent, ${vars.backgroundColor.primary.primarySolid})`,
+    gradientRight: `linear-gradient(to left, transparent, ${vars.backgroundColor.primary.primarySolid})`,
+    gradientCenter: `linear-gradient(to right, transparent, ${vars.backgroundColor.primary.primarySolid}, transparent)`,
+    solid: vars.backgroundColor.primary.primarySolid,
+  };
+
+  return (
+    <div
+      class={atoms({
+        justifyContent: justifyVariants[props.justify],
+        alignItems: 'center',
+        paddingInline: 10,
+      })}
+      style={{
+        'background-image': props.background !== 'solid' ? backgroundVariants[props.background] : undefined,
+        'background-color': props.background === 'solid' ? backgroundVariants.solid : undefined,
+      }}
+    >
+      {props.children}
+    </div>
+  );
+};
+
+export default Hero;
