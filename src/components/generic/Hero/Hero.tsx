@@ -27,6 +27,7 @@ const Hero: ParentComponent<HeroProps> = (props) => {
   return (
     <div
       class={atoms({
+        display: 'flex',
         justifyContent: justifyVariants[props.justify],
         alignItems: 'center',
         paddingInline: 10,
