@@ -96,7 +96,7 @@
     "serialize-javascript": "^6.0.0",
     "sharp": "^0.31.1",
     "shuffle-seed": "^1.1.6",
-    "sinon": "^14.0.1",
+    "sinon": "^15.0.1",
     "socket.io": "^4.5.3",
     "uuid": "^9.0.0",
     "winston": "^3.8.2"
