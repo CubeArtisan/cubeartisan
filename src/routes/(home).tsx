@@ -1,8 +1,10 @@
 import { For } from 'solid-js';
 import { A } from 'solid-start';
 
+import Hero from '@cubeartisan/cubeartisan/components/generic/Hero/Hero';
 import homePageCards from '@cubeartisan/cubeartisan/mock/home-page-cards';
 import * as styles from '@cubeartisan/cubeartisan/routes/home.css';
+import { atoms } from '@cubeartisan/cubeartisan/styles';
 
 type CubeCardProps = {
   thumbnail: string;
@@ -21,10 +23,14 @@ const CubeCard = (props: CubeCardProps) => (
 export default function Home() {
   return (
     <main class={styles.app}>
-      <div class={styles.hero}>
-        <h1 class={styles.heroTitle}>CubeArtisan</h1>
-        <p class={styles.heroSub}>cube design and analysis made easy</p>
-      </div>
+      <Hero justify="center" background="gradientCenter">
+        <div class={atoms({ textAlign: 'center', height: 40 })}>
+          <h1 class={atoms({ fontSize: '2xl', fontWeight: 'bold' })}>CubeArtisan</h1>
+          <p class={atoms({ fontSize: 'lg', fontWeight: 'light', color: 'neutralLowContrast' })}>
+            Next level cube management
+          </p>
+        </div>
+      </Hero>
       <div class={styles.pageContent}>
         <For each={homePageCards} fallback={<div>Loading...</div>}>
           {(cardList) => (
