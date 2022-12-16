@@ -3,6 +3,12 @@ import type { ParentComponent } from 'solid-js';
 import { atoms, vars } from '@cubeartisan/cubeartisan/styles';
 import type { Atoms } from '@cubeartisan/cubeartisan/styles/atoms/atoms.css';
 
+const HeroContentBlock: ParentComponent = (props) => (
+  <div class={atoms({ display: 'flex',  })} >
+    {props.children}
+  </div>
+);
+
 export type HeroProps = {
   justify: 'center' | 'left' | 'right' | 'split';
   background: 'gradientLeft' | 'gradientRight' | 'gradientCenter' | 'solid';
