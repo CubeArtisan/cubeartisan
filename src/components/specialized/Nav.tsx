@@ -5,6 +5,8 @@ import { atoms } from '@cubeartisan/cubeartisan/styles';
 const SiteNavbar = () => {
   const userid = '';
 
+  // const handleLogin = () => {};
+
   return (
     <nav
       class={atoms({
