@@ -26,7 +26,7 @@ export const heroRootRecipe = recipe({
     padding: 10,
   }),
   variants: {
-    justify: {
+    layout: {
       center: atoms({ justifyContent: 'center' }),
       left: atoms({ justifyContent: 'flexStart' }),
       right: atoms({ justifyContent: 'flexEnd' }),

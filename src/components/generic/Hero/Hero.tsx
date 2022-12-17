@@ -12,7 +12,7 @@ import type { ArtisanComponent, ElementType, HTMLArtisanProps } from '@cubeartis
 
 type HeroContentBlockProps<C extends ElementType> = HTMLArtisanProps<C, HeroContentBlockVariants>;
 
-const HeroContentBlock: ArtisanComponent<'div', HeroContentBlockProps> = (props) => {
+const HeroContentBlock: ArtisanComponent<'div', HeroContentBlockProps<'div'>> = (props) => {
   const [local, others] = splitProps(props, ['class', 'textAlign']);
 
   return <artisan class={clsx(local.class, heroContentBlockRecipe({ textAlign: local.textAlign }))} {...others} />;
@@ -25,7 +25,7 @@ const Hero: ArtisanComponent<'div', HeroProps<'div'>> = (props) => {
 
   return (
     <artisan
-      class={clsx(local.class, heroRootRecipe({ justify: local.justify, background: local.background }))}
+      class={clsx(local.class, heroRootRecipe({ layout: local.justify, background: local.background }))}
       {...others}
     />
   );
