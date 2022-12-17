@@ -21,11 +21,11 @@ const HeroContentBlock: ArtisanComponent<'div', HeroContentBlockProps<'div'>> = 
 type HeroProps<C extends ElementType> = HTMLArtisanProps<C, HeroRootVariants>;
 
 const Hero: ArtisanComponent<'div', HeroProps<'div'>> = (props) => {
-  const [local, others] = splitProps(props, ['class', 'justify', 'background']);
+  const [local, others] = splitProps(props, ['class', 'layout', 'background']);
 
   return (
     <artisan
-      class={clsx(local.class, heroRootRecipe({ layout: local.justify, background: local.background }))}
+      class={clsx(local.class, heroRootRecipe({ layout: local.layout, background: local.background }))}
       {...others}
     />
   );
