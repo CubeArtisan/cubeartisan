@@ -3,14 +3,14 @@ import { splitProps } from 'solid-js';
 
 import artisan from '@cubeartisan/cubeartisan/components/factory';
 import {
+  HeroContentBlockRecipe,
   heroContentBlockRecipe,
-  HeroContentBlockVariants,
+  HeroRootRecipe,
   heroRootRecipe,
-  HeroRootVariants,
 } from '@cubeartisan/cubeartisan/components/generic/Hero/Hero.css';
 import type { ArtisanComponent, ElementType, HTMLArtisanProps } from '@cubeartisan/cubeartisan/components/types';
 
-type HeroContentBlockProps<C extends ElementType> = HTMLArtisanProps<C, HeroContentBlockVariants>;
+type HeroContentBlockProps<C extends ElementType> = HTMLArtisanProps<C, HeroContentBlockRecipe>;
 
 const HeroContentBlock: ArtisanComponent<'div', HeroContentBlockProps<'div'>> = (props) => {
   const [local, others] = splitProps(props, ['class', 'textAlign']);
@@ -18,17 +18,12 @@ const HeroContentBlock: ArtisanComponent<'div', HeroContentBlockProps<'div'>> = 
   return <artisan class={clsx(local.class, heroContentBlockRecipe({ textAlign: local.textAlign }))} {...others} />;
 };
 
-type HeroProps<C extends ElementType> = HTMLArtisanProps<C, HeroRootVariants>;
+type HeroProps<C extends ElementType> = HTMLArtisanProps<C, HeroRootRecipe>;
 
 const Hero: ArtisanComponent<'div', HeroProps<'div'>> = (props) => {
-  const [local, others] = splitProps(props, ['class', 'layout', 'background']);
+  const [local, others] = splitProps(props, ['class', 'recipe', 'background']);
 
-  return (
-    <artisan
-      class={clsx(local.class, heroRootRecipe({ layout: local.layout, background: local.background }))}
-      {...others}
-    />
-  );
+  return <artisan class={clsx(local.class, heroRootRecipe({ ...local.recipe }))} {...others} />;
 };
 
 const Root = Hero;

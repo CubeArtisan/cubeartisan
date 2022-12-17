@@ -17,7 +17,7 @@ export const heroContentBlockRecipe = recipe({
   },
 });
 
-export type HeroContentBlockVariants = RecipeVariants<typeof heroContentBlockRecipe>;
+export type HeroContentBlockRecipe = RecipeVariants<typeof heroContentBlockRecipe>;
 
 export const heroRootRecipe = recipe({
   base: atoms({
@@ -47,4 +47,4 @@ export const heroRootRecipe = recipe({
   },
 });
 
-export type HeroRootVariants = RecipeVariants<typeof heroRootRecipe>;
+export type HeroRootRecipe = RecipeVariants<typeof heroRootRecipe>;

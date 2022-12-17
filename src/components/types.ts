@@ -49,19 +49,19 @@ export type ArtisanProps = Atoms & ClassProps;
  */
 export type HTMLArtisanProps<
   C extends ElementType,
-  Recipes = unknown?,
+  Recipe = unknown?,
   AdditionalProps = Record<string, unknown>?,
-> = OverrideProps<ParentProps<PropsOf<C>>, ArtisanProps & Recipes & AdditionalProps & AsProp<C>>;
+> = OverrideProps<ParentProps<PropsOf<C>>, ArtisanProps & { recipe: Recipe } & AdditionalProps & AsProp<C>>;
 
 /**
  * A component that accepts style props.
  */
 export type ArtisanComponent<T extends ElementType, R = unknown?, P = Record<string, unknown>?> = <
   C extends ElementType = T,
-  Recipes = R,
+  Recipe = R,
   AdditionalProps = P,
 >(
-  props: HTMLArtisanProps<C, Recipes, AdditionalProps>,
+  props: HTMLArtisanProps<C, Recipe, AdditionalProps>,
 ) => JSX.Element;
 
 /**

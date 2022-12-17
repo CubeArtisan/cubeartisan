@@ -23,7 +23,7 @@ const CubeCard = (props: CubeCardProps) => (
 export default function Home() {
   return (
     <main class={styles.app}>
-      <Hero.Root layout="center" background="gradientCenter">
+      <Hero.Root recipe={{ layout: 'center', background: 'gradientCenter' }}>
         <Hero.ContentBlock textAlign="center">
           <Box as="h1" fontSize="2xl" fontWeight="bold">
             CubeArtisan
