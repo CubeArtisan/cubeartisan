@@ -1,4 +1,4 @@
-import { recipe } from '@vanilla-extract/recipes';
+import { recipe, RecipeVariants } from '@vanilla-extract/recipes';
 
 import { atoms, vars } from '@cubeartisan/cubeartisan/styles';
 
@@ -17,13 +17,13 @@ export const heroContentBlockRecipe = recipe({
   },
 });
 
-export type HeroContentBlockVariants = Parameters<HeroContentBlockVariants>[0];
+export type HeroContentBlockVariants = RecipeVariants<typeof heroContentBlockRecipe>;
 
 export const heroRootRecipe = recipe({
   base: atoms({
     display: 'flex',
     alignItems: 'center',
-    paddingInline: 10,
+    padding: 10,
   }),
   variants: {
     justify: {
@@ -47,4 +47,4 @@ export const heroRootRecipe = recipe({
   },
 });
 
-export type HeroRootVariants = Parameters<typeof heroRootRecipe>[0];
+export type HeroRootVariants = RecipeVariants<typeof heroRootRecipe>;

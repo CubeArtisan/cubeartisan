@@ -1,24 +1,35 @@
-import type { ParentComponent } from 'solid-js';
+import clsx from 'clsx';
+import { splitProps } from 'solid-js';
 
+import artisan from '@cubeartisan/cubeartisan/components/factory';
 import {
   heroContentBlockRecipe,
   HeroContentBlockVariants,
   heroRootRecipe,
   HeroRootVariants,
 } from '@cubeartisan/cubeartisan/components/generic/Hero/Hero.css';
+import type { ArtisanComponent, ElementType, HTMLArtisanProps } from '@cubeartisan/cubeartisan/components/types';
 
-type HeroContentBlockProps = HeroContentBlockVariants;
+type HeroContentBlockProps<C extends ElementType> = HTMLArtisanProps<C, HeroContentBlockVariants>;
 
-const HeroContentBlock: ParentComponent<HeroContentBlockProps> = (props) => (
-  <div class={heroContentBlockRecipe({ textAlign: props.textAlign })}>{props.children}</div>
-);
+const HeroContentBlock: ArtisanComponent<'div', HeroContentBlockProps> = (props) => {
+  const [local, others] = splitProps(props, ['class', 'textAlign']);
 
-// maybe add a prop to choose background color
-export type HeroProps = HeroRootVariants;
+  return <artisan class={clsx(local.class, heroContentBlockRecipe({ textAlign: local.textAlign }))} {...others} />;
+};
 
-const Hero: ParentComponent<HeroProps> = (props) => (
-  <div class={heroRootRecipe({ justify: props.justify, background: props.background })}>{props.children}</div>
-);
+type HeroProps<C extends ElementType> = HTMLArtisanProps<C, HeroRootVariants>;
+
+const Hero: ArtisanComponent<'div', HeroProps<'div'>> = (props) => {
+  const [local, others] = splitProps(props, ['class', 'justify', 'background']);
+
+  return (
+    <artisan
+      class={clsx(local.class, heroRootRecipe({ justify: local.justify, background: local.background }))}
+      {...others}
+    />
+  );
+};
 
 const Root = Hero;
 const ContentBlock = HeroContentBlock;
