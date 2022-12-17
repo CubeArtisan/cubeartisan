@@ -33,10 +33,16 @@ export const heroRootRecipe = recipe({
       split: atoms({ justifyContent: 'spaceBetween' }),
     },
     background: {
-      gradientLeft: `linear-gradient(to right, transparent, ${vars.backgroundColor.primary.primarySolid})`,
-      gradientRight: `linear-gradient(to left, transparent, ${vars.backgroundColor.primary.primarySolid})`,
-      gradientCenter: `linear-gradient(to right, transparent, ${vars.backgroundColor.primary.primarySolid}, transparent)`,
-      solid: vars.backgroundColor.primary.primarySolid,
+      gradientLeft: {
+        backgroundImage: `linear-gradient(to right, transparent, ${vars.backgroundColor.primary.primarySolid})`,
+      },
+      gradientRight: {
+        backgroundImage: `linear-gradient(to left, transparent, ${vars.backgroundColor.primary.primarySolid})`,
+      },
+      gradientCenter: {
+        backgroundImage: `linear-gradient(to right, transparent, ${vars.backgroundColor.primary.primarySolid}, transparent)`,
+      },
+      solid: { backgroundColor: vars.backgroundColor.primary.primarySolid },
     },
   },
 });
