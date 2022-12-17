@@ -5,7 +5,6 @@ import Box from '@cubeartisan/cubeartisan/components/base/Box/Box';
 import * as Hero from '@cubeartisan/cubeartisan/components/generic/Hero/';
 import homePageCards from '@cubeartisan/cubeartisan/mock/home-page-cards';
 import * as styles from '@cubeartisan/cubeartisan/routes/(app)/home.css';
-import { atoms } from '@cubeartisan/cubeartisan/styles';
 
 type CubeCardProps = {
   thumbnail: string;
@@ -29,9 +28,9 @@ export default function Home() {
           <Box as="h1" fontSize="2xl" fontWeight="bold">
             CubeArtisan
           </Box>
-          <p class={atoms({ fontSize: 'lg', fontWeight: 'light', color: 'neutralLowContrast' })}>
+          <Box as="p" fontSize="lg" fontWeight="light" color="neutralLowContrast">
             Next level cube management
-          </p>
+          </Box>
         </Hero.ContentBlock>
       </Hero.Root>
       <div class={styles.pageContent}>
