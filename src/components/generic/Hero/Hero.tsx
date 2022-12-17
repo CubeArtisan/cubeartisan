@@ -1,51 +1,33 @@
 import type { ParentComponent } from 'solid-js';
 
-import { atoms, vars } from '@cubeartisan/cubeartisan/styles';
-import type { Atoms } from '@cubeartisan/cubeartisan/styles/atoms/atoms.css';
+import {
+  heroContentBlockRecipe,
+  HeroContentBlockVariants,
+  heroRootRecipe,
+  HeroRootVariants,
+} from '@cubeartisan/cubeartisan/components/generic/Hero/Hero.css';
 
-const HeroContentBlock: ParentComponent = (props) => (
-  <div class={atoms({ display: 'flex',  })} >
-    {props.children}
-  </div>
+type HeroContentBlockProps = HeroContentBlockVariants;
+
+const HeroContentBlock: ParentComponent<HeroContentBlockProps> = (props) => (
+  <div class={heroContentBlockRecipe({ textAlign: props.textAlign })}>{props.children}</div>
 );
 
-export type HeroProps = {
-  justify: 'center' | 'left' | 'right' | 'split';
-  background: 'gradientLeft' | 'gradientRight' | 'gradientCenter' | 'solid';
-  // maybe add a prop to choose background color
+// maybe add a prop to choose background color
+export type HeroProps = HeroRootVariants;
+
+const Hero: ParentComponent<HeroProps> = (props) => (
+  <div class={heroRootRecipe({ justify: props.justify, background: props.background })}>{props.children}</div>
+);
+
+const Root = Hero;
+const ContentBlock = HeroContentBlock;
+
+export {
+  Hero,
+  HeroContentBlock,
+  //
+  Root,
+  ContentBlock,
 };
-
-const Hero: ParentComponent<HeroProps> = (props) => {
-  const justifyVariants: Record<HeroProps['justify'], Atoms['justifyContent']> = {
-    center: 'center',
-    left: 'flexStart',
-    right: 'flexEnd',
-    split: 'spaceBetween',
-  };
-
-  const backgroundVariants: Record<HeroProps['background'], string> = {
-    gradientLeft: `linear-gradient(to right, transparent, ${vars.backgroundColor.primary.primarySolid})`,
-    gradientRight: `linear-gradient(to left, transparent, ${vars.backgroundColor.primary.primarySolid})`,
-    gradientCenter: `linear-gradient(to right, transparent, ${vars.backgroundColor.primary.primarySolid}, transparent)`,
-    solid: vars.backgroundColor.primary.primarySolid,
-  };
-
-  return (
-    <div
-      class={atoms({
-        display: 'flex',
-        justifyContent: justifyVariants[props.justify],
-        alignItems: 'center',
-        paddingInline: 10,
-      })}
-      style={{
-        'background-image': props.background !== 'solid' ? backgroundVariants[props.background] : undefined,
-        'background-color': props.background === 'solid' ? backgroundVariants.solid : undefined,
-      }}
-    >
-      {props.children}
-    </div>
-  );
-};
-
-export default Hero;
+export type { HeroProps, HeroContentBlockProps };
