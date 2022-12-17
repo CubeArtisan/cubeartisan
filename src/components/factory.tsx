@@ -31,9 +31,13 @@ const styled: ArtisanFactory = <T extends ElementType>(component: T) => {
       usedStylePropNames,
     );
 
-    const classes = () => clsx(local.class, local.className, atoms({ styleProps }));
-
-    return <Dynamic component={local.as ?? 'div'} class={classes()} {...others} />;
+    return (
+      <Dynamic
+        component={local.as ?? 'div'}
+        class={clsx(local.class, local.className, atoms({ ...styleProps }))}
+        {...others}
+      />
+    );
   };
 
   return artisanComponent;
