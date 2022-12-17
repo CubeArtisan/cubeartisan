@@ -1,9 +1,9 @@
 import { For } from 'solid-js';
 import { A } from 'solid-start';
 
-import Hero from '@cubeartisan/cubeartisan/components/generic/Hero/Hero';
+import { Hero } from '@cubeartisan/cubeartisan/components/generic/Hero/';
 import homePageCards from '@cubeartisan/cubeartisan/mock/home-page-cards';
-import * as styles from '@cubeartisan/cubeartisan/routes/home.css';
+import * as styles from '@cubeartisan/cubeartisan/routes/(app)/home.css';
 import { atoms } from '@cubeartisan/cubeartisan/styles';
 
 type CubeCardProps = {

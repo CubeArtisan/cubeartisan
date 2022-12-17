@@ -3,8 +3,6 @@ import { Suspense } from 'solid-js';
 import { Body, ErrorBoundary, FileRoutes, Head, Html, Link, Meta, Routes, Scripts, Title } from 'solid-start';
 
 import '@cubeartisan/cubeartisan/styles/globalReset.css';
-import Footer from '@cubeartisan/cubeartisan/components/specialized/Footer';
-import Nav from '@cubeartisan/cubeartisan/components/specialized/Nav';
 import { atoms, theme } from '@cubeartisan/cubeartisan/styles';
 
 export default function Root() {
@@ -29,26 +27,17 @@ export default function Root() {
       </Head>
       <Body
         class={`${atoms({
-          height: 'full',
           backgroundColor: 'neutralSubtle',
           color: 'neutralContrast',
         })} ${theme}`}
       >
-        <div
-          class={atoms({
-            minHeight: 'screenH',
-          })}
-        >
-          <Nav />
-          <ErrorBoundary>
-            <Suspense>
-              <Routes>
-                <FileRoutes />
-              </Routes>
-            </Suspense>
-          </ErrorBoundary>
-        </div>
-        <Footer />
+        <ErrorBoundary>
+          <Suspense>
+            <Routes>
+              <FileRoutes />
+            </Routes>
+          </Suspense>
+        </ErrorBoundary>
         <Scripts />
       </Body>
     </Html>

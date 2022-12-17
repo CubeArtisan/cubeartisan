@@ -1,6 +1,6 @@
 import type { Component } from 'solid-js';
 
-import * as styles from '@cubeartisan/cubeartisan/routes/cube/[cubeID]/(list).css';
+import * as styles from '@cubeartisan/cubeartisan/routes/(app)/cube/[cubeID]/(list).css';
 
 const CubePage: Component = () => (
   <main>
