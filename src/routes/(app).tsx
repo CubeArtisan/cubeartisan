@@ -4,7 +4,7 @@ import SiteFooter from '@cubeartisan/cubeartisan/components/specialized/SiteFoot
 import SiteNavbar from '@cubeartisan/cubeartisan/components/specialized/SiteNavbar';
 import { atoms } from '@cubeartisan/cubeartisan/styles';
 
-const foo = () => (
+const AppLayout = () => (
   <>
     <div
       class={atoms({
@@ -17,4 +17,4 @@ const foo = () => (
     <SiteFooter />
   </>
 );
-export default foo;
+export default AppLayout;
