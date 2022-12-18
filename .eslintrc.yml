@@ -49,6 +49,7 @@ rules:
     - error
     - ignoreCase: true
       ignoreDeclarationSort: true
+  import/prefer-default-export: off
   prettier/prettier:
     - warn
     - endOfLine: lf
@@ -90,22 +91,6 @@ rules:
   promise/prefer-await-to-callbacks: error
   '@typescript-eslint/no-non-null-assertion': off
 overrides:
-  - files:
-      - '**/*.cjs'
-    rules:
-      import/no-commonjs: 'off'
-  - files:
-      - 'src/routes/**/*.ts'
-    rules:
-      import/prefer-default-export: off
-  - files:
-    - 'src/styles/**/*.ts'
-    rules:
-      import/prefer-default-export: off 
-  - files:
-    - 'src/**/*.css.ts'
-    rules:
-      import/prefer-default-export: off 
   - files:
       - '**/*.test.ts'
       - '**/*.test.tsx'
