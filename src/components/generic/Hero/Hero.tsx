@@ -13,17 +13,17 @@ import type { ArtisanComponent, ElementType, HTMLArtisanProps } from '@cubeartis
 type HeroContentBlockProps<C extends ElementType> = HTMLArtisanProps<C, HeroContentBlockRecipe>;
 
 const HeroContentBlock: ArtisanComponent<'div', HeroContentBlockProps<'div'>> = (props) => {
-  const [local, others] = splitProps(props, ['class', 'textAlign']);
+  const [local, others] = splitProps(props, ['recipe']);
 
-  return <artisan class={clsx(local.class, heroContentBlockRecipe({ textAlign: local.textAlign }))} {...others} />;
+  return <artisan class={clsx(local.class, heroContentBlockRecipe({ ...local.recipe }))} {...others} />;
 };
 
 type HeroProps<C extends ElementType> = HTMLArtisanProps<C, HeroRootRecipe>;
 
 const Hero: ArtisanComponent<'div', HeroProps<'div'>> = (props) => {
-  const [local, others] = splitProps(props, ['class', 'recipe', 'background']);
+  const [local, others] = splitProps(props, ['recipe']);
 
-  return <artisan class={clsx(local.class, heroRootRecipe({ ...local.recipe }))} {...others} />;
+  return <artisan class={heroRootRecipe({ ...local.recipe })} {...others} />;
 };
 
 const Root = Hero;

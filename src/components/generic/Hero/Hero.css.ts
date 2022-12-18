@@ -9,7 +9,7 @@ export const heroContentBlockRecipe = recipe({
     justifyContent: 'center',
   }),
   variants: {
-    textAlign: {
+    align: {
       center: atoms({ alignItems: 'center' }),
       right: atoms({ alignItems: 'flexEnd' }),
       left: atoms({ alignItems: 'flexStart' }),
