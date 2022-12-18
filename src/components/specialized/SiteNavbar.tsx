@@ -6,6 +6,7 @@ const SiteNavbar = () => {
   const userid = '';
 
   // const handleLogin = () => {};
+  // use <banner /> when including non-nav elements
 
   return (
     <nav
