@@ -9,7 +9,7 @@ import type {
   ElementType,
   HTMLArtisanComponents,
   HTMLArtisanProps,
-} from '@cubeartisan/cubeartisan/components/types';
+} from '@cubeartisan/cubeartisan/components/_Old/types';
 import { atoms } from '@cubeartisan/cubeartisan/styles';
 
 /**

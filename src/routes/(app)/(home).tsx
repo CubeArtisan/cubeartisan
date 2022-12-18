@@ -1,9 +1,9 @@
 import { For } from 'solid-js';
 import { A } from 'solid-start';
 
-import Box from '@cubeartisan/cubeartisan/components/base/Box/Box';
-import Heading from '@cubeartisan/cubeartisan/components/generic/Heading';
-import * as Hero from '@cubeartisan/cubeartisan/components/generic/Hero/';
+import Box from '@cubeartisan/cubeartisan/components/_Old/Box/Box';
+import Heading from '@cubeartisan/cubeartisan/components/_Old/Heading';
+import * as Hero from '@cubeartisan/cubeartisan/components/_Old/Hero';
 import homePageCards from '@cubeartisan/cubeartisan/mock/home-page-cards';
 import * as styles from '@cubeartisan/cubeartisan/routes/(app)/home.css';
 

@@ -1,7 +1,7 @@
 import { splitProps } from 'solid-js';
 
-import artisan from '@cubeartisan/cubeartisan/components/factory';
-import type { ArtisanComponent, ElementType, HTMLArtisanProps } from '@cubeartisan/cubeartisan/components/types';
+import artisan from '@cubeartisan/cubeartisan/components/_Old/factory';
+import type { ArtisanComponent, ElementType, HTMLArtisanProps } from '@cubeartisan/cubeartisan/components/_Old/types';
 
 interface HeadingP {
   level: 1 | 2 | 3 | 4 | 5 | 6;

@@ -1,4 +1,4 @@
-import artisan from '@cubeartisan/cubeartisan/components/factory';
+import artisan from '@cubeartisan/cubeartisan/components/_Old/factory';
 
 /**
  * Box is the most abstract component on top of which all other Artisan components are built.
