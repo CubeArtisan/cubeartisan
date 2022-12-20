@@ -674,7 +674,7 @@ export const makeSemanticColors = ({ colorPalette, overrides = {} }: MakeSemanti
       borderNeutralInteractiveLarge: `0 0 0 ${tokens.border.width.large} ${borderColor.neutral.neutralInteractive}`,
       borderNeutralInteractiveHover: `0 0 0 ${tokens.border.width.standard} ${borderColor.neutral.neutralInteractiveHover}`,
       borderNeutralInteractiveHoverLarge: `0 0 0 ${tokens.border.width.large} ${borderColor.neutral.neutralInteractiveHover}`,
-      borderNeutralFocus: `0 0 0 ${tokens.border.width.large} ${borderColor.neutral.neutralFocus}`,
+      borderNeutralFocus: `0 0 0 ${tokens.focusRingSize} ${borderColor.neutral.neutralFocus}`,
     },
     neutralA: {
       borderNeutralA: `0 0 0 ${tokens.border.width.standard} ${borderColor.neutralA.neutralA}`,
@@ -683,7 +683,7 @@ export const makeSemanticColors = ({ colorPalette, overrides = {} }: MakeSemanti
       borderNeutralAInteractiveLarge: `0 0 0 ${tokens.border.width.large} ${borderColor.neutralA.neutralAInteractive}`,
       borderNeutralAInteractiveHover: `0 0 0 ${tokens.border.width.standard} ${borderColor.neutralA.neutralAInteractiveHover}`,
       borderNeutralAInteractiveHoverLarge: `0 0 0 ${tokens.border.width.large} ${borderColor.neutralA.neutralAInteractiveHover}`,
-      borderNeutralAFocus: `0 0 0 ${tokens.border.width.large} ${borderColor.neutralA.neutralAFocus}`,
+      borderNeutralAFocus: `0 0 0 ${tokens.focusRingSize} ${borderColor.neutralA.neutralAFocus}`,
     },
     primary: {
       borderPrimary: `0 0 0 ${tokens.border.width.standard} ${borderColor.primary.primary}`,
@@ -692,7 +692,7 @@ export const makeSemanticColors = ({ colorPalette, overrides = {} }: MakeSemanti
       borderPrimaryInteractiveLarge: `0 0 0 ${tokens.border.width.large} ${borderColor.primary.primaryInteractive}`,
       borderPrimaryInteractiveHover: `0 0 0 ${tokens.border.width.standard} ${borderColor.primary.primaryInteractiveHover}`,
       borderPrimaryInteractiveHoverLarge: `0 0 0 ${tokens.border.width.large} ${borderColor.primary.primaryInteractiveHover}`,
-      borderPrimaryFocus: `0 0 0 ${tokens.border.width.large} ${borderColor.primary.primaryFocus}`,
+      borderPrimaryFocus: `0 0 0 ${tokens.focusRingSize} ${borderColor.primary.primaryFocus}`,
     },
     primaryA: {
       borderPrimaryA: `0 0 0 ${tokens.border.width.standard} ${borderColor.primaryA.primaryA}`,
@@ -701,7 +701,7 @@ export const makeSemanticColors = ({ colorPalette, overrides = {} }: MakeSemanti
       borderPrimaryAInteractiveLarge: `0 0 0 ${tokens.border.width.large} ${borderColor.primaryA.primaryAInteractive}`,
       borderPrimaryAInteractiveHover: `0 0 0 ${tokens.border.width.standard} ${borderColor.primaryA.primaryAInteractiveHover}`,
       borderPrimaryAInteractiveHoverLarge: `0 0 0 ${tokens.border.width.large} ${borderColor.primaryA.primaryAInteractiveHover}`,
-      borderPrimaryAFocus: `0 0 0 ${tokens.border.width.large} ${borderColor.primaryA.primaryAFocus}`,
+      borderPrimaryAFocus: `0 0 0 ${tokens.focusRingSize} ${borderColor.primaryA.primaryAFocus}`,
     },
     success: {
       borderSuccess: `0 0 0 ${tokens.border.width.standard} ${borderColor.success.success}`,
@@ -710,7 +710,7 @@ export const makeSemanticColors = ({ colorPalette, overrides = {} }: MakeSemanti
       borderSuccessInteractiveLarge: `0 0 0 ${tokens.border.width.large} ${borderColor.success.successInteractive}`,
       borderSuccessInteractiveHover: `0 0 0 ${tokens.border.width.standard} ${borderColor.success.successInteractiveHover}`,
       borderSuccessInteractiveHoverLarge: `0 0 0 ${tokens.border.width.large} ${borderColor.success.successInteractiveHover}`,
-      borderSuccessFocus: `0 0 0 ${tokens.border.width.large} ${borderColor.success.successFocus}`,
+      borderSuccessFocus: `0 0 0 ${tokens.focusRingSize} ${borderColor.success.successFocus}`,
     },
     successA: {
       borderSuccessA: `0 0 0 ${tokens.border.width.standard} ${borderColor.sucessA.successA}`,
@@ -719,7 +719,7 @@ export const makeSemanticColors = ({ colorPalette, overrides = {} }: MakeSemanti
       borderSuccessAInteractiveLarge: `0 0 0 ${tokens.border.width.large} ${borderColor.sucessA.successAInteractive}`,
       borderSuccessAInteractiveHover: `0 0 0 ${tokens.border.width.standard} ${borderColor.sucessA.successAInteractiveHover}`,
       borderSuccessAInteractiveHoverLarge: `0 0 0 ${tokens.border.width.large} ${borderColor.sucessA.successAInteractiveHover}`,
-      borderSuccessAFocus: `0 0 0 ${tokens.border.width.large} ${borderColor.sucessA.successAFocus}`,
+      borderSuccessAFocus: `0 0 0 ${tokens.focusRingSize} ${borderColor.sucessA.successAFocus}`,
     },
     info: {
       borderInfo: `0 0 0 ${tokens.border.width.standard} ${borderColor.info.info}`,
@@ -728,7 +728,7 @@ export const makeSemanticColors = ({ colorPalette, overrides = {} }: MakeSemanti
       borderInfoInteractiveLarge: `0 0 0 ${tokens.border.width.large} ${borderColor.info.infoInteractive}`,
       borderInfoInteractiveHover: `0 0 0 ${tokens.border.width.standard} ${borderColor.info.infoInteractiveHover}`,
       borderInfoInteractiveHoverLarge: `0 0 0 ${tokens.border.width.large} ${borderColor.info.infoInteractiveHover}`,
-      borderInfoFocus: `0 0 0 ${tokens.border.width.large} ${borderColor.info.infoFocus}`,
+      borderInfoFocus: `0 0 0 ${tokens.focusRingSize} ${borderColor.info.infoFocus}`,
     },
     infoA: {
       borderInfoA: `0 0 0 ${tokens.border.width.standard} ${borderColor.infoA.infoA}`,
@@ -737,7 +737,7 @@ export const makeSemanticColors = ({ colorPalette, overrides = {} }: MakeSemanti
       borderInfoAInteractiveLarge: `0 0 0 ${tokens.border.width.large} ${borderColor.infoA.infoAInteractive}`,
       borderInfoAInteractiveHover: `0 0 0 ${tokens.border.width.standard} ${borderColor.infoA.infoAInteractiveHover}`,
       borderInfoAInteractiveHoverLarge: `0 0 0 ${tokens.border.width.large} ${borderColor.infoA.infoAInteractiveHover}`,
-      borderInfoAFocus: `0 0 0 ${tokens.border.width.large} ${borderColor.infoA.infoAFocus}`,
+      borderInfoAFocus: `0 0 0 ${tokens.focusRingSize} ${borderColor.infoA.infoAFocus}`,
     },
     warning: {
       borderWarning: `0 0 0 ${tokens.border.width.standard} ${borderColor.warning.warning}`,
@@ -746,7 +746,7 @@ export const makeSemanticColors = ({ colorPalette, overrides = {} }: MakeSemanti
       borderWarningInteractiveLarge: `0 0 0 ${tokens.border.width.large} ${borderColor.warning.warningInteractive}`,
       borderWarningInteractiveHover: `0 0 0 ${tokens.border.width.standard} ${borderColor.warning.warningInteractiveHover}`,
       borderWarningInteractiveHoverLarge: `0 0 0 ${tokens.border.width.large} ${borderColor.warning.warningInteractiveHover}`,
-      borderWarningFocus: `0 0 0 ${tokens.border.width.large} ${borderColor.warning.warningFocus}`,
+      borderWarningFocus: `0 0 0 ${tokens.focusRingSize} ${borderColor.warning.warningFocus}`,
     },
     warningA: {
       borderWarningA: `0 0 0 ${tokens.border.width.standard} ${borderColor.warningA.warningA}`,
@@ -755,7 +755,7 @@ export const makeSemanticColors = ({ colorPalette, overrides = {} }: MakeSemanti
       borderWarningAInteractiveLarge: `0 0 0 ${tokens.border.width.large} ${borderColor.warningA.warningAInteractive}`,
       borderWarningAInteractiveHover: `0 0 0 ${tokens.border.width.standard} ${borderColor.warningA.warningAInteractiveHover}`,
       borderWarningAInteractiveHoverLarge: `0 0 0 ${tokens.border.width.large} ${borderColor.warningA.warningAInteractiveHover}`,
-      borderWarningAFocus: `0 0 0 ${tokens.border.width.large} ${borderColor.warningA.warningAFocus}`,
+      borderWarningAFocus: `0 0 0 ${tokens.focusRingSize} ${borderColor.warningA.warningAFocus}`,
     },
     danger: {
       borderDanger: `0 0 0 ${tokens.border.width.standard} ${borderColor.danger.danger}`,
@@ -764,7 +764,7 @@ export const makeSemanticColors = ({ colorPalette, overrides = {} }: MakeSemanti
       borderDangerInteractiveLarge: `0 0 0 ${tokens.border.width.large} ${borderColor.danger.dangerInteractive}`,
       borderDangerInteractiveHover: `0 0 0 ${tokens.border.width.standard} ${borderColor.danger.dangerInteractiveHover}`,
       borderDangerInteractiveHoverLarge: `0 0 0 ${tokens.border.width.large} ${borderColor.danger.dangerInteractiveHover}`,
-      borderDangerFocus: `0 0 0 ${tokens.border.width.large} ${borderColor.danger.dangerFocus}`,
+      borderDangerFocus: `0 0 0 ${tokens.focusRingSize} ${borderColor.danger.dangerFocus}`,
     },
     dangerA: {
       borderDangerA: `0 0 0 ${tokens.border.width.standard} ${borderColor.dangerA.dangerA}`,
@@ -773,7 +773,7 @@ export const makeSemanticColors = ({ colorPalette, overrides = {} }: MakeSemanti
       borderDangerAInteractiveLarge: `0 0 0 ${tokens.border.width.large} ${borderColor.dangerA.dangerAInteractive}`,
       borderDangerAInteractiveHover: `0 0 0 ${tokens.border.width.standard} ${borderColor.dangerA.dangerAInteractiveHover}`,
       borderDangerAInteractiveHoverLarge: `0 0 0 ${tokens.border.width.large} ${borderColor.dangerA.dangerAInteractiveHover}`,
-      borderDangerAFocus: `0 0 0 ${tokens.border.width.large} ${borderColor.dangerA.dangerAFocus}`,
+      borderDangerAFocus: `0 0 0 ${tokens.focusRingSize} ${borderColor.dangerA.dangerAFocus}`,
     },
   };
 
