@@ -1,1 +1,1 @@
-export * from '@cubeartisan/cubeartisan/components/generic/Hero';
+export * from '@cubeartisan/cubeartisan/components/generic/Hero/Hero';
