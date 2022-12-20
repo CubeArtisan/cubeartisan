@@ -1,14 +1,14 @@
 import clsx from 'clsx';
 import { splitProps } from 'solid-js';
 
-import artisan from '@cubeartisan/cubeartisan/components/_Old/factory';
+import artisan from '@cubeartisan/cubeartisan/components/factory';
 import {
   HeroContentBlockRecipe,
   heroContentBlockRecipe,
   HeroRootRecipe,
   heroRootRecipe,
 } from '@cubeartisan/cubeartisan/components/generic/Hero/Hero.css';
-import type { ArtisanComponent, ElementType, HTMLArtisanProps } from '@cubeartisan/cubeartisan/components/_Old/types';
+import type { ArtisanComponent, ElementType, HTMLArtisanProps } from '@cubeartisan/cubeartisan/components/types';
 
 type HeroContentBlockProps<C extends ElementType> = HTMLArtisanProps<C, HeroContentBlockRecipe>;
 

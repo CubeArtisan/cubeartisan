@@ -34,9 +34,9 @@ export type StyleProps<R = Record<string, unknown>> = {
  * Enhance props of a SolidJS component or JSX element with Artisan props and AsProp
  */
 export type HTMLArtisanProps<
-  T extends ElementType,
-  R = Record<string, never>,
-  P = Record<string, never>,
+  T extends ElementType = unknown,
+  R = Record<string, unknown>,
+  P = Record<string, unknown>,
 > = OverrideProps<ComponentProps<T>, AsProp<T> & StyleProps<R> & P>;
 
 /**
@@ -53,8 +53,8 @@ export type HTMLArtisanProps<
  */
 export type ArtisanComponent<
   T extends ElementType = 'div',
-  R = Record<string, never>,
-  P = Record<string, never>,
+  R = Record<string, unknown>,
+  P = Record<string, unknown>,
 > = Component<HTMLArtisanProps<T, R, P>>;
 
 /**
@@ -70,8 +70,8 @@ export type ArtisanComponent<
  */
 export type ArtisanParentComponent<
   T extends ElementType,
-  R = Record<string, never>,
-  P = Record<string, never>,
+  R = Record<string, unknown>,
+  P = Record<string, unknown>,
 > = ParentComponent<HTMLArtisanProps<T, R, P>>;
 
 /**
@@ -81,18 +81,18 @@ export type ArtisanParentComponent<
  */
 export type ArtisanFlowComponent<
   T extends ElementType,
-  R = Record<string, never>,
-  P = Record<string, never>,
+  R = Record<string, unknown>,
+  P = Record<string, unknown>,
   C = JSX.Element,
 > = Component<HTMLArtisanProps<T, R, P>, C>;
 
 /**
- * Artisan Component that never accepts children
+ * Artisan Component that unknown accepts children
  */
 export type ArtisanVoidComponent<
   T extends ElementType,
-  R = Record<string, never>,
-  P = Record<string, never>,
+  R = Record<string, unknown>,
+  P = Record<string, unknown>,
 > = VoidComponent<HTMLArtisanProps<T, R, P>>;
 
 /**
@@ -107,7 +107,6 @@ export type HTMLArtisanComponents = {
  * Factory function that converts non-artisan components or jsx element
  * to artisan-enabled components so you can pass style props to them.
  */
-export type ArtisanFactory = <T extends ElementType, R = Record<string, never>, P = Record<string, never>>(
+export type ArtisanFactory = <T extends ElementType, R = Record<string, unknown>, P = Record<string, unknown>>(
   component: T,
-  recipe?: R,
 ) => ArtisanComponent<T, R, P>;

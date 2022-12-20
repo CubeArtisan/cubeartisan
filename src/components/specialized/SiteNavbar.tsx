@@ -1,5 +1,6 @@
 import { A } from 'solid-start';
 
+import artisan from '@cubeartisan/cubeartisan/components/factory';
 import { atoms } from '@cubeartisan/cubeartisan/styles';
 
 const SiteNavbar = () => {
@@ -9,13 +10,13 @@ const SiteNavbar = () => {
   // use <banner /> when including non-nav elements
 
   return (
-    <nav
-      class={atoms({
+    <artisan.nav
+      atoms={{
         height: 12,
         width: 'full',
         backgroundColor: 'neutralSubtleSecondary',
         color: 'neutralContrast',
-      })}
+      }}
     >
       <div
         class={atoms({
@@ -67,7 +68,7 @@ const SiteNavbar = () => {
           </li>
         </ul>
       </div>
-    </nav>
+    </artisan.nav>
   );
 };
 

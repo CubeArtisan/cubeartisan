@@ -16,17 +16,10 @@ const styled: ArtisanFactory = <T extends ElementType>(component: T) => {
   const artisanComponent: ArtisanComponent<T> = (props) => {
     const propsWithDefault = mergeProps({ as: component }, props);
 
-    const [local, others] = splitProps(propsWithDefault as HTMLArtisanProps, ['as', 'class', 'atoms', 'recipe']);
+    const [local, others] = splitProps(propsWithDefault as HTMLArtisanProps<T>, ['as', 'class', 'atoms']);
 
-    return (
-      <Dynamic
-        component={local.as ?? 'div'}
-        class={clsx(local.class, atoms({ ...local.atoms }), local.recipe)}
-        {...others}
-      />
-    );
+    return <Dynamic component={local.as ?? 'div'} class={clsx(local.class, atoms({ ...local.atoms }))} {...others} />;
   };
-
   return artisanComponent;
 };
 
