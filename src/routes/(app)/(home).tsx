@@ -14,7 +14,7 @@ type CubeCardProps = {
 
 const CubeCard = (props: CubeCardProps) => (
   <artisan.div
-    atoms={{ overflow: 'hidden', borderRadius: 'sm', boxShadow: { hover: '2xl' } }}
+    atoms={{ overflow: 'hidden', borderRadius: 'sm', boxShadow: { hover: '2xl' }, transform: { hover: 'scale-102' } }}
     class={styles.cubeCardContainer}
   >
     <artisan.div class={styles.cubeCardImage} style={{ 'background-image': `url(${props.thumbnail})` }} />

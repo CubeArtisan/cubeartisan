@@ -189,6 +189,7 @@ export const responsiveProperties = {
 
 export const interactiveProperties = {
   textDecoration: ['underline solid', 'underline dotted'],
+  transform: vars.transformScale,
   /**
    * [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/CSS/cursor)
    */

@@ -36,5 +36,7 @@ export const makeTheme = ({ tokens, colorPalette, semanticColorOverrides }: Make
     staticColor: tokens.color,
 
     boxShadow,
+
+    transformScale: tokens.effects.scale,
   } as const;
 };

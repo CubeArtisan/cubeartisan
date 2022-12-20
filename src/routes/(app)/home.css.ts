@@ -13,9 +13,6 @@ export const cubeCardContainer = style({
   gridTemplateAreas: '"a"',
   aspectRatio: '4/3',
   transitionDuration: '150ms',
-  ':hover': {
-    scale: 1.02,
-  },
 });
 
 export const cubeCardImage = style([
