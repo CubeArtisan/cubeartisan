@@ -322,6 +322,16 @@ type BoxShadow = {
     borderDangerAInteractiveHoverLarge: string;
     borderDangerAFocus: string;
   };
+  shadow: {
+    none: string;
+    xs: string;
+    sm: string;
+    md: string;
+    lg: string;
+    xl: string;
+    '2xl': string;
+    inner: string;
+  };
 };
 
 type TextColor = {
@@ -774,6 +784,16 @@ export const makeSemanticColors = ({ colorPalette, overrides = {} }: MakeSemanti
       borderDangerAInteractiveHover: `0 0 0 ${tokens.border.width.standard} ${borderColor.dangerA.dangerAInteractiveHover}`,
       borderDangerAInteractiveHoverLarge: `0 0 0 ${tokens.border.width.large} ${borderColor.dangerA.dangerAInteractiveHover}`,
       borderDangerAFocus: `0 0 0 ${tokens.focusRingSize} ${borderColor.dangerA.dangerAFocus}`,
+    },
+    shadow: {
+      none: '0 0 #0000',
+      xs: `0 1px 2px 0 ${colorPalette.shadow[4]}`,
+      sm: `0 1px 3px 0 ${colorPalette.shadow[5]}, 0 1px 2px -1px ${colorPalette.shadow[6]}`,
+      md: `0 4px 6px -1px ${colorPalette.shadow[5]}, 0 2px 4px -2px ${colorPalette.shadow[6]}`,
+      lg: `0 10px 15px -3px ${colorPalette.shadow[5]}, 0 4px 6px -4px ${colorPalette.shadow[6]}`,
+      xl: `0 20px 25px -5px ${colorPalette.shadow[5]}, 0 8px 10px -6px ${colorPalette.shadow[6]}`,
+      '2xl': `0 25px 50px -12px ${colorPalette.shadow[8]}`,
+      inner: `inset 0 2px 4px 0 ${colorPalette.shadow[4]}`,
     },
   };
 
