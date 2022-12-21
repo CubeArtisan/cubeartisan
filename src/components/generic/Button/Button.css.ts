@@ -18,6 +18,7 @@ export const buttonRecipe = recipe({
       md: atoms({ text: 'base' }),
       lg: atoms({ text: 'lg' }),
       xl: atoms({ text: 'xl' }),
+      '2xl': atoms({ text: '2xl' }),
     },
     color: {
       neutral: atoms({
