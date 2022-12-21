@@ -1,7 +1,7 @@
 import { mergeProps, splitProps } from 'solid-js';
 
 import artisan from '@cubeartisan/cubeartisan/components/factory';
-import { inlineRecipe } from '@cubeartisan/cubeartisan/components/generic/Inline/Inline.css';
+import { inlineRecipe } from '@cubeartisan/cubeartisan/components/layout/Inline/Inline.css';
 import type { ArtisanComponent } from '@cubeartisan/cubeartisan/components/types';
 
 export type InlineProps = {

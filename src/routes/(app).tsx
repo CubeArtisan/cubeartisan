@@ -1,7 +1,7 @@
 import { Outlet } from 'solid-start';
 
-import SiteFooter from '@cubeartisan/cubeartisan/components/specialized/SiteFooter';
-import SiteNavbar from '@cubeartisan/cubeartisan/components/specialized/SiteNavbar';
+import SiteFooter from '@cubeartisan/cubeartisan/components/templates/App/SiteFooter';
+import SiteNavbar from '@cubeartisan/cubeartisan/components/templates/App/SiteNavbar';
 import { atoms } from '@cubeartisan/cubeartisan/styles';
 
 const AppLayout = () => (

@@ -1,9 +1,6 @@
 // for testing components
-import artisan from '@cubeartisan/cubeartisan/components/factory';
+import { TestButton } from '@cubeartisan/cubeartisan/components/input/Button/Button.testrender';
 
-const Test = () => {
-  const testdata = null;
-  return <artisan.h1>Some test text</artisan.h1>;
-};
+const Test = () => <TestButton />;
 
 export default Test;

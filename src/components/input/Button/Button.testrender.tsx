@@ -1,6 +1,6 @@
-import { Button } from '@cubeartisan/cubeartisan/components/generic/Button/Button';
-import { Inline } from '@cubeartisan/cubeartisan/components/generic/Inline';
-import { Stack } from '@cubeartisan/cubeartisan/components/generic/Stack';
+import { Button } from '@cubeartisan/cubeartisan/components/input/Button/Button';
+import { Inline } from '@cubeartisan/cubeartisan/components/layout/Inline';
+import { Stack } from '@cubeartisan/cubeartisan/components/layout/Stack';
 
 export const TestButton = () => {
   const testSizes = {
