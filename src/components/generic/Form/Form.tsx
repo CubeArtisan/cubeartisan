@@ -30,7 +30,7 @@ type FormProps = {
   action: string;
 };
 
-const MyForm: ParentComponent<FormProps> = (props) => {
+const MyForm: Component<FormProps> = (props) => {
   const [logging, { Form }] = createServerAction$(async (form: FormData, { request }) => {
     const username = form.get('username') as string;
     const password = form.get('password') as string;
@@ -38,8 +38,16 @@ const MyForm: ParentComponent<FormProps> = (props) => {
     await createUser(username, password, email);
   });
   return (
-    <Form action={props.action} method="post" class={atoms({ display: 'flex', flexDirection: 'column' })}>
-      {props.children}
+    <Form method="post" class={atoms({ display: 'flex', flexDirection: 'column' })}>
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" required style={{ color: 'black' }} />
+      <label for="username">Email</label>
+      <input type="email" name="email" id="email" required style={{ color: 'black' }} />
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" required style={{ color: 'black' }} />
+      <button type="submit" value="submit">
+        Sign Up
+      </button>
     </Form>
   );
 };
