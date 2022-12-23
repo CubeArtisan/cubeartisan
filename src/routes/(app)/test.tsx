@@ -1,5 +1,5 @@
 // for testing components
-import { TestButton } from '@cubeartisan/cubeartisan/components/input/Button/Button.testrender';
+import { TestButton } from '@cubeartisan/cubeartisan/components/Button/Button.testrender';
 
 const Test = () => <TestButton />;
 

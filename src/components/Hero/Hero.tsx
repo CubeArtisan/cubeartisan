@@ -1,7 +1,7 @@
 import { splitProps } from 'solid-js';
 
 import artisan from '@cubeartisan/cubeartisan/components/factory';
-import * as styles from '@cubeartisan/cubeartisan/components/generic/Hero/Hero.css';
+import * as styles from '@cubeartisan/cubeartisan/components/Hero/Hero.css';
 import type { ArtisanParentComponent } from '@cubeartisan/cubeartisan/components/types';
 
 const HeroContentBlock: ArtisanParentComponent<'div', styles.HeroContentBlockRecipe> = (props) => {

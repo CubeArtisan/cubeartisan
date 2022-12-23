@@ -2,7 +2,7 @@ import { For } from 'solid-js';
 import { A } from 'solid-start';
 
 import artisan from '@cubeartisan/cubeartisan/components/factory';
-import * as Hero from '@cubeartisan/cubeartisan/components/display/Hero/Hero';
+import * as Hero from '@cubeartisan/cubeartisan/components/Hero/Hero';
 import homePageCards from '@cubeartisan/cubeartisan/mock/home-page-cards';
 import * as styles from '@cubeartisan/cubeartisan/routes/(app)/home.css';
 

@@ -1,7 +1,7 @@
 import { mergeProps, splitProps } from 'solid-js';
 
 import artisan from '@cubeartisan/cubeartisan/components/factory';
-import { stackRecipe } from '@cubeartisan/cubeartisan/components/generic/Stack/Stack.css';
+import { stackRecipe } from '@cubeartisan/cubeartisan/components/Stack/Stack.css';
 import type { ArtisanComponent } from '@cubeartisan/cubeartisan/components/types';
 
 export type StackProps = {

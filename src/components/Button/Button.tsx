@@ -1,7 +1,7 @@
 import { splitProps } from 'solid-js';
 
+import { buttonRecipe, ButtonVariants } from '@cubeartisan/cubeartisan/components/Button/Button.css';
 import artisan from '@cubeartisan/cubeartisan/components/factory';
-import { buttonRecipe, ButtonVariants } from '@cubeartisan/cubeartisan/components/input/Button/Button.css';
 import type { ArtisanComponent } from '@cubeartisan/cubeartisan/components/types';
 
 export const Button: ArtisanComponent<'button', ButtonVariants> = (props) => {
