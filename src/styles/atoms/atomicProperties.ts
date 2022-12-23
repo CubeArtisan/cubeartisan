@@ -175,6 +175,8 @@ export const responsiveProperties = {
   flexShrink: [0],
   flexGrow: [0, 1],
   gap: vars.space,
+  rowGap: vars.space,
+  columnGap: vars.space,
 
   textAlign: ['left', 'center', 'right', 'justify', 'start', 'end'],
   verticalAlign: ['baseline', 'top', 'middle', 'bottom', 'text-top', 'text-bottom', 'sub', 'super'],
