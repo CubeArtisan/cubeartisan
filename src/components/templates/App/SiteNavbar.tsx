@@ -1,10 +1,13 @@
+import { Show } from 'solid-js';
 import { A } from 'solid-start';
+import { createServerData$ } from 'solid-start/server';
 
+import { getUserFromRequest } from '@cubeartisan/cubeartisan/backend/user';
 import artisan from '@cubeartisan/cubeartisan/components/factory';
 import { atoms } from '@cubeartisan/cubeartisan/styles';
 
 const SiteNavbar = () => {
-  const userid = '';
+  const user = createServerData$((_, { request }) => getUserFromRequest(request));
 
   // const handleLogin = () => {};
   // use <banner /> when including non-nav elements
@@ -43,7 +46,7 @@ const SiteNavbar = () => {
             <A href="/social">Social</A>
           </li>
           <li>
-            <A href={`/${userid}/cubes`}>Your Cubes</A>
+            <A href={`/${user()?._id}/cubes`}>Your Cubes</A>
           </li>
         </ul>
         <ul
@@ -64,7 +67,9 @@ const SiteNavbar = () => {
             <button>Notifications</button>
           </li>
           <li>
-            <button>Sign In</button>
+            <Show when={user()} fallback={<span>Sign In</span>}>
+              {(u) => <p>{u.username}</p>}
+            </Show>
           </li>
         </ul>
       </div>
