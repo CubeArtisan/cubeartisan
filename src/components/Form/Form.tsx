@@ -4,7 +4,7 @@
 // title? maybe this is handled outside the form?
 // TODO hover help icon that shows info text
 
-import { Component, ParentComponent, Show } from 'solid-js';
+import { Component, Show } from 'solid-js';
 import { createServerAction$, redirect } from 'solid-start/server';
 
 import { createUser, getUserFromRequest, storage } from '@cubeartisan/cubeartisan/backend/user';
