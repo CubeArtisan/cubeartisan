@@ -32,8 +32,8 @@ type FormProps = {
   action: string;
 };
 
-const ArtisanForm: ArtisanParentComponent<'form', Record<string, never>, FormProps> = () => {
-  const [_, { Form }] = createServerAction$(async (form: FormData, { request }) => {
+const ArtisanForm: ArtisanParentComponent<'form', Record<string, never>, FormProps> = (props) => {
+  const [logging, { Form }] = createServerAction$(async (form: FormData, { request }) => {
     if (await getUserFromRequest(request)) {
       throw new Error('Already Logged In');
     }
