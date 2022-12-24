@@ -134,6 +134,10 @@ export const buttonRecipe = recipe({
       }),
     },
   },
+  defaultVariants: {
+    size: 'md',
+    color: 'neutral',
+  },
 });
 
 export type ButtonVariants = RecipeVariants<typeof buttonRecipe>;

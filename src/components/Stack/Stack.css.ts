@@ -13,11 +13,6 @@ const spacing = {
 export const stackRecipe = recipe({
   base: atoms({
     display: 'flex',
-    flexDirection: 'column',
-    gap: spacing.md,
-    flexWrap: 'nowrap',
-    alignItems: 'center',
-    justifyContent: 'center',
   }),
   variants: {
     direction: {
@@ -62,6 +57,15 @@ export const stackRecipe = recipe({
       'space-between': atoms({ justifyContent: 'spaceBetween' }),
       'space-evenly': atoms({ justifyContent: 'spaceEvenly' }),
     },
+  },
+  defaultVariants: {
+    direction: 'column',
+    spacing: 'md',
+    spacingX: 'md',
+    spacingY: 'md',
+    wrap: 'nowrap',
+    align: 'center',
+    justify: 'center',
   },
 });
 
