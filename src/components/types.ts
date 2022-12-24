@@ -22,9 +22,7 @@ export type ElementType<Props = any> = DOMElements | Component<Props>;
 export type PropsOf<C extends ElementType> = ComponentProps<C>;
 
 type RecipeStyleRule = ComplexStyleRule | string;
-
-export type VariantDefinitions = Record<string, RecipeStyleRule>;
-
+type VariantDefinitions = Record<string, RecipeStyleRule>;
 export type VariantGroups = Record<string, VariantDefinitions>;
 
 export type StyleProps<R = null> = {
@@ -33,23 +31,23 @@ export type StyleProps<R = null> = {
   recipe?: R;
 };
 
-export type IsDisjoint<T, U, Allow = never> = Exclude<Extract<keyof T, keyof U>, Allow> extends never ? true : false;
-
 export type Cond<P, True, False = never> = P extends false ? False : True;
 
 export type ToObject<T> = T extends object ? T : object;
 
-export type TypesEqual<T, U> = T extends U ? (U extends T ? true : false) : false;
 type DisjointIntersect<T, U> = keyof T & keyof U extends never ? T & U : never;
+
+export type Normalize<T> = T extends (...args: infer A) => infer R
+  ? (...args: Normalize<A>) => Normalize<R>
+  : { [K in keyof T]: Normalize<T[K]> };
+
 export type HTMLArtisanProps<
   T extends ElementType<{ class: string }>,
   R = null,
   P = null,
   Props extends ComponentProps<T> = ComponentProps<T>,
 > = DisjointIntersect<Omit<P & Props, 'class'>, StyleProps<R>>;
-export type Normalize<T> = T extends (...args: infer A) => infer R
-  ? (...args: Normalize<A>) => Normalize<R>
-  : { [K in keyof T]: Normalize<T[K]> };
+
 /**
  * Component that accepts Artisan Props (atoms, recipe, as).
  * Not intended to accept children.
@@ -73,8 +71,8 @@ export type ArtisanComponent<
  * Artisan Compenent that accepts Artisan Props (atoms, recipe, as) and children.
  *
  * @param T - the Element type to extend (adds those props) (default 'div')
- * @param R - the Vanilla Extract recipe for the component
  * @param P - any additional props
+ * @param R - the Vanilla Extract recipe for the component
  * @example
  * ```
  * ArtisanParentComponent<'h1', styles.componentRecipe, {foo: string, bar?: string}>

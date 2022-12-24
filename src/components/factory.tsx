@@ -79,8 +79,8 @@ function factory() {
   return new Proxy(styled, {
     // /**
     //  * @example
-    //  * const Div = hope("div")
-    //  * const WithHope = hope(AnotherComponent)
+    //  * const Div = artisan('div')
+    //  * const WithHope = artisan(AnotherComponent)
     //  */
     apply<T extends ElementType<{ class: string }>, R extends RuntimeFn<VariantGroups> | null = null>(
       _1: typeof styled,
