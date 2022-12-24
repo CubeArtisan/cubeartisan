@@ -1,3 +1,5 @@
+import { ComplexStyleRule } from '@vanilla-extract/css';
+import type { RecipeVariants, RuntimeFn } from '@vanilla-extract/recipes';
 import { Component, ComponentProps, JSX, ParentComponent, VoidComponent } from 'solid-js';
 
 import type { Atoms } from '@cubeartisan/cubeartisan/styles/atoms/atoms.css';
@@ -25,6 +27,10 @@ export interface AsProp<C extends ElementType> {
   as?: C;
 }
 
+type RecipeStyleRule = ComplexStyleRule | string;
+type VariantDefinitions = Record<string, RecipeStyleRule>;
+export type VariantGroups = Record<string, VariantDefinitions>;
+
 export type StyleProps<R = Record<string, unknown>> = {
   atoms?: Atoms;
   recipe?: R;
@@ -35,8 +41,8 @@ export type StyleProps<R = Record<string, unknown>> = {
  */
 export type HTMLArtisanProps<
   T extends ElementType = unknown,
-  R = Record<string, unknown>,
   P = Record<string, unknown>,
+  R = Record<string, unknown>,
 > = OverrideProps<ComponentProps<T>, AsProp<T> & StyleProps<R> & P>;
 
 /**
@@ -53,16 +59,16 @@ export type HTMLArtisanProps<
  */
 export type ArtisanComponent<
   T extends ElementType = 'div',
-  R = Record<string, unknown>,
   P = Record<string, unknown>,
-> = Component<HTMLArtisanProps<T, R, P>>;
+  R = Record<string, unknown>,
+> = Component<HTMLArtisanProps<T, P, R>>;
 
 /**
  * Artisan Compenent that accepts Artisan Props (atoms, recipe, as) and children.
  *
  * @param T - the Element type to extend (adds those props) (default 'div')
- * @param R - the Vanilla Extract recipe for the component
  * @param P - any additional props
+ * @param R - the Vanilla Extract recipe for the component
  * @example
  * ```
  * ArtisanParentComponent<'h1', styles.componentRecipe, {foo: string, bar?: string}>
@@ -70,9 +76,9 @@ export type ArtisanComponent<
  */
 export type ArtisanParentComponent<
   T extends ElementType,
-  R = Record<string, unknown>,
   P = Record<string, unknown>,
-> = ParentComponent<HTMLArtisanProps<T, R, P>>;
+  R = Record<string, unknown>,
+> = ParentComponent<HTMLArtisanProps<T, P, R>>;
 
 /**
  * Artisan Compenent that is intended for 'Control Flow' components like <For /> and <Show />.
@@ -81,19 +87,19 @@ export type ArtisanParentComponent<
  */
 export type ArtisanFlowComponent<
   T extends ElementType,
-  R = Record<string, unknown>,
   P = Record<string, unknown>,
+  R = Record<string, unknown>,
   C = JSX.Element,
-> = Component<HTMLArtisanProps<T, R, P>, C>;
+> = Component<HTMLArtisanProps<T, P, R>, C>;
 
 /**
  * Artisan Component that unknown accepts children
  */
 export type ArtisanVoidComponent<
   T extends ElementType,
-  R = Record<string, unknown>,
   P = Record<string, unknown>,
-> = VoidComponent<HTMLArtisanProps<T, R, P>>;
+  R = Record<string, unknown>,
+> = VoidComponent<HTMLArtisanProps<T, P, R>>;
 
 /**
  * All html and svg elements for artisan components.
@@ -107,6 +113,7 @@ export type HTMLArtisanComponents = {
  * Factory function that converts non-artisan components or jsx element
  * to artisan-enabled components so you can pass style props to them.
  */
-export type ArtisanFactory = <T extends ElementType, R = Record<string, unknown>, P = Record<string, unknown>>(
+export type ArtisanFactory = <T extends ElementType, R extends RuntimeFn<VariantGroups>?, P = Record<string, unknown>>(
   component: T,
-) => ArtisanComponent<T, R, P>;
+  recipeFn?: R,
+) => ArtisanComponent<T, P, R extends null ? Record<string, never> : RecipeVariants<R>>;
