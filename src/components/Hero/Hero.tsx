@@ -1,19 +1,15 @@
-import { splitProps } from 'solid-js';
-
 import artisan from '@cubeartisan/cubeartisan/components/factory';
 import * as styles from '@cubeartisan/cubeartisan/components/Hero/Hero.css';
 import type { ArtisanParentComponent } from '@cubeartisan/cubeartisan/components/types';
 
-const HeroContentBlock: ArtisanParentComponent<'div', styles.HeroContentBlockRecipe> = (props) => {
-  const [local, others] = splitProps(props, ['recipe']);
+const HeroContent: ArtisanParentComponent<'div', Record<string, never>, styles.HeroContentVariants> = artisan(
+  'div',
+  styles.heroContentRecipe,
+);
 
-  return <artisan.div class={styles.heroContentBlockRecipe(local.recipe)} {...others} />;
-};
+const Hero: ArtisanParentComponent<'header', Record<string, never>, styles.HeroRootVariants> = artisan(
+  'div',
+  styles.heroRootRecipe,
+);
 
-const Hero: ArtisanParentComponent<'header', styles.HeroRootRecipe> = (props) => {
-  const [local, others] = splitProps(props, ['recipe']);
-
-  return <artisan.header class={styles.heroRootRecipe(local.recipe)} {...others} />;
-};
-
-export { Hero as Root, HeroContentBlock as ContentBlock };
+export { Hero as Root, HeroContent as Content };

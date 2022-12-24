@@ -1,12 +1,18 @@
-import { mergeProps, splitProps } from 'solid-js';
-
 import artisan from '@cubeartisan/cubeartisan/components/factory';
-import { stackRecipe, StackVariants } from '@cubeartisan/cubeartisan/components/Stack/Stack.css';
+import * as styles from '@cubeartisan/cubeartisan/components/Stack/Stack.css';
 import type { ArtisanComponent } from '@cubeartisan/cubeartisan/components/types';
 
-export const Stack: ArtisanComponent<'div', StackVariants> = (props) => {
-  const propsWithDefault = mergeProps({ space: 'md', align: 'center' }, props);
-  const [local, others] = splitProps(propsWithDefault, ['recipe']);
+export const Stack: ArtisanComponent<'div', Record<string, never>, styles.StackVariants> = artisan(
+  'div',
+  styles.stackRecipe,
+);
 
-  return <artisan.div class={stackRecipe(local.recipe)} {...others} />;
-};
+export const HStack: ArtisanComponent<'div', Record<string, never>, styles.HStackVariants> = artisan(
+  'div',
+  styles.hStackRecipe,
+);
+
+export const VStack: ArtisanComponent<'div', Record<string, never>, styles.VStackVariants> = artisan(
+  'div',
+  styles.vStackRecipe,
+);

@@ -2,4 +2,7 @@ import { buttonRecipe, ButtonVariants } from '@cubeartisan/cubeartisan/component
 import artisan from '@cubeartisan/cubeartisan/components/factory';
 import type { ArtisanComponent } from '@cubeartisan/cubeartisan/components/types';
 
-export const Button: ArtisanComponent<'button', ButtonVariants> = artisan('button', buttonRecipe);
+export const Button: ArtisanComponent<'button', Record<string, never>, ButtonVariants> = artisan(
+  'button',
+  buttonRecipe,
+);
