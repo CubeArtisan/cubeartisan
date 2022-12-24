@@ -18,10 +18,10 @@ const Test = () => {
 
   return (
     <VStack atoms={{ width: 'screenW', height: 'screenH' }}>
-      {/* <TestButton /> */}
-      <Button onClick={() => signOut('')} recipe={{ color: 'neutral', size: 'md' }}>
+      <TestButton />
+      {/* <Button onClick={() => signOut('')} recipe={{ color: 'neutral', size: 'md' }}>
         Sign Out
-      </Button>
+      </Button> */}
     </VStack>
   );
 };
