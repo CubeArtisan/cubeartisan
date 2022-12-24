@@ -27,8 +27,16 @@ const FormTextInput: Component<FormTextInputProps> = (props) => (
   </>
 );
 
-const MyForm: Component = () => {
-  const [, { Form }] = createServerAction$(async (form: FormData) => {
+type FormProps = {
+  action: string;
+};
+
+const ArtisanForm: ArtisanParentComponent<'form', Record<string, never>, FormProps> = (props) => {
+  const [logging, { Form }] = createServerAction$(async (form: FormData, { request }) => {
+    if (await getUserFromRequest(request)) {
+      throw new Error('Already Logged In');
+    }
+
     const username = form.get('username') as string;
     const password = form.get('password') as string;
     const email = form.get('email') as string;
