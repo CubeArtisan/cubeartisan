@@ -86,5 +86,5 @@ const ArtisanForm: ArtisanParentComponent<'form', Record<string, never>, FormPro
   );
 };
 
-export { MyForm as Root, FormTextInput as TextInput };
+export { ArtisanForm as Root, FormTextInput as TextInput };
 export type {};
