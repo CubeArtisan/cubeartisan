@@ -1,71 +1,39 @@
-import type { RuntimeFn } from '@vanilla-extract/recipes';
+import type { RuntimeFn, RuntimeFn } from '@vanilla-extract/recipes';
 import clsx from 'clsx';
-import { ComponentProps, createMemo, JSX, mergeProps, Show, splitProps } from 'solid-js';
+import { splitProps } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
 import type {
   ArtisanComponent,
   ArtisanFactory,
+  BaseRecipeFn,
   DOMElements,
   ElementType,
   HTMLArtisanComponents,
   HTMLArtisanProps,
+  StyleProps,
   VariantGroups,
   VariantsIfExists,
 } from '@cubeartisan/cubeartisan/components/types';
 import { atoms } from '@cubeartisan/cubeartisan/styles';
 
-const styled = <T extends ElementType<{ class: string }>, R extends RuntimeFn<VariantGroups> | null = null>(
+const getClass = <R extends BaseRecipeFn | null = null>(local: StyleProps<VariantsIfExists<R>>, recipeFn: R) =>
+  clsx(local.class, atoms({ ...local.atoms }), ...(recipeFn && local.recipe ? [recipeFn(local.recipe)] : []));
+
+const getPassedProps = <T extends ElementType, S extends ElementType = T, R extends BaseRecipeFn | null = null>(
+  component: T,
+  local: StyleProps<VariantsIfExists<R>> & { as?: S },
+  recipeFn: R,
+) => ({ component: (local.as ?? component) as S, class: getClass(local, recipeFn) });
+
+const styled = <T extends ElementType, R extends RuntimeFn<VariantGroups> | null = null>(
   component: T,
   recipeFn?: R,
 ) => {
-  const artisanComponent = <S extends ElementType<{ class: string }> = T>(
-    props:
-      | (HTMLArtisanProps<T, VariantsIfExists<R>> & { as?: undefined })
-      | (HTMLArtisanProps<S, VariantsIfExists<R>> & { as: S }),
-  ) => {
-    const [local, rest] = splitProps(props, ['as', 'class', 'atoms', 'recipe']);
-    const classProp = createMemo(() =>
-      clsx(local.class, atoms({ ...local.atoms }), ...(recipeFn && local.recipe ? [recipeFn(local.recipe)] : [])),
-    );
-    // eslint-disable-next-line solid/reactivity
-    const subProps = mergeProps({ class: classProp }, rest) as ComponentProps<S> | ComponentProps<T>;
+  const artisanComponent = <S extends ElementType = T>(props: HTMLArtisanProps<T, VariantsIfExists<R>, null, S>) => {
+    const [local] = splitProps(props, ['as', 'class', 'atoms', 'recipe']);
 
-    return (
-      <Show
-        when={local.as as S | undefined}
-        keyed
-        fallback={
-          <Dynamic
-            component={component as T}
-            {...(subProps as { [K in keyof ComponentProps<T>]: ComponentProps<T>[K] })}
-          />
-        }
-      >
-        {(as: NonNullable<S>) => (
-          <Dynamic component={as as S} {...(subProps as { [K in keyof ComponentProps<S>]: ComponentProps<S>[K] })} />
-        )}
-      </Show>
-    );
-  };
-  return artisanComponent;
-};
-
-const styledNoAs = <T extends ElementType<{ class: string }>, R extends RuntimeFn<VariantGroups> | null = null>(
-  component: T,
-  recipeFn?: R,
-) => {
-  const artisanComponent = (props: HTMLArtisanProps<T, VariantsIfExists<R>>) => {
-    const [local, rest] = splitProps(props, ['class', 'atoms', 'recipe']);
-    const classProp = createMemo(() =>
-      clsx(local.class, atoms({ ...local.atoms }), ...(recipeFn && local.recipe ? [recipeFn(local.recipe)] : [])),
-    );
-    // eslint-disable-next-line solid/reactivity
-    const subProps = mergeProps({ class: classProp }, rest) as ComponentProps<T>;
-
-    return (
-      <Dynamic component={component as T} {...(subProps as { [K in keyof ComponentProps<T>]: ComponentProps<T>[K] })} />
-    );
+    return <Dynamic {...getPassedProps(component, local, recipeFn ?? null)} {...props} />;
   };
   return artisanComponent;
 };
@@ -79,35 +47,8 @@ function factory() {
     //  * const Div = hope("div")
     //  * const WithHope = hope(AnotherComponent)
     //  */
-    apply<T extends ElementType<{ class: string }>, R extends RuntimeFn<VariantGroups> | null = null>(
-      _1: typeof styled,
-      _2: unknown,
-      argArray: [T] | [T, R],
-    ): T extends DOMElements
-      ? <S extends ElementType = T>(
-          props:
-            | (HTMLArtisanProps<T, VariantsIfExists<R>> & { as?: undefined })
-            | (HTMLArtisanProps<S, VariantsIfExists<R>> & { as: S }),
-        ) => JSX.Element
-      : ArtisanComponent<T, VariantsIfExists<R>> {
-      if (typeof argArray[0] === 'string') {
-        if (argArray.length === 1) {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          return styled(...argArray);
-        }
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        return styled(...argArray);
-      }
-      if (argArray.length === 1) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        return styledNoAs(...argArray);
-      }
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      return styledNoAs(...argArray);
+    apply(_1, _2, argArray: [ElementType]) {
+      return styled(...argArray);
     },
 
     /**

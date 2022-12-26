@@ -1,6 +1,6 @@
 import type { ComplexStyleRule } from '@vanilla-extract/css';
 import type { RecipeVariants, RuntimeFn } from '@vanilla-extract/recipes';
-import type { ClassValue } from 'clsx';
+import type { ClassArray, ClassValue } from 'clsx';
 import type { Component, ComponentProps, JSX, ParentComponent, VoidComponent } from 'solid-js';
 
 import type { Atoms } from '@cubeartisan/cubeartisan/styles/atoms/atoms.css';
@@ -25,30 +25,26 @@ type RecipeStyleRule = ComplexStyleRule | string;
 
 export type VariantDefinitions = Record<string, RecipeStyleRule>;
 
+type BooleanMap<T> = T extends 'true' | 'false' ? boolean : T;
+
 export type VariantGroups = Record<string, VariantDefinitions>;
+export type VariantSelection<Variants extends VariantGroups> = {
+  [VariantGroup in keyof Variants]?: BooleanMap<keyof Variants[VariantGroup]>;
+};
 
 export type StyleProps<R = null> = {
   atoms?: Atoms;
-  class?: ClassValue;
+  class?: ClassValue | ClassArray;
   recipe?: R;
 };
 
-export type IsDisjoint<T, U, Allow = never> = Exclude<Extract<keyof T, keyof U>, Allow> extends never ? true : false;
-
-export type Cond<P, True, False = never> = P extends false ? False : True;
-
-export type ToObject<T> = T extends object ? T : object;
-
-export type TypesEqual<T, U> = T extends U ? (U extends T ? true : false) : false;
-type DisjointIntersect<T, U> = keyof T & keyof U extends never ? T & U : never;
-export type HTMLArtisanProps<
-  T extends ElementType<{ class: string }>,
-  R = null,
-  P extends ComponentProps<T> = ComponentProps<T>,
-> = DisjointIntersect<Omit<P, 'class'>, StyleProps<R>>;
-export type Normalize<T> = T extends (...args: infer A) => infer R
-  ? (...args: Normalize<A>) => Normalize<R>
-  : { [K in keyof T]: Normalize<T[K]> };
+/**
+ * Enhance props of a SolidJS component or JSX element with Artisan props
+ */
+export type HTMLArtisanProps<T extends ElementType, R = null, P = null, S extends ElementType = T> = OverrideProps<
+  P extends null ? ComponentProps<T> : OverrideProps<ComponentProps<T>, P>,
+  StyleProps<R>
+> & { as?: S };
 /**
  * Component that accepts Artisan Props (atoms, recipe, as).
  * Not intended to accept children.
@@ -61,11 +57,7 @@ export type Normalize<T> = T extends (...args: infer A) => infer R
  * ArtisanComponent<'h1', styles.componentRecipe, {foo: string, bar?: string}>
  * ```
  */
-export type ArtisanComponent<
-  T extends ElementType<{ class: string }> = 'div',
-  R = null,
-  P extends ComponentProps<T> = ComponentProps<T>,
-> = Component<HTMLArtisanProps<T, R, P>>;
+export type ArtisanComponent<T extends ElementType = 'div', R = null, P = null> = Component<HTMLArtisanProps<T, R, P>>;
 
 /**
  * Artisan Compenent that accepts Artisan Props (atoms, recipe, as) and children.
@@ -78,31 +70,21 @@ export type ArtisanComponent<
  * ArtisanParentComponent<'h1', styles.componentRecipe, {foo: string, bar?: string}>
  * ```
  */
-export type ArtisanParentComponent<
-  T extends ElementType<{ class: string }>,
-  R = null,
-  P extends ComponentProps<T> = ComponentProps<T>,
-> = ParentComponent<HTMLArtisanProps<T, R, P>>;
+export type ArtisanParentComponent<T extends ElementType, R = null, P = null> = ParentComponent<
+  HTMLArtisanProps<T, R, P>
+>;
 
 /**
  * Artisan Compenent that is intended for 'Control Flow' components like <For /> and <Show />.
  * Requires a type definition for children such as '() => void'.
  * See the [Solid Docs](https://www.solidjs.com/guides/typescript#component-types) for more information.
  */
-export type ArtisanFlowComponent<
-  T extends ElementType<{ class: string }>,
-  R = null,
-  P extends ComponentProps<T> = ComponentProps<T>,
-> = Component<HTMLArtisanProps<T, R, P>>;
+export type ArtisanFlowComponent<T extends ElementType, R = null, P = null> = Component<HTMLArtisanProps<T, R, P>>;
 
 /**
  * Artisan Component that unknown accepts children
  */
-export type ArtisanVoidComponent<
-  T extends ElementType<{ class: string }>,
-  R = null,
-  P extends ComponentProps<T> = ComponentProps<T>,
-> = VoidComponent<HTMLArtisanProps<T, R, P>>;
+export type ArtisanVoidComponent<T extends ElementType, R = null, P = null> = VoidComponent<HTMLArtisanProps<T, R, P>>;
 
 /**
  * All html and svg elements for artisan components.
@@ -122,16 +104,7 @@ export type VariantsIfExists<R extends BaseRecipeFn | null> = R extends BaseReci
  * Factory function that converts non-artisan components or jsx element
  * to artisan-enabled components so you can pass style props to them.
  */
-export type ArtisanFactory = <
-  T extends ElementType<{ class: string }>,
-  R extends RuntimeFn<VariantGroups> | null = null,
->(
+export type ArtisanFactory = <T extends ElementType, R extends BaseRecipeFn | null = null>(
   component: T,
   recipeFn?: R,
-) => T extends DOMElements
-  ? <S extends ElementType = T>(
-      props:
-        | (HTMLArtisanProps<T, VariantsIfExists<R>> & { as?: undefined })
-        | (HTMLArtisanProps<S, VariantsIfExists<R>> & { as: S }),
-    ) => JSX.Element
-  : ArtisanComponent<T, VariantsIfExists<R>>;
+) => <S extends ElementType = T>(props: HTMLArtisanProps<T, VariantsIfExists<R>, null, S>) => JSX.Element;

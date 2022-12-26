@@ -4,12 +4,29 @@
 // title? maybe this is handled outside the form?
 // TODO hover help icon that shows info text
 
-import { createServerAction$, redirect } from 'solid-start/server';
+import { Component, Show } from 'solid-js';
+import { createServerAction$, createServerAction$, redirect } from 'solid-start/server';
 
 import { createUser, getUserFromRequest, storage } from '@cubeartisan/cubeartisan/backend/user';
 import artisan from '@cubeartisan/cubeartisan/components/factory';
 import { VStack } from '@cubeartisan/cubeartisan/components/Stack';
 import { ArtisanParentComponent } from '@cubeartisan/cubeartisan/components/types';
+
+type FormTextInputProps = {
+  label?: string;
+  type: '';
+  name: string;
+  id: string;
+};
+
+const FormTextInput: Component<FormTextInputProps> = (props) => (
+  <>
+    <Show when={!!props.label}>
+      <label for={props.name} />
+    </Show>
+    <input type={props.type} id={props.id} name={props.name} />
+  </>
+);
 
 type FormProps = {
   action: string;
