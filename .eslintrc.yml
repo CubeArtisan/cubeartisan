@@ -51,7 +51,7 @@ rules:
       ignoreDeclarationSort: true
   import/prefer-default-export: off
   prettier/prettier:
-    - warn
+    - error
     - endOfLine: lf
   object-curly-newline: 0
   max-len: 0

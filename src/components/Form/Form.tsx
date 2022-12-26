@@ -4,7 +4,7 @@
 // title? maybe this is handled outside the form?
 // TODO hover help icon that shows info text
 
-import { Component, ParentComponent, Show } from 'solid-js';
+import { Component, Show } from 'solid-js';
 import { createServerAction$ } from 'solid-start/server';
 
 import { createUser } from '@cubeartisan/cubeartisan/backend/user';
@@ -26,12 +26,8 @@ const FormTextInput: Component<FormTextInputProps> = (props) => (
   </>
 );
 
-type FormProps = {
-  action: string;
-};
-
-const MyForm: Component<FormProps> = (props) => {
-  const [logging, { Form }] = createServerAction$(async (form: FormData, { request }) => {
+const MyForm: Component = () => {
+  const [, { Form }] = createServerAction$(async (form: FormData) => {
     const username = form.get('username') as string;
     const password = form.get('password') as string;
     const email = form.get('email') as string;
