@@ -8,9 +8,9 @@ import type { MongoUser, ProtectedUser } from '@cubeartisan/cubeartisan/types/us
 
 export const storage = createCookieSessionStorage({
   cookie: {
-    name: process.env.SESSION ?? 'session',
-    secrets: [process.env.SESSION_SECRET ?? ''],
-    secure: process.env.NODE_ENV === 'production',
+    name: import.meta.env.VITE_SESSION ?? 'session',
+    secrets: [import.meta.env.VITE_SESSION_SECRET ?? ''],
+    secure: import.meta.env.VITE_NODE_ENV === 'production',
     sameSite: 'lax',
     path: '/',
     maxAge: 60 * 60 * 24 * 7 * 4, // 4 weeks.

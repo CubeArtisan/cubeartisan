@@ -1,0 +1,56 @@
+// Form root => <form> element with styling options
+// form field => accepts optional label and validation options
+// form submit button => color, label, and maybe position? although that should probably always be bottom right
+// title? maybe this is handled outside the form?
+// TODO hover help icon that shows info text
+
+import { Component, ParentComponent, Show } from 'solid-js';
+import { createServerAction$ } from 'solid-start/server';
+
+import { createUser } from '@cubeartisan/cubeartisan/backend/user';
+import { atoms } from '@cubeartisan/cubeartisan/styles';
+
+type FormTextInputProps = {
+  label?: string;
+  type: '';
+  name: string;
+  id: string;
+};
+
+const FormTextInput: Component<FormTextInputProps> = (props) => (
+  <>
+    <Show when={!!props.label}>
+      <label for={props.name} />
+    </Show>
+    <input type={props.type} id={props.id} name={props.name} />
+  </>
+);
+
+type FormProps = {
+  action: string;
+};
+
+const MyForm: Component<FormProps> = (props) => {
+  const [logging, { Form }] = createServerAction$(async (form: FormData, { request }) => {
+    const username = form.get('username') as string;
+    const password = form.get('password') as string;
+    const email = form.get('email') as string;
+    await createUser(username, password, email);
+  });
+  return (
+    <Form method="post" class={atoms({ display: 'flex', flexDirection: 'column' })}>
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" required style={{ color: 'black' }} />
+      <label for="username">Email</label>
+      <input type="email" name="email" id="email" required style={{ color: 'black' }} />
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" required style={{ color: 'black' }} />
+      <button type="submit" value="submit">
+        Sign Up
+      </button>
+    </Form>
+  );
+};
+
+export { MyForm as Root, FormTextInput as TextInput };
+export type {};

@@ -18,5 +18,4 @@ export const getDefaultProtectedUser = (): ProtectedUser => ({
   users_following: [],
   notifications: [],
   roles: [],
-  _id: '',
 });

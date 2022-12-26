@@ -49,14 +49,16 @@ rules:
     - error
     - ignoreCase: true
       ignoreDeclarationSort: true
+  import/prefer-default-export: off
   prettier/prettier:
-    - error
+    - warn
     - endOfLine: lf
   object-curly-newline: 0
   max-len: 0
   no-console: 0
   global-require: 0
   no-param-reassign: 0
+  no-unused-vars: 0
   no-underscore-dangle:
     - error
     - allow:
@@ -89,14 +91,6 @@ rules:
   promise/prefer-await-to-callbacks: error
   '@typescript-eslint/no-non-null-assertion': off
 overrides:
-  - files:
-      - '**/*.cjs'
-    rules:
-      import/no-commonjs: 'off'
-  - files:
-      - 'src/routes/**/*.ts'
-    rules:
-      import/prefer-default-export: off
   - files:
       - '**/*.test.ts'
       - '**/*.test.tsx'
