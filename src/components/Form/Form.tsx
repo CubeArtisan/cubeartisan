@@ -7,10 +7,9 @@
 import { Component, Show } from 'solid-js';
 import { createServerAction$, createServerAction$, redirect } from 'solid-start/server';
 
-import { createUser, getUserFromRequest, storage } from '@cubeartisan/cubeartisan/backend/user';
+import { createUser, storage } from '@cubeartisan/cubeartisan/backend/user';
 import artisan from '@cubeartisan/cubeartisan/components/factory';
 import { VStack } from '@cubeartisan/cubeartisan/components/Stack';
-import { ArtisanParentComponent } from '@cubeartisan/cubeartisan/components/types';
 
 type FormTextInputProps = {
   label?: string;
@@ -28,16 +27,8 @@ const FormTextInput: Component<FormTextInputProps> = (props) => (
   </>
 );
 
-type FormProps = {
-  action: string;
-};
-
-const ArtisanForm: ArtisanParentComponent<'form', Record<string, never>, FormProps> = (props) => {
-  const [logging, { Form }] = createServerAction$(async (form: FormData, { request }) => {
-    if (await getUserFromRequest(request)) {
-      throw new Error('Already Logged In');
-    }
-
+const MyForm: Component = () => {
+  const [, { Form }] = createServerAction$(async (form: FormData) => {
     const username = form.get('username') as string;
     const password = form.get('password') as string;
     const email = form.get('email') as string;
@@ -85,4 +76,5 @@ const ArtisanForm: ArtisanParentComponent<'form', Record<string, never>, FormPro
   );
 };
 
-export { ArtisanForm };
+export { MyForm as Root, FormTextInput as TextInput };
+export type {};
