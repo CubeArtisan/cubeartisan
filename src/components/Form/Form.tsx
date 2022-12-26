@@ -7,7 +7,7 @@
 import { Component, Show } from 'solid-js';
 import { createServerAction$, redirect } from 'solid-start/server';
 
-import { createUser, getUserFromRequest, storage } from '@cubeartisan/cubeartisan/backend/user';
+import { createUser, storage } from '@cubeartisan/cubeartisan/backend/user';
 import artisan from '@cubeartisan/cubeartisan/components/factory';
 import { VStack } from '@cubeartisan/cubeartisan/components/Stack';
 

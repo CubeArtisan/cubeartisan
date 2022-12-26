@@ -27,7 +27,7 @@ type VariantDefinitions = Record<string, RecipeStyleRule>;
 
 type VariantGroups = Record<string, VariantDefinitions>;
 
-export type StyleProps<R = Record<string, unknown>> = {
+export type StyleProps<R = null> = {
   atoms?: Atoms;
   class?: ClassValue;
   recipe?: R;
@@ -60,11 +60,7 @@ export type HTMLArtisanProps<
  * ArtisanComponent<'h1', styles.componentRecipe, {foo: string, bar?: string}>
  * ```
  */
-export type ArtisanComponent<
-  T extends ElementType = 'div',
-  P = Record<string, unknown>,
-  R = Record<string, unknown>,
-> = Component<HTMLArtisanProps<T, P, R>>;
+export type ArtisanComponent<T extends ElementType = 'div', R = null, P = null> = Component<HTMLArtisanProps<T, R, P>>;
 
 /**
  * Artisan Compenent that accepts Artisan Props (atoms, recipe, as) and children.
@@ -77,32 +73,37 @@ export type ArtisanComponent<
  * ArtisanParentComponent<'h1', styles.componentRecipe, {foo: string, bar?: string}>
  * ```
  */
-export type ArtisanParentComponent<
-  T extends ElementType,
-  P = Record<string, unknown>,
-  R = Record<string, unknown>,
-> = ParentComponent<HTMLArtisanProps<T, P, R>>;
+export type ArtisanParentComponent<T extends ElementType, R = null, P = null> = ParentComponent<
+  HTMLArtisanProps<T, R, P>
+>;
 
 /**
  * Artisan Compenent that is intended for 'Control Flow' components like <For /> and <Show />.
  * Requires a type definition for children such as '() => void'.
  * See the [Solid Docs](https://www.solidjs.com/guides/typescript#component-types) for more information.
  */
+<<<<<<< HEAD
 export type ArtisanFlowComponent<
   T extends ElementType,
   P = Record<string, unknown>,
   R = Record<string, unknown>,
   C = JSX.Element,
 > = FlowComponent<HTMLArtisanProps<T, P, R>, C>;
+||||||| parent of ccf8c881 (chore(typing): Fix ci and typing.)
+export type ArtisanFlowComponent<
+  T extends ElementType,
+  P = Record<string, unknown>,
+  R = Record<string, unknown>,
+  C = JSX.Element,
+> = Component<HTMLArtisanProps<T, P, R>, C>;
+=======
+export type ArtisanFlowComponent<T extends ElementType, R = null, P = null> = Component<HTMLArtisanProps<T, R, P>>;
+>>>>>>> ccf8c881 (chore(typing): Fix ci and typing.)
 
 /**
  * Artisan Component that unknown accepts children
  */
-export type ArtisanVoidComponent<
-  T extends ElementType,
-  P = Record<string, unknown>,
-  R = Record<string, unknown>,
-> = VoidComponent<HTMLArtisanProps<T, P, R>>;
+export type ArtisanVoidComponent<T extends ElementType, R = null, P = null> = VoidComponent<HTMLArtisanProps<T, R, P>>;
 
 /**
  * All html and svg elements for artisan components.
@@ -125,4 +126,4 @@ export type VariantsIfExists<R extends BaseRecipeFn | null> = R extends BaseReci
 export type ArtisanFactory = <T extends ElementType, R extends BaseRecipeFn | null, P = Record<string, unknown>>(
   component: T,
   recipeFn?: R,
-) => ArtisanComponent<T, P, VariantsIfExists<R>>;
+) => <S extends ElementType = T>(props: HTMLArtisanProps<T, VariantsIfExists<R>, null, S>) => JSX.Element;

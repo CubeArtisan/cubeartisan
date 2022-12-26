@@ -6,10 +6,12 @@ import type {
   ArtisanComponent,
   ArtisanFactory,
   BaseRecipeFn,
+  BaseRecipeFn,
   DOMElements,
   ElementType,
   HTMLArtisanComponents,
   HTMLArtisanProps,
+  StyleProps,
   VariantsIfExists,
 } from '@cubeartisan/cubeartisan/components/types';
 import { atoms } from '@cubeartisan/cubeartisan/styles';
@@ -76,11 +78,11 @@ function factory() {
   const cache = new Map<DOMElements, ArtisanComponent<DOMElements>>();
 
   return new Proxy(styled, {
-    // /**
-    //  * @example
-    //  * const Div = hope("div")
-    //  * const WithHope = hope(AnotherComponent)
-    //  */
+    /**
+     * @example
+     * const Div = artisan("div")
+     * const WithArtisan = artisan(AnotherComponent)
+     */
     apply<T extends ElementType<{ class: string }>, R extends BaseRecipeFn | null = null>(
       _1: typeof styled,
       _2: unknown,
