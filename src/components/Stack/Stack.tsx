@@ -1,6 +1,6 @@
 import artisan from '@cubeartisan/cubeartisan/components/factory';
 import * as styles from '@cubeartisan/cubeartisan/components/Stack/Stack.css';
-import type { ArtisanComponent } from '@cubeartisan/cubeartisan/components/types';
+import { ArtisanComponent } from '@cubeartisan/cubeartisan/components/types';
 
 export const Stack: ArtisanComponent<'div', Record<string, never>, styles.StackVariants> = artisan(
   'div',

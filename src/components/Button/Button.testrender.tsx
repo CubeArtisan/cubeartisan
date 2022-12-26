@@ -9,7 +9,7 @@ export const TestButton = () => {
     lg: 'lg',
     xl: 'xl',
     '2xl': '2xl',
-  };
+  } as const;
 
   const testSize = testSizes.md;
 

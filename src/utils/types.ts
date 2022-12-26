@@ -5,6 +5,6 @@
  */
 export type OverrideProps<Source = Record<string, unknown>, Override = Record<string, unknown>> = Omit<
   Source,
-  Override
+  keyof Override
 > &
   Override;

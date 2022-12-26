@@ -1,35 +1,39 @@
 import type { RuntimeFn } from '@vanilla-extract/recipes';
 import clsx from 'clsx';
-import { mergeProps, splitProps } from 'solid-js';
+import { splitProps } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
 import type {
   ArtisanComponent,
   ArtisanFactory,
+  BaseRecipeFn,
   DOMElements,
   ElementType,
   HTMLArtisanComponents,
   HTMLArtisanProps,
+  StyleProps,
   VariantGroups,
+  VariantsIfExists,
 } from '@cubeartisan/cubeartisan/components/types';
 import { atoms } from '@cubeartisan/cubeartisan/styles';
 
-const styled: ArtisanFactory = <T extends ElementType, R extends RuntimeFn<VariantGroups> | undefined>(
+const getClass = <R extends BaseRecipeFn | null = null>(local: StyleProps<VariantsIfExists<R>>, recipeFn: R) =>
+  clsx(local.class, atoms({ ...local.atoms }), ...(recipeFn && local.recipe ? [recipeFn(local.recipe)] : []));
+
+const getPassedProps = <T extends ElementType, S extends ElementType = T, R extends BaseRecipeFn | null = null>(
+  component: T,
+  local: StyleProps<VariantsIfExists<R>> & { as?: S },
+  recipeFn: R,
+) => ({ component: (local.as ?? component) as S, class: getClass(local, recipeFn) });
+
+const styled = <T extends ElementType, R extends RuntimeFn<VariantGroups> | null = null>(
   component: T,
   recipeFn?: R,
 ) => {
-  const artisanComponent: ArtisanComponent<T> = (props) => {
-    const propsWithDefault = mergeProps({ as: component }, props);
+  const artisanComponent = <S extends ElementType = T>(props: HTMLArtisanProps<T, VariantsIfExists<R>, null, S>) => {
+    const [local] = splitProps(props, ['as', 'class', 'atoms', 'recipe']);
 
-    const [local, others] = splitProps(propsWithDefault as HTMLArtisanProps<T>, ['as', 'class', 'atoms', 'recipe']);
-
-    return (
-      <Dynamic
-        component={local.as ?? 'div'}
-        class={clsx(local.class, atoms({ ...local.atoms }), recipeFn && recipeFn(local.recipe))}
-        {...others}
-      />
-    );
+    return <Dynamic {...getPassedProps(component, local, recipeFn ?? null)} {...props} />;
   };
   return artisanComponent;
 };
@@ -38,12 +42,12 @@ function factory() {
   const cache = new Map<DOMElements, ArtisanComponent<DOMElements>>();
 
   return new Proxy(styled, {
-    /**
-     * @example
-     * const Div = artisan("div")
-     * const WithArtisan = artisan(AnotherComponent)
-     */
-    apply(target, thisArg, argArray: [ElementType, RuntimeFn<VariantGroups>]) {
+    // /**
+    //  * @example
+    //  * const Div = hope("div")
+    //  * const WithHope = hope(AnotherComponent)
+    //  */
+    apply(_1, _2, argArray: [ElementType]) {
       return styled(...argArray);
     },
 

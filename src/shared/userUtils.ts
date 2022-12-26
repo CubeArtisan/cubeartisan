@@ -1,4 +1,4 @@
-import type { ProtectedUser, PublicUser } from '@cubeartisan/cubeartisan/types/user';
+import type { ProtectedUserNoId, PublicUser } from '@cubeartisan/cubeartisan/types/user';
 
 export const getDefaultPublicUser = (): PublicUser => ({
   username: '',
@@ -9,7 +9,7 @@ export const getDefaultPublicUser = (): PublicUser => ({
   theme: 'default',
 });
 
-export const getDefaultProtectedUser = (): ProtectedUser => ({
+export const getDefaultProtectedUser = (): ProtectedUserNoId => ({
   ...getDefaultPublicUser(),
   email: '',
   confirmed: false,

@@ -34,6 +34,7 @@
         buildInputs = [
           pkgs.crc32c
           nodejs
+          pkgs.nodejs-18_x
           pkgs.google-cloud-sdk
         ];
       };
