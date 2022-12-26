@@ -5,7 +5,9 @@ import { Button } from '@cubeartisan/cubeartisan/components/Button';
 import artisan from '@cubeartisan/cubeartisan/components/factory';
 import type { ArtisanComponent } from '@cubeartisan/cubeartisan/components/types';
 
-export const Modal: ArtisanComponent<'div'> = (props) => {
+export {};
+
+export const Modal: ArtisanComponent<'div'> = () => {
   const [isOpen, setIsOpen] = createSignal();
   const open = () => setIsOpen(true);
   const close = () => setIsOpen(false);

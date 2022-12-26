@@ -7,7 +7,7 @@
 import { Component, Show } from 'solid-js';
 import { createServerAction$, redirect } from 'solid-start/server';
 
-import { createUser, getUserFromRequest, storage } from '@cubeartisan/cubeartisan/backend/user';
+import { createUser, storage } from '@cubeartisan/cubeartisan/backend/user';
 import artisan from '@cubeartisan/cubeartisan/components/factory';
 import { VStack } from '@cubeartisan/cubeartisan/components/Stack';
 
@@ -27,12 +27,28 @@ const FormTextInput: Component<FormTextInputProps> = (props) => (
   </>
 );
 
+<<<<<<< HEAD
 const MyForm: Component = () => {
   const [logging, { Form }] = createServerAction$(async (form: FormData, { request }) => {
     if (await getUserFromRequest(request)) {
       throw new Error('Already Logged In');
     }
 
+||||||| parent of 0845d7f2 (chore(typing): Fix ci and typing.)
+type FormProps = {
+  action: string;
+};
+
+const ArtisanForm: ArtisanParentComponent<'form', Record<string, never>, FormProps> = (props) => {
+  const [logging, { Form }] = createServerAction$(async (form: FormData, { request }) => {
+    if (await getUserFromRequest(request)) {
+      throw new Error('Already Logged In');
+    }
+
+=======
+const MyForm: Component = () => {
+  const [, { Form }] = createServerAction$(async (form: FormData) => {
+>>>>>>> 0845d7f2 (chore(typing): Fix ci and typing.)
     const username = form.get('username') as string;
     const password = form.get('password') as string;
     const email = form.get('email') as string;
@@ -74,11 +90,18 @@ const MyForm: Component = () => {
           <artisan.button type="submit" value="submit">
             Sign Up
           </artisan.button>
-          <artisan.span>{logging.error}</artisan.span>
         </VStack>
       </artisan.div>
     </Form>
   );
 };
 
+<<<<<<< HEAD
 export { MyForm as Root, FormTextInput as TextInput };
+||||||| parent of 0845d7f2 (chore(typing): Fix ci and typing.)
+export { ArtisanForm as Root, FormTextInput as TextInput };
+export type {};
+=======
+export { MyForm as Root, FormTextInput as TextInput };
+export type {};
+>>>>>>> 0845d7f2 (chore(typing): Fix ci and typing.)

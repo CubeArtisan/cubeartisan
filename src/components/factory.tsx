@@ -6,10 +6,12 @@ import { Dynamic } from 'solid-js/web';
 import type {
   ArtisanComponent,
   ArtisanFactory,
+  BaseRecipeFn,
   DOMElements,
   ElementType,
   HTMLArtisanComponents,
   HTMLArtisanProps,
+  StyleProps,
   VariantGroups,
   VariantsIfExists,
 } from '@cubeartisan/cubeartisan/components/types';

@@ -22,8 +22,6 @@ export type ElementType<Props = any> = DOMElements | Component<Props>;
 export type PropsOf<C extends ElementType> = ComponentProps<C>;
 
 type RecipeStyleRule = ComplexStyleRule | string;
-type VariantDefinitions = Record<string, RecipeStyleRule>;
-export type VariantGroups = Record<string, VariantDefinitions>;
 
 export type StyleProps<R = null> = {
   atoms?: Atoms;
