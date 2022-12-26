@@ -11,6 +11,7 @@ export default defineConfig({
       '@cubeartisan/cubeartisan': path.resolve(__dirname, './src/'),
     },
   },
+  envDir: __dirname,
   test: {
     deps: {
       registerNodeLoader: true,

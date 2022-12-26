@@ -3,9 +3,14 @@ import mongoose from 'mongoose';
 import logger from '@cubeartisan/cubeartisan/backend/logger';
 
 export const getMongoDbConnectionString = () => {
-  const credentials = process.env.MONGODB_USER ? `${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@` : '';
-  const queryParams = `replicaSet=${process.env.MONGODB_REPLICASET}`;
-  const connectionString = `mongodb://${credentials}${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_DBNAME}?${queryParams}`;
+  const credentials = import.meta.env.VITE_MONGODB_USER
+    ? `${import.meta.env.VITE_MONGODB_USER}:${import.meta.env.VITE_MONGODB_PASSWORD}@`
+    : '';
+  const queryParams = `replicaSet=${import.meta.env.VITE_MONGODB_REPLICASET}`;
+  const connectionString = `mongodb://${credentials}${import.meta.env.VITE_MONGODB_HOST}:${
+    import.meta.env.VITE_MONGODB_PORT
+  }/${import.meta.env.VITE_MONGODB_DBNAME}?${queryParams}`;
+  console.log(connectionString);
   return connectionString;
 };
 

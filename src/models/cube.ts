@@ -27,9 +27,7 @@ export const draftFormatSchema = {
   title: String,
   multiples: Boolean,
   markdown: String,
-  packs: {
-    type: [{ slots: [String], steps: stepsSchema }],
-  },
+  packs: [{ slots: [String], steps: stepsSchema }],
   defaultSeats: Number,
 };
 
@@ -37,6 +35,11 @@ export const boardSchema = {
   name: String,
   id: String,
   cards: [cardSchema],
+};
+
+export const tagColorSchema = {
+  tag: String,
+  color: String,
 };
 
 const cubeSchema = new Schema<MongoCube>({
@@ -75,12 +78,7 @@ const cubeSchema = new Schema<MongoCube>({
   cards: [cardSchema],
   unlimitedCards: [cardSchema],
   maybe: [cardSchema],
-  tag_colors: [
-    {
-      tag: String,
-      color: String,
-    },
-  ],
+  tag_colors: [tagColorSchema],
   defaultDraftFormat: {
     type: Number,
     default: -1,

@@ -3,10 +3,11 @@ import mongoose from 'mongoose';
 import { json } from 'solid-start';
 
 import Cube from '@cubeartisan/cubeartisan/models/cube';
-import CubeChangeModel from '@cubeartisan/cubeartisan/models/cubeChange';
-import { applyCubePatch, getDefaultBaseCubeWithCards } from '@cubeartisan/cubeartisan/shared/cubeUtils';
+import CubePatchModel from '@cubeartisan/cubeartisan/models/cubePatch';
+import { getDefaultBaseCubeWithCards } from '@cubeartisan/cubeartisan/shared/cubeUtils';
+import { applyPatch } from '@cubeartisan/cubeartisan/shared/patches';
 import { hasProfanity, toBase36 } from '@cubeartisan/cubeartisan/shared/utils';
-import type { CubeChange, MongoCube } from '@cubeartisan/cubeartisan/types/cube';
+import type { CubePatch, MongoCube } from '@cubeartisan/cubeartisan/types/cube';
 import type { MongoUser, ProtectedUser } from '@cubeartisan/cubeartisan/types/user';
 
 export const generateShortId = async (): Promise<string> => {
@@ -61,11 +62,11 @@ export const findCube = async (
   return null;
 };
 
-export const updateCube = async (cube: HydratedDocument<MongoCube>, changes: CubeChange) => {
-  applyCubePatch(cube, changes);
+export const updateCube = async (cube: HydratedDocument<MongoCube>, changes: CubePatch) => {
+  applyPatch(cube, changes);
   const version =
-    ((await CubeChangeModel.findOne({ cubeId: cube._id }, 'version').sort({ version: -1 }))?.version ?? 0) + 1;
-  const cubeChange = new CubeChangeModel({
+    ((await CubePatchModel.findOne({ cubeId: cube._id }, 'version').sort({ version: -1 }))?.version ?? 0) + 1;
+  const cubeChange = new CubePatchModel({
     ...changes,
     version,
     cubeId: cube._id,
