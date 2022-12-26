@@ -1,4 +1,3 @@
-import type { RuntimeFn } from '@vanilla-extract/recipes';
 import clsx from 'clsx';
 import { ComponentProps, createMemo, JSX, mergeProps, Show, splitProps } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
@@ -11,13 +10,11 @@ import type {
   ElementType,
   HTMLArtisanComponents,
   HTMLArtisanProps,
-  StyleProps,
-  VariantGroups,
   VariantsIfExists,
 } from '@cubeartisan/cubeartisan/components/types';
 import { atoms } from '@cubeartisan/cubeartisan/styles';
 
-const styled = <T extends ElementType<{ class: string }>, R extends RuntimeFn<VariantGroups> | null = null>(
+const styled = <T extends ElementType<{ class: string }>, R extends BaseRecipeFn | null = null>(
   component: T,
   recipeFn?: R,
 ) => {
@@ -56,7 +53,7 @@ const styled = <T extends ElementType<{ class: string }>, R extends RuntimeFn<Va
   return artisanComponent;
 };
 
-const styledNoAs = <T extends ElementType<{ class: string }>, R extends RuntimeFn<VariantGroups> | null = null>(
+const styledNoAs = <T extends ElementType<{ class: string }>, R extends BaseRecipeFn | null = null>(
   component: T,
   recipeFn?: R,
 ) => {
@@ -84,7 +81,7 @@ function factory() {
     //  * const Div = artisan('div')
     //  * const WithHope = artisan(AnotherComponent)
     //  */
-    apply<T extends ElementType<{ class: string }>, R extends RuntimeFn<VariantGroups> | null = null>(
+    apply<T extends ElementType<{ class: string }>, R extends BaseRecipeFn | null = null>(
       _1: typeof styled,
       _2: unknown,
       argArray: [T] | [T, R],

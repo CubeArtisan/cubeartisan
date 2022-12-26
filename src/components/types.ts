@@ -1,6 +1,6 @@
 import type { ComplexStyleRule } from '@vanilla-extract/css';
 import type { RecipeVariants, RuntimeFn } from '@vanilla-extract/recipes';
-import type { ClassValue } from 'clsx';
+import type { ClassArray, ClassValue } from 'clsx';
 import type { Component, ComponentProps, JSX, ParentComponent, VoidComponent } from 'solid-js';
 
 import type { Atoms } from '@cubeartisan/cubeartisan/styles/atoms/atoms.css';
@@ -22,6 +22,10 @@ export type ElementType<Props = any> = DOMElements | Component<Props>;
 export type PropsOf<C extends ElementType> = ComponentProps<C>;
 
 type RecipeStyleRule = ComplexStyleRule | string;
+
+type VariantDefinitions = Record<string, RecipeStyleRule>;
+
+type VariantGroups = Record<string, VariantDefinitions>;
 
 export type StyleProps<R = null> = {
   atoms?: Atoms;
@@ -123,10 +127,7 @@ export type VariantsIfExists<R extends BaseRecipeFn | null> = R extends BaseReci
  * Factory function that converts non-artisan components or jsx element
  * to artisan-enabled components so you can pass style props to them.
  */
-export type ArtisanFactory = <
-  T extends ElementType<{ class: string }>,
-  R extends RuntimeFn<VariantGroups> | null = null,
->(
+export type ArtisanFactory = <T extends ElementType, R extends BaseRecipeFn | null = null>(
   component: T,
   recipeFn?: R,
 ) => T extends DOMElements
