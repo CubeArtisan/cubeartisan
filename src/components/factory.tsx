@@ -22,9 +22,23 @@ const getClass = <R extends BaseRecipeFn | null = null>(local: StyleProps<Varian
 
 const getPassedProps = <T extends ElementType, S extends ElementType = T, R extends BaseRecipeFn | null = null>(
   component: T,
-  local: StyleProps<VariantsIfExists<R>> & { as?: S },
-  recipeFn: R,
-) => ({ component: (local.as ?? component) as S, class: getClass(local, recipeFn) });
+  recipeFn?: R,
+) => {
+  const artisanComponent = <S extends ElementType<{ class: string }> = T>(
+    props:
+      | (HTMLArtisanProps<T, VariantsIfExists<R>> & { as?: undefined })
+      | (HTMLArtisanProps<S, VariantsIfExists<R>> & { as: S }),
+  ) => {
+    const [local, rest] = splitProps(props, ['as', 'class', 'atoms', 'recipe']);
+    const classProp = createMemo(() => {
+      if (recipeFn) {
+        return { class: clsx(local.class, atoms({ ...local.atoms }), recipeFn(local.recipe ?? undefined)) };
+      }
+      return { class: clsx(local.class, atoms({ ...local.atoms })) };
+    });
+    // eslint-disable-next-line solid/reactivity
+    const subProps = mergeProps(classProp, rest) as ComponentProps<S> | ComponentProps<T>;
+    console.log(Object.fromEntries(Object.entries(subProps).map(([k, acc]) => [k, acc])));
 
 const styled = <T extends ElementType, R extends RuntimeFn<VariantGroups> | null = null>(
   component: T,
