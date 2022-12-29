@@ -25,11 +25,15 @@ const styled = <T extends ElementType<{ class: string }>, R extends RuntimeFn<Va
       | (HTMLArtisanProps<S, VariantsIfExists<R>> & { as: S }),
   ) => {
     const [local, rest] = splitProps(props, ['as', 'class', 'atoms', 'recipe']);
-    const classProp = createMemo(() =>
-      clsx(local.class, atoms({ ...local.atoms }), ...(recipeFn && local.recipe ? [recipeFn(local.recipe)] : [])),
-    );
+    const classProp = createMemo(() => {
+      if (recipeFn) {
+        return { class: clsx(local.class, atoms({ ...local.atoms }), recipeFn(local.recipe ?? undefined)) };
+      }
+      return { class: clsx(local.class, atoms({ ...local.atoms })) };
+    });
     // eslint-disable-next-line solid/reactivity
-    const subProps = mergeProps({ class: classProp }, rest) as ComponentProps<S> | ComponentProps<T>;
+    const subProps = mergeProps(classProp, rest) as ComponentProps<S> | ComponentProps<T>;
+    console.log(Object.fromEntries(Object.entries(subProps).map(([k, acc]) => [k, acc])));
 
     return (
       <Show
