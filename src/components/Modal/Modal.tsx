@@ -3,11 +3,10 @@ import { Portal } from 'solid-js/web';
 
 import { Button } from '@cubeartisan/cubeartisan/components/Button';
 import artisan from '@cubeartisan/cubeartisan/components/factory';
+import * as Form from '@cubeartisan/cubeartisan/components/Form';
 import type { ArtisanComponent } from '@cubeartisan/cubeartisan/components/types';
 
-export {};
-
-export const Modal: ArtisanComponent<'div'> = () => {
+export const Modal: ArtisanComponent<'div'> = (props) => {
   const [isOpen, setIsOpen] = createSignal();
   const open = () => setIsOpen(true);
   const close = () => setIsOpen(false);
