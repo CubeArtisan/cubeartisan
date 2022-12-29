@@ -4,35 +4,19 @@
 // title? maybe this is handled outside the form?
 // TODO hover help icon that shows info text
 
-import { Component, Show } from 'solid-js';
 import { createServerAction$, redirect } from 'solid-start/server';
 
-import { createUser, storage } from '@cubeartisan/cubeartisan/backend/user';
+import { createUser, getUserFromRequest, storage } from '@cubeartisan/cubeartisan/backend/user';
 import artisan from '@cubeartisan/cubeartisan/components/factory';
 import { VStack } from '@cubeartisan/cubeartisan/components/Stack';
-
-type FormTextInputProps = {
-  label?: string;
-  type: '';
-  name: string;
-  id: string;
-};
-
-const FormTextInput: Component<FormTextInputProps> = (props) => (
-  <>
-    <Show when={!!props.label}>
-      <label for={props.name} />
-    </Show>
-    <input type={props.type} id={props.id} name={props.name} />
-  </>
-);
+import { ArtisanParentComponent } from '@cubeartisan/cubeartisan/components/types';
 
 type FormProps = {
   action: string;
 };
 
-const ArtisanForm: ArtisanParentComponent<'form', Record<string, never>, FormProps> = (props) => {
-  const [logging, { Form }] = createServerAction$(async (form: FormData, { request }) => {
+const ArtisanForm: ArtisanParentComponent<'form', Record<string, never>, FormProps> = () => {
+  const [_, { Form }] = createServerAction$(async (form: FormData, { request }) => {
     if (await getUserFromRequest(request)) {
       throw new Error('Already Logged In');
     }
@@ -84,5 +68,4 @@ const ArtisanForm: ArtisanParentComponent<'form', Record<string, never>, FormPro
   );
 };
 
-export { MyForm as Root, FormTextInput as TextInput };
-export type {};
+export { ArtisanForm };
