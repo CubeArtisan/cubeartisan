@@ -1,1 +1,1 @@
-export * from '@cubeartisan/cubeartisan/components/Form/Form';
+export * from '@cubeartisan/cubeartisan/components/Modal/Modal';
