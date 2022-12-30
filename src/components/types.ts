@@ -1,6 +1,6 @@
 import type { ComplexStyleRule } from '@vanilla-extract/css';
 import type { RecipeVariants, RuntimeFn } from '@vanilla-extract/recipes';
-import type { ClassArray, ClassValue } from 'clsx';
+import type { ClassValue } from 'clsx';
 import type { Component, ComponentProps, JSX, ParentComponent, VoidComponent } from 'solid-js';
 
 import type { Atoms } from '@cubeartisan/cubeartisan/styles/atoms/atoms.css';
@@ -32,8 +32,6 @@ export type StyleProps<R = null> = {
   class?: ClassValue;
   recipe?: R;
 };
-
-export type Cond<P, True, False = never> = P extends false ? False : True;
 
 export type ToObject<T> = T extends object ? T : object;
 
