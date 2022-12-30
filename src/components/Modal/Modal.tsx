@@ -1,9 +1,8 @@
-import { createSignal, Show } from 'solid-js';
+import { Show } from 'solid-js';
 import { Portal } from 'solid-js/web';
 
-import { Button } from '@cubeartisan/cubeartisan/components/Button';
 import artisan from '@cubeartisan/cubeartisan/components/factory';
-import type { ArtisanComponent } from '@cubeartisan/cubeartisan/components/types';
+import type { ArtisanParentComponent } from '@cubeartisan/cubeartisan/components/types';
 
 export const Modal: ArtisanComponent<'div'> = () => {
   const [isOpen, setIsOpen] = createSignal();
@@ -47,3 +46,5 @@ export const Modal: ArtisanComponent<'div'> = () => {
     </>
   );
 };
+
+export { Modal as Root };
