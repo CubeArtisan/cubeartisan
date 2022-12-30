@@ -1,44 +1,39 @@
-import { createSignal, Show } from 'solid-js';
+import { Show } from 'solid-js';
 import { Portal } from 'solid-js/web';
 
-import { Button } from '@cubeartisan/cubeartisan/components/Button';
 import artisan from '@cubeartisan/cubeartisan/components/factory';
-import type { ArtisanComponent } from '@cubeartisan/cubeartisan/components/types';
+import type { ArtisanParentComponent } from '@cubeartisan/cubeartisan/components/types';
 
-export const Modal: ArtisanComponent<'div'> = () => {
-  const [isOpen, setIsOpen] = createSignal();
-  const open = () => setIsOpen(true);
-  const close = () => setIsOpen(false);
+const ModalTitle: ArtisanParentComponent<'h1'> = (props) => <artisan.h1 {...props} />;
 
-  return (
-    <>
-      <Button onClick={open}>Open Modal</Button>
-      <Show when={isOpen()}>
-        <Portal>
-          <artisan.section
-            atoms={{
-              position: 'absolute',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column',
-              padding: 4,
-              backgroundColor: 'neutralComponent',
-            }}
-            style={{ top: '50%', left: '50%', transform: 'translate(-50%,-50%)' }}
-          >
-            <artisan.header>
-              <artisan.h1>Modal Title</artisan.h1>
-              <artisan.p>A test modal that displays placeholders instead of content</artisan.p>
-            </artisan.header>
-            <artisan.div>
-              <Button onClick={close} recipe={{ size: 'sm' }}>
-                Close
-              </Button>
-            </artisan.div>
-          </artisan.section>
-        </Portal>
-      </Show>
-    </>
-  );
+const ModalDescription: ArtisanParentComponent<'p'> = (props) => <artisan.p {...props} />;
+
+const ModalBody: ArtisanParentComponent<'div'> = (props) => <artisan.div {...props} />;
+
+type ModalProps = {
+  isOpen: boolean;
 };
+
+const Modal: ArtisanParentComponent<'div', null, ModalProps> = (props) => (
+  <Show when={props.isOpen}>
+    <Portal>
+      <artisan.section
+        atoms={{
+          position: 'absolute',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+          padding: 4,
+          backgroundColor: 'neutralComponent',
+        }}
+        style={{ top: '50%', left: '50%', transform: 'translate(-50%,-50%)' }}
+      >
+        {props.children}
+      </artisan.section>
+    </Portal>
+  </Show>
+);
+
+export { Modal as Root, ModalTitle as Title, ModalDescription as Description, ModalBody as Body };
+export { ModalProps };

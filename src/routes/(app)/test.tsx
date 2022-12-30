@@ -1,15 +1,38 @@
 // for testing components
 // import { TestButton } from '@cubeartisan/cubeartisan/components/Button/Button.testrender';
-import { Modal } from '@cubeartisan/cubeartisan/components/Modal';
+import { createSignal } from 'solid-js';
+
+import { Button } from '@cubeartisan/cubeartisan/components/Button';
+import * as Modal from '@cubeartisan/cubeartisan/components/Modal';
 import { VStack } from '@cubeartisan/cubeartisan/components/Stack';
 
-const Test = () => (
-  <VStack atoms={{ width: 'screenW', height: 'screenH', placeItems: 'center' }}>
-    <Modal />
-  </VStack>
-);
-export default Test;
+const Test = () => {
+  const [isOpen, setIsOpen] = createSignal(false);
 
-// <VStack atoms={{ width: 'screenW', height: 'screenH', placeItems: 'center' }}>
-//   <Modal />
-// </VStack>
+  return (
+    <VStack atoms={{ width: 'screenW', height: 'screenH' }}>
+      <Button onClick={() => setIsOpen(true)}>Open This Modal</Button>
+      <Modal.Root isOpen={isOpen()} style={{ width: 'min(90vw, 40ch)' }}>
+        <VStack as={'header'}>
+          <Modal.Title>Test Modal</Modal.Title>
+          <Modal.Description>This is a description</Modal.Description>
+        </VStack>
+        <Modal.Body>
+          <VStack>
+            <p>This is some test content with one paragraph that I'm making up and one that will be lorem text</p>
+            <p>
+              Elit incididunt ex qui et laborum Lorem ad enim pariatur. Aute mollit exercitation eu eu do nulla
+              incididunt incididunt nostrud esse. Excepteur consectetur eiusmod eu et id. Dolor labore Lorem excepteur
+              veniam excepteur amet et ut ad deserunt aute aliqua magna. Lorem aliquip Lorem tempor esse amet id
+              reprehenderit ea cupidatat eu amet. Qui ad nostrud non adipisicing aliquip labore proident enim deserunt
+              tempor.
+            </p>
+            <Button onClick={() => setIsOpen(false)}>Close Modal</Button>
+          </VStack>
+        </Modal.Body>
+      </Modal.Root>
+    </VStack>
+  );
+};
+
+export default Test;
