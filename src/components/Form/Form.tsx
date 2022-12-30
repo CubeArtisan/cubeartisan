@@ -5,7 +5,7 @@
 // TODO hover help icon that shows info text
 
 import { Component, Show } from 'solid-js';
-import { createServerAction$, createServerAction$, redirect } from 'solid-start/server';
+import { createServerAction$, redirect } from 'solid-start/server';
 
 import { createUser, storage } from '@cubeartisan/cubeartisan/backend/user';
 import artisan from '@cubeartisan/cubeartisan/components/factory';

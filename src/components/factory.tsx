@@ -1,18 +1,16 @@
-import type { RuntimeFn, RuntimeFn, RuntimeFn, RuntimeFn } from '@vanilla-extract/recipes';
+import type { RuntimeFn } from '@vanilla-extract/recipes';
 import clsx from 'clsx';
-import { ComponentProps, createMemo, JSX, Show, splitProps } from 'solid-js';
+import { splitProps } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
 import type {
   ArtisanComponent,
   ArtisanFactory,
   BaseRecipeFn,
-  BaseRecipeFn,
   DOMElements,
   ElementType,
   HTMLArtisanComponents,
   HTMLArtisanProps,
-  StyleProps,
   StyleProps,
   VariantGroups,
   VariantsIfExists,
