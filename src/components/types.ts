@@ -38,13 +38,23 @@ export type StyleProps<R = null> = {
   recipe?: R;
 };
 
-/**
- * Enhance props of a SolidJS component or JSX element with Artisan props
- */
-export type HTMLArtisanProps<T extends ElementType, R = null, P = null, S extends ElementType = T> = OverrideProps<
-  P extends null ? ComponentProps<T> : OverrideProps<ComponentProps<T>, P>,
-  StyleProps<R>
-> & { as?: S };
+export type IsDisjoint<T, U, Allow = never> = Exclude<Extract<keyof T, keyof U>, Allow> extends never ? true : false;
+
+export type Cond<P, True, False = never> = P extends false ? False : True;
+
+export type ToObject<T> = T extends object ? T : object;
+
+export type TypesEqual<T, U> = T extends U ? (U extends T ? true : false) : false;
+type DisjointIntersect<T, U> = keyof T & keyof U extends never ? T & U : never;
+export type HTMLArtisanProps<
+  T extends ElementType<{ class: string }>,
+  R = null,
+  P = null,
+  Props extends ComponentProps<T> = ComponentProps<T>,
+> = DisjointIntersect<Omit<P & Props, 'class'>, StyleProps<R>>;
+export type Normalize<T> = T extends (...args: infer A) => infer R
+  ? (...args: Normalize<A>) => Normalize<R>
+  : { [K in keyof T]: Normalize<T[K]> };
 /**
  * Component that accepts Artisan Props (atoms, recipe, as).
  * Not intended to accept children.
@@ -57,7 +67,12 @@ export type HTMLArtisanProps<T extends ElementType, R = null, P = null, S extend
  * ArtisanComponent<'h1', styles.componentRecipe, {foo: string, bar?: string}>
  * ```
  */
-export type ArtisanComponent<T extends ElementType = 'div', R = null, P = null> = Component<HTMLArtisanProps<T, R, P>>;
+export type ArtisanComponent<
+  T extends ElementType<{ class: string }> = 'div',
+  R = null,
+  P = null,
+  Props extends ComponentProps<T> = ComponentProps<T>,
+> = Component<HTMLArtisanProps<T, R, P, Props>>;
 
 /**
  * Artisan Compenent that accepts Artisan Props (atoms, recipe, as) and children.
@@ -70,29 +85,42 @@ export type ArtisanComponent<T extends ElementType = 'div', R = null, P = null> 
  * ArtisanParentComponent<'h1', styles.componentRecipe, {foo: string, bar?: string}>
  * ```
  */
-export type ArtisanParentComponent<T extends ElementType, R = null, P = null> = ParentComponent<
-  HTMLArtisanProps<T, R, P>
->;
+export type ArtisanParentComponent<
+  T extends ElementType<{ class: string }>,
+  R = null,
+  P = null,
+  Props extends ComponentProps<T> = ComponentProps<T>,
+> = ParentComponent<HTMLArtisanProps<T, R, P, Props>>;
 
 /**
  * Artisan Compenent that is intended for 'Control Flow' components like <For /> and <Show />.
  * Requires a type definition for children such as '() => void'.
  * See the [Solid Docs](https://www.solidjs.com/guides/typescript#component-types) for more information.
  */
-export type ArtisanFlowComponent<T extends ElementType, R = null, P = null> = Component<HTMLArtisanProps<T, R, P>>;
+export type ArtisanFlowComponent<
+  T extends ElementType<{ class: string }>,
+  R = null,
+  P = null,
+  Props extends ComponentProps<T> = ComponentProps<T>,
+> = Component<HTMLArtisanProps<T, R, P, Props>>;
 
 /**
  * Artisan Component that unknown accepts children
  */
-export type ArtisanVoidComponent<T extends ElementType, R = null, P = null> = VoidComponent<HTMLArtisanProps<T, R, P>>;
+export type ArtisanVoidComponent<
+  T extends ElementType<{ class: string }>,
+  R = null,
+  P = null,
+  Props extends ComponentProps<T> = ComponentProps<T>,
+> = VoidComponent<HTMLArtisanProps<T, R, P, Props>>;
 
 /**
  * All html and svg elements for artisan components.
  * This is mostly for `artisan.<element>` syntax.
  */
 export type HTMLArtisanComponents = {
-  [Tag in DOMElements]: <S extends ElementType = Tag>(
-    props: (HTMLArtisanProps<Tag> & { as?: undefined }) | (HTMLArtisanProps<S> & { as: S }),
+  [Tag in DOMElements]: <S extends ElementType<{ class: string }> = Tag>(
+    props: HTMLArtisanProps<Tag, null, { as?: never }> | HTMLArtisanProps<S, null, { as: S }>,
   ) => JSX.Element;
 };
 
@@ -107,4 +135,10 @@ export type VariantsIfExists<R extends BaseRecipeFn | null> = R extends BaseReci
 export type ArtisanFactory = <T extends ElementType, R extends BaseRecipeFn | null = null>(
   component: T,
   recipeFn?: R,
-) => <S extends ElementType = T>(props: HTMLArtisanProps<T, VariantsIfExists<R>, null, S>) => JSX.Element;
+) => T extends DOMElements
+  ? <S extends ElementType<{ class: string }> = T>(
+      props:
+        | HTMLArtisanProps<T, VariantsIfExists<R>, { as?: never }>
+        | HTMLArtisanProps<S, VariantsIfExists<R>, { as: S }>,
+    ) => JSX.Element
+  : ArtisanComponent<T, VariantsIfExists<R>>;

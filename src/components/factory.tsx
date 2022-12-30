@@ -26,8 +26,8 @@ const getPassedProps = <T extends ElementType, S extends ElementType = T, R exte
 ) => {
   const artisanComponent = <S extends ElementType<{ class: string }> = T>(
     props:
-      | (HTMLArtisanProps<T, VariantsIfExists<R>> & { as?: undefined })
-      | (HTMLArtisanProps<S, VariantsIfExists<R>> & { as: S }),
+      | HTMLArtisanProps<T, VariantsIfExists<R>, { as?: never }>
+      | HTMLArtisanProps<S, VariantsIfExists<R>, { as: S }>,
   ) => {
     const [local, rest] = splitProps(props, ['as', 'class', 'atoms', 'recipe']);
     const classProp = createMemo(() => {
@@ -38,7 +38,6 @@ const getPassedProps = <T extends ElementType, S extends ElementType = T, R exte
     });
     // eslint-disable-next-line solid/reactivity
     const subProps = mergeProps(classProp, rest) as ComponentProps<S> | ComponentProps<T>;
-    console.log(Object.fromEntries(Object.entries(subProps).map(([k, acc]) => [k, acc])));
 
 const styled = <T extends ElementType, R extends RuntimeFn<VariantGroups> | null = null>(
   component: T,
@@ -61,8 +60,35 @@ function factory() {
     //  * const Div = hope("div")
     //  * const WithHope = hope(AnotherComponent)
     //  */
-    apply(_1, _2, argArray: [ElementType]) {
-      return styled(...argArray);
+    apply<T extends ElementType<{ class: string }>, R extends RuntimeFn<VariantGroups> | null = null>(
+      _1: typeof styled,
+      _2: unknown,
+      argArray: [T] | [T, R],
+    ): T extends DOMElements
+      ? <S extends ElementType<{ class: string }> = T>(
+          props:
+            | HTMLArtisanProps<T, VariantsIfExists<R>, { as?: never }>
+            | HTMLArtisanProps<S, VariantsIfExists<R>, { as: S }>,
+        ) => JSX.Element
+      : ArtisanComponent<T, VariantsIfExists<R>> {
+      if (typeof argArray[0] === 'string') {
+        if (argArray.length === 1) {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          return styled(...argArray);
+        }
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        return styled(...argArray);
+      }
+      if (argArray.length === 1) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        return styledNoAs(...argArray);
+      }
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      return styledNoAs(...argArray);
     },
 
     /**
