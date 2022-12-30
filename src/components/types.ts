@@ -44,8 +44,9 @@ type DisjointIntersect<T, U> = keyof T & keyof U extends never ? T & U : never;
 export type HTMLArtisanProps<
   T extends ElementType<{ class: string }>,
   R = null,
-  P extends ComponentProps<T> = ComponentProps<T>,
-> = DisjointIntersect<Omit<P, 'class'>, StyleProps<R>>;
+  P = null,
+  Props extends ComponentProps<T> = ComponentProps<T>,
+> = DisjointIntersect<Omit<P & Props, 'class'>, StyleProps<R>>;
 export type Normalize<T> = T extends (...args: infer A) => infer R
   ? (...args: Normalize<A>) => Normalize<R>
   : { [K in keyof T]: Normalize<T[K]> };
@@ -64,8 +65,9 @@ export type Normalize<T> = T extends (...args: infer A) => infer R
 export type ArtisanComponent<
   T extends ElementType<{ class: string }> = 'div',
   R = null,
-  P extends ComponentProps<T> = ComponentProps<T>,
-> = Component<HTMLArtisanProps<T, R, P>>;
+  P = null,
+  Props extends ComponentProps<T> = ComponentProps<T>,
+> = Component<HTMLArtisanProps<T, R, P, Props>>;
 
 /**
  * Artisan Compenent that accepts Artisan Props (atoms, recipe, as) and children.
@@ -81,8 +83,9 @@ export type ArtisanComponent<
 export type ArtisanParentComponent<
   T extends ElementType<{ class: string }>,
   R = null,
-  P extends ComponentProps<T> = ComponentProps<T>,
-> = ParentComponent<HTMLArtisanProps<T, R, P>>;
+  P = null,
+  Props extends ComponentProps<T> = ComponentProps<T>,
+> = ParentComponent<HTMLArtisanProps<T, R, P, Props>>;
 
 /**
  * Artisan Compenent that is intended for 'Control Flow' components like <For /> and <Show />.
@@ -92,8 +95,9 @@ export type ArtisanParentComponent<
 export type ArtisanFlowComponent<
   T extends ElementType<{ class: string }>,
   R = null,
-  P extends ComponentProps<T> = ComponentProps<T>,
-> = Component<HTMLArtisanProps<T, R, P>>;
+  P = null,
+  Props extends ComponentProps<T> = ComponentProps<T>,
+> = Component<HTMLArtisanProps<T, R, P, Props>>;
 
 /**
  * Artisan Component that unknown accepts children
@@ -101,16 +105,17 @@ export type ArtisanFlowComponent<
 export type ArtisanVoidComponent<
   T extends ElementType<{ class: string }>,
   R = null,
-  P extends ComponentProps<T> = ComponentProps<T>,
-> = VoidComponent<HTMLArtisanProps<T, R, P>>;
+  P = null,
+  Props extends ComponentProps<T> = ComponentProps<T>,
+> = VoidComponent<HTMLArtisanProps<T, R, P, Props>>;
 
 /**
  * All html and svg elements for artisan components.
  * This is mostly for `artisan.<element>` syntax.
  */
 export type HTMLArtisanComponents = {
-  [Tag in DOMElements]: <S extends ElementType = Tag>(
-    props: (HTMLArtisanProps<Tag> & { as?: undefined }) | (HTMLArtisanProps<S> & { as: S }),
+  [Tag in DOMElements]: <S extends ElementType<{ class: string }> = Tag>(
+    props: HTMLArtisanProps<Tag, null, { as?: never }> | HTMLArtisanProps<S, null, { as: S }>,
   ) => JSX.Element;
 };
 
@@ -129,9 +134,9 @@ export type ArtisanFactory = <
   component: T,
   recipeFn?: R,
 ) => T extends DOMElements
-  ? <S extends ElementType = T>(
+  ? <S extends ElementType<{ class: string }> = T>(
       props:
-        | (HTMLArtisanProps<T, VariantsIfExists<R>> & { as?: undefined })
-        | (HTMLArtisanProps<S, VariantsIfExists<R>> & { as: S }),
+        | HTMLArtisanProps<T, VariantsIfExists<R>, { as?: never }>
+        | HTMLArtisanProps<S, VariantsIfExists<R>, { as: S }>,
     ) => JSX.Element
   : ArtisanComponent<T, VariantsIfExists<R>>;

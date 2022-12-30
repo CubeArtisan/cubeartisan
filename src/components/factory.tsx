@@ -21,8 +21,8 @@ const styled = <T extends ElementType<{ class: string }>, R extends RuntimeFn<Va
 ) => {
   const artisanComponent = <S extends ElementType<{ class: string }> = T>(
     props:
-      | (HTMLArtisanProps<T, VariantsIfExists<R>> & { as?: undefined })
-      | (HTMLArtisanProps<S, VariantsIfExists<R>> & { as: S }),
+      | HTMLArtisanProps<T, VariantsIfExists<R>, { as?: never }>
+      | HTMLArtisanProps<S, VariantsIfExists<R>, { as: S }>,
   ) => {
     const [local, rest] = splitProps(props, ['as', 'class', 'atoms', 'recipe']);
     const classProp = createMemo(() => {
@@ -33,7 +33,6 @@ const styled = <T extends ElementType<{ class: string }>, R extends RuntimeFn<Va
     });
     // eslint-disable-next-line solid/reactivity
     const subProps = mergeProps(classProp, rest) as ComponentProps<S> | ComponentProps<T>;
-    console.log(Object.fromEntries(Object.entries(subProps).map(([k, acc]) => [k, acc])));
 
     return (
       <Show
@@ -88,10 +87,10 @@ function factory() {
       _2: unknown,
       argArray: [T] | [T, R],
     ): T extends DOMElements
-      ? <S extends ElementType = T>(
+      ? <S extends ElementType<{ class: string }> = T>(
           props:
-            | (HTMLArtisanProps<T, VariantsIfExists<R>> & { as?: undefined })
-            | (HTMLArtisanProps<S, VariantsIfExists<R>> & { as: S }),
+            | HTMLArtisanProps<T, VariantsIfExists<R>, { as?: never }>
+            | HTMLArtisanProps<S, VariantsIfExists<R>, { as: S }>,
         ) => JSX.Element
       : ArtisanComponent<T, VariantsIfExists<R>> {
       if (typeof argArray[0] === 'string') {
