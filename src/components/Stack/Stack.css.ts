@@ -10,14 +10,6 @@ const spacing = {
   xl: 8,
 };
 
-const spacing = {
-  xs: 1,
-  sm: 2,
-  md: 3,
-  lg: 5,
-  xl: 8,
-};
-
 export const stackRecipe = recipe({
   base: atoms({
     display: 'flex',
@@ -28,34 +20,6 @@ export const stackRecipe = recipe({
     justifyContent: 'center',
   }),
   variants: {
-    direction: {
-      row: atoms({ flexDirection: 'row' }),
-      column: atoms({ flexDirection: 'column' }),
-    },
-    spacing: {
-      xs: atoms({ gap: spacing.xs }),
-      sm: atoms({ gap: spacing.sm }),
-      md: atoms({ gap: spacing.md }),
-      lg: atoms({ gap: spacing.lg }),
-      xl: atoms({ gap: spacing.xl }),
-    },
-    spacingX: {
-      xs: atoms({ rowGap: spacing.xs }),
-      sm: atoms({ rowGap: spacing.sm }),
-      md: atoms({ rowGap: spacing.md }),
-      lg: atoms({ rowGap: spacing.lg }),
-      xl: atoms({ rowGap: spacing.xl }),
-    },
-    spacingY: {
-      xs: atoms({ columnGap: spacing.xs }),
-      sm: atoms({ columnGap: spacing.sm }),
-      md: atoms({ columnGap: spacing.md }),
-      lg: atoms({ columnGap: spacing.lg }),
-      xl: atoms({ columnGap: spacing.xl }),
-    },
-    wrap: {
-      nowrap: atoms({ flexWrap: 'nowrap' }),
-      wrap: atoms({ flexWrap: 'wrap' }),
     direction: {
       row: atoms({ flexDirection: 'row' }),
       column: atoms({ flexDirection: 'column' }),

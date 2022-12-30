@@ -6,12 +6,10 @@ import type {
   ArtisanComponent,
   ArtisanFactory,
   BaseRecipeFn,
-  BaseRecipeFn,
   DOMElements,
   ElementType,
   HTMLArtisanComponents,
   HTMLArtisanProps,
-  StyleProps,
   VariantsIfExists,
 } from '@cubeartisan/cubeartisan/components/types';
 import { atoms } from '@cubeartisan/cubeartisan/styles';
