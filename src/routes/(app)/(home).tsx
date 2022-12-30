@@ -2,7 +2,7 @@ import { For } from 'solid-js';
 import { A } from 'solid-start';
 
 import artisan from '@cubeartisan/cubeartisan/components/factory';
-import * as Hero from '@cubeartisan/cubeartisan/components/Hero/Hero';
+import * as Hero from '@cubeartisan/cubeartisan/components/Hero/';
 import homePageCards from '@cubeartisan/cubeartisan/mock/home-page-cards';
 import * as styles from '@cubeartisan/cubeartisan/routes/(app)/home.css';
 
@@ -27,10 +27,10 @@ export default function Home() {
   return (
     <artisan.main atoms={{ height: 'full' }}>
       <Hero.Root recipe={{ background: 'gradientCenter', layout: 'center' }}>
-        <Hero.ContentBlock recipe={{ align: 'center' }}>
+        <Hero.Content recipe={{ align: 'center' }}>
           <artisan.h1 atoms={{ fontSize: '2xl', fontWeight: 'bold' }}>CubeArtisan</artisan.h1>
           <artisan.p atoms={{ fontSize: 'lg', fontWeight: 'light' }}>Next level cube management</artisan.p>
-        </Hero.ContentBlock>
+        </Hero.Content>
       </Hero.Root>
       <artisan.div atoms={{ marginInline: 'auto', marginBottom: 14, width: 'content-80' }}>
         <For each={homePageCards} fallback={<div>Loading...</div>}>
