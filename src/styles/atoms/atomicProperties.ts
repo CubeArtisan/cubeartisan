@@ -14,6 +14,12 @@ export const colorProperties = {
     ...vars.backgroundColor.warningA,
     ...vars.backgroundColor.danger,
     ...vars.backgroundColor.dangerA,
+    ...vars.staticColor.black,
+    ...vars.staticColor.white,
+    ...vars.staticColor.grayDark,
+    ...vars.staticColor.grayLight,
+    ...vars.staticColor.shadowDark,
+    ...vars.staticColor.shadowLight,
   },
   boxShadow: {
     ...vars.boxShadow.shadow,
