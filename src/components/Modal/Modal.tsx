@@ -1,39 +1,77 @@
-import { Show } from 'solid-js';
+import { createUniqueId, mergeProps, Show, splitProps } from 'solid-js';
 import { Portal } from 'solid-js/web';
 
 import artisan from '@cubeartisan/cubeartisan/components/factory';
+import { VStack } from '@cubeartisan/cubeartisan/components/Stack';
 import type { ArtisanParentComponent } from '@cubeartisan/cubeartisan/components/types';
-
-const ModalTitle: ArtisanParentComponent<'h1'> = (props) => <artisan.h1 {...props} />;
-
-const ModalDescription: ArtisanParentComponent<'p'> = (props) => <artisan.p {...props} />;
-
-const ModalBody: ArtisanParentComponent<'div'> = (props) => <artisan.div {...props} />;
 
 type ModalProps = {
   isOpen: boolean;
+  overlay?: boolean;
+  title?: string;
+  description?: string;
 };
 
-const Modal: ArtisanParentComponent<'div', null, ModalProps> = (props) => (
-  <Show when={props.isOpen}>
-    <Portal>
-      <artisan.section
-        atoms={{
-          position: 'absolute',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column',
-          padding: 4,
-          backgroundColor: 'neutralComponent',
-        }}
-        style={{ top: '50%', left: '50%', transform: 'translate(-50%,-50%)' }}
-      >
-        {props.children}
-      </artisan.section>
-    </Portal>
-  </Show>
-);
+const Modal: ArtisanParentComponent<'div', null, ModalProps> = (props) => {
+  const propsWithDefault = mergeProps({ overlay: true }, props);
+  const [local, others] = splitProps(propsWithDefault, [
+    'children',
+    'isOpen',
+    'overlay',
+    'title',
+    'description',
+    'style',
+  ]);
 
-export { Modal as Root, ModalTitle as Title, ModalDescription as Description, ModalBody as Body };
+  const rootId = `artisan-modal-${createUniqueId()}`;
+  const overlayId = `${rootId}--overlay`;
+  const bodyId = `${rootId}--body`;
+  const titleId = `${rootId}--title`;
+  const descriptionId = `${rootId}--description`;
+
+  return (
+    <Show when={local.isOpen}>
+      <Portal>
+        <VStack>
+          <Show when={local.overlay}>
+            <artisan.div
+              id={overlayId}
+              atoms={{
+                backgroundColor: 'shadowDark10',
+                width: 'screenW',
+                height: 'screenH',
+                position: 'fixed',
+                top: 0,
+                left: 0,
+              }}
+            />
+          </Show>
+          <VStack
+            as="section"
+            id={bodyId}
+            atoms={{
+              position: 'absolute',
+              padding: 4,
+              backgroundColor: 'neutralComponent',
+            }}
+            style={{ ...local.style, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+            {...others}
+          >
+            <VStack as="header">
+              <Show when={local.title}>
+                <artisan.h2 id={titleId}>{local.title}</artisan.h2>
+              </Show>
+              <Show when={local.description}>
+                <artisan.p id={descriptionId}>{local.description}</artisan.p>
+              </Show>
+            </VStack>
+            <VStack children={local.children} />
+          </VStack>
+        </VStack>
+      </Portal>
+    </Show>
+  );
+};
+
+export { Modal };
 export { ModalProps };
