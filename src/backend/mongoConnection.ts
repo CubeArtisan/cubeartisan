@@ -10,7 +10,6 @@ export const getMongoDbConnectionString = () => {
   const connectionString = `mongodb://${credentials}${import.meta.env.VITE_MONGODB_HOST}:${
     import.meta.env.VITE_MONGODB_PORT
   }/${import.meta.env.VITE_MONGODB_DBNAME}?${queryParams}`;
-  console.log(connectionString);
   return connectionString;
 };
 
