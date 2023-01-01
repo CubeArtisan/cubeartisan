@@ -3,8 +3,7 @@ import { A } from 'solid-start';
 import { createServerData$ } from 'solid-start/server';
 
 import { getUserFromRequest } from '@cubeartisan/cubeartisan/backend/user';
-import artisan from '@cubeartisan/cubeartisan/components/factory';
-import { atoms } from '@cubeartisan/cubeartisan/styles';
+import { HStack } from '@cubeartisan/cubeartisan/components/Stack';
 
 const SiteNavbar = () => {
   const user = createServerData$((_, { request }) => getUserFromRequest(request));
@@ -13,50 +12,29 @@ const SiteNavbar = () => {
   // use <banner /> when including non-nav elements
 
   return (
-    <artisan.nav
-      atoms={{
-        height: 12,
-        width: 'full',
-        backgroundColor: 'neutralSubtleSecondary',
-        color: 'neutralContrast',
-      }}
-    >
-      <div
-        class={atoms({
-          display: 'flex',
-          justifyContent: 'spaceBetween',
-          height: 'full',
-          fontSize: 'base',
-          marginInline: 'auto',
+    <HStack atoms={{ backgroundColor: 'neutralSubtleSecondary', color: 'neutralContrast' }}>
+      <HStack
+        as="header"
+        atoms={{
+          height: 16,
           width: 'content-80',
-        })}
+        }}
+        recipe={{ justify: 'spaceBetween' }}
       >
-        <ul
-          class={atoms({
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'spaceBetween',
-            gap: 3,
-          })}
-        >
-          <li>
-            <A href="/">Home</A>
-          </li>
-          <li>
-            <A href="/social">Social</A>
-          </li>
-          <li>
-            <A href={`/${user()?._id}/cubes`}>Your Cubes</A>
-          </li>
-        </ul>
-        <ul
-          class={atoms({
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'spaceBetween',
-            gap: 3,
-          })}
-        >
+        <HStack as="nav">
+          <HStack as="ul" atoms={{ gap: 2 }}>
+            <li>
+              <A href="/">Home</A>
+            </li>
+            <li>
+              <A href="/social">Social</A>
+            </li>
+            <li>
+              <A href={`/${user()?._id}/cubes`}>Your Cubes</A>
+            </li>
+          </HStack>
+        </HStack>
+        <HStack as="ul" atoms={{ gap: 2 }}>
           <li>
             <button>Search</button>
           </li>
@@ -71,9 +49,9 @@ const SiteNavbar = () => {
               {(u) => <p>{u.username}</p>}
             </Show>
           </li>
-        </ul>
-      </div>
-    </artisan.nav>
+        </HStack>
+      </HStack>
+    </HStack>
   );
 };
 
