@@ -14,11 +14,11 @@ type ModalProps = {
 };
 
 const Modal: ArtisanParentComponent<'div', null, ModalProps> = (props) => {
-  const propsWithDefault = mergeProps({ overlay: true }, props);
+  const propsWithDefault = mergeProps({ showOverlay: true }, props);
   const [local, others] = splitProps(propsWithDefault, [
     'children',
     'isOpen',
-    'overlay',
+    'showOverlay',
     'onOverlayClick',
     'title',
     'description',
