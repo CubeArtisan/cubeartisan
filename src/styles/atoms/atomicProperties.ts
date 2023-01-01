@@ -204,13 +204,16 @@ export const responsiveProperties = {
   marginBlock: vars.space,
 
   alignItems: {
-    flexStart: 'flex-start',
+    normal: 'normal',
+    stretch: 'stretch',
     center: 'center',
+    flexStart: 'flex-start',
     flexEnd: 'flex-end',
   },
   justifyContent: {
-    flexStart: 'flex-start',
+    normal: 'normal',
     center: 'center',
+    flexStart: 'flex-start',
     flexEnd: 'flex-end',
     spaceBetween: 'space-between',
     spaceAround: 'space-around',
