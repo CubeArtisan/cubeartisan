@@ -1,9 +1,13 @@
 import artisan from '@cubeartisan/cubeartisan/components/factory';
 import * as styles from '@cubeartisan/cubeartisan/components/Stack/Stack.css';
-import { ArtisanComponent } from '@cubeartisan/cubeartisan/components/types';
+import { ArtisanParentComponent } from '@cubeartisan/cubeartisan/components/types';
 
-export const Stack: ArtisanComponent<'div', styles.StackVariants> = artisan('div', styles.stackRecipe);
+/**
+ * Horizontal flex container that centers content by default
+ */
+export const HStack: ArtisanParentComponent<'div', styles.HStackVariants> = artisan('div', styles.hStackRecipe);
 
-export const HStack: ArtisanComponent<'div', styles.HStackVariants> = artisan('div', styles.hStackRecipe);
-
-export const VStack: ArtisanComponent<'div', styles.VStackVariants> = artisan('div', styles.vStackRecipe);
+/**
+ * Vertical flex container that centers content by default
+ */
+export const VStack: ArtisanParentComponent<'div', styles.VStackVariants> = artisan('div', styles.vStackRecipe);
