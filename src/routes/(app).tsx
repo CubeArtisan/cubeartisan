@@ -1,8 +1,8 @@
 import { Outlet } from 'solid-start';
 
 import { VStack } from '@cubeartisan/cubeartisan/components/Stack';
-import SiteFooter from '@cubeartisan/cubeartisan/components/templates/app/SiteFooter';
-import SiteNavbar from '@cubeartisan/cubeartisan/components/templates/app/SiteNavbar';
+import SiteFooter from '@cubeartisan/cubeartisan/components/templates/appLayout/SiteFooter';
+import SiteNavbar from '@cubeartisan/cubeartisan/components/templates/appLayout/SiteNavbar';
 
 const AppLayout = () => (
   <VStack recipe={{ justify: 'normal', align: 'normal' }}>
