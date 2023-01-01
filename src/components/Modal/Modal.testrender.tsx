@@ -12,6 +12,7 @@ export const TestModal = () => {
       <Button onClick={() => setIsOpen(true)}>Open This Modal</Button>
       <Modal
         isOpen={isOpen()}
+        onOverlayClick={setIsOpen(false)}
         title="Test Modal"
         description="This is a description"
         style={{ width: 'min(90vw, 40ch)' }}
