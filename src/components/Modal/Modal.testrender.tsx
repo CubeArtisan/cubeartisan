@@ -15,7 +15,7 @@ export const TestModal = () => {
         onOverlayClick={setIsOpen(false)}
         title="Test Modal"
         description="This is a description"
-        style={{ width: 'min(90vw, 40ch)' }}
+        atoms={{ width: 'xl' }}
       >
         <p>This is some test content with one paragraph that I'm making up and one that will be lorem text</p>
         <p>

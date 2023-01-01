@@ -1,3 +1,4 @@
+import { merge } from 'lodash';
 import { createUniqueId, mergeProps, Show, splitProps } from 'solid-js';
 import { Portal } from 'solid-js/web';
 
@@ -23,6 +24,7 @@ const Modal: ArtisanParentComponent<'div', null, ModalProps> = (props) => {
     'title',
     'description',
     'style',
+    'atoms',
   ]);
 
   const rootId = `artisan-modal-${createUniqueId()}`;
@@ -50,12 +52,15 @@ const Modal: ArtisanParentComponent<'div', null, ModalProps> = (props) => {
           <VStack
             as="section"
             id={bodyId}
-            atoms={{
-              position: 'absolute',
-              padding: 4,
-              backgroundColor: 'neutralComponent',
-            }}
-            style={{ ...local.style, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+            atoms={merge(
+              {
+                position: 'absolute',
+                padding: 4,
+                backgroundColor: 'neutralComponent',
+              },
+              local.atoms,
+            )}
+            style={merge({ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }, local.style)}
             {...others}
           >
             <VStack as="header">
