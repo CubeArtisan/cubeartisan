@@ -53,22 +53,24 @@ const flattenedStaticColors = {
   shadowLight12: vars.staticColor.shadowLight[12],
 };
 
+const backgroundColor = {
+  ...vars.backgroundColor.neutral,
+  ...vars.backgroundColor.neutralA,
+  ...vars.backgroundColor.primary,
+  ...vars.backgroundColor.primaryA,
+  ...vars.backgroundColor.success,
+  ...vars.backgroundColor.successA,
+  ...vars.backgroundColor.info,
+  ...vars.backgroundColor.infoA,
+  ...vars.backgroundColor.warning,
+  ...vars.backgroundColor.warningA,
+  ...vars.backgroundColor.danger,
+  ...vars.backgroundColor.dangerA,
+  ...flattenedStaticColors,
+};
+
 export const colorProperties = {
-  backgroundColor: {
-    ...vars.backgroundColor.neutral,
-    ...vars.backgroundColor.neutralA,
-    ...vars.backgroundColor.primary,
-    ...vars.backgroundColor.primaryA,
-    ...vars.backgroundColor.success,
-    ...vars.backgroundColor.successA,
-    ...vars.backgroundColor.info,
-    ...vars.backgroundColor.infoA,
-    ...vars.backgroundColor.warning,
-    ...vars.backgroundColor.warningA,
-    ...vars.backgroundColor.danger,
-    ...vars.backgroundColor.dangerA,
-    ...flattenedStaticColors,
-  },
+  backgroundColor,
   boxShadow: {
     ...vars.boxShadow.shadow,
     ...vars.boxShadow.neutral,
@@ -97,6 +99,7 @@ export const colorProperties = {
     ...vars.textColor.warningA,
     ...vars.textColor.danger,
     ...vars.textColor.dangerA,
+    ...backgroundColor,
   },
 } as const;
 
