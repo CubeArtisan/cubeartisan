@@ -1,5 +1,5 @@
 import { merge } from 'lodash';
-import { CgBell, CgMathPlus, CgProfile, CgSearch } from 'solid-icons/cg';
+import { CgBell, CgEnter, CgMathPlus, CgProfile, CgSearch } from 'solid-icons/cg';
 import { createSignal, Show, splitProps } from 'solid-js';
 import { A } from 'solid-start';
 import { createServerData$ } from 'solid-start/server';
@@ -24,10 +24,13 @@ const NavIcon: ArtisanParentComponent<'div', null, { size: 'sm' | 'lg' }> = (pro
     <Center
       atoms={merge(
         {
-          borderRadius: 'full',
-          backgroundColor: { hover: 'neutralComponentHover', active: 'neutralComponentActive' },
+          borderRadius: 'lg',
           height: sizes[props.size],
           width: sizes[props.size],
+          backgroundColor: { hover: 'neutralComponentHover', active: 'neutralComponentActive' },
+          boxShadow: {
+            hover: 'borderNeutralInteractiveHoverLarge',
+          },
         },
         local.atoms,
       )}
@@ -184,16 +187,71 @@ const SiteNavbar = () => {
               );
             }}
           </li>
-          <li>
-            <NavIcon size="sm" as="button" atoms={{ color: 'neutralContrast' }}>
-              <CgBell class={atoms({ height: 6, width: 6 })} />
-            </NavIcon>
-          </li>
-          <li>
-            <NavIcon size="lg" as="button" atoms={{ color: 'neutralContrast' }}>
-              <CgProfile class={atoms({ height: 10, width: 10 })} />
-            </NavIcon>
-          </li>
+          <Show
+            when={user()}
+            fallback={
+              <li>
+                {() => {
+                  const [isOpen, setIsOpen] = createSignal(false);
+
+                  return (
+                    <>
+                      <HStack
+                        as="button"
+                        onClick={() => setIsOpen(true)}
+                        atoms={{
+                          borderRadius: 'md',
+                          paddingBlock: 1,
+                          paddingInline: 2,
+                          color: 'primaryContrast',
+                          backgroundColor: {
+                            default: 'primaryImportant',
+                            hover: 'primaryImportantHover',
+                            active: 'primaryImportantActive',
+                          },
+                          boxShadow: {
+                            default: 'borderPrimaryInteractiveLarge',
+                            hover: 'borderPrimaryInteractiveHoverLarge',
+                          },
+                        }}
+                      >
+                        Login / Sign Up
+                        <CgEnter class={atoms({ height: 8, width: 8, marginLeft: 2 })} />
+                      </HStack>
+                      <Modal
+                        isOpen={isOpen()}
+                        onOverlayClick={setIsOpen(false)}
+                        title="Log In"
+                        atoms={{ minWidth: 'xs' }}
+                      >
+                        <VStack as="form" atoms={{ gap: 4, marginTop: 4 }}>
+                          <VStack as="label" recipe={{ align: 'start' }}>
+                            Username
+                            <input id="userid" name="userid" required type="text" />
+                          </VStack>
+                          <VStack as="label" recipe={{ align: 'start' }}>
+                            Password
+                            <input id="password" name="password" type="password" required />
+                          </VStack>
+                        </VStack>
+                      </Modal>
+                    </>
+                  );
+                }}
+              </li>
+            }
+          >
+            <li>
+              <NavIcon size="sm" as="button" atoms={{ color: 'neutralContrast' }}>
+                <CgBell class={atoms({ height: 6, width: 6 })} />
+              </NavIcon>
+            </li>
+            <li>
+              <NavIcon size="lg" as="button" atoms={{ color: 'neutralContrast' }}>
+                <CgProfile class={atoms({ height: 10, width: 10 })} />
+              </NavIcon>
+            </li>
+          </Show>
         </HStack>
       </HStack>
     </HStack>
