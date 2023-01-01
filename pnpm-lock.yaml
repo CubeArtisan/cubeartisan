@@ -40,6 +40,7 @@ specifiers:
   mongoose: ^6.8.1
   nodemailer: ^6.8.0
   prettier: ^2.8.1
+  solid-icons: ^1.0.4
   solid-js: ^1.6.6
   solid-start: ^0.2.8
   solid-start-node: ^0.2.8
@@ -63,6 +64,7 @@ dependencies:
   lodash: 4.17.21
   mongoose: 6.8.1
   nodemailer: 6.8.0
+  solid-icons: 1.0.4_solid-js@1.6.6
   utility-types: 3.10.0
   uuid: 9.0.0
   winston: 3.8.2
@@ -6090,11 +6092,19 @@ packages:
       smart-buffer: 4.2.0
     dev: false
 
+  /solid-icons/1.0.4_solid-js@1.6.6:
+    resolution: {integrity: sha512-gJTp4in3+OYCs9WvDkSLt4Los2unR3Uoder8wjh15GsfP20xiNOLfPTJllXmn+fI8+k3x7bRYtLGIgWd9fUQug==}
+    engines: {node: '>= 16'}
+    peerDependencies:
+      solid-js: '*'
+    dependencies:
+      solid-js: 1.6.6
+    dev: false
+
   /solid-js/1.6.6:
     resolution: {integrity: sha512-5x33mEbPI8QLuywvFjQP4krjWDr8xiYFgZx9KCBH7b0ZzypQCHaUubob7bK6i+1u6nhaAqhWtvXS587Kb8DShA==}
     dependencies:
       csstype: 3.1.1
-    dev: true
 
   /solid-refresh/0.4.1_solid-js@1.6.6:
     resolution: {integrity: sha512-v3tD/OXQcUyXLrWjPW1dXZyeWwP7/+GQNs8YTL09GBq+5FguA6IejJWUvJDrLIA4M0ho9/5zK2e9n+uy+4488g==}

@@ -1,11 +1,40 @@
-import { createSignal, For, Show } from 'solid-js';
+import { merge } from 'lodash';
+import { CgBell, CgMathPlus, CgProfile, CgSearch } from 'solid-icons/cg';
+import { createSignal, Show, splitProps } from 'solid-js';
 import { A } from 'solid-start';
 import { createServerData$ } from 'solid-start/server';
 
 import { getUserFromRequest } from '@cubeartisan/cubeartisan/backend/user';
+import { Center } from '@cubeartisan/cubeartisan/components/Center';
 import artisan from '@cubeartisan/cubeartisan/components/factory';
 import { Modal } from '@cubeartisan/cubeartisan/components/Modal';
 import { HStack, VStack } from '@cubeartisan/cubeartisan/components/Stack';
+import type { ArtisanParentComponent } from '@cubeartisan/cubeartisan/components/types';
+import { atoms } from '@cubeartisan/cubeartisan/styles';
+
+const NavIcon: ArtisanParentComponent<'div', null, { size: 'sm' | 'lg' }> = (props) => {
+  const [local, others] = splitProps(props, ['atoms', 'size']);
+
+  const sizes = {
+    sm: 8,
+    lg: 12,
+  };
+
+  return (
+    <Center
+      atoms={merge(
+        {
+          borderRadius: 'full',
+          backgroundColor: { hover: 'neutralComponentHover', active: 'neutralComponentActive' },
+          height: sizes[props.size],
+          width: sizes[props.size],
+        },
+        local.atoms,
+      )}
+      {...others}
+    />
+  );
+};
 
 const SiteNavbar = () => {
   const user = createServerData$((_, { request }) => getUserFromRequest(request));
@@ -22,19 +51,34 @@ const SiteNavbar = () => {
       >
         <HStack as="nav">
           <HStack as="ul" atoms={{ gap: 8 }}>
-            <li>
-              <artisan.img
-                src="/images/stacked-logo.svg"
-                alt="CubeArtisan Logo"
-                atoms={{ height: 12, marginRight: 4 }}
-              />
-            </li>
-            <li>
+            <artisan.li
+              atoms={{
+                backgroundColor: { hover: 'neutralComponentHover', active: 'neutralComponentActive' },
+                borderRadius: 'md',
+                paddingLeft: 1,
+              }}
+            >
+              <A href="/">
+                <artisan.img
+                  src="/images/stacked-logo.svg"
+                  alt="CubeArtisan Logo"
+                  atoms={{ height: 12, marginRight: 4 }}
+                />
+              </A>
+            </artisan.li>
+            <artisan.li
+              atoms={{
+                backgroundColor: { hover: 'neutralComponentHover', active: 'neutralComponentActive' },
+                paddingInline: 2,
+                paddingBlock: 1,
+                borderRadius: 'md',
+              }}
+            >
               <A href="/">Home</A>
-            </li>
-            <li>
-              <A href="/explore">Explore Cubes</A>
-            </li>
+            </artisan.li>
+            <artisan.li atoms={{ textDecoration: { hover: 'underline solid' } }}>
+              <A href="/">Explore Cubes</A>
+            </artisan.li>
             <Show when={user()}>
               {(u) => {
                 <li>
@@ -52,7 +96,9 @@ const SiteNavbar = () => {
               const [isOpen, setIsOpen] = createSignal(false);
               return (
                 <>
-                  <button onClick={() => setIsOpen(true)}>Search</button>
+                  <NavIcon size="sm" as="button" onClick={() => setIsOpen(true)}>
+                    <CgSearch class={atoms({ height: 6, width: 6 })} />
+                  </NavIcon>
                   <Modal isOpen={isOpen()} onOverlayClick={setIsOpen(false)} title="Search" atoms={{ width: 'xl' }}>
                     <input type="search" placeholder="type here..." />
                   </Modal>
@@ -66,7 +112,9 @@ const SiteNavbar = () => {
               const [importSwitch, setImportSwitch] = createSignal(false);
               return (
                 <>
-                  <button onClick={() => setIsOpen(true)}>New Cube</button>
+                  <NavIcon size="sm" as="button" onClick={() => setIsOpen(true)}>
+                    <CgMathPlus class={atoms({ height: 8, width: 8 })} />
+                  </NavIcon>
                   <Modal
                     isOpen={isOpen()}
                     onOverlayClick={setIsOpen(false)}
@@ -136,12 +184,14 @@ const SiteNavbar = () => {
             }}
           </li>
           <li>
-            <button>Notifications</button>
+            <NavIcon size="sm" as="button" atoms={{ color: 'neutralContrast' }}>
+              <CgBell class={atoms({ height: 6, width: 6 })} />
+            </NavIcon>
           </li>
           <li>
-            <Show when={user()} fallback={<span>Sign In</span>}>
-              {(u) => <p>{u.username}</p>}
-            </Show>
+            <NavIcon size="lg" as="button" atoms={{ color: 'neutralContrast' }}>
+              <CgProfile class={atoms({ height: 10, width: 10 })} />
+            </NavIcon>
           </li>
         </HStack>
       </HStack>
