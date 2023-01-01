@@ -1,5 +1,5 @@
 import { Button } from '@cubeartisan/cubeartisan/components/Button/Button';
-import { HStack, Stack } from '@cubeartisan/cubeartisan/components/Stack';
+import { HStack, VStack } from '@cubeartisan/cubeartisan/components/Stack';
 
 export const TestButton = () => {
   const testSizes = {
@@ -14,7 +14,7 @@ export const TestButton = () => {
   const testSize = testSizes.md;
 
   return (
-    <Stack as="main" atoms={{ minHeight: 'screenH', width: 'content-60', marginInline: 'auto' }}>
+    <VStack as="main" atoms={{ width: 'content-60' }}>
       <HStack>
         <Button recipe={{ size: testSize, color: 'neutral' }}>neutral</Button>
         <Button recipe={{ size: testSize, color: 'primary' }}>primary</Button>
@@ -39,6 +39,6 @@ export const TestButton = () => {
         <Button recipe={{ size: testSizes.xl, color: 'warningSolid' }}>warning</Button>
         <Button recipe={{ size: testSizes['2xl'], color: 'dangerSolid' }}>danger</Button>
       </HStack>
-    </Stack>
+    </VStack>
   );
 };
