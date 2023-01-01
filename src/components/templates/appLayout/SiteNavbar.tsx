@@ -57,6 +57,9 @@ const SiteNavbar = () => {
             <artisan.li
               atoms={{
                 backgroundColor: { hover: 'neutralComponentHover', active: 'neutralComponentActive' },
+                boxShadow: {
+                  hover: 'borderNeutralInteractiveHoverLarge',
+                },
                 borderRadius: 'md',
                 paddingLeft: 1,
               }}
@@ -73,6 +76,9 @@ const SiteNavbar = () => {
             <artisan.li
               atoms={{
                 backgroundColor: { hover: 'neutralComponentHover', active: 'neutralComponentActive' },
+                boxShadow: {
+                  hover: 'borderNeutralInteractiveHoverLarge',
+                },
                 paddingInline: 2,
                 paddingBlock: 1,
                 borderRadius: 'md',
@@ -80,7 +86,17 @@ const SiteNavbar = () => {
             >
               <A href="/">Home</A>
             </artisan.li>
-            <artisan.li atoms={{ textDecoration: { hover: 'underline solid' } }}>
+            <artisan.li
+              atoms={{
+                backgroundColor: { hover: 'neutralComponentHover', active: 'neutralComponentActive' },
+                boxShadow: {
+                  hover: 'borderNeutralInteractiveHoverLarge',
+                },
+                paddingInline: 2,
+                paddingBlock: 1,
+                borderRadius: 'md',
+              }}
+            >
               <A href="/">Explore Cubes</A>
             </artisan.li>
             <Show when={user()}>
