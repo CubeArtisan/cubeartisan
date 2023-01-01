@@ -9,8 +9,8 @@ type BackgroundColor = {
     neutralSubtle: string;
     neutralSubtleSecondary: string;
     neutralComponent: string;
-    neutralComonentHover: string;
-    neutralComonentActive: string;
+    neutralComponentHover: string;
+    neutralComponentActive: string;
     neutralImportant: string;
     neutralImportantHover: string;
     neutralImportantActive: string;
@@ -21,8 +21,8 @@ type BackgroundColor = {
     neutralASubtle: string;
     neutralASubtleSecondary: string;
     neutralAComponent: string;
-    neutralAComonentHover: string;
-    neutralAComonentActive: string;
+    neutralAComponentHover: string;
+    neutralAComponentActive: string;
     neutralAImportant: string;
     neutralAImportantHover: string;
     neutralAImportantActive: string;
@@ -33,8 +33,8 @@ type BackgroundColor = {
     primarySubtle: string;
     primarySubtleSecondary: string;
     primaryComponent: string;
-    primaryComonentHover: string;
-    primaryComonentActive: string;
+    primaryComponentHover: string;
+    primaryComponentActive: string;
     primaryImportant: string;
     primaryImportantHover: string;
     primaryImportantActive: string;
@@ -45,8 +45,8 @@ type BackgroundColor = {
     primaryASubtle: string;
     primaryASubtleSecondary: string;
     primaryAComponent: string;
-    primaryAComonentHover: string;
-    primaryAComonentActive: string;
+    primaryAComponentHover: string;
+    primaryAComponentActive: string;
     primaryAImportant: string;
     primaryAImportantHover: string;
     primaryAImportantActive: string;
@@ -57,8 +57,8 @@ type BackgroundColor = {
     successSubtle: string;
     successSubtleSecondary: string;
     successComponent: string;
-    successComonentHover: string;
-    successComonentActive: string;
+    successComponentHover: string;
+    successComponentActive: string;
     successImportant: string;
     successImportantHover: string;
     successImportantActive: string;
@@ -69,8 +69,8 @@ type BackgroundColor = {
     successASubtle: string;
     successASubtleSecondary: string;
     successAComponent: string;
-    successAComonentHover: string;
-    successAComonentActive: string;
+    successAComponentHover: string;
+    successAComponentActive: string;
     successAImportant: string;
     successAImportantHover: string;
     successAImportantActive: string;
@@ -81,8 +81,8 @@ type BackgroundColor = {
     infoSubtle: string;
     infoSubtleSecondary: string;
     infoComponent: string;
-    infoComonentHover: string;
-    infoComonentActive: string;
+    infoComponentHover: string;
+    infoComponentActive: string;
     infoImportant: string;
     infoImportantHover: string;
     infoImportantActive: string;
@@ -93,8 +93,8 @@ type BackgroundColor = {
     infoASubtle: string;
     infoASubtleSecondary: string;
     infoAComponent: string;
-    infoAComonentHover: string;
-    infoAComonentActive: string;
+    infoAComponentHover: string;
+    infoAComponentActive: string;
     infoAImportant: string;
     infoAImportantHover: string;
     infoAImportantActive: string;
@@ -105,8 +105,8 @@ type BackgroundColor = {
     warningSubtle: string;
     warningSubtleSecondary: string;
     warningComponent: string;
-    warningComonentHover: string;
-    warningComonentActive: string;
+    warningComponentHover: string;
+    warningComponentActive: string;
     warningImportant: string;
     warningImportantHover: string;
     warningImportantActive: string;
@@ -117,8 +117,8 @@ type BackgroundColor = {
     warningASubtle: string;
     warningASubtleSecondary: string;
     warningAComponent: string;
-    warningAComonentHover: string;
-    warningAComonentActive: string;
+    warningAComponentHover: string;
+    warningAComponentActive: string;
     warningAImportant: string;
     warningAImportantHover: string;
     warningAImportantActive: string;
@@ -129,8 +129,8 @@ type BackgroundColor = {
     dangerSubtle: string;
     dangerSubtleSecondary: string;
     dangerComponent: string;
-    dangerComonentHover: string;
-    dangerComonentActive: string;
+    dangerComponentHover: string;
+    dangerComponentActive: string;
     dangerImportant: string;
     dangerImportantHover: string;
     dangerImportantActive: string;
@@ -141,8 +141,8 @@ type BackgroundColor = {
     dangerASubtle: string;
     dangerASubtleSecondary: string;
     dangerAComponent: string;
-    dangerAComonentHover: string;
-    dangerAComonentActive: string;
+    dangerAComponentHover: string;
+    dangerAComponentActive: string;
     dangerAImportant: string;
     dangerAImportantHover: string;
     dangerAImportantActive: string;
@@ -447,8 +447,8 @@ export const makeSemanticColors = ({ colorPalette, overrides = {} }: MakeSemanti
       neutralSubtle: colorPalette.neutral[1],
       neutralSubtleSecondary: colorPalette.neutral[2],
       neutralComponent: colorPalette.neutral[3],
-      neutralComonentHover: colorPalette.neutral[4],
-      neutralComonentActive: colorPalette.neutral[5],
+      neutralComponentHover: colorPalette.neutral[4],
+      neutralComponentActive: colorPalette.neutral[5],
       neutralImportant: colorPalette.neutral[4],
       neutralImportantHover: colorPalette.neutral[5],
       neutralImportantActive: colorPalette.neutral[6],
@@ -459,8 +459,8 @@ export const makeSemanticColors = ({ colorPalette, overrides = {} }: MakeSemanti
       neutralASubtle: colorPalette.neutralA[1],
       neutralASubtleSecondary: colorPalette.neutralA[2],
       neutralAComponent: colorPalette.neutralA[3],
-      neutralAComonentHover: colorPalette.neutralA[4],
-      neutralAComonentActive: colorPalette.neutralA[5],
+      neutralAComponentHover: colorPalette.neutralA[4],
+      neutralAComponentActive: colorPalette.neutralA[5],
       neutralAImportant: colorPalette.neutralA[4],
       neutralAImportantHover: colorPalette.neutralA[5],
       neutralAImportantActive: colorPalette.neutralA[6],
@@ -471,8 +471,8 @@ export const makeSemanticColors = ({ colorPalette, overrides = {} }: MakeSemanti
       primarySubtle: colorPalette.primary[1],
       primarySubtleSecondary: colorPalette.primary[2],
       primaryComponent: colorPalette.primary[3],
-      primaryComonentHover: colorPalette.primary[4],
-      primaryComonentActive: colorPalette.primary[5],
+      primaryComponentHover: colorPalette.primary[4],
+      primaryComponentActive: colorPalette.primary[5],
       primaryImportant: colorPalette.primary[4],
       primaryImportantHover: colorPalette.primary[5],
       primaryImportantActive: colorPalette.primary[6],
@@ -483,8 +483,8 @@ export const makeSemanticColors = ({ colorPalette, overrides = {} }: MakeSemanti
       primaryASubtle: colorPalette.primaryA[1],
       primaryASubtleSecondary: colorPalette.primaryA[2],
       primaryAComponent: colorPalette.primaryA[3],
-      primaryAComonentHover: colorPalette.primaryA[4],
-      primaryAComonentActive: colorPalette.primaryA[5],
+      primaryAComponentHover: colorPalette.primaryA[4],
+      primaryAComponentActive: colorPalette.primaryA[5],
       primaryAImportant: colorPalette.primaryA[4],
       primaryAImportantHover: colorPalette.primaryA[5],
       primaryAImportantActive: colorPalette.primaryA[6],
@@ -495,8 +495,8 @@ export const makeSemanticColors = ({ colorPalette, overrides = {} }: MakeSemanti
       successSubtle: colorPalette.success[1],
       successSubtleSecondary: colorPalette.success[2],
       successComponent: colorPalette.success[3],
-      successComonentHover: colorPalette.success[4],
-      successComonentActive: colorPalette.success[5],
+      successComponentHover: colorPalette.success[4],
+      successComponentActive: colorPalette.success[5],
       successImportant: colorPalette.success[4],
       successImportantHover: colorPalette.success[5],
       successImportantActive: colorPalette.success[6],
@@ -507,8 +507,8 @@ export const makeSemanticColors = ({ colorPalette, overrides = {} }: MakeSemanti
       successASubtle: colorPalette.successA[1],
       successASubtleSecondary: colorPalette.successA[2],
       successAComponent: colorPalette.successA[3],
-      successAComonentHover: colorPalette.successA[4],
-      successAComonentActive: colorPalette.successA[5],
+      successAComponentHover: colorPalette.successA[4],
+      successAComponentActive: colorPalette.successA[5],
       successAImportant: colorPalette.successA[4],
       successAImportantHover: colorPalette.successA[5],
       successAImportantActive: colorPalette.successA[6],
@@ -519,8 +519,8 @@ export const makeSemanticColors = ({ colorPalette, overrides = {} }: MakeSemanti
       infoSubtle: colorPalette.info[1],
       infoSubtleSecondary: colorPalette.info[2],
       infoComponent: colorPalette.info[3],
-      infoComonentHover: colorPalette.info[4],
-      infoComonentActive: colorPalette.info[5],
+      infoComponentHover: colorPalette.info[4],
+      infoComponentActive: colorPalette.info[5],
       infoImportant: colorPalette.info[4],
       infoImportantHover: colorPalette.info[5],
       infoImportantActive: colorPalette.info[6],
@@ -531,8 +531,8 @@ export const makeSemanticColors = ({ colorPalette, overrides = {} }: MakeSemanti
       infoASubtle: colorPalette.infoA[1],
       infoASubtleSecondary: colorPalette.infoA[2],
       infoAComponent: colorPalette.infoA[3],
-      infoAComonentHover: colorPalette.infoA[4],
-      infoAComonentActive: colorPalette.infoA[5],
+      infoAComponentHover: colorPalette.infoA[4],
+      infoAComponentActive: colorPalette.infoA[5],
       infoAImportant: colorPalette.infoA[4],
       infoAImportantHover: colorPalette.infoA[5],
       infoAImportantActive: colorPalette.infoA[6],
@@ -543,8 +543,8 @@ export const makeSemanticColors = ({ colorPalette, overrides = {} }: MakeSemanti
       warningSubtle: colorPalette.warning[1],
       warningSubtleSecondary: colorPalette.warning[2],
       warningComponent: colorPalette.warning[3],
-      warningComonentHover: colorPalette.warning[4],
-      warningComonentActive: colorPalette.warning[5],
+      warningComponentHover: colorPalette.warning[4],
+      warningComponentActive: colorPalette.warning[5],
       warningImportant: colorPalette.warning[4],
       warningImportantHover: colorPalette.warning[5],
       warningImportantActive: colorPalette.warning[6],
@@ -555,8 +555,8 @@ export const makeSemanticColors = ({ colorPalette, overrides = {} }: MakeSemanti
       warningASubtle: colorPalette.warningA[1],
       warningASubtleSecondary: colorPalette.warningA[2],
       warningAComponent: colorPalette.warningA[3],
-      warningAComonentHover: colorPalette.warningA[4],
-      warningAComonentActive: colorPalette.warningA[5],
+      warningAComponentHover: colorPalette.warningA[4],
+      warningAComponentActive: colorPalette.warningA[5],
       warningAImportant: colorPalette.warningA[4],
       warningAImportantHover: colorPalette.warningA[5],
       warningAImportantActive: colorPalette.warningA[6],
@@ -567,8 +567,8 @@ export const makeSemanticColors = ({ colorPalette, overrides = {} }: MakeSemanti
       dangerSubtle: colorPalette.danger[1],
       dangerSubtleSecondary: colorPalette.danger[2],
       dangerComponent: colorPalette.danger[3],
-      dangerComonentHover: colorPalette.danger[4],
-      dangerComonentActive: colorPalette.danger[5],
+      dangerComponentHover: colorPalette.danger[4],
+      dangerComponentActive: colorPalette.danger[5],
       dangerImportant: colorPalette.danger[4],
       dangerImportantHover: colorPalette.danger[5],
       dangerImportantActive: colorPalette.danger[6],
@@ -579,8 +579,8 @@ export const makeSemanticColors = ({ colorPalette, overrides = {} }: MakeSemanti
       dangerASubtle: colorPalette.dangerA[1],
       dangerASubtleSecondary: colorPalette.dangerA[2],
       dangerAComponent: colorPalette.dangerA[3],
-      dangerAComonentHover: colorPalette.dangerA[4],
-      dangerAComonentActive: colorPalette.dangerA[5],
+      dangerAComponentHover: colorPalette.dangerA[4],
+      dangerAComponentActive: colorPalette.dangerA[5],
       dangerAImportant: colorPalette.dangerA[4],
       dangerAImportantHover: colorPalette.dangerA[5],
       dangerAImportantActive: colorPalette.dangerA[6],
