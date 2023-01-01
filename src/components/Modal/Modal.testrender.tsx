@@ -8,7 +8,7 @@ export const TestModal = () => {
   const [isOpen, setIsOpen] = createSignal(false);
 
   return (
-    <VStack atoms={{ width: 'screenW', height: 'screenH', backgroundColor: 'neutralSolid' }}>
+    <VStack atoms={{ backgroundColor: 'neutralSolid' }}>
       <Button onClick={() => setIsOpen(true)}>Open This Modal</Button>
       <Modal
         isOpen={isOpen()}
