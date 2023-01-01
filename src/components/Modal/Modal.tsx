@@ -7,7 +7,8 @@ import type { ArtisanParentComponent } from '@cubeartisan/cubeartisan/components
 
 type ModalProps = {
   isOpen: boolean;
-  overlay?: boolean;
+  showOverlay?: boolean;
+  onOverlayClick: () => void;
   title?: string;
   description?: string;
 };
@@ -18,6 +19,7 @@ const Modal: ArtisanParentComponent<'div', null, ModalProps> = (props) => {
     'children',
     'isOpen',
     'overlay',
+    'onOverlayClick',
     'title',
     'description',
     'style',
@@ -33,19 +35,18 @@ const Modal: ArtisanParentComponent<'div', null, ModalProps> = (props) => {
     <Show when={local.isOpen}>
       <Portal>
         <VStack>
-          <Show when={local.overlay}>
-            <artisan.div
-              id={overlayId}
-              atoms={{
-                backgroundColor: 'shadowDark10',
-                width: 'screenW',
-                height: 'screenH',
-                position: 'fixed',
-                top: 0,
-                left: 0,
-              }}
-            />
-          </Show>
+          <artisan.div
+            id={overlayId}
+            onClick={() => local.onOverlayClick}
+            atoms={{
+              backgroundColor: local.showOverlay && 'shadowDark10',
+              width: 'screenW',
+              height: 'screenH',
+              position: 'fixed',
+              top: 0,
+              left: 0,
+            }}
+          />
           <VStack
             as="section"
             id={bodyId}
