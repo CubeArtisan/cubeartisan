@@ -58,7 +58,8 @@ const SiteNavbar = () => {
                 paddingLeft: 1,
               }}
             >
-              <A href="/">
+              {/* href should be "/", made "/test" for ease of prototyping */}
+              <A href="/test">
                 <artisan.img
                   src="/images/stacked-logo.svg"
                   alt="CubeArtisan Logo"
