@@ -6,7 +6,6 @@ import { VStack } from '@cubeartisan/cubeartisan/components/Stack';
 const Test = () => (
   <VStack>
     <TestModal />
-    <TestButton />
   </VStack>
 );
 
