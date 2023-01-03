@@ -29,10 +29,10 @@ rules:
     - error
     - never
   import/no-extraneous-dependencies:
-    - error
+    - warn
     - devDependencies: true
   import/order:
-    - error
+    - warn
     - groups:
         - builtin
         - external
@@ -46,12 +46,12 @@ rules:
         order: asc
         caseInsensitive: true
   sort-imports:
-    - error
+    - warn
     - ignoreCase: true
       ignoreDeclarationSort: true
   import/prefer-default-export: off
   prettier/prettier:
-    - error
+    - warn
     - endOfLine: lf
   object-curly-newline: 0
   max-len: 0
