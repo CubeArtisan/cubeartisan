@@ -16,6 +16,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@kobalte/core": "^0.1.0",
     "@radix-ui/colors": "github:radix-ui/colors",
     "@vanilla-extract/css": "^1.9.2",
     "@vanilla-extract/recipes": "0.3.0",
