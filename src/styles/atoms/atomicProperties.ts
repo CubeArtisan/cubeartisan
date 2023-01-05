@@ -213,6 +213,13 @@ export const responsiveProperties = {
     flexStart: 'flex-start',
     flexEnd: 'flex-end',
   },
+  alignSelf: {
+    normal: 'normal',
+    stretch: 'stretch',
+    center: 'center',
+    flexStart: 'flex-start',
+    flexEnd: 'flex-end',
+  },
   justifyContent: {
     normal: 'normal',
     center: 'center',
