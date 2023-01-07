@@ -1,31 +1,24 @@
-import { createSignal } from 'solid-js';
-
-import { Button } from '@cubeartisan/cubeartisan/components/Button';
 import { Modal } from '@cubeartisan/cubeartisan/components/Modal';
 import { VStack } from '@cubeartisan/cubeartisan/components/Stack';
 
-export const TestModal = () => {
-  const [isOpen, setIsOpen] = createSignal(false);
-
-  return (
-    <VStack>
-      <Button onClick={() => setIsOpen(true)}>Open This Modal</Button>
-      <Modal
-        isOpen={isOpen()}
-        onOverlayClick={setIsOpen(false)}
-        title="Test Modal"
-        description="This is a description"
-        atoms={{ width: 'xl' }}
-      >
-        <p>This is some test content with one paragraph that I'm making up and one that will be lorem text</p>
+export const TestModal = () => (
+  <Modal>
+    <Modal.Trigger>Open Modal</Modal.Trigger>
+    <Modal.Portal>
+      <Modal.Overlay />
+      <Modal.Content>
+        <VStack as="header">
+          <Modal.Title>Test Title</Modal.Title>
+          <Modal.Description>this is a test modal to see if things work</Modal.Description>
+        </VStack>
         <p>
-          Elit incididunt ex qui et laborum Lorem ad enim pariatur. Aute mollit exercitation eu eu do nulla incididunt
-          incididunt nostrud esse. Excepteur consectetur eiusmod eu et id. Dolor labore Lorem excepteur veniam excepteur
-          amet et ut ad deserunt aute aliqua magna. Lorem aliquip Lorem tempor esse amet id reprehenderit ea cupidatat
-          eu amet. Qui ad nostrud non adipisicing aliquip labore proident enim deserunt tempor.
+          Consequat duis sit deserunt nisi irure. Labore exercitation sint sit eu irure officia dolor dolore enim irure
+          aliquip officia ea duis fugiat. Amet eiusmod non est veniam proident eiusmod et pariatur anim adipisicing ea
+          aute dolore. Ea nostrud esse duis esse exercitation proident anim ipsum laborum. Ad duis veniam enim laboris
+          laboris qui incididunt eu ipsum dolor occaecat amet exercitation dolore.
         </p>
-        <Button onClick={() => setIsOpen(false)}>Close Modal</Button>
-      </Modal>
-    </VStack>
-  );
-};
+        <Modal.CloseButton>Close Modal</Modal.CloseButton>
+      </Modal.Content>
+    </Modal.Portal>
+  </Modal>
+);
