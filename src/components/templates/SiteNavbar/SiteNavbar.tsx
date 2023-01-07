@@ -1,13 +1,14 @@
 import { merge } from 'lodash';
-import { CgBell, CgEnter, CgMathPlus, CgProfile, CgSearch } from 'solid-icons/cg';
-import { createSignal, Show, splitProps } from 'solid-js';
+import { CgBell, CgProfile } from 'solid-icons/cg';
+import { Show, splitProps } from 'solid-js';
 import { A } from 'solid-start';
 import { createServerData$ } from 'solid-start/server';
 
 import { getUserFromRequest } from '@cubeartisan/cubeartisan/backend/user';
 import { Center } from '@cubeartisan/cubeartisan/components/Center';
 import artisan from '@cubeartisan/cubeartisan/components/factory';
-import { HStack, VStack } from '@cubeartisan/cubeartisan/components/Stack';
+import { HStack } from '@cubeartisan/cubeartisan/components/Stack';
+import NewCubeModal from '@cubeartisan/cubeartisan/components/templates/SiteNavbar/NewCubeModal';
 import type { ArtisanParentComponent } from '@cubeartisan/cubeartisan/components/types';
 import { atoms } from '@cubeartisan/cubeartisan/styles';
 
@@ -78,9 +79,9 @@ const SiteNavbar = () => {
                 boxShadow: {
                   hover: 'borderNeutralInteractiveHoverLarge',
                 },
+                borderRadius: 'md',
                 paddingInline: 2,
                 paddingBlock: 1,
-                borderRadius: 'md',
               }}
             >
               <A href="/">Home</A>
@@ -91,9 +92,9 @@ const SiteNavbar = () => {
                 boxShadow: {
                   hover: 'borderNeutralInteractiveHoverLarge',
                 },
+                borderRadius: 'md',
                 paddingInline: 2,
                 paddingBlock: 1,
-                borderRadius: 'md',
               }}
             >
               <A href="/">Explore Cubes</A>
@@ -110,7 +111,9 @@ const SiteNavbar = () => {
           </HStack>
         </HStack>
         <HStack as="ul" atoms={{ gap: 4 }}>
-          <li />
+          <li>
+            <NewCubeModal />
+          </li>
           <li />
           <Show when={user()}>
             <li>
