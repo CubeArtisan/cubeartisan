@@ -1,7 +1,7 @@
 import type { ComplexStyleRule } from '@vanilla-extract/css';
 import type { RecipeVariants, RuntimeFn } from '@vanilla-extract/recipes';
 import type { ClassValue } from 'clsx';
-import type { Component, ComponentProps, JSX, JSXElement, ParentComponent, VoidComponent } from 'solid-js';
+import type { Component, ComponentProps, JSX, ParentComponent, VoidComponent } from 'solid-js';
 
 import type { Atoms } from '@cubeartisan/cubeartisan/styles/atoms/atoms.css';
 
