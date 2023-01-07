@@ -4,7 +4,6 @@ import type { ParentComponent } from 'solid-js';
 
 import { TestButton } from '@cubeartisan/cubeartisan/components/Button/Button.testrender';
 import { Center } from '@cubeartisan/cubeartisan/components/Center';
-import artisan from '@cubeartisan/cubeartisan/components/factory';
 import { TestModal } from '@cubeartisan/cubeartisan/components/Modal/Modal.testrender';
 import { VStack } from '@cubeartisan/cubeartisan/components/Stack';
 import { atoms } from '@cubeartisan/cubeartisan/styles';
