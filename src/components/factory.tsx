@@ -24,7 +24,7 @@ const styled = <T extends ElementType<{ class: string }>, R extends RuntimeFn<Va
       | HTMLArtisanProps<T, VariantsIfExists<R>, { as?: never }>
       | HTMLArtisanProps<S, VariantsIfExists<R>, { as: S }>,
   ) => {
-    const [local, rest] = splitProps(props, ['as', 'class', 'atoms', 'recipe']);
+    const [local, others] = splitProps(props, ['as', 'class', 'atoms', 'recipe']);
     const classProp = createMemo(() => {
       if (recipeFn) {
         return { class: clsx(local.class, atoms({ ...local.atoms }), recipeFn(local.recipe ?? undefined)) };
@@ -32,7 +32,7 @@ const styled = <T extends ElementType<{ class: string }>, R extends RuntimeFn<Va
       return { class: clsx(local.class, atoms({ ...local.atoms })) };
     });
     // eslint-disable-next-line solid/reactivity
-    const subProps = mergeProps(classProp, rest) as ComponentProps<S> | ComponentProps<T>;
+    const subProps = mergeProps(classProp, others) as ComponentProps<S> | ComponentProps<T>;
 
     return (
       <Show
@@ -59,12 +59,17 @@ const styledNoAs = <T extends ElementType<{ class: string }>, R extends RuntimeF
   recipeFn?: R,
 ) => {
   const artisanComponent = (props: HTMLArtisanProps<T, VariantsIfExists<R>>) => {
-    const [local, rest] = splitProps(props, ['class', 'atoms', 'recipe']);
-    const classProp = createMemo(() =>
-      clsx(local.class, atoms({ ...local.atoms }), ...(recipeFn && local.recipe ? [recipeFn(local.recipe)] : [])),
-    );
+    const [local, others] = splitProps(props, ['class', 'atoms', 'recipe']);
+
+    const classProp = createMemo(() => {
+      if (recipeFn) {
+        return { class: clsx(local.class, atoms({ ...local.atoms }), recipeFn(local.recipe ?? undefined)) };
+      }
+      return { class: clsx(local.class, atoms({ ...local.atoms })) };
+    });
+
     // eslint-disable-next-line solid/reactivity
-    const subProps = mergeProps({ class: classProp }, rest) as ComponentProps<T>;
+    const subProps = mergeProps(classProp, others) as ComponentProps<T>;
 
     return (
       <Dynamic component={component as T} {...(subProps as { [K in keyof ComponentProps<T>]: ComponentProps<T>[K] })} />
