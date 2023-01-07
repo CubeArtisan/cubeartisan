@@ -1,7 +1,7 @@
 import type { ComplexStyleRule } from '@vanilla-extract/css';
 import type { RecipeVariants, RuntimeFn } from '@vanilla-extract/recipes';
 import type { ClassValue } from 'clsx';
-import type { Component, ComponentProps, FlowComponent, JSX, ParentComponent, VoidComponent } from 'solid-js';
+import type { Component, ComponentProps, JSX, ParentComponent, VoidComponent } from 'solid-js';
 
 import type { Atoms } from '@cubeartisan/cubeartisan/styles/atoms/atoms.css';
 
@@ -23,7 +23,7 @@ export type PropsOf<C extends ElementType> = ComponentProps<C>;
 
 export type Forbid<K extends string> = { [Key in K]?: never };
 
-export type OmitProps<C extends (props: Record<string, any>) => any, K extends string> = C extends (props: infer P) => infer R ? (props: Omit<P, K> & Forbid<K & keyof P>) => R;
+export type OmitProps<C extends (props: Record<string, any>) => any, K extends string> = C extends (props: infer P) => infer R ? (props: Omit<P, K> & Forbid<K & keyof P>) => R : never;
 
 type RecipeStyleRule = ComplexStyleRule | string;
 
