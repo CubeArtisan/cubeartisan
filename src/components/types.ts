@@ -21,6 +21,10 @@ export type ElementType<Props = any> = DOMElements | Component<Props>;
  */
 export type PropsOf<C extends ElementType> = ComponentProps<C>;
 
+export type Forbid<K extends string> = { [Key in K]?: never };
+
+export type OmitProps<C extends (props: Record<string, any>) => any, K extends string> = C extends (props: infer P) => infer R ? (props: Omit<P, K> & Forbid<K & keyof P>) => R;
+
 type RecipeStyleRule = ComplexStyleRule | string;
 
 type VariantDefinitions = Record<string, RecipeStyleRule>;
