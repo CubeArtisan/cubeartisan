@@ -1,7 +1,7 @@
 import type { ComplexStyleRule } from '@vanilla-extract/css';
 import type { RecipeVariants, RuntimeFn } from '@vanilla-extract/recipes';
 import type { ClassValue } from 'clsx';
-import type { Component, ComponentProps, JSX, ParentComponent, VoidComponent } from 'solid-js';
+import type { Component, ComponentProps, JSX, JSXElement, ParentComponent, VoidComponent } from 'solid-js';
 
 import type { Atoms } from '@cubeartisan/cubeartisan/styles/atoms/atoms.css';
 
@@ -20,6 +20,10 @@ export type ElementType<Props = any> = DOMElements | Component<Props>;
  * Take the props of the passed HTML element or component and returns its type.
  */
 export type PropsOf<C extends ElementType> = ComponentProps<C>;
+
+export type Forbid<K extends string> = { [Key in K]?: never };
+
+export type OmitProps<C extends (props: infer P) => infer R, K extends keyof P> = (props: Omit<P, K> & Forbid<K>) => R;
 
 type RecipeStyleRule = ComplexStyleRule | string;
 
@@ -40,16 +44,20 @@ export type Cond<P, True, False = never> = P extends false ? False : True;
 export type ToObject<T> = T extends object ? T : object;
 
 export type TypesEqual<T, U> = T extends U ? (U extends T ? true : false) : false;
+
 type DisjointIntersect<T, U> = keyof T & keyof U extends never ? T & U : never;
+
 export type HTMLArtisanProps<
   T extends ElementType<{ class: string }>,
   R = null,
   P = null,
   Props extends ComponentProps<T> = ComponentProps<T>,
-> = DisjointIntersect<Omit<P & Props, 'class'>, StyleProps<R>>;
+> = DisjointIntersect<Omit<ToObject<P> & Props, 'class'>, StyleProps<R>>;
+
 export type Normalize<T> = T extends (...args: infer A) => infer R
   ? (...args: Normalize<A>) => Normalize<R>
   : { [K in keyof T]: Normalize<T[K]> };
+
 /**
  * Component that accepts Artisan Props (atoms, recipe, as).
  * Not intended to accept children.
