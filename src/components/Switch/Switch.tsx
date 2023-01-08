@@ -1,18 +1,36 @@
-import { Switch as BaseSwitch } from '@kobalte/core';
+import { Switch as BaseSwitch, SwitchOptions } from '@kobalte/core';
 import { merge } from 'lodash';
 import { splitProps } from 'solid-js';
 
 import artisan from '@cubeartisan/cubeartisan/components/factory';
-import type { ArtisanParentComponent } from '@cubeartisan/cubeartisan/components/types';
+import * as styles from '@cubeartisan/cubeartisan/components/Switch/Switch.css';
+import type { ArtisanComponent, ArtisanParentComponent, PropsOf } from '@cubeartisan/cubeartisan/components/types';
 import type { Atoms } from '@cubeartisan/cubeartisan/styles/atoms/atoms.css';
 
 const SwitchInput = BaseSwitch.Input;
 
-const SwitchLabel = artisan(BaseSwitch.Label);
+const UnstyledLabel = artisan(BaseSwitch.Label);
+const SwitchLabel: ArtisanParentComponent<'label', Record<string, never>, PropsOf<typeof UnstyledLabel>> = (props) => {
+  const [local, others] = splitProps(props, ['class']);
 
-const SwitchControl = artisan(BaseSwitch.Control);
+  return <UnstyledLabel class={`${styles.switchLabel} ${local.class}`} {...others} />;
+};
 
-const SwitchThumb = artisan(BaseSwitch.Thumb);
+const UnstyledControl = artisan(BaseSwitch.Control);
+const SwitchControl: ArtisanParentComponent<'div', Record<string, never>, PropsOf<typeof UnstyledControl>> = (
+  props,
+) => {
+  const [local, others] = splitProps(props, ['class']);
+
+  return <UnstyledControl class={`${styles.switchControl} ${local.class}`} {...others} />;
+};
+
+const UnstyledThumb = artisan(BaseSwitch.Thumb);
+const SwitchThumb: ArtisanComponent<'div', Record<string, never>, PropsOf<typeof UnstyledThumb>> = (props) => {
+  const [local, others] = splitProps(props, ['class']);
+
+  return <UnstyledThumb class={`${styles.switchThumb} ${local.class}`} {...others} />;
+};
 
 type SwitchComposite = {
   Input: typeof SwitchInput;
@@ -23,12 +41,13 @@ type SwitchComposite = {
 
 const ArtisanSwitch = artisan(BaseSwitch);
 
-const Switch: ArtisanParentComponent<'label'> & SwitchComposite = (props) => {
+const Switch: ArtisanParentComponent<'label'> & SwitchComposite & SwitchOptions = (props) => {
   const [local, others] = splitProps(props, ['atoms']);
 
   const defaultAtoms: Atoms = {
     display: 'inlineFlex',
     alignItems: 'center',
+    justifyContent: 'spaceBetween',
   };
 
   return <ArtisanSwitch atoms={merge(defaultAtoms, local.atoms)} {...others} />;
