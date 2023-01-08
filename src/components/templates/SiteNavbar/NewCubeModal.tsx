@@ -42,7 +42,7 @@ const NewCubeModal = () => {
           })}
           style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
         >
-          <VStack as="header">
+          <VStack<'header'> as="header">
             <Dialog.Title
               class={atoms({
                 fontSize: '2xl',
@@ -53,15 +53,15 @@ const NewCubeModal = () => {
               New Cube
             </Dialog.Title>
           </VStack>
-          <VStack as="label" recipe={{ align: 'normal' }}>
+          <VStack<'label'> as="label" recipe={{ align: 'normal' }}>
             Cube Name
             <input type="text" />
           </VStack>
-          <VStack as="label" recipe={{ align: 'normal' }}>
+          <VStack<'label'> as="label" recipe={{ align: 'normal' }}>
             Visibility
-            <HStack
+            <HStack<'fieldset'>
               as="fieldset"
-              nam="visibility"
+              name="visibility"
               atoms={{ boxShadow: 'borderNeutralLarge', padding: 1 }}
               recipe={{ justify: 'spaceAround' }}
             >
@@ -79,7 +79,7 @@ const NewCubeModal = () => {
               </label>
             </HStack>
           </VStack>
-          <VStack as="label" recipe={{ align: 'start' }}>
+          <VStack<'label'> as="label" recipe={{ align: 'start' }}>
             <HStack recipe={{ justify: 'spaceBetween' }} atoms={{ width: 'xs' }}>
               Import Existing List (optional)
               <button type="button" onClick={() => setImportSwitch((prev) => !prev)}>
@@ -87,7 +87,7 @@ const NewCubeModal = () => {
               </button>
             </HStack>
             <Show when={importSwitch()}>
-              <HStack
+              <HStack<'fieldset'>
                 as="fieldset"
                 name="import"
                 atoms={{ boxShadow: 'borderNeutralLarge', padding: 1, width: 'xs' }}

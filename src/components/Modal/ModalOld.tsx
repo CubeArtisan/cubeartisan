@@ -1,5 +1,5 @@
 import { merge } from 'lodash';
-import { createUniqueId, mergeProps, Show, splitProps } from 'solid-js';
+import { ComponentProps, createUniqueId, mergeProps, Show, splitProps } from 'solid-js';
 import { Portal } from 'solid-js/web';
 
 import artisan from '@cubeartisan/cubeartisan/components/factory';
@@ -14,7 +14,7 @@ type ModalProps = {
   description?: string;
 };
 
-const Modal: ArtisanParentComponent<'div', null, ModalProps> = (props) => {
+const Modal: ArtisanParentComponent<'section', ComponentProps<typeof VStack>['recipe'], ModalProps> = (props) => {
   const propsWithDefault = mergeProps({ showOverlay: true }, props);
   const [local, others] = splitProps(propsWithDefault, [
     'children',
@@ -41,15 +41,15 @@ const Modal: ArtisanParentComponent<'div', null, ModalProps> = (props) => {
             id={overlayId}
             onClick={() => local.onOverlayClick}
             atoms={{
-              backgroundColor: local.showOverlay && 'shadowDark10',
               width: 'screenW',
               height: 'screenH',
               position: 'fixed',
               top: 0,
               left: 0,
+              ...(local.showOverlay ? { backgroundColor: 'shadowDark10' } : {}),
             }}
           />
-          <VStack
+          <VStack<'section'>
             as="section"
             id={bodyId}
             atoms={merge(
@@ -63,7 +63,7 @@ const Modal: ArtisanParentComponent<'div', null, ModalProps> = (props) => {
             style={merge({ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }, local.style)}
             {...others}
           >
-            <VStack as="header">
+            <VStack<'header'> as="header">
               <Show when={local.title}>
                 <artisan.h2 id={titleId}>{local.title}</artisan.h2>
               </Show>
@@ -80,4 +80,4 @@ const Modal: ArtisanParentComponent<'div', null, ModalProps> = (props) => {
 };
 
 export { Modal };
-export { ModalProps };
+export type { ModalProps };

@@ -1,25 +1,28 @@
 import clsx from 'clsx';
-import { ComponentProps, createMemo, JSX, mergeProps, Show, splitProps } from 'solid-js';
+import { ComponentProps, createMemo, mergeProps, Show, splitProps } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
 import type {
   ArtisanComponent,
   ArtisanFactory,
+  ArtisanFactoryFcn,
+  BaseRecipeFn,
   DOMElements,
   ElementType,
   HTMLArtisanComponents,
   HTMLArtisanProps,
+  StyleableComponent,
   VariantsIfExists,
 } from '@cubeartisan/cubeartisan/components/types';
 import { atoms } from '@cubeartisan/cubeartisan/styles';
 
-const styled = <T extends ElementType<{ class: string }>, R extends BaseRecipeFn | null = null>(
-  component: T,
+const styledDOMElement = <Tag extends DOMElements, R extends BaseRecipeFn | null = null>(
+  component: Tag,
   recipeFn?: R,
-) => {
-  const artisanComponent = <S extends ElementType<{ class: string }> = T>(
+): ReturnType<ArtisanFactory<Tag, R>> => {
+  const artisanComponent = (<S extends StyleableComponent = Tag>(
     props:
-      | HTMLArtisanProps<T, VariantsIfExists<R>, { as?: never }>
+      | HTMLArtisanProps<Tag, VariantsIfExists<R>, { as?: never }>
       | HTMLArtisanProps<S, VariantsIfExists<R>, { as: S }>,
   ) => {
     const [local, others] = splitProps(props, ['as', 'class', 'atoms', 'recipe']);
@@ -30,7 +33,7 @@ const styled = <T extends ElementType<{ class: string }>, R extends BaseRecipeFn
       return { class: clsx(local.class, atoms({ ...local.atoms })) };
     });
     // eslint-disable-next-line solid/reactivity
-    const subProps = mergeProps(classProp, others) as ComponentProps<S> | ComponentProps<T>;
+    const subProps = mergeProps(classProp, others) as ComponentProps<S> | ComponentProps<Tag>;
 
     return (
       <Show
@@ -38,8 +41,8 @@ const styled = <T extends ElementType<{ class: string }>, R extends BaseRecipeFn
         keyed
         fallback={
           <Dynamic
-            component={component as T}
-            {...(subProps as { [K in keyof ComponentProps<T>]: ComponentProps<T>[K] })}
+            component={component}
+            {...(subProps as { [K in keyof ComponentProps<Tag>]: ComponentProps<Tag>[K] })}
           />
         }
       >
@@ -48,15 +51,15 @@ const styled = <T extends ElementType<{ class: string }>, R extends BaseRecipeFn
         )}
       </Show>
     );
-  };
+  }) as ReturnType<ArtisanFactory<Tag, R>>;
   return artisanComponent;
 };
 
-const styledNoAs = <T extends ElementType<{ class: string }>, R extends BaseRecipeFn | null = null>(
+const styledNoAs = <T extends StyleableComponent, R extends BaseRecipeFn | null = null>(
   component: T,
   recipeFn?: R,
-) => {
-  const artisanComponent = (props: HTMLArtisanProps<T, VariantsIfExists<R>>) => {
+): ArtisanComponent<T, VariantsIfExists<R>> => {
+  const artisanComponent: ArtisanComponent<T, VariantsIfExists<R>> = (props) => {
     const [local, others] = splitProps(props, ['class', 'atoms', 'recipe']);
 
     const classProp = createMemo(() => {
@@ -76,58 +79,52 @@ const styledNoAs = <T extends ElementType<{ class: string }>, R extends BaseReci
   return artisanComponent;
 };
 
-function factory() {
-  const cache = new Map<DOMElements, ArtisanComponent<DOMElements>>();
+const componentIsDOMElement = (component: ElementType): component is DOMElements => typeof component === 'string';
 
-  return new Proxy(styled, {
+type CacheType = Map<DOMElements, ReturnType<ArtisanFactory<DOMElements, null>>>;
+
+function apply<T extends StyleableComponent, R extends BaseRecipeFn | null = null>(
+  _1: unknown,
+  _2: unknown,
+  [component, recipeFn]: [T] | [T, R],
+): ReturnType<ArtisanFactory<T, R>> {
+  if (componentIsDOMElement(component)) {
+    return styledDOMElement(component, recipeFn);
+  }
+  return styledNoAs<T, R>(component, recipeFn) as ReturnType<ArtisanFactory<T, R>>;
+}
+
+function get<Tag extends DOMElements>(cache: CacheType, component: Tag): ReturnType<ArtisanFactory<Tag, null>> {
+  if (!cache.has(component)) {
+    cache.set(component, styledDOMElement<Tag, null>(component, null) as ReturnType<ArtisanFactory<DOMElements, null>>);
+  }
+  return cache.get(component) as ReturnType<ArtisanFactory<Tag, null>>;
+}
+
+interface MyProxyConstructor {
+  new <T, H extends object>(
+    target: T,
+    handler: Omit<ProxyHandler<H>, 'get'> & { get?(target2: T, p: string | symbol, receiver: any): any },
+  ): H;
+}
+const MyProxy = Proxy as MyProxyConstructor;
+
+const artisan = new MyProxy<CacheType, ArtisanFactoryFcn & HTMLArtisanComponents>(
+  new Map<DOMElements, ReturnType<ArtisanFactory<DOMElements, null>>>(),
+  {
     /**
      * @example
      * const Div = artisan("div")
      * const WithArtisan = artisan(AnotherComponent)
      */
-    apply<T extends ElementType<{ class: string }>, R extends BaseRecipeFn | null = null>(
-      _1: typeof styled,
-      _2: unknown,
-      argArray: [T] | [T, R],
-    ): T extends DOMElements
-      ? <S extends ElementType<{ class: string }> = T>(
-          props:
-            | HTMLArtisanProps<T, VariantsIfExists<R>, { as?: never }>
-            | HTMLArtisanProps<S, VariantsIfExists<R>, { as: S }>,
-        ) => JSX.Element
-      : ArtisanComponent<T, VariantsIfExists<R>> {
-      if (typeof argArray[0] === 'string') {
-        if (argArray.length === 1) {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          return styled(...argArray);
-        }
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        return styled(...argArray);
-      }
-      if (argArray.length === 1) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        return styledNoAs(...argArray);
-      }
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      return styledNoAs(...argArray);
-    },
+    apply,
 
     /**
      * @example
      * <artisan.div />
      */
-    get(_, element: DOMElements) {
-      if (!cache.has(element)) {
-        cache.set(element, styled(element));
-      }
-      return cache.get(element);
-    },
-  }) as ArtisanFactory & HTMLArtisanComponents;
-}
+    get,
+  },
+);
 
-const artisan = factory();
 export default artisan;

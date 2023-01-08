@@ -7,7 +7,7 @@ export const TestModal = () => (
     <Modal.Portal>
       <Modal.Overlay />
       <Modal.Content>
-        <VStack as="header">
+        <VStack<'header'> as="header">
           <Modal.Title>Test Title</Modal.Title>
           <Modal.Description>this is a test modal to see if things work</Modal.Description>
         </VStack>

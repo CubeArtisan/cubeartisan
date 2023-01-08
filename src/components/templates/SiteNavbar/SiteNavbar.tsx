@@ -4,29 +4,30 @@ import { Show, splitProps } from 'solid-js';
 import { A } from 'solid-start';
 import { createServerData$ } from 'solid-start/server';
 
-import { getUserFromRequest } from '@cubeartisan/cubeartisan/backend/user';
+import { getClientUserFromRequest } from '@cubeartisan/cubeartisan/backend/user';
 import { Center } from '@cubeartisan/cubeartisan/components/Center';
 import artisan from '@cubeartisan/cubeartisan/components/factory';
 import { HStack } from '@cubeartisan/cubeartisan/components/Stack';
 import NewCubeModal from '@cubeartisan/cubeartisan/components/templates/SiteNavbar/NewCubeModal';
-import type { ArtisanParentComponent } from '@cubeartisan/cubeartisan/components/types';
+import type { AddProps } from '@cubeartisan/cubeartisan/components/types';
 import { atoms } from '@cubeartisan/cubeartisan/styles';
+import type { ProtectedUser } from '@cubeartisan/cubeartisan/types/user';
 
-const NavIcon: ArtisanParentComponent<'div', null, { size: 'sm' | 'lg' }> = (props) => {
+const sizes = {
+  sm: 8,
+  lg: 12,
+};
+
+const NavIcon: AddProps<typeof Center, { size: keyof typeof sizes }> = (props: any) => {
   const [local, others] = splitProps(props, ['atoms', 'size']);
-
-  const sizes = {
-    sm: 8,
-    lg: 12,
-  };
 
   return (
     <Center
       atoms={merge(
         {
           borderRadius: 'lg',
-          height: sizes[props.size],
-          width: sizes[props.size],
+          height: sizes[props.size as keyof typeof sizes],
+          width: sizes[props.size as keyof typeof sizes],
           backgroundColor: { hover: 'neutralComponentHover', active: 'neutralComponentActive' },
           boxShadow: {
             hover: 'borderNeutralInteractiveHoverLarge',
@@ -40,11 +41,11 @@ const NavIcon: ArtisanParentComponent<'div', null, { size: 'sm' | 'lg' }> = (pro
 };
 
 const SiteNavbar = () => {
-  const user = createServerData$((_, { request }) => getUserFromRequest(request));
+  const user = createServerData$((_, { request }) => getClientUserFromRequest(request));
 
   return (
     <HStack atoms={{ backgroundColor: 'neutralSubtleSecondary', color: 'neutralContrast' }}>
-      <HStack
+      <HStack<'header'>
         as="header"
         atoms={{
           height: 16,
@@ -52,8 +53,8 @@ const SiteNavbar = () => {
         }}
         recipe={{ justify: 'spaceBetween' }}
       >
-        <HStack as="nav">
-          <HStack as="ul" atoms={{ gap: 8 }}>
+        <HStack<'nav'> as="nav">
+          <HStack<'ul'> as="ul" atoms={{ gap: 8 }}>
             <artisan.li
               atoms={{
                 backgroundColor: { hover: 'neutralComponentHover', active: 'neutralComponentActive' },
@@ -99,33 +100,37 @@ const SiteNavbar = () => {
             >
               <A href="/">Explore Cubes</A>
             </artisan.li>
-            <Show when={user()}>
-              {(u) => {
+            <Show keyed when={user()}>
+              {(u: ProtectedUser) => (
                 <li>
                   <A id="your-cubes" href={`/user/${u.username}/cubes`}>
                     Your Cubes
                   </A>
-                </li>;
-              }}
+                </li>
+              )}
             </Show>
           </HStack>
         </HStack>
-        <HStack as="ul" atoms={{ gap: 4 }}>
+        <HStack<'ul'> as="ul" atoms={{ gap: 4 }}>
           <li>
             <NewCubeModal />
           </li>
           <li />
-          <Show when={user()}>
-            <li>
-              <NavIcon size="sm" as="button" atoms={{ color: 'neutralContrast' }}>
-                <CgBell class={atoms({ height: 6, width: 6 })} />
-              </NavIcon>
-            </li>
-            <li>
-              <NavIcon size="lg" as="button" atoms={{ color: 'neutralContrast' }}>
-                <CgProfile class={atoms({ height: 10, width: 10 })} />
-              </NavIcon>
-            </li>
+          <Show when={user()} keyed>
+            {(u: ProtectedUser) => (
+              <>
+                <li>
+                  <NavIcon<'button'> size="sm" as="button" atoms={{ color: 'neutralContrast' }}>
+                    <CgBell class={atoms({ height: 6, width: 6 })} />
+                  </NavIcon>
+                </li>
+                <li>
+                  <NavIcon<typeof A> size="lg" as={A} atoms={{ color: 'neutralContrast' }} href={`/user/${u.username}`}>
+                    <CgProfile class={atoms({ height: 10, width: 10 })} />
+                  </NavIcon>
+                </li>
+              </>
+            )}
           </Show>
         </HStack>
       </HStack>

@@ -39,11 +39,13 @@ export const vStackRecipe = recipe({
   }),
   variants: {
     align: {
+      normal: atoms({ alignItems: 'normal' }),
       center: atoms({ alignItems: 'center' }),
       start: atoms({ alignItems: 'flexStart' }),
       end: atoms({ alignItems: 'flexEnd' }),
     },
     justify: {
+      normal: atoms({ justifyContent: 'normal' }),
       center: atoms({ justifyContent: 'center' }),
       start: atoms({ justifyContent: 'flexStart' }),
       end: atoms({ justifyContent: 'flexEnd' }),

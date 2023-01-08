@@ -14,7 +14,7 @@ export const TestButton = () => {
   const testSize = testSizes.md;
 
   return (
-    <VStack as="main" atoms={{ width: 'content-60', gap: 2 }}>
+    <VStack<'main'> as="main" atoms={{ width: 'content-60', gap: 2 }}>
       <HStack atoms={{ gap: 2 }}>
         <Button recipe={{ size: testSize, color: 'neutral' }}>neutral</Button>
         <Button recipe={{ size: testSize, color: 'primary' }}>primary</Button>

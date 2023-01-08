@@ -8,9 +8,6 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "allowUmdGlobalAccess": false,
-    "allowUnreachableCode": false,
-    "allowUnusedLabels": false,
-    "alwaysStrict": true,
     "disableSizeLimit": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -20,29 +17,38 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "newLine": "lf",
     "noEmit": true,
+    "noResolve": false,
+    "resolveJsonModule": true,
+    "skipLibCheck": false,
+    "types": ["vite/client", "@testing-library/jest-dom"],
+    "baseUrl": "./",
+    "paths": {
+      "@cubeartisan/cubeartisan/*": ["./src/*"]
+    },
+
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "alwaysStrict": true,
+    "exactOptionalPropertyTypes": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-    "noPropertyAccessFromIndexSignature": false,
-    "noResolve": false,
-    "noUncheckedIndexedAccess": false,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
     "strict": true,
     "strictBindCallApply": true,
     "strictFunctionTypes": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
-    "useUnknownInCatchVariables": true,
-    "types": ["vite/client", "@testing-library/jest-dom"],
-    "baseUrl": "./",
-    "paths": {
-      "@cubeartisan/cubeartisan/*": ["./src/*"]
-    }
+    "useUnknownInCatchVariables": true
   },
+  "include": [
+    "src/**/*",
+    "*"
+  ],
   "types": ["vitest"]
 }

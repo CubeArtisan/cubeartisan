@@ -4,19 +4,19 @@ import { splitProps } from 'solid-js';
 
 import { buttonRecipe } from '@cubeartisan/cubeartisan/components/Button';
 import artisan from '@cubeartisan/cubeartisan/components/factory';
-import type { ArtisanComponent, ArtisanParentComponent, OmitProps } from '@cubeartisan/cubeartisan/components/types';
-import { Atoms } from '@cubeartisan/cubeartisan/styles/atoms/atoms.css';
+import type { OmitProps } from '@cubeartisan/cubeartisan/components/types';
+import type { Atoms } from '@cubeartisan/cubeartisan/styles/atoms/atoms.css';
 
 const ModalTrigger = artisan(BaseDialog.Trigger, buttonRecipe);
 
 const ModalCloseButton = artisan(BaseDialog.CloseButton, buttonRecipe);
 
-const ModalPortal = artisan(BaseDialog.Portal);
+const ModalPortal = BaseDialog.Portal;
 
-const ModalOverlay: ArtisanComponent<'div'> = (props) => {
+const ArtisanOverlay = artisan(BaseDialog.Overlay);
+
+const ModalOverlay: typeof ArtisanOverlay = (props) => {
   const [local, others] = splitProps(props, ['atoms']);
-
-  const ArtisanOverlay = artisan(BaseDialog.Overlay);
 
   const defaultStyles: Atoms = {
     backgroundColor: 'shadowDark10',
@@ -30,10 +30,10 @@ const ModalOverlay: ArtisanComponent<'div'> = (props) => {
   return <ArtisanOverlay atoms={merge(defaultStyles, local.atoms)} {...others} />;
 };
 
-const ModalContent: ArtisanParentComponent<'section'> = (props) => {
-  const [local, others] = splitProps(props, ['atoms', 'style']);
+const ArtisanContent = artisan(BaseDialog.Content);
 
-  const ArtisanContent = artisan(BaseDialog.Content);
+const ModalContent: typeof ArtisanContent = (props) => {
+  const [local, others] = splitProps(props, ['atoms', 'style']);
 
   const defaultAtoms: Atoms = {
     position: 'fixed',
@@ -60,10 +60,10 @@ const ModalContent: ArtisanParentComponent<'section'> = (props) => {
   );
 };
 
-const ModalTitle: ArtisanParentComponent<'h2'> = (props) => {
-  const [local, others] = splitProps(props, ['atoms']);
+const ArtisanTitle = artisan(BaseDialog.Title);
 
-  const ArtisanTitle = artisan(BaseDialog.Title);
+const ModalTitle: typeof ArtisanTitle = (props) => {
+  const [local, others] = splitProps(props, ['atoms']);
 
   const defaultAtoms: Atoms = {
     fontSize: '2xl',
@@ -74,10 +74,10 @@ const ModalTitle: ArtisanParentComponent<'h2'> = (props) => {
   return <ArtisanTitle atoms={merge(defaultAtoms, local.atoms)} {...others} />;
 };
 
-const ModalDescription: ArtisanParentComponent<'p'> = (props) => {
-  const [local, others] = splitProps(props, ['atoms']);
+const ArtisanDescription = artisan(BaseDialog.Description);
 
-  const ArtisanDescription = artisan(BaseDialog.Description);
+const ModalDescription: typeof ArtisanDescription = (props) => {
+  const [local, others] = splitProps(props, ['atoms']);
 
   const defaultAtoms: Atoms = {
     fontWeight: 'light',
@@ -85,8 +85,6 @@ const ModalDescription: ArtisanParentComponent<'p'> = (props) => {
 
   return <ArtisanDescription atoms={merge(defaultAtoms, local.atoms)} {...others} />;
 };
-
-const ArtisanDialog = artisan(BaseDialog);
 
 type ModalComposite = {
   Trigger: typeof ModalTrigger;
@@ -98,7 +96,7 @@ type ModalComposite = {
   Description: typeof ModalDescription;
 };
 
-const Modal: OmitProps<typeof ArtisanDialog, 'isModal'> & ModalComposite = (props) => <ArtisanDialog {...props} />;
+const Modal: OmitProps<typeof BaseDialog, 'isModal'> & ModalComposite = (props) => <BaseDialog {...props} />;
 
 Modal.Trigger = ModalTrigger;
 Modal.CloseButton = ModalCloseButton;

@@ -1,11 +1,11 @@
 // for testing components
 import { Dialog } from '@kobalte/core';
-import type { ParentComponent } from 'solid-js';
 
 import { TestButton } from '@cubeartisan/cubeartisan/components/Button/Button.testrender';
 import { Center } from '@cubeartisan/cubeartisan/components/Center';
 import { TestModal } from '@cubeartisan/cubeartisan/components/Modal/Modal.testrender';
 import { VStack } from '@cubeartisan/cubeartisan/components/Stack';
+import type { OmitProps } from '@cubeartisan/cubeartisan/components/types';
 import { atoms } from '@cubeartisan/cubeartisan/styles';
 
 const TestModalNew = () => (
@@ -51,7 +51,7 @@ const TestModalNew = () => (
         })}
         style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
       >
-        <VStack as="header" atoms={{ marginBottom: 2 }}>
+        <VStack<'header'> as="header" atoms={{ marginBottom: 2 }}>
           <Dialog.Title
             class={atoms({
               fontSize: 'lg',
@@ -87,7 +87,7 @@ const TestModalNew = () => (
   </Dialog>
 );
 
-const TestComponentBox: ParentComponent = (props) => (
+const TestComponentBox: OmitProps<typeof Center, 'atoms'> = (props) => (
   <Center
     atoms={{ minWidth: 'lg', minHeight: 'md', borderRadius: '2xl', backgroundColor: 'neutralSubtleSecondary' }}
     children={props.children}

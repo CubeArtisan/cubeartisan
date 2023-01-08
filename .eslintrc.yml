@@ -90,6 +90,7 @@ rules:
   promise/prefer-await-to-then: error
   promise/prefer-await-to-callbacks: error
   '@typescript-eslint/no-non-null-assertion': off
+  '@typescript-eslint/no-explicit-any': off
 overrides:
   - files:
       - '**/*.test.ts'

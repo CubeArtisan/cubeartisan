@@ -1,5 +1,5 @@
 import artisan from '@cubeartisan/cubeartisan/components/factory';
-import { stackRecipe, hStackRecipe, vStackRecipe } from '@cubeartisan/cubeartisan/components/Stack/Stack.css';
+import { hStackRecipe, vStackRecipe } from '@cubeartisan/cubeartisan/components/Stack/Stack.css';
 
 /**
  * Horizontal flex container that centers content by default

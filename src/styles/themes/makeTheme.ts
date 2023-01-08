@@ -13,7 +13,7 @@ export type MakeThemeProps = {
 export const makeTheme = ({ tokens, colorPalette, semanticColorOverrides }: MakeThemeProps) => {
   const { backgroundColor, boxShadow, textColor } = makeSemanticColors({
     colorPalette,
-    overrides: semanticColorOverrides,
+    overrides: semanticColorOverrides ?? {},
   });
   return {
     fontFamily: tokens.typography.fontFamily,

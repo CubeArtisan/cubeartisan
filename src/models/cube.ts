@@ -151,5 +151,5 @@ cubeSchema.index({
   date_updated: -1,
 });
 
-const Cube: Model<MongoCube> = models.Cube ?? model('Cube', cubeSchema);
+const Cube: Model<MongoCube> = models['Cube'] ?? model('Cube', cubeSchema); // eslint-disable-line dot-notation
 export default Cube;

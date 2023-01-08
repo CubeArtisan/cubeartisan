@@ -16,6 +16,12 @@ export type DOMElements = keyof JSX.IntrinsicElements;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ElementType<Props = any> = DOMElements | Component<Props>;
 
+export type PropsIncludes<Props extends Record<string, any>> = ElementType<
+  Props & { [K in string as Exclude<K, keyof Props>]: any }
+>;
+
+export type StyleableComponent<Props = any> = PropsIncludes<{ class: string } & Props>;
+
 /**
  * Take the props of the passed HTML element or component and returns its type.
  */
@@ -23,7 +29,9 @@ export type PropsOf<C extends ElementType> = ComponentProps<C>;
 
 export type Forbid<K extends string> = { [Key in K]?: never };
 
-export type OmitProps<C extends (props: Record<string, any>) => any, K extends string> = C extends (props: infer P) => infer R ? (props: Omit<P, K> & Forbid<K & keyof P>) => R : never;
+export type OmitProps<C extends ElementType, K extends string> = C extends ElementType
+  ? Component<Omit<ComponentProps<C>, K>>
+  : never;
 
 type RecipeStyleRule = ComplexStyleRule | string;
 
@@ -37,7 +45,7 @@ export type StyleProps<R = null> = {
   recipe?: R;
 };
 
-export type ToObject<T> = T extends object ? T : object;
+export type ToIntersectable<T> = T extends object ? T : object;
 
 type DisjointIntersect<T, U> = keyof T & keyof U extends never ? T & U : never;
 
@@ -46,11 +54,11 @@ export type Normalize<T> = T extends (...args: infer A) => infer R
   : { [K in keyof T]: Normalize<T[K]> };
 
 export type HTMLArtisanProps<
-  T extends ElementType<{ class: string }>,
+  T extends StyleableComponent,
   R = null,
   P = null,
   Props extends ComponentProps<T> = ComponentProps<T>,
-> = DisjointIntersect<Omit<P & Props, 'class'>, StyleProps<R>>;
+> = DisjointIntersect<Omit<P extends object ? P & Props : Props, 'class'>, StyleProps<R>>;
 
 /**
  * Component that accepts Artisan Props (atoms, recipe, as).
@@ -65,7 +73,7 @@ export type HTMLArtisanProps<
  * ```
  */
 export type ArtisanComponent<
-  T extends ElementType<{ class: string }> = 'div',
+  T extends StyleableComponent,
   R = null,
   P = null,
   Props extends ComponentProps<T> = ComponentProps<T>,
@@ -83,7 +91,7 @@ export type ArtisanComponent<
  * ```
  */
 export type ArtisanParentComponent<
-  T extends ElementType<{ class: string }>,
+  T extends StyleableComponent,
   R = null,
   P = null,
   Props extends ComponentProps<T> = ComponentProps<T>,
@@ -95,7 +103,7 @@ export type ArtisanParentComponent<
  * See the [Solid Docs](https://www.solidjs.com/guides/typescript#component-types) for more information.
  */
 export type ArtisanFlowComponent<
-  T extends ElementType<{ class: string }>,
+  T extends StyleableComponent,
   R = null,
   P = null,
   Props extends ComponentProps<T> = ComponentProps<T>,
@@ -105,37 +113,50 @@ export type ArtisanFlowComponent<
  * Artisan Component that unknown accepts children
  */
 export type ArtisanVoidComponent<
-  T extends ElementType<{ class: string }>,
+  T extends StyleableComponent,
   R = null,
   P = null,
   Props extends ComponentProps<T> = ComponentProps<T>,
 > = VoidComponent<HTMLArtisanProps<T, R, P, Props>>;
+
+export type BaseRecipeFn = RuntimeFn<VariantGroups>;
+
+export type VariantsIfExists<R> = R extends BaseRecipeFn ? RecipeVariants<R> : null;
+
+export type ArtisanDynamicComponent<T extends DOMElements, R = null, P = object> = {
+  <S extends StyleableComponent = T>(props: HTMLArtisanProps<S, R, P & { as: S }>): JSX.Element;
+  (props: HTMLArtisanProps<T, R, P>): JSX.Element;
+};
+
+export type AddProps<Comp extends ElementType, Add extends Record<string, any>> = Comp extends ArtisanDynamicComponent<
+  infer T,
+  infer R,
+  infer P
+>
+  ? ArtisanDynamicComponent<T, R, P & Add>
+  : Comp extends ElementType
+  ? Component<DisjointIntersect<ComponentProps<Comp>, Add>>
+  : never;
+
+/**
+ * Factory function that converts non-artisan components or jsx element
+ * to artisan-enabled components so you can pass style props to them.
+ */
+export interface ArtisanFactory<T extends ElementType, R extends BaseRecipeFn | null = null> {
+  (component: T, recipeFn?: R): T extends DOMElements
+    ? ArtisanDynamicComponent<T, VariantsIfExists<R>>
+    : ArtisanComponent<T, VariantsIfExists<R>>;
+}
+
+export type ArtisanFactoryFcn = <T extends ElementType, R extends BaseRecipeFn | null = null>(
+  component: T,
+  recipeFn?: R,
+) => ReturnType<ArtisanFactory<T, R>>;
 
 /**
  * All html and svg elements for artisan components.
  * This is mostly for `artisan.<element>` syntax.
  */
 export type HTMLArtisanComponents = {
-  [Tag in DOMElements]: <S extends ElementType<{ class: string }> = Tag>(
-    props: HTMLArtisanProps<Tag, null, { as?: never }> | HTMLArtisanProps<S, null, { as: S }>,
-  ) => JSX.Element;
+  [Tag in DOMElements]: ReturnType<ArtisanFactory<Tag, null>>;
 };
-
-export type BaseRecipeFn = RuntimeFn<VariantGroups>;
-
-export type VariantsIfExists<R extends BaseRecipeFn | null> = R extends BaseRecipeFn ? RecipeVariants<R> : null;
-
-/**
- * Factory function that converts non-artisan components or jsx element
- * to artisan-enabled components so you can pass style props to them.
- */
-export type ArtisanFactory = <T extends ElementType, R extends BaseRecipeFn | null = null>(
-  component: T,
-  recipeFn?: R,
-) => T extends DOMElements
-  ? <S extends ElementType<{ class: string }> = T>(
-      props:
-        | HTMLArtisanProps<T, VariantsIfExists<R>, { as?: never }>
-        | HTMLArtisanProps<S, VariantsIfExists<R>, { as: S }>,
-    ) => JSX.Element
-  : ArtisanComponent<T, VariantsIfExists<R>>;
