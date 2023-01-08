@@ -6,6 +6,7 @@ export const hStackRecipe = recipe({
   base: atoms({
     display: 'flex',
     flexDirection: 'row',
+    gap: '2',
   }),
   variants: {
     align: {
@@ -36,6 +37,7 @@ export const vStackRecipe = recipe({
   base: atoms({
     display: 'flex',
     flexDirection: 'column',
+    gap: 2,
   }),
   variants: {
     align: {
