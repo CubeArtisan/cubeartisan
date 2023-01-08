@@ -187,6 +187,7 @@ export const responsiveProperties = {
     block: 'block',
     inline: 'inline',
     inlineBlock: 'inline-block',
+    inlineFlex: 'inline-flex',
     flex: 'flex',
   },
   position: ['relative', 'absolute', 'fixed'],
