@@ -1,68 +1,36 @@
-import { Dialog } from '@kobalte/core';
 import { CgMathPlus } from 'solid-icons/cg';
 import { createSignal, Show } from 'solid-js';
 
-import { buttonRecipe } from '@cubeartisan/cubeartisan/components/Button';
+import artisan from '@cubeartisan/cubeartisan/components/factory';
+import { Modal } from '@cubeartisan/cubeartisan/components/Modal';
 import { HStack, VStack } from '@cubeartisan/cubeartisan/components/Stack';
+import { Switch } from '@cubeartisan/cubeartisan/components/Switch/Switch';
 import { atoms } from '@cubeartisan/cubeartisan/styles';
 
 const NewCubeModal = () => {
   const [importSwitch, setImportSwitch] = createSignal(false);
 
   return (
-    <Dialog>
-      <Dialog.Trigger class={buttonRecipe()}>
+    <Modal>
+      <Modal.Trigger>
         <CgMathPlus class={atoms({ height: 8, width: 8, color: 'white' })} />
-      </Dialog.Trigger>
-      <Dialog.Portal>
-        <Dialog.Overlay
-          class={atoms({
-            backgroundColor: 'shadowDark10',
-            width: 'screenW',
-            height: 'screenH',
-            position: 'fixed',
-            top: 0,
-            left: 0,
-          })}
-        />
-        <Dialog.Content
-          as="section"
-          class={atoms({
-            position: 'absolute',
-            paddingInline: 10,
-            paddingBlock: 8,
-            width: 'md',
-            backgroundColor: 'neutralComponent',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'stretch',
-            borderRadius: 'md',
-            gap: 4,
-          })}
-          style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
-        >
-          <VStack<'header'> as="header">
-            <Dialog.Title
-              class={atoms({
-                fontSize: '2xl',
-                lineHeight: '2xl',
-                fontWeight: 'semibold',
-              })}
-            >
-              New Cube
-            </Dialog.Title>
-          </VStack>
-          <VStack<'label'> as="label" recipe={{ align: 'normal' }}>
+      </Modal.Trigger>
+      <Modal.Portal>
+        <Modal.Overlay />
+        <Modal.Content>
+          <Modal.Title atoms={{ alignSelf: 'center' }}>New Cube</Modal.Title>
+
+          <VStack<"label"> as="label" recipe={{ align: 'normal' }}>
             Cube Name
-            <input type="text" />
+            <artisan.input type="text" atoms={{ borderRadius: 'md' }} />
           </VStack>
+
           <VStack<'label'> as="label" recipe={{ align: 'normal' }}>
             Visibility
             <HStack<'fieldset'>
               as="fieldset"
-              name="visibility"
-              atoms={{ boxShadow: 'borderNeutralLarge', padding: 1 }}
+              nam="visibility"
+              atoms={{ boxShadow: 'borderNeutralLarge', padding: 1, borderRadius: 'md' }}
               recipe={{ justify: 'spaceAround' }}
             >
               <label>
@@ -79,18 +47,20 @@ const NewCubeModal = () => {
               </label>
             </HStack>
           </VStack>
-          <VStack<'label'> as="label" recipe={{ align: 'start' }}>
-            <HStack recipe={{ justify: 'spaceBetween' }} atoms={{ width: 'xs' }}>
-              Import Existing List (optional)
-              <button type="button" onClick={() => setImportSwitch((prev) => !prev)}>
-                {importSwitch() ? 'true' : 'false'}
-              </button>
-            </HStack>
+
+          <VStack<"label"> as="label" recipe={{ align: 'normal' }}>
+            <Switch isChecked={importSwitch()} onCheckedChange={setImportSwitch}>
+              <Switch.Input />
+              <Switch.Label>Import from list (optional)</Switch.Label>
+              <Switch.Control>
+                <Switch.Thumb />
+              </Switch.Control>
+            </Switch>
             <Show when={importSwitch()}>
               <HStack<'fieldset'>
                 as="fieldset"
                 name="import"
-                atoms={{ boxShadow: 'borderNeutralLarge', padding: 1, width: 'xs' }}
+                atoms={{ boxShadow: 'borderNeutralLarge', padding: 1, borderRadius: 'md' }}
                 recipe={{ justify: 'spaceAround' }}
               >
                 <label>
@@ -108,9 +78,9 @@ const NewCubeModal = () => {
               </HStack>
             </Show>
           </VStack>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog>
+        </Modal.Content>
+      </Modal.Portal>
+    </Modal>
   );
 };
 
