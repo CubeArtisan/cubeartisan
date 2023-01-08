@@ -1,6 +1,7 @@
 import { CgMathPlus } from 'solid-icons/cg';
 import { createSignal, Show } from 'solid-js';
 
+import { Button } from '@cubeartisan/cubeartisan/components/Button';
 import artisan from '@cubeartisan/cubeartisan/components/factory';
 import { Modal } from '@cubeartisan/cubeartisan/components/Modal';
 import { HStack, VStack } from '@cubeartisan/cubeartisan/components/Stack';
@@ -78,6 +79,10 @@ const NewCubeModal = () => {
               </HStack>
             </Show>
           </VStack>
+          <HStack recipe={{ justify: 'spaceBetween' }}>
+            <Button recipe={{ color: 'danger' }}>Cancel</Button>
+            <Button recipe={{ color: 'success' }}>Create</Button>
+          </HStack>
         </Modal.Content>
       </Modal.Portal>
     </Modal>
