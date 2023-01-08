@@ -79,5 +79,5 @@ const Modal: ArtisanParentComponent<'div', null, ModalProps> = (props) => {
   );
 };
 
-export { Modal };
+export { Modal as OldModal };
 export { ModalProps };
