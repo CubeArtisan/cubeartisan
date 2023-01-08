@@ -230,6 +230,13 @@ export const responsiveProperties = {
     spaceAround: 'space-around',
     spaceEvenly: 'space-evenly',
   },
+  justifySelf: {
+    normal: 'normal',
+    stretch: 'stretch',
+    center: 'center',
+    flexStart: 'flex-start',
+    flexEnd: 'flex-end',
+  },
   flexDirection: {
     row: 'row',
     rowReverse: 'row-reverse',
