@@ -43,17 +43,20 @@ const SiteNavbar = () => {
   const user = createServerData$((_, { request }) => getUserFromRequest(request));
 
   return (
-    <HStack atoms={{ backgroundColor: 'neutralSubtleSecondary', color: 'neutralContrast' }}>
+    <HStack
+      atoms={{ backgroundColor: 'neutralSubtleSecondary', color: 'neutralContrast' }}
+      recipe={{ align: 'center', justify: 'center' }}
+    >
       <HStack
         as="header"
         atoms={{
           height: 16,
           width: 'content-90',
         }}
-        recipe={{ justify: 'spaceBetween' }}
+        recipe={{ justify: 'spaceBetween', align: 'center' }}
       >
-        <HStack as="nav">
-          <HStack as="ul" atoms={{ gap: 8 }}>
+        <HStack as="nav" recipe={{ justify: 'center', align: 'center' }}>
+          <HStack as="ul" atoms={{ gap: 8 }} recipe={{ justify: 'center', align: 'center' }}>
             <artisan.li
               atoms={{
                 backgroundColor: { hover: 'neutralComponentHover', active: 'neutralComponentActive' },
@@ -110,7 +113,7 @@ const SiteNavbar = () => {
             </Show>
           </HStack>
         </HStack>
-        <HStack as="ul" atoms={{ gap: 4 }}>
+        <HStack as="ul" atoms={{ gap: 4 }} recipe={{ justify: 'center', align: 'center' }}>
           <li>
             <NewCubeModal />
           </li>
