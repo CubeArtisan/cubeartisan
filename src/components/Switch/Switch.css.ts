@@ -3,13 +3,14 @@ import { style } from '@vanilla-extract/css';
 import { atoms, vars } from '@cubeartisan/cubeartisan/styles';
 
 export const switchLabel = atoms({
-  marginRight: 2.5,
+  justifySelf: 'flexStart',
   fontSize: 'sm',
   userSelect: 'none',
 });
 
 export const switchControl = style([
   atoms({
+    justifySelf: 'flexEnd',
     display: 'inlineFlex',
     alignItems: 'center',
     height: 6,
