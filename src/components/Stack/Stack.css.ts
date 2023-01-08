@@ -6,7 +6,6 @@ export const hStackRecipe = recipe({
   base: atoms({
     display: 'flex',
     flexDirection: 'row',
-    gap: '2',
   }),
   variants: {
     align: {
@@ -24,10 +23,6 @@ export const hStackRecipe = recipe({
       spaceBetween: atoms({ justifyContent: 'spaceBetween' }),
       spaceEvenly: atoms({ justifyContent: 'spaceEvenly' }),
     },
-  },
-  defaultVariants: {
-    align: 'center',
-    justify: 'center',
   },
 });
 
@@ -37,7 +32,6 @@ export const vStackRecipe = recipe({
   base: atoms({
     display: 'flex',
     flexDirection: 'column',
-    gap: 2,
   }),
   variants: {
     align: {
@@ -55,10 +49,6 @@ export const vStackRecipe = recipe({
       spaceBetween: atoms({ justifyContent: 'spaceBetween' }),
       spaceEvenly: atoms({ justifyContent: 'spaceEvenly' }),
     },
-  },
-  defaultVariants: {
-    align: 'center',
-    justify: 'center',
   },
 });
 

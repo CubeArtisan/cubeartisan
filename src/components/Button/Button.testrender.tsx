@@ -14,8 +14,8 @@ export const TestButton = () => {
   const testSize = testSizes.md;
 
   return (
-    <VStack<'main'> as="main" atoms={{ width: 'content-60', gap: 2 }}>
-      <HStack atoms={{ gap: 2 }}>
+    <VStack<'main'> as="main" atoms={{ width: 'content-60', gap: 'gutter' }} recipe={{ align: 'center', justify: 'center' }}>
+      <HStack atoms={{ gap: 'gutter' }} recipe={{ align: 'center', justify: 'center' }}>
         <Button recipe={{ size: testSize, color: 'neutral' }}>neutral</Button>
         <Button recipe={{ size: testSize, color: 'primary' }}>primary</Button>
         <Button recipe={{ size: testSize, color: 'info' }}>info</Button>
@@ -23,7 +23,7 @@ export const TestButton = () => {
         <Button recipe={{ size: testSize, color: 'warning' }}>warning</Button>
         <Button recipe={{ size: testSize, color: 'danger' }}>danger</Button>
       </HStack>
-      <HStack atoms={{ gap: 2 }}>
+      <HStack atoms={{ gap: 'gutter' }} recipe={{ align: 'center', justify: 'center' }}>
         <Button recipe={{ size: testSize, color: 'neutralSolid' }}>neutral</Button>
         <Button recipe={{ size: testSize, color: 'primarySolid' }}>primary</Button>
         <Button recipe={{ size: testSize, color: 'infoSolid' }}>info</Button>
@@ -31,7 +31,7 @@ export const TestButton = () => {
         <Button recipe={{ size: testSize, color: 'warningSolid' }}>warning</Button>
         <Button recipe={{ size: testSize, color: 'dangerSolid' }}>danger</Button>
       </HStack>
-      <HStack atoms={{ gap: 2 }}>
+      <HStack atoms={{ gap: 'gutter' }} recipe={{ align: 'center', justify: 'center' }}>
         <Button recipe={{ size: testSizes.xs, color: 'neutralSolid' }}>neutral</Button>
         <Button recipe={{ size: testSizes.sm, color: 'primarySolid' }}>primary</Button>
         <Button recipe={{ size: testSizes.md, color: 'infoSolid' }}>info</Button>

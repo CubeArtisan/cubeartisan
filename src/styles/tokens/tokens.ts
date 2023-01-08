@@ -100,6 +100,7 @@ export const tokens = {
   space: {
     auto: 'auto',
     px: '1px',
+    gutter: '6px',
     0: '0px',
     0.5: '0.125rem',
     1: '0.25rem',

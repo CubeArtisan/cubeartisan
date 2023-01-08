@@ -48,6 +48,7 @@ const Switch: ArtisanParentComponent<'label'> & SwitchComposite & SwitchOptions 
     display: 'inlineFlex',
     alignItems: 'center',
     justifyContent: 'spaceBetween',
+    gap: 'gutter',
   };
 
   return <ArtisanSwitch atoms={merge(defaultAtoms, local.atoms)} {...others} />;

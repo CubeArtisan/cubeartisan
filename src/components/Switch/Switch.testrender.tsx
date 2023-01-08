@@ -9,7 +9,7 @@ export const TestSwitch = () => {
   const [checked, setChecked] = createSignal(false);
 
   return (
-    <VStack atoms={{ gap: 4 }}>
+    <VStack atoms={{ gap: 4 }} recipe={{ align: 'center', justify: 'center' }}>
       <Switch isChecked={checked()} onCheckedChange={setChecked}>
         <Switch.Input />
         <Switch.Label class={styles.switchLabel}>Test Switch</Switch.Label>
