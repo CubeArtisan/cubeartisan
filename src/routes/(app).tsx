@@ -5,8 +5,8 @@ import SiteFooter from '@cubeartisan/cubeartisan/components/templates/SiteFooter
 import { SiteNavbar } from '@cubeartisan/cubeartisan/components/templates/SiteNavbar/SiteNavbar';
 
 const AppLayout = () => (
-  <VStack recipe={{ justify: 'normal', align: 'normal' }}>
-    <VStack style={{ 'min-height': '100vh' }} recipe={{ justify: 'normal', align: 'normal' }}>
+  <VStack>
+    <VStack style={{ 'min-height': '100vh' }}>
       <SiteNavbar />
       <main>
         <Outlet />

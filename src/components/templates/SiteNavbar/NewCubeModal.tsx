@@ -21,18 +21,18 @@ const NewCubeModal = () => {
         <Modal.Content>
           <Modal.Title atoms={{ alignSelf: 'center' }}>New Cube</Modal.Title>
 
-          <VStack as="label" recipe={{ align: 'normal' }}>
+          <VStack as="label" recipe={{ justify: 'center' }}>
             Cube Name
             <artisan.input type="text" atoms={{ borderRadius: 'md' }} />
           </VStack>
 
-          <VStack as="label" recipe={{ align: 'normal' }}>
+          <VStack as="label" recipe={{ justify: 'center' }}>
             Visibility
             <HStack
               as="fieldset"
               nam="visibility"
               atoms={{ boxShadow: 'borderNeutralLarge', padding: 1, borderRadius: 'md' }}
-              recipe={{ justify: 'spaceAround' }}
+              recipe={{ justify: 'spaceAround', align: 'center' }}
             >
               <label>
                 <input type="radio" name="visibility" id="public" value="public" checked />
@@ -49,7 +49,7 @@ const NewCubeModal = () => {
             </HStack>
           </VStack>
 
-          <VStack as="label" recipe={{ align: 'normal' }}>
+          <VStack as="label" recipe={{ justify: 'center' }}>
             <Switch isChecked={importSwitch()} onCheckedChange={setImportSwitch}>
               <Switch.Input />
               <Switch.Label>Import from list (optional)</Switch.Label>
@@ -62,7 +62,7 @@ const NewCubeModal = () => {
                 as="fieldset"
                 name="import"
                 atoms={{ boxShadow: 'borderNeutralLarge', padding: 1, borderRadius: 'md' }}
-                recipe={{ justify: 'spaceAround' }}
+                recipe={{ justify: 'spaceAround', align: 'center' }}
               >
                 <label>
                   <input type="radio" name="import" id="paste" value="paste" />
@@ -79,7 +79,7 @@ const NewCubeModal = () => {
               </HStack>
             </Show>
           </VStack>
-          <HStack recipe={{ justify: 'spaceBetween' }}>
+          <HStack recipe={{ justify: 'spaceBetween', align: 'center' }}>
             <Button recipe={{ color: 'danger' }}>Cancel</Button>
             <Button recipe={{ color: 'success' }}>Create</Button>
           </HStack>

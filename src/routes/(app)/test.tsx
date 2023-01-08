@@ -15,7 +15,11 @@ const TestComponentBox: ParentComponent = (props) => (
 );
 
 const Test = () => (
-  <VStack style={{ 'min-height': 'calc(100vh - 4rem)' }} atoms={{ gap: 10, padding: 16 }}>
+  <VStack
+    style={{ 'min-height': 'calc(100vh - 4rem)' }}
+    atoms={{ gap: 10, padding: 16 }}
+    recipe={{ align: 'center', justify: 'center' }}
+  >
     <TestComponentBox children={<TestModal />} />
     <TestComponentBox children={<TestSwitch />} />
     <TestComponentBox children={<TestButton />} />

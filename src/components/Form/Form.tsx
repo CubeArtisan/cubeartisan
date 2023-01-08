@@ -59,7 +59,10 @@ const MyForm: Component = () => {
           alignItems: 'center',
         }}
       >
-        <VStack atoms={{ backgroundColor: 'neutralComponent', padding: 10, borderRadius: 'md' }}>
+        <VStack
+          atoms={{ backgroundColor: 'neutralComponent', padding: 10, borderRadius: 'md' }}
+          recipe={{ align: 'center', justify: 'center' }}
+        >
           <artisan.h1 atoms={{ text: '2xl', marginBottom: 4 }}>Sign Up</artisan.h1>
           <artisan.label for="username">Username</artisan.label>
           <artisan.input type="text" name="username" id="username" required style={{ color: 'black' }} />
