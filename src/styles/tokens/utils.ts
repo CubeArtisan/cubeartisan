@@ -1,6 +1,8 @@
 export const remToPx = (rem: number) => `${rem * 16}px`;
 
-export const makeFluidFonts = (screens: Record<string, number>): Record<string, string> => {
+export const makeFluidFonts = (
+  screens: Record<string, number> & { min: number; '2xl': number },
+): Record<string, string> => {
   /**
    * used to calculate variable clamp properties for fluid typography tailwind classes
    *

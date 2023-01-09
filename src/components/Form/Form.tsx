@@ -5,10 +5,11 @@
 // TODO hover help icon that shows info text
 
 import { Component, Show } from 'solid-js';
-import { createServerAction$ } from 'solid-start/server';
+import { createServerAction$, redirect } from 'solid-start/server';
 
-import { createUser } from '@cubeartisan/cubeartisan/backend/user';
-import { atoms } from '@cubeartisan/cubeartisan/styles';
+import { createUser, getUserFromRequest, storage } from '@cubeartisan/cubeartisan/backend/user';
+import artisan from '@cubeartisan/cubeartisan/components/factory';
+import { VStack } from '@cubeartisan/cubeartisan/components/Stack';
 
 type FormTextInputProps = {
   label?: string;
@@ -26,27 +27,59 @@ const FormTextInput: Component<FormTextInputProps> = (props) => (
   </>
 );
 
-const MyForm: Component = () => {
-  const [, { Form }] = createServerAction$(async (form: FormData) => {
+const ArtisanForm: Component = () => {
+  const [, { Form }] = createServerAction$(async (form: FormData, { request }) => {
+    if (await getUserFromRequest(request)) {
+      throw new Error('Already Logged In');
+    }
+
     const username = form.get('username') as string;
     const password = form.get('password') as string;
     const email = form.get('email') as string;
-    await createUser(username, password, email);
+
+    if (!username || !password || !email) {
+      throw new Error('invalid input');
+    }
+
+    const user = await createUser(username, password, email);
+    const session = await storage.getSession();
+    session.set('userId', user._id);
+    return redirect('/', {
+      headers: {
+        'Set-Cookie': await storage.commitSession(session),
+      },
+    });
   });
+
   return (
-    <Form method="post" class={atoms({ display: 'flex', flexDirection: 'column' })}>
-      <label for="username">Username</label>
-      <input type="text" name="username" id="username" required style={{ color: 'black' }} />
-      <label for="username">Email</label>
-      <input type="email" name="email" id="email" required style={{ color: 'black' }} />
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password" required style={{ color: 'black' }} />
-      <button type="submit" value="submit">
-        Sign Up
-      </button>
+    <Form>
+      <artisan.div
+        atoms={{
+          height: 'screenH',
+          width: 'screenW',
+          flexDirection: 'column',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <VStack
+          atoms={{ backgroundColor: 'neutralComponent', padding: 10, borderRadius: 'md' }}
+          recipe={{ align: 'center', justify: 'center' }}
+        >
+          <artisan.h1 atoms={{ text: '2xl', marginBottom: 4 }}>Sign Up</artisan.h1>
+          <artisan.label for="username">Username</artisan.label>
+          <artisan.input type="text" name="username" id="username" required style={{ color: 'black' }} />
+          <artisan.label for="username">Email</artisan.label>
+          <artisan.input type="email" name="email" id="email" required style={{ color: 'black' }} />
+          <artisan.label for="password">Password</artisan.label>
+          <artisan.input type="password" name="password" id="password" required style={{ color: 'black' }} />
+          <artisan.button type="submit" value="submit">
+            Sign Up
+          </artisan.button>
+        </VStack>
+      </artisan.div>
     </Form>
   );
 };
-
-export { MyForm as Root, FormTextInput as TextInput };
-export type {};
+export { ArtisanForm, FormTextInput as TextInput };

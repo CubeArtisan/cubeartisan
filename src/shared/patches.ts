@@ -58,17 +58,29 @@ export const applyArrayPatch = <T>(arr: T[], patches: Patch<T[]>): T[] => {
       numRemoved += 1;
     } else if (patch.action === 'update') {
       const index = calculateIndex(patch.index, arr.length, addedIndices, numRemoved);
+      if (arr.length <= index || index < 0)
+        throw new Error(
+          `Update index ${patch.index} resolved to ${index} which is not a valid index into an array of length ${arr}`,
+        );
       // eslint-disable-next-line no-use-before-define
-      arr[index] = applyPatch(arr[index], patch.patch);
+      arr[index] = applyPatch(arr[index]!, patch.patch);
     } else if (patch.action === 'copy') {
       const src = calculateIndex(patch.index, arr.length, addedIndices, numRemoved);
       const dest = calculateInsertIndex(patch.dest, arr.length, addedIndices, numRemoved);
-      arr.splice(dest, 0, arr[src]);
+      if (arr.length <= src || src < 0)
+        throw new Error(
+          `Source index for copy ${patch.index} resolved to ${src} which is not a valid index into an array of length ${arr}`,
+        );
+      arr.splice(dest, 0, arr[src]!);
       addedIndices.push(dest);
     } else if (patch.action === 'move') {
       const src = calculateIndex(patch.index, arr.length, addedIndices, numRemoved);
       const dest = calculateInsertIndex(patch.dest, arr.length, addedIndices, numRemoved);
-      arr.splice(dest, 0, arr[src]);
+      if (arr.length <= src || src < 0)
+        throw new Error(
+          `Source index for move ${patch.index} resolved to ${src} which is not a valid index into an array of length ${arr}`,
+        );
+      arr.splice(dest, 0, arr[src]!);
       addedIndices.push(dest);
       const index = calculateIndex(patch.index, arr.length, addedIndices, numRemoved);
       arr.splice(index, 1);

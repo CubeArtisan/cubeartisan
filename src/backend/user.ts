@@ -8,9 +8,9 @@ import type { MongoUser, ProtectedUser } from '@cubeartisan/cubeartisan/types/us
 
 export const storage = createCookieSessionStorage({
   cookie: {
-    name: import.meta.env.VITE_SESSION ?? 'session',
-    secrets: [import.meta.env.VITE_SESSION_SECRET ?? ''],
-    secure: import.meta.env.VITE_NODE_ENV === 'production',
+    name: process.env['SESSION'] ?? 'session', // eslint-disable-line dot-notation
+    secrets: [process.env['SESSION_SECRET'] ?? ''], // eslint-disable-line dot-notation
+    secure: process.env['NODE_ENV'] === 'production', // eslint-disable-line dot-notation
     sameSite: 'lax',
     path: '/',
     maxAge: 60 * 60 * 24 * 7 * 4, // 4 weeks.
@@ -51,6 +51,14 @@ export const mongoUserToProtected = (user: HydratedDocument<MongoUser>): Protect
   })),
   roles: user.roles,
 });
+
+export const getClientUserFromRequest = async (request: Request): Promise<ProtectedUser | null> => {
+  const user = await getUserFromRequest(request);
+  if (user) {
+    return mongoUserToProtected(user);
+  }
+  return null;
+};
 
 export const createUser = async (
   username: string,

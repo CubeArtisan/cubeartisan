@@ -3,14 +3,11 @@ import mongoose from 'mongoose';
 import logger from '@cubeartisan/cubeartisan/backend/logger';
 
 export const getMongoDbConnectionString = () => {
-  const credentials = import.meta.env.VITE_MONGODB_USER
-    ? `${import.meta.env.VITE_MONGODB_USER}:${import.meta.env.VITE_MONGODB_PASSWORD}@`
-    : '';
-  const queryParams = `replicaSet=${import.meta.env.VITE_MONGODB_REPLICASET}`;
-  const connectionString = `mongodb://${credentials}${import.meta.env.VITE_MONGODB_HOST}:${
-    import.meta.env.VITE_MONGODB_PORT
-  }/${import.meta.env.VITE_MONGODB_DBNAME}?${queryParams}`;
-  console.log(connectionString);
+  // eslint-disable-next-line dot-notation,prettier/prettier
+  const credentials = process.env['MONGODB_USER'] ? `${process.env['MONGODB_USER']}:${process.env['MONGODB_PASSWORD']}@` : '';
+  const queryParams = `replicaSet=${process.env['MONGODB_REPLICASET']}`; // eslint-disable-line dot-notation
+  // eslint-disable-next-line dot-notation
+  const connectionString = `mongodb://${credentials}${process.env['MONGODB_HOST']}:${process.env['MONGODB_PORT']}/${process.env['MONGODB_DBNAME']}?${queryParams}`;
   return connectionString;
 };
 

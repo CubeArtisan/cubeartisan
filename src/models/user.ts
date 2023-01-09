@@ -115,6 +115,6 @@ UserSchema.index({
   email: 1,
 });
 
-const User: Model<MongoUser> = models.User ?? model('User', UserSchema);
+const User: Model<MongoUser> = models['User'] ?? model('User', UserSchema); // eslint-disable-line dot-notation
 
 export default User;

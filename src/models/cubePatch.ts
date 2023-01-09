@@ -91,5 +91,5 @@ cubePatchSchema.index(
   { unique: true },
 );
 
-const CubePatch: Model<MongoCubeChange> = models.CubePatch ?? model('CubePatch', cubePatchSchema);
+const CubePatch: Model<MongoCubeChange> = models['CubePatch'] ?? model('CubePatch', cubePatchSchema); // eslint-disable-line dot-notation
 export default CubePatch;

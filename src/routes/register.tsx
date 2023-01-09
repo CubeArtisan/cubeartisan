@@ -1,4 +1,4 @@
-import * as Form from '@cubeartisan/cubeartisan/components/Form';
+import { ArtisanForm } from '@cubeartisan/cubeartisan/components/Form';
 
-const RegisterPage = () => <Form.Root />;
+const RegisterPage = () => <ArtisanForm />;
 export default RegisterPage;

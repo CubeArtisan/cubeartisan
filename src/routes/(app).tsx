@@ -1,20 +1,18 @@
 import { Outlet } from 'solid-start';
 
-import SiteFooter from '@cubeartisan/cubeartisan/components/templates/App/SiteFooter';
-import SiteNavbar from '@cubeartisan/cubeartisan/components/templates/App/SiteNavbar';
-import { atoms } from '@cubeartisan/cubeartisan/styles';
+import { VStack } from '@cubeartisan/cubeartisan/components/Stack';
+import SiteFooter from '@cubeartisan/cubeartisan/components/templates/SiteFooter';
+import { SiteNavbar } from '@cubeartisan/cubeartisan/components/templates/SiteNavbar/SiteNavbar';
 
 const AppLayout = () => (
-  <>
-    <div
-      class={atoms({
-        minHeight: 'screenH',
-      })}
-    >
+  <VStack>
+    <VStack style={{ 'min-height': '100vh' }}>
       <SiteNavbar />
-      <Outlet />
-    </div>
+      <main>
+        <Outlet />
+      </main>
+    </VStack>
     <SiteFooter />
-  </>
+  </VStack>
 );
 export default AppLayout;

@@ -2,27 +2,54 @@ import { recipe, RecipeVariants } from '@vanilla-extract/recipes';
 
 import { atoms } from '@cubeartisan/cubeartisan/styles';
 
-export const stackRecipe = recipe({
+export const hStackRecipe = recipe({
   base: atoms({
     display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
+    flexDirection: 'row',
   }),
   variants: {
-    space: {
-      xs: atoms({ gap: 1 }),
-      sm: atoms({ gap: 2 }),
-      md: atoms({ gap: 3 }),
-      lg: atoms({ gap: 5 }),
-      'space-between': atoms({ justifyContent: 'spaceBetween' }),
-      'space-around': atoms({ justifyContent: 'spaceAround' }),
-    },
     align: {
-      left: atoms({ alignItems: 'flexStart' }),
-      right: atoms({ alignItems: 'flexEnd' }),
+      normal: atoms({ alignItems: 'normal' }),
       center: atoms({ alignItems: 'center' }),
+      start: atoms({ alignItems: 'flexStart' }),
+      end: atoms({ alignItems: 'flexEnd' }),
+    },
+    justify: {
+      normal: atoms({ justifyContent: 'normal' }),
+      center: atoms({ justifyContent: 'center' }),
+      start: atoms({ justifyContent: 'flexStart' }),
+      end: atoms({ justifyContent: 'flexEnd' }),
+      spaceAround: atoms({ justifyContent: 'spaceAround' }),
+      spaceBetween: atoms({ justifyContent: 'spaceBetween' }),
+      spaceEvenly: atoms({ justifyContent: 'spaceEvenly' }),
     },
   },
 });
 
-export type StackVariants = RecipeVariants<typeof stackRecipe>;
+export type HStackVariants = RecipeVariants<typeof hStackRecipe>;
+
+export const vStackRecipe = recipe({
+  base: atoms({
+    display: 'flex',
+    flexDirection: 'column',
+  }),
+  variants: {
+    align: {
+      normal: atoms({ alignItems: 'normal' }),
+      center: atoms({ alignItems: 'center' }),
+      start: atoms({ alignItems: 'flexStart' }),
+      end: atoms({ alignItems: 'flexEnd' }),
+    },
+    justify: {
+      normal: atoms({ justifyContent: 'normal' }),
+      center: atoms({ justifyContent: 'center' }),
+      start: atoms({ justifyContent: 'flexStart' }),
+      end: atoms({ justifyContent: 'flexEnd' }),
+      spaceAround: atoms({ justifyContent: 'spaceAround' }),
+      spaceBetween: atoms({ justifyContent: 'spaceBetween' }),
+      spaceEvenly: atoms({ justifyContent: 'spaceEvenly' }),
+    },
+  },
+});
+
+export type VStackVariants = RecipeVariants<typeof hStackRecipe>;

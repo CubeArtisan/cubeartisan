@@ -24,8 +24,8 @@ export const buttonRecipe = recipe({
       neutral: atoms({
         backgroundColor: {
           default: 'neutralComponent',
-          hover: 'neutralComonentHover',
-          active: 'neutralComonentActive',
+          hover: 'neutralComponentHover',
+          active: 'neutralComponentActive',
         },
         boxShadow: {
           default: 'borderNeutralInteractive',
@@ -42,8 +42,8 @@ export const buttonRecipe = recipe({
       primary: atoms({
         backgroundColor: {
           default: 'primaryComponent',
-          hover: 'primaryComonentHover',
-          active: 'primaryComonentActive',
+          hover: 'primaryComponentHover',
+          active: 'primaryComponentActive',
         },
         boxShadow: {
           default: 'borderPrimaryInteractive',
@@ -60,8 +60,8 @@ export const buttonRecipe = recipe({
       info: atoms({
         backgroundColor: {
           default: 'infoComponent',
-          hover: 'infoComonentHover',
-          active: 'infoComonentActive',
+          hover: 'infoComponentHover',
+          active: 'infoComponentActive',
         },
         boxShadow: {
           default: 'borderInfoInteractive',
@@ -78,8 +78,8 @@ export const buttonRecipe = recipe({
       success: atoms({
         backgroundColor: {
           default: 'successComponent',
-          hover: 'successComonentHover',
-          active: 'successComonentActive',
+          hover: 'successComponentHover',
+          active: 'successComponentActive',
         },
         boxShadow: {
           default: 'borderSuccessInteractive',
@@ -96,8 +96,8 @@ export const buttonRecipe = recipe({
       warning: atoms({
         backgroundColor: {
           default: 'warningComponent',
-          hover: 'warningComonentHover',
-          active: 'warningComonentActive',
+          hover: 'warningComponentHover',
+          active: 'warningComponentActive',
         },
         boxShadow: {
           default: 'borderWarningInteractive',
@@ -117,8 +117,8 @@ export const buttonRecipe = recipe({
       danger: atoms({
         backgroundColor: {
           default: 'dangerComponent',
-          hover: 'dangerComonentHover',
-          active: 'dangerComonentActive',
+          hover: 'dangerComponentHover',
+          active: 'dangerComponentActive',
         },
         boxShadow: {
           default: 'borderDangerInteractive',
@@ -133,6 +133,10 @@ export const buttonRecipe = recipe({
         },
       }),
     },
+  },
+  defaultVariants: {
+    size: 'md',
+    color: 'neutral',
   },
 });
 

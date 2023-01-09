@@ -1,4 +1,12 @@
 import artisan from '@cubeartisan/cubeartisan/components/factory';
-import { stackRecipe } from '@cubeartisan/cubeartisan/components/Stack/Stack.css';
+import { hStackRecipe, vStackRecipe } from '@cubeartisan/cubeartisan/components/Stack/Stack.css';
 
-export const Stack = artisan('div', stackRecipe);
+/**
+ * Horizontal flex container that centers content by default
+ */
+export const HStack = artisan('div', hStackRecipe);
+
+/**
+ * Vertical flex container that centers content by default
+ */
+export const VStack = artisan('div', vStackRecipe);
