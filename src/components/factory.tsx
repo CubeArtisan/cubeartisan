@@ -81,50 +81,41 @@ const styledNoAs = <T extends StyleableComponent, R extends BaseRecipeFn | null 
 
 const componentIsDOMElement = (component: ElementType): component is DOMElements => typeof component === 'string';
 
-type CacheType = Map<DOMElements, ReturnType<ArtisanFactory<DOMElements, null>>>;
-
-function apply<T extends StyleableComponent, R extends BaseRecipeFn | null = null>(
-  _1: unknown,
-  _2: unknown,
-  [component, recipeFn]: [T] | [T, R],
-): ReturnType<ArtisanFactory<T, R>> {
-  if (componentIsDOMElement(component)) {
-    return styledDOMElement(component, recipeFn);
-  }
-  return styledNoAs<T, R>(component, recipeFn) as ReturnType<ArtisanFactory<T, R>>;
-}
-
-function get<Tag extends DOMElements>(cache: CacheType, component: Tag): ReturnType<ArtisanFactory<Tag, null>> {
-  if (!cache.has(component)) {
-    cache.set(component, styledDOMElement<Tag, null>(component, null) as ReturnType<ArtisanFactory<DOMElements, null>>);
-  }
-  return cache.get(component) as ReturnType<ArtisanFactory<Tag, null>>;
-}
-
-interface MyProxyConstructor {
-  new <T, H extends object>(
-    target: T,
-    handler: Omit<ProxyHandler<H>, 'get'> & { get?(target2: T, p: string | symbol, receiver: any): any },
-  ): H;
-}
-const MyProxy = Proxy as MyProxyConstructor;
-
-const artisan = new MyProxy<CacheType, ArtisanFactoryFcn & HTMLArtisanComponents>(
-  new Map<DOMElements, ReturnType<ArtisanFactory<DOMElements, null>>>(),
-  {
+const factory = (): ArtisanFactoryFcn & HTMLArtisanComponents => {
+  const cache = new Map<DOMElements, ReturnType<ArtisanFactory<DOMElements, null>>>();
+  const artisan = new Proxy(styledNoAs, {
     /**
      * @example
      * const Div = artisan("div")
      * const WithArtisan = artisan(AnotherComponent)
      */
-    apply,
+    apply<T extends StyleableComponent, R extends BaseRecipeFn | null = null>(
+      _1: unknown,
+      _2: unknown,
+      [component, recipeFn]: [T] | [T, R],
+    ): ReturnType<ArtisanFactory<T, R>> {
+      if (componentIsDOMElement(component)) {
+        return styledDOMElement(component, recipeFn);
+      }
+      return styledNoAs<T, R>(component, recipeFn) as ReturnType<ArtisanFactory<T, R>>;
+    },
 
     /**
      * @example
      * <artisan.div />
      */
-    get,
-  },
-);
-
+    get<Tag extends DOMElements>(_: unknown, component: Tag): ReturnType<ArtisanFactory<Tag, null>> {
+      if (!cache.has(component)) {
+        cache.set(
+          component,
+          styledDOMElement<Tag, null>(component, null) as ReturnType<ArtisanFactory<DOMElements, null>>,
+        );
+      }
+      return cache.get(component) as ReturnType<ArtisanFactory<Tag, null>>;
+    },
+  }) as ArtisanFactoryFcn & HTMLArtisanComponents;
+  return artisan;
+};
+const artisan = factory();
+console.log(artisan);
 export default artisan;
