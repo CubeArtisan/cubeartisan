@@ -18,7 +18,7 @@ const sizes = {
   lg: 12,
 };
 
-const NavIcon: AddProps<typeof Center, { size: keyof typeof sizes }> = (props: any) => {
+const NavIcon: AddProps<typeof Center, { size: keyof typeof sizes }> = (props) => {
   const [local, others] = splitProps(props, ['atoms', 'size']);
 
   return (
@@ -26,8 +26,8 @@ const NavIcon: AddProps<typeof Center, { size: keyof typeof sizes }> = (props: a
       atoms={merge(
         {
           borderRadius: 'lg',
-          height: sizes[props.size as keyof typeof sizes],
-          width: sizes[props.size as keyof typeof sizes],
+          height: sizes[local.size as keyof typeof sizes],
+          width: sizes[local.size as keyof typeof sizes],
           backgroundColor: { hover: 'neutralComponentHover', active: 'neutralComponentActive' },
           boxShadow: {
             hover: 'borderNeutralInteractiveHoverLarge',
@@ -48,7 +48,7 @@ const SiteNavbar = () => {
       atoms={{ backgroundColor: 'neutralSubtleSecondary', color: 'neutralContrast' }}
       recipe={{ align: 'center', justify: 'center' }}
     >
-      <HStack<'header'>
+      <HStack
         as="header"
         atoms={{
           height: 16,
@@ -56,8 +56,8 @@ const SiteNavbar = () => {
         }}
         recipe={{ justify: 'spaceBetween', align: 'center' }}
       >
-        <HStack<'nav'> as="nav" recipe={{ justify: 'center', align: 'center' }}>
-          <HStack<'ul'> as="ul" atoms={{ gap: 8 }} recipe={{ justify: 'center', align: 'center' }}>
+        <HStack as="nav" recipe={{ justify: 'center', align: 'center' }}>
+          <HStack as="ul" atoms={{ gap: 8 }} recipe={{ justify: 'center', align: 'center' }}>
             <artisan.li
               atoms={{
                 backgroundColor: { hover: 'neutralComponentHover', active: 'neutralComponentActive' },
@@ -114,7 +114,7 @@ const SiteNavbar = () => {
             </Show>
           </HStack>
         </HStack>
-        <HStack<'ul'> as="ul" atoms={{ gap: 4 }} recipe={{ justify: 'center', align: 'center' }}>
+        <HStack as="ul" atoms={{ gap: 4 }} recipe={{ justify: 'center', align: 'center' }}>
           <li>
             <NewCubeModal />
           </li>
@@ -123,12 +123,12 @@ const SiteNavbar = () => {
             {(u: ProtectedUser) => (
               <>
                 <li>
-                  <NavIcon<'button'> size="sm" as="button" atoms={{ color: 'neutralContrast' }}>
+                  <NavIcon size="sm" as="button" atoms={{ color: 'neutralContrast' }}>
                     <CgBell class={atoms({ height: 6, width: 6 })} />
                   </NavIcon>
                 </li>
                 <li>
-                  <NavIcon<typeof A> size="lg" as={A} atoms={{ color: 'neutralContrast' }} href={`/user/${u.username}`}>
+                  <NavIcon size="lg" as={A} atoms={{ color: 'neutralContrast' }} href={`/user/${u.username}`}>
                     <CgProfile class={atoms({ height: 10, width: 10 })} />
                   </NavIcon>
                 </li>

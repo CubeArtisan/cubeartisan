@@ -125,14 +125,13 @@ export type VariantsIfExists<R> = R extends BaseRecipeFn ? RecipeVariants<R> : n
 
 export type ArtisanDynamicComponent<T extends DOMElements, R = null, P = object> = {
   <S extends StyleableComponent = T>(props: HTMLArtisanProps<S, R, P & { as: S }>): JSX.Element;
-  (props: HTMLArtisanProps<T, R, P>): JSX.Element;
+  // (props: HTMLArtisanProps<T, R, P>): JSX.Element;
 };
 
-export type AddProps<Comp extends ElementType, Add extends Record<string, any>> = Comp extends ArtisanDynamicComponent<
-  infer T,
-  infer R,
-  infer P
->
+export type AddProps<
+  Comp extends ElementType,
+  Add extends Record<string, unknown>,
+> = Comp extends ArtisanDynamicComponent<infer T, infer R, infer P>
   ? ArtisanDynamicComponent<T, R, P & Add>
   : Comp extends ElementType
   ? Component<DisjointIntersect<ComponentProps<Comp>, Add>>
