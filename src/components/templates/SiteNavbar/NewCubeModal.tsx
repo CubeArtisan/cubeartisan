@@ -21,16 +21,16 @@ const NewCubeModal = () => {
         <Modal.Content>
           <Modal.Title atoms={{ alignSelf: 'center' }}>New Cube</Modal.Title>
 
-          <VStack<"label"> as="label" recipe={{ justify: 'center' }}>
+          <VStack<'label'> as="label" recipe={{ justify: 'center' }}>
             Cube Name
             <artisan.input type="text" atoms={{ borderRadius: 'md' }} />
           </VStack>
 
-          <VStack<"label"> as="label" recipe={{ justify: 'center' }}>
+          <VStack<'label'> as="label" recipe={{ justify: 'center' }}>
             Visibility
             <HStack<'fieldset'>
               as="fieldset"
-              nam="visibility"
+              name="visibility"
               atoms={{ boxShadow: 'borderNeutralLarge', padding: 1, borderRadius: 'md' }}
               recipe={{ justify: 'spaceAround', align: 'center' }}
             >
@@ -49,7 +49,7 @@ const NewCubeModal = () => {
             </HStack>
           </VStack>
 
-          <VStack<"label"> as="label" recipe={{ justify: 'center' }}>
+          <VStack<'label'> as="label" recipe={{ justify: 'center' }}>
             <Switch isChecked={importSwitch()} onCheckedChange={setImportSwitch}>
               <Switch.Input />
               <Switch.Label>Import from list (optional)</Switch.Label>

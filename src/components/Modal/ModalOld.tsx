@@ -80,4 +80,4 @@ const Modal: ArtisanParentComponent<'section', ComponentProps<typeof VStack>['re
 };
 
 export { Modal as OldModal };
-export { ModalProps };
+export type { ModalProps };

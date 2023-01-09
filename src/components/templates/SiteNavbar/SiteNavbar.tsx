@@ -48,7 +48,7 @@ const SiteNavbar = () => {
       atoms={{ backgroundColor: 'neutralSubtleSecondary', color: 'neutralContrast' }}
       recipe={{ align: 'center', justify: 'center' }}
     >
-      <HStack
+      <HStack<'header'>
         as="header"
         atoms={{
           height: 16,
@@ -56,8 +56,8 @@ const SiteNavbar = () => {
         }}
         recipe={{ justify: 'spaceBetween', align: 'center' }}
       >
-        <HStack<"nav"> as="nav" recipe={{ justify: 'center', align: 'center' }}>
-          <HStack<"ul"> as="ul" atoms={{ gap: 8 }} recipe={{ justify: 'center', align: 'center' }}>
+        <HStack<'nav'> as="nav" recipe={{ justify: 'center', align: 'center' }}>
+          <HStack<'ul'> as="ul" atoms={{ gap: 8 }} recipe={{ justify: 'center', align: 'center' }}>
             <artisan.li
               atoms={{
                 backgroundColor: { hover: 'neutralComponentHover', active: 'neutralComponentActive' },
@@ -114,7 +114,7 @@ const SiteNavbar = () => {
             </Show>
           </HStack>
         </HStack>
-        <HStack as="ul" atoms={{ gap: 4 }} recipe={{ justify: 'center', align: 'center' }}>
+        <HStack<'ul'> as="ul" atoms={{ gap: 4 }} recipe={{ justify: 'center', align: 'center' }}>
           <li>
             <NewCubeModal />
           </li>
