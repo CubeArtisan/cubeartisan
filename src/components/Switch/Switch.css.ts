@@ -30,7 +30,7 @@ export const switchControl = style([
       },
       '&[data-checked]': {
         backgroundColor: vars.backgroundColor.info.infoSolid,
-        boxShadow: vars.boxShadow.info.borderInfoInteractiveHover,
+        boxShadow: vars.boxShadow.info.borderInfoSolid,
       },
     },
   },
