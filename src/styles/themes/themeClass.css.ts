@@ -4,7 +4,7 @@ import { darkTheme } from '@cubeartisan/cubeartisan/styles/themes/dark/';
 import { lightTheme } from '@cubeartisan/cubeartisan/styles/themes/light/';
 import { vars } from '@cubeartisan/cubeartisan/styles/themes/vars.css';
 
-export const theme = style({
+export const themeClass = style({
   vars: assignVars(vars, lightTheme),
   '@media': {
     '(prefers-color-scheme: dark)': {
