@@ -6,7 +6,7 @@ export const testComponentBox = style({
   display: 'grid',
   placeItems: 'center',
   minWidth: vars.size.lg,
-  minHegiht: vars.size.md,
+  minHeight: vars.size.md,
   borderRadius: vars.borderRadius['2xl'],
   background: vars.color.neutral2,
 });

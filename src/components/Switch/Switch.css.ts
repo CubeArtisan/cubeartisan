@@ -17,17 +17,17 @@ export const switchControl = style({
   borderRadius: vars.borderRadius.xl,
   paddingInline: vars.space['0.5'],
   backgroundColor: vars.color.neutral3,
-  outline: `${vars.borderSize.standard} ${vars.color.neutral7}`,
+  outline: `solid ${vars.borderSize.standard} ${vars.color.neutral7}`,
   transition: '250ms background-color',
 
   selectors: {
     '&[data-hover]': {
       backgroundColor: vars.color.neutral4,
-      outline: `${vars.borderSize.standard} ${vars.color.neutral8}`,
+      outline: `solid ${vars.borderSize.standard} ${vars.color.neutral8}`,
     },
     '&[data-checked]': {
       backgroundColor: vars.color.info9,
-      outline: `${vars.borderSize.standard} ${vars.color.neutral9}`,
+      outline: `solid ${vars.borderSize.standard} ${vars.color.neutral9}`,
     },
   },
 });

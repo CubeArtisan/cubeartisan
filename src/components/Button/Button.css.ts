@@ -23,7 +23,12 @@ export const buttonRecipe = recipe({
     color: {
       neutral: {
         background: vars.color.neutral3,
-        outline: `${vars.borderSize.standard} ${vars.color.neutral6}`,
+        outline: `solid ${vars.borderSize.standard} ${vars.color.neutral6}`,
+
+        ':hover': {
+          background: vars.color.neutral4,
+          outline: `solid ${vars.borderSize.standard} ${vars.color.neutral7}`,
+        },
       },
     },
   },

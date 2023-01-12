@@ -12,7 +12,7 @@ export const radioGroupItemsContainer = style({
   height: vars.space[10],
   backgroundColor: vars.color.neutral3,
   borderRadius: vars.borderRadius.md,
-  outline: `${vars.borderSize.standard} ${vars.color.neutral7}`,
+  outline: `solid ${vars.borderSize.standard} ${vars.color.neutral7}`,
   overflow: 'hidden',
 });
 

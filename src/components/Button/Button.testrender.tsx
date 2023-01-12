@@ -3,6 +3,6 @@ import * as styles from '@cubeartisan/cubeartisan/components/Button/Button.testr
 
 export const TestButton = () => (
   <div class={styles.testButtonContainer}>
-    <Button />
+    <Button>Test</Button>
   </div>
 );

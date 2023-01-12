@@ -1,5 +1,4 @@
 import { style } from '@vanilla-extract/css';
-import { recipe } from '@vanilla-extract/recipes';
 
 import { vars } from '@cubeartisan/cubeartisan/styles';
 
@@ -23,7 +22,7 @@ export const navLinks = style({
 const navItemBase = style({
   ':hover': {
     background: vars.color.neutral4,
-    outline: `${vars.borderSize.large} ${vars.color.neutral7}`,
+    outline: `solid ${vars.borderSize.large} ${vars.color.neutral7}`,
   },
 
   ':active': {
