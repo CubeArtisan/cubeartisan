@@ -3,10 +3,11 @@ import { style } from '@vanilla-extract/css';
 import { vars } from '@cubeartisan/cubeartisan/styles';
 
 export const testComponentBox = style({
+  alignSelf: 'center',
   display: 'grid',
   placeItems: 'center',
-  minWidth: vars.size.lg,
-  minHeight: vars.size.md,
+  width: vars.size['2xl'],
+  minHeight: vars.size.xl,
   borderRadius: vars.borderRadius['2xl'],
   background: vars.color.neutral2,
 });
