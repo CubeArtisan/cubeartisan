@@ -29,6 +29,10 @@ export const buttonRecipe = recipe({
           background: vars.color.neutral4,
           outline: `solid ${vars.borderSize.standard} ${vars.color.neutral7}`,
         },
+
+        ':active': {
+          background: vars.color.neutral5,
+        },
       },
     },
   },
