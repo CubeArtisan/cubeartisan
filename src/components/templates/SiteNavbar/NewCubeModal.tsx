@@ -2,11 +2,8 @@ import { CgMathPlus } from 'solid-icons/cg';
 import { createSignal, Show } from 'solid-js';
 
 import { Button } from '@cubeartisan/cubeartisan/components/Button';
-import artisan from '@cubeartisan/cubeartisan/components/factory';
 import { Modal } from '@cubeartisan/cubeartisan/components/Modal';
-import { HStack, VStack } from '@cubeartisan/cubeartisan/components/Stack';
 import { Switch } from '@cubeartisan/cubeartisan/components/Switch/Switch';
-import { atoms } from '@cubeartisan/cubeartisan/styles';
 
 const NewCubeModal = () => {
   const [importSwitch, setImportSwitch] = createSignal(false);

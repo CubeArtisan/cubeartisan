@@ -8,8 +8,7 @@ import { Component, Show } from 'solid-js';
 import { createServerAction$, redirect } from 'solid-start/server';
 
 import { createUser, getUserFromRequest, storage } from '@cubeartisan/cubeartisan/backend/user';
-import artisan from '@cubeartisan/cubeartisan/components/factory';
-import { VStack } from '@cubeartisan/cubeartisan/components/Stack';
+import * as styles from '@cubeartisan/cubeartisan/components/Form/Form.css';
 
 type FormTextInputProps = {
   label?: string;
@@ -52,33 +51,17 @@ const ArtisanForm: Component = () => {
   });
 
   return (
-    <Form>
-      <artisan.div
-        atoms={{
-          height: 'screenH',
-          width: 'screenW',
-          flexDirection: 'column',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <VStack
-          atoms={{ backgroundColor: 'neutralComponent', padding: 10, borderRadius: 'md' }}
-          recipe={{ align: 'center', justify: 'center' }}
-        >
-          <artisan.h1 atoms={{ text: '2xl', marginBottom: 4 }}>Sign Up</artisan.h1>
-          <artisan.label for="username">Username</artisan.label>
-          <artisan.input type="text" name="username" id="username" required style={{ color: 'black' }} />
-          <artisan.label for="username">Email</artisan.label>
-          <artisan.input type="email" name="email" id="email" required style={{ color: 'black' }} />
-          <artisan.label for="password">Password</artisan.label>
-          <artisan.input type="password" name="password" id="password" required style={{ color: 'black' }} />
-          <artisan.button type="submit" value="submit">
-            Sign Up
-          </artisan.button>
-        </VStack>
-      </artisan.div>
+    <Form class={styles.form}>
+      <h2 class={styles.formTitle}>Sign Up</h2>
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" required />
+      <label for="username">Email</label>
+      <input type="email" name="email" id="email" required />
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" required />
+      <button type="submit" value="submit">
+        Sign Up
+      </button>
     </Form>
   );
 };

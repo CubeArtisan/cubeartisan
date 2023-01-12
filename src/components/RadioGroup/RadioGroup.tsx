@@ -1,24 +1,21 @@
 import { RadioGroup as BaseRadioGroup } from '@kobalte/core';
-import type { ParentComponent } from 'solid-js';
+import type { ComponentProps, ParentComponent } from 'solid-js';
 
-import artisan from '@cubeartisan/cubeartisan/components/factory';
-import type { Atoms } from '@cubeartisan/cubeartisan/styles/atoms/atoms.css';
+const RadioGroupLabel = BaseRadioGroup.Label;
 
-const RadioGroupLabel = artisan(BaseRadioGroup.Label);
+const RadioGroupDescription = BaseRadioGroup.Description;
 
-const RadioGroupDescription = artisan(BaseRadioGroup.Description);
+const RadioGroupErrorMessage = BaseRadioGroup.ErrorMessage;
 
-const RadioGroupErrorMessage = artisan(BaseRadioGroup.ErrorMessage);
+const RadioGroupItem = BaseRadioGroup.Item;
 
-const RadioGroupItem = artisan(BaseRadioGroup.Item);
+const RadioGroupItemInput = BaseRadioGroup.ItemInput;
 
-const RadioGroupItemInput = artisan(BaseRadioGroup.ItemInput);
+const RadioGroupItemControl = BaseRadioGroup.ItemControl;
 
-const RadioGroupItemControl = artisan(BaseRadioGroup.ItemControl);
+const RadioGroupItemIndicator = BaseRadioGroup.ItemIndicator;
 
-const RadioGroupItemIndicator = artisan(BaseRadioGroup.ItemIndicator);
-
-const RadioGroupItemLabel = artisan(BaseRadioGroup.ItemLabel);
+const RadioGroupItemLabel = BaseRadioGroup.ItemLabel;
 
 type RadioGroupComposite = {
   Label: typeof RadioGroupLabel;
@@ -31,8 +28,7 @@ type RadioGroupComposite = {
   ItemLabel: typeof RadioGroupItemLabel;
 };
 
-const RadioGroup: typeof BaseRadioGroup & RadioGroupComposite & ParentComponent<{ atoms: Atoms }> =
-  artisan(BaseRadioGroup);
+const RadioGroup: ParentComponent<ComponentProps<typeof BaseRadioGroup>> & RadioGroupComposite = BaseRadioGroup;
 
 RadioGroup.Label = RadioGroupLabel;
 RadioGroup.Description = RadioGroupDescription;

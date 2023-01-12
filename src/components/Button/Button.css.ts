@@ -1,137 +1,30 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes';
 
-import { atoms, vars } from '@cubeartisan/cubeartisan/styles';
+import { vars } from '@cubeartisan/cubeartisan/styles';
 
 export const buttonRecipe = recipe({
-  base: atoms({
+  base: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBlock: 1,
-    paddingInline: 2,
-    borderRadius: 'md',
-  }),
+    paddingBlock: vars.relativeSpace[1],
+    paddingInline: vars.relativeSpace[2],
+    borderRadius: vars.borderRadius.md,
+  },
   variants: {
     size: {
-      xs: atoms({ text: 'xs' }),
-      sm: atoms({ text: 'sm' }),
-      md: atoms({ text: 'base' }),
-      lg: atoms({ text: 'lg' }),
-      xl: atoms({ text: 'xl' }),
-      '2xl': atoms({ text: '2xl' }),
+      xs: { fontSize: vars.fontSize.xs, lineHeight: vars.lineHeight.xs },
+      sm: { fontSize: vars.fontSize.sm, lineHeight: vars.lineHeight.sm },
+      md: { fontSize: vars.fontSize.md, lineHeight: vars.lineHeight.md },
+      lg: { fontSize: vars.fontSize.lg, lineHeight: vars.lineHeight.lg },
+      xl: { fontSize: vars.fontSize.xl, lineHeight: vars.lineHeight.xl },
+      '2xl': { fontSize: vars.fontSize['2xl'], lineHeight: vars.lineHeight['2xl'] },
     },
     color: {
-      neutral: atoms({
-        backgroundColor: {
-          default: 'neutralComponent',
-          hover: 'neutralComponentHover',
-          active: 'neutralComponentActive',
-        },
-        boxShadow: {
-          default: 'borderNeutralInteractive',
-          hover: 'borderNeutralInteractiveHover',
-        },
-      }),
-      neutralSolid: atoms({
-        backgroundColor: {
-          default: 'neutralSolid',
-          hover: 'neutralSolidActive',
-          active: 'neutralSolidActive',
-        },
-      }),
-      primary: atoms({
-        backgroundColor: {
-          default: 'primaryComponent',
-          hover: 'primaryComponentHover',
-          active: 'primaryComponentActive',
-        },
-        boxShadow: {
-          default: 'borderPrimaryInteractive',
-          hover: 'borderPrimaryInteractiveHover',
-        },
-      }),
-      primarySolid: atoms({
-        backgroundColor: {
-          default: 'primarySolid',
-          hover: 'primarySolidActive',
-          active: 'primarySolidActive',
-        },
-      }),
-      info: atoms({
-        backgroundColor: {
-          default: 'infoComponent',
-          hover: 'infoComponentHover',
-          active: 'infoComponentActive',
-        },
-        boxShadow: {
-          default: 'borderInfoInteractive',
-          hover: 'borderInfoInteractiveHover',
-        },
-      }),
-      infoSolid: atoms({
-        backgroundColor: {
-          default: 'infoSolid',
-          hover: 'infoSolidActive',
-          active: 'infoSolidActive',
-        },
-      }),
-      success: atoms({
-        backgroundColor: {
-          default: 'successComponent',
-          hover: 'successComponentHover',
-          active: 'successComponentActive',
-        },
-        boxShadow: {
-          default: 'borderSuccessInteractive',
-          hover: 'borderSuccessInteractiveHover',
-        },
-      }),
-      successSolid: atoms({
-        backgroundColor: {
-          default: 'successSolid',
-          hover: 'successSolidActive',
-          active: 'successSolidActive',
-        },
-      }),
-      warning: atoms({
-        backgroundColor: {
-          default: 'warningComponent',
-          hover: 'warningComponentHover',
-          active: 'warningComponentActive',
-        },
-        boxShadow: {
-          default: 'borderWarningInteractive',
-          hover: 'borderWarningInteractiveHover',
-        },
-      }),
-      warningSolid: [
-        atoms({
-          backgroundColor: {
-            default: 'warningSolid',
-            hover: 'warningSolidActive',
-            active: 'warningSolidActive',
-          },
-        }),
-        { color: vars.staticColor.grayLight[12] },
-      ],
-      danger: atoms({
-        backgroundColor: {
-          default: 'dangerComponent',
-          hover: 'dangerComponentHover',
-          active: 'dangerComponentActive',
-        },
-        boxShadow: {
-          default: 'borderDangerInteractive',
-          hover: 'borderDangerInteractiveHover',
-        },
-      }),
-      dangerSolid: atoms({
-        backgroundColor: {
-          default: 'dangerSolid',
-          hover: 'dangerSolidActive',
-          active: 'dangerSolidActive',
-        },
-      }),
+      neutral: {
+        background: vars.color.neutral3,
+        outline: `${vars.borderSize.standard} ${vars.color.neutral6}`,
+      },
     },
   },
   defaultVariants: {

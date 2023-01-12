@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
 
-import { atoms, vars } from '@cubeartisan/cubeartisan/styles';
+import { vars } from '@cubeartisan/cubeartisan/styles';
 
 export const cubeCardList = style({
   display: 'grid',
@@ -13,58 +13,45 @@ export const cubeCardContainer = style({
   gridTemplateAreas: '"a"',
   aspectRatio: '4/3',
   transitionDuration: '150ms',
+  overflow: 'hidden',
+  borderRadius: vars.borderRadius.sm,
+  boxShadow: vars.boxShadow['2xl'],
+
+  ':hover': {
+    scale: '1.02',
+  },
 });
 
-export const cubeCardImage = style([
-  atoms({
-    height: 'full',
-    width: 'full',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  }),
-  {
-    gridArea: 'a',
-    height: '100%',
-    width: '100%',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    boxShadow: `inset 0 -6rem 5rem -5rem ${vars.staticColor.black}`,
-  },
-]);
+export const cubeCardImage = style({
+  height: '100%',
+  width: '100%',
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  gridArea: 'a',
+  boxShadow: `inset 0 -6rem 5rem -5rem ${vars.color.black}`,
+});
 
-export const cubeCardListBlurb = style([
-  atoms({
-    marginBottom: 5,
-    marginTop: 10,
-    width: 'max',
-    fontSize: 'lg',
-    fontWeight: 'semibold',
-  }),
-  {
-    gridArea: 'a',
-  },
-]);
+export const cubeCardListBlurb = style({
+  marginBottom: vars.space[5],
+  marginTop: vars.space[10],
+  width: vars.size.maxContent,
+  fontSize: vars.fontSize.lg,
+  fontWeight: vars.fontWeight.semibold,
+  gridArea: 'a',
+});
 
-export const cubeCardLink = style([
-  atoms({
-    height: 'full',
-    width: 'full',
-  }),
-  {
-    gridArea: 'a',
-  },
-]);
+export const cubeCardLink = style({
+  height: '100%',
+  width: '100%',
+  gridArea: 'a',
+});
 
-export const cubeCardCaption = style([
-  atoms({
-    paddingBottom: 3,
-    paddingInline: 3,
-    fontWeight: 'semibold',
-  }),
-  {
-    gridArea: 'a',
-    justifySelf: 'flex-start',
-    alignSelf: 'flex-end',
-    color: vars.staticColor.grayDark[12],
-  },
-]);
+export const cubeCardCaption = style({
+  paddingBottom: vars.space[3],
+  paddingInline: vars.space[3],
+  fontWeight: vars.fontWeight.semibold,
+  gridArea: 'a',
+  justifySelf: 'flex-start',
+  alignSelf: 'flex-end',
+  color: vars.color.white,
+});
