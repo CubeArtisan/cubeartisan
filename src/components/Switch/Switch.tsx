@@ -1,21 +1,27 @@
 import { Switch as BaseSwitch } from '@kobalte/core';
-import { Component, ComponentProps, ParentComponent } from 'solid-js';
+import { Component, ComponentProps, ParentComponent, splitProps } from 'solid-js';
 
 import * as styles from '@cubeartisan/cubeartisan/components/Switch/Switch.css';
 
 const SwitchInput = BaseSwitch.Input;
 
-export const SwitchLabel: ParentComponent<ComponentProps<typeof BaseSwitch.Label>> = (props) => (
-  <BaseSwitch.Label class={styles.switchLabel} {...props} />
-);
+const SwitchLabel: ParentComponent<ComponentProps<typeof BaseSwitch.Label>> = (props) => {
+  const [local, others] = splitProps(props, ['class']);
 
-const SwitchControl: ParentComponent<ComponentProps<typeof BaseSwitch.Control>> = (props) => (
-  <BaseSwitch.Control class={styles.switchControl} {...props} />
-);
+  return <BaseSwitch.Label class={`${styles.switchLabel} ${local.class}`} {...others} />;
+};
 
-const SwitchThumb: Component<ComponentProps<typeof BaseSwitch.Thumb>> = (props) => (
-  <BaseSwitch.Thumb class={styles.switchThumb} {...props} />
-);
+const SwitchControl: ParentComponent<ComponentProps<typeof BaseSwitch.Control>> = (props) => {
+  const [local, others] = splitProps(props, ['class']);
+
+  return <BaseSwitch.Control class={`${styles.switchControl} ${local.class}`} {...others} />;
+};
+
+const SwitchThumb: Component<ComponentProps<typeof BaseSwitch.Thumb>> = (props) => {
+  const [local, others] = splitProps(props, ['class']);
+
+  return <BaseSwitch.Thumb class={`${styles.switchThumb} ${local.class}`} {...others} />;
+};
 
 type SwitchComposite = {
   Input: typeof SwitchInput;
@@ -24,9 +30,11 @@ type SwitchComposite = {
   Thumb: typeof SwitchThumb;
 };
 
-const Switch: ParentComponent<ComponentProps<typeof BaseSwitch>> & SwitchComposite = (props) => (
-  <BaseSwitch class={styles.switchRoot} {...props} />
-);
+const Switch: ParentComponent<ComponentProps<typeof BaseSwitch & SwitchComposite>> = (props) => {
+  const [local, others] = splitProps(props, ['class']);
+
+  return <BaseSwitch class={`${styles.switchRoot} ${local.class}`} {...others} />;
+};
 
 Switch.Input = SwitchInput;
 Switch.Label = SwitchLabel;
