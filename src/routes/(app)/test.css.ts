@@ -11,3 +11,7 @@ export const testComponentBox = style({
   borderRadius: vars.borderRadius['2xl'],
   background: vars.color.neutral2,
 });
+
+export const testPage = style({
+  gap: vars.space['5'],
+});

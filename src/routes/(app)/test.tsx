@@ -1,17 +1,22 @@
 // for testing components
-import { For } from 'solid-js';
-
 import { TestButton } from '@cubeartisan/cubeartisan/components/Button/Button.testrender';
-// import { TestModal } from '@cubeartisan/cubeartisan/components/Modal/Modal.testrender';
-// import { TestRadioGroup } from '@cubeartisan/cubeartisan/components/RadioGroup/RadioGroup.testrender';
-// import { TestSwitch } from '@cubeartisan/cubeartisan/components/Switch/Switch.testrender';
+import { TestModal } from '@cubeartisan/cubeartisan/components/Modal/Modal.testrender';
+import { TestRadioGroup } from '@cubeartisan/cubeartisan/components/RadioGroup/RadioGroup.testrender';
+import { TestSwitch } from '@cubeartisan/cubeartisan/components/Switch/Switch.testrender';
 import ContentPage from '@cubeartisan/cubeartisan/components/templates/ContentPage/ContentPage';
 import * as styles from '@cubeartisan/cubeartisan/routes/(app)/test.css';
 
-// const renderList = [<TestModal />, <TestRadioGroup />, <TestSwitch />, <TestButton />];
-
 const Test = () => (
-  <ContentPage>
+  <ContentPage class={styles.testPage}>
+    <div class={styles.testComponentBox}>
+      <TestModal />
+    </div>
+    <div class={styles.testComponentBox}>
+      <TestRadioGroup />
+    </div>
+    <div class={styles.testComponentBox}>
+      <TestSwitch />
+    </div>
     <div class={styles.testComponentBox}>
       <TestButton />
     </div>

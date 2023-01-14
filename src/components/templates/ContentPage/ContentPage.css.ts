@@ -15,4 +15,5 @@ export const main = style({
   marginInline: 'auto',
   display: 'flex',
   flexDirection: 'column',
+  paddingBlock: vars.space[5],
 });
