@@ -30,7 +30,7 @@ type SwitchComposite = {
   Thumb: typeof SwitchThumb;
 };
 
-const Switch: ParentComponent<ComponentProps<typeof BaseSwitch & SwitchComposite>> = (props) => {
+const Switch: ParentComponent<ComponentProps<typeof BaseSwitch>> & SwitchComposite = (props) => {
   const [local, others] = splitProps(props, ['class']);
 
   return <BaseSwitch class={`${styles.switchRoot} ${local.class}`} {...others} />;
