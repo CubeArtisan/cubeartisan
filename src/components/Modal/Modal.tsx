@@ -1,4 +1,5 @@
 import { Dialog as BaseDialog } from '@kobalte/core';
+import type { Component, ComponentProps } from 'solid-js';
 
 import * as styles from '@cubeartisan/cubeartisan/components/Modal/Modal.css';
 
@@ -8,11 +9,17 @@ const ModalCloseButton = BaseDialog.CloseButton;
 
 const ModalPortal = BaseDialog.Portal;
 
-const ModalOverlay: typeof BaseDialog.Overlay = (props) => <BaseDialog.Overlay class={styles.overlay} {...props} />;
+const ModalOverlay: Component<ComponentProps<typeof BaseDialog.Overlay>> = (props) => (
+  <BaseDialog.Overlay class={styles.overlay} {...props} />
+);
 
-const ModalContent: typeof BaseDialog.Content = (props) => <BaseDialog.Content class={styles.content} {...props} />;
+const ModalContent: Component<ComponentProps<BaseDialog.Content>> = (props) => (
+  <BaseDialog.Content class={styles.content} {...props} />
+);
 
-const ModalTitle: typeof BaseDialog.Title = (props) => <BaseDialog.Title class={styles.title} {...props} />;
+const ModalTitle: Component<ComponentProps<typeof BaseDialog.Title>> = (props) => (
+  <BaseDialog.Title class={styles.title} {...props} />
+);
 
 const ModalDescription: typeof BaseDialog.Description = (props) => (
   <BaseDialog.Description class={styles.description} {...props} />
@@ -28,7 +35,7 @@ type ModalComposite = {
   Description: typeof ModalDescription;
 };
 
-const Modal: typeof BaseDialog & ModalComposite = (props) => <BaseDialog {...props} />;
+const Modal: Component<ComponentProps<typeof BaseDialog>> & ModalComposite = (props) => <BaseDialog {...props} />;
 
 Modal.Trigger = ModalTrigger;
 Modal.CloseButton = ModalCloseButton;
