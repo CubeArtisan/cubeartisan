@@ -18,7 +18,7 @@ export const content = style({
   translate: '-50% -50%',
   paddingInline: vars.space[10],
   paddingBlock: vars.space[8],
-  width: vars.size.md,
+  width: vars.size.lg,
   backgroundColor: vars.color.neutral3,
   display: 'flex',
   flexDirection: 'column',
@@ -29,6 +29,7 @@ export const content = style({
 });
 
 export const title = style({
+  alignSelf: 'center',
   fontSize: vars.fontSize['2xl'],
   lineHeight: vars.lineHeight['2xl'],
   fontWeight: vars.fontWeight.semibold,
