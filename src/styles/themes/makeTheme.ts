@@ -1,42 +1,40 @@
-import type { DeepPartial } from 'utility-types';
-
 import type { ColorPaletteType } from '@cubeartisan/cubeartisan/styles/themes/colorPaletteType';
-import { makeSemanticColors, SemanticColors } from '@cubeartisan/cubeartisan/styles/themes/semanticColors';
 import type { TokenType } from '@cubeartisan/cubeartisan/styles/tokens';
 
 export type MakeThemeProps = {
   tokens: TokenType;
   colorPalette: ColorPaletteType;
-  semanticColorOverrides?: DeepPartial<SemanticColors>;
 };
 
-export const makeTheme = ({ tokens, colorPalette, semanticColorOverrides }: MakeThemeProps) => {
-  const { backgroundColor, boxShadow, textColor } = makeSemanticColors({
-    colorPalette,
-    overrides: semanticColorOverrides ?? {},
-  });
-  return {
+export const makeTheme = ({ tokens, colorPalette }: MakeThemeProps) =>
+  ({
     fontFamily: tokens.typography.fontFamily,
     fontWeight: tokens.typography.fontWeight,
     fontSize: tokens.typography.fontSize,
     lineHeight: tokens.typography.lineHeight,
     letterSpacing: tokens.typography.letterSpacing,
 
-    space: tokens.space,
-    size: tokens.size,
     screens: tokens.screens,
+    space: tokens.space,
+    relativeSpace: tokens.relativeSpace,
+    size: tokens.size,
+    relativeSize: tokens.relativeSize,
 
+    borderSize: tokens.border.width,
     borderRadius: tokens.border.radius,
-
-    backgroundColor: {
-      ...backgroundColor,
-      shadow: colorPalette.shadow,
+    boxShadow: {
+      none: '0 0 #0000',
+      xs: `0 1px 2px 0 ${colorPalette.shadow4}`,
+      sm: `0 1px 3px 0 ${colorPalette.shadow5}, 0 1px 2px -1px ${colorPalette.shadow6}`,
+      md: `0 4px 6px -1px ${colorPalette.shadow5}, 0 2px 4px -2px ${colorPalette.shadow6}`,
+      lg: `0 10px 15px -3px ${colorPalette.shadow5}, 0 4px 6px -4px ${colorPalette.shadow6}`,
+      xl: `0 20px 25px -5px ${colorPalette.shadow5}, 0 8px 10px -6px ${colorPalette.shadow6}`,
+      '2xl': `0 25px 50px -12px ${colorPalette.shadow8}`,
+      inner: `inset 0 2px 4px 0 ${colorPalette.shadow4}`,
     },
-    textColor,
-    staticColor: tokens.color,
 
-    boxShadow,
-
-    transformScale: tokens.effects.scale,
-  } as const;
-};
+    color: {
+      ...colorPalette,
+      ...tokens.color,
+    },
+  } as const);

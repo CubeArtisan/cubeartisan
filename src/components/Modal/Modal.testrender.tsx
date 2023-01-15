@@ -1,5 +1,5 @@
 import { Modal } from '@cubeartisan/cubeartisan/components/Modal';
-import { VStack } from '@cubeartisan/cubeartisan/components/Stack';
+import * as styles from '@cubeartisan/cubeartisan/components/Modal/Modal.testrender.css';
 
 export const TestModal = () => (
   <Modal>
@@ -7,10 +7,10 @@ export const TestModal = () => (
     <Modal.Portal>
       <Modal.Overlay />
       <Modal.Content>
-        <VStack<'header'> as="header" recipe={{ align: 'center', justify: 'center' }}>
+        <header class={styles.header}>
           <Modal.Title>Test Title</Modal.Title>
           <Modal.Description>this is a test modal to see if things work</Modal.Description>
-        </VStack>
+        </header>
         <p>
           Consequat duis sit deserunt nisi irure. Labore exercitation sint sit eu irure officia dolor dolore enim irure
           aliquip officia ea duis fugiat. Amet eiusmod non est veniam proident eiusmod et pariatur anim adipisicing ea

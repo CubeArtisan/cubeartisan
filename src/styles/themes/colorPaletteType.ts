@@ -1,338 +1,86 @@
 export type ColorPaletteType = {
-  primary: {
-    1: string;
-    2: string;
-    3: string;
-    4: string;
-    5: string;
-    6: string;
-    7: string;
-    8: string;
-    9: string;
-    10: string;
-    11: string;
-    12: string;
-  };
-  primaryA: {
-    1: string;
-    2: string;
-    3: string;
-    4: string;
-    5: string;
-    6: string;
-    7: string;
-    8: string;
-    9: string;
-    10: string;
-    11: string;
-    12: string;
-  };
-  neutral: {
-    1: string;
-    2: string;
-    3: string;
-    4: string;
-    5: string;
-    6: string;
-    7: string;
-    8: string;
-    9: string;
-    10: string;
-    11: string;
-    12: string;
-  };
-  neutralA: {
-    1: string;
-    2: string;
-    3: string;
-    4: string;
-    5: string;
-    6: string;
-    7: string;
-    8: string;
-    9: string;
-    10: string;
-    11: string;
-    12: string;
-  };
-  success: {
-    1: string;
-    2: string;
-    3: string;
-    4: string;
-    5: string;
-    6: string;
-    7: string;
-    8: string;
-    9: string;
-    10: string;
-    11: string;
-    12: string;
-  };
-  successA: {
-    1: string;
-    2: string;
-    3: string;
-    4: string;
-    5: string;
-    6: string;
-    7: string;
-    8: string;
-    9: string;
-    10: string;
-    11: string;
-    12: string;
-  };
-  info: {
-    1: string;
-    2: string;
-    3: string;
-    4: string;
-    5: string;
-    6: string;
-    7: string;
-    8: string;
-    9: string;
-    10: string;
-    11: string;
-    12: string;
-  };
-  infoA: {
-    1: string;
-    2: string;
-    3: string;
-    4: string;
-    5: string;
-    6: string;
-    7: string;
-    8: string;
-    9: string;
-    10: string;
-    11: string;
-    12: string;
-  };
-  warning: {
-    1: string;
-    2: string;
-    3: string;
-    4: string;
-    5: string;
-    6: string;
-    7: string;
-    8: string;
-    9: string;
-    10: string;
-    11: string;
-    12: string;
-  };
-  warningA: {
-    1: string;
-    2: string;
-    3: string;
-    4: string;
-    5: string;
-    6: string;
-    7: string;
-    8: string;
-    9: string;
-    10: string;
-    11: string;
-    12: string;
-  };
-  danger: {
-    1: string;
-    2: string;
-    3: string;
-    4: string;
-    5: string;
-    6: string;
-    7: string;
-    8: string;
-    9: string;
-    10: string;
-    11: string;
-    12: string;
-  };
-  dangerA: {
-    1: string;
-    2: string;
-    3: string;
-    4: string;
-    5: string;
-    6: string;
-    7: string;
-    8: string;
-    9: string;
-    10: string;
-    11: string;
-    12: string;
-  };
-  shadow: {
-    1: string;
-    2: string;
-    3: string;
-    4: string;
-    5: string;
-    6: string;
-    7: string;
-    8: string;
-    9: string;
-    10: string;
-    11: string;
-    12: string;
-  };
+  neutral1: string;
+  neutral2: string;
+  neutral3: string;
+  neutral4: string;
+  neutral5: string;
+  neutral6: string;
+  neutral7: string;
+  neutral8: string;
+  neutral9: string;
+  neutral10: string;
+  neutral11: string;
+  neutral12: string;
+  primary1: string;
+  primary2: string;
+  primary3: string;
+  primary4: string;
+  primary5: string;
+  primary6: string;
+  primary7: string;
+  primary8: string;
+  primary9: string;
+  primary10: string;
+  primary11: string;
+  primary12: string;
+  success1: string;
+  success2: string;
+  success3: string;
+  success4: string;
+  success5: string;
+  success6: string;
+  success7: string;
+  success8: string;
+  success9: string;
+  success10: string;
+  success11: string;
+  success12: string;
+  info1: string;
+  info2: string;
+  info3: string;
+  info4: string;
+  info5: string;
+  info6: string;
+  info7: string;
+  info8: string;
+  info9: string;
+  info10: string;
+  info11: string;
+  info12: string;
+  warning1: string;
+  warning2: string;
+  warning3: string;
+  warning4: string;
+  warning5: string;
+  warning6: string;
+  warning7: string;
+  warning8: string;
+  warning9: string;
+  warning10: string;
+  warning11: string;
+  warning12: string;
+  danger1: string;
+  danger2: string;
+  danger3: string;
+  danger4: string;
+  danger5: string;
+  danger6: string;
+  danger7: string;
+  danger8: string;
+  danger9: string;
+  danger10: string;
+  danger11: string;
+  danger12: string;
+  shadow1: string;
+  shadow2: string;
+  shadow3: string;
+  shadow4: string;
+  shadow5: string;
+  shadow6: string;
+  shadow7: string;
+  shadow8: string;
+  shadow9: string;
+  shadow10: string;
+  shadow11: string;
+  shadow12: string;
 };
-
-// const colorTokens = {
-//   neutral: {
-//     text: {
-//       default: '',
-//       weak: '',
-//       disabled: '',
-//     },
-//     background: {
-//       default: '',
-//       medium: '',
-//       strong: '',
-//       hover: '',
-//       active: '',
-//     },
-//     border: {
-//       default: '',
-//       strong: '',
-//       hover: '',
-//       active: '',
-//     },
-//     icon: {
-//       default: '',
-//       hover: '',
-//     },
-//   },
-//   primary: {
-//     text: {
-//       default: '',
-//       weak: '',
-//     },
-//     background: {
-//       default: '',
-//       weak: '',
-//       strong: '',
-//       hover: '',
-//     },
-//     border: {
-//       default: '',
-//       hover: '',
-//     },
-//     icon: {
-//       default: '',
-//       hover: '',
-//     },
-//   },
-//   success: {
-//     text: {
-//       default: '',
-//       weak: '',
-//     },
-//     background: {
-//       default: '',
-//       weak: '',
-//       hover: '',
-//     },
-//     border: {
-//       default: '',
-//       hover: '',
-//     },
-//     icon: {
-//       default: '',
-//       hover: '',
-//     },
-//   },
-//   info: {
-//     text: {
-//       default: '',
-//       weak: '',
-//     },
-//     background: {
-//       default: '',
-//       weak: '',
-//       hover: '',
-//     },
-//     border: {
-//       default: '',
-//       hover: '',
-//     },
-//     icon: {
-//       default: '',
-//       hover: '',
-//     },
-//   },
-//   warning: {
-//     text: {
-//       default: '',
-//       weak: '',
-//     },
-//     background: {
-//       default: '',
-//       weak: '',
-//       hover: '',
-//     },
-//     border: {
-//       default: '',
-//       hover: '',
-//     },
-//     icon: {
-//       default: '',
-//       hover: '',
-//     },
-//   },
-//   danger: {
-//     text: {
-//       default: '',
-//       weak: '',
-//     },
-//     background: {
-//       default: '',
-//       weak: '',
-//       hover: '',
-//     },
-//     border: {
-//       default: '',
-//       hover: '',
-//     },
-//     icon: {
-//       default: '',
-//       hover: '',
-//     },
-//   },
-//   shadow: {
-//     text: '',
-//     inset: '',
-//     drop: '',
-//   },
-// };
-
-// const colorFramework = {
-//   app: {
-//     bg: '',
-//     text: '',
-//   },
-//   nav: {
-//     bg: '',
-//     text: '',
-//     navButton: {
-//       bg: '',
-//       bgHover: '',
-//       bgActive: '',
-//       text: '',
-//     },
-//   },
-//   hero: {
-//     bg: '',
-//     text: '',
-//     subtext: '',
-//   },
-//   thumbnail: {
-//     insetShadow: '',
-//     text: '',
-//   },
-// };

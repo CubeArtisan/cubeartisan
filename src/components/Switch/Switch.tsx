@@ -1,32 +1,26 @@
 import { Switch as BaseSwitch } from '@kobalte/core';
-import { merge } from 'lodash';
-import { splitProps } from 'solid-js';
+import { Component, ComponentProps, ParentComponent, splitProps } from 'solid-js';
 
-import artisan from '@cubeartisan/cubeartisan/components/factory';
 import * as styles from '@cubeartisan/cubeartisan/components/Switch/Switch.css';
-import type { Atoms } from '@cubeartisan/cubeartisan/styles/atoms/atoms.css';
 
 const SwitchInput = BaseSwitch.Input;
 
-const UnstyledLabel = artisan(BaseSwitch.Label);
-const SwitchLabel: typeof UnstyledLabel = (props) => {
+const SwitchLabel: ParentComponent<ComponentProps<typeof BaseSwitch.Label>> = (props) => {
   const [local, others] = splitProps(props, ['class']);
 
-  return <UnstyledLabel class={`${styles.switchLabel} ${local.class}`} {...others} />;
+  return <BaseSwitch.Label class={`${styles.switchLabel} ${local.class}`} {...others} />;
 };
 
-const UnstyledControl = artisan(BaseSwitch.Control);
-const SwitchControl: typeof UnstyledControl = (props) => {
+const SwitchControl: ParentComponent<ComponentProps<typeof BaseSwitch.Control>> = (props) => {
   const [local, others] = splitProps(props, ['class']);
 
-  return <UnstyledControl class={`${styles.switchControl} ${local.class}`} {...others} />;
+  return <BaseSwitch.Control class={`${styles.switchControl} ${local.class}`} {...others} />;
 };
 
-const UnstyledThumb = artisan(BaseSwitch.Thumb);
-const SwitchThumb: typeof UnstyledThumb = (props) => {
+const SwitchThumb: Component<ComponentProps<typeof BaseSwitch.Thumb>> = (props) => {
   const [local, others] = splitProps(props, ['class']);
 
-  return <UnstyledThumb class={`${styles.switchThumb} ${local.class}`} {...others} />;
+  return <BaseSwitch.Thumb class={`${styles.switchThumb} ${local.class}`} {...others} />;
 };
 
 type SwitchComposite = {
@@ -36,19 +30,10 @@ type SwitchComposite = {
   Thumb: typeof SwitchThumb;
 };
 
-const ArtisanSwitch = artisan(BaseSwitch);
+const Switch: ParentComponent<ComponentProps<typeof BaseSwitch>> & SwitchComposite = (props) => {
+  const [local, others] = splitProps(props, ['class']);
 
-const Switch: typeof ArtisanSwitch & SwitchComposite = (props) => {
-  const [local, others] = splitProps(props, ['atoms']);
-
-  const defaultAtoms: Atoms = {
-    display: 'inlineFlex',
-    alignItems: 'center',
-    justifyContent: 'spaceBetween',
-    gap: 'gutter',
-  };
-
-  return <ArtisanSwitch atoms={merge(defaultAtoms, local.atoms)} {...others} />;
+  return <BaseSwitch class={`${styles.switchRoot} ${local.class}`} {...others} />;
 };
 
 Switch.Input = SwitchInput;

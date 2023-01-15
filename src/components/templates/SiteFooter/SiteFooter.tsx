@@ -1,7 +1,7 @@
 import { Component, For } from 'solid-js';
 import { A } from 'solid-start';
 
-import { atoms } from '@cubeartisan/cubeartisan/styles';
+import * as styles from '@cubeartisan/cubeartisan/components/templates/SiteFooter/SiteFooter.css';
 
 type FooterSectionContent = {
   name: string;
@@ -39,49 +39,17 @@ const helpSection: FooterSectionContent = {
 
 const footerSections: FooterSectionContent[] = [socialsSection, navSection, helpSection];
 
-const SiteFooter: Component = () => (
-  <footer
-    class={atoms({
-      width: 'full',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      flexDirection: 'column',
-      backgroundColor: 'neutralSubtleSecondary',
-    })}
-  >
-    <div
-      class={atoms({
-        display: 'flex',
-        alignItems: 'flexStart',
-        justifyContent: 'spaceBetween',
-        width: 'content-80',
-        paddingBlock: 8,
-      })}
-    >
+export const SiteFooter: Component = () => (
+  <footer class={styles.footerContainer}>
+    <div class={styles.footer}>
       <For each={footerSections}>
         {(section) => (
           <section>
-            <h2
-              class={atoms({
-                text: 'base',
-                textAlign: 'center',
-                marginBottom: 1,
-                cursor: 'default',
-              })}
-            >
-              {section.name}
-            </h2>
+            <h2 class={styles.sectionTitle}>{section.name}</h2>
             <ul>
               <For each={section.items}>
                 {(item) => (
-                  <li
-                    class={atoms({
-                      text: 'base',
-                      textAlign: 'center',
-                      color: { default: 'neutralLowContrast', hover: 'neutralContrast' },
-                    })}
-                  >
+                  <li class={styles.sectionItems}>
                     <A href={item.url}>{item.linkName}</A>
                   </li>
                 )}
@@ -93,5 +61,3 @@ const SiteFooter: Component = () => (
     </div>
   </footer>
 );
-
-export default SiteFooter;

@@ -1,89 +1,37 @@
 import { Dialog as BaseDialog } from '@kobalte/core';
-import { merge } from 'lodash';
-import { splitProps } from 'solid-js';
+import clsx from 'clsx';
+import { Component, ComponentProps, splitProps } from 'solid-js';
 
-import { buttonRecipe } from '@cubeartisan/cubeartisan/components/Button';
-import artisan from '@cubeartisan/cubeartisan/components/factory';
-import type { OmitProps } from '@cubeartisan/cubeartisan/components/types';
-import type { Atoms } from '@cubeartisan/cubeartisan/styles/atoms/atoms.css';
+import * as styles from '@cubeartisan/cubeartisan/components/Modal/Modal.css';
 
-const ModalTrigger = artisan(BaseDialog.Trigger, buttonRecipe);
+const ModalTrigger = BaseDialog.Trigger;
 
-const ModalCloseButton = artisan(BaseDialog.CloseButton, buttonRecipe);
+const ModalCloseButton = BaseDialog.CloseButton;
 
 const ModalPortal = BaseDialog.Portal;
 
-const ArtisanOverlay = artisan(BaseDialog.Overlay);
+const ModalOverlay: Component<ComponentProps<typeof BaseDialog.Overlay>> = (props) => {
+  const [local, others] = splitProps(props, ['class']);
 
-const ModalOverlay: typeof ArtisanOverlay = (props) => {
-  const [local, others] = splitProps(props, ['atoms']);
-
-  const defaultStyles: Atoms = {
-    backgroundColor: 'shadowDark10',
-    width: 'screenW',
-    height: 'screenH',
-    position: 'fixed',
-    top: 0,
-    left: 0,
-  };
-
-  return <ArtisanOverlay atoms={merge(defaultStyles, local.atoms)} {...others} />;
+  return <BaseDialog.Overlay class={clsx(styles.overlay, local.class)} {...others} />;
 };
 
-const ArtisanContent = artisan(BaseDialog.Content);
+const ModalContent: Component<ComponentProps<typeof BaseDialog.Content>> = (props) => {
+  const [local, others] = splitProps(props, ['class']);
 
-const ModalContent: typeof ArtisanContent = (props) => {
-  const [local, others] = splitProps(props, ['atoms', 'style']);
-
-  const defaultAtoms: Atoms = {
-    position: 'fixed',
-    paddingInline: 10,
-    paddingBlock: 8,
-    width: 'md',
-    backgroundColor: 'neutralComponent',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    borderRadius: 'md',
-    gap: 4,
-  };
-
-  const defaultStyle = {
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-  };
-
-  return (
-    <ArtisanContent atoms={merge(defaultAtoms, local.atoms)} style={merge(defaultStyle, local.style)} {...others} />
-  );
+  return <BaseDialog.Content class={clsx(styles.content, local.class)} {...others} />;
 };
 
-const ArtisanTitle = artisan(BaseDialog.Title);
+const ModalTitle: Component<ComponentProps<typeof BaseDialog.Title>> = (props) => {
+  const [local, others] = splitProps(props, ['class']);
 
-const ModalTitle: typeof ArtisanTitle = (props) => {
-  const [local, others] = splitProps(props, ['atoms']);
-
-  const defaultAtoms: Atoms = {
-    fontSize: '2xl',
-    lineHeight: '2xl',
-    fontWeight: 'semibold',
-  };
-
-  return <ArtisanTitle atoms={merge(defaultAtoms, local.atoms)} {...others} />;
+  return <BaseDialog.Title class={clsx(styles.title, local.class)} {...others} />;
 };
 
-const ArtisanDescription = artisan(BaseDialog.Description);
+const ModalDescription: Component<ComponentProps<typeof BaseDialog.Description>> = (props) => {
+  const [local, others] = splitProps(props, ['class']);
 
-const ModalDescription: typeof ArtisanDescription = (props) => {
-  const [local, others] = splitProps(props, ['atoms']);
-
-  const defaultAtoms: Atoms = {
-    fontWeight: 'light',
-  };
-
-  return <ArtisanDescription atoms={merge(defaultAtoms, local.atoms)} {...others} />;
+  return <BaseDialog.Description class={clsx(styles.description, local.class)} {...others} />;
 };
 
 type ModalComposite = {
@@ -96,7 +44,7 @@ type ModalComposite = {
   Description: typeof ModalDescription;
 };
 
-const Modal: OmitProps<typeof BaseDialog, 'isModal'> & ModalComposite = (props) => <BaseDialog {...props} />;
+const Modal: Component<ComponentProps<typeof BaseDialog>> & ModalComposite = (props) => <BaseDialog {...props} />;
 
 Modal.Trigger = ModalTrigger;
 Modal.CloseButton = ModalCloseButton;

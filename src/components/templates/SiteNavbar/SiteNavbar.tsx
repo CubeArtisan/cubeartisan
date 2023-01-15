@@ -1,143 +1,77 @@
-import { merge } from 'lodash';
 import { CgBell, CgProfile } from 'solid-icons/cg';
-import { Show, splitProps } from 'solid-js';
+import { createSignal, Show } from 'solid-js';
 import { A } from 'solid-start';
-import { createServerData$ } from 'solid-start/server';
+// import { createServerData$ } from 'solid-start/server';
 
-import { getClientUserFromRequest } from '@cubeartisan/cubeartisan/backend/user';
-import { Center } from '@cubeartisan/cubeartisan/components/Center';
-import artisan from '@cubeartisan/cubeartisan/components/factory';
-import { HStack } from '@cubeartisan/cubeartisan/components/Stack';
+// import { getClientUserFromRequest } from '@cubeartisan/cubeartisan/backend/user';
+import { Button } from '@cubeartisan/cubeartisan/components/Button';
 import NewCubeModal from '@cubeartisan/cubeartisan/components/templates/SiteNavbar/NewCubeModal';
-import type { AddProps } from '@cubeartisan/cubeartisan/components/types';
-import { atoms } from '@cubeartisan/cubeartisan/styles';
-import type { ProtectedUser } from '@cubeartisan/cubeartisan/types/user';
-
-const sizes = {
-  sm: 8,
-  lg: 12,
-};
-
-const NavIcon: AddProps<typeof Center, { size: keyof typeof sizes }> = (props: any) => {
-  const [local, others] = splitProps(props, ['atoms', 'size']);
-
-  return (
-    <Center
-      atoms={merge(
-        {
-          borderRadius: 'lg',
-          height: sizes[props.size as keyof typeof sizes],
-          width: sizes[props.size as keyof typeof sizes],
-          backgroundColor: { hover: 'neutralComponentHover', active: 'neutralComponentActive' },
-          boxShadow: {
-            hover: 'borderNeutralInteractiveHoverLarge',
-          },
-        },
-        local.atoms,
-      )}
-      {...others}
-    />
-  );
-};
+import * as styles from '@cubeartisan/cubeartisan/components/templates/SiteNavbar/SiteNavbar.css';
+// import type { ProtectedUser } from '@cubeartisan/cubeartisan/types/user';
 
 const SiteNavbar = () => {
-  const user = createServerData$((_, { request }) => getClientUserFromRequest(request));
+  // const user = createServerData$((_, { request }) => getClientUserFromRequest(request));
+  const [testUser, setTestUser] = createSignal(false);
+  const toggleTestUser = () => {
+    setTestUser((prev) => !prev);
+  };
 
   return (
-    <HStack
-      atoms={{ backgroundColor: 'neutralSubtleSecondary', color: 'neutralContrast' }}
-      recipe={{ align: 'center', justify: 'center' }}
-    >
-      <HStack<'header'>
-        as="header"
-        atoms={{
-          height: 16,
-          width: 'content-90',
-        }}
-        recipe={{ justify: 'spaceBetween', align: 'center' }}
-      >
-        <HStack<'nav'> as="nav" recipe={{ justify: 'center', align: 'center' }}>
-          <HStack<'ul'> as="ul" atoms={{ gap: 8 }} recipe={{ justify: 'center', align: 'center' }}>
-            <artisan.li
-              atoms={{
-                backgroundColor: { hover: 'neutralComponentHover', active: 'neutralComponentActive' },
-                boxShadow: {
-                  hover: 'borderNeutralInteractiveHoverLarge',
-                },
-                borderRadius: 'md',
-                paddingLeft: 1,
-              }}
-            >
-              {/* href should be "/", made "/test" for ease of prototyping */}
-              <A href="/test">
-                <artisan.img
-                  src="/images/stacked-logo.svg"
-                  alt="CubeArtisan Logo"
-                  atoms={{ height: 12, marginRight: 4 }}
-                />
-              </A>
-            </artisan.li>
-            <artisan.li
-              atoms={{
-                backgroundColor: { hover: 'neutralComponentHover', active: 'neutralComponentActive' },
-                boxShadow: {
-                  hover: 'borderNeutralInteractiveHoverLarge',
-                },
-                borderRadius: 'md',
-                paddingInline: 2,
-                paddingBlock: 1,
-              }}
-            >
-              <A href="/">Home</A>
-            </artisan.li>
-            <artisan.li
-              atoms={{
-                backgroundColor: { hover: 'neutralComponentHover', active: 'neutralComponentActive' },
-                boxShadow: {
-                  hover: 'borderNeutralInteractiveHoverLarge',
-                },
-                borderRadius: 'md',
-                paddingInline: 2,
-                paddingBlock: 1,
-              }}
-            >
-              <A href="/">Explore Cubes</A>
-            </artisan.li>
-            <Show keyed when={user()}>
-              {(u: ProtectedUser) => (
-                <li>
-                  <A id="your-cubes" href={`/user/${u.username}/cubes`}>
+    <header class={styles.navContainer}>
+      <nav class={styles.nav}>
+        <ul class={styles.navLinks}>
+          <li class={styles.logoContainer}>
+            {/* TODO: href should be "/", made "/test" for ease of prototyping */}
+            <A href="/test">
+              <img src="/images/stacked-logo.svg" alt="CubeArtisan Logo" class={styles.logoImage} />
+            </A>
+          </li>
+          <li class={styles.navLink}>
+            <A href="/">Home</A>
+          </li>
+          <li class={styles.navLink}>
+            <A href="/">Explore Cubes</A>
+          </li>
+          <Show keyed when={testUser()}>
+            {/* TODO: use 'u: ProtectedUser' to define a profile picture */}
+            {
+              (/* u: ProtectedUser */) => (
+                <li class={styles.navLink}>
+                  <A id="your-cubes" href={`/user/${/* u.username */ 'test'}/cubes`}>
                     Your Cubes
                   </A>
                 </li>
-              )}
-            </Show>
-          </HStack>
-        </HStack>
-        <HStack<'ul'> as="ul" atoms={{ gap: 4 }} recipe={{ justify: 'center', align: 'center' }}>
-          <li>
-            <NewCubeModal />
-          </li>
-          <li />
-          <Show when={user()} keyed>
-            {(u: ProtectedUser) => (
+              )
+            }
+          </Show>
+        </ul>
+      </nav>
+      <ul class={styles.navActions}>
+        <Show when={testUser()} keyed>
+          {/* TODO: use 'u: ProtectedUser' to define a profile picture */}
+          {
+            (/* u: ProtectedUser */) => (
               <>
-                <li>
-                  <NavIcon<'button'> size="sm" as="button" atoms={{ color: 'neutralContrast' }}>
-                    <CgBell class={atoms({ height: 6, width: 6 })} />
-                  </NavIcon>
+                <li class={styles.navAction}>
+                  <NewCubeModal />
                 </li>
-                <li>
-                  <NavIcon<typeof A> size="lg" as={A} atoms={{ color: 'neutralContrast' }} href={`/user/${u.username}`}>
-                    <CgProfile class={atoms({ height: 10, width: 10 })} />
-                  </NavIcon>
+                <li class={styles.navAction}>
+                  <CgBell class={styles.navActionIcon} />
+                </li>
+                <li class={styles.navAction}>
+                  <CgProfile class={styles.navActionIcon} />
                 </li>
               </>
-            )}
-          </Show>
-        </HStack>
-      </HStack>
-    </HStack>
+            )
+          }
+        </Show>
+        <li>
+          <Button recipe={{ color: 'primary' }} onPress={toggleTestUser}>
+            Toggle Auth
+          </Button>
+        </li>
+      </ul>
+    </header>
   );
 };
 
