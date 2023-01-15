@@ -4,7 +4,7 @@ import { A } from 'solid-start';
 import { createServerData$ } from 'solid-start/server';
 
 import { getClientUserFromRequest } from '@cubeartisan/cubeartisan/backend/user';
-// import NewCubeModal from '@cubeartisan/cubeartisan/components/templates/SiteNavbar/NewCubeModal';
+import NewCubeModal from '@cubeartisan/cubeartisan/components/templates/SiteNavbar/NewCubeModal';
 // import type { ProtectedUser } from '@cubeartisan/cubeartisan/types/user';
 import * as styles from '@cubeartisan/cubeartisan/components/templates/SiteNavbar/SiteNavbar.css';
 
@@ -39,10 +39,10 @@ const SiteNavbar = () => {
         </ul>
       </nav>
       <ul class={styles.navActions}>
-        {/* <li class={styles.navAction}>
+        <li class={styles.navAction}>
           <NewCubeModal />
         </li>
-        <Show when={user()} keyed>
+        {/* <Show when={user()} keyed>
           {(u: ProtectedUser) => (
             <>
               <li class={styles.navAction}>

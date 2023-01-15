@@ -62,6 +62,5 @@ export const navAction = style([
   navItemBase,
   {
     borderRadius: vars.borderRadius.lg,
-    height: vars.size[8],
   },
 ]);
