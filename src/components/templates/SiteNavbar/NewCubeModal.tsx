@@ -19,7 +19,7 @@ const NewCubeModal = () => {
         <Modal.Content>
           <Modal.Title>New Cube</Modal.Title>
 
-          <label as="label" class={styles.inputLabel}>
+          <label class={styles.inputLabel}>
             Cube Name
             <input type="text" class={styles.textInputField} />
           </label>
