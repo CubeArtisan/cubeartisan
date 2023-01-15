@@ -17,6 +17,9 @@
   },
   "type": "module",
   "dependencies": {
+    "undici": "^5.14.0"
+  },
+  "devDependencies": {
     "@kobalte/core": "^0.1.0",
     "@radix-ui/colors": "github:radix-ui/colors",
     "@vanilla-extract/css": "^1.9.2",
@@ -29,11 +32,12 @@
     "mongoose": "^6.8.3",
     "nodemailer": "^6.8.0",
     "solid-icons": "^1.0.4",
+    "solid-js": "^1.6.8",
+    "solid-start": "^0.2.13",
+    "solid-start-node": "^0.2.13",
     "utility-types": "3.10.0",
     "uuid": "^9.0.0",
-    "winston": "^3.8.2"
-  },
-  "devDependencies": {
+    "winston": "^3.8.2",
     "@solidjs/meta": "^0.28.2",
     "@solidjs/router": "^0.6.0",
     "@testing-library/jest-dom": "^5.16.5",
@@ -64,12 +68,8 @@
     "jsdom": "^20.0.3",
     "loose-ts-check": "^1.3.0",
     "prettier": "^2.8.2",
-    "solid-js": "^1.6.8",
-    "solid-start": "^0.2.13",
-    "solid-start-node": "^0.2.13",
     "solid-testing-library": "^0.5.0",
     "typescript": "4.8.4",
-    "undici": "^5.14.0",
     "vite": "^3.2.5",
     "vitest": "^0.25.8"
   }
