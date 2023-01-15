@@ -13,7 +13,7 @@ const ModalOverlay: Component<ComponentProps<typeof BaseDialog.Overlay>> = (prop
   <BaseDialog.Overlay class={styles.overlay} {...props} />
 );
 
-const ModalContent: Component<ComponentProps<BaseDialog.Content>> = (props) => (
+const ModalContent: Component<ComponentProps<typeof BaseDialog.Content>> = (props) => (
   <BaseDialog.Content class={styles.content} {...props} />
 );
 
