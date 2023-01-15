@@ -1,5 +1,5 @@
 import { Dialog as BaseDialog } from '@kobalte/core';
-import type { Component, ComponentProps } from 'solid-js';
+import { Component, ComponentProps, splitProps } from 'solid-js';
 
 import * as styles from '@cubeartisan/cubeartisan/components/Modal/Modal.css';
 
@@ -9,21 +9,29 @@ const ModalCloseButton = BaseDialog.CloseButton;
 
 const ModalPortal = BaseDialog.Portal;
 
-const ModalOverlay: Component<ComponentProps<typeof BaseDialog.Overlay>> = (props) => (
-  <BaseDialog.Overlay class={styles.overlay} {...props} />
-);
+const ModalOverlay: Component<ComponentProps<typeof BaseDialog.Overlay>> = (props) => {
+  const [local, others] = splitProps(props, ['class']);
 
-const ModalContent: Component<ComponentProps<typeof BaseDialog.Content>> = (props) => (
-  <BaseDialog.Content class={styles.content} {...props} />
-);
+  return <BaseDialog.Overlay class={`${styles.overlay} ${local.class}`} {...others} />;
+};
 
-const ModalTitle: Component<ComponentProps<typeof BaseDialog.Title>> = (props) => (
-  <BaseDialog.Title class={styles.title} {...props} />
-);
+const ModalContent: Component<ComponentProps<typeof BaseDialog.Content>> = (props) => {
+  const [local, others] = splitProps(props, ['class']);
 
-const ModalDescription: Component<ComponentProps<typeof BaseDialog.Description>> = (props) => (
-  <BaseDialog.Description class={styles.description} {...props} />
-);
+  return <BaseDialog.Content class={`${styles.content} ${local.class}`} {...others} />;
+};
+
+const ModalTitle: Component<ComponentProps<typeof BaseDialog.Title>> = (props) => {
+  const [local, others] = splitProps(props, ['class']);
+
+  return <BaseDialog.Title class={`${styles.title} ${local.class}`} {...others} />;
+};
+
+const ModalDescription: Component<ComponentProps<typeof BaseDialog.Description>> = (props) => {
+  const [local, others] = splitProps(props, ['class']);
+
+  return <BaseDialog.Description class={`${styles.description} ${local.class}`} {...others} />;
+};
 
 type ModalComposite = {
   Trigger: typeof ModalTrigger;
