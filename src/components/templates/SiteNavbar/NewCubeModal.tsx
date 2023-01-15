@@ -4,6 +4,7 @@ import { createSignal, Show } from 'solid-js';
 import { Button } from '@cubeartisan/cubeartisan/components/Button';
 import { Modal } from '@cubeartisan/cubeartisan/components/Modal';
 import { Switch } from '@cubeartisan/cubeartisan/components/Switch/Switch';
+import * as styles from '@cubeartisan/cubeartisan/components/templates/SiteNavbar/NewCubeModal.css';
 
 const NewCubeModal = () => {
   const [importSwitch, setImportSwitch] = createSignal(false);
@@ -11,26 +12,21 @@ const NewCubeModal = () => {
   return (
     <Modal>
       <Modal.Trigger>
-        <CgMathPlus class={atoms({ height: 8, width: 8, color: 'white' })} />
+        <CgMathPlus class={styles.triggerIcon} />
       </Modal.Trigger>
       <Modal.Portal>
         <Modal.Overlay />
         <Modal.Content>
-          <Modal.Title atoms={{ alignSelf: 'center' }}>New Cube</Modal.Title>
+          <Modal.Title>New Cube</Modal.Title>
 
-          <VStack<'label'> as="label" recipe={{ justify: 'center' }}>
+          <label as="label" class={styles.inputLabel}>
             Cube Name
-            <artisan.input type="text" atoms={{ borderRadius: 'md' }} />
-          </VStack>
+            <input type="text" class={styles.textInputField} />
+          </label>
 
-          <VStack<'label'> as="label" recipe={{ justify: 'center' }}>
+          <label class={styles.inputLabel}>
             Visibility
-            <HStack<'fieldset'>
-              as="fieldset"
-              name="visibility"
-              atoms={{ boxShadow: 'borderNeutralLarge', padding: 1, borderRadius: 'md' }}
-              recipe={{ justify: 'spaceAround', align: 'center' }}
-            >
+            <fieldset name="visibility" class={styles.inputFieldset}>
               <label>
                 <input type="radio" name="visibility" id="public" value="public" checked />
                 Public
@@ -43,10 +39,10 @@ const NewCubeModal = () => {
                 <input type="radio" name="visibility" id="private" value="private" />
                 Private
               </label>
-            </HStack>
-          </VStack>
+            </fieldset>
+          </label>
 
-          <VStack<'label'> as="label" recipe={{ justify: 'center' }}>
+          <label class={styles.inputLabel}>
             <Switch isChecked={importSwitch()} onCheckedChange={setImportSwitch}>
               <Switch.Input />
               <Switch.Label>Import from list (optional)</Switch.Label>
@@ -55,12 +51,7 @@ const NewCubeModal = () => {
               </Switch.Control>
             </Switch>
             <Show when={importSwitch()}>
-              <HStack<'fieldset'>
-                as="fieldset"
-                name="import"
-                atoms={{ boxShadow: 'borderNeutralLarge', padding: 1, borderRadius: 'md' }}
-                recipe={{ justify: 'spaceAround', align: 'center' }}
-              >
+              <fieldset name="import" class={styles.inputFieldset}>
                 <label>
                   <input type="radio" name="import" id="paste" value="paste" />
                   Paste Text
@@ -73,13 +64,15 @@ const NewCubeModal = () => {
                   <input type="radio" name="import" id="url" value="url" />
                   From URL
                 </label>
-              </HStack>
+              </fieldset>
             </Show>
-          </VStack>
-          <HStack recipe={{ justify: 'spaceBetween', align: 'center' }}>
-            <Button recipe={{ color: 'danger' }}>Cancel</Button>
+          </label>
+          <div class={styles.buttonsContainer}>
+            <Button recipe={{ color: 'danger' }} isDisabled={true}>
+              Cancel
+            </Button>
             <Button recipe={{ color: 'success' }}>Create</Button>
-          </HStack>
+          </div>
         </Modal.Content>
       </Modal.Portal>
     </Modal>
