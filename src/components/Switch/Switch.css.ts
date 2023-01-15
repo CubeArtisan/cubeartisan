@@ -18,7 +18,6 @@ export const switchControl = style({
   paddingInline: vars.space['0.5'],
   backgroundColor: vars.color.neutral3,
   outline: `solid ${vars.borderSize.standard} ${vars.color.neutral7}`,
-  transition: '250ms background-color',
 
   selectors: {
     '&[data-hover]': {
@@ -26,8 +25,11 @@ export const switchControl = style({
       outline: `solid ${vars.borderSize.standard} ${vars.color.neutral8}`,
     },
     '&[data-checked]': {
+      outline: 'none',
       backgroundColor: vars.color.info9,
-      outline: `solid ${vars.borderSize.standard} ${vars.color.neutral9}`,
+    },
+    '&[data-focus-visible]': {
+      outline: `solid ${vars.borderSize['focus-ring']} ${vars.color.primary7}`,
     },
   },
 });
@@ -36,8 +38,8 @@ export const switchThumb = style({
   height: vars.space[5],
   width: vars.space[5],
   borderRadius: vars.borderRadius.full,
-  backgroundColor: vars.color.neutral11,
-  transition: '250ms transform',
+  backgroundColor: vars.color.info12,
+  transition: '200ms ease transform',
 
   selectors: {
     '&[data-checked]': {
