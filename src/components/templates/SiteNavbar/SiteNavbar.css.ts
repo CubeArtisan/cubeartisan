@@ -64,7 +64,7 @@ export const navAction = style([
   navItemBase,
   {
     borderRadius: vars.borderRadius.lg,
-    height: '32px', // temp fix because some icons had extra height for an unknown reason
+    height: '32px', // TODO: temp fix because some icons had extra height for an unknown reason
   },
 ]);
 
