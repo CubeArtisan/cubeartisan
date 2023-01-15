@@ -21,7 +21,7 @@ const SiteNavbar = () => {
       <nav class={styles.nav}>
         <ul class={styles.navLinks}>
           <li class={styles.logoContainer}>
-            {/* href should be "/", made "/test" for ease of prototyping */}
+            {/* TODO: href should be "/", made "/test" for ease of prototyping */}
             <A href="/test">
               <img src="/images/stacked-logo.svg" alt="CubeArtisan Logo" class={styles.logoImage} />
             </A>
@@ -33,7 +33,7 @@ const SiteNavbar = () => {
             <A href="/">Explore Cubes</A>
           </li>
           <Show keyed when={testUser()}>
-            {/* TODO use 'u: ProtectedUser' to define a profile picture */}
+            {/* TODO: use 'u: ProtectedUser' to define a profile picture */}
             {
               (/* u: ProtectedUser */) => (
                 <li class={styles.navLink}>
@@ -48,7 +48,7 @@ const SiteNavbar = () => {
       </nav>
       <ul class={styles.navActions}>
         <Show when={testUser()} keyed>
-          {/* TODO use 'u: ProtectedUser' to define a profile picture */}
+          {/* TODO: use 'u: ProtectedUser' to define a profile picture */}
           {
             (/* u: ProtectedUser */) => (
               <>
