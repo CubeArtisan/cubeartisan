@@ -21,7 +21,7 @@ const ModalTitle: Component<ComponentProps<typeof BaseDialog.Title>> = (props) =
   <BaseDialog.Title class={styles.title} {...props} />
 );
 
-const ModalDescription: typeof BaseDialog.Description = (props) => (
+const ModalDescription: Component<ComponentProps<typeof BaseDialog.Description>> = (props) => (
   <BaseDialog.Description class={styles.description} {...props} />
 );
 
