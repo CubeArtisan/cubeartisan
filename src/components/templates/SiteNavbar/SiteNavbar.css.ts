@@ -16,6 +16,7 @@ export const nav = style({
 
 export const navLinks = style({
   display: 'flex',
+  alignItems: 'center',
   gap: vars.size[3],
 });
 
@@ -55,6 +56,7 @@ export const navLink = style([
 export const navActions = style({
   gridArea: 'actions',
   display: 'flex',
+  alignItems: 'center',
   gap: vars.size[3],
 });
 
@@ -62,5 +64,12 @@ export const navAction = style([
   navItemBase,
   {
     borderRadius: vars.borderRadius.lg,
+    height: '32px', // temp fix because some icons had extra height for an unknown reason
   },
 ]);
+
+export const navActionIcon = style({
+  height: vars.space[8],
+  width: vars.space[8],
+  color: vars.color.white,
+});

@@ -1,15 +1,20 @@
-// import { CgBell, CgProfile } from 'solid-icons/cg';
-// import { Show, splitProps } from 'solid-js';
+import { CgBell, CgProfile } from 'solid-icons/cg';
+import { createSignal, Show } from 'solid-js';
 import { A } from 'solid-start';
 import { createServerData$ } from 'solid-start/server';
 
 import { getClientUserFromRequest } from '@cubeartisan/cubeartisan/backend/user';
+import { Button } from '@cubeartisan/cubeartisan/components/Button';
 import NewCubeModal from '@cubeartisan/cubeartisan/components/templates/SiteNavbar/NewCubeModal';
-// import type { ProtectedUser } from '@cubeartisan/cubeartisan/types/user';
 import * as styles from '@cubeartisan/cubeartisan/components/templates/SiteNavbar/SiteNavbar.css';
+import type { ProtectedUser } from '@cubeartisan/cubeartisan/types/user';
 
 const SiteNavbar = () => {
   const user = createServerData$((_, { request }) => getClientUserFromRequest(request));
+  const [testUser, setTestUser] = createSignal(false);
+  const toggleTestUser = () => {
+    setTestUser((prev) => !prev);
+  };
 
   return (
     <header class={styles.navContainer}>
@@ -27,35 +32,39 @@ const SiteNavbar = () => {
           <li class={styles.navLink}>
             <A href="/">Explore Cubes</A>
           </li>
-          {/* <Show keyed when={user()}>
+          <Show keyed when={testUser()}>
             {(u: ProtectedUser) => (
-              <li>
+              <li class={styles.navLink}>
                 <A id="your-cubes" href={`/user/${u.username}/cubes`}>
                   Your Cubes
                 </A>
               </li>
             )}
-          </Show> */}
+          </Show>
         </ul>
       </nav>
       <ul class={styles.navActions}>
-        <li class={styles.navAction}>
-          <NewCubeModal />
-        </li>
-        {/* <Show when={user()} keyed>
+        <Show when={testUser()} keyed>
+          {/* TODO use 'u' to define a profile picture */}
           {(u: ProtectedUser) => (
             <>
               <li class={styles.navAction}>
-                <NavIcon size="sm" as="button" atoms={{ color: 'neutralContrast' }}>
-                  <CgBell class={atoms({ height: 6, width: 6 })} />
-                </NavIcon>
+                <NewCubeModal />
               </li>
               <li class={styles.navAction}>
-                <CgProfile class={atoms({ height: 10, width: 10 })} />
+                <CgBell class={styles.navActionIcon} />
+              </li>
+              <li class={styles.navAction}>
+                <CgProfile class={styles.navActionIcon} />
               </li>
             </>
           )}
-        </Show> */}
+        </Show>
+        <li>
+          <Button recipe={{ color: 'primary' }} onPress={toggleTestUser}>
+            Toggle Auth
+          </Button>
+        </li>
       </ul>
     </header>
   );

@@ -1,24 +1,10 @@
 import { Dialog as BaseDialog } from '@kobalte/core';
-import { ComponentProps, ParentComponent, splitProps } from 'solid-js';
 
-import { buttonRecipe, ButtonVariants } from '@cubeartisan/cubeartisan/components/Button';
 import * as styles from '@cubeartisan/cubeartisan/components/Modal/Modal.css';
 
-const ModalTrigger: ParentComponent<{ recipe?: ButtonVariants } & ComponentProps<typeof BaseDialog.Trigger>> = (
-  props,
-) => {
-  const [local, others] = splitProps(props, ['recipe']);
+const ModalTrigger = BaseDialog.Trigger;
 
-  return <BaseDialog.Trigger class={buttonRecipe(local.recipe)} {...others} />;
-};
-
-const ModalCloseButton: ParentComponent<{ recipe?: ButtonVariants } & ComponentProps<typeof BaseDialog.CloseButton>> = (
-  props,
-) => {
-  const [local, others] = splitProps(props, ['recipe']);
-
-  return <BaseDialog.CloseButton class={buttonRecipe(local.recipe)} {...others} />;
-};
+const ModalCloseButton = BaseDialog.CloseButton;
 
 const ModalPortal = BaseDialog.Portal;
 
