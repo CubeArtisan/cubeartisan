@@ -1,10 +1,10 @@
 import { Separator } from '@kobalte/core';
-import { For, JSXElement, Show } from 'solid-js';
+import { For, Show } from 'solid-js';
 
 import { RadioGroup } from '@cubeartisan/cubeartisan/components/RadioGroup/RadioGroup';
 import * as styles from '@cubeartisan/cubeartisan/components/RadioGroup/RadioGroup.css';
 
-const radioGroupItems: { label: string; id: string; content: JSXElement }[] = [
+const radioGroupItems: { label: string; id: string }[] = [
   {
     label: 'Paste Text',
     id: 'paste',
