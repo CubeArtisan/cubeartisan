@@ -1,8 +1,8 @@
-import { ParentComponent, splitProps } from 'solid-js';
+import { ComponentProps, ParentComponent, splitProps } from 'solid-js';
 
 import * as styles from '@cubeartisan/cubeartisan/components/templates/ContentPage/ContentPage.css';
 
-const ContentPage: ParentComponent = (props) => {
+const ContentPage: ParentComponent<ComponentProps<'main'>> = (props) => {
   const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
