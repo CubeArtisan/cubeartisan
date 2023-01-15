@@ -36,7 +36,7 @@ RadioGroup.ErrorMessage = RadioGroupErrorMessage;
 RadioGroup.Item = RadioGroupItem;
 RadioGroup.ItemInput = RadioGroupItemInput;
 RadioGroup.ItemControl = RadioGroupItemControl;
-RadioGroup.ItemIndicator = RadioGroupItemLabel;
+RadioGroup.ItemIndicator = RadioGroupItemIndicator;
 RadioGroup.ItemLabel = RadioGroupItemLabel;
 
 export { RadioGroup };
