@@ -1,33 +1,34 @@
 version: '3'
 services:
   cubeartisan-mongodb:
+    command: "mongod --replSet rs0 & bash -c 'sleep 5 && mongo --eval \"rs.initiate()\"'"
     image: 'mongo:4.4.10'
     volumes:
       - cubeartisan-mongodb-volume:/data/db
     ports:
-      - '27017-27019:27017-27019'
-  cubeartisan-jobs:
-    build:
-      dockerfile: .docker/Dockerfile.jobs
-      context: ../
-      cache_from: 
-        - ${REPOSITORY}/cubeartisan-jobs:latest
-    image: ${REPOSITORY}/cubeartisan-jobs:${TAG}
-    depends_on:
-      - "cubeartisan-mongodb"
+      - '28017-28019:27017-27019'
+  mtgml-server:
+    image: "ghcr.io/cubeartisan/mtgml:20221205"
+    environment:
+      MTGML_AUTH_TOKENS: "testing"
+      MTGML_USE_AUTH: "true"
+      MTGML_VERSION: "cubeartisan-testing"
+    ports:
+      - '8001:8000'
   cubeartisan:
+    env_file:
+      - .env
     build:
       dockerfile: .docker/Dockerfile
       context: ../
-      cache_from: 
-        - ${REPOSITORY}/cubeartisan-jobs:${TAG}
       args:
         REPOSITORY: ${REPOSITORY}
         TAG: ${TAG}
     image: ${REPOSITORY}/cubeartisan:${TAG}
     ports:
-      - "5000:8080"
+      - "3000:5000"
     depends_on:
       - "cubeartisan-mongodb"
+      - "mtgml-server"
 volumes:
   cubeartisan-mongodb-volume:
