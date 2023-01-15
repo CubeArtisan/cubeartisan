@@ -20,7 +20,7 @@
     "undici": "^5.14.0"
   },
   "devDependencies": {
-    "@kobalte/core": "^0.1.0",
+    "@kobalte/core": "^0.3.1",
     "@radix-ui/colors": "github:radix-ui/colors",
     "@vanilla-extract/css": "^1.9.2",
     "@vanilla-extract/recipes": "0.3.0",

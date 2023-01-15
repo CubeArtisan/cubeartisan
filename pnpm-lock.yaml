@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@kobalte/core': ^0.1.0
+  '@kobalte/core': ^0.3.1
   '@radix-ui/colors': github:radix-ui/colors
   '@solidjs/meta': ^0.28.2
   '@solidjs/router': ^0.6.0
@@ -2240,6 +2240,12 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
+  /@internationalized/date/3.0.2:
+    resolution: {integrity: sha512-9V1IxesP6ASZj/hYyOXOC4yPJvidbbStyWQKLCQSqhhKACMOXoo+BddXZJy47ju9mqOMpWdrJ2rTx4yTxK9oag==}
+    dependencies:
+      '@swc/helpers': 0.4.14
+    dev: false
+
   /@internationalized/number/3.1.2:
     resolution: {integrity: sha512-Mbys8SGsn0ApXz3hJLNU+d95B8luoUbwnmCpBwl7d63UmYAlcT6TRDyvaS/vwdbElXLcsQJjQCu0gox2cv/Tig==}
     dependencies:
@@ -2323,26 +2329,26 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
-  /@kobalte/core/0.1.0_solid-js@1.6.8:
-    resolution: {integrity: sha512-IYdL9RDexfV+x13RcwAxSyiL2GnEPDPygOWfN8wHcBla7DnUULwdNYUTmN6ABDq7XGP2Fuj5RGgoTkpJ1xoTgQ==}
+  /@kobalte/core/0.3.1_solid-js@1.6.8:
+    resolution: {integrity: sha512-JCf5I97+cMXzqongM2fHGss8wKKMkmSnZ9dvLUxq77XqhOSuUvw/fpkUkpWUvDTNrVRg8hxt/WSAZ8c1qihKFA==}
     peerDependencies:
       solid-js: ^1.6.1
     dependencies:
       '@floating-ui/dom': 1.1.0
+      '@internationalized/date': 3.0.2
       '@internationalized/number': 3.1.2
       '@internationalized/string': 3.0.1
-      '@kobalte/utils': 0.1.0_solid-js@1.6.8
+      '@kobalte/utils': 0.3.0_solid-js@1.6.8
       solid-js: 1.6.8
     dev: true
 
-  /@kobalte/utils/0.1.0_solid-js@1.6.8:
-    resolution: {integrity: sha512-3kMYChBPDGGPjtfJl47LjWl8Xz8gHANCnzLHnaXrIJENJcMFwpEApyBMTpO451xFZFwyBkDp++ledYql+OL9Dw==}
+  /@kobalte/utils/0.3.0_solid-js@1.6.8:
+    resolution: {integrity: sha512-VxsOds//aJ3MyRgLU2FOc0O8HFtRvyrR8Ep271B9duIGtl4wKVQ6zLLvLuZElLDUH45mcPqecs+ESm81L/Zysg==}
     peerDependencies:
       solid-js: ^1.6.1
     dependencies:
       '@solid-primitives/event-listener': 2.2.4_solid-js@1.6.8
       '@solid-primitives/media': 2.0.4_solid-js@1.6.8
-      '@solid-primitives/props': 3.0.1_solid-js@1.6.8
       '@solid-primitives/refs': 0.3.4_solid-js@1.6.8
       '@solid-primitives/utils': 4.0.0_solid-js@1.6.8
       solid-js: 1.6.8
@@ -2503,7 +2509,7 @@ packages:
     dependencies:
       '@solid-primitives/utils': 4.0.0_solid-js@1.6.8
       solid-js: 1.6.8
-    dev: true
+    dev: false
 
   /@solid-primitives/refs/0.3.4_solid-js@1.6.8:
     resolution: {integrity: sha512-XqX5PRCMnCOuLQqTsx3tRYs/oAyQsTXtmkB+tBlYoaqxLrJFBebPRVT/kFWN2Jxb6eZYAXDB5zZejS8nizsd8Q==}
