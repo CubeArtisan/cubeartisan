@@ -1,16 +1,16 @@
 import { CgBell, CgProfile } from 'solid-icons/cg';
 import { createSignal, Show } from 'solid-js';
 import { A } from 'solid-start';
-import { createServerData$ } from 'solid-start/server';
+// import { createServerData$ } from 'solid-start/server';
 
-import { getClientUserFromRequest } from '@cubeartisan/cubeartisan/backend/user';
+// import { getClientUserFromRequest } from '@cubeartisan/cubeartisan/backend/user';
 import { Button } from '@cubeartisan/cubeartisan/components/Button';
 import NewCubeModal from '@cubeartisan/cubeartisan/components/templates/SiteNavbar/NewCubeModal';
 import * as styles from '@cubeartisan/cubeartisan/components/templates/SiteNavbar/SiteNavbar.css';
-import type { ProtectedUser } from '@cubeartisan/cubeartisan/types/user';
+// import type { ProtectedUser } from '@cubeartisan/cubeartisan/types/user';
 
 const SiteNavbar = () => {
-  const user = createServerData$((_, { request }) => getClientUserFromRequest(request));
+  // const user = createServerData$((_, { request }) => getClientUserFromRequest(request));
   const [testUser, setTestUser] = createSignal(false);
   const toggleTestUser = () => {
     setTestUser((prev) => !prev);
@@ -33,32 +33,37 @@ const SiteNavbar = () => {
             <A href="/">Explore Cubes</A>
           </li>
           <Show keyed when={testUser()}>
-            {(u: ProtectedUser) => (
-              <li class={styles.navLink}>
-                <A id="your-cubes" href={`/user/${u.username}/cubes`}>
-                  Your Cubes
-                </A>
-              </li>
-            )}
+            {/* TODO use 'u: ProtectedUser' to define a profile picture */}
+            {
+              (/* u: ProtectedUser */) => (
+                <li class={styles.navLink}>
+                  <A id="your-cubes" href={`/user/${/* u.username */ 'test'}/cubes`}>
+                    Your Cubes
+                  </A>
+                </li>
+              )
+            }
           </Show>
         </ul>
       </nav>
       <ul class={styles.navActions}>
         <Show when={testUser()} keyed>
-          {/* TODO use 'u' to define a profile picture */}
-          {(u: ProtectedUser) => (
-            <>
-              <li class={styles.navAction}>
-                <NewCubeModal />
-              </li>
-              <li class={styles.navAction}>
-                <CgBell class={styles.navActionIcon} />
-              </li>
-              <li class={styles.navAction}>
-                <CgProfile class={styles.navActionIcon} />
-              </li>
-            </>
-          )}
+          {/* TODO use 'u: ProtectedUser' to define a profile picture */}
+          {
+            (/* u: ProtectedUser */) => (
+              <>
+                <li class={styles.navAction}>
+                  <NewCubeModal />
+                </li>
+                <li class={styles.navAction}>
+                  <CgBell class={styles.navActionIcon} />
+                </li>
+                <li class={styles.navAction}>
+                  <CgProfile class={styles.navActionIcon} />
+                </li>
+              </>
+            )
+          }
         </Show>
         <li>
           <Button recipe={{ color: 'primary' }} onPress={toggleTestUser}>
