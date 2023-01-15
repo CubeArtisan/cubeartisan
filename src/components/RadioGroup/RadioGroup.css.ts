@@ -17,16 +17,19 @@ export const radioGroupItemsContainer = style({
 });
 
 export const radioGroupItem = style({
-  color: { default: 'neutralLowContrast', hover: 'neutralContrast' },
+  color: vars.color.neutral11,
   paddingInline: 2,
   paddingBlock: 1,
   borderRadius: 'md',
   margin: 1,
 
   selectors: {
+    '&[data-hover]': {
+      color: vars.color.neutral12,
+    },
     '&[data-checked]': {
       background: vars.color.info9,
-      color: vars.color.info12,
+      color: vars.color.neutral12,
     },
   },
 });
