@@ -1,7 +1,7 @@
 import { Separator } from '@kobalte/core';
 import { For, Show } from 'solid-js';
 
-import { RadioGroup } from '@cubeartisan/cubeartisan/components/RadioGroup/RadioGroup';
+import { RadioGroup } from '@cubeartisan/cubeartisan/components/RadioGroup';
 import * as styles from '@cubeartisan/cubeartisan/components/RadioGroup/RadioGroup.css';
 
 const radioGroupItems: { label: string; id: string }[] = [
@@ -31,7 +31,7 @@ export const TestRadioGroup = () => (
               <RadioGroup.ItemLabel>{item.label}</RadioGroup.ItemLabel>
             </RadioGroup.Item>
             <Show when={index() + 1 !== radioGroupItems.length}>
-              <Separator class={styles.vSeparator} />
+              <Separator.Root orientation="vertical" class={styles.vSeparator} />
             </Show>
           </>
         )}

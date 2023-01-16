@@ -1,31 +1,19 @@
 import { RadioGroup as BaseRadioGroup } from '@kobalte/core';
 
-const RadioGroupLabel = BaseRadioGroup.Label;
+export const RadioGroupLabel = BaseRadioGroup.Label;
 
-const RadioGroupDescription = BaseRadioGroup.Description;
+export const RadioGroupDescription = BaseRadioGroup.Description;
 
-const RadioGroupErrorMessage = BaseRadioGroup.ErrorMessage;
+export const RadioGroupErrorMessage = BaseRadioGroup.ErrorMessage;
 
-const RadioGroupItem = BaseRadioGroup.Item;
+export const RadioGroupItem = BaseRadioGroup.Item;
 
-const RadioGroupItemInput = BaseRadioGroup.ItemInput;
+export const RadioGroupItemInput = BaseRadioGroup.ItemInput;
 
-const RadioGroupItemControl = BaseRadioGroup.ItemControl;
+export const RadioGroupItemControl = BaseRadioGroup.ItemControl;
 
-const RadioGroupItemIndicator = BaseRadioGroup.ItemIndicator;
+export const RadioGroupItemIndicator = BaseRadioGroup.ItemIndicator;
 
-const RadioGroupItemLabel = BaseRadioGroup.ItemLabel;
+export const RadioGroupItemLabel = BaseRadioGroup.ItemLabel;
 
-const RadioGroupRoot = BaseRadioGroup.Root;
-
-export const RadioGroup = {
-  Label: RadioGroupLabel,
-  Description: RadioGroupDescription,
-  ErrorMessage: RadioGroupErrorMessage,
-  Item: RadioGroupItem,
-  ItemInput: RadioGroupItemInput,
-  ItemControl: RadioGroupItemControl,
-  ItemIndicator: RadioGroupItemIndicator,
-  ItemLabel: RadioGroupItemLabel,
-  Root: RadioGroupRoot,
-};
+export const RadioGroupRoot = BaseRadioGroup.Root;

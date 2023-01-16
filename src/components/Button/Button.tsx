@@ -8,5 +8,3 @@ export const ButtonRoot: ParentComponent<{ recipe?: ButtonVariants } & BaseButto
 
   return <BaseButton.Root class={buttonRecipe(local.recipe)} {...others} />;
 };
-
-export const Button = { Root: ButtonRoot };

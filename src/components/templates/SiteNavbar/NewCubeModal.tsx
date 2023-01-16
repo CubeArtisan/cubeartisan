@@ -3,14 +3,14 @@ import { createSignal, Show } from 'solid-js';
 
 import { Button } from '@cubeartisan/cubeartisan/components/Button';
 import { Modal } from '@cubeartisan/cubeartisan/components/Modal';
-import { Switch } from '@cubeartisan/cubeartisan/components/Switch/Switch';
+import { Switch } from '@cubeartisan/cubeartisan/components/Switch/';
 import * as styles from '@cubeartisan/cubeartisan/components/templates/SiteNavbar/NewCubeModal.css';
 
 const NewCubeModal = () => {
   const [importSwitch, setImportSwitch] = createSignal(false);
 
   return (
-    <Modal>
+    <Modal.Root>
       <Modal.Trigger>
         <CgMathPlus class={styles.triggerIcon} />
       </Modal.Trigger>
@@ -75,7 +75,7 @@ const NewCubeModal = () => {
           </div>
         </Modal.Content>
       </Modal.Portal>
-    </Modal>
+    </Modal.Root>
   );
 };
 

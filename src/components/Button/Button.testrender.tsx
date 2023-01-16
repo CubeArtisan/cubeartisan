@@ -1,4 +1,4 @@
-import { Button } from '@cubeartisan/cubeartisan/components/Button/Button';
+import { Button } from '@cubeartisan/cubeartisan/components/Button/';
 import * as styles from '@cubeartisan/cubeartisan/components/Button/Button.testrender.css';
 
 export const TestButton = () => (

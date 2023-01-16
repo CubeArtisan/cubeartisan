@@ -9,7 +9,7 @@ import * as styles from '@cubeartisan/cubeartisan/routes/(app)/test.css';
 const Test = () => (
   <ContentPage class={styles.testPage}>
     <div class={styles.testComponentBox}>
-      <TestModal />
+      <TestModal />{' '}
     </div>
     <div class={styles.testComponentBox}>
       <TestRadioGroup />
