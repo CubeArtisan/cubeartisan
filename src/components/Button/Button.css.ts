@@ -1,163 +1,104 @@
+import { assignVars, createThemeContract } from '@vanilla-extract/css';
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes';
 
 import { vars } from '@cubeartisan/cubeartisan/styles';
+
+const buttonColor = createThemeContract({
+  baseBgColor: null,
+  baseOutlineColor: null,
+  hoverBgColor: null,
+  hoverOutlineColor: null,
+  activeBgColor: null,
+});
 
 export const buttonRecipe = recipe({
   base: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBlock: vars.relativeSpace[1],
-    paddingInline: vars.relativeSpace[2],
     borderRadius: vars.borderRadius.md,
+
+    background: buttonColor.baseBgColor,
+    outline: `solid ${vars.borderSize.standard} ${buttonColor.baseOutlineColor}`,
+
+    selectors: {
+      '&[data-hover]': {
+        background: buttonColor.hoverBgColor,
+        outline: `solid ${vars.borderSize.standard} ${buttonColor.hoverOutlineColor}`,
+      },
+      '&[data-active]': {
+        background: buttonColor.activeBgColor,
+      },
+      '&[data-focus]': {
+        outline: `solid ${vars.borderSize['focus-ring']} ${vars.color.neutral7}`,
+      },
+      '&[data-disabled]': {
+        background: vars.color.neutral2,
+        outline: `solid ${vars.borderSize.standard} ${vars.color.neutral5}`,
+        cursor: 'not-allowed',
+      },
+    },
   },
   variants: {
-    size: {
-      xs: { fontSize: vars.fontSize.xs, lineHeight: vars.lineHeight.xs },
-      sm: { fontSize: vars.fontSize.sm, lineHeight: vars.lineHeight.sm },
-      md: { fontSize: vars.fontSize.md, lineHeight: vars.lineHeight.md },
-      lg: { fontSize: vars.fontSize.lg, lineHeight: vars.lineHeight.lg },
-      xl: { fontSize: vars.fontSize.xl, lineHeight: vars.lineHeight.xl },
-      '2xl': { fontSize: vars.fontSize['2xl'], lineHeight: vars.lineHeight['2xl'] },
-    },
     color: {
       neutral: {
-        background: vars.color.neutral3,
-        outline: `solid ${vars.borderSize.standard} ${vars.color.neutral6}`,
-
-        selectors: {
-          '&[data-hover]': {
-            background: vars.color.neutral4,
-            outline: `solid ${vars.borderSize.standard} ${vars.color.neutral7}`,
-          },
-          '&[data-active]': {
-            background: vars.color.neutral5,
-          },
-          '&[focus-active]': {
-            outline: `solid ${vars.borderSize['focus-ring']} ${vars.color.primary7}`,
-          },
-          '&[data-disabled]': {
-            outline: `solid ${vars.borderSize.standard} ${vars.color.neutral5}`,
-            background: vars.color.neutral2,
-            cursor: 'not-allowed',
-          },
-        },
+        vars: assignVars(buttonColor, {
+          baseBgColor: vars.color.neutral3,
+          baseOutlineColor: vars.color.neutral6,
+          hoverBgColor: vars.color.neutral4,
+          hoverOutlineColor: vars.color.neutral7,
+          activeBgColor: vars.color.neutral8,
+        }),
       },
       primary: {
-        background: vars.color.primary3,
-        outline: `solid ${vars.borderSize.standard} ${vars.color.primary6}`,
-
-        selectors: {
-          '&[data-hover]': {
-            background: vars.color.primary4,
-            outline: `solid ${vars.borderSize.standard} ${vars.color.primary7}`,
-          },
-          '&[data-active]': {
-            background: vars.color.primary5,
-          },
-          '&[focus-active]': {
-            outline: `solid ${vars.borderSize['focus-ring']} ${vars.color.primary7}`,
-          },
-          '&[data-disabled]': {
-            outline: `solid ${vars.borderSize.standard} ${vars.color.neutral5}`,
-            background: vars.color.neutral2,
-            cursor: 'not-allowed',
-          },
-        },
+        vars: assignVars(buttonColor, {
+          baseBgColor: vars.color.primary3,
+          baseOutlineColor: vars.color.primary6,
+          hoverBgColor: vars.color.primary4,
+          hoverOutlineColor: vars.color.primary7,
+          activeBgColor: vars.color.primary8,
+        }),
       },
       success: {
-        background: vars.color.success3,
-        outline: `solid ${vars.borderSize.standard} ${vars.color.success6}`,
-
-        selectors: {
-          '&[data-hover]': {
-            background: vars.color.success4,
-            outline: `solid ${vars.borderSize.standard} ${vars.color.success7}`,
-          },
-          '&[data-active]': {
-            background: vars.color.success5,
-          },
-          '&[focus-active]': {
-            outline: `solid ${vars.borderSize['focus-ring']} ${vars.color.primary7}`,
-          },
-          '&[data-disabled]': {
-            outline: `solid ${vars.borderSize.standard} ${vars.color.neutral5}`,
-            background: vars.color.neutral2,
-            cursor: 'not-allowed',
-          },
-        },
+        vars: assignVars(buttonColor, {
+          baseBgColor: vars.color.success3,
+          baseOutlineColor: vars.color.success6,
+          hoverBgColor: vars.color.success4,
+          hoverOutlineColor: vars.color.success7,
+          activeBgColor: vars.color.success8,
+        }),
       },
       info: {
-        background: vars.color.info3,
-        outline: `solid ${vars.borderSize.standard} ${vars.color.info6}`,
-
-        selectors: {
-          '&[data-hover]': {
-            background: vars.color.info4,
-            outline: `solid ${vars.borderSize.standard} ${vars.color.info7}`,
-          },
-          '&[data-active]': {
-            background: vars.color.info5,
-          },
-          '&[focus-active]': {
-            outline: `solid ${vars.borderSize['focus-ring']} ${vars.color.primary7}`,
-          },
-          '&[data-disabled]': {
-            outline: `solid ${vars.borderSize.standard} ${vars.color.neutral5}`,
-            background: vars.color.neutral2,
-            cursor: 'not-allowed',
-          },
-        },
+        vars: assignVars(buttonColor, {
+          baseBgColor: vars.color.info3,
+          baseOutlineColor: vars.color.info6,
+          hoverBgColor: vars.color.info4,
+          hoverOutlineColor: vars.color.info7,
+          activeBgColor: vars.color.info8,
+        }),
       },
       warning: {
-        background: vars.color.warning3,
-        outline: `solid ${vars.borderSize.standard} ${vars.color.warning6}`,
-
-        selectors: {
-          '&[data-hover]': {
-            background: vars.color.warning4,
-            outline: `solid ${vars.borderSize.standard} ${vars.color.warning7}`,
-          },
-          '&[data-active]': {
-            background: vars.color.warning5,
-          },
-          '&[focus-active]': {
-            outline: `solid ${vars.borderSize['focus-ring']} ${vars.color.primary7}`,
-          },
-          '&[data-disabled]': {
-            outline: `solid ${vars.borderSize.standard} ${vars.color.neutral5}`,
-            background: vars.color.neutral2,
-            cursor: 'not-allowed',
-          },
-        },
+        vars: assignVars(buttonColor, {
+          baseBgColor: vars.color.warning3,
+          baseOutlineColor: vars.color.warning6,
+          hoverBgColor: vars.color.warning4,
+          hoverOutlineColor: vars.color.warning7,
+          activeBgColor: vars.color.warning8,
+        }),
       },
       danger: {
-        background: vars.color.danger3,
-        outline: `solid ${vars.borderSize.standard} ${vars.color.danger6}`,
-
-        selectors: {
-          '&[data-hover]': {
-            background: vars.color.danger4,
-            outline: `solid ${vars.borderSize.standard} ${vars.color.danger7}`,
-          },
-          '&[data-active]': {
-            background: vars.color.danger5,
-          },
-          '&[focus-active]': {
-            outline: `solid ${vars.borderSize['focus-ring']} ${vars.color.primary7}`,
-          },
-          '&[data-disabled]': {
-            outline: `solid ${vars.borderSize.standard} ${vars.color.neutral5}`,
-            background: vars.color.neutral2,
-            cursor: 'not-allowed',
-          },
-        },
+        vars: assignVars(buttonColor, {
+          baseBgColor: vars.color.danger3,
+          baseOutlineColor: vars.color.danger6,
+          hoverBgColor: vars.color.danger4,
+          hoverOutlineColor: vars.color.danger7,
+          activeBgColor: vars.color.danger8,
+        }),
       },
     },
-  },
-  defaultVariants: {
-    size: 'md',
-    color: 'neutral',
+    defaultVariants: {
+      color: 'neutral',
+    },
   },
 });
 
