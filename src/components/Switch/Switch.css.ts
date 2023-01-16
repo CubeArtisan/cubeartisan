@@ -18,6 +18,7 @@ export const switchControl = style({
   paddingInline: vars.space['0.5'],
   backgroundColor: vars.color.neutral3,
   outline: `solid ${vars.borderSize.standard} ${vars.color.neutral7}`,
+  cursor: 'pointer',
 
   selectors: {
     '&[data-hover]': {
@@ -28,7 +29,7 @@ export const switchControl = style({
       outline: 'none',
       backgroundColor: vars.color.info9,
     },
-    '&[data-focus-visible]': {
+    '&[data-focus]': {
       outline: `solid ${vars.borderSize['focus-ring']} ${vars.color.primary7}`,
     },
   },
