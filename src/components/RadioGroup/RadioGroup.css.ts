@@ -9,23 +9,36 @@ export const radioGroup = style({
 });
 
 export const radioGroupItemsContainer = style({
+  display: 'flex',
+  alignItems: 'center',
   height: vars.space[10],
   backgroundColor: vars.color.neutral3,
   borderRadius: vars.borderRadius.md,
   outline: `solid ${vars.borderSize.standard} ${vars.color.neutral7}`,
-  overflow: 'hidden',
+
+  selectors: {
+    '&:focus-within': {
+      outline: `solid ${vars.borderSize['focus-ring']} ${vars.color.primary7}`,
+    },
+  },
 });
 
 export const radioGroupItem = style({
   color: vars.color.neutral11,
-  paddingInline: 2,
-  paddingBlock: 1,
-  borderRadius: 'md',
-  margin: 1,
+  paddingInline: vars.space[2],
+  paddingBlock: vars.space[1],
+  borderRadius: vars.borderRadius.md,
+  margin: vars.space[1],
 
   selectors: {
     '&[data-hover]': {
       color: vars.color.neutral12,
+      backgroundColor: vars.color.neutral4,
+      outline: `solid ${vars.borderSize.standard} ${vars.color.neutral7}`,
+    },
+    '&[data-active]': {
+      backgroundColor: vars.color.neutral5,
+      outline: `solid ${vars.borderSize.standard} ${vars.color.neutral8}`,
     },
     '&[data-checked]': {
       background: vars.color.info9,
@@ -37,5 +50,5 @@ export const radioGroupItem = style({
 export const vSeparator = style({
   height: '80%',
   width: '1px',
-  color: vars.color.neutral9,
+  backgroundColor: vars.color.neutral9,
 });
