@@ -59,7 +59,7 @@ dependencies:
   undici: 5.14.0
 
 devDependencies:
-  '@kobalte/core': 0.1.0_solid-js@1.6.8
+  '@kobalte/core': 0.3.1_solid-js@1.6.8
   '@radix-ui/colors': github.com/radix-ui/colors/19e08e0e2412a7a7cedc2b36536527c8d4fd4e65
   '@solidjs/meta': 0.28.2_solid-js@1.6.8
   '@solidjs/router': 0.6.0_solid-js@1.6.8
@@ -2244,7 +2244,7 @@ packages:
     resolution: {integrity: sha512-9V1IxesP6ASZj/hYyOXOC4yPJvidbbStyWQKLCQSqhhKACMOXoo+BddXZJy47ju9mqOMpWdrJ2rTx4yTxK9oag==}
     dependencies:
       '@swc/helpers': 0.4.14
-    dev: false
+    dev: true
 
   /@internationalized/number/3.1.2:
     resolution: {integrity: sha512-Mbys8SGsn0ApXz3hJLNU+d95B8luoUbwnmCpBwl7d63UmYAlcT6TRDyvaS/vwdbElXLcsQJjQCu0gox2cv/Tig==}
@@ -2501,15 +2501,6 @@ packages:
       '@solid-primitives/utils': 4.0.0_solid-js@1.6.8
       solid-js: 1.6.8
     dev: true
-
-  /@solid-primitives/props/3.0.1_solid-js@1.6.8:
-    resolution: {integrity: sha512-5v27ex4KxxnIbgze1lXPEXHO/ebbtEjL6idkhezH/7jHpjunl8PYabpDgoGO16tb8DawcZWOAXa7waWqWPAe/A==}
-    peerDependencies:
-      solid-js: ^1.6.0
-    dependencies:
-      '@solid-primitives/utils': 4.0.0_solid-js@1.6.8
-      solid-js: 1.6.8
-    dev: false
 
   /@solid-primitives/refs/0.3.4_solid-js@1.6.8:
     resolution: {integrity: sha512-XqX5PRCMnCOuLQqTsx3tRYs/oAyQsTXtmkB+tBlYoaqxLrJFBebPRVT/kFWN2Jxb6eZYAXDB5zZejS8nizsd8Q==}
