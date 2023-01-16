@@ -4,44 +4,20 @@ import * as styles from '@cubeartisan/cubeartisan/components/Button/Button.testr
 export const TestButton = () => (
   <div class={styles.testButtonContainer}>
     <div class={styles.testButtonRow}>
-      <Button.Root recipe={{ color: 'neutral' }} class={styles.testButton}>
-        Test
-      </Button.Root>
-      <Button.Root recipe={{ color: 'primary' }} class={styles.testButton}>
-        Test
-      </Button.Root>
-      <Button.Root recipe={{ color: 'success' }} class={styles.testButton}>
-        Test
-      </Button.Root>
-      <Button.Root recipe={{ color: 'info' }} class={styles.testButton}>
-        Test
-      </Button.Root>
-      <Button.Root recipe={{ color: 'warning' }} class={styles.testButton}>
-        Test
-      </Button.Root>
-      <Button.Root recipe={{ color: 'danger' }} class={styles.testButton}>
-        Test
-      </Button.Root>
+      <Button.Root recipe={{ color: 'neutral', padding: 'baseText' }}>Test</Button.Root>
+      <Button.Root recipe={{ color: 'primary', padding: 'baseText' }}>Test</Button.Root>
+      <Button.Root recipe={{ color: 'success', padding: 'baseText' }}>Test</Button.Root>
+      <Button.Root recipe={{ color: 'info', padding: 'baseText' }}>Test</Button.Root>
+      <Button.Root recipe={{ color: 'warning', padding: 'baseText' }}>Test</Button.Root>
+      <Button.Root recipe={{ color: 'danger', padding: 'baseText' }}>Test</Button.Root>
     </div>
     <div class={styles.testButtonRow}>
-      <Button.Root recipe={{ color: 'neutral' }} class={styles.testButton}>
-        Test
-      </Button.Root>
-      <Button.Root recipe={{ color: 'primary' }} class={styles.testButton}>
-        Test
-      </Button.Root>
-      <Button.Root recipe={{ color: 'success' }} class={styles.testButton}>
-        Test
-      </Button.Root>
-      <Button.Root recipe={{ color: 'info' }} class={styles.testButton}>
-        Test
-      </Button.Root>
-      <Button.Root recipe={{ color: 'warning' }} class={styles.testButton}>
-        Test
-      </Button.Root>
-      <Button.Root recipe={{ color: 'danger' }} class={styles.testButton}>
-        Test
-      </Button.Root>
+      <Button.Root recipe={{ color: 'neutral', padding: 'baseText' }}>Test</Button.Root>
+      <Button.Root recipe={{ color: 'primary', padding: 'baseText' }}>Test</Button.Root>
+      <Button.Root recipe={{ color: 'success', padding: 'baseText' }}>Test</Button.Root>
+      <Button.Root recipe={{ color: 'info', padding: 'baseText' }}>Test</Button.Root>
+      <Button.Root recipe={{ color: 'warning', padding: 'baseText' }}>Test</Button.Root>
+      <Button.Root recipe={{ color: 'danger', padding: 'baseText' }}>Test</Button.Root>
     </div>
   </div>
 );

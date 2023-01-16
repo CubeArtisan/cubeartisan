@@ -96,9 +96,15 @@ export const buttonRecipe = recipe({
         }),
       },
     },
-    defaultVariants: {
-      color: 'neutral',
+    padding: {
+      baseText: {
+        paddingInline: vars.space[2],
+        paddingBlock: vars.space[1],
+      },
     },
+  },
+  defaultVariants: {
+    color: 'neutral',
   },
 });
 

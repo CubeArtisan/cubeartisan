@@ -14,8 +14,3 @@ export const testButtonRow = style({
   justifyContent: 'center',
   gap: vars.space['2.5'],
 });
-
-export const testButton = style({
-  paddingInline: vars.space[2],
-  paddingBlock: vars.space[1],
-});
