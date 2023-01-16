@@ -2,7 +2,7 @@ import { Separator } from '@kobalte/core';
 import { For, Show } from 'solid-js';
 
 import { RadioGroup } from '@cubeartisan/cubeartisan/components/RadioGroup';
-import * as styles from '@cubeartisan/cubeartisan/components/RadioGroup/RadioGroup.css';
+import * as styles from '@cubeartisan/cubeartisan/components/RadioGroup/RadioGroup.testrender.css';
 
 const radioGroupItems: { label: string; id: string }[] = [
   {
@@ -20,13 +20,13 @@ const radioGroupItems: { label: string; id: string }[] = [
 ];
 
 export const TestRadioGroup = () => (
-  <RadioGroup.Root class={styles.radioGroup}>
+  <RadioGroup.Root>
     <RadioGroup.Label>Test Group</RadioGroup.Label>
-    <div class={styles.radioGroupItemsContainer}>
+    <RadioGroup.ItemsContainer>
       <For each={radioGroupItems}>
         {(item, index) => (
           <>
-            <RadioGroup.Item value={item.id} class={styles.radioGroupItem}>
+            <RadioGroup.Item value={item.id}>
               <RadioGroup.ItemInput />
               <RadioGroup.ItemLabel>{item.label}</RadioGroup.ItemLabel>
             </RadioGroup.Item>
@@ -36,6 +36,6 @@ export const TestRadioGroup = () => (
           </>
         )}
       </For>
-    </div>
+    </RadioGroup.ItemsContainer>
   </RadioGroup.Root>
 );

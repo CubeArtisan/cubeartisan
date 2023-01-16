@@ -6,6 +6,7 @@ import {
   RadioGroupItemIndicator as ItemIndicator,
   RadioGroupItemInput as ItemInput,
   RadioGroupItemLabel as ItemLabel,
+  RadioGroupItemsContainer as ItemsContainer,
   RadioGroupLabel as Label,
   RadioGroupRoot as Root,
 } from '@cubeartisan/cubeartisan/components/RadioGroup/RadioGroup';
@@ -15,6 +16,7 @@ export const RadioGroup = {
   Label,
   Description,
   ErrorMessage,
+  ItemsContainer,
   Item,
   ItemLabel,
   ItemInput,
