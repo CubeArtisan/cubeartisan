@@ -18,7 +18,7 @@ export const radioGroupItemsContainer = style({
 
   selectors: {
     '&:focus-within': {
-      outline: `solid ${vars.borderSize['focus-ring']} ${vars.color.primary7}`,
+      outline: `solid ${vars.borderSize['focus-ring']} ${vars.color.neutral7}`,
     },
   },
 });

@@ -30,7 +30,7 @@ export const switchControl = style({
       backgroundColor: vars.color.info9,
     },
     '&[data-focus]': {
-      outline: `solid ${vars.borderSize['focus-ring']} ${vars.color.primary7}`,
+      outline: `solid ${vars.borderSize['focus-ring']} ${vars.color.neutral7}`,
     },
   },
 });
