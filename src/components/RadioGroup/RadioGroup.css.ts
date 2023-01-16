@@ -29,6 +29,7 @@ export const radioGroupItem = style({
   paddingBlock: vars.space[1],
   borderRadius: vars.borderRadius.md,
   margin: vars.space[1],
+  cursor: 'pointer',
 
   selectors: {
     '&[data-hover]': {
