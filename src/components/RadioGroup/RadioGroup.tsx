@@ -1,5 +1,4 @@
 import { RadioGroup as BaseRadioGroup } from '@kobalte/core';
-import type { ComponentProps, ParentComponent } from 'solid-js';
 
 const RadioGroupLabel = BaseRadioGroup.Label;
 
@@ -17,26 +16,16 @@ const RadioGroupItemIndicator = BaseRadioGroup.ItemIndicator;
 
 const RadioGroupItemLabel = BaseRadioGroup.ItemLabel;
 
-type RadioGroupComposite = {
-  Label: typeof RadioGroupLabel;
-  Description: typeof RadioGroupDescription;
-  ErrorMessage: typeof RadioGroupErrorMessage;
-  Item: typeof RadioGroupItem;
-  ItemInput: typeof RadioGroupItemInput;
-  ItemControl: typeof RadioGroupItemControl;
-  ItemIndicator: typeof RadioGroupItemIndicator;
-  ItemLabel: typeof RadioGroupItemLabel;
+const RadioGroupRoot = BaseRadioGroup.Root;
+
+export const RadioGroup = {
+  Label: RadioGroupLabel,
+  Description: RadioGroupDescription,
+  ErrorMessage: RadioGroupErrorMessage,
+  Item: RadioGroupItem,
+  ItemInput: RadioGroupItemInput,
+  ItemControl: RadioGroupItemControl,
+  ItemIndicator: RadioGroupItemIndicator,
+  ItemLabel: RadioGroupItemLabel,
+  Root: RadioGroupRoot,
 };
-
-const RadioGroup: ParentComponent<ComponentProps<typeof BaseRadioGroup>> & RadioGroupComposite = BaseRadioGroup;
-
-RadioGroup.Label = RadioGroupLabel;
-RadioGroup.Description = RadioGroupDescription;
-RadioGroup.ErrorMessage = RadioGroupErrorMessage;
-RadioGroup.Item = RadioGroupItem;
-RadioGroup.ItemInput = RadioGroupItemInput;
-RadioGroup.ItemControl = RadioGroupItemControl;
-RadioGroup.ItemIndicator = RadioGroupItemIndicator;
-RadioGroup.ItemLabel = RadioGroupItemLabel;
-
-export { RadioGroup };

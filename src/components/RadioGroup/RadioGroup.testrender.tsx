@@ -20,7 +20,7 @@ const radioGroupItems: { label: string; id: string }[] = [
 ];
 
 export const TestRadioGroup = () => (
-  <RadioGroup class={styles.radioGroup}>
+  <RadioGroup.Root class={styles.radioGroup}>
     <RadioGroup.Label>Test Group</RadioGroup.Label>
     <div class={styles.radioGroupItemsContainer}>
       <For each={radioGroupItems}>
@@ -37,5 +37,5 @@ export const TestRadioGroup = () => (
         )}
       </For>
     </div>
-  </RadioGroup>
+  </RadioGroup.Root>
 );

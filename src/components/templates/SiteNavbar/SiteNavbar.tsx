@@ -66,9 +66,9 @@ const SiteNavbar = () => {
           }
         </Show>
         <li>
-          <Button recipe={{ color: 'primary' }} onPress={toggleTestUser}>
+          <Button.Root recipe={{ color: 'primary' }} onPress={toggleTestUser}>
             Toggle Auth
-          </Button>
+          </Button.Root>
         </li>
       </ul>
     </header>

@@ -34,24 +34,15 @@ const ModalDescription: Component<ComponentProps<typeof BaseDialog.Description>>
   return <BaseDialog.Description class={clsx(styles.description, local.class)} {...others} />;
 };
 
-type ModalComposite = {
-  Trigger: typeof ModalTrigger;
-  CloseButton: typeof ModalCloseButton;
-  Portal: typeof ModalPortal;
-  Overlay: typeof ModalOverlay;
-  Content: typeof ModalContent;
-  Title: typeof ModalTitle;
-  Description: typeof ModalDescription;
+const ModalRoot = BaseDialog.Root;
+
+export const Modal = {
+  Trigger: ModalTrigger,
+  CloseButton: ModalCloseButton,
+  Portal: ModalPortal,
+  Overlay: ModalOverlay,
+  Content: ModalContent,
+  Title: ModalTitle,
+  Description: ModalDescription,
+  Root: ModalRoot,
 };
-
-const Modal: Component<ComponentProps<typeof BaseDialog>> & ModalComposite = (props) => <BaseDialog {...props} />;
-
-Modal.Trigger = ModalTrigger;
-Modal.CloseButton = ModalCloseButton;
-Modal.Portal = ModalPortal;
-Modal.Overlay = ModalOverlay;
-Modal.Content = ModalContent;
-Modal.Title = ModalTitle;
-Modal.Description = ModalDescription;
-
-export { Modal };

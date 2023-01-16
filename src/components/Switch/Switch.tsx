@@ -23,22 +23,16 @@ const SwitchThumb: Component<ComponentProps<typeof BaseSwitch.Thumb>> = (props) 
   return <BaseSwitch.Thumb class={`${styles.switchThumb} ${local.class}`} {...others} />;
 };
 
-type SwitchComposite = {
-  Input: typeof SwitchInput;
-  Label: typeof SwitchLabel;
-  Control: typeof SwitchControl;
-  Thumb: typeof SwitchThumb;
-};
-
-const Switch: ParentComponent<ComponentProps<typeof BaseSwitch>> & SwitchComposite = (props) => {
+const SwitchRoot: ParentComponent<ComponentProps<typeof BaseSwitch>> = (props) => {
   const [local, others] = splitProps(props, ['class']);
 
-  return <BaseSwitch class={`${styles.switchRoot} ${local.class}`} {...others} />;
+  return <BaseSwitch.Root class={`${styles.switchRoot} ${local.class}`} {...others} />;
 };
 
-Switch.Input = SwitchInput;
-Switch.Label = SwitchLabel;
-Switch.Control = SwitchControl;
-Switch.Thumb = SwitchThumb;
-
-export { Switch };
+export const Switch = {
+  Input: SwitchInput,
+  Label: SwitchLabel,
+  Control: SwitchControl,
+  Thumb: SwitchThumb,
+  Root: SwitchRoot,
+};

@@ -43,13 +43,13 @@ const NewCubeModal = () => {
           </label>
 
           <label class={styles.inputLabel}>
-            <Switch isChecked={importSwitch()} onCheckedChange={setImportSwitch}>
+            <Switch.Root isChecked={importSwitch()} onCheckedChange={setImportSwitch}>
               <Switch.Input />
               <Switch.Label>Import from list (optional)</Switch.Label>
               <Switch.Control>
                 <Switch.Thumb />
               </Switch.Control>
-            </Switch>
+            </Switch.Root>
             <Show when={importSwitch()}>
               <fieldset name="import" class={styles.inputFieldset}>
                 <label>
@@ -68,10 +68,10 @@ const NewCubeModal = () => {
             </Show>
           </label>
           <div class={styles.buttonsContainer}>
-            <Button recipe={{ color: 'danger' }} isDisabled={true}>
+            <Button.Root recipe={{ color: 'danger' }} isDisabled={true}>
               Cancel
-            </Button>
-            <Button recipe={{ color: 'success' }}>Create</Button>
+            </Button.Root>
+            <Button.Root recipe={{ color: 'success' }}>Create</Button.Root>
           </div>
         </Modal.Content>
       </Modal.Portal>

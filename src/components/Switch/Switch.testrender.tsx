@@ -8,13 +8,13 @@ export const TestSwitch = () => {
 
   return (
     <>
-      <Switch isChecked={checked()} onCheckedChange={setChecked}>
+      <Switch.Root isChecked={checked()} onCheckedChange={setChecked}>
         <Switch.Input />
         <Switch.Label>Test Switch</Switch.Label>
         <Switch.Control>
           <Switch.Thumb />
         </Switch.Control>
-      </Switch>
+      </Switch.Root>
       <span class={styles.toggleLabel}>{checked() ? 'on' : 'off'}</span>
     </>
   );
