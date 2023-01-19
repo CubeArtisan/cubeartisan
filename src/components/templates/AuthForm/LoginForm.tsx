@@ -48,7 +48,7 @@ export const LoginForm = () => {
     <Form class={styles.formRoot}>
       <TextField.Root name="username">
         <TextField.Label>Username or Email</TextField.Label>
-        <TextField.Input placeholder="johndoe@email.com" type="email" />
+        <TextField.Input placeholder="johndoe@email.com" type="text" />
         <TextField.ErrorMessage>{/* put content here for different errors */}</TextField.ErrorMessage>
       </TextField.Root>
       <TextField.Root name="password">
