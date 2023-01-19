@@ -3,7 +3,7 @@ import { createSignal } from 'solid-js';
 import { TextField } from '@cubeartisan/cubeartisan/components/TextField';
 
 export const TestTextField = () => {
-  const [value, setValue] = createSignal<string>();
+  const [value, setValue] = createSignal<string>('');
   const validPattern = /[^a-zA-Z0-9_-]/;
 
   return (
