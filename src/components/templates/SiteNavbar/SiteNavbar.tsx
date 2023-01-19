@@ -1,10 +1,11 @@
+import { Link } from '@kobalte/core';
 import { CgBell, CgProfile } from 'solid-icons/cg';
 import { Show } from 'solid-js';
 import { A } from 'solid-start';
 import { createServerAction$, createServerData$, redirect } from 'solid-start/server';
 
 import { getClientUserFromRequest, storage } from '@cubeartisan/cubeartisan/backend/user';
-import { Button } from '@cubeartisan/cubeartisan/components/Button';
+import { Button, buttonRecipe } from '@cubeartisan/cubeartisan/components/Button';
 import NewCubeModal from '@cubeartisan/cubeartisan/components/templates/SiteNavbar/NewCubeModal';
 import * as styles from '@cubeartisan/cubeartisan/components/templates/SiteNavbar/SiteNavbar.css';
 // import type { ProtectedUser } from '@cubeartisan/cubeartisan/types/user';
@@ -57,14 +58,14 @@ const SiteNavbar = () => {
           fallback={() => (
             <>
               <li>
-                <Button.Root as={A} href={'/login'} recipe={{ color: 'primary', padding: 'baseText' }}>
+                <Link.Root as={A} href={'/login'} class={buttonRecipe({ color: 'primary', padding: 'baseText' })}>
                   Log In
-                </Button.Root>
+                </Link.Root>
               </li>
               <li>
-                <Button.Root as={A} href={'/signup'} recipe={{ color: 'primary', padding: 'baseText' }}>
+                <Link.Root as={A} href={'/signup'} class={buttonRecipe({ color: 'primary', padding: 'baseText' })}>
                   Sign Up
-                </Button.Root>
+                </Link.Root>
               </li>
             </>
           )}
