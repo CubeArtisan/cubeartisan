@@ -22,7 +22,7 @@ export const textfieldInput = style({
       backgroundColor: vars.color.neutral4,
       outline: `solid ${vars.borderSize.standard} ${vars.color.neutral7}`,
     },
-    '&[data-focus-visible]': {
+    '&[data-focus]': {
       outline: `solid ${vars.borderSize['focus-ring']} ${vars.color.neutral7}`,
     },
     '&[data-invalid]': {
@@ -37,8 +37,12 @@ export const textfieldInput = style({
 export const textfieldDescription = style({
   fontSize: vars.fontSize.sm,
   color: vars.color.neutral11,
+  display: 'none',
 
   selectors: {
+    [`${textfieldRoot}[data-focus]  &`]: {
+      display: 'contents',
+    },
     '&[data-invalid]': {
       display: 'none',
     },

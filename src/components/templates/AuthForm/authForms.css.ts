@@ -19,9 +19,18 @@ export const footer = style({
 export const buttonLink = style({
   textDecoration: 'underline',
   color: vars.color.neutral11,
+  borderRadius: vars.borderRadius.md,
+  paddingInline: vars.space[2],
+  paddingBlock: vars.space[1],
 
-  ':hover': {
-    color: vars.color.neutral12,
+  selectors: {
+    '&[data-hover]': {
+      color: vars.color.neutral12,
+    },
+    '&[data-focus]': {
+      outline: `solid ${vars.borderSize['focus-ring']} ${vars.color.neutral7}`,
+      color: vars.color.neutral12,
+    },
   },
 });
 
