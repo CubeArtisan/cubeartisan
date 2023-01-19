@@ -23,8 +23,8 @@ export const LoginForm = () => {
       throw new Error('Aleady Logged In');
     }
 
-    const username = formData.get('username');
-    const password = formData.get('password');
+    const username = formData.get('username') as string;
+    const password = formData.get('password') as string;
 
     if (!username || !password) {
       throw new Error('Please fill in all fields');
