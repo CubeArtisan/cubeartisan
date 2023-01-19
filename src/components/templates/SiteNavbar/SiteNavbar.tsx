@@ -8,6 +8,7 @@ import { getClientUserFromRequest, storage } from '@cubeartisan/cubeartisan/back
 import { Button, buttonRecipe } from '@cubeartisan/cubeartisan/components/Button';
 import NewCubeModal from '@cubeartisan/cubeartisan/components/templates/SiteNavbar/NewCubeModal';
 import * as styles from '@cubeartisan/cubeartisan/components/templates/SiteNavbar/SiteNavbar.css';
+import type { ProtectedUser } from '@cubeartisan/cubeartisan/types/user';
 
 const SiteNavbar = () => {
   const user = createServerData$((_, { request }) => getClientUserFromRequest(request));
@@ -37,16 +38,13 @@ const SiteNavbar = () => {
             <A href="/">Explore Cubes</A>
           </li>
           <Show keyed when={user()}>
-            {/* TODO: use 'u: ProtectedUser' to define a profile picture */}
-            {
-              (/* u: ProtectedUser */) => (
-                <li class={styles.navLink}>
-                  <A id="your-cubes" href={`/user/${/* u.username */ 'test'}/cubes`}>
-                    Your Cubes
-                  </A>
-                </li>
-              )
-            }
+            {(u: ProtectedUser) => (
+              <li class={styles.navLink}>
+                <A id="your-cubes" href={`/user/${u.username}/cubes`}>
+                  Your Cubes
+                </A>
+              </li>
+            )}
           </Show>
         </ul>
       </nav>
@@ -54,7 +52,7 @@ const SiteNavbar = () => {
         <Show
           when={user()}
           keyed
-          fallback={() => (
+          fallback={
             <>
               <li>
                 <Link.Root as={A} href={'/login'} class={buttonRecipe({ color: 'primary', padding: 'baseText' })}>
@@ -67,30 +65,27 @@ const SiteNavbar = () => {
                 </Link.Root>
               </li>
             </>
-          )}
-        >
-          {/* TODO: use 'u: ProtectedUser' to define a profile picture */}
-          {
-            (/* u: ProtectedUser */) => (
-              <>
-                <li class={styles.navAction}>
-                  <NewCubeModal />
-                </li>
-                <li class={styles.navAction}>
-                  <CgBell class={styles.navActionIcon} />
-                </li>
-                <li class={styles.navAction}>
-                  <CgProfile class={styles.navActionIcon} />
-                </li>
-                <li>{user()?.username}</li>
-                <li>
-                  <Button.Root recipe={{ padding: 'baseText' }} onPress={() => logOut()}>
-                    Log Out
-                  </Button.Root>
-                </li>
-              </>
-            )
           }
+        >
+          {(u: ProtectedUser) => (
+            <>
+              <li class={styles.navAction}>
+                <NewCubeModal />
+              </li>
+              <li class={styles.navAction}>
+                <CgBell class={styles.navActionIcon} />
+              </li>
+              <li class={styles.navAction}>
+                <CgProfile class={styles.navActionIcon} />
+              </li>
+              <li>{u.username}</li>
+              <li>
+                <Button.Root recipe={{ padding: 'baseText' }} onPress={() => logOut()}>
+                  Log Out
+                </Button.Root>
+              </li>
+            </>
+          )}
         </Show>
       </ul>
     </header>
