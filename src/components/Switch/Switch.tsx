@@ -24,7 +24,7 @@ export const SwitchThumb: Component<ComponentProps<typeof BaseSwitch.Thumb>> = (
   return <BaseSwitch.Thumb class={clsx(styles.switchThumb, local.class)} {...others} />;
 };
 
-export const SwitchRoot: ParentComponent<ComponentProps<typeof BaseSwitch>> = (props) => {
+export const SwitchRoot: ParentComponent<ComponentProps<typeof BaseSwitch.Root>> = (props) => {
   const [local, others] = splitProps(props, ['class']);
 
   return <BaseSwitch.Root class={clsx(styles.switchRoot, local.class)} {...others} />;
