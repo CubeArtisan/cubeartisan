@@ -23,9 +23,9 @@ export const SignupForm = () => {
       throw new Error('Aleady Logged In');
     }
 
-    const username = formData.get('username');
-    const password = formData.get('password');
-    const email = formData.get('email');
+    const username = formData.get('username') as string;
+    const password = formData.get('password') as string;
+    const email = formData.get('email') as string;
 
     if (!username || !password || !email) {
       throw new Error('Please fill in all fields');
