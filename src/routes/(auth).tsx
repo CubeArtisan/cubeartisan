@@ -2,12 +2,11 @@ import { Outlet } from 'solid-start';
 
 import * as styles from '@cubeartisan/cubeartisan/routes/(auth).css';
 
-const AuthLayout = () => {
+const AuthLayout = () => (
   <main class={styles.authContainer}>
     <div class={styles.authFormContainer}>
-      Test Text
       <Outlet />
     </div>
-  </main>;
-};
+  </main>
+);
 export default AuthLayout;
