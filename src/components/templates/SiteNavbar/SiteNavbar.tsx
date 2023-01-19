@@ -8,7 +8,6 @@ import { getClientUserFromRequest, storage } from '@cubeartisan/cubeartisan/back
 import { Button, buttonRecipe } from '@cubeartisan/cubeartisan/components/Button';
 import NewCubeModal from '@cubeartisan/cubeartisan/components/templates/SiteNavbar/NewCubeModal';
 import * as styles from '@cubeartisan/cubeartisan/components/templates/SiteNavbar/SiteNavbar.css';
-// import type { ProtectedUser } from '@cubeartisan/cubeartisan/types/user';
 
 const SiteNavbar = () => {
   const user = createServerData$((_, { request }) => getClientUserFromRequest(request));
