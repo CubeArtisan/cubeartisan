@@ -3,14 +3,14 @@ import { createSignal, Show } from 'solid-js';
 
 import { Button } from '@cubeartisan/cubeartisan/components/Button';
 import { Modal } from '@cubeartisan/cubeartisan/components/Modal';
-import { Switch } from '@cubeartisan/cubeartisan/components/Switch/Switch';
+import { Switch } from '@cubeartisan/cubeartisan/components/Switch/';
 import * as styles from '@cubeartisan/cubeartisan/components/templates/SiteNavbar/NewCubeModal.css';
 
 const NewCubeModal = () => {
   const [importSwitch, setImportSwitch] = createSignal(false);
 
   return (
-    <Modal>
+    <Modal.Root>
       <Modal.Trigger>
         <CgMathPlus class={styles.triggerIcon} />
       </Modal.Trigger>
@@ -43,13 +43,13 @@ const NewCubeModal = () => {
           </label>
 
           <label class={styles.inputLabel}>
-            <Switch isChecked={importSwitch()} onCheckedChange={setImportSwitch}>
+            <Switch.Root isChecked={importSwitch()} onCheckedChange={setImportSwitch}>
               <Switch.Input />
               <Switch.Label>Import from list (optional)</Switch.Label>
               <Switch.Control>
                 <Switch.Thumb />
               </Switch.Control>
-            </Switch>
+            </Switch.Root>
             <Show when={importSwitch()}>
               <fieldset name="import" class={styles.inputFieldset}>
                 <label>
@@ -68,14 +68,14 @@ const NewCubeModal = () => {
             </Show>
           </label>
           <div class={styles.buttonsContainer}>
-            <Button recipe={{ color: 'danger' }} isDisabled={true}>
+            <Button.Root recipe={{ color: 'danger' }} isDisabled={true}>
               Cancel
-            </Button>
-            <Button recipe={{ color: 'success' }}>Create</Button>
+            </Button.Root>
+            <Button.Root recipe={{ color: 'success' }}>Create</Button.Root>
           </div>
         </Modal.Content>
       </Modal.Portal>
-    </Modal>
+    </Modal.Root>
   );
 };
 

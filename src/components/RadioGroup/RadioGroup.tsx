@@ -1,42 +1,37 @@
 import { RadioGroup as BaseRadioGroup } from '@kobalte/core';
-import type { ComponentProps, ParentComponent } from 'solid-js';
+import clsx from 'clsx';
+import { ComponentProps, ParentComponent, splitProps } from 'solid-js';
 
-const RadioGroupLabel = BaseRadioGroup.Label;
+import * as styles from '@cubeartisan/cubeartisan/components/RadioGroup/RadioGroup.css';
 
-const RadioGroupDescription = BaseRadioGroup.Description;
+export const RadioGroupLabel = BaseRadioGroup.Label;
 
-const RadioGroupErrorMessage = BaseRadioGroup.ErrorMessage;
+export const RadioGroupDescription = BaseRadioGroup.Description;
 
-const RadioGroupItem = BaseRadioGroup.Item;
+export const RadioGroupErrorMessage = BaseRadioGroup.ErrorMessage;
 
-const RadioGroupItemInput = BaseRadioGroup.ItemInput;
+export const RadioGroupItemsContainer: ParentComponent<ComponentProps<'div'>> = (props) => {
+  const [local, others] = splitProps(props, ['class']);
 
-const RadioGroupItemControl = BaseRadioGroup.ItemControl;
-
-const RadioGroupItemIndicator = BaseRadioGroup.ItemIndicator;
-
-const RadioGroupItemLabel = BaseRadioGroup.ItemLabel;
-
-type RadioGroupComposite = {
-  Label: typeof RadioGroupLabel;
-  Description: typeof RadioGroupDescription;
-  ErrorMessage: typeof RadioGroupErrorMessage;
-  Item: typeof RadioGroupItem;
-  ItemInput: typeof RadioGroupItemInput;
-  ItemControl: typeof RadioGroupItemControl;
-  ItemIndicator: typeof RadioGroupItemIndicator;
-  ItemLabel: typeof RadioGroupItemLabel;
+  return <div class={clsx(styles.radioGroupItemsContainer, local.class)} {...others} />;
 };
 
-const RadioGroup: ParentComponent<ComponentProps<typeof BaseRadioGroup>> & RadioGroupComposite = BaseRadioGroup;
+export const RadioGroupItem: ParentComponent<ComponentProps<typeof BaseRadioGroup.Item>> = (props) => {
+  const [local, others] = splitProps(props, ['class']);
 
-RadioGroup.Label = RadioGroupLabel;
-RadioGroup.Description = RadioGroupDescription;
-RadioGroup.ErrorMessage = RadioGroupErrorMessage;
-RadioGroup.Item = RadioGroupItem;
-RadioGroup.ItemInput = RadioGroupItemInput;
-RadioGroup.ItemControl = RadioGroupItemControl;
-RadioGroup.ItemIndicator = RadioGroupItemIndicator;
-RadioGroup.ItemLabel = RadioGroupItemLabel;
+  return <BaseRadioGroup.Item class={clsx(styles.radioGroupItem, local.class)} {...others} />;
+};
 
-export { RadioGroup };
+export const RadioGroupItemInput = BaseRadioGroup.ItemInput;
+
+export const RadioGroupItemControl = BaseRadioGroup.ItemControl;
+
+export const RadioGroupItemIndicator = BaseRadioGroup.ItemIndicator;
+
+export const RadioGroupItemLabel = BaseRadioGroup.ItemLabel;
+
+export const RadioGroupRoot: ParentComponent<ComponentProps<typeof BaseRadioGroup.Root>> = (props) => {
+  const [local, others] = splitProps(props, ['class']);
+
+  return <BaseRadioGroup.Root class={clsx(styles.radioGroup, local.class)} {...others} />;
+};
