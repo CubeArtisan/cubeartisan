@@ -1,11 +1,6 @@
-import type { Component } from 'solid-js';
-
+import { CubeListPage } from '@cubeartisan/cubeartisan/components/templates/CubePage/CubeListPage';
 import * as styles from '@cubeartisan/cubeartisan/routes/(app)/cube/[cubeID]/(list).css';
 
-const CubePage: Component = () => (
-  <main>
-    <div class={styles.hero} />
-  </main>
-);
+const CubePage = () => <CubeListPage cubeName="Test Cube" />;
 
 export default CubePage;
