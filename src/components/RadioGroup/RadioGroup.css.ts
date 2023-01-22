@@ -10,8 +10,8 @@ export const radioGroup = style({
 
 export const radioGroupItemsContainer = style({
   display: 'flex',
-  alignItems: 'center',
-  height: vars.space[10],
+  justifyContent: 'space-evenly',
+  minHeight: vars.space[10],
   backgroundColor: vars.color.neutral3,
   borderRadius: vars.borderRadius.md,
   outline: `solid ${vars.borderSize.standard} ${vars.color.neutral7}`,
@@ -25,6 +25,7 @@ export const radioGroupItemsContainer = style({
 
 export const radioGroupItem = style({
   color: vars.color.neutral11,
+  alignSelf: 'center',
   paddingInline: vars.space[2],
   paddingBlock: vars.space[1],
   borderRadius: vars.borderRadius.md,
@@ -46,4 +47,11 @@ export const radioGroupItem = style({
       color: vars.color.neutral12,
     },
   },
+});
+
+export const vSeparator = style({
+  height: 'auto',
+  marginBlock: vars.space[1],
+  width: '1px',
+  backgroundColor: vars.color.neutral9,
 });
