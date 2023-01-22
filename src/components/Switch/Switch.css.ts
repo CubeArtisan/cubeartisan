@@ -50,7 +50,7 @@ export const switchThumb = style({
 });
 
 export const switchRoot = style({
-  display: 'inline-flex',
+  display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
   gap: vars.space['2.5'],
