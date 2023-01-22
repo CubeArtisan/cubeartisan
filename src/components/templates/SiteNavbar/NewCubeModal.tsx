@@ -1,13 +1,31 @@
 import { CgMathPlus } from 'solid-icons/cg';
-import { createSignal, Show } from 'solid-js';
+import { createSignal, For, Match, Show, Switch } from 'solid-js';
+import { createServerAction$, redirect } from 'solid-start/server';
 
-import { Button } from '@cubeartisan/cubeartisan/components/Button';
+import { createCube } from '@cubeartisan/cubeartisan/backend/cubeUtils';
+import { getUserFromRequest } from '@cubeartisan/cubeartisan/backend/user';
+import { Button, buttonRecipe } from '@cubeartisan/cubeartisan/components/Button';
 import { Modal } from '@cubeartisan/cubeartisan/components/Modal';
-import { Switch } from '@cubeartisan/cubeartisan/components/Switch/';
+import { RadioGroup } from '@cubeartisan/cubeartisan/components/RadioGroup';
+import { ControlledComposedSwitch } from '@cubeartisan/cubeartisan/components/Switch/';
 import * as styles from '@cubeartisan/cubeartisan/components/templates/SiteNavbar/NewCubeModal.css';
+import { TextField } from '@cubeartisan/cubeartisan/components/TextField';
 
 const NewCubeModal = () => {
+  const [, { Form }] = createServerAction$(async (formData: FormData, { request }) => {
+    const cubeName = formData.get('name') as string;
+    const user = getUserFromRequest(request);
+
+    // const cube = await createCube(user, cubeName);
+
+    // return redirect(`/cube/${cube.shortID}`);
+
+    console.log(formData);
+    return redirect('/');
+  });
+
   const [importSwitch, setImportSwitch] = createSignal(false);
+  const [importValue, setImportValue] = createSignal<'paste' | 'file' | 'url'>('paste');
 
   return (
     <Modal.Root>
@@ -16,64 +34,100 @@ const NewCubeModal = () => {
       </Modal.Trigger>
       <Modal.Portal>
         <Modal.Overlay />
-        <Modal.Content>
-          <Modal.Title>New Cube</Modal.Title>
+        <Form>
+          <Modal.Content>
+            <Modal.Title>New Cube</Modal.Title>
 
-          <label class={styles.inputLabel}>
-            Cube Name
-            <input type="text" class={styles.textInputField} />
-          </label>
+            <TextField.Root name="name">
+              <TextField.Label>Cube Name</TextField.Label>
+              <TextField.Input type="text" />
+            </TextField.Root>
 
-          <label class={styles.inputLabel}>
-            Visibility
-            <fieldset name="visibility" class={styles.inputFieldset}>
-              <label>
-                <input type="radio" name="visibility" id="public" value="public" checked />
-                Public
-              </label>
-              <label>
-                <input type="radio" name="visibility" id="unlisted" value="unlisted" />
-                Unlisted
-              </label>
-              <label>
-                <input type="radio" name="visibility" id="private" value="private" />
-                Private
-              </label>
-            </fieldset>
-          </label>
+            <RadioGroup.Root defaultValue="public" name="visibility">
+              <RadioGroup.Label>Visibilty</RadioGroup.Label>
+              <RadioGroup.ItemsContainer>
+                <RadioGroup.Item value="public">
+                  <RadioGroup.ItemInput />
+                  <RadioGroup.ItemLabel>Public</RadioGroup.ItemLabel>
+                </RadioGroup.Item>
+                <RadioGroup.ItemSeparator />
+                <RadioGroup.Item value="unlisted">
+                  <RadioGroup.ItemInput />
+                  <RadioGroup.ItemLabel>Unlisted</RadioGroup.ItemLabel>
+                </RadioGroup.Item>
+                <RadioGroup.ItemSeparator />
+                <RadioGroup.Item value="private">
+                  <RadioGroup.ItemInput />
+                  <RadioGroup.ItemLabel>Private</RadioGroup.ItemLabel>
+                </RadioGroup.Item>
+              </RadioGroup.ItemsContainer>
+            </RadioGroup.Root>
 
-          <label class={styles.inputLabel}>
-            <Switch.Root isChecked={importSwitch()} onCheckedChange={setImportSwitch}>
-              <Switch.Input />
-              <Switch.Label>Import from list (optional)</Switch.Label>
-              <Switch.Control>
-                <Switch.Thumb />
-              </Switch.Control>
-            </Switch.Root>
-            <Show when={importSwitch()}>
-              <fieldset name="import" class={styles.inputFieldset}>
-                <label>
-                  <input type="radio" name="import" id="paste" value="paste" />
-                  Paste Text
-                </label>
-                <label>
-                  <input type="radio" name="import" id="file" value="file" />
-                  From File
-                </label>
-                <label>
-                  <input type="radio" name="import" id="url" value="url" />
-                  From URL
-                </label>
-              </fieldset>
-            </Show>
-          </label>
-          <div class={styles.buttonsContainer}>
-            <Button.Root recipe={{ color: 'danger' }} isDisabled={true}>
-              Cancel
-            </Button.Root>
-            <Button.Root recipe={{ color: 'success' }}>Create</Button.Root>
-          </div>
-        </Modal.Content>
+            <div class={styles.importContainer}>
+              <RadioGroup.Root value={importValue()} onValueChange={setImportValue}>
+                <RadioGroup.Label>
+                  <ControlledComposedSwitch
+                    label="Import from list (optional)"
+                    isChecked={importSwitch()}
+                    onCheckedChange={setImportSwitch}
+                  />
+                </RadioGroup.Label>
+                <Show when={importSwitch()}>
+                  <RadioGroup.ItemsContainer>
+                    <For
+                      each={[
+                        { id: 'paste', label: 'Paste Text' },
+                        { id: 'file', label: 'From File' },
+                        { id: 'url', label: 'From URL' },
+                      ]}
+                    >
+                      {(item, index) => (
+                        <>
+                          <RadioGroup.Item value={item.id}>
+                            <RadioGroup.ItemInput />
+                            <RadioGroup.ItemLabel>{item.label}</RadioGroup.ItemLabel>
+                          </RadioGroup.Item>
+                          <Show when={index() + 1 !== 3}>
+                            <RadioGroup.ItemSeparator />
+                          </Show>
+                        </>
+                      )}
+                    </For>
+                  </RadioGroup.ItemsContainer>
+                </Show>
+              </RadioGroup.Root>
+
+              <Show when={importSwitch()}>
+                <Switch>
+                  <Match when={importValue() === 'paste'}>
+                    <textarea name="paste-text" />
+                  </Match>
+                  <Match when={importValue() === 'file'}>
+                    <input name="import-file" type="file" />
+                  </Match>
+                  <Match when={importValue() === 'url'}>
+                    <TextField.Root name="url">
+                      <TextField.Input type="import-url" placeholder="url" />
+                    </TextField.Root>
+                  </Match>
+                </Switch>
+              </Show>
+            </div>
+
+            <div class={styles.buttonsContainer}>
+              <Modal.CloseButton type="button" class={buttonRecipe({ color: 'danger', padding: 'baseText' })}>
+                Cancel
+              </Modal.CloseButton>
+              <Modal.CloseButton type="submit" class={buttonRecipe({ color: 'success', padding: 'baseText' })}>
+                Create
+              </Modal.CloseButton>
+
+              {/* <Button.Root type="submit" recipe={{ color: 'success', padding: 'baseText' }}>
+                Create
+              </Button.Root> */}
+            </div>
+          </Modal.Content>
+        </Form>
       </Modal.Portal>
     </Modal.Root>
   );
