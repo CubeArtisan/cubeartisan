@@ -1,5 +1,5 @@
-import { useCubeListContext } from '@cubeartisan/cubeartisan/components/templates/cube/list/CubeListContext';
-import * as styles from '@cubeartisan/cubeartisan/components/templates/cube/list/CubeListHero.css';
+import { useCubeListContext } from '@cubeartisan/cubeartisan/components/templates/cube/list/list-context';
+import * as styles from '@cubeartisan/cubeartisan/components/templates/cube/list/list-hero.css';
 
 export const CubeListHero = () => {
   const cube = useCubeListContext();
