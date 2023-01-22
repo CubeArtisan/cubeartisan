@@ -11,9 +11,6 @@ export const heroRoot = style({
   justifyContent: 'space-between',
   paddingInline: vars.space[5],
   paddingBlock: vars.space[8],
-
-  // temp
-  background: vars.color.neutral2,
 });
 
 export const cubeNameLabel = style({
