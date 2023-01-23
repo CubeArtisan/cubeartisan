@@ -6,6 +6,10 @@ const mockCube = {
   owner_name: 'jesseb34r',
 };
 
-const CubePage = () => <CubeListView cube={mockCube} />;
+const CubePage = () => (
+  <main class={styles.container}>
+    <CubeListView cube={mockCube} />
+  </main>
+);
 
 export default CubePage;
