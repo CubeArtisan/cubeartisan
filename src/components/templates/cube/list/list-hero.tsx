@@ -1,15 +1,17 @@
-import { useCubeListContext } from '@cubeartisan/cubeartisan/components/templates/cube/list/list-context';
+import { useParams, useRouteData } from 'solid-start';
+
 import * as styles from '@cubeartisan/cubeartisan/components/templates/cube/list/list-hero.css';
+import type { CubeRouteData } from '@cubeartisan/cubeartisan/routes/(app)/cube/[cubeId]/(list)';
 
 export const CubeListHero = () => {
-  const cube = useCubeListContext();
+  const data = useRouteData<CubeRouteData>(useParams<{ cubeId: string }>().cubeId);
 
   return (
     <div class={styles.heroContainer}>
       <header class={styles.heroRoot}>
         <div>
-          <h1 class={styles.cubeNameLabel}>{cube.name}</h1>
-          <p>{cube.owner_name}</p>
+          <h1 class={styles.cubeNameLabel}>{data()?.name}</h1>
+          <p>{data()?.owner_name}</p>
           <p>actions</p>
         </div>
         <div>
