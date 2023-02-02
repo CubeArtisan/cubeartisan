@@ -5,13 +5,14 @@ import { vars } from '@cubeartisan/cubeartisan/styles';
 export const tableContainer = style({
   width: '100vw',
   overflow: 'scroll',
+  display: 'flex',
+  flexDirection: 'column',
 });
 
 export const table = style({
   display: 'flex',
   gap: vars.space['2.5'],
   alignItems: 'start',
-  width: `max(max-content, 90%)`,
   marginInline: 'auto',
   padding: vars.space['0.5'],
 });
