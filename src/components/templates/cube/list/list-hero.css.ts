@@ -19,13 +19,20 @@ export const heroRoot = style({
   paddingBlock: vars.space[8],
 });
 
-export const cubeNameLabel = style({
+export const cubeName = style({
   fontSize: vars.fontSize['3xl'],
+  lineHeight: vars.lineHeight['3xl'],
   fontWeight: vars.fontWeight.bold,
+  borderRadius: vars.borderRadius.sm,
 });
 
-export const cubeDescriptionLabel = style({
-  fontSize: vars.fontSize.xl,
+export const cubeOwnerName = style({
+  fontWeight: vars.fontWeight.semibold,
+  color: vars.color.neutral11,
+});
+
+export const cubeDescriptionHeader = style({
+  fontSize: vars.fontSize['2xl'],
   fontWeight: vars.fontWeight.semibold,
 });
 
