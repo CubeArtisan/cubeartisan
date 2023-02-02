@@ -4,7 +4,7 @@ import * as styles from '@cubeartisan/cubeartisan/components/templates/cube/list
 import type { CubeRouteData } from '@cubeartisan/cubeartisan/routes/(app)/cube/[cubeId]/(list)';
 
 export const CubeListHero = () => {
-  const data = useRouteData<CubeRouteData>(useParams<{ cubeId: string }>().cubeId);
+  const data = useRouteData<CubeRouteData>(useParams());
 
   return (
     <div class={styles.heroContainer}>
