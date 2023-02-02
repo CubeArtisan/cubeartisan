@@ -1,7 +1,8 @@
 import { Component, For } from 'solid-js';
+import { useParams, useRouteData } from 'solid-start';
 
-import { useCubeListContext } from '@cubeartisan/cubeartisan/components/templates/cube/list/list-context';
 import * as styles from '@cubeartisan/cubeartisan/components/templates/cube/list/list-table.css';
+import type { CubeRouteData } from '@cubeartisan/cubeartisan/routes/(app)/cube/[cubeId]/(list)';
 
 const TableColumn: Component<{ title: string; content: string[] }> = (props) => (
   <section class={styles.tableColumn}>
@@ -19,7 +20,7 @@ const TableColumn: Component<{ title: string; content: string[] }> = (props) => 
 );
 
 export const CubeListTable = () => {
-  const cube = useCubeListContext();
+  const data = useRouteData<CubeRouteData>(useParams<{ cubeId: string }>().cubeId);
 
   const mockCards = [
     'lightning bolt',
@@ -31,16 +32,18 @@ export const CubeListTable = () => {
   ];
 
   return (
-    <div class={styles.table}>
-      <TableColumn title="White" content={mockCards} />
-      <TableColumn title="Blue" content={mockCards} />
-      <TableColumn title="Black" content={mockCards} />
-      <TableColumn title="Red" content={mockCards} />
-      <TableColumn title="Green" content={mockCards} />
-      <TableColumn title="Hybrid" content={mockCards} />
-      <TableColumn title="Multicolor" content={mockCards} />
-      <TableColumn title="Colorless" content={mockCards} />
-      <TableColumn title="Lands" content={mockCards} />
+    <div class={styles.tableContainer}>
+      <div class={styles.table}>
+        <TableColumn title="White" content={mockCards} />
+        <TableColumn title="Blue" content={mockCards} />
+        <TableColumn title="Black" content={mockCards} />
+        <TableColumn title="Red" content={mockCards} />
+        <TableColumn title="Green" content={mockCards} />
+        {/* <TableColumn title="Hybrid" content={mockCards} /> */}
+        <TableColumn title="Multicolor" content={mockCards} />
+        <TableColumn title="Colorless" content={mockCards} />
+        <TableColumn title="Lands" content={mockCards} />
+      </div>
     </div>
   );
 };
