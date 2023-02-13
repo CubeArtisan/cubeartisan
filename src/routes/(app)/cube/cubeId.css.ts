@@ -15,7 +15,7 @@ export const main = style({
 
 export const sidebar = style({
   backgroundColor: vars.color.neutral3,
-  width: vars.size.sm,
+  width: vars.size.md,
   display: 'flex',
   flexDirection: 'column',
   transition: 'width ease 200ms',
