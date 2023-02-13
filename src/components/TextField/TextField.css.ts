@@ -6,7 +6,6 @@ export const textfieldRoot = style({
   display: 'flex',
   flexDirection: 'column',
   gap: vars.space['2.5'],
-  width: vars.size.md,
 });
 
 export const textfieldInput = style({
