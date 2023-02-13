@@ -13,7 +13,7 @@ export const table = style({
   gap: vars.space['2.5'],
   alignItems: 'start',
   marginInline: 'auto',
-  padding: vars.space['0.5'],
+  paddingInline: vars.space['2.5'],
 });
 
 export const tableColumn = style({

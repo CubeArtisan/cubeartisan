@@ -3,7 +3,6 @@ import { style } from '@vanilla-extract/css';
 import { vars } from '@cubeartisan/cubeartisan/styles';
 
 export const heroContainer = style({
-  backgroundColor: vars.color.neutral2,
   marginBottom: vars.space[5],
 });
 
@@ -40,9 +39,9 @@ export const cubeDescription = style({
   maxWidth: '40ch',
 });
 
-export const hSeparator = style({
+export const separator = style({
   marginInline: 'auto',
-  width: '90vw',
+  width: '90%',
   height: '1px',
   backgroundColor: vars.color.neutral12,
 });

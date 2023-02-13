@@ -1,5 +1,7 @@
 // import { useParams, useRouteData } from 'solid-start';
 
+import { Separator } from '@kobalte/core';
+
 import * as styles from '@cubeartisan/cubeartisan/components/templates/cube/list/list-hero.css';
 // import type { CubeRouteData } from '@cubeartisan/cubeartisan/routes/(app)/cube/[cubeId]/(list)';
 
@@ -22,5 +24,6 @@ export const CubeListHero = () => (
         </p>
       </div>
     </header>
+    <Separator.Root class={styles.separator} />
   </div>
 );

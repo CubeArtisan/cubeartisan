@@ -5,4 +5,10 @@ import { vars } from '@cubeartisan/cubeartisan/styles';
 export const body = style({
   backgroundColor: vars.color.neutral1,
   color: vars.color.neutral12,
+
+  selectors: {
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
+  },
 });
