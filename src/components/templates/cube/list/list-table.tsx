@@ -55,14 +55,14 @@ export const CubeListTable = () => {
   return (
     <div class={styles.tableContainer}>
       <div class={styles.table}>
-        <TableColumn title="White" content={mockCards} backgroundColor={goldDarkA.goldA7} />
-        <TableColumn title="Blue" content={mockCards} backgroundColor={blueDarkA.blueA5} />
-        <TableColumn title="Black" content={mockCards} backgroundColor={purpleDarkA.purpleA3} />
-        <TableColumn title="Red" content={mockCards} backgroundColor={redDarkA.redA5} />
-        <TableColumn title="Green" content={mockCards} backgroundColor={greenDarkA.greenA5} />
-        <TableColumn title="Multicolor" content={mockCards} backgroundColor={yellowDarkA.yellowA7} />
-        <TableColumn title="Colorless" content={mockCards} backgroundColor={grayDarkA.grayA4} />
-        <TableColumn title="Lands" content={mockCards} backgroundColor={amberDarkA.amberA4} />
+        <TableColumn title="White" content={mockCards} backgroundColor="hsl(50, 100%, 80%, 0.2)" />
+        <TableColumn title="Blue" content={mockCards} backgroundColor="hsl(220, 100%, 65%, 0.2)" />
+        <TableColumn title="Black" content={mockCards} backgroundColor="hsl(260, 40%, 50%, 0.2)" />
+        <TableColumn title="Red" content={mockCards} backgroundColor="hsl(0, 100%, 65%, 0.2)" />
+        <TableColumn title="Green" content={mockCards} backgroundColor="hsl(100, 100%, 65%, 0.2)" />
+        <TableColumn title="Multicolor" content={mockCards} backgroundColor="hsl(50, 100%, 40%, 0.2)" />
+        <TableColumn title="Colorless" content={mockCards} backgroundColor="hsl(0, 0%, 40%, 0.2)" />
+        <TableColumn title="Lands" content={mockCards} backgroundColor="hsl(20, 100%, 40%, 0.2)" />
       </div>
     </div>
   );
