@@ -6,6 +6,12 @@ export const tableContainer = style({
   overflow: 'scroll',
   display: 'flex',
   flexDirection: 'column',
+
+  selectors: {
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
+  },
 });
 
 export const table = style({
@@ -20,7 +26,6 @@ export const tableColumn = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'stretch',
-  minWidth: '8.5rem',
 });
 
 export const tableColumnTitle = style({
@@ -34,6 +39,7 @@ export const tableColumnContent = style({
   paddingBlock: vars.space[1],
   paddingInline: vars.space['2.5'],
   borderRadius: vars.borderRadius.md,
+  color: vars.color.neutral11,
   outline: `solid ${vars.borderSize.standard} ${vars.color.neutral11}`,
 });
 
