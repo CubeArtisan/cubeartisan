@@ -1,8 +1,9 @@
 {
-    "recommendations": [
-        "carlosjs23.vscode-yarn-script",
-        "gamunu.vscode-yarn",
-        "naumovs.color-highlight",
-        "dbaeumer.vscode-eslint"
-    ]
+  "recommendations": [
+    "bbenoist.Nix",
+    "christian-kohler.npm-intellisense",
+    "chrmarti.regex",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode"
+  ]
 }
