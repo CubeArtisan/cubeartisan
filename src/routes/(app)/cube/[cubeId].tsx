@@ -7,8 +7,7 @@ import * as styles from '@cubeartisan/cubeartisan/routes/(app)/cube/cubeId.css';
 
 const CubeLayout = () => {
   const [sidebarOpen, setSidebarOpen] = createSignal(true);
-  const openSidebar = () => setSidebarOpen(true);
-  const closeSidebar = () => setSidebarOpen(false);
+  const toggleSidebarOpen = () => setSidebarOpen((p) => !p);
 
   const dataset: Accessor<{ 'data-open': string | undefined }> = createMemo(() => ({
     'data-open': sidebarOpen() === true ? '' : undefined,
@@ -17,9 +16,6 @@ const CubeLayout = () => {
   return (
     <div class={styles.container}>
       <header class={styles.sidebar} {...dataset()}>
-        <button onClick={() => closeSidebar()} class={styles.sidebarCloseButton}>
-          <TbLayoutSidebarLeftCollapse class={styles.sidebarIcon} />
-        </button>
         <div class={styles.sidebarContent}>
           <nav>
             <ul class={styles.sidebarNav}>
@@ -33,11 +29,11 @@ const CubeLayout = () => {
         </div>
       </header>
       <div class={styles.main}>
-        <Show when={!sidebarOpen()}>
-          <Button.Root onPress={() => openSidebar()} class={styles.sidebarOpenButton}>
-            <TbLayoutSidebarLeftExpand class={styles.sidebarIcon} />
-          </Button.Root>
-        </Show>
+        <Button.Root onPress={() => toggleSidebarOpen()} class={styles.sidebarButton}>
+          <Show when={sidebarOpen()} fallback={<TbLayoutSidebarLeftExpand class={styles.sidebarIcon} />}>
+            <TbLayoutSidebarLeftCollapse class={styles.sidebarIcon} />
+          </Show>
+        </Button.Root>
         <Outlet />
       </div>
     </div>
