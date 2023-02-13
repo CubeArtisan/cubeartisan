@@ -22,7 +22,7 @@ export const container = style({
 export const main = style({
   position: 'relative',
   flexGrow: 1,
-  backgroundColor: vars.color.neutral2,
+  backgroundColor: vars.color.neutral1,
   borderRadius: vars.borderRadius.lg,
   transition: 'ease 200ms',
   overflowX: 'scroll',
@@ -30,7 +30,7 @@ export const main = style({
 });
 
 export const sidebar = style({
-  backgroundColor: vars.color.neutral2,
+  backgroundColor: vars.color.neutral1,
   borderRadius: vars.borderRadius.lg,
   width: vars.size.sm,
   marginRight: vars.space['2.5'],
@@ -57,7 +57,9 @@ export const sidebarButton = style({
   padding: vars.space['1'],
   borderRadius: vars.borderRadius.sm,
   transition: 'background-color 100ms, opacity 1s',
-  backgroundColor: vars.color.neutral2,
+  backgroundColor: vars.color.neutral1,
+  border: 'none',
+  borderImage: 'none',
 
   ':hover': {
     backgroundColor: vars.color.neutral6,
@@ -67,9 +69,7 @@ export const sidebarButton = style({
     transition: 'background-color 0ms',
   },
   ':focus': {
-    outline: `solid ${vars.borderSize['focus-ring']} ${vars.color.neutral7}`,
-    outlineOffset: `-4px`,
-    color: vars.color.neutral10,
+    outline: 'none',
   },
 });
 
