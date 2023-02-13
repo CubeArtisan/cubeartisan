@@ -3,7 +3,6 @@ import { style } from '@vanilla-extract/css';
 import { vars } from '@cubeartisan/cubeartisan/styles';
 
 export const tableContainer = style({
-  width: '100vw',
   overflow: 'scroll',
   display: 'flex',
   flexDirection: 'column',
