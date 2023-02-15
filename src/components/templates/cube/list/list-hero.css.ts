@@ -41,7 +41,7 @@ export const cubeDescription = style({
 
 export const separator = style({
   marginInline: 'auto',
-  width: '90%',
+  width: vars.size['content-90'],
   height: '1px',
   backgroundColor: vars.color.neutral12,
 });
