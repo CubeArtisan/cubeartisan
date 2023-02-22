@@ -1,7 +1,7 @@
 import { Component, For } from 'solid-js';
 import { A } from 'solid-start';
 
-import * as styles from '@cubeartisan/cubeartisan/layouts/site/SiteFooter/SiteFooter.css';
+import * as styles from '@cubeartisan/cubeartisan/components/site/SiteFooter/SiteFooter.css';
 
 type FooterSectionContent = {
   name: string;

@@ -1,4 +1,3 @@
-import * as styles from '@cubeartisan/cubeartisan/layouts/site/SiteNavbar/SiteNavbar.css';
 import { TextField as BaseTextField, Button, Link } from '@kobalte/core';
 import { Show } from 'solid-js';
 import { A } from 'solid-start';
@@ -7,6 +6,7 @@ import { createServerAction$, createServerData$, redirect } from 'solid-start/se
 import { getClientUserFromRequest, storage } from '@cubeartisan/cubeartisan/backend/user';
 import { TextField } from '@cubeartisan/cubeartisan/components/generic/TextField';
 import NewCubeModal from '@cubeartisan/cubeartisan/components/site/SiteNavbar/NewCubeModal';
+import * as styles from '@cubeartisan/cubeartisan/components/site/SiteNavbar/SiteNavbar.css';
 import type { ProtectedUser } from '@cubeartisan/cubeartisan/types/user';
 
 const SiteNavbar = () => {

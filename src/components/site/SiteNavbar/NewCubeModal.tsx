@@ -1,4 +1,3 @@
-import * as styles from '@cubeartisan/cubeartisan/layouts/site/SiteNavbar/NewCubeModal.css';
 import { CgMathPlus } from 'solid-icons/cg';
 import { createSignal, For, Match, Show, Switch } from 'solid-js';
 import { createServerAction$, redirect } from 'solid-start/server';
@@ -10,6 +9,7 @@ import { Modal } from '@cubeartisan/cubeartisan/components/generic/Modal';
 import { RadioGroup } from '@cubeartisan/cubeartisan/components/generic/RadioGroup';
 import { ControlledComposedSwitch } from '@cubeartisan/cubeartisan/components/generic/Switch';
 import { TextField } from '@cubeartisan/cubeartisan/components/generic/TextField';
+import * as styles from '@cubeartisan/cubeartisan/components/site/SiteNavbar/NewCubeModal.css';
 
 const NewCubeModal = () => {
   const [, { Form }] = createServerAction$(async (formData: FormData, { request }) => {

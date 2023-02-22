@@ -1,9 +1,9 @@
-import * as styles from '@cubeartisan/cubeartisan/layouts/auth/AuthForm/authForms.css';
 import { Link } from '@kobalte/core';
 import { A } from 'solid-start';
 import { createServerAction$, redirect } from 'solid-start/server';
 
 import { getUserFromRequest, storage, verifyUser } from '@cubeartisan/cubeartisan/backend/user';
+import * as styles from '@cubeartisan/cubeartisan/components/auth/AuthForm/authForms.css';
 import { Button } from '@cubeartisan/cubeartisan/components/generic/Button';
 import { TextField } from '@cubeartisan/cubeartisan/components/generic/TextField';
 
