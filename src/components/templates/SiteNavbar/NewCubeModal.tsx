@@ -14,14 +14,10 @@ import { TextField } from '@cubeartisan/cubeartisan/components/TextField';
 const NewCubeModal = () => {
   const [, { Form }] = createServerAction$(async (formData: FormData, { request }) => {
     const cubeName = formData.get('name') as string;
-    const user = getUserFromRequest(request);
+    const user = await getUserFromRequest(request);
 
-    // const cube = await createCube(user, cubeName);
-
-    // return redirect(`/cube/${cube.shortID}`);
-
-    console.log(formData);
-    return redirect('/');
+    const cube = await createCube(user, cubeName);
+    return redirect(`/cube/${cube.shortID}`);
   });
 
   const [importSwitch, setImportSwitch] = createSignal(false);
@@ -118,13 +114,13 @@ const NewCubeModal = () => {
               <Modal.CloseButton type="button" class={buttonRecipe({ color: 'danger', padding: 'baseText' })}>
                 Cancel
               </Modal.CloseButton>
-              <Modal.CloseButton type="submit" class={buttonRecipe({ color: 'success', padding: 'baseText' })}>
+              {/* <Modal.CloseButton type="submit" class={buttonRecipe({ color: 'success', padding: 'baseText' })}>
                 Create
-              </Modal.CloseButton>
+              </Modal.CloseButton> */}
 
-              {/* <Button.Root type="submit" recipe={{ color: 'success', padding: 'baseText' }}>
+              <Button.Root type="submit" recipe={{ color: 'success', padding: 'baseText' }}>
                 Create
-              </Button.Root> */}
+              </Button.Root>
             </div>
           </Modal.Content>
         </Form>

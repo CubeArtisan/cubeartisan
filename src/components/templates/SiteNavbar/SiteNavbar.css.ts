@@ -3,73 +3,79 @@ import { style } from '@vanilla-extract/css';
 import { vars } from '@cubeartisan/cubeartisan/styles';
 
 export const navContainer = style({
-  width: vars.size['content-80'],
-  marginInline: 'auto',
-  display: 'grid',
-  grid: '[nav-start] "nav . actions" 4.25rem [nav-end] / auto 1fr auto',
-  alignItems: 'center',
-});
-
-export const nav = style({
-  gridArea: 'nav',
-});
-
-export const navLinks = style({
   display: 'flex',
+  justifyContent: 'space-around',
+  marginInline: 'auto',
+  height: vars.size.xs,
   alignItems: 'center',
-  gap: vars.size[3],
 });
 
-const navItemBase = style({
+export const navSection = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  gap: vars.space['2.5'],
+});
+
+export const siteLogo = style({
+  height: vars.size[10],
+});
+
+export const navItemContainer = style({
+  color: vars.color.neutral11,
+  padding: vars.space['1.5'],
+  borderRadius: vars.borderRadius.lg,
+
   ':hover': {
-    background: vars.color.neutral4,
-    outline: `solid ${vars.borderSize.large} ${vars.color.neutral7}`,
+    color: vars.color.neutral12,
+    backgroundColor: vars.color.neutral4,
+    outline: `1px solid ${vars.color.neutral6}`,
   },
 
   ':active': {
-    background: vars.color.neutral5,
+    backgroundColor: vars.color.neutral5,
+    outline: `1px solid ${vars.color.neutral7}`,
+  },
+
+  selectors: {
+    '&:has(:focus-visible)': {
+      backgroundColor: vars.color.neutral4,
+      outline: `3px solid ${vars.color.neutral6}`,
+    },
   },
 });
 
-export const logoContainer = style([
-  navItemBase,
-  {
-    borderRadius: vars.borderRadius.md,
-    paddingLeft: vars.space[1],
-  },
-]);
-
-export const logoImage = style({
-  height: vars.space[12],
-  marginRight: vars.space[4],
+export const navItem = style({
+  outline: 'none',
 });
 
-export const navLink = style([
-  navItemBase,
-  {
-    borderRadius: vars.borderRadius.md,
-    paddingInline: vars.space[2],
-    paddingBlock: vars.space[1],
-  },
-]);
-
-export const navActions = style({
-  gridArea: 'actions',
-  display: 'flex',
-  alignItems: 'center',
-  gap: vars.size[3],
+export const navIcon = style({
+  width: vars.size[5],
+  height: vars.size[5],
 });
 
-export const navAction = style([
-  navItemBase,
-  {
-    borderRadius: vars.borderRadius.lg,
-    height: '32px', // TODO: temp fix because some icons had extra height for an unknown reason
-  },
-]);
+export const siteSearch = style({
+  position: 'relative',
+});
 
-export const navActionIcon = style({
-  height: vars.space[8],
-  width: vars.space[8],
-  color: vars.color.white,
+export const searchInput = style({
+  ':hover': {
+    backgroundColor: vars.color.neutral4,
+  },
+});
+
+export const searchIconContainer = style({
+  position: 'absolute',
+  top: '20%',
+  left: '6px',
+  color: vars.color.neutral11,
+
+  selectors: {
+    ':focus ~ &': {
+      display: 'none',
+    },
+    ':hover ~ &': {
+      color: vars.color.neutral12,
+    },
+  },
 });
