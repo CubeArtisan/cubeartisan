@@ -8,8 +8,8 @@ import { Button, buttonRecipe } from '@cubeartisan/cubeartisan/components/Button
 import { Modal } from '@cubeartisan/cubeartisan/components/Modal';
 import { RadioGroup } from '@cubeartisan/cubeartisan/components/RadioGroup';
 import { ControlledComposedSwitch } from '@cubeartisan/cubeartisan/components/Switch/';
-import * as styles from '@cubeartisan/cubeartisan/components/templates/SiteNavbar/NewCubeModal.css';
 import { TextField } from '@cubeartisan/cubeartisan/components/TextField';
+import * as styles from '@cubeartisan/cubeartisan/layouts/site/SiteNavbar/NewCubeModal.css';
 
 const NewCubeModal = () => {
   const [, { Form }] = createServerAction$(async (formData: FormData, { request }) => {
