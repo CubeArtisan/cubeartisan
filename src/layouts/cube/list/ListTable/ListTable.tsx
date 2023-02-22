@@ -17,7 +17,7 @@ const TableColumn: Component<{ title: string; content: string[]; backgroundColor
   </section>
 );
 
-export const CubeListTable = () => {
+export const ListTable = () => {
   const mockCards = [
     'lightning bolt',
     'mother of runes',

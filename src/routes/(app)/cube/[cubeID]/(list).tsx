@@ -3,8 +3,7 @@
 
 // import { findCube } from '@cubeartisan/cubeartisan/backend/cubeUtils';
 // import { getClientUserFromRequest } from '@cubeartisan/cubeartisan/backend/user';
-import { CubeListHero } from '@cubeartisan/cubeartisan/components/templates/cube/list/list-hero';
-import { CubeListTable } from '@cubeartisan/cubeartisan/components/templates/cube/list/list-table';
+import { ListHero, ListTable } from '@cubeartisan/cubeartisan/layouts/cube/list';
 import * as styles from '@cubeartisan/cubeartisan/routes/(app)/cube/[cubeId]/(list).css';
 
 // export const routeData = ({ params }: RouteDataArgs<{ cubeId: string }>) =>
@@ -20,8 +19,8 @@ import * as styles from '@cubeartisan/cubeartisan/routes/(app)/cube/[cubeId]/(li
 
 const CubePage = () => (
   <main class={styles.main}>
-    <CubeListHero />
-    <CubeListTable />
+    <ListHero />
+    <ListTable />
   </main>
 );
 
