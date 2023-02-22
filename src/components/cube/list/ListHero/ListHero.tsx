@@ -2,7 +2,7 @@
 
 import { Separator } from '@kobalte/core';
 
-import * as styles from '@cubeartisan/cubeartisan/layouts/cube/list/ListHero/ListHero.css';
+import * as styles from '@cubeartisan/cubeartisan/components/cube/list/ListHero/ListHero.css';
 // import type { CubeRouteData } from '@cubeartisan/cubeartisan/routes/(app)/cube/[cubeId]/(list)';
 
 export const ListHero = () => (

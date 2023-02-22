@@ -1,6 +1,6 @@
 import { Component, For } from 'solid-js';
 
-import * as styles from '@cubeartisan/cubeartisan/layouts/cube/list/ListTable/ListTable.css';
+import * as styles from '@cubeartisan/cubeartisan/components/cube/list/ListTable/ListTable.css';
 
 const TableColumn: Component<{ title: string; content: string[]; backgroundColor: string }> = (props) => (
   <section class={styles.tableColumn}>
