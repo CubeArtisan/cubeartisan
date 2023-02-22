@@ -2,51 +2,53 @@ import { Link } from '@kobalte/core';
 import { A } from 'solid-start';
 import { createServerAction$, redirect } from 'solid-start/server';
 
-import { createUser, getUserFromRequest, storage } from '@cubeartisan/cubeartisan/backend/user';
+import { getUserFromRequest, storage, verifyUser } from '@cubeartisan/cubeartisan/backend/user';
 import { Button } from '@cubeartisan/cubeartisan/components/Button';
-import * as styles from '@cubeartisan/cubeartisan/components/templates/AuthForm/authForms.css';
 import { TextField } from '@cubeartisan/cubeartisan/components/TextField';
+import * as styles from '@cubeartisan/cubeartisan/layouts/auth/AuthForm/authForms.css';
 
-export const SignupFormTitle = () => (
+export const LoginFormTitle = () => (
   <div class={styles.formTitle}>
     <Link.Root as={A} href={'/'} preventFocusOnPress={true}>
       <img src="/images/master-icon.svg" alt="CubeArtisan Logo" class={styles.logo} />
     </Link.Root>
-    Sign Up
+    Log In
   </div>
 );
 
-export const SignupForm = () => {
+export const LoginForm = () => {
   const [, { Form }] = createServerAction$(async (formData: FormData, { request }) => {
-    // redundant safeguard. signup button should never show if already logged in.
+    // redundant safeguard. login button should never show if already logged in.
     if (await getUserFromRequest(request)) {
       throw new Error('Aleady Logged In');
     }
 
     const username = formData.get('username') as string;
     const password = formData.get('password') as string;
-    const email = formData.get('email') as string;
 
-    if (!username || !password || !email) {
+    if (!username || !password) {
       throw new Error('Please fill in all fields');
     }
 
-    const user = await createUser(username, password, email);
-    const session = await storage.getSession();
-    session.set('userId', user._id);
-    return redirect('/', {
-      headers: {
-        'Set-Cookie': await storage.commitSession(session),
-      },
-    });
+    const user = await verifyUser(username, password);
+    if (!user) {
+      throw new Error('Incorrect username or password. Please try again.');
+    } else {
+      const session = await storage.getSession();
+      session.set('userId', user._id);
+      return redirect('/', {
+        headers: {
+          'Set-Cookie': await storage.commitSession(session),
+        },
+      });
+    }
   });
 
   return (
     <Form class={styles.formRoot}>
       <TextField.Root name="username">
-        <TextField.Label>Username</TextField.Label>
-        <TextField.Input placeholder="johndoe@email.com" type="email" />
-        <TextField.Description>You can change this later</TextField.Description>
+        <TextField.Label>Username or Email</TextField.Label>
+        <TextField.Input placeholder="johndoe@email.com" type="text" />
         <TextField.ErrorMessage>{/* put content here for different errors */}</TextField.ErrorMessage>
       </TextField.Root>
       <TextField.Root name="password">
@@ -54,19 +56,13 @@ export const SignupForm = () => {
         <TextField.Input type="password" />
         <TextField.ErrorMessage />
       </TextField.Root>
-      <TextField.Root name="email">
-        <TextField.Label>Email</TextField.Label>
-        <TextField.Input type="email" />
-        <TextField.Description>Used for verification only</TextField.Description>
-        <TextField.ErrorMessage />
-      </TextField.Root>
       {/* need error message for for submit as well */}
       <footer class={styles.footer}>
-        <Link.Root as={A} href={'/login'} type="button" class={styles.buttonLink}>
-          Log In Instead
+        <Link.Root as={A} href={'/signup'} type="button" class={styles.buttonLink}>
+          Sign Up Instead
         </Link.Root>
         <Button.Root type="submit" recipe={{ color: 'primary', padding: 'baseText' }}>
-          Sign Up
+          Log In
         </Button.Root>
       </footer>
     </Form>

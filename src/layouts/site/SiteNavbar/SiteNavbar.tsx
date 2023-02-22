@@ -4,9 +4,9 @@ import { A } from 'solid-start';
 import { createServerAction$, createServerData$, redirect } from 'solid-start/server';
 
 import { getClientUserFromRequest, storage } from '@cubeartisan/cubeartisan/backend/user';
-import NewCubeModal from '@cubeartisan/cubeartisan/components/templates/SiteNavbar/NewCubeModal';
-import * as styles from '@cubeartisan/cubeartisan/components/templates/SiteNavbar/SiteNavbar.css';
 import { TextField } from '@cubeartisan/cubeartisan/components/TextField';
+import NewCubeModal from '@cubeartisan/cubeartisan/layouts/site/SiteNavbar/NewCubeModal';
+import * as styles from '@cubeartisan/cubeartisan/layouts/site/SiteNavbar/SiteNavbar.css';
 import type { ProtectedUser } from '@cubeartisan/cubeartisan/types/user';
 
 const SiteNavbar = () => {
