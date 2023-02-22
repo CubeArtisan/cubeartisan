@@ -1,9 +1,9 @@
 // for testing components
-import { TestButton } from '@cubeartisan/cubeartisan/components/Button/Button.testrender';
-import { TestModal } from '@cubeartisan/cubeartisan/components/Modal/Modal.testrender';
-import { TestRadioGroup } from '@cubeartisan/cubeartisan/components/RadioGroup/RadioGroup.testrender';
-import { TestSwitch } from '@cubeartisan/cubeartisan/components/Switch/Switch.testrender';
-import { TestTextField } from '@cubeartisan/cubeartisan/components/TextField/TextField.testrender';
+import { TestButton } from '@cubeartisan/cubeartisan/components/generic/Button/Button.testrender';
+import { TestModal } from '@cubeartisan/cubeartisan/components/generic/Modal/Modal.testrender';
+import { TestRadioGroup } from '@cubeartisan/cubeartisan/components/generic/RadioGroup/RadioGroup.testrender';
+import { TestSwitch } from '@cubeartisan/cubeartisan/components/generic/Switch/Switch.testrender';
+import { TestTextField } from '@cubeartisan/cubeartisan/components/generic/TextField/TextField.testrender';
 import * as styles from '@cubeartisan/cubeartisan/routes/(app)/test.css';
 
 const Test = () => (
