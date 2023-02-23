@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@kobalte/core': ^0.6.1
   '@radix-ui/colors': github:radix-ui/colors
+  '@solid-primitives/media': ^2.1.1
   '@solidjs/meta': ^0.28.2
   '@solidjs/router': ^0.6.0
   '@testing-library/jest-dom': ^5.16.5
@@ -56,6 +57,7 @@ specifiers:
   winston: ^3.8.2
 
 dependencies:
+  '@solid-primitives/media': 2.1.1_solid-js@1.6.11
   undici: 5.14.0
 
 devDependencies:
@@ -2550,7 +2552,7 @@ packages:
       solid-js: ^1.6.10
     dependencies:
       '@solid-primitives/event-listener': 2.2.4_solid-js@1.6.11
-      '@solid-primitives/media': 2.0.4_solid-js@1.6.11
+      '@solid-primitives/media': 2.1.1_solid-js@1.6.11
       '@solid-primitives/refs': 0.3.4_solid-js@1.6.11
       '@solid-primitives/utils': 4.0.0_solid-js@1.6.11
       solid-js: 1.6.11
@@ -2699,6 +2701,14 @@ packages:
       solid-js: 1.6.11
     dev: true
 
+  /@solid-primitives/event-listener/2.2.6_solid-js@1.6.11:
+    resolution: {integrity: sha512-Lb2q888Apv8wqgZ3WvPlt8ic2rEmHx6QT8d3pgi+JRSIRNwAysE6PZDmbwT6/hzzP1TIQG0IRZwh5tomfuqlaQ==}
+    peerDependencies:
+      solid-js: ^1.6.0
+    dependencies:
+      '@solid-primitives/utils': 5.2.0_solid-js@1.6.11
+      solid-js: 1.6.11
+
   /@solid-primitives/immutable/0.1.4_solid-js@1.6.11:
     resolution: {integrity: sha512-9oLK8ihIjG5FZv74KoXXyKErxgGxGZsdevsIKB0ugTreBBmozHPcYTjoYFL/sHoqs2ZNMlmfNQ3kduvrvKG2RQ==}
     peerDependencies:
@@ -2708,16 +2718,15 @@ packages:
       solid-js: 1.6.11
     dev: true
 
-  /@solid-primitives/media/2.0.4_solid-js@1.6.11:
-    resolution: {integrity: sha512-MZkdUlV3qJQts4b7ZfAldbFGB1neH64rwHsnTmIeF2Zj8gWjYcYtJ36SwkRs3NjHQ53uQliZ+DtMXiCeapNw/g==}
+  /@solid-primitives/media/2.1.1_solid-js@1.6.11:
+    resolution: {integrity: sha512-0lMEIDereGYCKNnl0zIAd8v2kiJIUNP9om0VJKF6gD4kItUE+pdcSBok9CdEhjQzSS/HdsNo1smCYHNzdES09Q==}
     peerDependencies:
       solid-js: ^1.6.0
     dependencies:
-      '@solid-primitives/event-listener': 2.2.4_solid-js@1.6.11
-      '@solid-primitives/rootless': 1.2.1_solid-js@1.6.11
-      '@solid-primitives/utils': 4.0.0_solid-js@1.6.11
+      '@solid-primitives/event-listener': 2.2.6_solid-js@1.6.11
+      '@solid-primitives/rootless': 1.2.4_solid-js@1.6.11
+      '@solid-primitives/utils': 5.2.0_solid-js@1.6.11
       solid-js: 1.6.11
-    dev: true
 
   /@solid-primitives/refs/0.3.4_solid-js@1.6.11:
     resolution: {integrity: sha512-XqX5PRCMnCOuLQqTsx3tRYs/oAyQsTXtmkB+tBlYoaqxLrJFBebPRVT/kFWN2Jxb6eZYAXDB5zZejS8nizsd8Q==}
@@ -2739,6 +2748,14 @@ packages:
       solid-js: 1.6.11
     dev: true
 
+  /@solid-primitives/rootless/1.2.4_solid-js@1.6.11:
+    resolution: {integrity: sha512-wsxpJzmCTeKt7gM1sDN3aKs5Sb8dmD3xVBdXUA+xZWcO5v/CVR5Gq690YvXvWSK+Thjv8jvDNHI582CDP/gFzQ==}
+    peerDependencies:
+      solid-js: ^1.6.11
+    dependencies:
+      '@solid-primitives/utils': 5.2.0_solid-js@1.6.11
+      solid-js: 1.6.11
+
   /@solid-primitives/utils/4.0.0_solid-js@1.6.11:
     resolution: {integrity: sha512-fGsJy8Z8YiwogpiezD7TWjI62UCb0JAHJWdoXWGrggrn4bfToZotKkabiB0IVFMkWVE1ZcrkvZT3bkmqGnK0ng==}
     peerDependencies:
@@ -2746,6 +2763,13 @@ packages:
     dependencies:
       solid-js: 1.6.11
     dev: true
+
+  /@solid-primitives/utils/5.2.0_solid-js@1.6.11:
+    resolution: {integrity: sha512-9sJSBv0IshaQ6qks9FW9ErKZS9qeAv+uYYrsAAXnu5XtDeifRtMk0k6Smje4XxzpxGH/8P4nwS2kk/9vt6KsBg==}
+    peerDependencies:
+      solid-js: ^1.6.0
+    dependencies:
+      solid-js: 1.6.11
 
   /@solidjs/meta/0.28.2_solid-js@1.6.11:
     resolution: {integrity: sha512-avlLgBPdk4KVxzRGFlYp/MIJo8B5jVgXPgk6OUnUP8km21Z+ovO+DUd7ZPA7ejv8PBdWi9GE3zCzw8RU2YuV2Q==}
@@ -3694,7 +3718,6 @@ packages:
 
   /csstype/3.1.1:
     resolution: {integrity: sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==}
-    dev: true
 
   /data-urls/3.0.2:
     resolution: {integrity: sha512-Jy/tj3ldjZJo63sVAvg6LHt2mHvl4V6AgRAmNDtLdm7faqtsx+aJG42rsyCo9JCoRVKwPFzKlIPx3DIibwSIaQ==}
@@ -6561,7 +6584,6 @@ packages:
     resolution: {integrity: sha512-JquQQHPArGq+i2PLURxJ99Pcz2/1docpbycSio/cKSA0SeI3z5zRjy0TNcH4NRYvbOLrcini+iovXwnexKabyw==}
     dependencies:
       csstype: 3.1.1
-    dev: true
 
   /solid-refresh/0.4.1_solid-js@1.6.11:
     resolution: {integrity: sha512-v3tD/OXQcUyXLrWjPW1dXZyeWwP7/+GQNs8YTL09GBq+5FguA6IejJWUvJDrLIA4M0ho9/5zK2e9n+uy+4488g==}

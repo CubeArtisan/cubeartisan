@@ -17,6 +17,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@solid-primitives/media": "^2.1.1",
     "undici": "^5.14.0"
   },
   "devDependencies": {
