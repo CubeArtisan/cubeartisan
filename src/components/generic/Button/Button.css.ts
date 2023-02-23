@@ -21,22 +21,20 @@ export const buttonRecipe = recipe({
     background: buttonColor.baseBgColor,
     outline: `solid ${vars.borderSize.standard} ${buttonColor.baseOutlineColor}`,
 
-    selectors: {
-      '&[data-hover]': {
-        background: buttonColor.hoverBgColor,
-        outline: `solid ${vars.borderSize.standard} ${buttonColor.hoverOutlineColor}`,
-      },
-      '&[data-active]': {
-        background: buttonColor.activeBgColor,
-      },
-      '&[data-focus]': {
-        outline: `solid ${vars.borderSize['focus-ring']} ${vars.color.neutral7}`,
-      },
-      '&[data-disabled]': {
-        background: vars.color.neutral2,
-        outline: `solid ${vars.borderSize.standard} ${vars.color.neutral5}`,
-        cursor: 'not-allowed',
-      },
+    ':hover': {
+      background: buttonColor.hoverBgColor,
+      outlineColor: buttonColor.hoverOutlineColor,
+    },
+    ':active': {
+      background: buttonColor.activeBgColor,
+    },
+    ':focus': {
+      outline: `solid ${vars.borderSize['focus-ring']} ${vars.color.neutral7}`,
+    },
+    ':disabled': {
+      background: vars.color.neutral2,
+      outlineColor: vars.color.neutral5,
+      cursor: 'not-allowed',
     },
   },
   variants: {
