@@ -1,7 +1,7 @@
 import { Dialog } from '@kobalte/core';
 import { createMediaQuery } from '@solid-primitives/media';
 import { Component, createEffect, createSignal, onMount, Show, splitProps } from 'solid-js';
-import { A, Outlet } from 'solid-start';
+import { A, Outlet, useIsRouting, useMatch } from 'solid-start';
 
 import { Button } from '@cubeartisan/cubeartisan/components/generic/Button';
 import { testCube } from '@cubeartisan/cubeartisan/mock/testCube';
@@ -36,8 +36,8 @@ const CubeLayout = () => {
 
   const [editSidebarOpen, setEditSidebarOpen] = createSignal<true | false>(false);
 
-  const isTabletPlus = createMediaQuery(`(min-width: ${tokens.screens.tablet}`);
-  const isLaptopPlus = createMediaQuery(`(min-width: ${tokens.screens.laptop})`);
+  const isLaptopPlus = createMediaQuery(`(min-width: ${tokens.screens.laptop})`, true);
+  const isRouting = useIsRouting();
 
   onMount(() => {
     if (window.matchMedia(`(min-width: ${tokens.screens.laptop})`)) {
@@ -49,16 +49,20 @@ const CubeLayout = () => {
     setCubeNavOpen(isLaptopPlus());
   });
 
+  createEffect(() => {
+    if (isRouting() === true && !isLaptopPlus()) {
+      closeCubeNav();
+    }
+  });
+
+  const match = useMatch(() => `/cube/${cube.id}`);
+
   const CubeNav = () => (
     <nav>
       <ul class={styles.cubeNav}>
         <h2 class={styles.cubeNavHeading}>List</h2>
         <li>
-          <A
-            href={`/cube/${cube.id}`}
-            inactiveClass={styles.cubeNavLinkSmall}
-            activeClass={styles.cubeNavLinkSmallActive}
-          >
+          <A href={`/cube/${cube.id}`} class={match()?.path ? styles.cubeNavLinkSmallActive : styles.cubeNavLinkSmall}>
             Mainboard
           </A>
         </li>
@@ -172,12 +176,14 @@ const CubeLayout = () => {
   return (
     <div class={styles.container}>
       <div data-open={cubeNavOpen()} class={styles.cubeNavSidebarContainer}>
-        <CubeNavCloseButton class={styles.cubeNavSidebarCloseButton} />
+        <Show when={cubeNavOpen()}>
+          <CubeNavCloseButton class={styles.cubeNavSidebarCloseButton} />
+        </Show>
         <CubeNav />
       </div>
       <div class={styles.mainContainer}>
-        <Show when={true}>
-          <Button.Root data-open={cubeNavOpen()} onClick={() => openCubeNav()} class={styles.cubeNavOpenButton}>
+        <Show when={!cubeNavOpen()}>
+          <Button.Root onClick={() => openCubeNav()} class={styles.cubeNavOpenButton}>
             <svg
               class={styles.buttonIcon}
               width="15"
@@ -195,18 +201,16 @@ const CubeLayout = () => {
             </svg>
           </Button.Root>
         </Show>
-        <Show when={!isTabletPlus()}>
-          <Dialog.Root isOpen={cubeNavOpen()} onOpenChange={setCubeNavOpen}>
-            <Dialog.Portal class="test">
-              <Dialog.Overlay class={styles.cubeNavModalOverlay} />
-              <Dialog.Content class={styles.cubeNavModalContent}>
-                <CubeNavCloseButton class={styles.cubeNavModalCloseButton} />
-                <CubeNav />
-              </Dialog.Content>
-            </Dialog.Portal>
-          </Dialog.Root>
-        </Show>
-        <div>Main</div>
+        <Dialog.Root isOpen={!isLaptopPlus() && cubeNavOpen()} onOpenChange={setCubeNavOpen} forceMount>
+          <Dialog.Portal class="test">
+            <Dialog.Overlay class={styles.cubeNavModalOverlay} />
+            <Dialog.Content class={styles.cubeNavModalContent}>
+              <CubeNavCloseButton class={styles.cubeNavModalCloseButton} />
+              <CubeNav />
+            </Dialog.Content>
+          </Dialog.Portal>
+        </Dialog.Root>
+        <Outlet />
         <Button.Root onClick={() => setEditSidebarOpen((prev) => !prev)} class={styles.editSidebarToggleButton}>
           <svg
             class={styles.buttonIcon}

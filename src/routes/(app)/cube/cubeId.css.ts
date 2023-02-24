@@ -11,14 +11,11 @@ export const container = style({
 
 export const mainContainer = style({
   position: 'relative',
-  backgroundColor: vars.color.neutral1,
+  backgroundColor: vars.color.neutral2,
   overflowX: 'scroll',
-  scrollBehavior: 'smooth',
-
-  textAlign: 'center', // temp
 
   '@media': {
-    [`screen and (min-width: ${tokens.screens.tablet})`]: {
+    [`screen and (min-width: ${tokens.screens.laptop})`]: {
       borderRadius: vars.borderRadius.lg,
       margin: vars.space['2.5'],
     },
@@ -60,27 +57,26 @@ export const buttonIcon = style({
 
 export const cubeNavSidebarContainer = style({
   position: 'relative',
-  width: 0,
+  maxWidth: 0,
+  transition: 'max-width 200ms',
+  whiteSpace: 'nowrap',
 
   selectors: {
     '&[data-open=true]': {
       '@media': {
-        [`screen and (min-width: ${tokens.screens.tablet})`]: {
-          width: 'auto',
-        },
         [`screen and (min-width: ${tokens.screens.laptop})`]: {
-          width: 'auto',
+          maxWidth: vars.size[44],
         },
       },
     },
     '&[data-open=false]': {
-      width: 0,
+      maxWidth: 0,
     },
   },
 
   '@media': {
     [`screen and (min-width: ${tokens.screens.laptop})`]: {
-      width: 'auto',
+      maxWidth: vars.size[44],
     },
   },
 });
@@ -91,7 +87,13 @@ export const cubeNavModalOverlay = style({
   top: 0,
   left: 0,
   height: '100vh',
-  width: '100vw',
+  width: '0',
+
+  selectors: {
+    '&[data-expanded]': {
+      width: '100vw',
+    },
+  },
 });
 
 export const cubeNavModalContent = style({
@@ -99,7 +101,16 @@ export const cubeNavModalContent = style({
   inset: '0 auto 0 0',
   backgroundColor: vars.color.neutral3,
   paddingTop: vars.space.gutter,
-  width: vars.size.md,
+  width: 0,
+  transition: 'width 200ms',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+
+  selectors: {
+    '&[data-expanded]': {
+      width: vars.size.md,
+    },
+  },
 });
 
 export const cubeNav = style({
@@ -129,9 +140,15 @@ export const cubeNavModalCloseButton = style({
 
 const cubeNavLink = style({
   color: vars.color.neutral11,
+  padding: vars.space[1],
+  borderRadius: vars.borderRadius.md,
+  transition: 'color 100ms',
 
   ':hover': {
     color: vars.color.neutral12,
+  },
+  ':focus-visible': {
+    outline: `${vars.borderSize['focus-ring']} solid ${vars.color.neutral7}`,
   },
 });
 
@@ -157,6 +174,7 @@ export const cubeNavLinkSmallActive = style([
   cubeNavLinkSmall,
   {
     backgroundColor: vars.color.primary9,
+    color: vars.color.primary12,
   },
 ]);
 
@@ -164,6 +182,7 @@ export const cubeNavLinkLargeActive = style([
   cubeNavLinkLarge,
   {
     backgroundColor: vars.color.primary9,
+    color: vars.color.primary12,
   },
 ]);
 
@@ -171,6 +190,7 @@ export const cubeNavHeading = style({
   fontSize: vars.fontSize.xl,
   lineHeight: vars.lineHeight.xl,
   fontWeight: vars.fontWeight.semibold,
+  cursor: 'default',
 
   selectors: {
     [`${cubeNavLinkSmall} ~ &`]: {
