@@ -20,6 +20,7 @@ specifiers:
   '@typescript-eslint/parser': ^5.48.0
   '@typescript-eslint/typescript-estree': ^5.48.0
   '@vanilla-extract/css': ^1.9.5
+  '@vanilla-extract/dynamic': 2.0.3
   '@vanilla-extract/recipes': 0.3.0
   '@vanilla-extract/sprinkles': 1.5.1
   '@vanilla-extract/vite-plugin': ^3.8.0
@@ -57,12 +58,12 @@ specifiers:
   winston: ^3.8.2
 
 dependencies:
-  '@solid-primitives/media': 2.1.1_solid-js@1.6.11
   undici: 5.14.0
 
 devDependencies:
   '@kobalte/core': 0.6.1_solid-js@1.6.11
   '@radix-ui/colors': github.com/radix-ui/colors/19e08e0e2412a7a7cedc2b36536527c8d4fd4e65
+  '@solid-primitives/media': 2.1.1_solid-js@1.6.11
   '@solidjs/meta': 0.28.2_solid-js@1.6.11
   '@solidjs/router': 0.6.0_solid-js@1.6.11
   '@testing-library/jest-dom': 5.16.5
@@ -79,6 +80,7 @@ devDependencies:
   '@typescript-eslint/parser': 5.48.0_vvbfoh7ci2jjuy6alapehrh2ri
   '@typescript-eslint/typescript-estree': 5.48.0_typescript@4.8.4
   '@vanilla-extract/css': 1.9.5
+  '@vanilla-extract/dynamic': 2.0.3
   '@vanilla-extract/recipes': 0.3.0_@vanilla-extract+css@1.9.5
   '@vanilla-extract/sprinkles': 1.5.1_@vanilla-extract+css@1.9.5
   '@vanilla-extract/vite-plugin': 3.8.0_vite@3.2.5
@@ -2708,6 +2710,7 @@ packages:
     dependencies:
       '@solid-primitives/utils': 5.2.0_solid-js@1.6.11
       solid-js: 1.6.11
+    dev: true
 
   /@solid-primitives/immutable/0.1.4_solid-js@1.6.11:
     resolution: {integrity: sha512-9oLK8ihIjG5FZv74KoXXyKErxgGxGZsdevsIKB0ugTreBBmozHPcYTjoYFL/sHoqs2ZNMlmfNQ3kduvrvKG2RQ==}
@@ -2727,6 +2730,7 @@ packages:
       '@solid-primitives/rootless': 1.2.4_solid-js@1.6.11
       '@solid-primitives/utils': 5.2.0_solid-js@1.6.11
       solid-js: 1.6.11
+    dev: true
 
   /@solid-primitives/refs/0.3.4_solid-js@1.6.11:
     resolution: {integrity: sha512-XqX5PRCMnCOuLQqTsx3tRYs/oAyQsTXtmkB+tBlYoaqxLrJFBebPRVT/kFWN2Jxb6eZYAXDB5zZejS8nizsd8Q==}
@@ -2755,6 +2759,7 @@ packages:
     dependencies:
       '@solid-primitives/utils': 5.2.0_solid-js@1.6.11
       solid-js: 1.6.11
+    dev: true
 
   /@solid-primitives/utils/4.0.0_solid-js@1.6.11:
     resolution: {integrity: sha512-fGsJy8Z8YiwogpiezD7TWjI62UCb0JAHJWdoXWGrggrn4bfToZotKkabiB0IVFMkWVE1ZcrkvZT3bkmqGnK0ng==}
@@ -2770,6 +2775,7 @@ packages:
       solid-js: ^1.6.0
     dependencies:
       solid-js: 1.6.11
+    dev: true
 
   /@solidjs/meta/0.28.2_solid-js@1.6.11:
     resolution: {integrity: sha512-avlLgBPdk4KVxzRGFlYp/MIJo8B5jVgXPgk6OUnUP8km21Z+ovO+DUd7ZPA7ejv8PBdWi9GE3zCzw8RU2YuV2Q==}
@@ -3107,6 +3113,12 @@ packages:
       deepmerge: 4.2.2
       media-query-parser: 2.0.2
       outdent: 0.8.0
+    dev: true
+
+  /@vanilla-extract/dynamic/2.0.3:
+    resolution: {integrity: sha512-Rglfw2gXAYiBzAQ4jgUG7rBgE2c88e/zcG27ZVoIqMHVq56wf2C1katGMm1yFMNBgzqM7oBNYzz4YOMzznydkg==}
+    dependencies:
+      '@vanilla-extract/private': 1.0.3
     dev: true
 
   /@vanilla-extract/integration/6.1.0:
@@ -3718,6 +3730,7 @@ packages:
 
   /csstype/3.1.1:
     resolution: {integrity: sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==}
+    dev: true
 
   /data-urls/3.0.2:
     resolution: {integrity: sha512-Jy/tj3ldjZJo63sVAvg6LHt2mHvl4V6AgRAmNDtLdm7faqtsx+aJG42rsyCo9JCoRVKwPFzKlIPx3DIibwSIaQ==}
@@ -6584,6 +6597,7 @@ packages:
     resolution: {integrity: sha512-JquQQHPArGq+i2PLURxJ99Pcz2/1docpbycSio/cKSA0SeI3z5zRjy0TNcH4NRYvbOLrcini+iovXwnexKabyw==}
     dependencies:
       csstype: 3.1.1
+    dev: true
 
   /solid-refresh/0.4.1_solid-js@1.6.11:
     resolution: {integrity: sha512-v3tD/OXQcUyXLrWjPW1dXZyeWwP7/+GQNs8YTL09GBq+5FguA6IejJWUvJDrLIA4M0ho9/5zK2e9n+uy+4488g==}

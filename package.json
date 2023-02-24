@@ -17,12 +17,12 @@
   },
   "type": "module",
   "dependencies": {
-    "@solid-primitives/media": "^2.1.1",
     "undici": "^5.14.0"
   },
   "devDependencies": {
     "@kobalte/core": "^0.6.1",
     "@radix-ui/colors": "github:radix-ui/colors",
+    "@solid-primitives/media": "^2.1.1",
     "@solidjs/meta": "^0.28.2",
     "@solidjs/router": "^0.6.0",
     "@testing-library/jest-dom": "^5.16.5",
@@ -39,6 +39,7 @@
     "@typescript-eslint/parser": "^5.48.0",
     "@typescript-eslint/typescript-estree": "^5.48.0",
     "@vanilla-extract/css": "^1.9.5",
+    "@vanilla-extract/dynamic": "2.0.3",
     "@vanilla-extract/recipes": "0.3.0",
     "@vanilla-extract/sprinkles": "1.5.1",
     "@vanilla-extract/vite-plugin": "^3.8.0",
