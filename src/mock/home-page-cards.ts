@@ -12,7 +12,7 @@ const homePageCards: HomePageCardsType[] = [
       {
         thumbnail: 'https://cards.scryfall.io/art_crop/front/f/1/f1d9cfce-1507-4cdf-9d58-6ebaf44e72e3.jpg?1562557622',
         caption: 'Mortal Combat',
-        link: '/cube/0',
+        link: '/cube/mortalcombat',
       },
       {
         thumbnail: 'https://cards.scryfall.io/art_crop/front/3/2/32865e68-5842-4f17-b2ea-4ffa743b511f.jpg?1562858255',
