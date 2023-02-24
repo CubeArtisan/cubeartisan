@@ -94,11 +94,3 @@ export const cubeDescriptionHeader = style({
 export const cubeDescription = style({
   maxWidth: '40ch',
 });
-
-// export const heroSeparator = style({
-//   width: vars.size['content-90'],
-//   height: '1px',
-//   marginInline: 'auto',
-//   marginBlock: vars.space.gutter,
-//   backgroundColor: vars.color.neutral12,
-// });
