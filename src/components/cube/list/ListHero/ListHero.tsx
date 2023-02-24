@@ -1,4 +1,5 @@
-import { Button, Separator } from '@kobalte/core';
+import { Button } from '@kobalte/core';
+import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 import * as styles from '@cubeartisan/cubeartisan/components/cube/list/ListHero/ListHero.css';
 import { testCube } from '@cubeartisan/cubeartisan/mock/testCube';
@@ -25,12 +26,12 @@ export const ListHero = () => {
   const cube = testCube;
 
   return (
-    <>
+    <div class={styles.heroContainer} style={assignInlineVars({ [styles.heroBannerSrc]: cube.banner })}>
       <header class={styles.heroRoot}>
         <div class={styles.heroTitleSection}>
           <h1 class={styles.cubeTitle}>{cube.name}</h1>
           <span class={styles.cubeSubtitle}>
-            by{' '}
+            by
             <span class={styles.cubeOwner}>
               <Avatar /> {cube.author}
             </span>
@@ -108,10 +109,9 @@ export const ListHero = () => {
         </div>
         <div>
           <h2 class={styles.cubeDescriptionHeader}>Description</h2>
-          <p class={styles.cubeDescription}>{cube.description}</p>
+          <p class={styles.cubeDescription}>{() => cube.description}</p>
         </div>
       </header>
-      <Separator.Root class={styles.heroSeparator} />
-    </>
+    </div>
   );
 };

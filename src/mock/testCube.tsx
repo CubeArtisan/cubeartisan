@@ -225,6 +225,7 @@ export const testCube = {
   id: 'mortalcombat',
   name: 'Mortal Combat',
   author: 'jesseb34r',
+  banner: "url('https://cards.scryfall.io/art_crop/front/f/1/f1d9cfce-1507-4cdf-9d58-6ebaf44e72e3.jpg?1562557622')",
   description: () => (
     <ul>
       <li>4 packs of 18 cards are to be drafted by 8 players</li>

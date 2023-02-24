@@ -1,17 +1,35 @@
-import { style } from '@vanilla-extract/css';
+import { createVar, style } from '@vanilla-extract/css';
 
 import { vars } from '@cubeartisan/cubeartisan/styles';
 
+export const heroBannerSrc = createVar();
+
+export const heroContainer = style({
+  vars: {
+    [heroBannerSrc]:
+      "url('https://cards.scryfall.io/art_crop/front/5/9/593cbbd0-6ec3-4506-be0c-a229f070ce6d.jpg?1676227784')",
+  },
+  backgroundImage: `linear-gradient(to left, ${vars.color.neutral1}, ${vars.color.shadowInverse11}, ${vars.color.shadowInverse4}, ${vars.color.shadowInverse11}, ${vars.color.neutral1}), ${heroBannerSrc}`,
+  backgroundPosition: 'center',
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover',
+});
+
 export const heroRoot = style({
-  minHeight: vars.space[40],
-  width: vars.size['content-80'],
-  marginInline: 'auto',
   display: 'grid',
-  alignItems: 'start',
-  justifyItems: 'start',
   gridTemplateColumns: '1fr 1fr',
-  paddingInline: vars.space.gutter,
-  marginTop: vars.space.gutter,
+  justifyItems: 'center',
+  alignItems: 'center',
+  gap: vars.space.gutter,
+
+  width: vars.size['content-80'],
+  minHeight: vars.space[40],
+  marginInline: 'auto',
+  marginBlock: vars.space.gutter,
+  padding: vars.space.gutter,
+
+  backgroundColor: vars.color.shadowInverse10,
+  borderRadius: vars.borderRadius.lg,
 });
 
 export const heroTitleSection = style({
@@ -75,13 +93,12 @@ export const cubeDescriptionHeader = style({
 
 export const cubeDescription = style({
   maxWidth: '40ch',
-  color: vars.color.neutral11,
 });
 
-export const heroSeparator = style({
-  width: vars.size['content-90'],
-  height: '1px',
-  marginInline: 'auto',
-  marginBottom: vars.space[5],
-  backgroundColor: vars.color.neutral12,
-});
+// export const heroSeparator = style({
+//   width: vars.size['content-90'],
+//   height: '1px',
+//   marginInline: 'auto',
+//   marginBlock: vars.space.gutter,
+//   backgroundColor: vars.color.neutral12,
+// });
