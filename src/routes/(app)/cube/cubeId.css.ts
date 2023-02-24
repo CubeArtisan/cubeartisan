@@ -11,7 +11,7 @@ export const container = style({
 
 export const mainContainer = style({
   position: 'relative',
-  backgroundColor: vars.color.neutral2,
+  backgroundColor: vars.color.neutral1,
   overflowX: 'scroll',
 
   '@media': {
@@ -58,6 +58,7 @@ export const buttonIcon = style({
 export const cubeNavSidebarContainer = style({
   position: 'relative',
   maxWidth: 0,
+  width: 0,
   transition: 'max-width 200ms',
   whiteSpace: 'nowrap',
 
@@ -66,6 +67,7 @@ export const cubeNavSidebarContainer = style({
       '@media': {
         [`screen and (min-width: ${tokens.screens.laptop})`]: {
           maxWidth: vars.size[44],
+          width: 'auto',
         },
       },
     },
@@ -77,6 +79,7 @@ export const cubeNavSidebarContainer = style({
   '@media': {
     [`screen and (min-width: ${tokens.screens.laptop})`]: {
       maxWidth: vars.size[44],
+      width: 'auto',
     },
   },
 });
@@ -99,7 +102,7 @@ export const cubeNavModalOverlay = style({
 export const cubeNavModalContent = style({
   position: 'fixed',
   inset: '0 auto 0 0',
-  backgroundColor: vars.color.neutral3,
+  backgroundColor: vars.color.neutral2,
   paddingTop: vars.space.gutter,
   width: 0,
   transition: 'width 200ms',
@@ -173,7 +176,7 @@ export const cubeNavLinkLarge = style([
 export const cubeNavLinkSmallActive = style([
   cubeNavLinkSmall,
   {
-    backgroundColor: vars.color.primary9,
+    backgroundColor: vars.color.primary8,
     color: vars.color.primary12,
   },
 ]);
@@ -181,7 +184,7 @@ export const cubeNavLinkSmallActive = style([
 export const cubeNavLinkLargeActive = style([
   cubeNavLinkLarge,
   {
-    backgroundColor: vars.color.primary9,
+    backgroundColor: vars.color.primary8,
     color: vars.color.primary12,
   },
 ]);
