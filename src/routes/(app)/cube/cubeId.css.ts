@@ -4,7 +4,7 @@ import { vars } from '@cubeartisan/cubeartisan/styles';
 import { tokens } from '@cubeartisan/cubeartisan/styles/tokens';
 
 export const container = style({
-  height: 'calc(100vh - 4.25rem)',
+  minHeight: 'calc(100vh - 4.25rem)',
   display: 'grid',
   gridTemplateColumns: 'auto 1fr auto',
 });
@@ -13,6 +13,7 @@ export const mainContainer = style({
   position: 'relative',
   backgroundColor: vars.color.neutral1,
   overflowX: 'scroll',
+  paddingBottom: vars.space['2.5'],
 
   '@media': {
     [`screen and (min-width: ${tokens.screens.laptop})`]: {
