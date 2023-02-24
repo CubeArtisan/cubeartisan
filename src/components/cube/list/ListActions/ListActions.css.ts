@@ -43,12 +43,8 @@ export const searchContainer = style({
 });
 
 export const searchInput = style({
-  backgroundColor: vars.color.neutral3,
-  outline: `${vars.borderSize.large} solid ${vars.color.neutral6}`,
-  padding: vars.space[1],
-  borderRadius: vars.borderRadius.md,
   width: '100%',
-  paddingLeft: vars.space[10],
+  paddingLeft: `${vars.space[10]} !important`,
 });
 
 export const searchIconContainer = style({
