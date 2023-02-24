@@ -225,8 +225,14 @@ export const testCube = {
   id: 'mortalcombat',
   name: 'Mortal Combat',
   author: 'jesseb34r',
-  description:
-    '4 packs of 18 cards are to be drafted by 8 players. <br />First picks are double picks (like double masters) <br />Last pick is burned. <br />First mulligan is free.',
+  description: () => (
+    <ul>
+      <li>4 packs of 18 cards are to be drafted by 8 players</li>
+      <li>First picks are double picks (like double masters)</li>
+      <li>Last pick is burned</li>
+      <li>First mulligan is free</li>
+    </ul>
+  ),
   boards: [
     {
       name: 'main',
