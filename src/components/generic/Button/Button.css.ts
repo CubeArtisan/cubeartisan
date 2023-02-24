@@ -54,7 +54,7 @@ export const buttonRecipe = recipe({
           activeBgColor: vars.color.neutral5,
           baseOutlineColor: vars.color.neutral6,
           hoverOutlineColor: vars.color.neutral7,
-          activeOultineColor: vars.color.neutral8,
+          activeOutlineColor: vars.color.neutral8,
         }),
       },
       primary: {
@@ -66,7 +66,7 @@ export const buttonRecipe = recipe({
           activeBgColor: vars.color.primary5,
           baseOutlineColor: vars.color.primary6,
           hoverOutlineColor: vars.color.primary7,
-          activeOultineColor: vars.color.primary8,
+          activeOutlineColor: vars.color.primary8,
         }),
       },
       success: {
@@ -78,7 +78,7 @@ export const buttonRecipe = recipe({
           activeBgColor: vars.color.success5,
           baseOutlineColor: vars.color.success6,
           hoverOutlineColor: vars.color.success7,
-          activeOultineColor: vars.color.success8,
+          activeOutlineColor: vars.color.success8,
         }),
       },
       info: {
@@ -90,7 +90,7 @@ export const buttonRecipe = recipe({
           activeBgColor: vars.color.info5,
           baseOutlineColor: vars.color.info6,
           hoverOutlineColor: vars.color.info7,
-          activeOultineColor: vars.color.info8,
+          activeOutlineColor: vars.color.info8,
         }),
       },
       warning: {
@@ -102,7 +102,7 @@ export const buttonRecipe = recipe({
           activeBgColor: vars.color.warning5,
           baseOutlineColor: vars.color.warning6,
           hoverOutlineColor: vars.color.warning7,
-          activeOultineColor: vars.color.warning8,
+          activeOutlineColor: vars.color.warning8,
         }),
       },
       danger: {
@@ -114,7 +114,7 @@ export const buttonRecipe = recipe({
           activeBgColor: vars.color.danger5,
           baseOutlineColor: vars.color.danger6,
           hoverOutlineColor: vars.color.danger7,
-          activeOultineColor: vars.color.danger8,
+          activeOutlineColor: vars.color.danger8,
         }),
       },
     },
