@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@cubeartisan/carddb': ^1.0.0
   '@kobalte/core': ^0.3.1
   '@radix-ui/colors': github:radix-ui/colors
   '@solidjs/meta': ^0.28.2
@@ -59,6 +60,7 @@ dependencies:
   undici: 5.14.0
 
 devDependencies:
+  '@cubeartisan/carddb': 1.0.0
   '@kobalte/core': 0.3.1_solid-js@1.6.8
   '@radix-ui/colors': github.com/radix-ui/colors/19e08e0e2412a7a7cedc2b36536527c8d4fd4e65
   '@solidjs/meta': 0.28.2_solid-js@1.6.8
@@ -2142,6 +2144,10 @@ packages:
   /@colors/colors/1.5.0:
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
     engines: {node: '>=0.1.90'}
+    dev: true
+
+  /@cubeartisan/carddb/1.0.0:
+    resolution: {integrity: sha512-u+ymMZARfsWXYQv3zvBkIc70R1Jv8h0w1zyECE6PyziQAZN+aInhSYDjw4HrkdQx0gkrRGIaMsGttU1KzuoBSA==}
     dev: true
 
   /@dabh/diagnostics/2.0.3:
