@@ -20,7 +20,7 @@
         "undici": "^5.14.0"
     },
     "devDependencies": {
-        "@cubeartisan/carddb": "^1.0.0",
+        "@cubeartisan/carddb": "^1.0.2",
         "@kobalte/core": "^0.3.1",
         "@radix-ui/colors": "github:radix-ui/colors",
         "@solidjs/meta": "^0.28.2",

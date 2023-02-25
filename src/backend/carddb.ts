@@ -1,4 +1,4 @@
-import { updateAllBulkData, readLargeJson, convertCard } from '@cubeartisan/carddb';
+import { convertCard, readLargeJson, updateAllBulkData } from '@cubeartisan/carddb';
 
 type Card = ReturnType<typeof convertCard>;
 
@@ -13,7 +13,7 @@ export const carddb: CardDB = {
 };
 
 export const loadCardDb = async () => {
-  console.log("Loading cards.");
+  console.log('Loading cards.');
   await updateAllBulkData();
   const scryfallCards = await readLargeJson('data/all_cards.json');
   carddb.cards = scryfallCards.map(convertCard);
