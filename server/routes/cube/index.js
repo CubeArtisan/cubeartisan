@@ -1937,6 +1937,8 @@ export const getCardImageById = async (req, res) => {
   }
 };
 
+export const viewCubeDecksZero = (req, res) => res.redirect(`/cube/${req.params.id}/playtest/decks/0`);
+
 export const viewCubeDecks = async (req, res) => {
   try {
     const { id: cubeid } = req.params;

@@ -195,6 +195,7 @@ import {
   viewPlaytest,
   uploadDeckList,
   viewCubeDecks,
+  viewCubeDecksZero,
   startDraft,
   startGridDraft,
   addSeedToP1P1,
@@ -323,6 +324,7 @@ router.get('/cube/:id/overview', viewOverview);
 router.put('/cube/:id/overview', editCubeOverview);
 router.get('/cube/:id/playtest', viewPlaytest);
 router.post('/cube/:id/playtest/deck/import/plaintext', uploadDeckList);
+router.get('/cube/:id/playtest/decks', viewCubeDecksZero);
 router.get('/cube/:id/playtest/decks/:page', viewCubeDecks);
 router.post('/cube/:id/playtest/draft', startDraft);
 router.post('/cube/:id/playtest/griddraft', startGridDraft);

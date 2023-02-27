@@ -382,7 +382,7 @@ const DecksCard = ({ decks, ...props }) => {
         </Suspense>
       </CardBody>
       <CardFooter>
-        <a href={`/cube/${cubeID}/playtest/decks`}>View all</a>
+        <a href={`/cube/${cubeID}/playtest/decks/0`}>View all</a>
       </CardFooter>
     </Card>
   );

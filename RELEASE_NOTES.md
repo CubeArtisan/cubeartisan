@@ -338,3 +338,9 @@ This release is composed of porting over bug fixes for bugs we carried over from
 #### Bug Fixes
 
 - Prevent error on toggling hide unsorted cards.
+
+### v1.4.6.3
+
+#### Bug Fixes
+
+- Fix links to view the list of all decks associated with a cube.
