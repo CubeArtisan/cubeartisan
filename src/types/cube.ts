@@ -1,6 +1,6 @@
 import type { Types } from 'mongoose';
 
-import type { Card, CardStatus, CardWithoutDetails } from '@cubeartisan/cubeartisan/types/card';
+import type { CardStatus, CubeCard, CubeDbCard } from '@cubeartisan/cubeartisan/types/card';
 import type { Patch } from '@cubeartisan/cubeartisan/types/patch';
 
 export type Step = {
@@ -58,16 +58,16 @@ export type BaseCube = {
   defaultStatus: CardStatus;
   defaultPrinting: 'first' | 'recent';
   disableNotifications: boolean;
-  basics: string[];
+  basics?: string[];
   keywords: string[];
   categories: string[];
 };
 
-type CardTypes = Card | CardWithoutDetails | Patch<Card>;
+type CardTypes = CubeCard | CubeDbCard;
 
 export type CubeCards<C extends CardTypes> = {
   cards: C[];
-  maybe: C[];
+  maybe?: C[];
   boards: Board<C>[];
   unlimitedCards: C[];
 };
@@ -81,17 +81,19 @@ export type CubeIds<ID extends IdTypes> = {
 
 export type GenericCube<C extends CardTypes, ID extends IdTypes> = BaseCube & CubeCards<C> & CubeIds<ID>;
 
-export type MongoCube = GenericCube<CardWithoutDetails, Types.ObjectId>;
+// ID gets automatically added with the mongo generics
+export type MongoCube = GenericCube<CubeDbCard, Types.ObjectId>;
 
-export type Cube = GenericCube<Card, string> & { _id: string };
+export type Cube = GenericCube<CubeCard, string> & { id: string };
 
 type UnpatchableCubeProperties = 'basics' | 'maybe' | 'numDecks' | 'users_following' | 'owner_name' | 'date_updated';
 
-export type CubePatch = Patch<Omit<GenericCube<CardWithoutDetails, string>, UnpatchableCubeProperties>>;
+export type CubePatch = Patch<Omit<GenericCube<CubeDbCard, string>, UnpatchableCubeProperties>>;
 
 export type MongoCubeChange = {
   version: number;
   cubeId: Types.ObjectId;
   date_updated: string;
   parent: Types.ObjectId;
-} & CubePatch;
+  patch: CubePatch;
+};

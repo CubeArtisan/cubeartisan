@@ -1,8 +1,12 @@
 import type { Patch } from '@cubeartisan/cubeartisan/types/patch';
 
 export const getApplyFunc = <T>(val: T) => {
-  // eslint-disable-next-line no-use-before-define
-  if (Array.isArray(val)) return applyArrayPatch;
+  if (Array.isArray(val)) {
+    // eslint-disable-next-line no-use-before-define
+    if (val.length === 1 && val[0].action === 'merge') return applyMergePatch;
+    // eslint-disable-next-line no-use-before-define
+    return applyArrayPatch;
+  }
   // eslint-disable-next-line no-use-before-define
   if (val !== null && typeof val === 'object') return applyObjectPatch;
   // eslint-disable-next-line no-use-before-define
@@ -41,6 +45,9 @@ const calculateInsertIndex = (index: number, length: number, addedIndices: numbe
   }
   return i;
 };
+
+// TODO: Implement
+export const applyMergePatch = <T>(val: Patch<T>, _: Patch<Patch<T>>): Patch<T> => val;
 
 export const applyArrayPatch = <T>(arr: T[], patches: Patch<T[]>): T[] => {
   if (!arr || !arr.length) arr = [];
@@ -106,8 +113,6 @@ export const applyObjectPatch = <T extends object>(obj: T, patch: Patch<T>): T =
 };
 
 export const applyPatch = <T>(obj: T, patch: Patch<T>): T => {
-  const applyFunc = getApplyFunc(patch);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+  const applyFunc = getApplyFunc(patch) as (t: T, p: Patch<T>) => T;
   return applyFunc(obj, patch);
 };

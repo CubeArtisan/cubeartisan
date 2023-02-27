@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 
 import { createCardWithoutDetails } from '@cubeartisan/cubeartisan/shared/cardUtils';
-import type { CardWithoutDetails } from '@cubeartisan/cubeartisan/types/card';
+import type { CubeDbCard } from '@cubeartisan/cubeartisan/types/card';
 import type { BaseCube, CubeCards } from '@cubeartisan/cubeartisan/types/cube';
 
 export const getDefaultBaseCube = (): BaseCube => ({
@@ -34,7 +34,7 @@ export const getDefaultBaseCube = (): BaseCube => ({
   basics: [],
 });
 
-export const getDefaultBaseCubeWithCards = (): BaseCube & CubeCards<CardWithoutDetails> => ({
+export const getDefaultBaseCubeWithCards = (): BaseCube & CubeCards<CubeDbCard> => ({
   ...getDefaultBaseCube(),
   cards: [],
   maybe: [],

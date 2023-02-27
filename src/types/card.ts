@@ -1,3 +1,7 @@
+import type { Card, ScryfallCardFinish } from '@cubeartisan/carddb';
+
+import type { Patch } from '@cubeartisan/cubeartisan/types/patch';
+
 export type Color = 'W' | 'U' | 'B' | 'R' | 'G';
 export type CardFinish = 'Foil' | 'Non-foil';
 export type CardStatus = 'Not Owned' | 'Ordered' | 'Owned' | 'Premium Owned' | 'Proxied';
@@ -87,6 +91,17 @@ export type CardWithoutDetails = {
   type_line: string | null;
 };
 
-export type Card = CardWithoutDetails & { details: CardDetails };
+export type OldCubeCard = CardWithoutDetails & { index: number };
 
-export type IndexedCard = Card & { index: number };
+export type CardMetadata = {
+  tags: string[];
+  price: number | null;
+  notes: string;
+  addedTmsp: string;
+  finish: ScryfallCardFinish;
+  status: CardStatus;
+};
+
+export type CubeDbCard = { id: string; patch: Patch<Card>; metadata: CardMetadata } & Partial<OldCubeCard>;
+
+export type CubeCard = Card & { metadata: CardMetadata };
