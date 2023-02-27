@@ -35,18 +35,22 @@ export const CubeDecksPage = ({ cube, decks, pages, activePage, loginCallback })
     <DynamicFlash />
     <CubeLayout cube={cube} activeLink="playtest">
       <div className="my-3">
-        {pages > 1 && <Paginate count={pages} active={activePage} urlF={(i) => `/cube/${cube._id}/decks/${i}`} />}
+        {pages > 1 && (
+          <Paginate count={pages} active={activePage} urlF={(i) => `/cube/${cube._id}/playtest/decks/${i}`} />
+        )}
         <Card>
           <CardHeader>
             <h5 className="mb-0">All Decks</h5>
           </CardHeader>
           <CardBody className="p-0">
             {decks.map((deck) => (
-              <DeckPreview key={deck._id} deck={deck} nextURL={`/cube/${cube._id}/decks/${activePage}`} />
+              <DeckPreview key={deck._id} deck={deck} nextURL={`/cube/${cube._id}/playtest/decks/${activePage}`} />
             ))}
           </CardBody>
         </Card>
-        {pages > 1 && <Paginate count={pages} active={activePage} urlF={(i) => `/cube/${cube._id}/decks/${i}`} />}
+        {pages > 1 && (
+          <Paginate count={pages} active={activePage} urlF={(i) => `/cube/${cube._id}/playtest/decks/${i}`} />
+        )}
       </div>
     </CubeLayout>
   </MainLayout>
