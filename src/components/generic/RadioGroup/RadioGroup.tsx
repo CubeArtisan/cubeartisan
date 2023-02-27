@@ -16,10 +16,12 @@ const RadioGroupItemsContainer: ParentComponent<ComponentProps<'div'>> = (props)
   return <div class={clsx(styles.radioGroupItemsContainer, local.class)} {...others} />;
 };
 
-const RadioGroupItem: ParentComponent<ComponentProps<typeof BaseRadioGroup.Item>> = (props) => {
-  const [local, others] = splitProps(props, ['class']);
+const RadioGroupItem: ParentComponent<
+  ComponentProps<typeof BaseRadioGroup.Item> & { recipe: styles.RadioGroupItemRecipe }
+> = (props) => {
+  const [local, others] = splitProps(props, ['class', 'recipe']);
 
-  return <BaseRadioGroup.Item class={clsx(styles.radioGroupItem, local.class)} {...others} />;
+  return <BaseRadioGroup.Item class={clsx(styles.radioGroupItem(local.recipe), local.class)} {...others} />;
 };
 
 const RadioGroupItemInput = BaseRadioGroup.ItemInput;
