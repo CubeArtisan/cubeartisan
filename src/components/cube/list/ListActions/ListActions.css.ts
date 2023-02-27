@@ -10,24 +10,10 @@ export const actionsContainer = style({
 });
 
 export const viewOptionsContainer = style({
-  display: 'flex',
-  alignItems: 'center',
-  padding: vars.space['1'],
-  gap: vars.space.gutter,
-  borderRadius: vars.borderRadius.md,
-  backgroundColor: vars.color.neutral3,
-  outline: `${vars.borderSize.large} solid ${vars.color.neutral6}`,
-
-  ':hover': {
-    outlineColor: vars.color.neutral7,
-  },
-});
-
-export const viewOption = style({
-  color: vars.color.neutral11,
-
-  ':hover': {
-    color: vars.color.neutral12,
+  selectors: {
+    '&:focus-within': {
+      outline: `${vars.borderSize.standard} solid ${vars.color.neutral7} !important`,
+    },
   },
 });
 
@@ -44,16 +30,29 @@ export const searchContainer = style({
 
 export const searchInput = style({
   width: '100%',
-  paddingLeft: `${vars.space[10]} !important`,
+
+  selectors: {
+    '&:not(:focus)': {
+      paddingLeft: vars.space[8],
+    },
+  },
 });
 
 export const searchIconContainer = style({
   position: 'absolute',
   top: '50%',
-  left: vars.space['2.5'],
-  translate: '0 -50%',
-  marginBlock: 'auto',
+  transform: 'translateY(-50%)',
+  left: '6px',
   color: vars.color.neutral11,
+
+  selectors: {
+    ':focus ~ &': {
+      display: 'none',
+    },
+    ':hover ~ &': {
+      color: vars.color.neutral12,
+    },
+  },
 });
 
 export const searchIcon = style({
