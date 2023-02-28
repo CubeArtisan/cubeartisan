@@ -16,14 +16,16 @@ export const textfieldInput = style({
   backgroundColor: vars.color.neutral3,
   outline: `solid ${vars.borderSize.standard} ${vars.color.neutral6}`,
 
+  ':hover': {
+    backgroundColor: vars.color.neutral4,
+    outline: `solid ${vars.borderSize.standard} ${vars.color.neutral7}`,
+  },
+
+  ':focus': {
+    outline: `solid ${vars.borderSize['focus-ring']} ${vars.color.neutral7}`,
+  },
+
   selectors: {
-    '&[data-hover]': {
-      backgroundColor: vars.color.neutral4,
-      outline: `solid ${vars.borderSize.standard} ${vars.color.neutral7}`,
-    },
-    '&[data-focus]': {
-      outline: `solid ${vars.borderSize['focus-ring']} ${vars.color.neutral7}`,
-    },
     '&[data-invalid]': {
       outline: `solid ${vars.borderSize.standard} ${vars.color.danger7}`,
     },
