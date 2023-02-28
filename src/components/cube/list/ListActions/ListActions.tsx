@@ -88,30 +88,26 @@ const viewOptions = [
   },
 ];
 
-const ViewSelect = () => (
-  <RadioGroup.Root defaultValue={viewOptions[0]?.id}>
-    <RadioGroup.ItemsContainer class={styles.viewOptionsContainer}>
-      <For each={viewOptions}>
-        {(item, index) => (
-          <>
-            <RadioGroup.Item value={item.id} recipe={{ color: 'primary' }}>
-              <RadioGroup.ItemInput />
-              <RadioGroup.ItemLabel>{item.icon}</RadioGroup.ItemLabel>
-            </RadioGroup.Item>
-            <Show when={index() + 1 !== viewOptions.length}>
-              <RadioGroup.ItemSeparator />
-            </Show>
-          </>
-        )}
-      </For>
-    </RadioGroup.ItemsContainer>
-  </RadioGroup.Root>
-);
-
 export const ListActions = () => (
   <div class={styles.actionsContainer}>
     {/* View Options */}
-    <ViewSelect />
+    <RadioGroup.Root defaultValue={viewOptions[0]?.id}>
+      <RadioGroup.ItemsContainer class={styles.viewOptionsContainer}>
+        <For each={viewOptions}>
+          {(item, index) => (
+            <>
+              <RadioGroup.Item value={item.id} recipe={{ color: 'primary' }}>
+                <RadioGroup.ItemInput />
+                <RadioGroup.ItemLabel>{item.icon}</RadioGroup.ItemLabel>
+              </RadioGroup.Item>
+              <Show when={index() + 1 !== viewOptions.length}>
+                <RadioGroup.ItemSeparator />
+              </Show>
+            </>
+          )}
+        </For>
+      </RadioGroup.ItemsContainer>
+    </RadioGroup.Root>
 
     {/* Filter Search */}
     <TextField.Root class={styles.searchContainer}>
