@@ -4,6 +4,7 @@ import { vars } from '@cubeartisan/cubeartisan/styles';
 
 export const actionsContainer = style({
   display: 'flex',
+  alignItems: 'center',
   gap: vars.space.gutter,
   width: vars.size['content-70'],
   marginInline: 'auto',
@@ -30,6 +31,7 @@ export const searchContainer = style({
 
 export const searchInput = style({
   width: '100%',
+  height: vars.size[10],
 
   selectors: {
     '&:not(:focus)': {
@@ -60,10 +62,8 @@ export const searchIcon = style({
   height: vars.space[6],
 });
 
-export const sortButton = style({
+export const actionButton = style({
   gap: vars.space['2.5'],
-});
-
-export const editButton = style({
-  gap: vars.space['2.5'],
+  height: vars.size[10],
+  paddingInline: vars.space[3],
 });
