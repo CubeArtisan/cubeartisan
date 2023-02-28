@@ -18,45 +18,43 @@ export const mainContainer = style({
   '@media': {
     [`screen and (min-width: ${tokens.screens.laptop})`]: {
       borderRadius: vars.borderRadius.lg,
-      margin: vars.space['2.5'],
+      marginInline: vars.space['2.5'],
     },
   },
 });
 
-export const editSidebarContainer = style({
-  background: 'red',
-  overflow: 'hidden',
-  width: 0,
+export const modalOverlay = style({
+  backgroundColor: vars.color.shadowDark10,
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  height: '100vh',
+  width: '0',
 
   selectors: {
-    '&[data-open=true]': {
-      width: 'auto',
-    },
-    '&[data-open=false]': {
-      width: 0,
+    '&[data-expanded]': {
+      width: '100vw',
     },
   },
 });
 
-export const editSidebarToggleButton = style({
-  position: 'absolute',
-  top: vars.space.gutter,
-  right: vars.space.gutter,
+const modalContent = style({
+  position: 'fixed',
+  backgroundColor: vars.color.neutral2,
+  paddingTop: vars.space.gutter,
+  width: 0,
+  transition: 'width 200ms',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
 
-  '@media': {
-    [`screen and (min-width: ${tokens.screens.laptop})`]: {
-      display: 'none',
+  selectors: {
+    '&[data-expanded]': {
+      width: vars.size.md,
     },
   },
 });
 
-export const buttonIcon = style({
-  width: vars.size[6],
-  height: vars.size[6],
-  margin: vars.space[1],
-});
-
-export const cubeNavSidebarContainer = style({
+export const cubeSidebarContainer = style({
   position: 'relative',
   maxWidth: 0,
   width: 0,
@@ -85,37 +83,79 @@ export const cubeNavSidebarContainer = style({
   },
 });
 
-export const cubeNavModalOverlay = style({
-  backgroundColor: vars.color.shadowDark10,
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  height: '100vh',
-  width: '0',
+export const editSidebarModalContent = style([
+  modalContent,
+  {
+    inset: '0 0 0 auto',
+  },
+]);
 
-  selectors: {
-    '&[data-expanded]': {
-      width: '100vw',
+export const editSidebarContainer = style([
+  cubeSidebarContainer,
+  {
+    paddingTop: vars.space[10],
+    backgroundColor: vars.color.neutral1,
+    borderRadius: vars.borderRadius.lg,
+
+    '@media': {
+      [`screen and (min-width: ${tokens.screens.laptop})`]: {
+        selectors: {
+          '&[data-open="true"]': {
+            marginRight: vars.space['2.5'],
+          },
+        },
+      },
     },
   },
+]);
+
+export const editSidebar = style({
+  display: 'flex',
+  flexDirection: 'column',
+  padding: vars.space.gutter,
+  gap: vars.space['2.5'],
 });
 
-export const cubeNavModalContent = style({
+export const editSidebarOpenButton = style({
   position: 'fixed',
-  inset: '0 auto 0 0',
-  backgroundColor: vars.color.neutral2,
-  paddingTop: vars.space.gutter,
-  width: 0,
-  transition: 'width 200ms',
-  overflow: 'hidden',
-  whiteSpace: 'nowrap',
-
-  selectors: {
-    '&[data-expanded]': {
-      width: vars.size.md,
-    },
-  },
+  bottom: vars.space.gutter,
+  right: vars.space.gutter,
 });
+
+export const editSidebarCloseButton = style({
+  position: 'absolute',
+  top: vars.space['2.5'],
+  left: vars.space['2.5'],
+});
+
+export const editSidebarModalCloseButton = style({
+  position: 'absolute',
+  top: vars.space.gutter,
+  left: vars.space.gutter,
+});
+
+export const editSidebarTitle = style({
+  fontSize: vars.fontSize.xl,
+  lineHeight: vars.lineHeight.xl,
+  fontWeight: vars.fontWeight.semibold,
+  cursor: 'default',
+  textAlign: 'center',
+});
+
+export const buttonIcon = style({
+  width: vars.size[6],
+  height: vars.size[6],
+  margin: vars.space[1],
+});
+
+export const cubeNavModalContent = style([
+  modalContent,
+  {
+    inset: '0 auto 0 0',
+  },
+]);
+
+export const cubeNavSidebarContainer = style([cubeSidebarContainer]);
 
 export const cubeNav = style({
   display: 'flex',
@@ -132,7 +172,7 @@ export const cubeNavOpenButton = style({
 
 export const cubeNavSidebarCloseButton = style({
   position: 'absolute',
-  top: vars.space.gutter,
+  top: vars.space['2.5'],
   right: vars.space['2.5'],
 });
 
