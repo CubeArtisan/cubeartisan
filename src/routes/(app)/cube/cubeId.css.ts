@@ -60,6 +60,7 @@ export const cubeSidebarContainer = style({
   width: 0,
   transition: 'max-width 200ms',
   whiteSpace: 'nowrap',
+  overflow: 'hidden',
 
   selectors: {
     '&[data-open=true]': {
@@ -120,6 +121,8 @@ export const editSidebarOpenButton = style({
   position: 'fixed',
   bottom: vars.space.gutter,
   right: vars.space.gutter,
+  padding: vars.space['2.5'],
+  borderRadius: `${vars.borderRadius.xl} !important`,
 });
 
 export const editSidebarCloseButton = style({
@@ -168,7 +171,29 @@ export const cubeNavOpenButton = style({
   position: 'absolute',
   top: vars.space.gutter,
   left: vars.space.gutter,
+  zIndex: 10,
+
+  '@media': {
+    [`screen and (max-width: ${tokens.screens.laptop})`]: {
+      position: 'fixed',
+      padding: vars.space['2.5'],
+      borderRadius: `${vars.borderRadius.xl} !important`,
+    },
+  },
 });
+
+export const cubeNavOpenIcon = style([
+  buttonIcon,
+  {
+    '@media': {
+      [`screen and (max-width: ${tokens.screens.laptop})`]: {
+        width: vars.size[8],
+        height: vars.size[8],
+        margin: 0,
+      },
+    },
+  },
+]);
 
 export const cubeNavSidebarCloseButton = style({
   position: 'absolute',

@@ -62,7 +62,9 @@ const CubeLayout = () => {
    */
   const cube = testCube;
 
-  const [cubeNavOpen, setCubeNavOpen] = createSignal<boolean>(false);
+  const isLaptopPlus = createMediaQuery(`(min-width: ${tokens.screens.laptop})`, true);
+
+  const [cubeNavOpen, setCubeNavOpen] = createSignal<boolean>(isLaptopPlus());
   const closeCubeNav = () => setCubeNavOpen(false);
   const openCubeNav = () => setCubeNavOpen(true);
 
@@ -70,7 +72,6 @@ const CubeLayout = () => {
   const closeEditSidebar = () => setEditSidebarOpen(false);
   const openEditSidebar = () => setEditSidebarOpen(true);
 
-  const isLaptopPlus = createMediaQuery(`(min-width: ${tokens.screens.laptop})`, true);
   const isRouting = useIsRouting();
 
   // Open nav when screen size gets larger
@@ -277,6 +278,7 @@ const CubeLayout = () => {
           </Show>
           <CubeNav />
         </div>
+
         {/* Cube Nav Sidebar Modal */}
         <Dialog.Root isOpen={!isLaptopPlus() && cubeNavOpen()} onOpenChange={setCubeNavOpen} forceMount>
           <Dialog.Portal>
@@ -287,13 +289,14 @@ const CubeLayout = () => {
             </Dialog.Content>
           </Dialog.Portal>
         </Dialog.Root>
+
         {/* Main Page Content */}
         <div class={styles.mainContainer}>
           {/* Cube Nav Floating Button */}
           <Show when={!cubeNavOpen()}>
             <Button.Root onClick={() => openCubeNav()} class={styles.cubeNavOpenButton}>
               <svg
-                class={styles.buttonIcon}
+                class={styles.cubeNavOpenIcon}
                 width="15"
                 height="15"
                 viewBox="0 0 15 15"
@@ -309,17 +312,19 @@ const CubeLayout = () => {
               </svg>
             </Button.Root>
           </Show>
+
           {/* Page Content */}
           <Outlet />
+
           {/* Edit Sidebar Floating Button */}
-          <Show when={!editSidebarOpen()}>
+          <Show when={!editSidebarOpen() && !isLaptopPlus()}>
             <Button.Root
               onClick={() => openEditSidebar()}
               class={styles.editSidebarOpenButton}
               recipe={{ color: 'success' }}
             >
               <svg
-                class={styles.buttonIcon}
+                style={{ width: '2rem', height: '2rem' }}
                 width="15"
                 height="15"
                 viewBox="0 0 15 15"
@@ -336,6 +341,7 @@ const CubeLayout = () => {
             </Button.Root>
           </Show>
         </div>
+
         {/* Edit Sidebar */}
         <div data-open={editSidebarOpen()} class={styles.editSidebarContainer}>
           <Show when={editSidebarOpen()}>
@@ -343,6 +349,7 @@ const CubeLayout = () => {
           </Show>
           <EditSidebar ref={editSidebarInputRef} />
         </div>
+
         {/* Edit Sidebar Modal */}
         <Dialog.Root isOpen={!isLaptopPlus() && editSidebarOpen()} onOpenChange={setEditSidebarOpen} forceMount>
           <Dialog.Portal>
