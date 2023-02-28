@@ -110,10 +110,12 @@ const ViewSelect = () => (
 
 export const ListActions = () => (
   <div class={styles.actionsContainer}>
+    {/* View Options */}
     <ViewSelect />
 
+    {/* Filter Search */}
     <TextField.Root class={styles.searchContainer}>
-      <TextField.Input type="search" placeholder="Filter" class={styles.searchInput} />
+      <TextField.Input type="search" incremental placeholder="Filter" class={styles.searchInput} />
       <div class={styles.searchIconContainer}>
         <svg
           class={styles.searchIcon}
@@ -133,7 +135,8 @@ export const ListActions = () => (
       </div>
     </TextField.Root>
 
-    <Button.Root recipe={{ padding: 'baseText' }} class={styles.sortButton}>
+    {/* Sort Button */}
+    <Button.Root recipe={{ padding: 'baseText' }} class={styles.actionButton}>
       Sort
       <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -145,7 +148,8 @@ export const ListActions = () => (
       </svg>
     </Button.Root>
 
-    <Button.Root recipe={{ color: 'success', padding: 'baseText' }} class={styles.editButton}>
+    {/* Edit Button */}
+    <Button.Root recipe={{ color: 'success', padding: 'baseText' }} class={styles.actionButton}>
       Edit
       <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
