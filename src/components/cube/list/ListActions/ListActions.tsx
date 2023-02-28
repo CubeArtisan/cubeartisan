@@ -1,4 +1,4 @@
-import { For, Show } from 'solid-js';
+import { For, onMount, Show } from 'solid-js';
 
 import * as styles from '@cubeartisan/cubeartisan/components/cube/list/ListActions/ListActions.css';
 import { Button } from '@cubeartisan/cubeartisan/components/generic/Button';
@@ -90,7 +90,11 @@ const viewOptions = [
 ];
 
 export const ListActions = () => {
-  const cubeContext = useCubeContext();
+  let cubeContext;
+
+  onMount(() => {
+    cubeContext = useCubeContext();
+  });
 
   return (
     <div class={styles.actionsContainer}>
