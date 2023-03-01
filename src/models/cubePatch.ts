@@ -19,6 +19,7 @@ import { Model, model, models, Schema } from 'mongoose';
 import { boardSchema, draftFormatSchema, tagColorSchema } from '@cubeartisan/cubeartisan/models/cube';
 import cardSchema from '@cubeartisan/cubeartisan/models/shared/card';
 import patchArray from '@cubeartisan/cubeartisan/models/shared/patch';
+import type { CubeDbCard } from '@cubeartisan/cubeartisan/types/card';
 import type { MongoCubeChange } from '@cubeartisan/cubeartisan/types/cube';
 
 const stepsSchema = {
@@ -47,40 +48,44 @@ const cubePatchSchema = new Schema<MongoCubeChange>({
     type: Schema.Types.ObjectId,
     ref: 'CubePatch',
   },
-  name: String,
-  shortID: String,
-  isListed: Boolean,
-  privatePrices: Boolean,
-  overrideCategory: Boolean,
-  categoryOverride: String,
-  categoryPrefixes: [String],
-  cards: patchArray(cardSchema, cardSchema),
-  unlimitedCards: patchArray(cardSchema, cardSchema),
-  boards: patchArray(boardSchema, { name: String, cards: patchArray(cardSchema, cardSchema) }),
-  tag_colors: patchArray(tagColorSchema, tagColorSchema),
-  defaultDraftFormat: Number,
-  description: String,
-  image_uri: String,
-  image_artist: String,
-  image_name: String,
-  default_sorts: patchArray(String, String),
-  default_show_unsorted: Boolean,
-  type: String,
-  draft_formats: patchArray(draftFormatSchema, {
-    title: String,
-    multiples: Boolean,
-    markdown: String,
-    defaultSeats: Number,
-    packs: patchArray(draftFormatSchema.packs, {
-      slots: patchArray(String, String),
-      steps: patchArray(stepsSchema, stepsSchema),
+  patch: {
+    name: String,
+    shortID: String,
+    isListed: Boolean,
+    privatePrices: Boolean,
+    overrideCategory: Boolean,
+    categoryOverride: String,
+    categoryPrefixes: [String],
+    cards: patchArray<CubeDbCard>(cardSchema, cardSchema),
+    unlimitedCards: patchArray<CubeDbCard>(cardSchema, cardSchema),
+    boards: patchArray(boardSchema, { name: String, cards: patchArray<CubeDbCard>(cardSchema, cardSchema) }),
+    tag_colors: patchArray(tagColorSchema, tagColorSchema),
+    defaultDraftFormat: Number,
+    description: String,
+    image_uri: String,
+    image_artist: String,
+    image_name: String,
+    default_sorts: patchArray(String, String),
+    default_show_unsorted: Boolean,
+    type: String,
+    draft_formats: patchArray(draftFormatSchema, {
+      title: String,
+      multiples: Boolean,
+      markdown: String,
+      defaultSeats: Number,
+      packs: patchArray(draftFormatSchema.packs, {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        slots: patchArray<string>(String, String),
+        steps: patchArray(stepsSchema, stepsSchema),
+      }),
     }),
-  }),
-  defaultStatus: String,
-  defaultPrinting: String,
-  disableNotifications: Boolean,
-  keywords: patchArray(String, String),
-  categories: patchArray(String, String),
+    defaultStatus: String,
+    defaultPrinting: String,
+    disableNotifications: Boolean,
+    keywords: patchArray(String, String),
+    categories: patchArray(String, String),
+  },
 });
 
 cubePatchSchema.index(

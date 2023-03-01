@@ -33,5 +33,12 @@ type ArrayChange<T> = ArrayAddChange<T> | ArrayRemoveChange | ArrayUpdateChange<
 export type Patch<T> = T extends (infer Item)[]
   ? ArrayChange<Item>[]
   : T extends object
-  ? { [Property in keyof T]?: Patch<T[Property]> }
+  ?
+      | { [Property in keyof T]?: Patch<T[Property]> }
+      | [
+          {
+            action: 'merge';
+            patch: T;
+          },
+        ]
   : T;
