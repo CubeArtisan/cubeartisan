@@ -45,9 +45,7 @@ export const navItemContainer = style({
   },
 });
 
-export const navItem = style({
-  outline: 'none',
-});
+export const navItem = style({});
 
 export const navIcon = style({
   width: vars.size[5],
@@ -78,4 +76,11 @@ export const searchIconContainer = style({
       color: vars.color.neutral12,
     },
   },
+});
+
+export const avatarIcon = style({
+  borderRadius: vars.borderRadius.full,
+  backgroundColor: vars.color.primary7,
+  padding: vars.space[1],
+  outline: `${vars.borderSize.large} solid ${vars.color.neutral11}`,
 });
