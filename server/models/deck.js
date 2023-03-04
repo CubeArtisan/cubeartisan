@@ -58,12 +58,12 @@ const deckSchema = mongoose.Schema(
     cards: [cardSchema],
     schemaVersion: {
       type: Number,
-    //   default() {
-    //     if (this.isNew) {
-    //       return CURRENT_SCHEMA_VERSION;
-    //     }
-    //     return void 0; // eslint-disable-line
-    //   },
+      //   default() {
+      //     if (this.isNew) {
+      //       return CURRENT_SCHEMA_VERSION;
+      //     }
+      //     return void 0; // eslint-disable-line
+      //   },
     },
     basics: [Number],
   },
