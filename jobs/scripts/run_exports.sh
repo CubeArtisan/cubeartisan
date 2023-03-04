@@ -5,7 +5,7 @@ export OUTPUT_DIR=data/
 export OUTPUT_FILE=$TEMP.tar.xz
 # Just in case it already exists.
 rm -rf $TEMP $OUTPUT_DIR
-mkdir -p $TEMP $OUTPUT_DIR
+mkdir -p $TEMP $OUTPUT_DIR private
 gsutil -m rsync -rd gs://cubeartisan/private ./private
 node `yarn --silent node-options` exports/export_drafts.js $TEMP
 node `yarn --silent node-options` exports/export_draft_logs.js $TEMP

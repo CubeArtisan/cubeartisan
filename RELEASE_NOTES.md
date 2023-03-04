@@ -344,3 +344,9 @@ This release is composed of porting over bug fixes for bugs we carried over from
 #### Bug Fixes
 
 - Fix links to view the list of all decks associated with a cube.
+
+### v1.4.6.4
+
+#### Bug Fixes
+
+- Fix submitting a bot only draft so it correctly generates a deck.

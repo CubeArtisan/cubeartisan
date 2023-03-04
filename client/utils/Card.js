@@ -115,7 +115,7 @@ export const cardCmc = (card) => card?.cmc ?? card?.details?.cmc;
 
 export const cardId = (card) => card?.cardID ?? card?.details?._id;
 
-export const cardType = (card) => card?.type_line ?? card?.details?.type;
+export const cardType = (card) => card?.type_line ?? card?.details?.type ?? '';
 
 export const cardRarity = (card) => card?.rarity ?? card?.details?.rarity;
 
