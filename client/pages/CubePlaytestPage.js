@@ -156,7 +156,7 @@ const useBotsOnlyCallback = (botsOnly, cubeID) => {
           headers: { 'Content-Type': 'application/json' },
         });
 
-        const response2 = await csrfFetch(`/draft/${draft._id}/submit/0?skipDeckbuilder=1`, { method: 'POST' });
+        const response2 = await csrfFetch(`/draft/${draft._id}/0/submit?skipDeckbuilder=1`, { method: 'POST' });
         const json2 = await response2.json();
         console.debug(json2.url);
         window.location.href = json2.url;
