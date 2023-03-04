@@ -18,9 +18,9 @@
  */
 import mongoose from 'mongoose';
 import cardSchema from '@cubeartisan/server/models/shared/cardSchema.js';
-import migrations from '@cubeartisan/server/models/migrations/deckMigrations.js';
+// import migrations from '@cubeartisan/server/models/migrations/deckMigrations.js';
 
-const CURRENT_SCHEMA_VERSION = migrations.slice(-1)[0].version;
+// const CURRENT_SCHEMA_VERSION = migrations.slice(-1)[0].version;
 
 // data for each seat, human or bot
 const SeatDeck = {
@@ -58,12 +58,12 @@ const deckSchema = mongoose.Schema(
     cards: [cardSchema],
     schemaVersion: {
       type: Number,
-      default() {
-        if (this.isNew) {
-          return CURRENT_SCHEMA_VERSION;
-        }
-        return void 0; // eslint-disable-line
-      },
+    //   default() {
+    //     if (this.isNew) {
+    //       return CURRENT_SCHEMA_VERSION;
+    //     }
+    //     return void 0; // eslint-disable-line
+    //   },
     },
     basics: [Number],
   },
@@ -96,13 +96,13 @@ deckSchema.index({
 deckSchema.index({
   draft: 1,
 });
-
-deckSchema.pre('save', function saveDeckSchemaVersion(next) {
-  this.schemaVersion = CURRENT_SCHEMA_VERSION;
-  next();
-});
+//
+// deckSchema.pre('save', function saveDeckSchemaVersion(next) {
+//   this.schemaVersion = CURRENT_SCHEMA_VERSION;
+//   next();
+// });
 
 const Deck = mongoose.model('Deck', deckSchema);
-Deck.CURRENT_SCHEMA_VERSION = CURRENT_SCHEMA_VERSION;
+// Deck.CURRENT_SCHEMA_VERSION = CURRENT_SCHEMA_VERSION;
 
 export default Deck;

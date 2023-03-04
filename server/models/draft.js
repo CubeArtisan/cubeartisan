@@ -19,9 +19,9 @@
 import mongoose from 'mongoose';
 import cardSchema from '@cubeartisan/server/models/shared/cardSchema.js';
 import stepsSchema from '@cubeartisan/server/models/shared/stepsSchema.js';
-import migrations from '@cubeartisan/server/models/migrations/draftMigrations.js';
+// import migrations from '@cubeartisan/server/models/migrations/draftMigrations.js';
 
-const CURRENT_SCHEMA_VERSION = migrations.slice(-1)[0].version;
+// const CURRENT_SCHEMA_VERSION = migrations.slice(-1)[0].version;
 
 // Details on each pack, how to draft and what's in it.
 const Pack = {
@@ -72,12 +72,12 @@ const draftSchema = mongoose.Schema(
     initial_state: [[Pack]],
     schemaVersion: {
       type: Number,
-      default() {
-        if (this.isNew) {
-          return CURRENT_SCHEMA_VERSION;
-        }
-        return void 0; // eslint-disable-line
-      },
+      // default() {
+      //   if (this.isNew) {
+      //     return CURRENT_SCHEMA_VERSION;
+      //   }
+      //   return void 0; // eslint-disable-line
+      // },
     },
     seats: [Seat],
     seed: String,
@@ -94,12 +94,12 @@ draftSchema.index({
   schemaVersion: 1,
 });
 
-draftSchema.pre('save', function saveDraftSchemaVersion(next) {
-  this.schemaVersion = CURRENT_SCHEMA_VERSION;
-  next();
-});
+// draftSchema.pre('save', function saveDraftSchemaVersion(next) {
+//   this.schemaVersion = CURRENT_SCHEMA_VERSION;
+//   next();
+// });
 
 const Draft = mongoose.model('Draft', draftSchema);
-Draft.CURRENT_SCHEMA_VERSION = CURRENT_SCHEMA_VERSION;
+// Draft.CURRENT_SCHEMA_VERSION = CURRENT_SCHEMA_VERSION;
 
 export default Draft;
