@@ -62,6 +62,7 @@ const CubeLayout = () => {
    */
   const cube = testCube;
 
+  const isTabletPlus = createMediaQuery(`(min-width: ${tokens.screens.tablet})`, true);
   const isLaptopPlus = createMediaQuery(`(min-width: ${tokens.screens.laptop})`, true);
 
   const [cubeNavOpen, setCubeNavOpen] = createSignal<boolean>(isLaptopPlus());
@@ -317,7 +318,7 @@ const CubeLayout = () => {
           <Outlet />
 
           {/* Edit Sidebar Floating Button */}
-          <Show when={!editSidebarOpen() && !isLaptopPlus()}>
+          <Show when={!editSidebarOpen() && !isTabletPlus()}>
             <Button.Root
               onClick={() => openEditSidebar()}
               class={styles.editSidebarOpenButton}

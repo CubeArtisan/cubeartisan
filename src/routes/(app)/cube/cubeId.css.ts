@@ -174,7 +174,7 @@ export const cubeNavOpenButton = style({
   zIndex: 10,
 
   '@media': {
-    [`screen and (max-width: ${tokens.screens.laptop})`]: {
+    [`screen and (max-width: ${tokens.screens.tablet})`]: {
       position: 'fixed',
       padding: vars.space['2.5'],
       borderRadius: `${vars.borderRadius.xl} !important`,
@@ -186,7 +186,7 @@ export const cubeNavOpenIcon = style([
   buttonIcon,
   {
     '@media': {
-      [`screen and (max-width: ${tokens.screens.laptop})`]: {
+      [`screen and (max-width: ${tokens.screens.tablet})`]: {
         width: vars.size[8],
         height: vars.size[8],
         margin: 0,
