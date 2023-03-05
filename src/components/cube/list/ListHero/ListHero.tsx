@@ -1,8 +1,11 @@
 import { Button } from '@kobalte/core';
+import { createMediaQuery } from '@solid-primitives/media';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
+import { Show } from 'solid-js';
 
 import * as styles from '@cubeartisan/cubeartisan/components/cube/list/ListHero/ListHero.css';
 import { testCube } from '@cubeartisan/cubeartisan/mock/testCube';
+import { tokens } from '@cubeartisan/cubeartisan/styles/tokens';
 
 const Avatar = () => (
   <svg
@@ -24,6 +27,8 @@ const Avatar = () => (
 
 export const ListHero = () => {
   const cube = testCube;
+
+  const isLaptopPlus = createMediaQuery(`(min-width: ${tokens.screens.laptop})`, false);
 
   return (
     <div class={styles.heroContainer} style={assignInlineVars({ [styles.heroBannerSrc]: cube.banner })}>
@@ -107,10 +112,12 @@ export const ListHero = () => {
             </Button.Root>
           </div>
         </div>
-        <div>
-          <h2 class={styles.cubeDescriptionHeader}>Description</h2>
-          <p class={styles.cubeDescription}>{() => cube.description}</p>
-        </div>
+        <Show when={isLaptopPlus()}>
+          <div>
+            <h2 class={styles.cubeDescriptionHeader}>Description</h2>
+            <p class={styles.cubeDescription}>{() => cube.description}</p>
+          </div>
+        </Show>
       </header>
     </div>
   );

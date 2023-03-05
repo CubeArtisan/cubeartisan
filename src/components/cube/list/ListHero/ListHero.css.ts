@@ -1,6 +1,7 @@
 import { createVar, style } from '@vanilla-extract/css';
 
 import { vars } from '@cubeartisan/cubeartisan/styles';
+import { tokens } from '@cubeartisan/cubeartisan/styles/tokens';
 
 export const heroBannerSrc = createVar();
 
@@ -16,10 +17,8 @@ export const heroContainer = style({
 });
 
 export const heroRoot = style({
-  display: 'grid',
-  gridTemplateColumns: '1fr 1fr',
-  justifyItems: 'center',
-  alignItems: 'center',
+  display: 'flex',
+  justifyContent: 'center',
   gap: vars.space.gutter,
 
   width: vars.size['content-80'],
@@ -30,6 +29,15 @@ export const heroRoot = style({
 
   backgroundColor: vars.color.shadowInverse10,
   borderRadius: vars.borderRadius.lg,
+
+  '@media': {
+    [`screen and (min-width: ${tokens.screens.laptop})`]: {
+      display: 'grid',
+      gridTemplateColumns: '1fr 1fr',
+      justifyItems: 'center',
+      alignItems: 'center',
+    },
+  },
 });
 
 export const heroTitleSection = style({
