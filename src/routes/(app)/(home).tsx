@@ -1,7 +1,7 @@
 import { For } from 'solid-js';
 import { A } from 'solid-start';
 
-import { TextField } from '@cubeartisan/cubeartisan/components/TextField';
+import { TextField } from '@cubeartisan/cubeartisan/components/generic/TextField';
 import homePageCards from '@cubeartisan/cubeartisan/mock/home-page-cards';
 import * as styles from '@cubeartisan/cubeartisan/routes/(app)/home.css';
 

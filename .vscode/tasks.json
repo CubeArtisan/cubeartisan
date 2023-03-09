@@ -5,8 +5,22 @@
       "type": "npm",
       "script": "dev",
       "problemMatcher": [],
-      "label": "npm: dev",
+      "label": "start dev server",
       "detail": "solid-start dev"
-    }
+    },
+    {
+      "type": "npm",
+      "script": "lint",
+      "problemMatcher": [],
+      "label": "lint check",
+      "detail": "sh -c 'eslint_d `pnpm run --silent list-files`'"
+    },
+    {
+      "type": "npm",
+      "script": "lint-fix",
+      "problemMatcher": [],
+      "label": "lint fix",
+      "detail": "sh -c 'eslint_d --fix `pnpm run --silent list-files`'"
+    },
   ]
 }

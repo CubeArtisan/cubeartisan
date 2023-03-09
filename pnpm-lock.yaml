@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@kobalte/core': ^0.6.1
   '@radix-ui/colors': github:radix-ui/colors
+  '@solid-primitives/media': ^2.1.1
   '@solidjs/meta': ^0.28.2
   '@solidjs/router': ^0.6.0
   '@testing-library/jest-dom': ^5.16.5
@@ -19,6 +20,7 @@ specifiers:
   '@typescript-eslint/parser': ^5.48.0
   '@typescript-eslint/typescript-estree': ^5.48.0
   '@vanilla-extract/css': ^1.9.5
+  '@vanilla-extract/dynamic': 2.0.3
   '@vanilla-extract/recipes': 0.3.0
   '@vanilla-extract/sprinkles': 1.5.1
   '@vanilla-extract/vite-plugin': ^3.8.0
@@ -61,6 +63,7 @@ dependencies:
 devDependencies:
   '@kobalte/core': 0.6.1_solid-js@1.6.11
   '@radix-ui/colors': github.com/radix-ui/colors/19e08e0e2412a7a7cedc2b36536527c8d4fd4e65
+  '@solid-primitives/media': 2.1.1_solid-js@1.6.11
   '@solidjs/meta': 0.28.2_solid-js@1.6.11
   '@solidjs/router': 0.6.0_solid-js@1.6.11
   '@testing-library/jest-dom': 5.16.5
@@ -77,6 +80,7 @@ devDependencies:
   '@typescript-eslint/parser': 5.48.0_vvbfoh7ci2jjuy6alapehrh2ri
   '@typescript-eslint/typescript-estree': 5.48.0_typescript@4.8.4
   '@vanilla-extract/css': 1.9.5
+  '@vanilla-extract/dynamic': 2.0.3
   '@vanilla-extract/recipes': 0.3.0_@vanilla-extract+css@1.9.5
   '@vanilla-extract/sprinkles': 1.5.1_@vanilla-extract+css@1.9.5
   '@vanilla-extract/vite-plugin': 3.8.0_vite@3.2.5
@@ -2550,7 +2554,7 @@ packages:
       solid-js: ^1.6.10
     dependencies:
       '@solid-primitives/event-listener': 2.2.4_solid-js@1.6.11
-      '@solid-primitives/media': 2.0.4_solid-js@1.6.11
+      '@solid-primitives/media': 2.1.1_solid-js@1.6.11
       '@solid-primitives/refs': 0.3.4_solid-js@1.6.11
       '@solid-primitives/utils': 4.0.0_solid-js@1.6.11
       solid-js: 1.6.11
@@ -2699,6 +2703,15 @@ packages:
       solid-js: 1.6.11
     dev: true
 
+  /@solid-primitives/event-listener/2.2.6_solid-js@1.6.11:
+    resolution: {integrity: sha512-Lb2q888Apv8wqgZ3WvPlt8ic2rEmHx6QT8d3pgi+JRSIRNwAysE6PZDmbwT6/hzzP1TIQG0IRZwh5tomfuqlaQ==}
+    peerDependencies:
+      solid-js: ^1.6.0
+    dependencies:
+      '@solid-primitives/utils': 5.2.0_solid-js@1.6.11
+      solid-js: 1.6.11
+    dev: true
+
   /@solid-primitives/immutable/0.1.4_solid-js@1.6.11:
     resolution: {integrity: sha512-9oLK8ihIjG5FZv74KoXXyKErxgGxGZsdevsIKB0ugTreBBmozHPcYTjoYFL/sHoqs2ZNMlmfNQ3kduvrvKG2RQ==}
     peerDependencies:
@@ -2708,14 +2721,14 @@ packages:
       solid-js: 1.6.11
     dev: true
 
-  /@solid-primitives/media/2.0.4_solid-js@1.6.11:
-    resolution: {integrity: sha512-MZkdUlV3qJQts4b7ZfAldbFGB1neH64rwHsnTmIeF2Zj8gWjYcYtJ36SwkRs3NjHQ53uQliZ+DtMXiCeapNw/g==}
+  /@solid-primitives/media/2.1.1_solid-js@1.6.11:
+    resolution: {integrity: sha512-0lMEIDereGYCKNnl0zIAd8v2kiJIUNP9om0VJKF6gD4kItUE+pdcSBok9CdEhjQzSS/HdsNo1smCYHNzdES09Q==}
     peerDependencies:
       solid-js: ^1.6.0
     dependencies:
-      '@solid-primitives/event-listener': 2.2.4_solid-js@1.6.11
-      '@solid-primitives/rootless': 1.2.1_solid-js@1.6.11
-      '@solid-primitives/utils': 4.0.0_solid-js@1.6.11
+      '@solid-primitives/event-listener': 2.2.6_solid-js@1.6.11
+      '@solid-primitives/rootless': 1.2.4_solid-js@1.6.11
+      '@solid-primitives/utils': 5.2.0_solid-js@1.6.11
       solid-js: 1.6.11
     dev: true
 
@@ -2739,8 +2752,25 @@ packages:
       solid-js: 1.6.11
     dev: true
 
+  /@solid-primitives/rootless/1.2.4_solid-js@1.6.11:
+    resolution: {integrity: sha512-wsxpJzmCTeKt7gM1sDN3aKs5Sb8dmD3xVBdXUA+xZWcO5v/CVR5Gq690YvXvWSK+Thjv8jvDNHI582CDP/gFzQ==}
+    peerDependencies:
+      solid-js: ^1.6.11
+    dependencies:
+      '@solid-primitives/utils': 5.2.0_solid-js@1.6.11
+      solid-js: 1.6.11
+    dev: true
+
   /@solid-primitives/utils/4.0.0_solid-js@1.6.11:
     resolution: {integrity: sha512-fGsJy8Z8YiwogpiezD7TWjI62UCb0JAHJWdoXWGrggrn4bfToZotKkabiB0IVFMkWVE1ZcrkvZT3bkmqGnK0ng==}
+    peerDependencies:
+      solid-js: ^1.6.0
+    dependencies:
+      solid-js: 1.6.11
+    dev: true
+
+  /@solid-primitives/utils/5.2.0_solid-js@1.6.11:
+    resolution: {integrity: sha512-9sJSBv0IshaQ6qks9FW9ErKZS9qeAv+uYYrsAAXnu5XtDeifRtMk0k6Smje4XxzpxGH/8P4nwS2kk/9vt6KsBg==}
     peerDependencies:
       solid-js: ^1.6.0
     dependencies:
@@ -3083,6 +3113,12 @@ packages:
       deepmerge: 4.2.2
       media-query-parser: 2.0.2
       outdent: 0.8.0
+    dev: true
+
+  /@vanilla-extract/dynamic/2.0.3:
+    resolution: {integrity: sha512-Rglfw2gXAYiBzAQ4jgUG7rBgE2c88e/zcG27ZVoIqMHVq56wf2C1katGMm1yFMNBgzqM7oBNYzz4YOMzznydkg==}
+    dependencies:
+      '@vanilla-extract/private': 1.0.3
     dev: true
 
   /@vanilla-extract/integration/6.1.0:

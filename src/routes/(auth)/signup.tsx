@@ -1,4 +1,4 @@
-import { SignupForm, SignupFormTitle } from '@cubeartisan/cubeartisan/components/templates/AuthForm/SignupForm';
+import { SignupForm, SignupFormTitle } from '@cubeartisan/cubeartisan/components/auth/AuthForm/SignupForm';
 import * as styles from '@cubeartisan/cubeartisan/routes/(auth)/authPages.css';
 
 const RegisterPage = () => (
