@@ -7,13 +7,20 @@ export const tableContainer = style({
   justifyContent: 'center',
 });
 
+export const numColumns = createVar();
 export const table = style({
-  display: 'flex',
-  justifyContent: 'start',
-  gap: vars.space['2.5'],
-  paddingInline: vars.space['2.5'],
-  overflow: 'scroll',
+  vars: {
+    [numColumns]: 7,
+  },
 
+  display: 'grid',
+  gridTemplateColumns: `repeat(${numColumns}, minmax(${vars.size.sm}, ${vars.size[48]}))`,
+  justifyContent: 'start',
+
+  gap: vars.space['2.5'],
+  paddingInline: `clamp(${vars.space['2.5']}, 5%, ${vars.space[16]})`,
+
+  overflow: 'scroll',
   selectors: {
     '&::-webkit-scrollbar': {
       display: 'none',
@@ -21,9 +28,7 @@ export const table = style({
   },
 });
 
-export const tableColumn = style({
-  maxWidth: vars.space[40],
-});
+export const tableColumn = style({});
 
 export const tableColumnTitle = style({
   textAlign: 'center',
