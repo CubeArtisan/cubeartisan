@@ -3,21 +3,22 @@ import { createVar, style } from '@vanilla-extract/css';
 import { vars } from '@cubeartisan/cubeartisan/styles';
 
 export const tableContainer = style({
-  overflow: 'scroll',
   display: 'flex',
-  flexDirection: 'column',
+  justifyContent: 'center',
+});
+
+export const table = style({
+  display: 'flex',
+  justifyContent: 'start',
+  gap: vars.space['2.5'],
+  paddingInline: vars.space['2.5'],
+  overflow: 'scroll',
 
   selectors: {
     '&::-webkit-scrollbar': {
       display: 'none',
     },
   },
-});
-
-export const table = style({
-  display: 'flex',
-  gap: vars.space['2.5'],
-  marginInline: 'auto',
 });
 
 export const tableColumn = style({

@@ -94,8 +94,10 @@ export const ListTable = () => {
   );
 
   return (
-    <div class={styles.table}>
-      <For each={cube.boards[0]?.cards}>{(cardColorSection) => <CardColorColumn cards={cardColorSection} />}</For>
+    <div class={styles.tableContainer}>
+      <div class={styles.table}>
+        <For each={cube.boards[0]?.cards}>{(cardColorSection) => <CardColorColumn cards={cardColorSection} />}</For>
+      </div>
     </div>
   );
 };
