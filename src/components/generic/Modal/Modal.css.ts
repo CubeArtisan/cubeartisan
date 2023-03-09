@@ -9,6 +9,7 @@ export const overlay = style({
   position: 'fixed',
   top: 0,
   left: 0,
+  zIndex: 100,
 });
 
 export const content = style({
@@ -26,6 +27,7 @@ export const content = style({
   alignItems: 'stretch',
   borderRadius: vars.borderRadius.md,
   gap: vars.space[4],
+  zIndex: 150,
 });
 
 export const title = style({
