@@ -6,14 +6,16 @@ import { createServerData$ } from 'solid-start/server';
 import { getClientUserFromRequest } from '@cubeartisan/cubeartisan/backend/user';
 import { Button } from '@cubeartisan/cubeartisan/components/generic/Button';
 import { TextField } from '@cubeartisan/cubeartisan/components/generic/TextField';
-import { Bell } from '@cubeartisan/cubeartisan/components/icons/Bell';
-import { Cube } from '@cubeartisan/cubeartisan/components/icons/Cube';
-import { Enter } from '@cubeartisan/cubeartisan/components/icons/Enter';
-import { Home } from '@cubeartisan/cubeartisan/components/icons/Home';
-import { MagnifyingGlass } from '@cubeartisan/cubeartisan/components/icons/MagnifyingGlass';
-import { Person } from '@cubeartisan/cubeartisan/components/icons/Person';
-import { Plus } from '@cubeartisan/cubeartisan/components/icons/Plus';
-import { QuestionMarkCircled } from '@cubeartisan/cubeartisan/components/icons/QuestionMarkCircled';
+import {
+  Bell,
+  Cube,
+  Enter,
+  Home,
+  MagnifyingGlass,
+  Person,
+  Plus,
+  QuestionMarkCircled,
+} from '@cubeartisan/cubeartisan/components/icons/';
 import * as styles from '@cubeartisan/cubeartisan/components/site/SiteNavbar/SiteNavbar.css';
 import { tokens } from '@cubeartisan/cubeartisan/styles/tokens';
 
