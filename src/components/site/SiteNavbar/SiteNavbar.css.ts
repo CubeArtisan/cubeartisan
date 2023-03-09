@@ -2,23 +2,22 @@ import { style } from '@vanilla-extract/css';
 
 import { vars } from '@cubeartisan/cubeartisan/styles';
 
-export const navContainer = style({
+export const navList = style({
   display: 'flex',
-  justifyContent: 'space-around',
-  marginInline: 'auto',
-  height: vars.size.xs,
-  alignItems: 'center',
-});
-
-export const navSection = style({
-  display: 'flex',
-  justifyContent: 'space-between',
   alignItems: 'center',
   gap: vars.space['2.5'],
+  width: vars.size['content-80'],
+  height: vars.size.xs,
+  marginInline: 'auto',
 });
 
-export const siteLogo = style({
+export const logo = style({
   height: vars.size[10],
+});
+
+export const navIcon = style({
+  height: vars.size[6],
+  width: vars.size[6],
 });
 
 export const navItemContainer = style({
@@ -45,15 +44,9 @@ export const navItemContainer = style({
   },
 });
 
-export const navItem = style({});
-
-export const navIcon = style({
-  width: vars.size[5],
-  height: vars.size[5],
-});
-
 export const siteSearch = style({
   position: 'relative',
+  marginInline: 'auto',
 });
 
 export const searchInput = style({
@@ -62,8 +55,10 @@ export const searchInput = style({
   },
 });
 
-export const searchIconContainer = style({
+export const searchIcon = style({
   position: 'absolute',
+  width: '20px',
+  height: '20px',
   top: '20%',
   left: '6px',
   color: vars.color.neutral11,
