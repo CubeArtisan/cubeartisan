@@ -1,6 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
 import { vars } from '@cubeartisan/cubeartisan/styles';
+import { tokens } from '@cubeartisan/cubeartisan/styles/tokens';
 
 export const navList = style({
   display: 'flex',
@@ -9,6 +10,12 @@ export const navList = style({
   width: vars.size['content-80'],
   height: vars.size.xs,
   marginInline: 'auto',
+
+  '@media': {
+    [`screen and (max-width: ${tokens.screens.tablet})`]: {
+      justifyContent: 'space-around',
+    },
+  },
 });
 
 export const logo = style({

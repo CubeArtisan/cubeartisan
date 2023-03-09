@@ -179,10 +179,8 @@ const SiteNavbar = () => {
             <Show
               when={isTabletPlus()}
               fallback={
-                <li>
-                  <Button.Root recipe={{ padding: 'baseText' }}>
-                    <MagnifyingGlass class={styles.navIcon} />
-                  </Button.Root>
+                <li class={styles.navItemContainer}>
+                  <MagnifyingGlass class={styles.navIcon} />
                 </li>
               }
             >
