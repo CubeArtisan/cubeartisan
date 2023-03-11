@@ -52,8 +52,8 @@ const SiteNavbar = () => {
           Log In
         </Button.Root>
         <Modal.Root isOpen={loginOpen()} onOpenChange={setLoginOpen} isModal>
-          <Modal.Overlay />
-          <Modal.Content>
+          <Modal.Overlay onClick={() => setLoginOpen(false)} />
+          <Modal.Content onPointerDownOutside={(event) => event.preventDefault()}>
             <LoginFormTitle />
             <LoginForm />
           </Modal.Content>
