@@ -95,10 +95,13 @@ const SiteNavbar = () => {
           <Show
             when={user()}
             fallback={
+              // ----- Not Logged In -----
               <>
+                {/* Site Nav (home and help) */}
                 <Show
                   when={isTabletPlus()}
                   fallback={
+                    // (mobile) small cubeartisan logo
                     <li class={styles.navItemContainer}>
                       <A href="/">
                         <img class={styles.logo} src="/images/cube-logo.svg" />
@@ -106,11 +109,13 @@ const SiteNavbar = () => {
                     </li>
                   }
                 >
+                  {/* (tablet+) large cubeartisan logo */}
                   <li class={styles.navItemContainer}>
                     <A href="/">
                       <img class={styles.logo} src="/images/stacked-logo.svg" />
                     </A>
                   </li>
+                  {/* (laptop+) home and help links */}
                   <Show when={isLaptopPlus()}>
                     <li class={styles.navItemContainer}>
                       <A href="/">
@@ -124,13 +129,18 @@ const SiteNavbar = () => {
                     </li>
                   </Show>
                 </Show>
+
+                {/* Search Bar */}
                 <TextField.Root class={styles.siteSearch}>
                   <TextField.Input class={styles.searchInput} />
                   <MagnifyingGlass class={styles.searchIcon} />
                 </TextField.Root>
+
+                {/* Auth */}
                 <Show
                   when={isTabletPlus()}
                   fallback={
+                    // (mobile) login icon link
                     <li class={styles.navItemContainer}>
                       <A href="/login">
                         <Enter class={styles.navIcon} />
@@ -138,6 +148,7 @@ const SiteNavbar = () => {
                     </li>
                   }
                 >
+                  {/* (tablet+) signup and login buttons */}
                   <li>
                     <SignupButton />
                   </li>
@@ -148,9 +159,11 @@ const SiteNavbar = () => {
               </>
             }
           >
+            {/* ----- Logged In ----- */}
             <Show
               when={isTabletPlus()}
               fallback={
+                // (mobile) home
                 <li class={styles.navItemContainer}>
                   <A href="/">
                     <Home class={styles.navIcon} />
@@ -158,11 +171,13 @@ const SiteNavbar = () => {
                 </li>
               }
             >
+              {/* (tablet+) large cubeartisan logo */}
               <li class={styles.navItemContainer}>
                 <A href="/">
                   <img class={styles.logo} src="/images/stacked-logo.svg" />
                 </A>
               </li>
+              {/* (laptop+) home and help links */}
               <Show when={isLaptopPlus()}>
                 <li class={styles.navItemContainer}>
                   <A href="/">
@@ -176,22 +191,29 @@ const SiteNavbar = () => {
                 </li>
               </Show>
             </Show>
+
+            {/* Search */}
             <Show
               when={isTabletPlus()}
               fallback={
+                // (mobile) search icon
                 <li class={styles.navItemContainer}>
                   <MagnifyingGlass class={styles.navIcon} />
                 </li>
               }
             >
+              {/* (tablet+) search bar */}
               <TextField.Root class={styles.siteSearch}>
                 <TextField.Input class={styles.searchInput} />
                 <MagnifyingGlass class={styles.searchIcon} />
               </TextField.Root>
             </Show>
+
+            {/* User Actions */}
             <Show
               when={isTabletPlus()}
               fallback={
+                // (mobile) Your Cubes and Profile links
                 <>
                   <li class={styles.navItemContainer}>
                     <Cube class={styles.navIcon} />
@@ -203,6 +225,7 @@ const SiteNavbar = () => {
               }
             >
               <Show when={isLaptopPlus()}>
+                {/* (laptop+) New Cube, Your Cubes, and Notifications */}
                 <li class={styles.navItemContainer}>
                   <Plus class={styles.navIcon} />
                 </li>
@@ -213,10 +236,13 @@ const SiteNavbar = () => {
                   <Bell class={styles.navIcon} />
                 </li>
               </Show>
+              {/* (tablet+) Profile and username */}
               <li style={{ display: 'flex', 'align-items': 'center', gap: '0.625rem' }}>
                 <Person style={{ height: '1.5rem', width: '1.5rem' }} />
                 {user()?.username}
               </li>
+
+              {/* Temp logout button. Will be in dropdown menu */}
               <li>
                 <Button.Root onClick={() => logOut()} recipe={{ padding: 'baseText' }}>
                   Log Out
