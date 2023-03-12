@@ -19,6 +19,7 @@ import {
   Plus,
   QuestionMarkCircled,
 } from '@cubeartisan/cubeartisan/components/icons/';
+import { NewCubeForm } from '@cubeartisan/cubeartisan/components/site/NewCubeForm';
 import * as styles from '@cubeartisan/cubeartisan/components/site/SiteNavbar/SiteNavbar.css';
 import { tokens } from '@cubeartisan/cubeartisan/styles/tokens';
 
@@ -226,8 +227,18 @@ const SiteNavbar = () => {
             >
               <Show when={isLaptopPlus()}>
                 {/* (laptop+) New Cube, Your Cubes, and Notifications */}
-                <li class={styles.navItemContainer}>
-                  <Plus class={styles.navIcon} />
+                <li>
+                  <Modal.Root>
+                    <Modal.Trigger class={styles.navItemContainer}>
+                      <Plus class={styles.navIcon} />
+                    </Modal.Trigger>
+                    <Modal.Portal>
+                      <Modal.Overlay />
+                      <Modal.Content>
+                        <NewCubeForm />
+                      </Modal.Content>
+                    </Modal.Portal>
+                  </Modal.Root>
                 </li>
                 <li class={styles.navItemContainer}>
                   <Cube class={styles.navIcon} />
