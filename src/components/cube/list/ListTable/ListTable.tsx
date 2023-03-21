@@ -3,7 +3,7 @@ import { assignInlineVars } from '@vanilla-extract/dynamic';
 import { Component, For, Show } from 'solid-js';
 
 import * as styles from '@cubeartisan/cubeartisan/components/cube/list/ListTable/ListTable.css';
-import { testCubeSorted } from '@cubeartisan/cubeartisan/mock/testCubeSorted';
+import { type TestCard, testCubeSorted } from '@cubeartisan/cubeartisan/mock/testCubeSorted';
 
 /**
  * # Planning
@@ -14,13 +14,6 @@ import { testCubeSorted } from '@cubeartisan/cubeartisan/mock/testCubeSorted';
  */
 export const ListTable = () => {
   const cube = testCubeSorted;
-
-  type Card = {
-    name: string;
-    color: 'W' | 'U' | 'B' | 'R' | 'G' | 'M' | 'C' | 'L';
-    cmc: number;
-    type: 'creature' | 'planeswalker' | 'instant' | 'sorcery' | 'enchantment' | 'artifact' | 'land';
-  };
 
   const colorCodeMap = {
     W: 'hsl(50, 100%, 80%, 0.2)',
@@ -44,7 +37,7 @@ export const ListTable = () => {
     L: 'Lands',
   };
 
-  const CardItem: Component<{ card: Card }> = (props) => (
+  const CardItem: Component<{ card: TestCard }> = (props) => (
     <Button.Root
       as={'li'}
       class={styles.tableCardItemButton}
@@ -54,11 +47,11 @@ export const ListTable = () => {
     </Button.Root>
   );
 
-  const CardCostSection: Component<{ cards: Card[] }> = (props) => (
+  const CardCostSection: Component<{ cards: TestCard[] }> = (props) => (
     <For each={props.cards}>{(card) => <CardItem card={card} />}</For>
   );
 
-  const CardTypeSection: Component<{ cards: Card[][] }> = (props) => {
+  const CardTypeSection: Component<{ cards: TestCard[][] }> = (props) => {
     const numCardsInSection = () => {
       let total = 0;
       props.cards.forEach((subArray) => {
@@ -69,7 +62,7 @@ export const ListTable = () => {
 
     return (
       <ul class={styles.tableColumnSection}>
-        <h3 class={styles.tableColumnSectionTitle}>{`${props.cards[0][0].type} (${numCardsInSection()})`}</h3>
+        <h3 class={styles.tableColumnSectionTitle}>{`${props!.cards[0][0].type} (${numCardsInSection()})`}</h3>
         <For each={props.cards}>
           {(cardCostSection) => (
             <>
@@ -84,9 +77,9 @@ export const ListTable = () => {
     );
   };
 
-  const CardColorColumn: Component<{ cards: Card[][][] }> = (props) => (
+  const CardColorColumn: Component<{ cards: TestCard[][][] }> = (props) => (
     <div class={styles.tableColumn}>
-      <h2 class={styles.tableColumnTitle}>{colorNameMap[props.cards[0][0][0]?.color]}</h2>
+      <h2 class={styles.tableColumnTitle}>{colorNameMap[props!.cards[0][0][0]?.color]}</h2>
       <div class={styles.tableColumnContent}>
         <For each={props.cards}>{(cardTypeSection) => <CardTypeSection cards={cardTypeSection} />}</For>
       </div>

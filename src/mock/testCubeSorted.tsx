@@ -1,4 +1,11 @@
-const sortedCards = [
+export type TestCard = {
+  name: string;
+  color: 'W' | 'U' | 'B' | 'R' | 'G' | 'M' | 'C' | 'L';
+  cmc: number;
+  type: 'creature' | 'planeswalker' | 'instant' | 'sorcery' | 'enchantment' | 'artifact' | 'land';
+};
+
+const sortedCards: TestCard[][][] = [
   [
     [
       [
