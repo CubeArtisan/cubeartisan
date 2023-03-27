@@ -1,4 +1,4 @@
-import { For, onMount, Show } from 'solid-js';
+import { For, Show } from 'solid-js';
 
 import * as styles from '@cubeartisan/cubeartisan/components/cube/list/ListActions/ListActions.css';
 import { Button } from '@cubeartisan/cubeartisan/components/generic/Button';
@@ -87,19 +87,15 @@ const viewOptions = [
       </svg>
     ),
   },
-];
+] as const;
 
 export const ListActions = () => {
-  let cubeContext;
-
-  onMount(() => {
-    cubeContext = useCubeContext();
-  });
+  const cubeContext = useCubeContext();
 
   return (
     <div class={styles.actionsContainer}>
       {/* View Options */}
-      <RadioGroup.Root defaultValue={viewOptions[0]?.id}>
+      <RadioGroup.Root defaultValue={viewOptions[0].id}>
         <RadioGroup.ItemsContainer class={styles.viewOptionsContainer}>
           <For each={viewOptions}>
             {(item, index) => (
@@ -119,6 +115,8 @@ export const ListActions = () => {
 
       {/* Filter Search */}
       <TextField.Root class={styles.searchContainer}>
+        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+        {/* @ts-ignore */}
         <TextField.Input type="search" incremental placeholder="Filter" class={styles.searchInput} />
         <div class={styles.searchIconContainer}>
           <svg
