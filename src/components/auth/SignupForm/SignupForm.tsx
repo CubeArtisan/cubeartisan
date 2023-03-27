@@ -1,4 +1,3 @@
-import { Link } from '@kobalte/core';
 import { A } from 'solid-start';
 import { createServerAction$, redirect } from 'solid-start/server';
 
@@ -9,9 +8,9 @@ import { TextField } from '@cubeartisan/cubeartisan/components/generic/TextField
 
 export const SignupFormTitle = () => (
   <div class={styles.formTitle}>
-    <Link.Root as={A} href={'/'} preventFocusOnPress={true}>
+    <A href={'/'}>
       <img src="/images/master-icon.svg" alt="CubeArtisan Logo" class={styles.logo} />
-    </Link.Root>
+    </A>
     Sign Up
   </div>
 );
@@ -62,9 +61,9 @@ export const SignupForm = () => {
       </TextField.Root>
       {/* need error message for for submit as well */}
       <footer class={styles.footer}>
-        <Link.Root as={A} href={'/login'} type="button" class={styles.buttonLink}>
+        <A href={'/login'} type="button" class={styles.buttonLink}>
           Log In Instead
-        </Link.Root>
+        </A>
         <Button.Root type="submit" recipe={{ color: 'primary', padding: 'baseText' }}>
           Sign Up
         </Button.Root>
