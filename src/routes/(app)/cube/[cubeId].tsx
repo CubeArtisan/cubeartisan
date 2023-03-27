@@ -6,6 +6,7 @@ import {
   createContext,
   createEffect,
   createSignal,
+  onMount,
   Setter,
   Show,
   splitProps,
@@ -88,17 +89,22 @@ const CubeLayout = () => {
     }
   });
 
-  let editSidebarInputRef;
-  let editModalInputRef;
-  createEffect(() => {
-    if (editSidebarOpen()) {
-      document.activeElement.blur();
-      if (isLaptopPlus()) {
-        setTimeout(() => editSidebarInputRef.focus(), 200);
-      } else {
-        editModalInputRef.focus();
+  const [editSidebarInputRef, setEditSidebarInputRef] = createSignal<HTMLInputElement | undefined>();
+  const [editModalInputRef, setEditModalInputRef] = createSignal<HTMLInputElement | undefined>();
+
+  onMount(() => {
+    createEffect(() => {
+      if (editSidebarOpen()) {
+        if (document.activeElement instanceof HTMLElement) {
+          document.activeElement!.blur();
+        }
+        if (isLaptopPlus()) {
+          setTimeout(() => editSidebarInputRef()?.focus(), 200);
+        } else {
+          editModalInputRef()?.focus();
+        }
       }
-    }
+    });
   });
 
   const CubeNav = () => {
@@ -228,7 +234,7 @@ const CubeLayout = () => {
     );
   };
 
-  const EditSidebar: Component<{ ref }> = (props) => (
+  const EditSidebar: Component<{ ref: Setter<HTMLInputElement | undefined> }> = (props) => (
     <div class={styles.editSidebar}>
       <h2 class={styles.editSidebarTitle}>Edit</h2>
       <TextField.Root>
@@ -348,7 +354,7 @@ const CubeLayout = () => {
           <Show when={editSidebarOpen()}>
             <EditSidebarCloseButton class={styles.editSidebarCloseButton} />
           </Show>
-          <EditSidebar ref={editSidebarInputRef} />
+          <EditSidebar ref={setEditSidebarInputRef} />
         </div>
 
         {/* Edit Sidebar Modal */}
@@ -357,7 +363,7 @@ const CubeLayout = () => {
             <Dialog.Overlay class={styles.modalOverlay} />
             <Dialog.Content class={styles.editSidebarModalContent}>
               <EditSidebarCloseButton class={styles.editSidebarModalCloseButton} />
-              <EditSidebar ref={editModalInputRef} />
+              <EditSidebar ref={setEditModalInputRef} />
             </Dialog.Content>
           </Dialog.Portal>
         </Dialog.Root>
