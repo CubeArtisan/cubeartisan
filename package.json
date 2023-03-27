@@ -20,7 +20,7 @@
     "undici": "^5.14.0"
   },
   "devDependencies": {
-    "@kobalte/core": "^0.6.1",
+    "@kobalte/core": "^0.7.4",
     "@radix-ui/colors": "github:radix-ui/colors",
     "@solid-primitives/media": "^2.1.1",
     "@solidjs/meta": "^0.28.2",
