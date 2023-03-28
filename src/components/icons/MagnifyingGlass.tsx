@@ -1,11 +1,11 @@
-import { Component, splitProps } from 'solid-js';
+import { Component, ComponentProps, splitProps } from 'solid-js';
 
-export const MagnifyingGlass: Component<{ width; height }> = (props) => {
+export const MagnifyingGlass: Component<ComponentProps<'svg'>> = (props) => {
   const [local, others] = splitProps(props, ['width', 'height']);
 
   return (
     <svg
-      style={{ width: local.width, height: local.height }}
+      style={{ width: `${local.width}`, height: `${local.height}` }}
       {...others}
       width="15"
       height="15"

@@ -10,7 +10,7 @@ export const heroContainer = style({
     [heroBannerSrc]:
       "url('https://cards.scryfall.io/art_crop/front/5/9/593cbbd0-6ec3-4506-be0c-a229f070ce6d.jpg?1676227784')",
   },
-  backgroundImage: `linear-gradient(to left, ${vars.color.neutral1}, ${vars.color.shadowInverse11}, ${vars.color.shadowInverse4}, ${vars.color.shadowInverse11}, ${vars.color.neutral1}), ${heroBannerSrc}`,
+  backgroundImage: `linear-gradient(to left, ${vars.color.neutral1}, ${vars.color.shadowLight11}, ${vars.color.shadowLight4}, ${vars.color.shadowLight11}, ${vars.color.neutral1}), ${heroBannerSrc}`,
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
@@ -27,7 +27,7 @@ export const heroRoot = style({
   marginBlock: vars.space.gutter,
   padding: vars.space.gutter,
 
-  backgroundColor: vars.color.shadowInverse10,
+  backgroundColor: vars.color.shadowLight10,
   borderRadius: vars.borderRadius.lg,
 
   '@media': {

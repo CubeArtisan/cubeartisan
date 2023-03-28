@@ -10,7 +10,7 @@ export const tableContainer = style({
 export const numColumns = createVar();
 export const table = style({
   vars: {
-    [numColumns]: 7,
+    [numColumns]: '7',
   },
 
   display: 'grid',

@@ -1,4 +1,4 @@
-import { Button, Separator } from '@kobalte/core';
+import { As, Button, Separator } from '@kobalte/core';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import { Component, For, Show } from 'solid-js';
 
@@ -39,11 +39,13 @@ export const ListTable = () => {
 
   const CardItem: Component<{ card: TestCard }> = (props) => (
     <Button.Root
-      as={'li'}
+      asChild
       class={styles.tableCardItemButton}
       style={assignInlineVars({ [styles.cardBackground]: colorCodeMap[props.card.color] })}
     >
-      <span class={styles.tableCardItemText}>{props.card.name}</span>
+      <As component={'li'}>
+        <span class={styles.tableCardItemText}>{props.card.name}</span>
+      </As>
     </Button.Root>
   );
 
@@ -62,7 +64,7 @@ export const ListTable = () => {
 
     return (
       <ul class={styles.tableColumnSection}>
-        <h3 class={styles.tableColumnSectionTitle}>{`${props!.cards[0][0].type} (${numCardsInSection()})`}</h3>
+        <h3 class={styles.tableColumnSectionTitle}>{`${props!.cards[0]![0]!.type} (${numCardsInSection()})`}</h3>
         <For each={props.cards}>
           {(cardCostSection) => (
             <>
@@ -79,7 +81,7 @@ export const ListTable = () => {
 
   const CardColorColumn: Component<{ cards: TestCard[][][] }> = (props) => (
     <div class={styles.tableColumn}>
-      <h2 class={styles.tableColumnTitle}>{colorNameMap[props!.cards[0][0][0]?.color]}</h2>
+      <h2 class={styles.tableColumnTitle}>{colorNameMap[props!.cards[0]![0]![0]!.color]}</h2>
       <div class={styles.tableColumnContent}>
         <For each={props.cards}>{(cardTypeSection) => <CardTypeSection cards={cardTypeSection} />}</For>
       </div>

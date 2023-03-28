@@ -17,7 +17,7 @@ const RadioGroupItemsContainer: ParentComponent<ComponentProps<'div'>> = (props)
 };
 
 const RadioGroupItem: ParentComponent<
-  ComponentProps<typeof BaseRadioGroup.Item> & { recipe: styles.RadioGroupItemRecipe }
+  ComponentProps<typeof BaseRadioGroup.Item> & { recipe?: styles.RadioGroupItemRecipe }
 > = (props) => {
   const [local, others] = splitProps(props, ['class', 'recipe']);
 
@@ -32,7 +32,7 @@ const RadioGroupItemIndicator = BaseRadioGroup.ItemIndicator;
 
 const RadioGroupItemLabel = BaseRadioGroup.ItemLabel;
 
-const RadioGroupItemSeparator: Component<ComponentProps<typeof Separator>> = (props) => {
+const RadioGroupItemSeparator: Component<ComponentProps<typeof Separator.Root>> = (props) => {
   const [local, others] = splitProps(props, ['class', 'orientation']);
 
   return <Separator.Root orientation="vertical" class={clsx(styles.vSeparator, local.class)} {...others} />;

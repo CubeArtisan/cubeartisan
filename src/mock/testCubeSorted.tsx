@@ -5,7 +5,7 @@ export type TestCard = {
   type: 'creature' | 'planeswalker' | 'instant' | 'sorcery' | 'enchantment' | 'artifact' | 'land';
 };
 
-const sortedCards: TestCard[][][] = [
+const sortedCards: TestCard[][][][] = [
   [
     [
       [

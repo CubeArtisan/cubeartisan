@@ -15,8 +15,7 @@ const NewCubeModal = () => {
   const [, { Form }] = createServerAction$(async (formData: FormData, { request }) => {
     const cubeName = formData.get('name') as string;
     const user = await getUserFromRequest(request);
-
-    const cube = await createCube(user, cubeName);
+    const cube = await createCube(user!, cubeName);
     return redirect(`/cube/${cube.shortID}`);
   });
 

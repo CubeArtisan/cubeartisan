@@ -1,4 +1,4 @@
-import type { Component } from 'solid-js';
+import type { Component, Setter } from 'solid-js';
 
 import { Switch } from '@cubeartisan/cubeartisan/components/generic/Switch/Switch';
 
@@ -19,7 +19,7 @@ export const ComposedSwitch: Component<ComposedSwitchProps> = (props) => (
 export type ControlledComposedSwitchProps = {
   label: string;
   isChecked: boolean;
-  onCheckedChange: () => void;
+  onCheckedChange: Setter<boolean>;
 };
 
 export const ControlledComposedSwitch: Component<ControlledComposedSwitchProps> = (props) => (
