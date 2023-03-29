@@ -9,7 +9,7 @@ import { getDefaultBaseCubeWithCards } from '@cubeartisan/cubeartisan/shared/cub
 import { applyPatch } from '@cubeartisan/cubeartisan/shared/patches';
 import { hasProfanity, toBase36 } from '@cubeartisan/cubeartisan/shared/utils';
 import type { CubeCard } from '@cubeartisan/cubeartisan/types/card';
-import type { CubePatch, Cube as CubeType, MongoCube } from '@cubeartisan/cubeartisan/types/cube';
+import type { CubePatch, Cube as CubeType, MongoCube, MongoCubeWithId } from '@cubeartisan/cubeartisan/types/cube';
 import type { MongoUser, ProtectedUser } from '@cubeartisan/cubeartisan/types/user';
 
 export const generateShortId = async (): Promise<string> => {
@@ -50,46 +50,50 @@ export const createCube = async (
   return cube;
 };
 
-export const addCards = async (cube: HydratedDocument<MongoCube>): Promise<CubeType> => ({
-  id: cube._id.toString(),
-  name: cube.name,
-  shortID: cube.shortID,
-  isListed: cube.isListed,
-  privatePrices: cube.privatePrices,
-  overrideCategory: cube.overrideCategory,
-  categoryOverride: cube.categoryOverride,
-  categoryPrefixes: cube.categoryPrefixes,
-  tag_colors: cube.tag_colors,
-  defaultDraftFormat: cube.defaultDraftFormat,
-  numDecks: cube.numDecks,
-  description: cube.description,
-  image_uri: cube.image_uri,
-  image_artist: cube.image_artist,
-  image_name: cube.image_name,
-  owner_name: cube.owner_name,
-  date_created: cube.date_created,
-  date_updated: cube.date_updated,
-  type: cube.type,
-  default_sorts: cube.default_sorts,
-  default_show_unsorted: cube.default_show_unsorted,
-  draft_formats: cube.draft_formats,
-  defaultStatus: cube.defaultStatus,
-  defaultPrinting: cube.defaultPrinting,
-  disableNotifications: cube.disableNotifications,
-  keywords: cube.keywords,
-  categories: cube.categories,
-  owner: cube.owner.toString(),
-  users_following: cube.users_following.map((user) => user.toString()),
-  cards: (await Promise.all(cube.cards.map(loadCard))) as CubeCard[],
-  boards: await Promise.all(
-    cube.boards.map(async ({ name, id, cards }) => ({
-      name,
-      id,
-      cards: (await Promise.all(cards.map(loadCard))) as CubeCard[],
-    })),
-  ),
-  unlimitedCards: (await Promise.all(cube.unlimitedCards.map(loadCard))) as CubeCard[],
-});
+export const addCards = async (cube: MongoCubeWithId): Promise<CubeType> => {
+  console.log(cube.toObject());
+
+  return {
+    id: cube._id?.toString?.(),
+    name: cube.name,
+    shortID: cube.shortID,
+    isListed: cube.isListed,
+    privatePrices: cube.privatePrices,
+    overrideCategory: cube.overrideCategory,
+    categoryOverride: cube.categoryOverride,
+    categoryPrefixes: cube.categoryPrefixes,
+    tag_colors: cube.tag_colors,
+    defaultDraftFormat: cube.defaultDraftFormat,
+    numDecks: cube.numDecks,
+    description: cube.description,
+    image_uri: cube.image_uri,
+    image_artist: cube.image_artist,
+    image_name: cube.image_name,
+    owner_name: cube.owner_name,
+    date_created: cube.date_created,
+    date_updated: cube.date_updated,
+    type: cube.type,
+    default_sorts: cube.default_sorts,
+    default_show_unsorted: cube.default_show_unsorted,
+    draft_formats: cube.draft_formats,
+    defaultStatus: cube.defaultStatus,
+    defaultPrinting: cube.defaultPrinting,
+    disableNotifications: cube.disableNotifications,
+    keywords: cube.keywords,
+    categories: cube.categories,
+    owner: cube.owner?.toString?.(),
+    // users_following: cube.users_following.map((user) => user?.toString?.()),
+    cards: (await Promise.all(cube.cards.map(loadCard))) as CubeCard[],
+    // boards: await Promise.all(
+    //   cube.boards.map(async ({ name, id, cards }) => ({
+    //     name,
+    //     id,
+    //     cards: (await Promise.all(cards.map(loadCard))) as CubeCard[],
+    //   })),
+    // ),
+    // unlimitedCards: (await Promise.all(cube.unlimitedCards.map(loadCard))) as CubeCard[],
+  };
+};
 
 export const findCube = async (
   idOrShortId: string | Types.ObjectId,
