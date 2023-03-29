@@ -2,6 +2,31 @@ import { style } from '@vanilla-extract/css';
 
 import { vars } from '@cubeartisan/cubeartisan/styles';
 
+export const main = style({
+  width: vars.size['content-80'],
+  marginInline: 'auto',
+  display: 'flex',
+  flexDirection: 'column',
+  paddingTop: vars.space[10],
+});
+
+export const hero = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: vars.space.gutter,
+});
+
+export const heroTitle = style({
+  fontSize: vars.fontSize['6xl'],
+  lineHeight: vars.lineHeight['6xl'],
+  fontWeight: vars.fontWeight.semibold,
+});
+
+export const heroSearch = style({
+  width: vars.size.md,
+});
+
 export const cubeCardList = style({
   display: 'grid',
   gridTemplateColumns: 'repeat(auto-fit, minmax(min(max(25% + 0.75rem, 13rem), 100%), 1fr))',
@@ -15,7 +40,6 @@ export const cubeCardContainer = style({
   transitionDuration: '150ms',
   overflow: 'hidden',
   borderRadius: vars.borderRadius.sm,
-  boxShadow: vars.boxShadow['2xl'],
 
   ':hover': {
     scale: '1.02',

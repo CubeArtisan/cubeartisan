@@ -83,4 +83,16 @@ export type ColorPaletteType = {
   shadow10: string;
   shadow11: string;
   shadow12: string;
+  shadowInverse1: string;
+  shadowInverse2: string;
+  shadowInverse3: string;
+  shadowInverse4: string;
+  shadowInverse5: string;
+  shadowInverse6: string;
+  shadowInverse7: string;
+  shadowInverse8: string;
+  shadowInverse9: string;
+  shadowInverse10: string;
+  shadowInverse11: string;
+  shadowInverse12: string;
 };
