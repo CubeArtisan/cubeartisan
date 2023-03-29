@@ -1,4 +1,4 @@
-type ArrayAddChange<T> = {
+export type ArrayAddChange<T> = {
   action: 'add';
   index: number;
   value: T;
@@ -30,15 +30,10 @@ type ArrayMoveChange = {
 
 type ArrayChange<T> = ArrayAddChange<T> | ArrayRemoveChange | ArrayUpdateChange<T> | ArrayCopyChange | ArrayMoveChange;
 
+export type PatchMerge<T> = [{ action: 'merge'; patch: T }];
+
 export type Patch<T> = T extends (infer Item)[]
   ? ArrayChange<Item>[]
   : T extends object
-  ?
-      | { [Property in keyof T]?: Patch<T[Property]> }
-      | [
-          {
-            action: 'merge';
-            patch: T;
-          },
-        ]
+  ? { [Property in keyof T]?: Patch<T[Property]> } | PatchMerge<T>
   : T;
