@@ -4,8 +4,9 @@ import { applyPatch } from '@cubeartisan/cubeartisan/shared/patches';
 import type { CubeCard, CubeDbCard } from '@cubeartisan/cubeartisan/types/card';
 
 export type CardDB = {
-  byId: { [S in string]: Card };
   cards: Card[];
+  byId: { [S in string]: Card };
+  byName: { [S in string]: string };
 };
 
 let carddbPromise: Promise<CardDB> | null = null;
@@ -19,6 +20,7 @@ export const updateCardDb = async () => {
   return {
     cards,
     byId: Object.fromEntries(cards.map((card) => [card.id, card])),
+    byName: Object.fromEntries(cards.map((card) => [card.cardFaces[0]!.name, card.id])),
   };
 };
 
@@ -29,6 +31,11 @@ export const loadCardDb = () => {
 export const getCardById = async (cardId: string): Promise<Card | null> => {
   if (carddbPromise === null) loadCardDb();
   return (await carddbPromise)?.byId[cardId] ?? null;
+};
+
+export const getIdByCardName = async (cardName: string): Promise<string | null> => {
+  if (carddbPromise === null) loadCardDb();
+  return (await carddbPromise)?.byName[cardName] ?? null;
 };
 
 const defaultCard: Card = {
