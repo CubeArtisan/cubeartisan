@@ -12,16 +12,18 @@ export type CardDB = {
 let carddbPromise: Promise<CardDB> | null = null;
 
 export const updateCardDb = async () => {
-  console.log('Loading cards.');
+  console.log('Downloading cards.');
   await updateAllBulkData();
+  console.log('Loading cards.');
   const scryfallCards = await readLargeJson('data/all_cards.json');
   const cards: Card[] = scryfallCards.map(convertCard);
-  console.log(`Loaded ${cards.length} cards.`);
-  return {
+  const carddb = {
     cards,
     byId: Object.fromEntries(cards.map((card) => [card.id, card])),
     byName: Object.fromEntries(cards.map((card) => [card.cardFaces[0]!.name, card.id])),
   };
+  console.log(`Loaded ${cards.length} cards.`);
+  return carddb;
 };
 
 export const loadCardDb = () => {

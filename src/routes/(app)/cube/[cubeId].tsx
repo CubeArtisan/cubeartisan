@@ -76,8 +76,8 @@ const CubeLayout = () => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       const currentCube: MongoCubeWithId = applyPatch(serverCube, patch as CubePatch);
-
-      return addCards(currentCube);
+      const builtCube = await addCards(currentCube);
+      return builtCube;
     },
     { key: () => ['cubeId', params.cubeId, currentPatch()] },
   );

@@ -7,14 +7,14 @@ import { type TestCard, testCubeSorted } from '@cubeartisan/cubeartisan/mock/tes
 import { useCubePageContext } from '@cubeartisan/cubeartisan/routes/(app)/cube/[cubeId]';
 
 export const ListTable = () => {
-  const context = useCubePageContext();
-  const cards = context.cube()?.cards;
+    const context = useCubePageContext();
+    const cards = context.cube()?.cards;
 
-  return (
-    <div>
-      <For each={cards}>{(card) => <div>{card.cardFaces[0]!.name}</div>}</For>
-    </div>
-  );
+    return (
+        <div>
+            <For each={cards}>{(card) => <div>{console.log(card) || card.cardFaces[0]!.name}</div>}</For>
+        </div>
+    );
 };
 
 /**

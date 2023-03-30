@@ -22,7 +22,25 @@ export const EditSidebar: Component<{
     if (json.success) {
       context.setCurrentPatch((prev) => ({
         ...prev,
-        cards: [...(prev.cards ?? []), { action: 'add', index: -1, value: { id: json.cardId } }],
+        cards: [
+          ...(prev.cards ?? []),
+          {
+            action: 'add',
+            index: -1,
+            value: {
+              id: json.id,
+              patch: {},
+              metadata: {
+                tags: [],
+                price: null,
+                notes: '',
+                addedTmsp: new Date().toString(),
+                finish: 'nonfoil',
+                status: 'Owned',
+              },
+            },
+          },
+        ],
       }));
     }
   });
