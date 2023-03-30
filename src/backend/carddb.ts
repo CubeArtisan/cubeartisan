@@ -17,10 +17,12 @@ export const updateCardDb = async () => {
   console.log('Loading cards.');
   const scryfallCards = await readLargeJson('data/all_cards.json');
   const cards: Card[] = scryfallCards.map(convertCard);
+  const byName = Object.fromEntries(cards.map((card) => [card.cardFaces[0]!.name, card.id]));
   const carddb = {
     cards,
     byId: Object.fromEntries(cards.map((card) => [card.id, card])),
-    byName: Object.fromEntries(cards.map((card) => [card.cardFaces[0]!.name, card.id])),
+    byName,
+    names: Object.keys(byName).sort(),
   };
   console.log(`Loaded ${cards.length} cards.`);
   return carddb;
@@ -38,6 +40,11 @@ export const getCardById = async (cardId: string): Promise<Card | null> => {
 export const getIdByCardName = async (cardName: string): Promise<string | null> => {
   if (carddbPromise === null) loadCardDb();
   return (await carddbPromise)?.byName[cardName] ?? null;
+};
+
+export const getCardNames = async (): Promise<string[]> => {
+  if (carddbPromise === null) loadCardDb();
+  return (await carddbPromise)?.names ?? [];
 };
 
 const defaultCard: Card = {
