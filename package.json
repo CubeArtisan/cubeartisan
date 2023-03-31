@@ -17,7 +17,7 @@
   },
   "type": "module",
   "dependencies": {
-    "@cubeartisan/carddb": "^1.0.2",
+    "@cubeartisan/carddb": "^1.1.0",
     "@solidjs/testing-library": "^0.7.0",
     "undici": "^5.21.0"
   },

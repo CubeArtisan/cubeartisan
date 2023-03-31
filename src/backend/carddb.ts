@@ -17,7 +17,7 @@ export const updateCardDb = async () => {
   console.log('Loading cards.');
   const scryfallCards = await readLargeJson('data/all_cards.json');
   const cards: Card[] = scryfallCards.map(convertCard);
-  const byName = Object.fromEntries(cards.map((card) => [card.cardFaces[0]!.name, card.id]));
+  const byName = Object.fromEntries(cards.map((card) => [card.name, card.id]));
   const carddb = {
     cards,
     byId: Object.fromEntries(cards.map((card) => [card.id, card])),

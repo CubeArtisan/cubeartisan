@@ -1,20 +1,16 @@
-import { As, Button, Separator } from '@kobalte/core';
-import { assignInlineVars } from '@vanilla-extract/dynamic';
-import { Component, For, Show } from 'solid-js';
+import { For } from 'solid-js';
 
-import * as styles from '@cubeartisan/cubeartisan/components/cube/list/ListTable/ListTable.css';
-import { type TestCard, testCubeSorted } from '@cubeartisan/cubeartisan/mock/testCubeSorted';
 import { useCubePageContext } from '@cubeartisan/cubeartisan/routes/(app)/cube/[cubeId]';
 
 export const ListTable = () => {
-    const context = useCubePageContext();
-    const cards = context.cube()?.cards;
+  const context = useCubePageContext();
+  const cards = context.cube()?.cards;
 
-    return (
-        <div>
-            <For each={cards}>{(card) => <div>{console.log(card) || card.cardFaces[0]!.name}</div>}</For>
-        </div>
-    );
+  return (
+    <div>
+      <For each={cards}>{(card) => <div>{card.name}</div>}</For>
+    </div>
+  );
 };
 
 /**
