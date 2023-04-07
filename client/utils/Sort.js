@@ -78,6 +78,7 @@ const FOUR_COLOR_MAP = {
 
 const CARD_TYPES = [
   'Creature',
+  'Battle',
   'Planeswalker',
   'Instant',
   'Sorcery',
@@ -493,7 +494,7 @@ const getCardTypeLabel = (card, showOther, sort) => {
   const other = showOther ? ['Other'] : [];
   ret = ret.length > 0 ? [labels[ret[0]]] : other;
   for (const type of ['Contraption', 'Equipment', 'Aura', 'Plane']) {
-    if (types.includes(type)) {
+    if (types.includes(type) && !types.includes('Creature')) {
       ret = [type];
       break;
     }
