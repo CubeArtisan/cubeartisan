@@ -350,3 +350,10 @@ This release is composed of porting over bug fixes for bugs we carried over from
 #### Bug Fixes
 
 - Fix submitting a bot only draft so it correctly generates a deck.
+
+### v1.4.6.5
+
+#### Bug Fixes
+
+- Display battles when sorting by type.
+- Sort equipment creatures as creatures not equipment.
