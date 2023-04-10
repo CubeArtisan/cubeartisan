@@ -115,7 +115,7 @@ export const ListHero = () => {
         <Show when={isLaptopPlus()}>
           <div>
             <h2 class={styles.cubeDescriptionHeader}>Description</h2>
-            <p class={styles.cubeDescription}>{() => cube.description}</p>
+            <p class={styles.cubeDescription}>{cube.description()}</p>
           </div>
         </Show>
       </header>

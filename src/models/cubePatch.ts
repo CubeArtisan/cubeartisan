@@ -17,7 +17,7 @@
 import { Model, model, models, Schema } from 'mongoose';
 
 import { boardSchema, draftFormatSchema, tagColorSchema } from '@cubeartisan/cubeartisan/models/cube';
-import cardSchema from '@cubeartisan/cubeartisan/models/shared/card';
+import { cubeDbCardPatchSchema, cubeDbCardSchema } from '@cubeartisan/cubeartisan/models/shared/card';
 import patchArray from '@cubeartisan/cubeartisan/models/shared/patch';
 import type { CubeDbCard } from '@cubeartisan/cubeartisan/types/card';
 import type { MongoCubeChange } from '@cubeartisan/cubeartisan/types/cube';
@@ -56,9 +56,12 @@ const cubePatchSchema = new Schema<MongoCubeChange>({
     overrideCategory: Boolean,
     categoryOverride: String,
     categoryPrefixes: [String],
-    cards: patchArray<CubeDbCard>(cardSchema, cardSchema),
-    unlimitedCards: patchArray<CubeDbCard>(cardSchema, cardSchema),
-    boards: patchArray(boardSchema, { name: String, cards: patchArray<CubeDbCard>(cardSchema, cardSchema) }),
+    cards: patchArray<CubeDbCard>(cubeDbCardSchema, cubeDbCardPatchSchema),
+    unlimitedCards: patchArray<CubeDbCard>(cubeDbCardSchema, cubeDbCardPatchSchema),
+    boards: patchArray(boardSchema, {
+      name: String,
+      cards: patchArray<CubeDbCard>(cubeDbCardSchema, cubeDbCardPatchSchema),
+    }),
     tag_colors: patchArray(tagColorSchema, tagColorSchema),
     defaultDraftFormat: Number,
     description: String,

@@ -1,4 +1,4 @@
-import { APIEvent, json } from 'solid-start';
+import { json } from 'solid-start';
 
 import { getCardNames } from '@cubeartisan/cubeartisan/backend/carddb';
 

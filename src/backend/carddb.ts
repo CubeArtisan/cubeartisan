@@ -7,6 +7,7 @@ export type CardDB = {
   cards: Card[];
   byId: { [S in string]: Card };
   byName: { [S in string]: string };
+  names: string[];
 };
 
 let carddbPromise: Promise<CardDB> | null = null;
@@ -69,7 +70,6 @@ const defaultCard: Card = {
     },
   ],
   collectorNumber: '0',
-  colorCategory: 'Colorless',
   colorIdentity: [],
   legalities: {
     standard: 'not_legal',
@@ -116,12 +116,26 @@ const defaultCard: Card = {
   set: 'Invalid',
   setId: '0000',
   variation: false,
+  name: 'Invalid Card',
+  cmc: 0,
+  layout: 'normal',
+  colors: [],
+  promoTypes: [],
+  related: [],
 };
 
 export const loadCard = async (dbCard: CubeDbCard): Promise<CubeCard> => {
-  const card: Card = (await getCardById(dbCard.id)) ?? { ...defaultCard };
+  let card: Card;
+  if ('id' in dbCard) {
+    card = (await getCardById(dbCard.id)) ?? { ...defaultCard };
+  } else {
+    card = dbCard.customCard;
+  }
+  const sortingCard = structuredClone(card);
+  for (const patch of dbCard.sortingPatches) applyPatch(sortingCard, patch);
   return {
-    ...applyPatch(card, dbCard.patch),
+    ...card,
+    sortingCard,
     metadata: dbCard.metadata,
   } as CubeCard;
 };

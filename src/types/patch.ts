@@ -4,9 +4,10 @@ export type ArrayAddChange<T> = {
   value: T;
 };
 
-type ArrayRemoveChange = {
+type ArrayRemoveChange<T> = {
   action: 'remove';
   index: number;
+  value: T;
 };
 
 type ArrayUpdateChange<T> = {
@@ -28,12 +29,15 @@ type ArrayMoveChange = {
   dest: number;
 };
 
-type ArrayChange<T> = ArrayAddChange<T> | ArrayRemoveChange | ArrayUpdateChange<T> | ArrayCopyChange | ArrayMoveChange;
-
-export type PatchMerge<T> = [{ action: 'merge'; patch: T }];
+type ArrayChange<T> =
+  | ArrayAddChange<T>
+  | ArrayRemoveChange<T>
+  | ArrayUpdateChange<T>
+  | ArrayCopyChange
+  | ArrayMoveChange;
 
 export type Patch<T> = T extends (infer Item)[]
   ? ArrayChange<Item>[]
   : T extends object
-  ? { [Property in keyof T]?: Patch<T[Property]> } | PatchMerge<T>
+  ? { [Property in keyof T]?: Patch<T[Property]> }
   : T;

@@ -1,6 +1,6 @@
 import { For } from 'solid-js';
 
-import { useCubePageContext } from '@cubeartisan/cubeartisan/routes/(app)/cube/[cubeId]';
+import { useCubePageContext } from '@cubeartisan/cubeartisan/contexts/CubePageContext';
 
 export const ListTable = () => {
   const context = useCubePageContext();

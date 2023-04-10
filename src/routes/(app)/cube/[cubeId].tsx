@@ -1,18 +1,6 @@
 import { Dialog } from '@kobalte/core';
 import { createMediaQuery } from '@solid-primitives/media';
-import {
-  Accessor,
-  Component,
-  createContext,
-  createEffect,
-  createSignal,
-  onMount,
-  Resource,
-  Setter,
-  Show,
-  splitProps,
-  useContext,
-} from 'solid-js';
+import { Component, createEffect, createSignal, onMount, Show, splitProps } from 'solid-js';
 import { A, Outlet, useIsRouting, useMatch, useParams } from 'solid-start';
 import { createServerData$, redirect } from 'solid-start/server';
 
@@ -21,10 +9,11 @@ import { getClientUserFromRequest } from '@cubeartisan/cubeartisan/backend/user'
 import { EditSidebar } from '@cubeartisan/cubeartisan/components/cube/CubeEditSidebar';
 import { Button } from '@cubeartisan/cubeartisan/components/generic/Button';
 // import { testCube } from '@cubeartisan/cubeartisan/mock/testCube';
+import { CubePageContext, CubePageContextValue } from '@cubeartisan/cubeartisan/contexts/CubePageContext';
 import * as styles from '@cubeartisan/cubeartisan/routes/(app)/cube/cubeId.css';
 import { applyPatch } from '@cubeartisan/cubeartisan/shared/patches';
 import { tokens } from '@cubeartisan/cubeartisan/styles/tokens';
-import type { Cube, CubePatch, MongoCubeWithId } from '@cubeartisan/cubeartisan/types/cube';
+import type { CubePatch, MongoCubeWithId } from '@cubeartisan/cubeartisan/types/cube';
 
 /*
  * # Planning
@@ -39,26 +28,6 @@ import type { Cube, CubePatch, MongoCubeWithId } from '@cubeartisan/cubeartisan/
  *   - Compare
  *   - Analytics
  */
-
-export type CubePageContextValue = {
-  editSidebarOpen: Accessor<boolean>;
-  setEditSidebarOpen: Setter<boolean>;
-  cube: Resource<Cube | undefined>;
-  currentPatch: Accessor<CubePatch>;
-  setCurrentPatch: Setter<CubePatch>;
-};
-
-export const CubePageContext = createContext<CubePageContextValue>();
-
-export const useCubePageContext = () => {
-  const context = useContext(CubePageContext);
-
-  if (context === undefined) {
-    throw new Error('[cubeartisan]: `useCubeContext` must be used witin the `cubeId` route');
-  }
-
-  return context;
-};
 
 const CubeLayout = () => {
   const [currentPatch, setCurrentPatch] = createSignal<CubePatch>({});

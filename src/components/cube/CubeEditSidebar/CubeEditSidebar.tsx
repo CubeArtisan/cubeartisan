@@ -1,12 +1,10 @@
 import { Accessor, Component, Setter, Show } from 'solid-js';
 import { createRouteAction } from 'solid-start';
-import { createServerAction$ } from 'solid-start/server';
 
-import { getIdByCardName } from '@cubeartisan/cubeartisan/backend/carddb';
 import * as styles from '@cubeartisan/cubeartisan/components/cube/CubeEditSidebar/CubeEditSidebar.css';
 import { Button } from '@cubeartisan/cubeartisan/components/generic/Button';
 import { TextField } from '@cubeartisan/cubeartisan/components/generic/TextField';
-import { useCubePageContext } from '@cubeartisan/cubeartisan/routes/(app)/cube/[cubeId]';
+import { useCubePageContext } from '@cubeartisan/cubeartisan/contexts/CubePageContext';
 import type { CubeDbCard } from '@cubeartisan/cubeartisan/types/card';
 import type { ArrayAddChange } from '@cubeartisan/cubeartisan/types/patch';
 
@@ -16,7 +14,8 @@ export const EditSidebar: Component<{
 }> = (props) => {
   const context = useCubePageContext();
 
-  const [addingCard, addCard] = createRouteAction(async (cardName: string) => {
+  const [addingCard, addCard] = createRouteAction(async () => {
+    const cardName = props.ref()!.value;
     const response = await fetch(`/api/v1/card/${encodeURIComponent(cardName)}/name`);
     const json = await response.json();
     if (json.success) {
@@ -29,7 +28,7 @@ export const EditSidebar: Component<{
             index: -1,
             value: {
               id: json.id,
-              patch: {},
+              sortingPatches: [],
               metadata: {
                 tags: [],
                 price: null,
@@ -54,7 +53,11 @@ export const EditSidebar: Component<{
     if (currentPatch.cards?.length) {
       return currentPatch.cards
         .filter((card) => card.action === 'add')
-        .map((card) => (card as ArrayAddChange<CubeDbCard>).value.id);
+        .map((card) => {
+          const cardValue = (card as ArrayAddChange<CubeDbCard>).value;
+          if ('id' in cardValue) return cardValue.id;
+          return cardValue.customCard.id;
+        });
     }
 
     return [];
@@ -67,7 +70,7 @@ export const EditSidebar: Component<{
         <TextField.Input ref={props.setRef} type="search" placeholder="Add or Remove" />
       </TextField.Root>
       <div>
-        <Button.Root onClick={() => addCard(props.ref()!.value)} recipe={{ padding: 'baseText', color: 'success' }}>
+        <Button.Root onClick={() => addCard()} recipe={{ padding: 'baseText', color: 'success' }}>
           Add
         </Button.Root>
       </div>
