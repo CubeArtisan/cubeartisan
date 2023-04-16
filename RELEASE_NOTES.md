@@ -357,3 +357,9 @@ This release is composed of porting over bug fixes for bugs we carried over from
 
 - Display battles when sorting by type.
 - Sort equipment creatures as creatures not equipment.
+
+### v1.4.6.6
+
+#### Infrastructure
+
+- Work on tracking down intermittent issues with drafts.
