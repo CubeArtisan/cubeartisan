@@ -99,6 +99,7 @@ const manageWebsocketDraft = async (socket) => {
     seatIndex = seatNumber,
     changes = {},
     drafterState = null,
+    scores = null,
   ) => {
     const fromClient = !drafterState;
     if (!drafterState) {
@@ -113,7 +114,9 @@ const manageWebsocketDraft = async (socket) => {
     if (!drafterState.cardsInPack.includes(cardIndex)) {
       winston.error({
         message: `Tried picking ${cardIndex} from ${drafterState.cardsInPack} in draft ${draftid}`,
-        request: socket.request,
+        seatIndex,
+        changes,
+        scores,
       });
       return [{}, draft];
     }
@@ -180,6 +183,7 @@ const manageWebsocketDraft = async (socket) => {
                 drafterState.seatNum,
                 changes,
                 drafterState,
+                scores,
               );
             }
             if (drafterState.step.action.match(/trash/)) {
