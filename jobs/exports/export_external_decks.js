@@ -2,8 +2,7 @@ import mongoose from 'mongoose';
 
 import connectionQ from '@cubeartisan/server/serverjs/mongoConnection.js';
 import winston from '@cubeartisan/server/serverjs/winstonConfig.js';
-import Deck from '@cubeartisan/server/models/deck.js';
-import carddb from '@cubeartisan/server/serverjs/cards.js';
+import ExternalDeck from '@cubeartisan/server/models/externalDeck.js';
 import { getObjectCreatedAt, loadCardToInt, writeFile } from '@cubeartisan/jobs/exports/utils.js';
 
 // Number of documents to process at a time
@@ -12,49 +11,14 @@ const batchSize = 256;
 const minFileSize = 128 * 1024 * 1024; // 128 MB
 
 const processDeck = (deck, cardToInt) => {
-  const main = [];
-  const side = [];
-  const basics = [];
-
-  if (deck.seats[0] && deck.seats[0].deck) {
-    for (const col of deck.seats[0].deck) {
-      for (const cardIdx of col) {
-        const card = deck.cards[cardIdx];
-        if (card && card.cardID) {
-          main.push(cardToInt[carddb.cardFromId(card.cardID).oracle_id]);
-        }
-      }
-    }
-
-    if (deck.seats[0].sideboard) {
-      for (const col of deck.seats[0].sideboard) {
-        for (const cardIdx of col) {
-          const card = deck.cards[cardIdx];
-          if (card && card.cardID) {
-            side.push(cardToInt[carddb.cardFromId(card.cardID).oracle_id]);
-          }
-        }
-      }
-    }
-
-    if (deck.basics) {
-      for (const cardIdx of deck.basics) {
-        const card = deck.cards[cardIdx];
-        if (card && card.cardID) {
-          basics.push(cardToInt[carddb.cardFromId(card.cardID).oracle_id]);
-        }
-      }
-    }
-  }
+  const main = deck.main.map((id) => cardToInt[id]);
+  const side = deck.side.map((id) => cardToInt[id]);
+  const basics = deck.basics.map((id) => cardToInt[id]);
 
   return {
     main,
     side,
     basics,
-    cubeid: deck.cube,
-    draftid: deck.draft,
-    username: deck.seats[0].username,
-    date: deck.date,
     createdAt: getObjectCreatedAt(deck._id),
   };
 };
@@ -65,9 +29,9 @@ try {
   const { cardToInt } = await loadCardToInt();
 
   // process all deck objects
-  const count = await Deck.countDocuments();
+  const count = await ExternalDeck.countDocuments();
   winston.info(`Counted ${count} documents`);
-  const cursor = Deck.find().lean().cursor();
+  const cursor = ExternalDeck.find().lean().cursor();
 
   let counter = 0;
   let i = 0;
@@ -86,10 +50,10 @@ try {
       }
       size += Buffer.byteLength(JSON.stringify(processingDecks));
       decks.push(...processingDecks);
-      winston.debug(`Finished: ${i} of ${count} decks and the buffer is approximately ${size / 1024 / 1024} MB.`);
+      winston.debug(`Finished: ${i} of ${count} external decks and the buffer is approximately ${size / 1024 / 1024} MB.`);
     }
     if (decks.length > 0) {
-      const filename = `decks/${counter.toString().padStart(6, '0')}.json`;
+      const filename = `external_decks/${counter.toString().padStart(6, '0')}.json`;
       writeFile(filename, decks);
       counter += 1;
       winston.info(`Wrote file ${filename} with ${decks.length} decks.`);
@@ -97,7 +61,7 @@ try {
     }
   }
   await mongoose.disconnect();
-  winston.info('Done exporting decks.');
+  winston.info('Done exporting external decks.');
   process.exit();
 } catch (err) {
   winston.error('Failed to export decks.', err);

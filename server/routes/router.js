@@ -213,7 +213,7 @@ import {
   updateTagColors,
 } from '@cubeartisan/server/routes/cube/index.js';
 import { followCube, unfollowCube } from '@cubeartisan/server/routes/cube/social.js';
-import { importDraftLog } from '@cubeartisan/server/routes/integrations.js';
+import { importDraftLog, importExternalDeck } from '@cubeartisan/server/routes/integrations.js';
 import { redirect } from '@cubeartisan/server/serverjs/util.js';
 
 const router = express.Router();
@@ -374,6 +374,7 @@ router.post('/griddraft/:id/submit', submitGridDraft);
 router.get('/faq', viewFaq);
 router.get('/filters', viewFiltersPage);
 router.post('/integrations/draftlog', importDraftLog);
+router.post('/integrations/decklog', importExternalDeck);
 router.get('/landing', viewLanding);
 router.get('/leave', showLeavePage);
 router.get('/login', viewLoginPage);

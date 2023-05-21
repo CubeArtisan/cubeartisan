@@ -14,8 +14,10 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with CubeArtisan.  If not, see <https://www.gnu.org/licenses/>.
  */
+import carddb from '@cubeartisan/server/serverjs/cards.js';
 import DraftLog from '@cubeartisan/server/models/draftLog.js';
 import { wrapAsyncApi } from '@cubeartisan/server/routes/middleware.js';
+import ExternalDeck from '@cubeartisan/server/models/externalDeck.js';
 
 const API_KEY = process.env.CUBEARTISAN_API_KEY;
 const DEFAULT_BASICS = [
@@ -26,11 +28,19 @@ const DEFAULT_BASICS = [
   'a3fb7228-e76b-4e96-a40e-20b5fed75685',
 ];
 
+const COLOR_TO_BASIC = {
+  W: DEFAULT_BASICS[0],
+  U: DEFAULT_BASICS[1],
+  B: DEFAULT_BASICS[2],
+  R: DEFAULT_BASICS[3],
+  G: DEFAULT_BASICS[4],
+};
+
 const importDraftLogHandler = async (req, res) => {
-  const draftLog = new DraftLog();
   if (req.body.apiKey !== API_KEY) {
     return res.status(401).send({ success: 'false' });
   }
+  const draftLog = new DraftLog();
   draftLog.players = req.body.players;
   draftLog.basics = req.body.basics ?? DEFAULT_BASICS;
   await draftLog.save();
@@ -38,4 +48,20 @@ const importDraftLogHandler = async (req, res) => {
 };
 export const importDraftLog = wrapAsyncApi(importDraftLogHandler);
 
-export default importDraftLog;
+const importExternalDeckHandler = async (req, res) => {
+  if (req.body.apiKey !== API_KEY) {
+    return res.status(401).send({ success: 'false' });
+  }
+  const externalDeck = new ExternalDeck();
+  externalDeck.main = req.body.main.map((id) => carddb.cardFromId(id)?.oracle_id ?? id);
+  for (const [color, count] of Object.entries(req.body.lands)) {
+    if (count > 0) {
+      externalDeck.main.push(...new Array(count).fill(COLOR_TO_BASIC[color]));
+    }
+  }
+  externalDeck.side = req.body.side.map((id) => carddb.cardFromId(id)?.oracle_id ?? id);
+  externalDeck.basics = req.body.basics?.map?.((id) => carddb.cardFromId(id)?.oracle_id ?? id) ?? DEFAULT_BASICS;
+  await externalDeck.save();
+  return res.status(201).send({ success: 'true' });
+};
+export const importExternalDeck = wrapAsyncApi(importExternalDeckHandler);
