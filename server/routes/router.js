@@ -360,6 +360,7 @@ router.get('/deck/:id/export/:seat/xmage', exportDeckToXmage);
 // TODO: Update client code to post to rebuild.
 router.post('/deck/:id/rebuild/:index', rebuildDeck);
 router.get('/deck/:id/redraft/:seat', redraftDeck);
+router.get('/deck/:id/recommend', recommendDeck);
 router.get('/dev/blog', redirectToFirstDevBlogPage);
 router.post('/dev/blog', postToDevBlog);
 router.get('/dev/blog/:id', browseDevBlog);
