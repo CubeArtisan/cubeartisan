@@ -369,3 +369,13 @@ This release is composed of porting over bug fixes for bugs we carried over from
 #### Infrastructure
 
 - Better track and export data on decks for analytics and machine learning.
+
+### v1.4.6.8
+
+#### Features
+
+- Support overriden name in CSV export and import.
+
+#### Bug Fixes
+
+- Fix for specifying color category in csv import.
