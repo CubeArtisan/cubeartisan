@@ -1,7 +1,7 @@
 version: '3'
 services:
   cubeartisan-mongodb:
-    image: 'mongo:4.4.10'
+    image: 'mongo:6.0.5'
     volumes:
       - cubeartisan-mongodb-volume:/data/db
     ports:
@@ -10,7 +10,7 @@ services:
     build:
       dockerfile: .docker/Dockerfile.jobs
       context: ../
-      cache_from: 
+      cache_from:
         - ${REPOSITORY}/cubeartisan-jobs:latest
     image: ${REPOSITORY}/cubeartisan-jobs:${TAG}
     depends_on:
@@ -19,7 +19,7 @@ services:
     build:
       dockerfile: .docker/Dockerfile
       context: ../
-      cache_from: 
+      cache_from:
         - ${REPOSITORY}/cubeartisan-jobs:${TAG}
       args:
         REPOSITORY: ${REPOSITORY}
