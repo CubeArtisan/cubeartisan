@@ -1,12 +1,13 @@
-FROM node:16.10
+FROM node:20.9
 
 LABEL org.containers.image.url=https://github.com/CubeArtisan/cubeartisan
 
 ENV DEBUG=false
 ENV NODE_ENV=production
 
-RUN curl -sSL https://sdk.cloud.google.com | bash
-ENV PATH $PATH:/root/google-cloud-sdk/bin
+RUN curl https://sdk.cloud.google.com > install.sh
+RUN bash install.sh --disable-prompts --install-dir=/root/
+ENV PATH $PATH:/root/google-cloud-sd --install-dir=/root/k/bin
 RUN apt-get update && apt-get install -y gcc python3-dev python3-setuptools python3-pip python3-crcmod
 
 WORKDIR /CubeArtisan
