@@ -145,11 +145,13 @@ describe('CSVtoCards', () => {
       finish: 'Is Foil',
       imgUrl: 'http://example.com/',
       tags: ['tag1', 'tag2'],
+      colorCategory: null,
+      overriddenName: null,
     };
     const expectedMaybe = {
       name: 'Embercleave',
       cmc: '2',
-      type_line: 'Creature - Type',
+      type_line: null,
       colors: ['R', 'W'],
       set: 'ELD',
       collector_number: '120',
@@ -157,21 +159,27 @@ describe('CSVtoCards', () => {
       finish: 'Is Not Foil',
       imgUrl: null,
       tags: ['tag3', 'tag4'],
+      overriddenName: 'Testingcleave',
+      colorCategory: 'R',
     };
     const cards = [
-      'Name,CMC,Type,Color,Set,Collector Number,Status,Finish,Maybeboard,Image URL,Tags',
-      `"${expectedCard.name}",${expectedCard.cmc},${expectedCard.type_line.replace(
+      'Name,CMC,Type,Color,Set,Collector Number,Status,Finish,Maybeboard,Image URL,Tags,Overridden Name,Color Category',
+      `"${expectedCard.name}",${expectedCard.cmc},${(expectedCard.type_line || '').replace(
         '—',
         '-',
       )},${expectedCard.colors.join('')},${expectedCard.set},${expectedCard.collector_number},${expectedCard.status},${
         expectedCard.finish
-      },false,${expectedCard.imgUrl},"${expectedCard.tags.join(';')}"`,
-      `"${expectedMaybe.name}",${expectedMaybe.cmc},${expectedMaybe.type_line.replace(
+      },false,${expectedCard.imgUrl},"${expectedCard.tags.join(';')}","${expectedCard.overriddenName || ''}",${
+        expectedCard.colorCategory || ''
+      }`,
+      `"${expectedMaybe.name}",${expectedMaybe.cmc},${(expectedMaybe.type_line || '').replace(
         '—',
         '-',
       )},${expectedMaybe.colors.join('')},${expectedMaybe.set},${expectedMaybe.collector_number},${
         expectedMaybe.status
-      },${expectedMaybe.finish},true,undefined,"${expectedMaybe.tags.join(';')}"`,
+      },${expectedMaybe.finish},true,undefined,"${expectedMaybe.tags.join(';')}","${
+        expectedMaybe.overriddenName || ''
+      }",${expectedMaybe.colorCategory || ''}`,
     ];
     await carddb.initializeCardDb(fixturesPath, true);
     const { newCards, newMaybe, missing } = CSVtoCards(cards.join('\n'), carddb);
@@ -183,7 +191,7 @@ describe('CSVtoCards', () => {
     });
     const expectSame = (card, expected) => {
       expect(card.cardID).toBe(expectedId);
-      expect(card.name).toBe(expected.name);
+      expect(card.name).toBe(expected.overriddenName);
       expect(card.cmc).toBe(expected.cmc);
       expect(card.colors).equalsArray(expected.colors);
       expect(card.collector_number).toBe(expected.collector_number);
@@ -191,6 +199,7 @@ describe('CSVtoCards', () => {
       expect(card.finish).toBe(expected.finish);
       expect(card.imgUrl).toBe(expected.imgUrl);
       expect(card.tags).equalsArray(expected.tags);
+      expect(card.colorCategory).toBe(expected.colorCategory);
     };
     expect(newCards.length).toBe(1);
     expectSame(newCards[0], expectedCard);

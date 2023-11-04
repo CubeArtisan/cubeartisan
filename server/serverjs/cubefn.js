@@ -242,8 +242,9 @@ export const CSVtoCards = (csvString, carddb) => {
     'image back url': imageBackUrl,
     tags,
     notes,
-    'Color Category': colorCategory,
+    'color category': colorCategory,
     rarity,
+    'overridden name': overriddenName,
   } of data) {
     if (name) {
       const upperSet = (set || '').toUpperCase();
@@ -277,6 +278,7 @@ export const CSVtoCards = (csvString, carddb) => {
         const nonPromo = potentialIds.find(carddb.reasonableId);
         const first = potentialIds[0];
         card.cardID = matchingSetAndNumber || matchingSet || nonPromo || first;
+        card.name = overriddenName || null;
         if (maybeboard.toLowerCase() === 'true') {
           newMaybe.push(card);
         } else {

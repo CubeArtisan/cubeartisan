@@ -106,7 +106,7 @@ const CardModal = ({
             <fieldset disabled={disabled}>
               <InputGroup className="mb-3">
                 <InputGroupAddon addonType="prepend">
-                  <InputGroupText>Overriden Name</InputGroupText>
+                  <InputGroupText>Overridden Name</InputGroupText>
                 </InputGroupAddon>
                 <Input type="text" name="name" value={values.name} onChange={onChange} />
               </InputGroup>

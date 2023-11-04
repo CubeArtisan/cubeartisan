@@ -129,6 +129,7 @@ test('csv download', () => {
     'Tags',
     'Notes',
     'MTGO ID',
+    'Overridden Name',
   ];
 
   const faerieGuidemotherData = {
@@ -148,6 +149,7 @@ test('csv download', () => {
     'Image Back URL': '',
     Tags: 'New',
     Notes: '',
+    'Overridden Name': '',
   };
 
   return request(app)
