@@ -3,8 +3,6 @@ import type { Patch } from '@cubeartisan/cubeartisan/types/patch';
 export const getApplyFunc = <T>(val: T) => {
   if (Array.isArray(val)) {
     // eslint-disable-next-line no-use-before-define
-    if (val.length === 1 && val[0].action === 'merge') return applyMergePatch;
-    // eslint-disable-next-line no-use-before-define
     return applyArrayPatch;
   }
   // eslint-disable-next-line no-use-before-define
@@ -45,9 +43,6 @@ const calculateInsertIndex = (index: number, length: number, addedIndices: numbe
   }
   return i;
 };
-
-// TODO: Implement
-export const applyMergePatch = <T>(val: Patch<T>, _: Patch<Patch<T>>): Patch<T> => val;
 
 export const applyArrayPatch = <T>(arr: T[], patches: Patch<T[]>): T[] => {
   if (!arr || !arr.length) arr = [];

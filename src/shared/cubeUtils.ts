@@ -46,10 +46,10 @@ export const getDefaultBaseCubeWithCards = (): BaseCube & CubeCards<CubeDbCard> 
     },
   ],
   unlimitedCards: [
-    createCardWithoutDetails('1d7dba1c-a702-43c0-8fca-e47bbad4a00f'),
-    createCardWithoutDetails('42232ea6-e31d-46a6-9f94-b2ad2416d79b'),
-    createCardWithoutDetails('19e71532-3f79-4fec-974f-b0e85c7fe701'),
-    createCardWithoutDetails('8365ab45-6d78-47ad-a6ed-282069b0fabc'),
-    createCardWithoutDetails('0c4eaecf-dd4c-45ab-9b50-2abe987d35d4'),
+    createCardWithoutDetails('scry:1d7dba1c-a702-43c0-8fca-e47bbad4a00f'),
+    createCardWithoutDetails('scry:42232ea6-e31d-46a6-9f94-b2ad2416d79b'),
+    createCardWithoutDetails('scry:19e71532-3f79-4fec-974f-b0e85c7fe701'),
+    createCardWithoutDetails('scry:8365ab45-6d78-47ad-a6ed-282069b0fabc'),
+    createCardWithoutDetails('scry:0c4eaecf-dd4c-45ab-9b50-2abe987d35d4'),
   ],
 });

@@ -102,6 +102,10 @@ export type CardMetadata = {
   status: CardStatus;
 };
 
-export type CubeDbCard = { id: string; patch: Patch<Card>; metadata: CardMetadata } & Partial<OldCubeCard>;
+export type CubeDbCard = {
+  sortingPatches: Patch<Card>[];
+  metadata: CardMetadata;
+} & ({ id: string } | { customCard: Card }) &
+  Partial<OldCubeCard>;
 
-export type CubeCard = Card & { metadata: CardMetadata };
+export type CubeCard = Card & { metadata: CardMetadata; sortingCard: Card };

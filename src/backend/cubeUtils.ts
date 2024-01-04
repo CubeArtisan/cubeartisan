@@ -9,7 +9,7 @@ import { getDefaultBaseCubeWithCards } from '@cubeartisan/cubeartisan/shared/cub
 import { applyPatch } from '@cubeartisan/cubeartisan/shared/patches';
 import { hasProfanity, toBase36 } from '@cubeartisan/cubeartisan/shared/utils';
 import type { CubeCard } from '@cubeartisan/cubeartisan/types/card';
-import type { CubePatch, Cube as CubeType, MongoCube } from '@cubeartisan/cubeartisan/types/cube';
+import type { CubePatch, Cube as CubeType, MongoCube, MongoCubeWithId } from '@cubeartisan/cubeartisan/types/cube';
 import type { MongoUser, ProtectedUser } from '@cubeartisan/cubeartisan/types/user';
 
 export const generateShortId = async (): Promise<string> => {
@@ -50,8 +50,8 @@ export const createCube = async (
   return cube;
 };
 
-export const addCards = async (cube: HydratedDocument<MongoCube>): Promise<CubeType> => ({
-  id: cube._id.toString(),
+export const addCards = async (cube: MongoCubeWithId): Promise<CubeType> => ({
+  id: cube._id?.toString?.(),
   name: cube.name,
   shortID: cube.shortID,
   isListed: cube.isListed,
@@ -78,20 +78,20 @@ export const addCards = async (cube: HydratedDocument<MongoCube>): Promise<CubeT
   disableNotifications: cube.disableNotifications,
   keywords: cube.keywords,
   categories: cube.categories,
-  owner: cube.owner.toString(),
-  users_following: cube.users_following.map((user) => user.toString()),
+  owner: cube.owner?.toString?.(),
+  users_following: cube.users_following.map((user) => user?.toString?.()),
   cards: (await Promise.all(cube.cards.map(loadCard))) as CubeCard[],
   boards: await Promise.all(
-    cube.boards.map(async ({ name, id, cards }) => ({
+    (cube.boards ?? []).map(async ({ name, id, cards }) => ({
       name,
       id,
       cards: (await Promise.all(cards.map(loadCard))) as CubeCard[],
     })),
   ),
-  unlimitedCards: (await Promise.all(cube.unlimitedCards.map(loadCard))) as CubeCard[],
+  unlimitedCards: (await Promise.all((cube.unlimitedCards ?? []).map(loadCard))) as CubeCard[],
 });
 
-export const findCube = async (
+export const findEditableCube = async (
   idOrShortId: string | Types.ObjectId,
   user: ProtectedUser | HydratedDocument<MongoUser> | null,
 ): Promise<HydratedDocument<MongoCube> | null> => {
@@ -101,6 +101,20 @@ export const findCube = async (
     query = { _id: idOrShortIdStr };
   }
   const cube = await Cube.findOne(query);
+  if (cube && (cube.isListed || user?._id?.toString?.() === cube.owner.toString())) return cube;
+  return null;
+};
+
+export const findCube = async (
+  idOrShortId: string | Types.ObjectId,
+  user: ProtectedUser | HydratedDocument<MongoUser> | null,
+): Promise<MongoCubeWithId | null> => {
+  const idOrShortIdStr: string = idOrShortId.toString();
+  let query: { shortID: string } | { _id: string } = { shortID: idOrShortIdStr };
+  if (/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/.test(idOrShortIdStr)) {
+    query = { _id: idOrShortIdStr };
+  }
+  const cube: MongoCubeWithId | null = await Cube.findOne(query).lean();
   if (cube && (cube.isListed || user?._id?.toString?.() === cube.owner.toString())) return cube;
   return null;
 };

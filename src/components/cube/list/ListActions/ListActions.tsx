@@ -4,7 +4,7 @@ import * as styles from '@cubeartisan/cubeartisan/components/cube/list/ListActio
 import { Button } from '@cubeartisan/cubeartisan/components/generic/Button';
 import { RadioGroup } from '@cubeartisan/cubeartisan/components/generic/RadioGroup';
 import { TextField } from '@cubeartisan/cubeartisan/components/generic/TextField';
-import { useCubeContext } from '@cubeartisan/cubeartisan/routes/(app)/cube/[cubeId]';
+import { useCubePageContext } from '@cubeartisan/cubeartisan/contexts/CubePageContext';
 
 const viewOptions = [
   {
@@ -90,7 +90,7 @@ const viewOptions = [
 ] as const;
 
 export const ListActions = () => {
-  const cubeContext = useCubeContext();
+  const cubeContext = useCubePageContext();
 
   return (
     <div class={styles.actionsContainer}>
@@ -102,7 +102,7 @@ export const ListActions = () => {
               <>
                 <RadioGroup.Item value={item.id} recipe={{ color: 'primary' }}>
                   <RadioGroup.ItemInput />
-                  <RadioGroup.ItemLabel>{item.icon}</RadioGroup.ItemLabel>
+                  <RadioGroup.ItemLabel>{item.icon()}</RadioGroup.ItemLabel>
                 </RadioGroup.Item>
                 <Show when={index() + 1 !== viewOptions.length}>
                   <RadioGroup.ItemSeparator />

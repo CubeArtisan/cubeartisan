@@ -19,7 +19,7 @@
 
 import { Model, model, models, Schema } from 'mongoose';
 
-import cardSchema from '@cubeartisan/cubeartisan/models/shared/card';
+import { cubeDbCardSchema } from '@cubeartisan/cubeartisan/models/shared/card';
 import stepsSchema from '@cubeartisan/cubeartisan/models/shared/step';
 import type { MongoCube } from '@cubeartisan/cubeartisan/types/cube';
 
@@ -34,7 +34,7 @@ export const draftFormatSchema = {
 export const boardSchema = {
   name: String,
   id: String,
-  cards: [cardSchema],
+  cards: [cubeDbCardSchema],
 };
 
 export const tagColorSchema = {
@@ -75,9 +75,9 @@ const cubeSchema = new Schema<MongoCube>({
   },
   boards: [boardSchema],
   categoryPrefixes: [String],
-  cards: [cardSchema],
-  unlimitedCards: [cardSchema],
-  maybe: [cardSchema],
+  cards: [cubeDbCardSchema],
+  unlimitedCards: [cubeDbCardSchema],
+  maybe: [cubeDbCardSchema],
   tag_colors: [tagColorSchema],
   defaultDraftFormat: {
     type: Number,

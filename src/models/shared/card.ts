@@ -3,7 +3,6 @@ import type {
   CardFace,
   CardImages,
   CardSource,
-  ColorCategory,
   ManaSymbol,
   RelatedCard,
   ScryfallBorderColor,
@@ -32,7 +31,6 @@ export const oldCardSchema: SchemaDefinition<CardWithoutDetails> = {
   addedTmsp: Date,
   cardID: String,
   cmc: Number,
-  colorCategory: String,
   colors: { type: [{ type: String, enum: ['W', 'U', 'B', 'R', 'G'] as Color[] }] },
   finish: {
     type: String,
@@ -58,6 +56,25 @@ const finishSchema = {
 
 export const cardMetadataSchema: SchemaDefinition<CardMetadata> = {
   tags: [String],
+  price: {
+    type: Number,
+    default: null,
+  },
+  notes: {
+    type: String,
+    default: '',
+  },
+  addedTmsp: String,
+  finish: finishSchema,
+  status: {
+    type: String,
+    enum: ['Not Owned', 'Ordered', 'Owned', 'Premium Owned', 'Proxied'] as CardStatus[],
+    default: 'Not Owned' as CardStatus,
+  },
+};
+
+export const cardMetadataPatchSchema: SchemaDefinition<Patch<CardMetadata>> = {
+  tags: patchArray(String, String),
   price: {
     type: Number,
     default: null,
@@ -147,11 +164,6 @@ const manaSymbol = {
     'HW',
     'HR',
   ] as ManaSymbol[],
-};
-
-const colorCategorySchema = {
-  type: String,
-  enum: ['White', 'Blue', 'Black', 'Red', 'Green', 'Hybrid', 'Multicolored', 'Colorless', 'Land'] as ColorCategory[],
 };
 
 const colors = {
@@ -328,6 +340,67 @@ const gamesSchema = {
   enum: ['paper', 'arena', 'mtgo', 'astral', 'sega'] as ScryfallGame[],
 };
 
+export const cardSchema: SchemaDefinition<Card> = {
+  id: String,
+  source: {
+    type: String,
+    enum: ['scryfall', 'custom'] as CardSource[],
+  },
+  externalIds: {
+    arenaId: Number,
+    scryfallId: String,
+    mtgoId: String,
+    mtgoFoilId: String,
+    multiverseIds: Number,
+    tcgplayerId: Number,
+    tcgplayerEtchedId: Number,
+    cardmarketId: Number,
+    oracleId: String,
+  },
+  cardFaces: cardFaceSchema,
+  collectorNumber: String,
+  colorIdentity: [colors],
+  related: relatedCardSchema,
+  legalities: legalitiesSchema,
+  edhrecRank: Number,
+  handModifier: String,
+  lifeModifier: String,
+  keywords: String,
+  oversized: Boolean,
+  pennyRank: Number,
+  reserved: Boolean,
+  booster: Boolean,
+  digital: Boolean,
+  finishes: [finishSchema],
+  games: [gamesSchema],
+  prices: {
+    usd: { type: String, default: null },
+    usd_foil: { type: String, default: null },
+    usd_etched: { type: String, default: null },
+    eur: { type: String, default: null },
+    tix: { type: String, default: null },
+  },
+  promo: Boolean,
+  promoTypes: String,
+  rarity: {
+    type: String,
+    enum: ['common', 'uncommon', 'rare', 'special', 'mythic', 'bonus'],
+  },
+  releasedAt: String,
+  reprint: Boolean,
+  setName: String,
+  setType: String,
+  set: String,
+  setId: String,
+  variation: Boolean,
+  variationOf: String,
+  preview: {
+    previewed_at: String,
+    source_uri: String,
+    source: String,
+  },
+};
+
 export const cardPatchSchema: SchemaDefinition<Patch<Card>> = {
   id: String,
   source: {
@@ -347,7 +420,6 @@ export const cardPatchSchema: SchemaDefinition<Patch<Card>> = {
   },
   cardFaces: patchArray(cardFaceSchema, cardFacePatchSchema),
   collectorNumber: String,
-  colorCategory: colorCategorySchema,
   colorIdentity: patchArray(colors, colors),
   related: patchArray(relatedCardSchema, relatedCardPatchSchema),
   legalities: legalitiesSchema,
@@ -359,7 +431,6 @@ export const cardPatchSchema: SchemaDefinition<Patch<Card>> = {
   pennyRank: Number,
   reserved: Boolean,
   booster: Boolean,
-  contentWarning: Boolean,
   digital: Boolean,
   finishes: patchArray(finishSchema, finishSchema),
   games: patchArray(gamesSchema, gamesSchema),
@@ -391,11 +462,27 @@ export const cardPatchSchema: SchemaDefinition<Patch<Card>> = {
   },
 };
 
-const cubeDbCardSchema: SchemaDefinition<CubeDbCard> = {
+export const cubeDbCardSchema: SchemaDefinition<CubeDbCard> = {
   ...oldCardSchema,
-  patch: cardPatchSchema,
+  sortingPatches: [cardPatchSchema],
   metadata: cardMetadataSchema,
   id: String,
+  customCard: cardSchema,
 };
 
-export default cubeDbCardSchema;
+export const cubeDbCardPatchSchema: SchemaDefinition<Patch<CubeDbCard>> = {
+  sortingPatches: [
+    {
+      action: {
+        type: String,
+        enum: ['add'],
+        required: true,
+      },
+      index: Number,
+      value: cardPatchSchema,
+    },
+  ],
+  metadata: cardMetadataPatchSchema,
+  id: String,
+  customCard: cardSchema,
+};

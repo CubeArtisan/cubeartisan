@@ -110,13 +110,6 @@ export const editSidebarContainer = style([
   },
 ]);
 
-export const editSidebar = style({
-  display: 'flex',
-  flexDirection: 'column',
-  padding: vars.space.gutter,
-  gap: vars.space['2.5'],
-});
-
 export const editSidebarOpenButton = style({
   position: 'fixed',
   bottom: vars.space.gutter,
@@ -135,14 +128,6 @@ export const editSidebarModalCloseButton = style({
   position: 'absolute',
   top: vars.space.gutter,
   left: vars.space.gutter,
-});
-
-export const editSidebarTitle = style({
-  fontSize: vars.fontSize.xl,
-  lineHeight: vars.lineHeight.xl,
-  fontWeight: vars.fontWeight.semibold,
-  cursor: 'default',
-  textAlign: 'center',
 });
 
 export const buttonIcon = style({

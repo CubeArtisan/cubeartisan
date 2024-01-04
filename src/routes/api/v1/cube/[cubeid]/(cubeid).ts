@@ -1,18 +1,18 @@
 import { APIEvent, json } from 'solid-start';
 
-import { findCube, updateCube } from '@cubeartisan/cubeartisan/backend/cubeUtils';
+import { findCube, findEditableCube, updateCube } from '@cubeartisan/cubeartisan/backend/cubeUtils';
 import { ensureAuth, getUserFromRequest } from '@cubeartisan/cubeartisan/backend/user';
 import type { CubePatch } from '@cubeartisan/cubeartisan/types/cube';
 
 export const GET = async ({ request, params }: APIEvent) => {
   const user = await getUserFromRequest(request);
-  const cubeId = params['cubeid']; // eslint-disable-line dot-notation
+  const cubeId = params.cubeid;
   if (cubeId) {
     const cube = await findCube(cubeId, user);
     if (cube) {
       return json({
         success: true,
-        data: cube.toObject(),
+        data: cube,
       });
     }
   }
@@ -27,15 +27,15 @@ export const GET = async ({ request, params }: APIEvent) => {
 
 export const PUT = async ({ request, params }: APIEvent) => {
   const user = await ensureAuth(request);
-  const cubeId = params['cubeid']; // eslint-disable-line dot-notation
+  const cubeId = params.cubeid;
   if (cubeId) {
-    const cube = await findCube(cubeId, user);
+    const cube = await findEditableCube(cubeId, user);
     if (cube) {
       const changes = (await request.json()) as CubePatch;
       await updateCube(cube, changes);
       return json({
         success: true,
-        data: cube.toObject(),
+        data: cube,
       });
     }
   }

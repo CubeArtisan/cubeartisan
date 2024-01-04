@@ -4,22 +4,29 @@ import { applyPatch } from '@cubeartisan/cubeartisan/shared/patches';
 import type { CubeCard, CubeDbCard } from '@cubeartisan/cubeartisan/types/card';
 
 export type CardDB = {
-  byId: { [S in string]: Card };
   cards: Card[];
+  byId: { [S in string]: Card };
+  byName: { [S in string]: string };
+  names: string[];
 };
 
 let carddbPromise: Promise<CardDB> | null = null;
 
 export const updateCardDb = async () => {
-  console.log('Loading cards.');
+  console.log('Downloading cards.');
   await updateAllBulkData();
+  console.log('Loading cards.');
   const scryfallCards = await readLargeJson('data/all_cards.json');
   const cards: Card[] = scryfallCards.map(convertCard);
-  console.log(`Loaded ${cards.length} cards.`);
-  return {
+  const byName = Object.fromEntries(cards.map((card) => [card.name, card.id]));
+  const carddb = {
     cards,
     byId: Object.fromEntries(cards.map((card) => [card.id, card])),
+    byName,
+    names: Object.keys(byName).sort(),
   };
+  console.log(`Loaded ${cards.length} cards.`);
+  return carddb;
 };
 
 export const loadCardDb = () => {
@@ -29,6 +36,16 @@ export const loadCardDb = () => {
 export const getCardById = async (cardId: string): Promise<Card | null> => {
   if (carddbPromise === null) loadCardDb();
   return (await carddbPromise)?.byId[cardId] ?? null;
+};
+
+export const getIdByCardName = async (cardName: string): Promise<string | null> => {
+  if (carddbPromise === null) loadCardDb();
+  return (await carddbPromise)?.byName[cardName] ?? null;
+};
+
+export const getCardNames = async (): Promise<string[]> => {
+  if (carddbPromise === null) loadCardDb();
+  return (await carddbPromise)?.names ?? [];
 };
 
 const defaultCard: Card = {
@@ -53,7 +70,6 @@ const defaultCard: Card = {
     },
   ],
   collectorNumber: '0',
-  colorCategory: 'Colorless',
   colorIdentity: [],
   legalities: {
     standard: 'not_legal',
@@ -100,12 +116,26 @@ const defaultCard: Card = {
   set: 'Invalid',
   setId: '0000',
   variation: false,
+  name: 'Invalid Card',
+  cmc: 0,
+  layout: 'normal',
+  colors: [],
+  promoTypes: [],
+  related: [],
 };
 
 export const loadCard = async (dbCard: CubeDbCard): Promise<CubeCard> => {
-  const card: Card = (await getCardById(dbCard.id)) ?? { ...defaultCard };
+  let card: Card;
+  if ('id' in dbCard) {
+    card = (await getCardById(dbCard.id)) ?? { ...defaultCard };
+  } else {
+    card = dbCard.customCard;
+  }
+  const sortingCard = structuredClone(card);
+  for (const patch of dbCard.sortingPatches) applyPatch(sortingCard, patch);
   return {
-    ...applyPatch(card, dbCard.patch),
+    ...card,
+    sortingCard,
     metadata: dbCard.metadata,
   } as CubeCard;
 };

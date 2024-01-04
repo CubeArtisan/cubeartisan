@@ -4,12 +4,12 @@ import { ListActions, ListHero, ListTable } from '@cubeartisan/cubeartisan/compo
 import * as styles from '@cubeartisan/cubeartisan/routes/(app)/cube/[cubeId]/(list).css';
 
 const CubePage = () => (
-    <main class={styles.main}>
-        <ListHero />
-        <Separator.Root class={styles.separator} />
-        <ListActions />
-        <ListTable />
-    </main>
+  <main class={styles.main}>
+    <ListHero />
+    <Separator.Root class={styles.separator} />
+    <ListActions />
+    <ListTable />
+  </main>
 );
 
 export default CubePage;

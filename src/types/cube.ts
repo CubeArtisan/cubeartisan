@@ -84,6 +84,8 @@ export type GenericCube<C extends CardTypes, ID extends IdTypes> = BaseCube & Cu
 // ID gets automatically added with the mongo generics
 export type MongoCube = GenericCube<CubeDbCard, Types.ObjectId>;
 
+export type MongoCubeWithId = MongoCube & { _id: Types.ObjectId };
+
 export type Cube = GenericCube<CubeCard, string> & { id: string };
 
 type UnpatchableCubeProperties = 'basics' | 'maybe' | 'numDecks' | 'users_following' | 'owner_name' | 'date_updated';

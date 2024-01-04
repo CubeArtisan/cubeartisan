@@ -1,26 +1,21 @@
 import { Dialog } from '@kobalte/core';
 import { createMediaQuery } from '@solid-primitives/media';
-import {
-  Accessor,
-  Component,
-  createContext,
-  createEffect,
-  createSignal,
-  onMount,
-  Setter,
-  Show,
-  splitProps,
-  useContext,
-} from 'solid-js';
-import { A, Outlet, useIsRouting, useMatch } from 'solid-start';
+import { Component, createEffect, createSignal, onMount, Show, splitProps } from 'solid-js';
+import { A, Outlet, useIsRouting, useMatch, useParams } from 'solid-start';
+import { createServerData$, redirect } from 'solid-start/server';
 
+import { addCards, findCube } from '@cubeartisan/cubeartisan/backend/cubeUtils';
+import { getClientUserFromRequest } from '@cubeartisan/cubeartisan/backend/user';
+import { EditSidebar } from '@cubeartisan/cubeartisan/components/cube/CubeEditSidebar';
 import { Button } from '@cubeartisan/cubeartisan/components/generic/Button';
-import { TextField } from '@cubeartisan/cubeartisan/components/generic/TextField';
-import { testCube } from '@cubeartisan/cubeartisan/mock/testCube';
+// import { testCube } from '@cubeartisan/cubeartisan/mock/testCube';
+import { CubePageContext, CubePageContextValue } from '@cubeartisan/cubeartisan/contexts/CubePageContext';
 import * as styles from '@cubeartisan/cubeartisan/routes/(app)/cube/cubeId.css';
+import { applyPatch } from '@cubeartisan/cubeartisan/shared/patches';
 import { tokens } from '@cubeartisan/cubeartisan/styles/tokens';
+import type { CubePatch, MongoCubeWithId } from '@cubeartisan/cubeartisan/types/cube';
 
-/**
+/*
  * # Planning
  * This page will manage
  * - Context of cube data
@@ -34,34 +29,27 @@ import { tokens } from '@cubeartisan/cubeartisan/styles/tokens';
  *   - Analytics
  */
 
-/**
- * # Cube Context Planning
- * - cube
- */
-
-export type CubeContextValue = {
-  editSidebarOpen: Accessor<boolean>;
-  setEditSidebarOpen: Setter<boolean>;
-};
-
-export const CubeContext = createContext<CubeContextValue>();
-
-export const useCubeContext = () => {
-  const context = useContext(CubeContext);
-
-  if (context === undefined) {
-    throw new Error('[cubeartisan]: `useCubeContext` must be used witin the `cubeId` route');
-  }
-
-  return context;
-};
-
 const CubeLayout = () => {
-  /**
-   * Mock cube data
-   * TODO: implement data fetching
-   */
-  const cube = testCube;
+  const [currentPatch, setCurrentPatch] = createSignal<CubePatch>({});
+
+  const params = useParams<{ cubeId: string }>();
+
+  const cube = createServerData$(
+    async ([, cubeId, patch], { request }) => {
+      const user = await getClientUserFromRequest(request);
+      const serverCube = await findCube(cubeId! as string, user);
+      if (!serverCube) {
+        throw redirect('/'); // TODO: make 404 cube path
+      }
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const currentCube: MongoCubeWithId = applyPatch(serverCube, patch as CubePatch);
+      const builtCube = await addCards(currentCube);
+      return builtCube;
+    },
+    { key: () => ['cubeId', params.cubeId, currentPatch()] },
+  );
 
   const isTabletPlus = createMediaQuery(`(min-width: ${tokens.screens.tablet})`, true);
   const isLaptopPlus = createMediaQuery(`(min-width: ${tokens.screens.laptop})`, true);
@@ -108,7 +96,7 @@ const CubeLayout = () => {
   });
 
   const CubeNav = () => {
-    const match = useMatch(() => `/cube/${cube.id}`);
+    const match = useMatch(() => `/cube/${params.cubeId}`);
 
     return (
       <nav>
@@ -116,7 +104,7 @@ const CubeLayout = () => {
           <h2 class={styles.cubeNavHeading}>List</h2>
           <li>
             <A
-              href={`/cube/${cube.id}`}
+              href={`/cube/${params.cubeId}`}
               class={match()?.path ? styles.cubeNavLinkSmallActive : styles.cubeNavLinkSmall}
             >
               Mainboard
@@ -124,7 +112,7 @@ const CubeLayout = () => {
           </li>
           <li>
             <A
-              href={`/cube/${cube.id}/maybeboard`}
+              href={`/cube/${params.cubeId}/maybeboard`}
               inactiveClass={styles.cubeNavLinkSmall}
               activeClass={styles.cubeNavLinkSmallActive}
             >
@@ -134,7 +122,7 @@ const CubeLayout = () => {
           <h2 class={styles.cubeNavHeading}>About</h2>
           <li>
             <A
-              href={`/cube/${cube.id}/primer`}
+              href={`/cube/${params.cubeId}/primer`}
               inactiveClass={styles.cubeNavLinkSmall}
               activeClass={styles.cubeNavLinkSmallActive}
             >
@@ -143,7 +131,7 @@ const CubeLayout = () => {
           </li>
           <li>
             <A
-              href={`/cube/${cube.id}/blog`}
+              href={`/cube/${params.cubeId}/blog`}
               inactiveClass={styles.cubeNavLinkSmall}
               activeClass={styles.cubeNavLinkSmallActive}
             >
@@ -152,7 +140,7 @@ const CubeLayout = () => {
           </li>
           <li>
             <A
-              href={`/cube/${cube.id}/changelog`}
+              href={`/cube/${params.cubeId}/changelog`}
               inactiveClass={styles.cubeNavLinkSmall}
               activeClass={styles.cubeNavLinkSmallActive}
             >
@@ -162,7 +150,7 @@ const CubeLayout = () => {
           <h2 class={styles.cubeNavHeading}>Playtest</h2>
           <li>
             <A
-              href={`/cube/${cube.id}/playtest/samplepack`}
+              href={`/cube/${params.cubeId}/playtest/samplepack`}
               inactiveClass={styles.cubeNavLinkSmall}
               activeClass={styles.cubeNavLinkSmallActive}
             >
@@ -171,7 +159,7 @@ const CubeLayout = () => {
           </li>
           <li>
             <A
-              href={`/cube/${cube.id}/playtest/draft`}
+              href={`/cube/${params.cubeId}/playtest/draft`}
               inactiveClass={styles.cubeNavLinkSmall}
               activeClass={styles.cubeNavLinkSmallActive}
             >
@@ -180,7 +168,7 @@ const CubeLayout = () => {
           </li>
           <li>
             <A
-              href={`/cube/${cube.id}/playtest/sealed`}
+              href={`/cube/${params.cubeId}/playtest/sealed`}
               inactiveClass={styles.cubeNavLinkSmall}
               activeClass={styles.cubeNavLinkSmallActive}
             >
@@ -198,7 +186,7 @@ const CubeLayout = () => {
           </li>
           <li>
             <A
-              href={`/cube/${cube.id}/analytics`}
+              href={`/cube/${params.cubeId}/analytics`}
               inactiveClass={styles.cubeNavLinkLarge}
               activeClass={styles.cubeNavLinkLargeActive}
             >
@@ -234,18 +222,6 @@ const CubeLayout = () => {
     );
   };
 
-  const EditSidebar: Component<{ ref: Setter<HTMLInputElement | undefined> }> = (props) => (
-    <div class={styles.editSidebar}>
-      <h2 class={styles.editSidebarTitle}>Edit</h2>
-      <TextField.Root>
-        <TextField.Input ref={props.ref} type="search" placeholder="Add or Remove" />
-      </TextField.Root>
-      <div>Commit buttons</div>
-      <div>Current Commit</div>
-      <div>Notes</div>
-    </div>
-  );
-
   const EditSidebarCloseButton: Component<{ class: string }> = (props) => {
     const [local, others] = splitProps(props, ['class']);
 
@@ -270,13 +246,16 @@ const CubeLayout = () => {
     );
   };
 
-  const cubeContextValue = {
+  const cubePageContextValue: CubePageContextValue = {
     editSidebarOpen,
     setEditSidebarOpen,
+    cube,
+    currentPatch,
+    setCurrentPatch,
   };
 
   return (
-    <CubeContext.Provider value={cubeContextValue}>
+    <CubePageContext.Provider value={cubePageContextValue}>
       <div class={styles.container}>
         {/* Cube Nav Sidebar */}
         <div data-open={cubeNavOpen()} class={styles.cubeNavSidebarContainer}>
@@ -354,7 +333,7 @@ const CubeLayout = () => {
           <Show when={editSidebarOpen()}>
             <EditSidebarCloseButton class={styles.editSidebarCloseButton} />
           </Show>
-          <EditSidebar ref={setEditSidebarInputRef} />
+          <EditSidebar ref={editSidebarInputRef} setRef={setEditSidebarInputRef} />
         </div>
 
         {/* Edit Sidebar Modal */}
@@ -363,12 +342,12 @@ const CubeLayout = () => {
             <Dialog.Overlay class={styles.modalOverlay} />
             <Dialog.Content class={styles.editSidebarModalContent}>
               <EditSidebarCloseButton class={styles.editSidebarModalCloseButton} />
-              <EditSidebar ref={setEditModalInputRef} />
+              <EditSidebar ref={editSidebarInputRef} setRef={setEditModalInputRef} />
             </Dialog.Content>
           </Dialog.Portal>
         </Dialog.Root>
       </div>
-    </CubeContext.Provider>
+    </CubePageContext.Provider>
   );
 };
 export default CubeLayout;
