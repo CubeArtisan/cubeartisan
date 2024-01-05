@@ -1,7 +1,7 @@
 import { sortForDownload } from '@cubeartisan/client/utils/Sort.js';
 import { makeFilter } from '@cubeartisan/client/filtering/FilterCards.js';
 import carddb from '@cubeartisan/server/serverjs/cards.js';
-import { handleRouteError } from '@cubeartisan/server/routes/middleware.js';
+import { handleRouteError, setCorsUnrestricted } from '@cubeartisan/server/routes/middleware.js';
 import { buildIdQuery } from '@cubeartisan/server/serverjs/cubefn.js';
 import { writeCard, CSV_HEADER, exportToMtgo } from '@cubeartisan/server/routes/cube/helper.js';
 import Cube from '@cubeartisan/server/models/cube.js';
@@ -28,7 +28,7 @@ export const sortCardsByQuery = (req, cards) => {
   );
 };
 
-export const exportCubeToJson = async (req, res) => {
+const exportCubeToJsonHandler = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
 
@@ -42,8 +42,9 @@ export const exportCubeToJson = async (req, res) => {
     return handleRouteError(req, res, err, `/cube/${req.params.id}/list`);
   }
 };
+export const exportCubeToJson = [setCorsUnrestricted, exportCubeToJsonHandler];
 
-export const exportCubeToCubeCobra = async (req, res) => {
+const exportCubeToCubeCobraHandler = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
     if (!cube) {
@@ -69,8 +70,9 @@ export const exportCubeToCubeCobra = async (req, res) => {
     return handleRouteError(req, res, err, `/cube/${req.params.id}/list`);
   }
 };
+export const exportCubeToCubeCobra = [setCorsUnrestricted, exportCubeToCubeCobraHandler];
 
-export const exportCubeToCsv = async (req, res) => {
+const exportCubeToCsvHandler = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
 
@@ -104,8 +106,9 @@ export const exportCubeToCsv = async (req, res) => {
     return handleRouteError(req, res, err, `/cube/${req.params.id}/list`);
   }
 };
+export const exportCubeToCsv = [setCorsUnrestricted, exportCubeToCsvHandler];
 
-export const exportCubeToForge = async (req, res) => {
+const exportCubeToForgeHandler = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
     if (!cube) {
@@ -134,8 +137,9 @@ export const exportCubeToForge = async (req, res) => {
     return handleRouteError(req, res, err, `/cube/${req.params.id}/list`);
   }
 };
+export const exportCubeToForge = [setCorsUnrestricted, exportCubeToForgeHandler];
 
-export const exportCubeToMtgo = async (req, res) => {
+const exportCubeToMtgoHandler = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
     if (!cube) {
@@ -155,8 +159,9 @@ export const exportCubeToMtgo = async (req, res) => {
     return handleRouteError(req, res, err, `/cube/${req.params.id}/list`);
   }
 };
+export const exportCubeToMtgo = [setCorsUnrestricted, exportCubeToMtgoHandler];
 
-export const exportCubeToXmage = async (req, res) => {
+const exportCubeToXmageHandler = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
     if (!cube) {
@@ -182,8 +187,9 @@ export const exportCubeToXmage = async (req, res) => {
     return handleRouteError(req, res, err, `/cube/${req.params.id}/list`);
   }
 };
+export const exportCubeToXmage = [setCorsUnrestricted, exportCubeToXmageHandler];
 
-export const exportCubeToPlaintext = async (req, res) => {
+const exportCubeToPlaintextHandler = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
     if (!cube) {
@@ -209,8 +215,9 @@ export const exportCubeToPlaintext = async (req, res) => {
     return handleRouteError(req, res, err, `/cube/${req.params.id}/list`);
   }
 };
+export const exportCubeToPlaintext = [setCorsUnrestricted, exportCubeToPlaintextHandler];
 
-export const exportCubeToPlaintextLower = async (req, res) => {
+const exportCubeToPlaintextLowerHandler = async (req, res) => {
   try {
     const cube = await Cube.findOne(buildIdQuery(req.params.id)).lean();
     if (!cube) {
@@ -237,3 +244,4 @@ export const exportCubeToPlaintextLower = async (req, res) => {
     return handleRouteError(req, res, err, `/cube/${req.params.id}/list`);
   }
 };
+export const exportCubeToPlaintextLower = [setCorsUnrestricted, exportCubeToPlaintextLowerHandler];

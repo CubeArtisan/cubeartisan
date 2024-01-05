@@ -1,17 +1,15 @@
 version: '3'
 services:
   cubeartisan-mongodb:
-    image: 'mongo:6.0.5'
+    image: 'mongo:4.4'
+    command: mongod --replSet rs0
     volumes:
-      - cubeartisan-mongodb-volume:/data/db
-    ports:
-      - '27017-27019:27017-27019'
+      - cubeartisan-mongodb-volume2:/data/db
+    ports: []
   cubeartisan-jobs:
     build:
       dockerfile: .docker/Dockerfile.jobs
       context: ../
-      cache_from:
-        - ${REPOSITORY}/cubeartisan-jobs:latest
     image: ${REPOSITORY}/cubeartisan-jobs:${TAG}
     depends_on:
       - "cubeartisan-mongodb"
@@ -19,15 +17,20 @@ services:
     build:
       dockerfile: .docker/Dockerfile
       context: ../
-      cache_from:
-        - ${REPOSITORY}/cubeartisan-jobs:${TAG}
       args:
         REPOSITORY: ${REPOSITORY}
         TAG: ${TAG}
+    environment:
+      MONGODB_DBNAME: cubeartisan
+      MONGODB_HOST: cubeartisan-mongodb
+      MONGODB_PASSWORD: ""
+      MONGODB_PORT: 27017
+      MONGODB_REPLICASET: rs0
+      MONGODB_USER: ""
     image: ${REPOSITORY}/cubeartisan:${TAG}
     ports:
       - "5000:8080"
     depends_on:
       - "cubeartisan-mongodb"
 volumes:
-  cubeartisan-mongodb-volume:
+  cubeartisan-mongodb-volume2:

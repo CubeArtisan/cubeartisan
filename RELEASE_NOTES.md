@@ -379,3 +379,10 @@ This release is composed of porting over bug fixes for bugs we carried over from
 #### Bug Fixes
 
 - Fix for specifying color category in csv import.
+
+
+### v1.4.6.9
+
+#### Features
+
+- Support CORS on the cube export routes
