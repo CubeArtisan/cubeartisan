@@ -7,7 +7,7 @@ ENV NODE_ENV=production
 
 RUN curl https://sdk.cloud.google.com > install.sh
 RUN bash install.sh --disable-prompts --install-dir=/root/
-ENV PATH $PATH:/root/google-cloud-sd --install-dir=/root/k/bin
+ENV PATH $PATH:/root/google-cloud-sdk/ --install-dir=/root/bin
 RUN apt-get update && apt-get install -y gcc python3-dev python3-setuptools python3-pip python3-crcmod
 
 WORKDIR /CubeArtisan

@@ -9,7 +9,7 @@
       let pkgs = nixpkgs.legacyPackages.${system};
         drv = with pkgs; pkgs.mkShell {
           name = "shell";
-          buildInputs = [nodejs_20 pkg-config cairo pango libpng libjpeg giflib gcc libuuid.out yarn docker-compose];
+          buildInputs = [nodejs_20 pkg-config cairo pango libpng libjpeg giflib gcc libuuid.out yarn docker-compose mongosh];
           shellHook = ''
             export LD_LIBRARY_PATH=${libuuid.out}/lib:$LD_LIBRARY_PATH
           '';
